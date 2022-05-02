@@ -2,6 +2,9 @@
 
 # ReverseHand
 
+<img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/COS301-SE-2022/ReverseHand">
+<img alt="Uptime Robot status" src="https://img.shields.io/uptimerobot/status/m791626457-13b5f7a8e38fff2133205047">
+<img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/COS301-SE-2022/ReverseHand?color=green&style=flat-square">
 This project was generated using [Nx](https://nx.dev).
 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
