@@ -1,0 +1,44 @@
+name: Android Test and Analyse
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    name: Flutter Test an Analyse
+    runs-on: ubuntu-latest
+
+    steps:
+    #Checking out to develop branch
+      - name: Checking Out Develop
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+
+    #Installs node.js
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+    #Generates the hashes for the comparison between the origin branch and the upstream development branch
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: 'develop'
+
+    #Flutter Action needs java
+      - uses: actions/setup-java@v
+        with:
+          java-verrsion: '12.x'
+
+    #Including the Flutter action
+      - uses: subosito/flutter-action@v1
+        with: 
+          channel: stable
+
+    #Try to execute tests
+      - run: npx nx run test
+
+    #Try to analyze code
+      - run: npx nx run analyze
