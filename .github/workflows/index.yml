@@ -9,4 +9,4 @@ on:
 
 jobs:
   build:
-    uses: ./github/workflows/android.yml
+    uses: ./.github/workflows/android.yml
