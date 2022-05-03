@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+        run: npm install
 
     #Generates the hashes for the comparison between the origin branch and the upstream development branch
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
