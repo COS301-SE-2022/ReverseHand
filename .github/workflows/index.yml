@@ -1,0 +1,12 @@
+name: CI TESTS
+
+on:
+  pull_request:
+    branches: [develop]
+  #push:
+  #  branches: [develop]
+  workflow_dispatch:
+
+jobs:
+  test:
+    uses: ./.github/workflows/android.yml
