@@ -40,7 +40,7 @@ jobs:
           channel: stable
 
     #Try to execute tests
-      - run: npx nx run test
+      - run: npx nx run app:test
 
     #Try to analyze code
-      - run: npx nx run analyze
+      - run: npx nx run app:analyze
