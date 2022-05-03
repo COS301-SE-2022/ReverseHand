@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "app": "apps/app",
-    "example": "libs/example"
+    "example": "libs/example",
+    "redux": "libs/redux"
   }
 }
