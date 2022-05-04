@@ -32,7 +32,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '8'
 
     #Including the Flutter action
       - uses: subosito/flutter-action@v1
@@ -44,3 +44,6 @@ jobs:
 
     #Try to analyze code
       - run: npx nx run-many --target=analyze --all=true
+    #Try to build the app bundle
+      - run: npx nx run app:buildAppbundle
+
