@@ -3,6 +3,6 @@
   "projects": {
     "app": "apps/app",
     "example": "libs/example",
-    "redux": "libs/redux"
+    "redux_comp": "libs/redux_comp"
   }
 }
