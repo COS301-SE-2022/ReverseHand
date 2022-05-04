@@ -45,5 +45,5 @@ jobs:
     #Try to analyze code
       - run: npx nx run-many --target=analyze --all=true
     #Try to build the app bundle
-      - run: npx nx run-many --target=buildAppbundle --all=true
+      - run: npx nx run app:buildAppbundle
 
