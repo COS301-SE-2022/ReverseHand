@@ -1,83 +1,83 @@
 {
-  "root": "libs/redux",
-  "sourceRoot": "libs/redux/src",
+  "root": "libs/redux_comp",
+  "sourceRoot": "libs/redux_comp/src",
   "projectType": "library",
   "targets": {
     "analyze": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter analyze",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     },
     "clean": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter clean",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     },
     "format": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "flutter format libs/redux/*",
-        "cwd": "libs/redux"
+        "command": "flutter format libs/redux_comp/*",
+        "cwd": "libs/redux_comp"
       }
     },
     "test": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter test",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     },
     "buildAar": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build aar",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     },
     "buildApk": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build apk",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     },
     "buildAppbundle": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build appbundle",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     },
     "buildBundle": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build bundle",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     },
     "buildIos": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ios",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     },
     "buildIosFramework": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ios-framework",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     },
     "buildIpa": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ipa",
-        "cwd": "libs/redux"
+        "cwd": "libs/redux_comp"
       }
     }
   },
