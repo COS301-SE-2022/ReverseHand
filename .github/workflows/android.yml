@@ -40,7 +40,7 @@ jobs:
           channel: stable
 
     #Try to execute tests
-      - run: npx nx run app:test
+      - run: npx nx run-many --target=test --all=true
 
     #Try to analyze code
-      - run: npx nx run app:analyze
+      - run: npx nx run-many --target=analyze --all=true
