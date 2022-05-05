@@ -22,7 +22,7 @@ class _LoginDemoState extends State<LoginDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
         title: Text("Login Page"),
       ),
@@ -48,7 +48,7 @@ class _LoginDemoState extends State<LoginDemo> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+                  left: 15.0, right: 15.0, top: 15, bottom: 15),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 obscureText: true,
@@ -57,7 +57,7 @@ class _LoginDemoState extends State<LoginDemo> {
               ),
             ),
             Container(
-              height: 50,
+              height: 60,
               width: 250,
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
