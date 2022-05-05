@@ -1,10 +1,20 @@
 import 'package:example/example.dart';
+import 'package:general/general.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Login(),
+        ),
+      ),
+    ),
+  );
 }
 
+/*
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -115,3 +125,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/
