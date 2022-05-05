@@ -1,7 +1,11 @@
 import 'package:example/example.dart';
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_comp/redux_comp.dart';
 
 void main() {
+  // setting up redux
+  final store = Store<AppState>(appReducer, initialState: AppState.initial());
   runApp(const MyApp());
 }
 
