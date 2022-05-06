@@ -6,6 +6,7 @@
 <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/COS301-SE-2022/ReverseHand">
 <img alt="Uptime Robot status" src="https://img.shields.io/uptimerobot/status/m791626457-13b5f7a8e38fff2133205047">
 <img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/COS301-SE-2022/ReverseHand?color=green&style=flat-square">
+<img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/COS301-SE-2022/ReverseHand">
 
 This project was generated using [Nx](https://nx.dev).
 
