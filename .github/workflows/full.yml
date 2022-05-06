@@ -1,0 +1,11 @@
+name: CI Tests Full
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  test-all:
+    uses: ./.github/workflows/android.yml
+    with:
+      test: 'all'
