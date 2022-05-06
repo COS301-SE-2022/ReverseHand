@@ -35,7 +35,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-        run: npm install
+      - run: npm install
 
     #cache the node modules
       - name: Cache dependencies for node
@@ -56,33 +56,41 @@ jobs:
           distribution: 'temurin'
           java-version: '8'
 
+    #Caching Flutter dependencies
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v2
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}
+
     #Including the Flutter action
       - name: Setup flutter
         uses: subosito/flutter-action@v1
         with: 
           channel: stable
+          flutter-version: ${{ env.flutter_version }}
 
     #Try to execute tests
       - name: Test affected
         if: inputs.test == 'affected' && inputs.testType == 'test'
-        run: npx affected:test --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
+        run: npx affected --target=test --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
         # run: npx nx run-many --target=test --all=true
 
     #Try to analyze code
       - name: Analyze affected
         if: inputs.test == 'affected' && inputs.testType == 'analyze'
-        run: npx affected:analyze --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
+        run: npx affected --target=analyze --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
         # run: npx nx run-many --target=analyze --all=true
     #Try to build the app bundle
-      - name:
+      - name: Build App bundle
         if: inputs.test == 'affected' && inputs.testType == 'build'
         run: npx nx run app:buildAppbundle
 
     #Test all which uses no cache
       - name: Test all
-        if: input.tests == 'all'
+        if: inputs.tests == 'all'
         run: |
-        npx nx run-many --target=test --all --skip-nx-cache --parallel
-        npx nx run-many --target=analyze --all --skip-nx-cache --parallel
-        npx nx run app:buildAppbundle
+          npx nx run-many --target=test --all --skip-nx-cache --parallel
+          npx nx run-many --target=analyze --all --skip-nx-cache --parallel
+          npx nx run app:buildAppbundle
 
