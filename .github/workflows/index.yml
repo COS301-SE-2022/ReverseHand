@@ -6,7 +6,39 @@ on:
   #push:
   #  branches: [develop]
   workflow_dispatch:
+    inputs:
+      testChoice:
+        type: choice
+        description: 'Test Type'
+        required: true
+        options: 
+        - all
+        - affected
 
 jobs:
-  test:
+  test-affected-analyze:
     uses: ./.github/workflows/android.yml
+    if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
+    with:
+      test: 'affected'
+      testType: 'analyze'
+    
+  test-affected-tests:
+    uses: ./.github/workflows/android.yml
+    if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
+    with:
+      test: 'affected'
+      testType: 'test'
+
+  test-affected-tests:
+    uses: ./.github/workflows/android.yml
+    if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
+    with:
+      test: 'affected'
+      testType: 'test'
+
+  test-all:
+    uses: ./.github/workflows/android.yml
+    if: ${{github.event.inputs.testChoice == 'all'}}
+    with:
+      test: 'all'
