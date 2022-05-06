@@ -30,12 +30,12 @@ jobs:
       test: 'affected'
       testType: 'test'
 
-  test-affected-tests:
+  test-affected-build:
     uses: ./.github/workflows/android.yml
     if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
     with:
       test: 'affected'
-      testType: 'test'
+      testType: 'build'
 
   test-all:
     uses: ./.github/workflows/android.yml

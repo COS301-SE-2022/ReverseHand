@@ -2,10 +2,19 @@ name: Android Test and Analyse
 
 on:
   workflow_call:
+    inputs:
+      test:
+        description: 'Type of test being run'
+        required: true
+        type: string
+      testType:
+        description: 'Type of test (analyze, test, build)'
+        required: false
+        type: string
 
 jobs:
   test:
-    name: Flutter Test an Analyse
+    name: Build-Test-Analyze
     runs-on: ubuntu-latest
 
     steps:
