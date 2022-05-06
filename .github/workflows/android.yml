@@ -24,6 +24,12 @@ jobs:
         with:
           fetch-depth: 0
 
+    #Generates the hashes for the comparison between the origin branch and the upstream development branch
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: 'develop'
+    
     #Installs node.js
       - name: Use Node.js 16
         uses: actions/setup-node@v2
@@ -31,11 +37,19 @@ jobs:
           node-version: '16'
       - run: npm install
 
-    #Generates the hashes for the comparison between the origin branch and the upstream development branch
-      - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v2
+    #cache the node modules
+    - name: Cache dependencies
+        uses: actions/cache@v2
         with:
-          main-branch-name: 'develop'
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+    name: Install dependencies
+    run: npm ci --ignore-scripts
+
+          
+
 
     #Flutter Action needs java
       - uses: actions/setup-java@v3
