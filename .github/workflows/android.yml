@@ -69,20 +69,20 @@ jobs:
         # run: npx nx run-many --target=test --all=true
 
     #Try to analyze code
-    - name: Analyze affected
-      if: inputs.test == 'affected' && inputs.testType == 'analyze'
-      run: npx affected:analyze --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
-      # run: npx nx run-many --target=analyze --all=true
+      - name: Analyze affected
+        if: inputs.test == 'affected' && inputs.testType == 'analyze'
+        run: npx affected:analyze --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
+        # run: npx nx run-many --target=analyze --all=true
     #Try to build the app bundle
-    - name:
-      if: inputs.test == 'affected' && inputs.testType == 'build'
-      run: npx nx run app:buildAppbundle
+      - name:
+        if: inputs.test == 'affected' && inputs.testType == 'build'
+        run: npx nx run app:buildAppbundle
 
     #Test all which uses no cache
-    - name: Test all
-      if: input.tests == 'all'
-      run: |
-      npx nx run-many --target=test --all --skip-nx-cache --parallel
-      npx nx run-many --target=analyze --all --skip-nx-cache --parallel
-      npx nx run app:buildAppbundle
+      - name: Test all
+        if: input.tests == 'all'
+        run: |
+        npx nx run-many --target=test --all --skip-nx-cache --parallel
+        npx nx run-many --target=analyze --all --skip-nx-cache --parallel
+        npx nx run app:buildAppbundle
 
