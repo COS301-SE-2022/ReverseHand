@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_comp/redux_comp.dart';
 
 void main() {
-  runApp(const MyApp());
+  //runApp(const Login());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Login extends StatelessWidget {
+  ///const Login({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const Login({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: LoginDemo(),
+      home: LoginPage(),
     );
   }
 }
 
-class LoginDemo extends StatefulWidget {
-  const LoginDemo({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginDemoState createState() => _LoginDemoState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginDemoState extends State<LoginDemo> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +73,7 @@ class _LoginDemoState extends State<LoginDemo> {
               child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const LoginDemo()));
+                      MaterialPageRoute(builder: (_) => const LoginPage()));
                 },
                 child: const Text(
                   'Login',
