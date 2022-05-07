@@ -7,9 +7,11 @@ import 'package:redux_comp/redux_comp.dart';
 void main() {
   // setting up redux
   final store = Store<AppState>(appReducer, initialState: AppState.initial());
-  runApp(MyApp(
-    store: store,
-  ));
+  runApp(
+    MyApp(
+      store: store,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
