@@ -6,12 +6,11 @@ import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 void main() {
-  runApp(MyApp());
   // setting up redux
-  // final store = Store<AppState>(appReducer, initialState: AppState.initial());
-  // runApp(MyApp(
-  //   store: store,
-  // ));
+  final store = Store<AppState>(appReducer, initialState: AppState.initial());
+  runApp(MyApp(
+    store: store,
+  ));
 }
 
 /*
