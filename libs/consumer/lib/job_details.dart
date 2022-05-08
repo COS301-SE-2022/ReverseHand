@@ -22,8 +22,9 @@ class ConsumerDetails extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const ConsumerJobListings()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) =>  ConsumerListings(store: store)));
             },
           ),
           title: const Text('Roof Painting'),
