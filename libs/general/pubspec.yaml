@@ -18,9 +18,6 @@ dependencies:
   consumer:
     path: '../consumer'
 
-  consumer:
-    path: '../consumer'
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
