@@ -3,6 +3,7 @@
   "projects": {
     "app": "apps/app",
     "example": "libs/example",
-    "redux_comp": "libs/redux_comp"
+    "redux_comp": "libs/redux_comp",
+    "general": "libs/general"
   }
 }
