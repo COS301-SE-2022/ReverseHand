@@ -82,8 +82,8 @@ class MyCardWidget extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const ConsumerJobDetails()));
+              // Navigator.push(context,
+              //   MaterialPageRoute(builder: (_) => const ConsumerDetails(,)));
             },
             child: Card(
               color: const Color.fromARGB(255, 86, 159, 92),

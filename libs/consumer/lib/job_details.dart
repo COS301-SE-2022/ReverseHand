@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_comp/redux_comp.dart';
 import './job_listings.dart';
 
 
+class ConsumerDetails extends StatelessWidget {
+  ///const Login({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const ConsumerDetails({Key? key, required this.store}) : super(key: key);
 
-class ConsumerJobDetails extends StatefulWidget {
-  const ConsumerJobDetails({Key? key}) : super(key: key);
-
-  @override
-  ConsumerJobDetailsState createState() => ConsumerJobDetailsState();
-}
-
-class ConsumerJobDetailsState extends State<ConsumerJobDetails> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+   return StoreProvider<AppState>(
+     store: store,
+     child: 
+     MaterialApp(
       home: Scaffold(
         backgroundColor: const Color.fromRGBO(245, 245, 245, 1),
         appBar: AppBar(
@@ -26,20 +28,7 @@ class ConsumerJobDetailsState extends State<ConsumerJobDetails> {
           ),
           title: const Text('Roof Painting'),
         ),
-        body: const ConsumerDetailsWidget(),
-      ),
-    );
-  }
-}
-
-class ConsumerDetailsWidget extends StatelessWidget {
-  const ConsumerDetailsWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: 
-        Row(
+        body: Row(
           children: [
             Expanded(
               child: Column(
@@ -79,31 +68,32 @@ class ConsumerDetailsWidget extends StatelessWidget {
                     "Bids",
                     style: TextStyle(fontSize: 25.0, color: Colors.black),
                   ),
-                  // ListView(
-                  //   children: [
-                  //     Card(
-                  //       color: const Color.fromARGB(255, 86, 159, 92),
+                  
+                  Card(
+                    color: const Color.fromARGB(255, 86, 159, 92),
 
-                  //       elevation: 2,
-                  //       child: Column(
-                  //         children: const [
-                  //           ListTile(
-                  //             title: Text(
-                  //               'Roof painting',
-                  //               style: TextStyle(fontSize: 25.0, color: Colors.white),
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
+                    elevation: 2,
+                    child: Column(
+                      children: const [
+                        ListTile(
+                          title: Text(
+                            'Bid One',
+                            style: TextStyle(fontSize: 25.0, color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
 
-                  //     ),
-                  //   ],
-                  // ),
+                  ),
+                
                 ],
               ),
             ),
           ],
         ),
-    );
+      ),
+    ),
+   );
   }
 }
+
