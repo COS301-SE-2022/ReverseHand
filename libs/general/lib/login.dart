@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:tradesman/tradesman.dart';
 
 void main() {
   //runApp(const Login());
@@ -73,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
               child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const LoginPage()));
+                      MaterialPageRoute(builder: (_) => const TradesmanJobListings()));
                 },
                 child: const Text(
                   'Login',
