@@ -26,8 +26,7 @@ class ConsumerListings extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
+                  Navigator.push(context,
                     MaterialPageRoute(builder: (_) => ConsumerDetails(store: store)));
                 },
                 child: Card(
