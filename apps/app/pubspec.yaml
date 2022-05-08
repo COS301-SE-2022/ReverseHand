@@ -43,6 +43,7 @@ dependencies:
   
   consumer:
     path: '../../libs/consumer'
+    
   general:
     path: '../../libs/general'
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './job_details.dart';
+import 'package:flutter/rendering.dart';
 
 class ConsumerJobListings extends StatefulWidget {
   const ConsumerJobListings({Key? key}) : super(key: key);
@@ -13,8 +14,10 @@ class ConsumerJobState extends State<ConsumerJobListings> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: const Color.fromRGBO(245, 245, 245, 1),
-        appBar: AppBar(title: const Text('My Job Listings')),
+        appBar: AppBar(
+          title: const Text('My Job Listings'),
+          backgroundColor: const Color.fromRGBO(82, 121, 111, 1),
+        ),
         body: const MyCardWidget(),
       ),
     );
