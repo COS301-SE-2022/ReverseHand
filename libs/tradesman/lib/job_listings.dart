@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-//import './job_details.dart';
+import './job_details.dart';
 import 'package:flutter/rendering.dart';
 
 class TradesmanJobListings extends StatefulWidget {
   const TradesmanJobListings({Key? key}) : super(key: key);
 
   @override
-  ConsumerJobState createState() => ConsumerJobState();
+  TradesmanJobState createState() => TradesmanJobState();
 }
 
-class ConsumerJobState extends State<TradesmanJobListings> {
+class TradesmanJobState extends State<TradesmanJobListings> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,10 +33,10 @@ class MyCardWidget extends StatelessWidget {
       body: ListView(
         children: [
           InkWell(
-            // onTap: () {
-            //   Navigator.push(context,
-            //     MaterialPageRoute(builder: (_) => const TradesmanJobDetails()));
-            // },
+            onTap: () {
+              Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const TradesmanJobDetails()));
+            },
             child: Card(
               color: const Color.fromARGB(255, 86, 159, 92),
               shape: RoundedRectangleBorder(
