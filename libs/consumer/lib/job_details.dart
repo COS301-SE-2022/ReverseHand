@@ -58,31 +58,32 @@ class ConsumerDetails extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // Divider(
-                  //   height: 15,
-                  //   thickness: 2,
-                  //   indent: 10,
-                  //   endIndent: 10,
-                  //   color: Colors.black.withOpacity(0.2),
-                  // ),
-//                   const Text(
-//                     "Bids",
-//                     style: TextStyle(fontSize: 25.0, color: Colors.black),
-//                   ),
-// //                 Card(
-//                   color: const Color.fromARGB(255, 86, 159, 92),
+                  ),
+                  Divider(
+                    height: 15,
+                    thickness: 2,
+                    indent: 10,
+                    endIndent: 10,
+                    color: Colors.black.withOpacity(0.2),
+                  ),
+                  const Text(
+                    "Bids",
+                    style: TextStyle(fontSize: 25.0, color: Colors.black),
+                  ),
+                  Card(
+                    color: const Color.fromARGB(255, 86, 159, 92),
 
-//                   elevation: 2,
-//                   child: Column(
-//                     children: const [
-//                       ListTile(
-//                         title: Text(
-//                           'Bid One',
-//                           style: TextStyle(fontSize: 25.0, color: Colors.white),
-//                         ),
-//                       ),
-//                     ],
-                  // ),
+                    elevation: 2,
+                    child: Column(
+                      children: const [
+                        ListTile(
+                          title: Text(
+                            'Bid One',
+                            style: TextStyle(fontSize: 25.0, color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
