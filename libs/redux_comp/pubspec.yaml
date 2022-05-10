@@ -17,6 +17,8 @@ dependencies:
   amplify_datastore: ^0.4.0
   amplify_api: ^0.4.0
 
+  async_redux: ^14.1.2
+
   amplify:
     path: '../amplify'
 
