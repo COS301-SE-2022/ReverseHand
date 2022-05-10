@@ -18,27 +18,27 @@ on:
 jobs:
   test-affected-analyze:
     uses: ./.github/workflows/android.yml
-    if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
+    if: ${{github.event.inputs.testChoice == 'affected'}}
     with:
       test: 'affected'
       testType: 'analyze'
     
   test-affected-tests:
     uses: ./.github/workflows/android.yml
-    if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
+    if: ${{github.event.inputs.testChoice == 'affected'}}
     with:
       test: 'affected'
       testType: 'test'
 
   test-affected-build:
     uses: ./.github/workflows/android.yml
-    if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
+    if: ${{github.event.inputs.testChoice == 'affected'}}
     with:
       test: 'affected'
       testType: 'build'
 
   test-all:
     uses: ./.github/workflows/android.yml
-    if: ${{github.event.inputs.testChoice == 'all'}}
+    if: ${{github.event.inputs.testChoice == 'all' || github.event.inputs.testChoice == ''}}
     with:
       test: 'all'

@@ -120,6 +120,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+<<<<<<< HEAD
   crypto:
     dependency: transitive
     description:
@@ -127,6 +128,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+=======
+  consumer:
+    dependency: "direct main"
+    description:
+      path: "../../libs/consumer"
+      relative: true
+    source: path
+    version: "0.0.1"
+>>>>>>> edb1e506c812bf4371a7b930f1cea181df258a4b
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -387,6 +397,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.8"
+  tradesman:
+    dependency: "direct main"
+    description:
+      path: "../../libs/tradesman"
+      relative: true
+    source: path
+    version: "0.0.1"
   typed_data:
     dependency: transitive
     description:

@@ -5,6 +5,9 @@
     "example": "libs/example",
     "redux_comp": "libs/redux_comp",
     "general": "libs/general",
-    "amplify": "libs/amplify"
+    "amplify": "libs/amplify",
+    "tradesman": "libs/tradesman",
+    "consumer": "libs/consumer"
+
   }
 }
