@@ -1,83 +1,83 @@
 {
-  "root": "libs/consumer",
-  "sourceRoot": "libs/consumer/src",
+  "root": "libs/tradesman",
+  "sourceRoot": "libs/tradesman/src",
   "projectType": "library",
   "targets": {
     "analyze": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter analyze",
-        "cwd": "libs/consumer"
+        "cwd": "libs/tradesman"
       }
     },
     "clean": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter clean",
-        "cwd": "libs/consumer"
+        "cwd": "libs/tradesman"
       }
     },
     "format": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "flutter format libs/consumer/*",
-        "cwd": "libs/consumer"
+        "command": "flutter format libs/tradesman/*",
+        "cwd": "libs/tradesman"
       }
     },
     "test": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "flutter test --coverage",
-        "cwd": "libs/consumer"
+        "command": "flutter test",
+        "cwd": "libs/tradesman"
       }
     },
     "buildAar": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build aar",
-        "cwd": "libs/consumer"
+        "cwd": "libs/tradesman"
       }
     },
     "buildApk": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build apk",
-        "cwd": "libs/consumer"
+        "cwd": "libs/tradesman"
       }
     },
     "buildAppbundle": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build appbundle",
-        "cwd": "libs/consumer"
+        "cwd": "libs/tradesman"
       }
     },
     "buildBundle": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build bundle",
-        "cwd": "libs/consumer"
+        "cwd": "libs/tradesman"
       }
     },
     "buildIos": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ios",
-        "cwd": "libs/consumer"
+        "cwd": "libs/tradesman"
       }
     },
     "buildIosFramework": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ios-framework",
-        "cwd": "libs/consumer"
+        "cwd": "libs/tradesman"
       }
     },
     "buildIpa": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ipa",
-        "cwd": "libs/consumer"
+        "cwd": "libs/tradesman"
       }
     }
   },

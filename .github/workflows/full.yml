@@ -8,4 +8,4 @@ jobs:
   test-all:
     uses: ./.github/workflows/android.yml
     with:
-      test: 'all'
+      test: 'all_build'
