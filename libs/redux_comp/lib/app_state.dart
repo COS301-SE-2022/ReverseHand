@@ -1,5 +1,6 @@
 import 'package:amplify/amplify.dart';
 import 'package:amplify/amplifyconfiguration.dart';
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
@@ -10,6 +11,7 @@ class AppState {
   // amplify
   final AmplifyDataStore _dataStorePlugin =
       AmplifyDataStore(modelProvider: ModelProvider.instance);
+  final AmplifyAPI _apiPlugin = AmplifyAPI();
 
   // constructor must only take named parameters
   AppState({required this.example}) {
@@ -29,7 +31,7 @@ class AppState {
   Future<void> _configureAmplify() async {
     try {
       // add Amplify plugins
-      await Amplify.addPlugins([_dataStorePlugin]);
+      await Amplify.addPlugins([_dataStorePlugin, _apiPlugin]);
 
       // configure Amplify
       //
