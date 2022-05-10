@@ -38,7 +38,6 @@ class ConsumerListings extends StatelessWidget {
                   elevation: 2,
                   child: Column(
                     children: [
-<<<<<<< HEAD
                       // Align(
                       //   alignment: Alignment.topRight,
                       //   child: Padding(
@@ -50,19 +49,6 @@ class ConsumerListings extends StatelessWidget {
                       //     ),
                       //   ),
                       // ),
-=======
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 10, 15, 0),
-                          child: Text(
-                            '2 Days ago',
-                            style:
-                                TextStyle(color: Colors.white.withOpacity(0.6)),
-                          ),
-                        ),
-                      ),
->>>>>>> 1ea846159c1eca47a0b3dd66a17f8ac0a070b82c
                       ListTile(
                         title: const Text(
                           'Roof painting',
@@ -75,7 +61,6 @@ class ConsumerListings extends StatelessWidget {
                               fontSize: 15.0),
                         ),
                       ),
-<<<<<<< HEAD
                       ListTile(
                         leading: const Icon(Icons.location_on, size: 50),
                         title: Text(
@@ -89,14 +74,6 @@ class ConsumerListings extends StatelessWidget {
                           style: TextStyle(
                               color: Colors.white.withOpacity(0.7),
                               fontSize: 20.0),
-=======
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        child: Text(
-                          'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
-                          style:
-                              TextStyle(color: Colors.white.withOpacity(0.9)),
->>>>>>> 1ea846159c1eca47a0b3dd66a17f8ac0a070b82c
                         ),
                       ),
                     ],
