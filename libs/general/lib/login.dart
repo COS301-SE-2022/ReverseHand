@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/login_action.dart';
 //import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_comp/redux_comp.dart';
 //import 'package:tradesman/tradesman.dart';
@@ -79,19 +82,28 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(20)),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => ConsumerListings(
-                                    store: widget.store,
-                                  )));
+                  child: StoreConnector<AppState, VoidCallback>(
+                    converter: (store) {
+                      return () => store.dispatch(LoginAction("test", "test"));
                     },
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
+                    builder: (context, callback) {
+                      return TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ConsumerListings(
+                                store: widget.store,
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(color: Colors.white, fontSize: 25),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
