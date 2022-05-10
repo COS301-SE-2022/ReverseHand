@@ -5,6 +5,8 @@
     "example": "libs/example",
     "redux_comp": "libs/redux_comp",
     "general": "libs/general",
-    "tradesman": "libs/tradesman"
+    "tradesman": "libs/tradesman",
+    "consumer": "libs/consumer",
+
   }
 }
