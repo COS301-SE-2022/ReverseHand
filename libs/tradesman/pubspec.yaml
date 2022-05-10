@@ -17,6 +17,7 @@ dependencies:
     path: '../redux_comp'
 
   redux: ^5.0.0
+  flutter_redux: ^5.0.0
 
 dev_dependencies:
   flutter_test:
