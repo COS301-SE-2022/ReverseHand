@@ -1,8 +1,7 @@
-name: general
-description: Shared screens between consumers and tradesmen
+name: tradesman
+description: Tradesman specific feature for the Reversehand app
 version: 0.0.1
 homepage:
-publish_to: none
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -15,10 +14,8 @@ dependencies:
 
   redux_comp: 
     path: '../redux_comp'
-  tradesman:
-    path: '../tradesman'
-  consumer:
-    path: '../consumer'
+
+  redux: ^5.0.0
 
 dev_dependencies:
   flutter_test:
