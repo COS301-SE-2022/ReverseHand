@@ -1,5 +1,5 @@
 import 'package:redux_comp/reducers/reducers/example_reducer.dart';
-import 'package:redux_comp/reducers/reducers/login_redcuer.dart';
+import 'package:redux_comp/reducers/reducers/login_reducer.dart';
 import '../app_state.dart';
 
 Future<AppState> appReducer(AppState state, dynamic action) async {

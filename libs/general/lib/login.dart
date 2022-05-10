@@ -1,6 +1,6 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 void main() {
