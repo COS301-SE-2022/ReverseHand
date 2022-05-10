@@ -86,7 +86,7 @@ jobs:
         run: |
           npx nx run-many --target=test --all --skip-nx-cache --parallel
           npx nx run-many --target=analyze --all --skip-nx-cache --parallel
-          npx nx run app:buildAppbundle
+      #    npx nx run app:buildAppbundle
 
     #merge the lcov files
       - name: Merge codecov reports
