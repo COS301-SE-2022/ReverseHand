@@ -6,7 +6,7 @@
     "redux_comp": "libs/redux_comp",
     "general": "libs/general",
     "tradesman": "libs/tradesman",
-    "consumer": "libs/consumer",
+    "consumer": "libs/consumer"
 
   }
 }
