@@ -25,7 +25,7 @@ class TradesmanJobListings extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const TradesmanJobDetails()));
+                    MaterialPageRoute(builder: (_) => TradesmanJobDetails(store: store)));
                 },
                 child: Card(
                   color: const Color.fromARGB(255, 86, 159, 92),
