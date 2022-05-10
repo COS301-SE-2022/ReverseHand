@@ -19,35 +19,35 @@ $1}' >> $file
 echo "void main( ){}" >> $file 
 
 `
-fs.writeFile("./apps/app/test/gather_files.sh",content,function(err){
+fs.writeFile("./home/runner/work/ReverseHand/ReverseHand/apps/app/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
-fs.writeFile("./libs/consumer/test/gather_files.sh",content,function(err){
+fs.writeFile("./home/runner/work/ReverseHand/ReverseHand/libs/consumer/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
-fs.writeFile("./libs/example/test/gather_files.sh",content,function(err){
+fs.writeFile("./home/runner/work/ReverseHand/ReverseHand/libs/example/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
-fs.writeFile("./libs/tradesman/test/gather_files.sh",content,function(err){
+fs.writeFile("./home/runner/work/ReverseHand/ReverseHand/libs/tradesman/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
-fs.writeFile("./libs/consumer/test/gather_files.sh",content,function(err){
+fs.writeFile("./home/runner/work/ReverseHand/ReverseHand/libs/consumer/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
-fs.writeFile("./libs/general/test/gather_files.sh",content,function(err){
+fs.writeFile("./home/runner/work/ReverseHand/ReverseHand/libs/general/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
 
 //Note: Due to regex being used, redux_comp cannot be catered for
 
-var script = exec("bash ./apps/app/test/gather_files.sh")
-script = exec("bash ./libs/consumer/test/gather_files.sh")
-script = exec("bash ./libs/example/test/gather_files.sh")
-script = exec("bash ./libs/general/test/gather_files.sh")
-script = exec("bash ./libs/tradesman/test/gather_files.sh")
+var script = exec("bash ./home/runner/work/ReverseHand/ReverseHand/apps/app/test/gather_files.sh")
+script = exec("bash ./home/runner/work/ReverseHand/ReverseHand/libs/consumer/test/gather_files.sh")
+script = exec("bash ./home/runner/work/ReverseHand/ReverseHand/libs/example/test/gather_files.sh")
+script = exec("bash ./home/runner/work/ReverseHand/ReverseHand/libs/general/test/gather_files.sh")
+script = exec("bash ./home/runner/work/ReverseHand/ReverseHand/libs/tradesman/test/gather_files.sh")
