@@ -5,7 +5,6 @@ import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:flutter/rendering.dart';
 
-
 class ConsumerListings extends StatelessWidget {
   ///const Login({Key? key}) : super(key: key);
   final Store<AppState> store;
@@ -15,8 +14,7 @@ class ConsumerListings extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: 
-      MaterialApp(
+      child: MaterialApp(
         home: Scaffold(
           appBar: AppBar(
             title: const Text('My Job Listings'),
@@ -26,43 +24,55 @@ class ConsumerListings extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => ConsumerDetails(store: store)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => ConsumerDetails(store: store)));
                 },
                 child: Card(
-                  color: const Color.fromARGB(255, 86, 159, 92),
+                  color: const Color.fromRGBO(53, 79, 82, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   elevation: 2,
                   child: Column(
                     children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 10, 15, 0),
-                          child: Text(
-                            '2 Days ago',
-                            style: TextStyle(color: Colors.white.withOpacity(0.6)),
-                          ),
-                        ),
-                      ),
+                      // Align(
+                      //   alignment: Alignment.topRight,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.fromLTRB(0, 10, 15, 0),
+                      //     child: Text(
+                      //       '2 Days ago',
+                      //       style:
+                      //           TextStyle(color: Colors.white.withOpacity(0.6)),
+                      //     ),
+                      //   ),
+                      // ),
                       ListTile(
                         title: const Text(
                           'Roof painting',
                           style: TextStyle(fontSize: 25.0, color: Colors.white),
                         ),
-                        subtitle: Text(
-                          '22 May 2022 - 28 May 2022',
+                        trailing: Text(
+                          '2 days ago',
                           style: TextStyle(
-                              color: Colors.white.withOpacity(0.7), fontSize: 15.0),
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 15.0),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        child: Text(
-                          'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
-                          style: TextStyle(color: Colors.white.withOpacity(0.9)),
+                      ListTile(
+                        leading: const Icon(Icons.location_on, size: 50),
+                        title: Text(
+                          '22/05/2022 - 28/05/2022',
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 15.0),
+                        ),
+                        subtitle: Text(
+                          'Pretoria, Gauteng',
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 20.0),
                         ),
                       ),
                     ],
