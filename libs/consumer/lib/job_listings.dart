@@ -5,7 +5,6 @@ import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
 //import 'package:flutter/rendering.dart';
 
-
 class ConsumerListings extends StatelessWidget {
   ///const Login({Key? key}) : super(key: key);
   final Store<AppState> store;
@@ -15,8 +14,7 @@ class ConsumerListings extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: 
-      MaterialApp(
+      child: MaterialApp(
         home: Scaffold(
           appBar: AppBar(
             title: const Text('My Job Listings'),
@@ -26,8 +24,10 @@ class ConsumerListings extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => ConsumerDetails(store: store)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => ConsumerDetails(store: store)));
                 },
                 child: Card(
                   color: const Color.fromARGB(255, 86, 159, 92),
@@ -43,7 +43,8 @@ class ConsumerListings extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(0, 10, 15, 0),
                           child: Text(
                             '2 Days ago',
-                            style: TextStyle(color: Colors.white.withOpacity(0.6)),
+                            style:
+                                TextStyle(color: Colors.white.withOpacity(0.6)),
                           ),
                         ),
                       ),
@@ -55,14 +56,16 @@ class ConsumerListings extends StatelessWidget {
                         subtitle: Text(
                           '22 May 2022 - 28 May 2022',
                           style: TextStyle(
-                              color: Colors.white.withOpacity(0.7), fontSize: 15.0),
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 15.0),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                         child: Text(
                           'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
-                          style: TextStyle(color: Colors.white.withOpacity(0.9)),
+                          style:
+                              TextStyle(color: Colors.white.withOpacity(0.9)),
                         ),
                       ),
                     ],
