@@ -2,6 +2,7 @@ name: tradesman
 description: Tradesman specific feature for the Reversehand app
 version: 0.0.1
 homepage:
+publish_to: none
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
