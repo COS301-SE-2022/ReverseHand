@@ -34,7 +34,7 @@ class AppState {
       // configure Amplify
       //
       // note that Amplify cannot be configured more than once!
-      await Amplify.configure(amplifyconfig);
+      if (!Amplify.isConfigured) await Amplify.configure(amplifyconfig);
     } catch (e) {
       // error handling can be improved for sure!
       // but this will be sufficient for the purposes of this tutorial
