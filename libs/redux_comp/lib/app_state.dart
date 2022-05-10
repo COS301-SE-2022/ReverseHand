@@ -14,12 +14,15 @@ class AppState {
   // amplify
   final AmplifyDataStore _dataStorePlugin =
       AmplifyDataStore(modelProvider: ModelProvider.instance);
-  final AmplifyAPI _apiPlugin = AmplifyAPI();
+  final AmplifyAPI _apiPlugin =
+      AmplifyAPI(modelProvider: ModelProvider.instance);
 
   // constructor must only take named parameters
   AppState({required this.example, required this.name}) {
-    WidgetsFlutterBinding.ensureInitialized();
-    _initializeApp();
+    if (!Amplify.isConfigured) {
+      WidgetsFlutterBinding.ensureInitialized();
+      _initializeApp();
+    }
   }
 
   // this methods sets the starting state for the store
@@ -52,7 +55,7 @@ class AppState {
       // configure Amplify
       //
       // note that Amplify cannot be configured more than once!
-      if (!Amplify.isConfigured) await Amplify.configure(amplifyconfig);
+      await Amplify.configure(amplifyconfig);
     } catch (e) {
       // error handling can be improved for sure!
       // but this will be sufficient for the purposes of this tutorial

@@ -84,11 +84,13 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(20)),
                   child: StoreConnector<AppState, VoidCallback>(
                     converter: (store) {
-                      return () => store.dispatch(LoginAction("test", "test"));
+                      return () => store.dispatch(
+                          LoginAction("tes_consumer@mail.com", "test"));
                     },
                     builder: (context, callback) {
                       return TextButton(
                         onPressed: () {
+                          callback();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
