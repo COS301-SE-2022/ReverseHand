@@ -3,6 +3,7 @@ import 'package:amplify/amplifyconfiguration.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/widgets.dart';
 
 class AppState {
   // put all app state requiered here
@@ -17,6 +18,7 @@ class AppState {
 
   // constructor must only take named parameters
   AppState({required this.example, required this.name}) {
+    WidgetsFlutterBinding.ensureInitialized();
     _initializeApp();
   }
 
