@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import './job_details.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/rendering.dart';
 
 class ConsumerListings extends StatelessWidget {
   ///const Login({Key? key}) : super(key: key);
