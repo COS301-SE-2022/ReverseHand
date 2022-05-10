@@ -41,6 +41,9 @@ dependencies:
   redux_comp:
       path: '../../libs/redux_comp'
   
+  consumer:
+    path: '../../libs/consumer'
+    
   general:
     path: '../../libs/general'
 
