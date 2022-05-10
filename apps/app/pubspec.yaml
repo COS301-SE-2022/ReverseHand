@@ -39,7 +39,7 @@ dependencies:
     path: '../../libs/example'
 
   redux_comp:
-      path: '../../libs/redux_comp'
+    path: '../../libs/redux_comp'
   
   general:
     path: '../../libs/general'

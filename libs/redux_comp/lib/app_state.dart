@@ -12,7 +12,9 @@ class AppState {
       AmplifyDataStore(modelProvider: ModelProvider.instance);
 
   // constructor must only take named parameters
-  AppState({required this.example});
+  AppState({required this.example}) {
+    _initializeApp();
+  }
 
   // this methods sets the starting state for the store
   static AppState initial() {
@@ -21,9 +23,11 @@ class AppState {
 
   // used for configuring amplify
   Future<void> _initializeApp() async {
-    Future<void> _configureAmplify() async {
-    try {
+    await _configureAmplify();
+  }
 
+  Future<void> _configureAmplify() async {
+    try {
       // add Amplify plugins
       await Amplify.addPlugins([_dataStorePlugin]);
 
@@ -32,14 +36,9 @@ class AppState {
       // note that Amplify cannot be configured more than once!
       await Amplify.configure(amplifyconfig);
     } catch (e) {
-
       // error handling can be improved for sure!
       // but this will be sufficient for the purposes of this tutorial
       print('An error occurred while configuring Amplify: $e');
     }
   }
-}
-
-Future<void> _configureAmplify() async {
-  // to be filled in a later step
 }
