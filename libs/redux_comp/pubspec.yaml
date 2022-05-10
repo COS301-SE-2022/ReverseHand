@@ -2,6 +2,7 @@ name: redux_comp
 description: redux componenets for the project
 version: 0.0.1
 homepage:
+publish_to: none
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -10,6 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  amplify_flutter: ^0.4.0
+  amplify_datastore: ^0.4.0
+
+  amplify:
+    path: '../amplify'
 
 dev_dependencies:
   flutter_test:
