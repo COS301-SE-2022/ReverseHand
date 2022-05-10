@@ -82,8 +82,8 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => TradesmanJobListings()));
-                  },//store: widget.store,
+                            builder: (_) => TradesmanJobListings(store: widget.store,)));
+                  },
                   child: const Text(
                     'Login',
                     style: TextStyle(color: Colors.white, fontSize: 25),
