@@ -10,6 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_redux: ^0.9.0
+
+  redux_comp: 
+    path: '../redux_comp'
+
+  redux: ^5.0.0
 
 dev_dependencies:
   flutter_test:

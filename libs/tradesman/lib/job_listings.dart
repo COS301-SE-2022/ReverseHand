@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import './job_details.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_comp/redux_comp.dart';
 import 'package:flutter/rendering.dart';
 
-class TradesmanJobListings extends StatefulWidget {
+// class TradesmanJobListings extends StatefulWidget {
+//   const TradesmanJobListings({Key? key}) : super(key: key);
+
+//   @override
+//   TradesmanJobState createState() => TradesmanJobState();
+// }
+
+// class TradesmanJobState extends State<TradesmanJobListings> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: const Text('Job Listings'),
+//           backgroundColor: const Color.fromRGBO(82, 121, 111, 1),
+//         ),
+//         body: const MyCardWidget(),
+//       ),
+//     );
+//   }
+// }
+
+class TradesmanJobListings extends StatelessWidget {
   const TradesmanJobListings({Key? key}) : super(key: key);
-
-  @override
-  TradesmanJobState createState() => TradesmanJobState();
-}
-
-class TradesmanJobState extends State<TradesmanJobListings> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Job Listings'),
-          backgroundColor: const Color.fromRGBO(82, 121, 111, 1),
-        ),
-        body: const MyCardWidget(),
-      ),
-    );
-  }
-}
-
-class MyCardWidget extends StatelessWidget {
-  const MyCardWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

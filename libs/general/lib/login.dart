@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-//import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/tradesman.dart';
@@ -83,8 +82,8 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => ConsumerListings(store: widget.store,)));
-                  },
+                            builder: (_) => TradesmanJobListings()));
+                  },//store: widget.store,
                   child: const Text(
                     'Login',
                     style: TextStyle(color: Colors.white, fontSize: 25),
