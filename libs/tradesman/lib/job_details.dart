@@ -1,37 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_comp/redux_comp.dart';
 import './job_listings.dart';
 
-class TradesmanJobDetails extends StatefulWidget {
+class TradesmanJobDetails extends StatelessWidget {
   const TradesmanJobDetails({Key? key}) : super(key: key);
-
-  @override
-  TradesmanJobDetailsState createState() => TradesmanJobDetailsState();
-}
-
-class TradesmanJobDetailsState extends State<TradesmanJobDetails> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: const Color.fromRGBO(245, 245, 245, 1),
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const TradesmanJobListings()));
-            },
-          ),
-          title: const Text('Roof Painting'),
-        ),
-        body: const ConsumerDetailsWidget(),
-      ),
-    );
-  }
-}
-
-class ConsumerDetailsWidget extends StatelessWidget {
-  const ConsumerDetailsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
