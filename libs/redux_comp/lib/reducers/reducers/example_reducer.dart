@@ -11,5 +11,5 @@ class ExampleAction {
 // note name of file and function, both end in reducer
 AppState changeExampleReducer(AppState state, ExampleAction action) {
   // action and appstate must be passed in as they may contain data required
-  return AppState(example: action.data); // changding the appstate
+  return state.replace(example: action.data); // changding the appstate
 }

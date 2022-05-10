@@ -8,21 +8,35 @@ class AppState {
   // put all app state requiered here
   final String example; // remove later
 
+  final String name; // users name
+
   // amplify
   final AmplifyDataStore _dataStorePlugin =
       AmplifyDataStore(modelProvider: ModelProvider.instance);
   final AmplifyAPI _apiPlugin = AmplifyAPI();
 
   // constructor must only take named parameters
-  AppState({required this.example}) {
+  AppState({required this.example, required this.name}) {
     _initializeApp();
   }
 
   // this methods sets the starting state for the store
   static AppState initial() {
-    return AppState(example: "example");
+    return AppState(example: "example", name: "");
   }
 
+  // easy way to replace store wihtout specifying all paramters
+  AppState replace({
+    String? example,
+    String? name,
+  }) {
+    return AppState(
+      example: example ?? this.example,
+      name: name ?? this.name,
+    );
+  }
+
+  // ===========================================================================
   // used for configuring amplify
   Future<void> _initializeApp() async {
     await _configureAmplify();
