@@ -50,7 +50,7 @@ jobs:
 
     #call helper script for coverage
       - name: Call coverage_helper.js
-        run: node ./tools/generators/coverage_helper.js
+        run: node coverage_helper.js
     #Flutter Action needs java
       - name: Installing java
         uses: actions/setup-java@v3
