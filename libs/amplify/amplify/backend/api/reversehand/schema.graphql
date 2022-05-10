@@ -18,9 +18,10 @@ type Consumer @model @auth(rules: [{allow: public}]) {
 
 type Advert @model @auth(rules: [{allow: public}]) {
   id: ID!
-  consumer: ID
   bids: [Bid] @hasMany(indexName: "byAdvert", fields: ["id"])
   consumerID: ID! @index(name: "byConsumer")
+  title: String
+  description: String
 }
 
 type Bid @model @auth(rules: [{allow: public}]) {
@@ -31,3 +32,4 @@ type Bid @model @auth(rules: [{allow: public}]) {
   advertID: ID! @index(name: "byAdvert")
   tradesmanID: ID! @index(name: "byTradesman")
 }
+ 

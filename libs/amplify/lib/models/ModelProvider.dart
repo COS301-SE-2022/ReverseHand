@@ -32,7 +32,7 @@ export 'Tradesman.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "4a84d772f9b1584e9ce04368fc5b54dc";
+  String version = "868dbf673a1a393d7bf21acd50221c1f";
   @override
   List<ModelSchema> modelSchemas = [Advert.schema, Bid.schema, Consumer.schema, Tradesman.schema];
   static final ModelProvider _instance = ModelProvider();

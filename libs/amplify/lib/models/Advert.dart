@@ -30,9 +30,10 @@ import 'package:flutter/foundation.dart';
 class Advert extends Model {
   static const classType = const _AdvertModelType();
   final String id;
-  final String? _consumer;
   final List<Bid>? _bids;
   final String? _consumerID;
+  final String? _title;
+  final String? _description;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -42,10 +43,6 @@ class Advert extends Model {
   @override
   String getId() {
     return id;
-  }
-  
-  String? get consumer {
-    return _consumer;
   }
   
   List<Bid>? get bids {
@@ -65,6 +62,14 @@ class Advert extends Model {
     }
   }
   
+  String? get title {
+    return _title;
+  }
+  
+  String? get description {
+    return _description;
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -73,14 +78,15 @@ class Advert extends Model {
     return _updatedAt;
   }
   
-  const Advert._internal({required this.id, consumer, bids, required consumerID, createdAt, updatedAt}): _consumer = consumer, _bids = bids, _consumerID = consumerID, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Advert._internal({required this.id, bids, required consumerID, title, description, createdAt, updatedAt}): _bids = bids, _consumerID = consumerID, _title = title, _description = description, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Advert({String? id, String? consumer, List<Bid>? bids, required String consumerID}) {
+  factory Advert({String? id, List<Bid>? bids, required String consumerID, String? title, String? description}) {
     return Advert._internal(
       id: id == null ? UUID.getUUID() : id,
-      consumer: consumer,
       bids: bids != null ? List<Bid>.unmodifiable(bids) : bids,
-      consumerID: consumerID);
+      consumerID: consumerID,
+      title: title,
+      description: description);
   }
   
   bool equals(Object other) {
@@ -92,9 +98,10 @@ class Advert extends Model {
     if (identical(other, this)) return true;
     return other is Advert &&
       id == other.id &&
-      _consumer == other._consumer &&
       DeepCollectionEquality().equals(_bids, other._bids) &&
-      _consumerID == other._consumerID;
+      _consumerID == other._consumerID &&
+      _title == other._title &&
+      _description == other._description;
   }
   
   @override
@@ -106,8 +113,9 @@ class Advert extends Model {
     
     buffer.write("Advert {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("consumer=" + "$_consumer" + ", ");
     buffer.write("consumerID=" + "$_consumerID" + ", ");
+    buffer.write("title=" + "$_title" + ", ");
+    buffer.write("description=" + "$_description" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -115,17 +123,17 @@ class Advert extends Model {
     return buffer.toString();
   }
   
-  Advert copyWith({String? id, String? consumer, List<Bid>? bids, String? consumerID}) {
+  Advert copyWith({String? id, List<Bid>? bids, String? consumerID, String? title, String? description}) {
     return Advert._internal(
       id: id ?? this.id,
-      consumer: consumer ?? this.consumer,
       bids: bids ?? this.bids,
-      consumerID: consumerID ?? this.consumerID);
+      consumerID: consumerID ?? this.consumerID,
+      title: title ?? this.title,
+      description: description ?? this.description);
   }
   
   Advert.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _consumer = json['consumer'],
       _bids = json['bids'] is List
         ? (json['bids'] as List)
           .where((e) => e?['serializedData'] != null)
@@ -133,19 +141,22 @@ class Advert extends Model {
           .toList()
         : null,
       _consumerID = json['consumerID'],
+      _title = json['title'],
+      _description = json['description'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'consumer': _consumer, 'bids': _bids?.map((Bid? e) => e?.toJson()).toList(), 'consumerID': _consumerID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'bids': _bids?.map((Bid? e) => e?.toJson()).toList(), 'consumerID': _consumerID, 'title': _title, 'description': _description, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "advert.id");
-  static final QueryField CONSUMER = QueryField(fieldName: "consumer");
   static final QueryField BIDS = QueryField(
     fieldName: "bids",
     fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (Bid).toString()));
   static final QueryField CONSUMERID = QueryField(fieldName: "consumerID");
+  static final QueryField TITLE = QueryField(fieldName: "title");
+  static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Advert";
     modelSchemaDefinition.pluralName = "Adverts";
@@ -163,12 +174,6 @@ class Advert extends Model {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Advert.CONSUMER,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
       key: Advert.BIDS,
       isRequired: false,
@@ -179,6 +184,18 @@ class Advert extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Advert.CONSUMERID,
       isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Advert.TITLE,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Advert.DESCRIPTION,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
