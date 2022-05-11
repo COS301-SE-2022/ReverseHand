@@ -1,16 +1,10 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
+import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/redux_comp.dart';
-//import 'package:tradesman/tradesman.dart';
 import 'package:consumer/consumer.dart';
 
-void main() {
-  //runApp(const Login());
-}
-
 class Login extends StatelessWidget {
-  ///const Login({Key? key}) : super(key: key);
   final Store<AppState> store;
   const Login({Key? key, required this.store}) : super(key: key);
 
@@ -35,7 +29,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return StoreProvider(
+    return StoreProvider<AppState>(
       store: widget.store,
       child: MaterialApp(
         home: Scaffold(
@@ -56,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const Padding(
-                  //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextField(
                     decoration: InputDecoration(
@@ -66,7 +59,6 @@ class _LoginPageState extends State<LoginPage> {
                 const Padding(
                   padding: EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 15, bottom: 15),
-                  //padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextField(
                     obscureText: true,
                     decoration: InputDecoration(
@@ -79,19 +71,30 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(20)),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => ConsumerListings(
-                                    store: widget.store,
-                                  )));
+                  child: StoreConnector<AppState, VoidCallback>(
+                    converter: (store) {
+                      return () => store.dispatch(
+                          LoginAction("tes_consumer@mail.com", "test"));
                     },
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
+                    builder: (context, callback) {
+                      return TextButton(
+                        onPressed: () {
+                          callback();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => ConsumerListings(
+                                store: widget.store,
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(color: Colors.white, fontSize: 25),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

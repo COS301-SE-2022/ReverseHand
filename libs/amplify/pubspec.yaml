@@ -1,8 +1,7 @@
-name: general
-description: Shared screens between consumers and tradesmen
+name: amplify
+description: This holds everything with regards to amplify
 version: 0.0.1
 homepage:
-publish_to: none
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -12,14 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  async_redux: ^14.1.2
-
-  redux_comp: 
-    path: '../redux_comp'
-  tradesman:
-    path: '../tradesman'
-  consumer:
-    path: '../consumer'
+  amplify_flutter: ^0.4.0
+  amplify_datastore: ^0.4.0
 
 dev_dependencies:
   flutter_test:
