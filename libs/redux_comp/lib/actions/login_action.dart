@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:amplify/models/Consumer.dart';
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_api/model_queries.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:redux_comp/app_state.dart';
