@@ -11,7 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_redux: ^0.9.0
+
+  async_redux: ^14.1.2
 
   redux_comp: 
     path: '../redux_comp'
