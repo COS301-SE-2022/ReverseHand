@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import './job_details.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
+import './create_new_job.dart';
 
 class ConsumerListings extends StatelessWidget {
   final Store<AppState> store;
@@ -79,7 +80,12 @@ class ConsumerListings extends StatelessWidget {
                       color: const Color.fromRGBO(132, 169, 140, 1),
                       borderRadius: BorderRadius.circular(30)),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => JobCreation(store: store)));
+                    },
                     child: const Text(
                       '+',
                       style: TextStyle(color: Colors.white, fontSize: 25),
