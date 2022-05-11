@@ -4,12 +4,7 @@ import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/consumer.dart';
 
-void main() {
-  //runApp(const Login());
-}
-
 class Login extends StatelessWidget {
-  ///const Login({Key? key}) : super(key: key);
   final Store<AppState> store;
   const Login({Key? key, required this.store}) : super(key: key);
 
