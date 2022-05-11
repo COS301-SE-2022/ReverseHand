@@ -30,4 +30,26 @@ void main() {
     var list = find.descendant(of: scaff, matching: find.byType(ListView));
     expect(list, findsOneWidget);
   });
+
+  testWidgets("Testing the TradesmanJobDetails class",
+      (WidgetTester tester) async {
+    final store = Store<AppState>(initialState: AppState.mock());
+    await tester.pumpWidget(TradesmanJobDetails(store: store));
+
+    //expect to find exactly one description in a job
+    expect(find.widgetWithText(Scaffold, 'Description'), findsOneWidget);
+
+    //expect to find one or more bids
+    expect(find.widgetWithText(Scaffold, "Bids"), findsWidgets);
+
+    //expect to find 1 info Text being displayed
+    expect(find.widgetWithText(Scaffold, "Info"), findsOneWidget);
+
+    var scaff = find.byType(Scaffold);
+    expect(scaff, findsOneWidget);
+
+    //expect to find one IconButton i.e the back button
+    var icon = find.descendant(of: scaff, matching: find.byType(IconButton));
+    expect(icon, findsOneWidget);
+  });
 }
