@@ -29,3 +29,10 @@ I love soloving complex problems and optimizing solutions. \
 I am a final year Information and Knowledge Systems student specialising in Data Science. I believe that my biggest strength is having the ability to combine complex problem solving and analysis with soft skills, such as crossing the bridge in communication with any individual, and conducting myself with a professional attitude.\
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arlo216)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/charlotte-van-zyl-19769420a/)
+
+## Cara
+![image](https://github-readme-stats.vercel.app/api?username=caaaramia) \
+I am a final year BSc Information and Knowledge Systems student, majoring in Software Development, with a keen interest in computer security, and frontend development and design. My strengths lie in my creativity and communication skills and I am consistently working towards bettering myself as an individual and a programmer. I am hard-working and a team player and can't wait to see where the world of IT leads me. \
+[![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/caaaramia)
+[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/cara-grobler-984820239/)
+
