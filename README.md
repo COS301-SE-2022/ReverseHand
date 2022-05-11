@@ -22,4 +22,10 @@ I am a third year computer science student who is passionate about all things co
 I am familiar with a variety of programming languages and have industry experiance in both AWS Amplify and Flutter.
 I love soloving complex problems and optimizing solutions. \
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MichaelDuPlessis)
-[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/michael-du-plessis-6a0740239/) \
+[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/michael-du-plessis-6a0740239/)
+
+## Charlotte
+![image](https://github-readme-stats.vercel.app/api?username=arlo216) \
+I am a final year Information and Knowledge Systems student specialising in Data Science. I believe that my biggest strength is having the ability to combine complex problem solving and analysis with soft skills, such as crossing the bridge in communication with any individual, and conducting myself with a professional attitude.\
+[![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arlo216)
+[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/charlotte-van-zyl-19769420a/)
