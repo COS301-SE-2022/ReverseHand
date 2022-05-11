@@ -3,11 +3,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import './job_details.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
-// import 'package:flutter/rendering.dart';
-//import 'package:flutter/rendering.dart';
 
 class ConsumerListings extends StatelessWidget {
-  ///const Login({Key? key}) : super(key: key);
   final Store<AppState> store;
   const ConsumerListings({Key? key, required this.store}) : super(key: key);
 
@@ -38,17 +35,6 @@ class ConsumerListings extends StatelessWidget {
                   elevation: 2,
                   child: Column(
                     children: [
-                      // Align(
-                      //   alignment: Alignment.topRight,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.fromLTRB(0, 10, 15, 0),
-                      //     child: Text(
-                      //       '2 Days ago',
-                      //       style:
-                      //           TextStyle(color: Colors.white.withOpacity(0.6)),
-                      //     ),
-                      //   ),
-                      // ),
                       ListTile(
                         title: const Text(
                           'Roof painting',
@@ -80,6 +66,27 @@ class ConsumerListings extends StatelessWidget {
                   ),
                 ),
               ),
+              const Padding(
+                padding:
+                    EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 60,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(132, 169, 140, 1),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      '+',
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -87,51 +94,3 @@ class ConsumerListings extends StatelessWidget {
     );
   }
 }
-
-// class MyCardWidget extends StatelessWidget {
-//   const MyCardWidget({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 500,
-//       height: 200,
-//       padding: const EdgeInsets.all(5.0),
-//       child: Center(
-//         child: Card(
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(15.0),
-//           ),
-//           color: const Color.fromRGBO(22, 32, 71, 1),
-//           elevation: 5,
-//           child: Padding(
-//             padding: const EdgeInsets.all(20.0),
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: const <Widget>[
-//                 ListTile(
-//                   title: Text(
-//                     'Title',
-//                     style: TextStyle(fontSize: 30.0, color: Colors.white),
-//                   ),
-//                   subtitle: Text('Location - Date',
-//                       style: TextStyle(fontSize: 18.0, color: Colors.white)),
-//                   dense: false,
-//                   contentPadding: ,
-//                 ),
-//                 // ListTile(
-//                 //   title: Text(
-//                 //     'Title',
-//                 //     style: TextStyle(fontSize: 30.0, color: Colors.white),
-//                 //   ),
-//                 //   subtitle: Text('Location - Date',
-//                 //       style: TextStyle(fontSize: 18.0, color: Colors.white)),
-//                 // )
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
