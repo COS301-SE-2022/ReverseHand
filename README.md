@@ -9,16 +9,16 @@
 description goes here
 
 # Technologies
-![image]({https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white})
-![image]({https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white})
-![image]({https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white})
-![image]({https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white})
-![image]({https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white})
-![image]({https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white})
+![image](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![image](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![image](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)
+![image](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
+![image](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+![image](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 
 # Team
 ## Michael
-![image]({https://github-readme-stats.vercel.app/api?username={MichaelDuPlessis}})
+![image](https://github-readme-stats.vercel.app/api?username=MichaelDuPlessis)
 I am a third year computer science student who is passionate about all things computer science.
 I am familiar with a variety of programming languages and have industry experiance in both AWS Amplify and Flutter.
 I love soloving complex problems and optimizing solutions.
