@@ -5,9 +5,6 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/tradesman.dart';
 
 void main() {
-  //Create a store to use for the various states
-  final store = Store<AppState>(initialState: AppState.mock());
-
   //test for TradesmanJobListings
   testWidgets("Testing TradesmanJobListings class",
       (WidgetTester tester) async {
