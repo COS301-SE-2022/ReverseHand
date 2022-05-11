@@ -27,6 +27,8 @@
 .dart_tool/
 .packages
 build/
+.flutter-plugins
+.flutter-plugins-dependencies
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
