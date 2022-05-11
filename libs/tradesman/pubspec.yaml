@@ -11,11 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
+  async_redux: ^14.1.2
 
   redux_comp: 
     path: '../redux_comp'
 
-  async_redux: ^14.1.2
 
 dev_dependencies:
   flutter_test:
