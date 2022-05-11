@@ -1,5 +1,7 @@
+import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import './job_listings.dart';
 
@@ -74,17 +76,25 @@ class JobCreation extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: const Color.fromRGBO(132, 169, 140, 1),
                     borderRadius: BorderRadius.circular(20)),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => ConsumerListings(store: store)));
+                child: StoreConnector<AppState, VoidCallback>(
+                  converter:(store) {
+                    return () =>  store.dispatch(CreateAdvertAction(Advert(consumerID: store.state.id, title: "Test", description: "Test")));
                   },
-                  child: const Text(
-                    'Add New Job',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
+                  builder: (context, callback) {
+                    return TextButton(
+                      onPressed: () {
+                        callback();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => ConsumerListings(store: store)));
+                      },
+                      child: const Text(
+                        'Add New Job',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
