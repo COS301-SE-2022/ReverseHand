@@ -1,9 +1,5 @@
 import 'package:amplify/amplify.dart';
-<<<<<<< HEAD
 //import 'package:amplify/amplifyconfiguration.dart'; // uncomment this after pull
-=======
-// import 'package:amplify/amplifyconfiguration.dart'; // uncomment this after pull
->>>>>>> 963b5c52217d46bbd5852b075efb2af73ce73f10
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -61,13 +57,8 @@ class AppState {
       // configure Amplify
       //
       // note that Amplify cannot be configured more than once!
-<<<<<<< HEAD
 //      await Amplify.configure(
 //          amplifyconfig); // uncomment this line and add your amplify config package
-=======
-      // await Amplify.configure(
-      //     amplifyconfig); // uncomment this line and add your amplify config package
->>>>>>> 963b5c52217d46bbd5852b075efb2af73ce73f10
     } catch (e) {
       // error handling can be improved for sure!
       // but this will be sufficient for the purposes of this tutorial
