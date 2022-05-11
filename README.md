@@ -26,3 +26,4 @@ I love soloving complex problems and optimizing solutions. \
 
 ## Charlotte
 ![image](https://github-readme-stats.vercel.app/api?username=arlo216) \
+[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/charlotte-van-zyl-19769420a/)
