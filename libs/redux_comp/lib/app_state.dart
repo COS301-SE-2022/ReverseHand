@@ -1,5 +1,5 @@
 import 'package:amplify/amplify.dart';
-// import 'package:amplify/amplifyconfiguration.dart'; // uncomment this after pull
+//import 'package:amplify/amplifyconfiguration.dart'; // uncomment this after pull
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -11,22 +11,25 @@ class AppState {
   List<Advert> adverts = []; //supposed to be final, ask mike...
 
   // amplify
-  final AmplifyDataStore _dataStorePlugin =
-      AmplifyDataStore(modelProvider: ModelProvider.instance);
-  final AmplifyAPI _apiPlugin =
-      AmplifyAPI(modelProvider: ModelProvider.instance);
+  // final AmplifyDataStore _dataStorePlugin =
+  //     AmplifyDataStore(modelProvider: ModelProvider.instance);
+  // final AmplifyAPI _apiPlugin =
+  //     AmplifyAPI(modelProvider: ModelProvider.instance);
 
   // constructor must only take named parameters
-  AppState({required this.username, required this.adverts}) {
+  AppState({required this.username, required this.adverts});
+
+  // this methods sets the starting state for the store
+  factory AppState.initial() {
     if (!Amplify.isConfigured) {
       WidgetsFlutterBinding.ensureInitialized();
       _initializeApp();
     }
+    return AppState(username: "", adverts: []);
   }
 
-  // this methods sets the starting state for the store
-  static AppState initial() {
-    return AppState(username: "", adverts: []);
+  factory AppState.mock() {
+    return AppState(username: "TestName", adverts: []);
   }
 
   // easy way to replace store wihtout specifying all paramters
@@ -42,19 +45,23 @@ class AppState {
 
   // ===========================================================================
   // used for configuring amplify
-  Future<void> _initializeApp() async {
+  static Future<void> _initializeApp() async {
     await _configureAmplify();
   }
 
-  Future<void> _configureAmplify() async {
+  static Future<void> _configureAmplify() async {
     try {
       // add Amplify plugins
-      await Amplify.addPlugins([_dataStorePlugin, _apiPlugin]);
+      await Amplify.addPlugins([
+        AmplifyDataStore(modelProvider: ModelProvider.instance),
+        AmplifyAPI(modelProvider: ModelProvider.instance)
+      ]);
 
       // configure Amplify
       //
       // note that Amplify cannot be configured more than once!
-      // await Amplify.configure(amplifyconfig); // uncomment this line and add your amplify config package
+//      await Amplify.configure(
+//          amplifyconfig); // uncomment this line and add your amplify config package
     } catch (e) {
       // error handling can be improved for sure!
       // but this will be sufficient for the purposes of this tutorial

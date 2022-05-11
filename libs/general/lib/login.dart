@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/consumer.dart';
 
