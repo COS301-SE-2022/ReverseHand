@@ -23,3 +23,6 @@ I am familiar with a variety of programming languages and have industry experian
 I love soloving complex problems and optimizing solutions. \
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MichaelDuPlessis)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/michael-du-plessis-6a0740239/)
+
+## Charlotte
+![image](https://github-readme-stats.vercel.app/api?username=arlo216) \
