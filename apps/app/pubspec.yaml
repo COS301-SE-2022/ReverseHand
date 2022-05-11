@@ -31,18 +31,25 @@ dependencies:
     sdk: flutter
 
   # import others liberaries here
-  redux: ^5.0.0
-  flutter_redux: ^0.9.0
+  # redux: ^5.0.0
+  # flutter_redux: ^0.9.0
+  async_redux: ^14.1.2
   
   # import our libraries here with comment of what it is e.g. login widtget
   example:
     path: '../../libs/example'
 
   redux_comp:
-      path: '../../libs/redux_comp'
+    path: '../../libs/redux_comp'
   
+  consumer:
+    path: '../../libs/consumer'
+    
   general:
     path: '../../libs/general'
+
+  tradesman:
+    path: '../../libs/tradesman'
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
