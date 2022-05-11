@@ -5,10 +5,12 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/widgets.dart';
 
+
+@immutable
 class AppState {
   // put all app state requiered here
   final String username; // users name
-  List<Advert> adverts = []; //supposed to be final, ask mike...
+  final List<Advert> adverts; //supposed to be final, ask mike...
 
   // amplify
   // final AmplifyDataStore _dataStorePlugin =
@@ -17,7 +19,7 @@ class AppState {
   //     AmplifyAPI(modelProvider: ModelProvider.instance);
 
   // constructor must only take named parameters
-  AppState({required this.username, required this.adverts});
+  const AppState({required this.username, required this.adverts});
 
   // this methods sets the starting state for the store
   factory AppState.initial() {
@@ -25,11 +27,11 @@ class AppState {
       WidgetsFlutterBinding.ensureInitialized();
       _initializeApp();
     }
-    return AppState(username: "", adverts: []);
+    return const AppState(username: "", adverts: []);
   }
 
   factory AppState.mock() {
-    return AppState(username: "TestName", adverts: []);
+    return const AppState(username: "TestName", adverts: []);
   }
 
   // easy way to replace store wihtout specifying all paramters
