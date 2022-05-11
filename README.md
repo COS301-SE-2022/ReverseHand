@@ -1,100 +1,23 @@
-
-
-# ReverseHand
-
 [![CI TESTS](https://github.com/COS301-SE-2022/ReverseHand/actions/workflows/index.yml/badge.svg?branch=develop)](https://github.com/COS301-SE-2022/ReverseHand/actions/workflows/index.yml)
 <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/COS301-SE-2022/ReverseHand">
 <img alt="Uptime Robot status" src="https://img.shields.io/uptimerobot/status/m791626457-13b5f7a8e38fff2133205047">
 <img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/COS301-SE-2022/ReverseHand?color=green&style=flat-square">
 <img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/COS301-SE-2022/ReverseHand">
 
-This project was generated using [Nx](https://nx.dev).
+# ReverseHand - Cache Money
+description goes here
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+# Technologies
+![image]({https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white})
+![image]({https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white})
+![image]({https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white})
+![image]({https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white})
+![image]({https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white})
+![image]({https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white})
 
-🔎 **Smart, Fast and Extensible Build System**
-
-## Adding capabilities to your workspace
-
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
-
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
-
-Below are our core plugins:
-
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
-
-There are also many [community plugins](https://nx.dev/community) you could add.
-
-## Generate an application
-
-Run `nx g @nrwl/react:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@reverse-hand/mylib`.
-
-## Development server
-
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+# Team
+## Michael
+![image]({https://github-readme-stats.vercel.app/api?username={MichaelDuPlessis}})
+I am a third year computer science student who is passionate about all things computer science.
+I am familiar with a variety of programming languages and have industry experiance in both AWS Amplify and Flutter.
+I love soloving complex problems and optimizing solutions.
