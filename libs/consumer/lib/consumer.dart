@@ -8,3 +8,4 @@ library consumer;
 
 export './job_listings.dart';
 export './job_details.dart';
+export './create_new_job.dart';
