@@ -36,3 +36,9 @@ I am a final year BSc Information and Knowledge Systems student, majoring in Sof
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/caaaramia)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/cara-grobler-984820239/)
 
+## Richard
+![image](https://github-readme-stats.vercel.app/api?username=lastrucci01) \
+I am a third year Computer Science student specialising in Data Science. \
+[![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lastrucci01)
+[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/richard-lastrucci-9a63211a3/)
+
