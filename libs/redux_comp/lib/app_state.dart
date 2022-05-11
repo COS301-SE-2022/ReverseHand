@@ -7,9 +7,8 @@ import 'package:flutter/widgets.dart';
 
 class AppState {
   // put all app state requiered here
-  final String example; // remove later
-
-  final String name; // users name
+  final String username; // users name
+  List<Advert> adverts = []; //supposed to be final, ask mike...
 
   // amplify
   final AmplifyDataStore _dataStorePlugin =
@@ -18,7 +17,7 @@ class AppState {
       AmplifyAPI(modelProvider: ModelProvider.instance);
 
   // constructor must only take named parameters
-  AppState({required this.example, required this.name}) {
+  AppState({required this.username, required this.adverts}) {
     if (!Amplify.isConfigured) {
       WidgetsFlutterBinding.ensureInitialized();
       _initializeApp();
@@ -27,17 +26,17 @@ class AppState {
 
   // this methods sets the starting state for the store
   static AppState initial() {
-    return AppState(example: "example", name: "");
+    return AppState(username: "", adverts: []);
   }
 
   // easy way to replace store wihtout specifying all paramters
   AppState replace({
-    String? example,
-    String? name,
+    String? username,
+    List<Advert>? adverts
   }) {
     return AppState(
-      example: example ?? this.example,
-      name: name ?? this.name,
+      username: username ?? this.username,
+      adverts: adverts ?? this.adverts
     );
   }
 

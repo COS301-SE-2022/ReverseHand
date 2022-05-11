@@ -18,7 +18,7 @@ Future<AppState> loginReducer(AppState state, LoginAction action) async {
     final response = await Amplify.API.query(request: request).response;
 
     // print(response.data!.items[0]!.name);
-    return state.replace(name: response.data!.items[0]!.name);
+    return state.replace(username: response.data!.items[0]!.email);
   } catch (e) {
     // print(
     //     'Getting data failed $e'); // temp fix later, add error to store, through error class
