@@ -59,7 +59,7 @@ class AppState {
     } catch (e) {
       // error handling can be improved for sure!
       // but this will be sufficient for the purposes of this tutorial
-      print('An error occurred while configuring Amplify: $e');
+      // print('An error occurred while configuring Amplify: $e');
     }
   }
 }
