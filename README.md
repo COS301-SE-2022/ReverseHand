@@ -26,6 +26,6 @@ I love soloving complex problems and optimizing solutions. \
 
 ## Charlotte
 ![image](https://github-readme-stats.vercel.app/api?username=arlo216) \
-description \
+I am a final year Information and Knowledge Systems student specialising in Data Science. I believe that my biggest strength is having the ability to combine complex problem solving and analysis with soft skills, such as crossing the bridge in communication with any individual, and conducting myself with a professional attitude.\
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arlo216)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/charlotte-van-zyl-19769420a/)
