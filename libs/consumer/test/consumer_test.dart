@@ -46,4 +46,25 @@ void main() {
     final ink = find.descendant(of: body, matching: find.byType(InkWell));
     expect(ink, findsWidgets);
   });
+
+  testWidgets("Widget test for Consumer Details", (WidgetTester tester) async {
+    //setting up the ConsumerDetails widget
+    await tester.pumpWidget(ConsumerDetails(store: store));
+
+    final scaffhold = find.byType(Scaffold);
+    expect(scaffhold, findsOneWidget);
+
+    //find the back button
+    final iconButton =
+        find.descendant(of: scaffhold, matching: find.byType(IconButton));
+    expect(iconButton, findsOneWidget);
+
+    //find the row element
+    final row = find.descendant(of: scaffhold, matching: find.byType(Row));
+    expect(row, findsOneWidget);
+
+    //check for description
+    final desc = find.descendant(of: row, matching: find.text("Description"));
+    expect(desc, findsOneWidget);
+  });
 }
