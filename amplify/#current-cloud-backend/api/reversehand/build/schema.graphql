@@ -1,0 +1,392 @@
+
+type Tradesman @aws_iam @aws_api_key {
+  id: ID!
+  email: AWSEmail
+  password: String
+  name: String
+  surname: String
+  bids(filter: ModelBidFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelBidConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Consumer @aws_iam @aws_api_key {
+  id: ID!
+  email: AWSEmail
+  password: String
+  name: String
+  surname: String
+  adverts(filter: ModelAdvertFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelAdvertConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Advert @aws_iam @aws_api_key {
+  id: ID!
+  bids(filter: ModelBidFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelBidConnection
+  consumerID: ID!
+  title: String
+  description: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Bid @aws_iam @aws_api_key {
+  id: ID!
+  tradesman: ID
+  advert: ID
+  accepted: Boolean
+  advertID: ID!
+  tradesmanID: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelTradesmanConnection @aws_api_key @aws_iam {
+  items: [Tradesman]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelTradesmanFilterInput {
+  id: ModelIDInput
+  email: ModelStringInput
+  password: ModelStringInput
+  name: ModelStringInput
+  surname: ModelStringInput
+  and: [ModelTradesmanFilterInput]
+  or: [ModelTradesmanFilterInput]
+  not: ModelTradesmanFilterInput
+}
+
+type Query {
+  getTradesman(id: ID!): Tradesman @aws_api_key @aws_iam
+  listTradesmen(filter: ModelTradesmanFilterInput, limit: Int, nextToken: String): ModelTradesmanConnection @aws_api_key @aws_iam
+  syncTradesmen(filter: ModelTradesmanFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTradesmanConnection @aws_api_key @aws_iam
+  getConsumer(id: ID!): Consumer @aws_api_key @aws_iam
+  listConsumers(filter: ModelConsumerFilterInput, limit: Int, nextToken: String): ModelConsumerConnection @aws_api_key @aws_iam
+  syncConsumers(filter: ModelConsumerFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelConsumerConnection @aws_api_key @aws_iam
+  getAdvert(id: ID!): Advert @aws_api_key @aws_iam
+  listAdverts(filter: ModelAdvertFilterInput, limit: Int, nextToken: String): ModelAdvertConnection @aws_api_key @aws_iam
+  syncAdverts(filter: ModelAdvertFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelAdvertConnection @aws_api_key @aws_iam
+  getBid(id: ID!): Bid @aws_api_key @aws_iam
+  listBids(filter: ModelBidFilterInput, limit: Int, nextToken: String): ModelBidConnection @aws_api_key @aws_iam
+  syncBids(filter: ModelBidFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelBidConnection @aws_api_key @aws_iam
+}
+
+input ModelTradesmanConditionInput {
+  email: ModelStringInput
+  password: ModelStringInput
+  name: ModelStringInput
+  surname: ModelStringInput
+  and: [ModelTradesmanConditionInput]
+  or: [ModelTradesmanConditionInput]
+  not: ModelTradesmanConditionInput
+}
+
+input CreateTradesmanInput {
+  id: ID
+  email: AWSEmail
+  password: String
+  name: String
+  surname: String
+  _version: Int
+}
+
+input UpdateTradesmanInput {
+  id: ID!
+  email: AWSEmail
+  password: String
+  name: String
+  surname: String
+  _version: Int
+}
+
+input DeleteTradesmanInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createTradesman(input: CreateTradesmanInput!, condition: ModelTradesmanConditionInput): Tradesman @aws_api_key @aws_iam
+  updateTradesman(input: UpdateTradesmanInput!, condition: ModelTradesmanConditionInput): Tradesman @aws_api_key @aws_iam
+  deleteTradesman(input: DeleteTradesmanInput!, condition: ModelTradesmanConditionInput): Tradesman @aws_api_key @aws_iam
+  createConsumer(input: CreateConsumerInput!, condition: ModelConsumerConditionInput): Consumer @aws_api_key @aws_iam
+  updateConsumer(input: UpdateConsumerInput!, condition: ModelConsumerConditionInput): Consumer @aws_api_key @aws_iam
+  deleteConsumer(input: DeleteConsumerInput!, condition: ModelConsumerConditionInput): Consumer @aws_api_key @aws_iam
+  createAdvert(input: CreateAdvertInput!, condition: ModelAdvertConditionInput): Advert @aws_api_key @aws_iam
+  updateAdvert(input: UpdateAdvertInput!, condition: ModelAdvertConditionInput): Advert @aws_api_key @aws_iam
+  deleteAdvert(input: DeleteAdvertInput!, condition: ModelAdvertConditionInput): Advert @aws_api_key @aws_iam
+  createBid(input: CreateBidInput!, condition: ModelBidConditionInput): Bid @aws_api_key @aws_iam
+  updateBid(input: UpdateBidInput!, condition: ModelBidConditionInput): Bid @aws_api_key @aws_iam
+  deleteBid(input: DeleteBidInput!, condition: ModelBidConditionInput): Bid @aws_api_key @aws_iam
+}
+
+type Subscription {
+  onCreateTradesman: Tradesman @aws_subscribe(mutations: ["createTradesman"]) @aws_api_key @aws_iam
+  onUpdateTradesman: Tradesman @aws_subscribe(mutations: ["updateTradesman"]) @aws_api_key @aws_iam
+  onDeleteTradesman: Tradesman @aws_subscribe(mutations: ["deleteTradesman"]) @aws_api_key @aws_iam
+  onCreateConsumer: Consumer @aws_subscribe(mutations: ["createConsumer"]) @aws_api_key @aws_iam
+  onUpdateConsumer: Consumer @aws_subscribe(mutations: ["updateConsumer"]) @aws_api_key @aws_iam
+  onDeleteConsumer: Consumer @aws_subscribe(mutations: ["deleteConsumer"]) @aws_api_key @aws_iam
+  onCreateAdvert: Advert @aws_subscribe(mutations: ["createAdvert"]) @aws_api_key @aws_iam
+  onUpdateAdvert: Advert @aws_subscribe(mutations: ["updateAdvert"]) @aws_api_key @aws_iam
+  onDeleteAdvert: Advert @aws_subscribe(mutations: ["deleteAdvert"]) @aws_api_key @aws_iam
+  onCreateBid: Bid @aws_subscribe(mutations: ["createBid"]) @aws_api_key @aws_iam
+  onUpdateBid: Bid @aws_subscribe(mutations: ["updateBid"]) @aws_api_key @aws_iam
+  onDeleteBid: Bid @aws_subscribe(mutations: ["deleteBid"]) @aws_api_key @aws_iam
+}
+
+type ModelConsumerConnection @aws_api_key @aws_iam {
+  items: [Consumer]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelConsumerFilterInput {
+  id: ModelIDInput
+  email: ModelStringInput
+  password: ModelStringInput
+  name: ModelStringInput
+  surname: ModelStringInput
+  and: [ModelConsumerFilterInput]
+  or: [ModelConsumerFilterInput]
+  not: ModelConsumerFilterInput
+}
+
+input ModelConsumerConditionInput {
+  email: ModelStringInput
+  password: ModelStringInput
+  name: ModelStringInput
+  surname: ModelStringInput
+  and: [ModelConsumerConditionInput]
+  or: [ModelConsumerConditionInput]
+  not: ModelConsumerConditionInput
+}
+
+input CreateConsumerInput {
+  id: ID
+  email: AWSEmail
+  password: String
+  name: String
+  surname: String
+  _version: Int
+}
+
+input UpdateConsumerInput {
+  id: ID!
+  email: AWSEmail
+  password: String
+  name: String
+  surname: String
+  _version: Int
+}
+
+input DeleteConsumerInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelAdvertConnection @aws_iam @aws_api_key {
+  items: [Advert]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelAdvertFilterInput {
+  id: ModelIDInput
+  consumerID: ModelIDInput
+  title: ModelStringInput
+  description: ModelStringInput
+  and: [ModelAdvertFilterInput]
+  or: [ModelAdvertFilterInput]
+  not: ModelAdvertFilterInput
+}
+
+input ModelAdvertConditionInput {
+  consumerID: ModelIDInput
+  title: ModelStringInput
+  description: ModelStringInput
+  and: [ModelAdvertConditionInput]
+  or: [ModelAdvertConditionInput]
+  not: ModelAdvertConditionInput
+}
+
+input CreateAdvertInput {
+  id: ID
+  consumerID: ID!
+  title: String
+  description: String
+  _version: Int
+}
+
+input UpdateAdvertInput {
+  id: ID!
+  consumerID: ID
+  title: String
+  description: String
+  _version: Int
+}
+
+input DeleteAdvertInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelBidConnection @aws_iam @aws_api_key {
+  items: [Bid]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelBidFilterInput {
+  id: ModelIDInput
+  tradesman: ModelIDInput
+  advert: ModelIDInput
+  accepted: ModelBooleanInput
+  advertID: ModelIDInput
+  tradesmanID: ModelIDInput
+  and: [ModelBidFilterInput]
+  or: [ModelBidFilterInput]
+  not: ModelBidFilterInput
+}
+
+input ModelBidConditionInput {
+  tradesman: ModelIDInput
+  advert: ModelIDInput
+  accepted: ModelBooleanInput
+  advertID: ModelIDInput
+  tradesmanID: ModelIDInput
+  and: [ModelBidConditionInput]
+  or: [ModelBidConditionInput]
+  not: ModelBidConditionInput
+}
+
+input CreateBidInput {
+  id: ID
+  tradesman: ID
+  advert: ID
+  accepted: Boolean
+  advertID: ID!
+  tradesmanID: ID!
+  _version: Int
+}
+
+input UpdateBidInput {
+  id: ID!
+  tradesman: ID
+  advert: ID
+  accepted: Boolean
+  advertID: ID
+  tradesmanID: ID
+  _version: Int
+}
+
+input DeleteBidInput {
+  id: ID!
+  _version: Int
+}
+
