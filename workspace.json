@@ -4,6 +4,9 @@
     "app": "apps/app",
     "example": "libs/example",
     "redux_comp": "libs/redux_comp",
-    "general": "libs/general"
+    "general": "libs/general",
+    "tradesman": "libs/tradesman",
+    "consumer": "libs/consumer"
+
   }
 }

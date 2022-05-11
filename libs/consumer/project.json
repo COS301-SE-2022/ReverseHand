@@ -1,83 +1,83 @@
 {
-  "root": "libs/redux_comp",
-  "sourceRoot": "libs/redux_comp/src",
+  "root": "libs/consumer",
+  "sourceRoot": "libs/consumer/src",
   "projectType": "library",
   "targets": {
     "analyze": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter analyze",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     },
     "clean": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter clean",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     },
     "format": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "flutter format libs/redux_comp/*",
-        "cwd": "libs/redux_comp"
+        "command": "flutter format libs/consumer/*",
+        "cwd": "libs/consumer"
       }
     },
     "test": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter test --coverage",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     },
     "buildAar": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build aar",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     },
     "buildApk": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build apk",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     },
     "buildAppbundle": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build appbundle",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     },
     "buildBundle": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build bundle",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     },
     "buildIos": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ios",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     },
     "buildIosFramework": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ios-framework",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     },
     "buildIpa": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ipa",
-        "cwd": "libs/redux_comp"
+        "cwd": "libs/consumer"
       }
     }
   },

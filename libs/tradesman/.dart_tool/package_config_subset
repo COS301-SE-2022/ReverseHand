@@ -1,11 +1,11 @@
-consumer
-2.16
-file:///Users/michaelduplessis/Documents/school/Year3/COS301/capstone/ReverseHand/libs/consumer/
-file:///Users/michaelduplessis/Documents/school/Year3/COS301/capstone/ReverseHand/libs/consumer/lib/
 redux_comp
 2.16
 file:///Users/michaelduplessis/Documents/school/Year3/COS301/capstone/ReverseHand/libs/redux_comp/
 file:///Users/michaelduplessis/Documents/school/Year3/COS301/capstone/ReverseHand/libs/redux_comp/lib/
+tradesman
+2.16
+file:///Users/michaelduplessis/Documents/school/Year3/COS301/capstone/ReverseHand/libs/tradesman/
+file:///Users/michaelduplessis/Documents/school/Year3/COS301/capstone/ReverseHand/libs/tradesman/lib/
 async
 2.12
 file:///Users/michaelduplessis/development/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.2/
