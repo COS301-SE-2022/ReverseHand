@@ -1,11 +1,11 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:redux/redux.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 void main() {
-  final store = Store<AppState>(appReducer, initialState: AppState.initial());
+  final store = Store<AppState>(initialState: AppState.initial());
 
   testWidgets("Testing Title from ConsumerListings",
       (WidgetTester tester) async {
