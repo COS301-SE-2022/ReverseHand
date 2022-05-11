@@ -20,12 +20,14 @@ class LoginAction extends ReduxAction<AppState> {
       final response = await Amplify.API.query(request: request).response;
 
       return state.replace(name: response.data!.items[0]!.name);
-      // temporary
-      // ignore: unused_catch_clause
-    } on ApiException catch (e) {
+      // exception will be handled later
+    } catch (e) {
+      return state;
+    }
+    /*on ApiException catch (e) {
       // print(
       //     'Getting data failed $e'); // temp fix later, add error to store, through error class
       return state;
-    }
+    }*/
   }
 }
