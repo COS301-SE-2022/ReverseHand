@@ -30,13 +30,18 @@ class JobListings extends StatelessWidget {
         Expanded(
           child: Align(
             alignment: Alignment.center,
-            child: Container(
+            child: SizedBox(
               height: 60,
               width: 80,
-              decoration: BoxDecoration(
-                  color: const Color.fromRGBO(132, 169, 140, 1),
-                  borderRadius: BorderRadius.circular(30)),
               child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(82, 121, 111, 1)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                ),
                 onPressed: () {
                   Navigator.push(
                       context,

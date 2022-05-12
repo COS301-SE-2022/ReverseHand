@@ -35,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: const Color.fromARGB(255, 236, 235, 235),
           appBar: AppBar(
             title: const Text("Login Page"),
+            backgroundColor: const Color.fromRGBO(82, 121, 111, 1),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -77,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     builder: (context, callback) {
                       return TextButton(
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(82, 121, 111, 1))),
                         onPressed: () {
                           callback();
                           Navigator.push(
