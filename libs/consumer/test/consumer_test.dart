@@ -14,59 +14,70 @@ void main() {
 
     //find the Title widget
     final titleFinder = find.text("My Job Listings");
-
     expect(titleFinder, findsOneWidget); //expect to find one such title
 
-    // final icons = find.byType(Icon);
-    // expect(icons, findsWidgets); //expect to find one or more listings
+    //find the scaffhold
+    final scaff = find.byType(Scaffold);
+    //epxect to find exactly one Scaffold
+    expect(scaff, findsOneWidget);
 
-    //attempt to click an advert
-
-    final scaffhold = find.byType(Scaffold);
-
-    // get the appbar
-    final appbar =
-        find.descendant(of: scaffhold, matching: find.byType(AppBar));
-    expect(appbar, findsOneWidget);
-
-    //get the text of the appbar
-    final appText = find.descendant(of: appbar, matching: find.byType(Text));
-    expect(appText, findsOneWidget); //expect one title in appbar
-
-    // final des = find.byType(ListTile);
-    // expect(des, findsWidgets); //should find more than one title widget
-
-    //find the body
-    // final body =
-    //     find.descendant(of: scaffhold, matching: find.byType(ListView));
-
-    // expect(body, findsOneWidget);
-
-    // //get the InkWell
-    // final ink = find.descendant(of: body, matching: find.byType(InkWell));
-    // expect(ink, findsWidgets);
+    //AppBar must be a descendant of the Scaffhold
+    final _appbar = find.descendant(of: scaff, matching: find.byType(AppBar));
+    //expect to find exactly one appbar
+    expect(_appbar, findsOneWidget);
   });
 
-/*
-  testWidgets("Widget test for Consumer Details", (WidgetTester tester) async {
-    //setting up the ConsumerDetails widget
-    await tester.pumpWidget(ConsumerDetails(store: store));
+  testWidgets(("Testing the Job Creation Class"), (WidgetTester tester) async {
+    //create an instance of JobCreation
+    await tester.pumpWidget(JobCreation(store: store));
 
-    final scaffhold = find.byType(Scaffold);
-    expect(scaffhold, findsOneWidget);
+    //find the IconButton
+    final iconB = find.byType(IconButton);
+    //expect to find one IcconButton
+    expect(iconB, findsOneWidget);
 
-    //find the back button
-    final iconButton =
-        find.descendant(of: scaffhold, matching: find.byType(IconButton));
-    expect(iconButton, findsOneWidget);
+    //find Text element with Creating a job
+    final cJob = find.widgetWithText(Scaffold, "Creating a job");
+    expect(cJob, findsOneWidget);
 
-    //find the row element
-    final row = find.descendant(of: scaffhold, matching: find.byType(Row));
-    expect(row, findsOneWidget);
+    //verify there is more than one Textfield on the screen
+    debugPrint("Verifying there are 4 TextFields to enter input");
+    final textf = find.byType(TextField);
+    expect(textf, findsNWidgets(4));
+    debugPrint("Success: Found more exactly 4 TextFields\n");
 
-    //check for description
-    final desc = find.descendant(of: row, matching: find.text("Description"));
-    expect(desc, findsOneWidget);
+    //verify there is a button that says "Add new job"
+    debugPrint("Searching for the \"Add New Job\" button");
+    final newJob = find.widgetWithText(Scaffold, "Add New Job");
+    expect(newJob, findsOneWidget);
+    debugPrint("Success: Button to add new job found.\n");
+
+    debugPrint("Locating the Title textfiled");
+    final title = find.widgetWithText(Scaffold, "Title");
+    expect(title, findsOneWidget);
+    debugPrint("Successfully located\n");
+
+    debugPrint("Entering \"Plumbing Job\" in the Title");
+    await tester.enterText(find.widgetWithText(TextField, "Title"), "John");
+    debugPrint("Successfully Entered Title\n");
+
+    debugPrint("Entering Description");
+    await tester.enterText(
+        find.widgetWithText(TextField, "Description"), "Toilet is clogged");
+    debugPrint("Successfully Entered Description\n");
+
+    debugPrint("Entering Location");
+    await tester.enterText(
+        find.widgetWithText(TextField, "Location"), "Pretoria");
+    debugPrint("Successfully Entered Location\n");
+
+    debugPrint("Entering the date");
+    await tester.enterText(
+        find.widgetWithText(TextField, "Date"), "2020.05.12");
+    debugPrint("Successfully Entered Date\n");
+
+    debugPrint("Clicking button to create job");
+    await tester.press(newJob);
+    debugPrint("Job Successfully created\n");
   });
-*/
 }
