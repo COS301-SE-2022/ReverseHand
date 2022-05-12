@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:amplify/models/Advert.dart';
 import 'package:amplify/models/Consumer.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -14,12 +15,29 @@ class LoginAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     try {
-      final request = ModelQueries.list(Consumer.classType,
+      final requestID = ModelQueries.list(Consumer.classType,
           where: Consumer.EMAIL.contains(email));
 
-      final response = await Amplify.API.query(request: request).response;
+      final responseID = await Amplify.API.query(request: requestID).response;
+      state.replace(
+        id: responseID.data!.items[0]!.id, 
+        username: responseID.data!.items[0]!.email
+      );
+      final requestAdverts = ModelQueries.list(Advert.classType,
+          where: Advert.CONSUMERID.contains(state.id));
 
-      return state.replace(id: response.data!.items[0]!.id, username: response.data!.items[0]!.email);
+      final responseAdverts = await Amplify.API.query(request: requestAdverts).response;
+    
+      List<Advert>? consumerAdverts = [];
+
+      for (Advert? advert in responseAdverts.data!.items) {
+        consumerAdverts.add(advert!);
+      }
+
+
+      return state.replace(
+        adverts: consumerAdverts
+        );
       // exception will be handled later
     } catch (e) {
       return state;

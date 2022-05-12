@@ -3,8 +3,6 @@ import 'package:amplify_api/model_mutations.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../app_state.dart';
-import '../models/advert_model.dart';
-
 class CreateAdvertAction extends ReduxAction<AppState> {
   final Advert advert;
 
