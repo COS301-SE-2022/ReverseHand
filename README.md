@@ -151,5 +151,5 @@ ReverseHand is a mobile application that was created with the vision of helping 
   <img height="50px" src="https://user-images.githubusercontent.com/83949715/168105328-66046520-4c23-4f75-a8d1-02035aff07e2.png" /> <br/> <br/>
 </div>
 
-
-
+> Michael add stuff here for example <br/>
+`nx run app:run`
