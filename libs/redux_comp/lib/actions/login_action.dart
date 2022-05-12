@@ -19,12 +19,12 @@ class LoginAction extends ReduxAction<AppState> {
           where: Consumer.EMAIL.contains(email));
 
       final responseID = await Amplify.API.query(request: requestID).response;
-      state.replace(
-        id: responseID.data!.items[0]!.id, 
-        username: responseID.data!.items[0]!.email
-      );
+      
+        String id = responseID.data!.items[0]!.id;
+        String? username = responseID.data!.items[0]!.email;
+      
       final requestAdverts = ModelQueries.list(Advert.classType,
-          where: Advert.CONSUMERID.contains(state.id));
+          where: Advert.CONSUMERID.contains(id));
 
       final responseAdverts = await Amplify.API.query(request: requestAdverts).response;
     
@@ -33,9 +33,10 @@ class LoginAction extends ReduxAction<AppState> {
       for (Advert? advert in responseAdverts.data!.items) {
         consumerAdverts.add(advert!);
       }
-
-
+      
       return state.replace(
+        id: id, 
+        username: username,
         adverts: consumerAdverts
         );
       // exception will be handled later
