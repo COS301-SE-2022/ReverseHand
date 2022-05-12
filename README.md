@@ -42,3 +42,8 @@ I am a third year Computer Science student specialising in Data Science. \
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lastrucci01)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/richard-lastrucci-9a63211a3/)
 
+## Alexander
+![image](https://github-readme-stats.vercel.app/api?username=Alexander-Muendesi) \
+A final year Computer Science student with a keen interest in mobile development and web development. I am one who also enjoys doing the design part of Software Development, including things like domain modelling and architectural design. My biggest strength and weakness is I do not give up. I will keep pushing to achieve the goal regardless of how long it may take. \
+[![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alexander-Muendesi)
+[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/alexander-muendesi-b8842523a/)
