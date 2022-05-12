@@ -1,8 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-// import 'package:redux/redux.dart'; // uncommment when tests are implemented
+import 'package:redux_comp/app_state.dart';
 
 void main() {
-  test("Mock test does nothing", () {
-    expect(true, true);
+  test("Checks to make sure store was properlly intialized", () {
+    AppState store = AppState.mock();
+    expect(store,
+        const AppState(id: "1234567890", username: "TestName", adverts: []));
   });
 }

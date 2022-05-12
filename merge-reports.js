@@ -18,7 +18,7 @@ const getLcovFiles = function (src) {
   console.log(files)
   
   const mergedReport = files.reduce((mergedReport, currFile) => mergedReport += fs.readFileSync(currFile), '');
-  const mergedFile = path.resolve('tools/lcov.info');
+  const mergedFile = path.resolve('lcov.info');
   
   // remove old merged file
   if (fs.existsSync(mergedFile)) {
