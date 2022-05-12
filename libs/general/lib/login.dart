@@ -3,20 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/consumer.dart';
 
-class Login extends StatelessWidget {
-  final Store<AppState> store;
-  const Login({Key? key, required this.store}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoginPage(
-        store: store,
-      ),
-    );
-  }
-}
-
 class LoginPage extends StatefulWidget {
   final Store<AppState> store;
   const LoginPage({Key? key, required this.store}) : super(key: key);
@@ -26,6 +12,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -49,19 +45,21 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: TextField(
-                    decoration: InputDecoration(
+                    controller: emailController,
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(), labelText: 'Email'),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(
+                Padding(
+                  padding: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 15, bottom: 15),
                   child: TextField(
+                    controller: passwordController,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(), labelText: 'Password'),
                   ),
                 ),
@@ -74,7 +72,9 @@ class _LoginPageState extends State<LoginPage> {
                   child: StoreConnector<AppState, VoidCallback>(
                     converter: (store) {
                       return () => store.dispatch(
-                          LoginAction("tes_consumer@mail.com", "test"));
+                          LoginAction(
+                            emailController.value.text, 
+                            passwordController.value.text));
                     },
                     builder: (context, callback) {
                       return TextButton(
