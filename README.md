@@ -8,15 +8,28 @@
 # Cache Money - ReverseHand
 ![logo-readme](https://user-images.githubusercontent.com/83949715/168036007-b6e2d8b3-f17b-4f3d-b664-e024118fdf36.png)
 
-<div class="img-container"> 
-  <img height="60px" src="https://user-images.githubusercontent.com/83949715/168064805-34d473b7-d845-4740-a9a0-a7a754725a85.png" /> <br/> <br/>
+  <p align="center">
+    🎥
+    <a href="https://github.com/COS301-SE-2022/The-Au-Pair/">CacheMoney-Demo1</a>
+    | 📝
+    <a href="https://docs.google.com/document/d/18CSPDD1SnMIpAknKGA97uaO6s_-WgM7UnW_6i9DhmC4/edit?usp=sharing">SRS Documentation</a>
+    | 📋
+    <a href="https://github.com/COS301-SE-2022/The-Au-Pair/projects/1">Project Board</a>
+    | 🌐
+    <a href="https://github.com/COS301-SE-2022/The-Au-Pair/">Wiki</a>
+  </p>   <br />   <br />
+
+<div class="img-container" align="center"> 
+  <img height="50px" src="https://user-images.githubusercontent.com/83949715/168064805-34d473b7-d845-4740-a9a0-a7a754725a85.png" /> <br/> <br/>
 </div>
+<div align= "center"> 
 ReverseHand is a mobile application that was created with the vision of helping to reduce any power imbalances that consumers may face when seeking trade services. To achieve this, the mobile application allows consumers to make their needs for services known in the form of job listings, where tradesmen are able to place bids in order to be chosen and hired.
+</div>
 
 <br/> <br/>
 
 <div class="img-container" align="center"> 
-  <img align="left" height="61.5px" src="https://user-images.githubusercontent.com/83949715/168104816-2c4f91a7-7da7-49ca-b210-7d83be12fbbb.png" /> <br/> <br/> <br/>
+  <img height="52px" src="https://user-images.githubusercontent.com/83949715/168104816-2c4f91a7-7da7-49ca-b210-7d83be12fbbb.png" /> <br/> <br/> <br/>
 </div>
 
 ![image](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
@@ -27,17 +40,9 @@ ReverseHand is a mobile application that was created with the vision of helping 
 
 <br/> <br/>
 
-<div class="img-container" align="center"> 
-  <img align="left" height="59px" src="https://user-images.githubusercontent.com/83949715/168105170-80cbae1a-ed8d-47f6-ae7b-cdbf910171a3.png" /> <br/> <br/><br/>
- </div> 
-  SRS LINK
-  PROJECT BOARD
-  VIDEO DEMO
-  
-  <br/> <br/>
 
 <div class="img-container" align="center"> 
-  <img align="left" height="62px" src="https://user-images.githubusercontent.com/83949715/168105259-31d067d9-c3d5-4e5b-8e58-17109a453927.png" /> <br/> <br/>
+  <img height="51px" src="https://user-images.githubusercontent.com/83949715/168105259-31d067d9-c3d5-4e5b-8e58-17109a453927.png" /> <br/> <br/>
 </div>
 
 <div markdown="1">
@@ -141,7 +146,7 @@ ReverseHand is a mobile application that was created with the vision of helping 
 <br/> <br/>
 
 <div class="img-container" align="center"> 
-  <img align="left" height="60.5px" src="https://user-images.githubusercontent.com/83949715/168105328-66046520-4c23-4f75-a8d1-02035aff07e2.png" /> <br/> <br/>
+  <img height="50px" src="https://user-images.githubusercontent.com/83949715/168105328-66046520-4c23-4f75-a8d1-02035aff07e2.png" /> <br/> <br/>
 </div>
 
 
