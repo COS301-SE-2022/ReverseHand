@@ -23,35 +23,41 @@ class JobListings extends StatelessWidget {
             children: adverts.map((advert) => JobListing(store: store, advert: advert)).toList()
           ),
         ),
-        const Padding(
-          padding:
-              EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.center,
-            child: Container(
-              height: 60,
-              width: 80,
-              decoration: BoxDecoration(
-                  color: const Color.fromRGBO(132, 169, 140, 1),
-                  borderRadius: BorderRadius.circular(30)),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => JobCreation(store: store)));
-                },
-                child: const Text(
-                  '+',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            height: 60,
+            width: 80,
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(132, 169, 140, 1),
+                borderRadius: BorderRadius.circular(30)),
+            child: TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(132, 169, 140, 1)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  )
+                )
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => JobCreation(store: store)));
+              },
+              child: const Text(
+                '+',
+                style: TextStyle(color: Colors.white, fontSize: 25),
               ),
             ),
           ),
         ),
-      ] 
+        const Padding(
+        padding:
+            EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+        ),
+      ]   
     );
   }
 }
@@ -71,7 +77,7 @@ class JobListing extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => ConsumerDetails(store: store)));
+                builder: (_) => ConsumerDetails(store: store, advert: advert)));
       },
       child: Card(
         color: const Color.fromRGBO(53, 79, 82, 1),
@@ -84,14 +90,13 @@ class JobListing extends StatelessWidget {
             ListTile(
               title: Text(
                 advert!.title ?? "Title: null",
-                // ignore: prefer_const_constructors  
-                style: TextStyle(fontSize: 25.0, color: Colors.white),
+                style: const TextStyle(fontSize: 25.0, color: Colors.white),
               ),
               subtitle:  Text(
                 advert!.description ?? "Description: null",
-                // ignore: prefer_const_constructors
-                style: TextStyle(fontSize: 15.0, color: Colors.white),
+                style: const TextStyle(fontSize: 15.0, color: Colors.white),
               ),
+              //!!!DO NOT REMOVE COMMENTS//TO BE IMPLEMENTED!!!
               // trailing: Text(
               //   '2 days ago',
               //   style: TextStyle(
