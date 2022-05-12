@@ -10,7 +10,7 @@
 
   <p align="center">
     🎥
-    <a href="">CacheMoney-Demo1</a>
+    <a href="https://drive.google.com/file/d/19QPdKOJYpkuIWU2AzhOgUYOry-I__beV/view?usp=sharing">CacheMoney-Demo1</a>
     | 📝
     <a href="https://drive.google.com/file/d/1yrFzSa0Ur2J5dhRUHC9R6qRWBA_aOYh6/view?usp=sharing">SRS Documentation</a>
     | 📋
@@ -151,5 +151,12 @@ ReverseHand is a mobile application that was created with the vision of helping 
   <img height="50px" src="https://user-images.githubusercontent.com/83949715/168105328-66046520-4c23-4f75-a8d1-02035aff07e2.png" /> <br/> <br/>
 </div>
 
-> Michael add stuff here for example <br/>
-`nx run app:run`
+- Install Flutter
+- Install XCode and/or Android Studio
+- In the root directory run `npm i`
+- Install the amplify cli
+- Navigate to the libs/amplify
+- Pull the latest amplify code
+- Launcha simulator or connect your personal device
+- Navigate back to the root directory and run `nx run app:run`
+- If you would like to run tests instead run `npx nx run-many --target=test --all` to run all tests
