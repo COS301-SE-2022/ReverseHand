@@ -82,7 +82,7 @@ ReverseHand is a mobile application that was created with the vision of helping 
 
     <p>
        I am a third year Computer Science student specialising in Data
-       Science.
+       Science. Will pull an all nighter if neccessary, just need coffee :)
     </p>
     
 ![image](https://github-readme-stats.vercel.app/api?username=lastrucci01)
