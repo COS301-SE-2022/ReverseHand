@@ -17,6 +17,9 @@ dependencies:
   redux_comp: 
     path: '../redux_comp'
 
+  amplify:
+   path: '../amplify'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
