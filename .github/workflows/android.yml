@@ -1,4 +1,4 @@
-name: Android Test and Analyse
+name: Test and Analyse
 
 on:
   workflow_call:
@@ -81,34 +81,29 @@ jobs:
         run: npx affected --target=analyze --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
    
     #Test all which uses no cache
-      - name: Test all
+      - name: Analyze and execute tests
         if: inputs.test == 'all'
         run: |
           npx nx run-many --target=test --all --skip-nx-cache --parallel
           npx nx run-many --target=analyze --all --skip-nx-cache --parallel
 
-      - name: Build app bundle
-        if: inputs.test == 'all_build'
+      - name: Run tests only to generate coverage with help of bash script
+        if: inputs.test == 'coverage'
         run: |
           node execute_script.js
           npx nx run-many --target=test --all --skip-nx-cache --parallel
-          npx nx run app:buildAppbundle
 
     #merge the lcov files
       - name: Merge codecov reports
-        if: inputs.test == 'all_build'
+        if: inputs.test == 'coverage'
         run: node merge-reports.js
 
     #send merged file to codecov
       - uses: codecov/codecov-action@v2
-        if: inputs.test == 'all_build' 
+        if: inputs.test == 'coverage' 
         with:
           # Organization codecov token to be placed below
           token: ${{ secrets.CODECOV_TOKEN }}
           files: lcov.info
-      # - name: Create Downloadable
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: appbundle
-      #     path: build/app/outputs/bundle/release
+     
 
