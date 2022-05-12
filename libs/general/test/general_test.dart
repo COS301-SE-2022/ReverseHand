@@ -12,7 +12,7 @@ void main() {
   testWidgets(
       "Testing the login class to see if it holds exactly Login page widget",
       (WidgetTester tester) async {
-    await tester.pumpWidget(Login(store: store));
+    await tester.pumpWidget(LoginPage(store: store));
 
     final page = find.byType(LoginPage);
     expect(page, findsOneWidget);

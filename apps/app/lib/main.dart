@@ -7,7 +7,7 @@ import 'package:redux_comp/redux_comp.dart';
 void main() {
   // setting up redux
   final store = Store<AppState>(initialState: AppState.initial());
-  runApp(Login(
+  runApp(LoginPage(
     store: store,
   ));
 }
