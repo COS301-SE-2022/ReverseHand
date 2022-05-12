@@ -5,22 +5,36 @@
 <img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/COS301-SE-2022/ReverseHand">
 [![codecov](https://codecov.io/gh/COS301-SE-2022/ReverseHand/branch/develop/graph/badge.svg?token=FP6940JI0D)](https://codecov.io/gh/COS301-SE-2022/ReverseHand)
 
-# ReverseHand - Cache Money
+# Cache Money - ReverseHand
 ![logo-readme](https://user-images.githubusercontent.com/83949715/168036007-b6e2d8b3-f17b-4f3d-b664-e024118fdf36.png)
 
+<div class="img-container"> 
+  <img height="60px" src="https://user-images.githubusercontent.com/83949715/168064805-34d473b7-d845-4740-a9a0-a7a754725a85.png" /> <br/> <br/>
+</div>
 
 ReverseHand is a mobile application that was created with the vision of helping to reduce any power imbalances that consumers may face when seeking trade services. To achieve this, the mobile application allows consumers to make their needs for services known in the form of job listings, where tradesmen are able to place bids in order to be chosen and hired.
 
+<div class="img-container" align="center"> 
+  <img align="left" height="61.5px" src="https://user-images.githubusercontent.com/83949715/168104816-2c4f91a7-7da7-49ca-b210-7d83be12fbbb.png" /> <br/> <br/> <br/>
+</div>
 
-
-## Technologies
 ![image](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
 ![image](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
 ![image](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)
 ![image](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![image](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 
-## Team
+<div class="img-container" align="center"> 
+  <img align="left" height="59px" src="https://user-images.githubusercontent.com/83949715/168105170-80cbae1a-ed8d-47f6-ae7b-cdbf910171a3.png" /> <br/> <br/><br/>
+ </div> 
+  SRS LINK
+  PROJECT BOARD
+  VIDEO DEMO
+
+<div class="img-container" align="center"> 
+  <img align="left" height="62px" src="https://user-images.githubusercontent.com/83949715/168105259-31d067d9-c3d5-4e5b-8e58-17109a453927.png" /> <br/> <br/>
+</div>
+
 <div markdown="1">
     <h4>Michael</h4>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168027847-824880cd-cb00-4574-8b0e-aaace03f23bb.png" /> 
@@ -117,4 +131,10 @@ ReverseHand is a mobile application that was created with the vision of helping 
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alexander-Muendesi)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/alexander-muendesi-b8842523a/)
 </div>
+
+<div class="img-container" align="center"> 
+  <img align="left" height="60.5px" src="https://user-images.githubusercontent.com/83949715/168105328-66046520-4c23-4f75-a8d1-02035aff07e2.png" /> <br/> <br/>
+</div>
+
+
 
