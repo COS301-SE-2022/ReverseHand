@@ -24,7 +24,7 @@ class ConsumerListings extends StatelessWidget {
             builder: (context, adverts) {
               return JobListings(store: store, adverts: adverts);
             },
-          )
+          ),
         ),
       ),
     );

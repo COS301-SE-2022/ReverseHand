@@ -3,6 +3,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 
+import '../pages/create_new_job.dart';
 import '../pages/job_details.dart';
 
 class JobListings extends StatelessWidget {
@@ -15,35 +16,43 @@ class JobListings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: adverts.map((advert) => JobListing(store: store, advert: advert)).toList(),
+    return Column(
+      children: [
+        Expanded(
+          child: ListView(
+            children: adverts.map((advert) => JobListing(store: store, advert: advert)).toList()
+          ),
+        ),
+        const Padding(
+          padding:
+              EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+        ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.center,
+            child: Container(
+              height: 60,
+              width: 80,
+              decoration: BoxDecoration(
+                  color: const Color.fromRGBO(132, 169, 140, 1),
+                  borderRadius: BorderRadius.circular(30)),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => JobCreation(store: store)));
+                },
+                child: const Text(
+                  '+',
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ] 
     );
-    // const Padding(
-    //       padding:
-    //           EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-    //     ),
-    //     Align(
-    //       alignment: Alignment.bottomCenter,
-    //       child: Container(
-    //         height: 60,
-    //         width: 80,
-    //         decoration: BoxDecoration(
-    //             color: const Color.fromRGBO(132, 169, 140, 1),
-    //             borderRadius: BorderRadius.circular(30)),
-    //         child: TextButton(
-    //           onPressed: () {
-    //             Navigator.push(
-    //                 context,
-    //                 MaterialPageRoute(
-    //                     builder: (_) => JobCreation(store: store)));
-    //           },
-    //           child: const Text(
-    //             '+',
-    //             style: TextStyle(color: Colors.white, fontSize: 25),
-    //           ),
-    //         ),
-    //       ),
-    //     );
   }
 }
 

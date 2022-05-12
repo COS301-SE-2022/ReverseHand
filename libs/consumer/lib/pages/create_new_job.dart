@@ -38,7 +38,6 @@ class JobCreation extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: 15.0, right: 15.0, top: 15, bottom: 15),
                 child: TextField(
-                  obscureText: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Title'),
                 ),
@@ -47,7 +46,6 @@ class JobCreation extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: 15.0, right: 15.0, top: 15, bottom: 15),
                 child: TextField(
-                  obscureText: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Description'),
                 ),
@@ -56,7 +54,6 @@ class JobCreation extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: 15.0, right: 15.0, top: 15, bottom: 15),
                 child: TextField(
-                  obscureText: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Location'),
                 ),
@@ -65,7 +62,6 @@ class JobCreation extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: 15.0, right: 15.0, top: 15, bottom: 15),
                 child: TextField(
-                  obscureText: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Date'),
                 ),
