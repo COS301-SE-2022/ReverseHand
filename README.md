@@ -60,13 +60,14 @@ ReverseHand is a mobile application that was created with the vision of helping 
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029309-96dff534-e326-49eb-b1d3-12f77b53cd9a.png" /> 
 
     <p>
-      I am a final year BSc Information and Knowledge Systems student,
-      majoring in Software Development, with a keen interest in computer
-      security, and frontend development and design. My strengths lie in
-      my creativity and communication skills and I am consistently
-      working towards bettering myself as an individual and a programmer.
-      I am hard-working and a team player and can't wait to see where the
-      world of IT leads me.
+       I am a final year BSc Information and Knowledge Systems
+       student, majoring in Software Development, with a keen
+       interest in computer security, and frontend development
+       and design. My strengths lie in my creativity and
+       communication skills and I am consistently working
+       towards bettering myself as an individual and a
+       programmer.I am hard-working and a team player
+       and can't wait to see where the world of IT leads me.
     </p>
     
 ![image](https://github-readme-stats.vercel.app/api?username=caaaramia)
