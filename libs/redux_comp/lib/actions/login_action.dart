@@ -19,7 +19,7 @@ class LoginAction extends ReduxAction<AppState> {
 
       final response = await Amplify.API.query(request: request).response;
 
-      return state.replace(name: response.data!.items[0]!.name);
+      return state.replace(id: response.data!.items[0]!.id, username: response.data!.items[0]!.email);
       // exception will be handled later
     } catch (e) {
       return state;
