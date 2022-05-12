@@ -33,7 +33,7 @@ ReverseHand is a mobile application that was created with the vision of helping 
       optimizing solutions.
     </p>
     
-![image](https://github-readme-stats.vercel.app/api?username=MichaelDuPlessis&theme=chartreuse-dark)
+![image](https://github-readme-stats.vercel.app/api?username=MichaelDuPlessis&theme=slateorange)
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MichaelDuPlessis)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/michael-du-plessis-6a0740239/)
@@ -52,7 +52,7 @@ ReverseHand is a mobile application that was created with the vision of helping 
       myself with a professional attitude.
     </p>
     
-![image](https://github-readme-stats.vercel.app/api?username=arlo216)
+![image](https://github-readme-stats.vercel.app/api?username=arlo216&theme=slateorange)
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arlo216)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/charlotte-van-zyl-19769420a/)
@@ -73,7 +73,7 @@ ReverseHand is a mobile application that was created with the vision of helping 
        and can't wait to see where the world of IT leads me.
     </p>
     
-![image](https://github-readme-stats.vercel.app/api?username=caaaramia)
+![image](https://github-readme-stats.vercel.app/api?username=caaaramia&theme=slateorange)
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/caaaramia)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/cara-grobler-984820239/)
@@ -84,12 +84,16 @@ ReverseHand is a mobile application that was created with the vision of helping 
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029371-915564ae-73a0-4026-a47f-f7ec0c9ea688.png" /> 
 
     <p>
-       I am a third year Computer Science student specialising in Data
-       Science. Will pull an all nighter if neccessary, just need
-       coffee :)
+       I am a 3rd year Computer Science student specialising in Data
+       Science. I am by no means the best programmer, but I make up
+       for it in good people skills and a strong determination to
+       succeed - I will pull an all nighter if necessary, provided I
+       have enough coffee 🙂 
+       I hope to pursue a career in data science as I like the overlap
+       of computer science, business and statistics.
     </p>
     
-![image](https://github-readme-stats.vercel.app/api?username=lastrucci01)
+![image](https://github-readme-stats.vercel.app/api?username=lastrucci01&theme=slateorange)
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lastrucci01)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/richard-lastrucci-9a63211a3/)
@@ -108,7 +112,7 @@ ReverseHand is a mobile application that was created with the vision of helping 
        pushing to achieve the goal regardless of how long it may take.
     </p>
     
-![image](https://github-readme-stats.vercel.app/api?username=Alexander-Muendesi)
+![image](https://github-readme-stats.vercel.app/api?username=Alexander-Muendesi&theme=slateorange)
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alexander-Muendesi)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/alexander-muendesi-b8842523a/)
