@@ -10,13 +10,13 @@
 
   <p align="center">
     🎥
-    <a href="https://github.com/COS301-SE-2022/The-Au-Pair/">CacheMoney-Demo1</a>
+    <a href="">CacheMoney-Demo1</a>
     | 📝
-    <a href="https://docs.google.com/document/d/18CSPDD1SnMIpAknKGA97uaO6s_-WgM7UnW_6i9DhmC4/edit?usp=sharing">SRS Documentation</a>
+    <a href="">SRS Documentation</a>
     | 📋
-    <a href="https://github.com/COS301-SE-2022/The-Au-Pair/projects/1">Project Board</a>
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/projects/1">Project Board</a>
     | 🌐
-    <a href="https://github.com/COS301-SE-2022/The-Au-Pair/">Wiki</a>
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki</a>
   </p>   <br />   <br />
 
 <div class="img-container" align="center"> 
@@ -32,11 +32,13 @@ ReverseHand is a mobile application that was created with the vision of helping 
   <img height="52px" src="https://user-images.githubusercontent.com/83949715/168104816-2c4f91a7-7da7-49ca-b210-7d83be12fbbb.png" /> <br/> <br/> <br/>
 </div>
 
-![image](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
-![image](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
-![image](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)
-![image](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
-![image](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+<div class="img-container" align="center"> 
+   <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" />
+   <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" />
+   <img src="https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white" />
+   <img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" />
+   <img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" />  
+</div>
 
 <br/> <br/>
 
