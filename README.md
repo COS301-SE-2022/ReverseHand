@@ -11,8 +11,9 @@
 <div class="img-container"> 
   <img height="60px" src="https://user-images.githubusercontent.com/83949715/168064805-34d473b7-d845-4740-a9a0-a7a754725a85.png" /> <br/> <br/>
 </div>
-
 ReverseHand is a mobile application that was created with the vision of helping to reduce any power imbalances that consumers may face when seeking trade services. To achieve this, the mobile application allows consumers to make their needs for services known in the form of job listings, where tradesmen are able to place bids in order to be chosen and hired.
+
+<br/> <br/>
 
 <div class="img-container" align="center"> 
   <img align="left" height="61.5px" src="https://user-images.githubusercontent.com/83949715/168104816-2c4f91a7-7da7-49ca-b210-7d83be12fbbb.png" /> <br/> <br/> <br/>
@@ -24,20 +25,25 @@ ReverseHand is a mobile application that was created with the vision of helping 
 ![image](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![image](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 
+<br/> <br/>
+
 <div class="img-container" align="center"> 
   <img align="left" height="59px" src="https://user-images.githubusercontent.com/83949715/168105170-80cbae1a-ed8d-47f6-ae7b-cdbf910171a3.png" /> <br/> <br/><br/>
  </div> 
   SRS LINK
   PROJECT BOARD
   VIDEO DEMO
+  
+  <br/> <br/>
 
 <div class="img-container" align="center"> 
   <img align="left" height="62px" src="https://user-images.githubusercontent.com/83949715/168105259-31d067d9-c3d5-4e5b-8e58-17109a453927.png" /> <br/> <br/>
 </div>
 
 <div markdown="1">
-    <h4>Michael</h4>
+    <h1>Michael Du Plessis</h1>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168027847-824880cd-cb00-4574-8b0e-aaace03f23bb.png" /> 
+
 
     <p>
       I am a third year computer science student who is passionate about
@@ -51,10 +57,10 @@ ReverseHand is a mobile application that was created with the vision of helping 
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MichaelDuPlessis)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/michael-du-plessis-6a0740239/)
-</div>
+</div> <br/> <br/>
 
 <div markdown="1">
-    <h4>Charlotte</h4>
+    <h1>Charlotte van Zyl</h1>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029217-fec38b94-4280-44c1-ac03-fca0c29c1f55.png" /> 
 
     <p>
@@ -70,10 +76,10 @@ ReverseHand is a mobile application that was created with the vision of helping 
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arlo216)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/charlotte-van-zyl-19769420a/)
-</div>
+</div> <br/> <br/>
 
 <div markdown="1">
-    <h4>Cara</h4>
+    <h1>Cara Grobler</h1>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029309-96dff534-e326-49eb-b1d3-12f77b53cd9a.png" /> 
 
     <p>
@@ -91,10 +97,10 @@ ReverseHand is a mobile application that was created with the vision of helping 
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/caaaramia)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/cara-grobler-984820239/)
-</div>
+</div> <br/> <br/>
 
 <div markdown="1">
-    <h4>Richard</h4>
+    <h1>Richard Lastrucci</h1>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029371-915564ae-73a0-4026-a47f-f7ec0c9ea688.png" /> 
 
     <p>
@@ -111,10 +117,10 @@ ReverseHand is a mobile application that was created with the vision of helping 
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lastrucci01)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/richard-lastrucci-9a63211a3/)
-</div>
+</div> <br/> <br/>
 
 <div markdown="1">
-    <h4>Alexander</h4>
+    <h1>Alexander Muendesi</h1>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029446-a6fc863c-b504-49cc-bb93-2bdebbd4ee0f.png" /> 
 
     <p>
@@ -131,6 +137,8 @@ ReverseHand is a mobile application that was created with the vision of helping 
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alexander-Muendesi)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/alexander-muendesi-b8842523a/)
 </div>
+
+<br/> <br/>
 
 <div class="img-container" align="center"> 
   <img align="left" height="60.5px" src="https://user-images.githubusercontent.com/83949715/168105328-66046520-4c23-4f75-a8d1-02035aff07e2.png" /> <br/> <br/>
