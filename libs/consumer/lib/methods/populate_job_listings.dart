@@ -77,7 +77,7 @@ class JobListing extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => ConsumerDetails(store: store)));
+                builder: (_) => ConsumerDetails(store: store, advert: advert)));
       },
       child: Card(
         color: const Color.fromRGBO(53, 79, 82, 1),
@@ -90,13 +90,11 @@ class JobListing extends StatelessWidget {
             ListTile(
               title: Text(
                 advert!.title ?? "Title: null",
-                // ignore: prefer_const_constructors  
-                style: TextStyle(fontSize: 25.0, color: Colors.white),
+                style: const TextStyle(fontSize: 25.0, color: Colors.white),
               ),
               subtitle:  Text(
                 advert!.description ?? "Description: null",
-                // ignore: prefer_const_constructors
-                style: TextStyle(fontSize: 15.0, color: Colors.white),
+                style: const TextStyle(fontSize: 15.0, color: Colors.white),
               ),
               //!!!DO NOT REMOVE COMMENTS//TO BE IMPLEMENTED!!!
               // trailing: Text(
