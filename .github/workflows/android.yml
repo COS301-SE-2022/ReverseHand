@@ -89,20 +89,23 @@ jobs:
 
       - name: Build app bundle
         if: inputs.test == 'all_build'
-        run: npx nx run app:buildAppbundle
+        run: |
+          node execute_script.js
+          npx nx run-many --target=test --all --skip-nx-cache --parallel
+          npx nx run app:buildAppbundle
 
     #merge the lcov files
       - name: Merge codecov reports
-        if: inputs.test == 'all'
+        if: inputs.test == 'all_build'
         run: node merge-reports.js
 
     #send merged file to codecov
       - uses: codecov/codecov-action@v2
-        if: inputs.test == 'all' 
+        if: inputs.test == 'all_build' 
         with:
           # Organization codecov token to be placed below
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./tools/lcov.info
+          files: lcov.info
       # - name: Create Downloadable
       #   uses: actions/upload-artifact@v2
       #   with:
