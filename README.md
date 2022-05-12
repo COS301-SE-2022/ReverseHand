@@ -6,6 +6,9 @@
 [![codecov](https://codecov.io/gh/COS301-SE-2022/ReverseHand/branch/develop/graph/badge.svg?token=FP6940JI0D)](https://codecov.io/gh/COS301-SE-2022/ReverseHand)
 
 # ReverseHand - Cache Money
+![logo-readme](https://user-images.githubusercontent.com/83949715/168036007-b6e2d8b3-f17b-4f3d-b664-e024118fdf36.png)
+
+
 ReverseHand is a mobile application that was created with the vision of helping to reduce any power imbalances that consumers may face when seeking trade services. To achieve this, the mobile application allows consumers to make their needs for services known in the form of job listings, where tradesmen are able to place bids in order to be chosen and hired.
 
 
