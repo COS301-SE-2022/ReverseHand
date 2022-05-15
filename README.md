@@ -12,7 +12,7 @@
     🎥
     <a href="https://drive.google.com/file/d/19QPdKOJYpkuIWU2AzhOgUYOry-I__beV/view?usp=sharing">CacheMoney-Demo1</a>
     | 📝
-    <a href="https://drive.google.com/file/d/1yrFzSa0Ur2J5dhRUHC9R6qRWBA_aOYh6/view?usp=sharing">SRS Documentation</a>
+    <a href="https://drive.google.com/file/d/1OLeDUd0gvCwrvpCdfkIVaZ8S64F_9DUM/view?usp=sharing">SRS Documentation</a>
     | 📋
     <a href="https://github.com/COS301-SE-2022/ReverseHand/projects/1">Project Board</a>
     | 🌐
