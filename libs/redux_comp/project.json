@@ -79,6 +79,13 @@
         "command": "flutter build ipa",
         "cwd": "libs/redux_comp"
       }
+    },
+    "action": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "python3 create_action.py",
+        "cwd": "libs/redux_comp"
+      }
     }
   },
   "tags": []

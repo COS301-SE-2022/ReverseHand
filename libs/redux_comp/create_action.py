@@ -17,7 +17,7 @@ class_name += "Action"
 print("Creating {}".format(class_name))
 
 # writing to file
-with open("./libs/redux_comp/lib/actions/{}".format(filename), "w") as file:
+with open("./lib/actions/{}".format(filename), "w") as file:
     lines = [
         "import '../app_state.dart';\n",
         "import 'package:amplify_flutter/amplify_flutter.dart';\n",
