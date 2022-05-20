@@ -1,6 +1,7 @@
 import 'package:amplify/amplify.dart';
-// import 'package:amplify/amplifyconfiguration.dart'; // uncomment this after pull
+import 'package:amplify/amplifyconfiguration.dart'; // uncomment this after pull
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/widgets.dart';
@@ -51,6 +52,7 @@ class AppState {
 
       // add Amplify plugins
       await Amplify.addPlugins([
+        AmplifyAuthCognito(),
         _api,
         _ds,
       ]);
@@ -58,8 +60,8 @@ class AppState {
       // configure Amplify
       //
       // note that Amplify cannot be configured more than once!
-      // await Amplify.configure(
-      //     amplifyconfig); // uncomment this line and add your amplify config package
+      await Amplify.configure(
+          amplifyconfig); // uncomment this line and add your amplify config package
     } catch (e) {
       // error handling can be improved for sure!
       // but this will be sufficient for the purposes of this tutorial
