@@ -1,6 +1,7 @@
 import 'package:amplify/amplify.dart';
 // import 'package:amplify/amplifyconfiguration.dart'; // uncomment this after pull
 import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/widgets.dart';
@@ -48,11 +49,13 @@ class AppState {
       final AmplifyAPI _api = AmplifyAPI(modelProvider: ModelProvider.instance);
       final AmplifyDataStore _ds =
           AmplifyDataStore(modelProvider: ModelProvider.instance);
+      final AmplifyAuthCognito _authPlugin = AmplifyAuthCognito();
 
       // add Amplify plugins
       await Amplify.addPlugins([
         _api,
         _ds,
+        _authPlugin,
       ]);
 
       // configure Amplify
