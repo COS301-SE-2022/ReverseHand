@@ -53,6 +53,7 @@ class AppState {
 
       // add Amplify plugins
       await Amplify.addPlugins([
+        AmplifyAuthCognito(),
         _api,
         _ds,
         _authPlugin,
