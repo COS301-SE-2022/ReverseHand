@@ -1,4 +1,4 @@
 library amplify;
 
 export './models/ModelProvider.dart';
-export './amplifyconfiguration.dart';
+// export './amplifyconfiguration.dart';
