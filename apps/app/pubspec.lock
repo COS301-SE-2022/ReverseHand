@@ -29,6 +29,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.5"
+  amplify_auth_cognito:
+    dependency: transitive
+    description:
+      name: amplify_auth_cognito
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.5"
+  amplify_auth_cognito_android:
+    dependency: transitive
+    description:
+      name: amplify_auth_cognito_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.5"
+  amplify_auth_cognito_ios:
+    dependency: transitive
+    description:
+      name: amplify_auth_cognito_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.5"
   amplify_auth_plugin_interface:
     dependency: transitive
     description:
