@@ -13,7 +13,7 @@ class RegisterUserAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     try {
       Map<CognitoUserAttributeKey, String> userAttributes = {
-        CognitoUserAttributeKey.email: 'email@domain.com',
+        CognitoUserAttributeKey.email: username,
         // additional attributes as needed
       };
       SignUpResult res = await Amplify.Auth.signUp(
@@ -26,11 +26,9 @@ class RegisterUserAction extends ReduxAction<AppState> {
       return state.replace(
         username: username,
         signUpComplete: res.isSignUpComplete
-        );
+      );
     } on AuthException catch (e) {
-      if (kDebugMode) {
-        print(e.message);
-      }
+      print(e.message);
       return state;
     }
     /*on ApiException catch (e) {
