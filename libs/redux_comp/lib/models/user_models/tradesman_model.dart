@@ -3,5 +3,5 @@ import 'package:redux_comp/models/user_model.dart';
 
 @immutable
 class TradesmanModel extends UserModel {
-  TradesmanModel(String name) : super(name);
+  TradesmanModel(String name, String email) : super(name, email);
 }
