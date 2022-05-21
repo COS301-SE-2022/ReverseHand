@@ -1,7 +1,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/foundation.dart';
 import '../app_state.dart';
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;
@@ -27,8 +26,9 @@ class RegisterUserAction extends ReduxAction<AppState> {
         username: username,
         signUpComplete: res.isSignUpComplete
       );
-    } on AuthException catch (e) {
-      print(e.message);
+    // } on AuthException catch (e) {
+    } catch (e) {
+      // print(e);
       return state;
     }
     /*on ApiException catch (e) {

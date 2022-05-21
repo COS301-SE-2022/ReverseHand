@@ -21,8 +21,9 @@ class VerifyUserAction extends ReduxAction<AppState> {
       username: username,
       signUpComplete: res.isSignUpComplete
     );
-} on AuthException catch (e) {
-  print(e.message);
-}
+// } on AuthException catch (e) {
+    } catch (e) {
+      return state;
+    }
   }
 }
