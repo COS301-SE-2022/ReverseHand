@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       store: widget.store,
       child: MaterialApp(
         home: Scaffold(
-          backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
+          //backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
           appBar: AppBar(
             title: const Text("Login Page"),
             backgroundColor: const Color.fromRGBO(82, 121, 111, 1),
