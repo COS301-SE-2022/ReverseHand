@@ -13,6 +13,7 @@ class Login extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: <Widget>[
+          
           //*****************Top circle blur**********************
           Container(
             width: 100,
@@ -33,11 +34,56 @@ class Login extends StatelessWidget {
             ),
           ),
           //******************************************************* */
-
+        
           //*****************Divider********************************
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //*****************LOGO**********************
+              Center(
+                child: Text("LOGO HERE"),
+              ),
+              //********************************************
+
+              //*****************email**********************
+              TextFormField(
+                initialValue: 'enter email',
+                decoration: const InputDecoration(
+                  labelText: 'email',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.mail,
+                  ),
+                ),
+              ),
+              //********************************************
+
+              //*****************password**********************
+              TextFormField(
+                initialValue: 'enter password',
+                decoration: const InputDecoration(
+                  labelText: 'password',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(
+                    Icons.lock_outline,
+                  ),
+                  suffixIcon: Icon(
+                    Icons.remove_red_eye,
+                  ),
+                ),
+              ),
+              //********************************************
+
+              //*****************login swipe**********************
+              TextButton(
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor,),
+                ),
+                onPressed: () { },
+                child: Text('Login'),
+              ),
+              //********************************************
+
               SizedBox(
                 height: 20,
                 child: Row(
@@ -45,18 +91,18 @@ class Login extends StatelessWidget {
                     Expanded(
                       child: Divider(
                         height: 150,
-                        thickness: 2,
+                        thickness: 0.5,
                         indent: 15,
-                        endIndent: 15,
+                        endIndent: 10,
                         color: Colors.white,
                       ),
                     ),
-                    Text("OR"),
+                    Text("or"),
                     Expanded(
                       child: Divider(
                         height: 150,
-                        thickness: 2,
-                        indent: 15,
+                        thickness: 0.5,
+                        indent: 10,
                         endIndent: 15,
                         color: Colors.white,
                       ),
@@ -64,32 +110,6 @@ class Login extends StatelessWidget {
                   ],
                 ),
               ),
-              // Row(
-              //   children: const [
-              //     Divider(
-              //       height: 150,
-              //       thickness: 2,
-              //       indent: 15,
-              //       endIndent: 220,
-              //       color: Colors.black,
-              //     ),
-              //   ],
-              // ),
-
-              // Column(
-              //   children: const [
-              //     Text(
-              //       'or',
-              //       style: TextStyle(
-              //         fontFamily: 'Segoe UI',
-              //         fontSize: 17,
-              //         color: Color(0xfff5fffa),
-              //       ),
-              //       softWrap: false,
-              //     ),
-              //   ],
-              // ),
-
               //******************************************************* */
 
               //*****************Sign up Link**********************
@@ -118,8 +138,30 @@ class Login extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
+           
+          //******************************************************* */
+
+          //*******************sign in with text************************** */
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  SizedBox(
+                    height: 20,
+                    child: Text(
+                      'or sign in with:',
+                      style: TextStyle(
+                        fontFamily: 'Segoe UI',
+                        fontSize: 12,
+                        color: Color(0x7df5fffa),
+                      ),
+                      softWrap: false,
+                    ),
+                  ),
+                ],
+              ),
+           ],
           ),
+
           //******************************************************* */
 
           //*****************Bottom circle blur**********************
