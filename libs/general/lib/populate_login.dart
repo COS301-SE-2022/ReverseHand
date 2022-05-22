@@ -17,13 +17,13 @@ class Login extends StatelessWidget {
           Container(
             width: 100,
             height: 100,
-            margin: EdgeInsets.all(0),
-            padding: EdgeInsets.only(top: 2),
+            margin: const EdgeInsets.all(0),
+            padding: const EdgeInsets.only(top: 2),
             alignment: Alignment.topLeft,
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius:
-              BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
+                  const BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
             ),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
@@ -32,67 +32,94 @@ class Login extends StatelessWidget {
               ),
             ),
           ),
-          //******************************************************* */   
+          //******************************************************* */
 
           //*****************Divider********************************
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Stack(
-                children: const [
-                  Divider(
-                    height: 150,
-                    thickness: 2,
-                    indent: 15,
-                    endIndent: 220,
-                    color: Colors.black,
+              SizedBox(
+                height: 20,
+                child: Row(
+                  children: const [
+                    Expanded(
+                      child: Divider(
+                        height: 150,
+                        thickness: 2,
+                        indent: 15,
+                        endIndent: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text("OR"),
+                    Expanded(
+                      child: Divider(
+                        height: 150,
+                        thickness: 2,
+                        indent: 15,
+                        endIndent: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Row(
+              //   children: const [
+              //     Divider(
+              //       height: 150,
+              //       thickness: 2,
+              //       indent: 15,
+              //       endIndent: 220,
+              //       color: Colors.black,
+              //     ),
+              //   ],
+              // ),
+
+              // Column(
+              //   children: const [
+              //     Text(
+              //       'or',
+              //       style: TextStyle(
+              //         fontFamily: 'Segoe UI',
+              //         fontSize: 17,
+              //         color: Color(0xfff5fffa),
+              //       ),
+              //       softWrap: false,
+              //     ),
+              //   ],
+              // ),
+
+              //******************************************************* */
+
+              //*****************Sign up Link**********************
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Center(
+                    child: Text(
+                      'Don\'t have an account? ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Color(0xfff5fffa),
+                      ),
+                      softWrap: false,
+                    ),
                   ),
-                  // Column(
-                  //   children: const [
-                  //     Text(
-                  //       'or',
-                  //       style: TextStyle(
-                  //         fontFamily: 'Segoe UI',
-                  //         fontSize: 17,
-                  //         color: Color(0xfff5fffa),
-                  //       ),
-                  //       softWrap: false,
-                  //     ),
-                  //   ],
-                  // ),
+                  Center(
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      softWrap: false,
+                    ),
+                  ),
                 ],
               ),
-            
-          //******************************************************* */  
-
-          //*****************Sign up Link**********************
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Center(
-                  child: Text(
-                    'Don\'t have an account? ',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Color(0xfff5fffa),
-                    ),
-                    softWrap: false,
-                  ),
-                ),
-                Center(
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    softWrap: false,
-                  ),   
-                ),
-              ],
-            ),
-          ],
-        ),
+            ],
+          ),
           //******************************************************* */
 
           //*****************Bottom circle blur**********************
@@ -115,7 +142,6 @@ class Login extends StatelessWidget {
           //   ),
           // ),
           //******************************************************* */
-        
         ],
       ),
     );
