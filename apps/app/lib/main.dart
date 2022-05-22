@@ -5,9 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 void main() {
-  // setting up redux
+   runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
   final store = Store<AppState>(initialState: AppState.initial());
-  runApp(LoginPage(
-    store: store,
-  ));
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: LoginPage(store: store),
+      theme: CustomTheme.darkTheme,
+    );
+  }
 }
