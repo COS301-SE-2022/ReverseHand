@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(store: store),
       theme: CustomTheme.darkTheme,
+      home: LoginPage(store: store),
     );
   }
 }
