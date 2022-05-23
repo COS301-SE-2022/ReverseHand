@@ -5,4 +5,9 @@ import 'package:redux_comp/models/user_model.dart';
 class TradesmanModel extends UserModel {
   const TradesmanModel(String id, String name, String email)
       : super(id, name, email);
+
+  @override
+  UserModel replace() {
+    throw UnimplementedError();
+  }
 }
