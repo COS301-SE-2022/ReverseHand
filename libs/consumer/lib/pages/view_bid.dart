@@ -4,6 +4,8 @@ import 'package:redux_comp/app_state.dart';
 
 import 'package:general/widgets/card.dart';
 import 'package:general/widgets/divider.dart';
+import 'package:general/widgets/textbox.dart';
+import 'package:general/widgets/button.dart';
 
 class Bids extends StatelessWidget {
   final Store<AppState> store;
@@ -24,7 +26,14 @@ class Bids extends StatelessWidget {
                 padding: EdgeInsets.all(20),
               ),
               CardWidget(),
-              DividerWidget(),
+              // DividerWidget(),
+              // Text("BIDS",
+              //     style: TextStyle(
+              //       fontSize: 30,
+              //       color: Colors.white,
+              //     )), //move to job_details and then delete
+              Padding(padding: EdgeInsets.all(10)),
+              ButtonWidget()
             ])),
       ),
     );
