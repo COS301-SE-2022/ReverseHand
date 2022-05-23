@@ -1,0 +1,50 @@
+type Review @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  rating: Int
+  comment: String
+  tradesman: ID
+  date_created: String
+  advert: ArchivedAdvert @hasOne
+}
+
+type ArchivedBid @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  tradesman: ID
+  date_created: AWSDate
+  date_closed: AWSDate
+  price_lower: Int
+  price_upper: Int
+  advert: ID! @index(name: "byArchivedAdvert")
+  accepted_bid: ArchivedAdvert @belongsTo
+}
+
+type ArchivedAdvert @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String
+  description: String
+  customer: ID
+  location: AWSJSON
+  date_created: AWSDate
+  date_closed: AWSDate
+  bids: [ArchivedBid] @hasMany(indexName: "byArchivedAdvert", fields: ["id"])
+}
+
+type Advert @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  bids: [Bid] @hasMany(indexName: "byAdvert", fields: ["id"])
+  title: String
+  description: String
+  customer: ID
+  location: AWSJSON
+  date_created: AWSDate
+}
+
+type Bid @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  tradesman: ID
+  advert: ID! @index(name: "byAdvert")
+  price_lower: Int
+  price_upper: Int
+  date_created: AWSDate
+}
+ 

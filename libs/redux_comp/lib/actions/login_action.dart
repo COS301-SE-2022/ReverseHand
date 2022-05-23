@@ -15,19 +15,18 @@ class LoginAction extends ReduxAction<AppState> {
 
   LoginAction(this.email, this.password);
 
-    @override
-    Future<AppState?> reduce() async {
-      try {
+  @override
+  Future<AppState?> reduce() async {
+    try {
       await Amplify.Auth.signIn(
-      username: email,
-      password: password,
-    );
-    String id = (await Amplify.Auth.getCurrentUser()).userId;
-    return state.replace(
-      user: ConsumerModel(id, email, email)
-    );
+        username: email,
+        password: password,
+      );
+
+      String id = (await Amplify.Auth.getCurrentUser()).userId;
+      return state.replace(user: ConsumerModel(id, email, email));
       // exception will be handled later
-    //} on AuthException catch (e) {
+      //} on AuthException catch (e) {
     } catch (e) {
       return state;
     }
