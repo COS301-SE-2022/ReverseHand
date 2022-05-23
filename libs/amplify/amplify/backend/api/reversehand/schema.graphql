@@ -31,4 +31,5 @@ type Bid @model @auth(rules: [{allow: public}]) {
   accepted: Boolean
   advertID: ID! @index(name: "byAdvert")
   tradesmanID: ID! @index(name: "byTradesman")
-} 
+}
+ 
