@@ -88,8 +88,9 @@ class _LoginPageState extends State<LoginPage> {
                               builder: (_) => ConsumerListings(
                                 store: widget.store,
                               ),
-                              // builder: (_) =>
-                              //     Bids(store: widget.store), //testing Bids - will remove once integration is doen
+                              // builder: (_) => Bids(
+                              //     store: widget
+                              //         .store), //testing Bids - will remove once integration is done
                             ),
                           );
                         },

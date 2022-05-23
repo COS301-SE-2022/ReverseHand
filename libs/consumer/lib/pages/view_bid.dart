@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 
 import 'package:general/widgets/card.dart';
+import 'package:general/widgets/divider.dart';
 
 class Bids extends StatelessWidget {
   final Store<AppState> store;
@@ -14,12 +15,17 @@ class Bids extends StatelessWidget {
       store: store,
       child: MaterialApp(
         home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Bid'),
-            backgroundColor: const Color.fromRGBO(82, 121, 111, 1),
-          ),
-          body: const CardWidget(),
-        ),
+            // appBar: AppBar(
+            //   title: const Text('Bid'),
+            // ),
+            backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
+            body: Column(children: const <Widget>[
+              Padding(
+                padding: EdgeInsets.all(20),
+              ),
+              CardWidget(),
+              DividerWidget(),
+            ])),
       ),
     );
   }
