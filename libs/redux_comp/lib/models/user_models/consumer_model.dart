@@ -13,6 +13,7 @@ class ConsumerModel extends UserModel {
     return _bids;
   }
 
+  @override
   UserModel replace({
     String? id,
     String? name,

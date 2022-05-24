@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CardWidget extends StatelessWidget {
-  String titleText = "Default"; // const CardWidget({Key? key
+  final String titleText; // const CardWidget({Key? key
   // }) : super(key: key);
-  CardWidget(String text1, {Key? key}) : super(key: key) {
-    titleText = text1;
-  }
+  const CardWidget({Key? key, required this.titleText}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +20,9 @@ class CardWidget extends StatelessWidget {
           ListTile(
             title: Text(
               titleText,
-              style: TextStyle(fontSize: 25.0, color: Colors.white),
+              style: const TextStyle(fontSize: 25.0, color: Colors.white),
             ),
-            subtitle: Text(
+            subtitle: const Text(
               "test2",
               style: TextStyle(fontSize: 15.0, color: Colors.white),
             ),
