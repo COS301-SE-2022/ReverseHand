@@ -25,17 +25,18 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 
-/** This is an auto generated class representing the Advert type in your schema. */
+/** This is an auto generated class representing the ArchivedAdvert type in your schema. */
 @immutable
-class Advert extends Model {
-  static const classType = const _AdvertModelType();
+class ArchivedAdvert extends Model {
+  static const classType = const _ArchivedAdvertModelType();
   final String id;
-  final List<Bid>? _bids;
   final String? _title;
   final String? _description;
   final String? _customer;
   final String? _location;
   final TemporalDate? _date_created;
+  final TemporalDate? _date_closed;
+  final List<ArchivedBid>? _bids;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -45,10 +46,6 @@ class Advert extends Model {
   @override
   String getId() {
     return id;
-  }
-  
-  List<Bid>? get bids {
-    return _bids;
   }
   
   String? get title {
@@ -71,6 +68,14 @@ class Advert extends Model {
     return _date_created;
   }
   
+  TemporalDate? get date_closed {
+    return _date_closed;
+  }
+  
+  List<ArchivedBid>? get bids {
+    return _bids;
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -79,17 +84,18 @@ class Advert extends Model {
     return _updatedAt;
   }
   
-  const Advert._internal({required this.id, bids, title, description, customer, location, date_created, createdAt, updatedAt}): _bids = bids, _title = title, _description = description, _customer = customer, _location = location, _date_created = date_created, _createdAt = createdAt, _updatedAt = updatedAt;
+  const ArchivedAdvert._internal({required this.id, title, description, customer, location, date_created, date_closed, bids, createdAt, updatedAt}): _title = title, _description = description, _customer = customer, _location = location, _date_created = date_created, _date_closed = date_closed, _bids = bids, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Advert({String? id, List<Bid>? bids, String? title, String? description, String? customer, String? location, TemporalDate? date_created}) {
-    return Advert._internal(
+  factory ArchivedAdvert({String? id, String? title, String? description, String? customer, String? location, TemporalDate? date_created, TemporalDate? date_closed, List<ArchivedBid>? bids}) {
+    return ArchivedAdvert._internal(
       id: id == null ? UUID.getUUID() : id,
-      bids: bids != null ? List<Bid>.unmodifiable(bids) : bids,
       title: title,
       description: description,
       customer: customer,
       location: location,
-      date_created: date_created);
+      date_created: date_created,
+      date_closed: date_closed,
+      bids: bids != null ? List<ArchivedBid>.unmodifiable(bids) : bids);
   }
   
   bool equals(Object other) {
@@ -99,14 +105,15 @@ class Advert extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Advert &&
+    return other is ArchivedAdvert &&
       id == other.id &&
-      DeepCollectionEquality().equals(_bids, other._bids) &&
       _title == other._title &&
       _description == other._description &&
       _customer == other._customer &&
       _location == other._location &&
-      _date_created == other._date_created;
+      _date_created == other._date_created &&
+      _date_closed == other._date_closed &&
+      DeepCollectionEquality().equals(_bids, other._bids);
   }
   
   @override
@@ -116,13 +123,14 @@ class Advert extends Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Advert {");
+    buffer.write("ArchivedAdvert {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("customer=" + "$_customer" + ", ");
     buffer.write("location=" + "$_location" + ", ");
     buffer.write("date_created=" + (_date_created != null ? _date_created!.format() : "null") + ", ");
+    buffer.write("date_closed=" + (_date_closed != null ? _date_closed!.format() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -130,49 +138,52 @@ class Advert extends Model {
     return buffer.toString();
   }
   
-  Advert copyWith({String? id, List<Bid>? bids, String? title, String? description, String? customer, String? location, TemporalDate? date_created}) {
-    return Advert._internal(
+  ArchivedAdvert copyWith({String? id, String? title, String? description, String? customer, String? location, TemporalDate? date_created, TemporalDate? date_closed, List<ArchivedBid>? bids}) {
+    return ArchivedAdvert._internal(
       id: id ?? this.id,
-      bids: bids ?? this.bids,
       title: title ?? this.title,
       description: description ?? this.description,
       customer: customer ?? this.customer,
       location: location ?? this.location,
-      date_created: date_created ?? this.date_created);
+      date_created: date_created ?? this.date_created,
+      date_closed: date_closed ?? this.date_closed,
+      bids: bids ?? this.bids);
   }
   
-  Advert.fromJson(Map<String, dynamic> json)  
+  ArchivedAdvert.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _bids = json['bids'] is List
-        ? (json['bids'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => Bid.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
-        : null,
       _title = json['title'],
       _description = json['description'],
       _customer = json['customer'],
       _location = json['location'],
       _date_created = json['date_created'] != null ? TemporalDate.fromString(json['date_created']) : null,
+      _date_closed = json['date_closed'] != null ? TemporalDate.fromString(json['date_closed']) : null,
+      _bids = json['bids'] is List
+        ? (json['bids'] as List)
+          .where((e) => e?['serializedData'] != null)
+          .map((e) => ArchivedBid.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
+          .toList()
+        : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'bids': _bids?.map((Bid? e) => e?.toJson()).toList(), 'title': _title, 'description': _description, 'customer': _customer, 'location': _location, 'date_created': _date_created?.format(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'title': _title, 'description': _description, 'customer': _customer, 'location': _location, 'date_created': _date_created?.format(), 'date_closed': _date_closed?.format(), 'bids': _bids?.map((ArchivedBid? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
-  static final QueryField ID = QueryField(fieldName: "advert.id");
-  static final QueryField BIDS = QueryField(
-    fieldName: "bids",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (Bid).toString()));
+  static final QueryField ID = QueryField(fieldName: "archivedAdvert.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField CUSTOMER = QueryField(fieldName: "customer");
   static final QueryField LOCATION = QueryField(fieldName: "location");
   static final QueryField DATE_CREATED = QueryField(fieldName: "date_created");
+  static final QueryField DATE_CLOSED = QueryField(fieldName: "date_closed");
+  static final QueryField BIDS = QueryField(
+    fieldName: "bids",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (ArchivedBid).toString()));
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Advert";
-    modelSchemaDefinition.pluralName = "Adverts";
+    modelSchemaDefinition.name = "ArchivedAdvert";
+    modelSchemaDefinition.pluralName = "ArchivedAdverts";
     
     modelSchemaDefinition.authRules = [
       AuthRule(
@@ -187,41 +198,47 @@ class Advert extends Model {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: Advert.BIDS,
-      isRequired: false,
-      ofModelName: (Bid).toString(),
-      associatedKey: Bid.ADVERT
-    ));
-    
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Advert.TITLE,
+      key: ArchivedAdvert.TITLE,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Advert.DESCRIPTION,
+      key: ArchivedAdvert.DESCRIPTION,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Advert.CUSTOMER,
+      key: ArchivedAdvert.CUSTOMER,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Advert.LOCATION,
+      key: ArchivedAdvert.LOCATION,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Advert.DATE_CREATED,
+      key: ArchivedAdvert.DATE_CREATED,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.date)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: ArchivedAdvert.DATE_CLOSED,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.date)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+      key: ArchivedAdvert.BIDS,
+      isRequired: false,
+      ofModelName: (ArchivedBid).toString(),
+      associatedKey: ArchivedBid.ADVERT
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -240,11 +257,11 @@ class Advert extends Model {
   });
 }
 
-class _AdvertModelType extends ModelType<Advert> {
-  const _AdvertModelType();
+class _ArchivedAdvertModelType extends ModelType<ArchivedAdvert> {
+  const _ArchivedAdvertModelType();
   
   @override
-  Advert fromJson(Map<String, dynamic> jsonData) {
-    return Advert.fromJson(jsonData);
+  ArchivedAdvert fromJson(Map<String, dynamic> jsonData) {
+    return ArchivedAdvert.fromJson(jsonData);
   }
 }
