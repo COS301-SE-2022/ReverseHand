@@ -44,35 +44,79 @@ class Login extends StatelessWidget {
                 child: Text("LOGO HERE"),
               ),
               //********************************************
+           
+              //*****************form**********************
+              Container(
+                margin: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: <Widget>[
+                    //*****************email**********************
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'email',
+                        labelStyle: TextStyle(color: Colors.orange),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        enabledBorder: OutlineInputBorder( 
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.orange,
+                            width: 2.0,
+                          ),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.mail_outline_rounded,
+                        ),
+                      ),
+                    ),
+                    //*******************************************
+                      const Divider(
+                        height: 15,
+                        thickness: 0.5,
+                        indent: 15,
+                        endIndent: 10,
+                        color: Colors.transparent,
+                      ),
+                    //*****************password**********************
+                   TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'password',
+                        labelStyle: TextStyle(color: Colors.orange),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        enabledBorder: OutlineInputBorder( 
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.orange,
+                            width: 2.0,
+                          ),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.lock_outline,
+                        ),
+                      ),
+                    ),
+                    //********************************************
 
-              //*****************email**********************
-              TextFormField(
-                initialValue: 'enter email',
-                decoration: const InputDecoration(
-                  labelText: 'email',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(
-                    Icons.mail,
-                  ),
-                ),
+                  ],
+                 ),
               ),
               //********************************************
 
-              //*****************password**********************
-              TextFormField(
-                initialValue: 'enter password',
-                decoration: const InputDecoration(
-                  labelText: 'password',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(
-                    Icons.lock_outline,
-                  ),
-                  suffixIcon: Icon(
-                    Icons.remove_red_eye,
-                  ),
-                ),
-              ),
-              //********************************************
 
               //*****************login swipe**********************
               TextButton(
