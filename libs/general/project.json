@@ -79,6 +79,13 @@
         "command": "flutter build ipa",
         "cwd": "libs/general"
       }
+    },
+    "get": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter pub get",
+        "cwd": "libs/general"
+      }
     }
   },
   "tags": []
