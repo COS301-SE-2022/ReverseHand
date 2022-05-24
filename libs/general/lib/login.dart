@@ -2,7 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:consumer/consumer.dart';
+// import 'package:consumer/consumer.dart';
 import 'package:general/populate_login.dart';
 
 class LoginPage extends StatefulWidget {

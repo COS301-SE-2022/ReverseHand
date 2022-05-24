@@ -1,4 +1,4 @@
-import 'package:amplify/models/Advert.dart';
+// import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
@@ -40,7 +40,7 @@ class Login extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //*****************LOGO**********************
-              Center(
+              const Center(
                 child: Text("LOGO HERE"),
               ),
               //********************************************
@@ -55,23 +55,23 @@ class Login extends StatelessWidget {
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: 'email',
-                        labelStyle: TextStyle(color: Colors.orange),
+                        labelStyle: const TextStyle(color: Colors.orange),
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         enabledBorder: OutlineInputBorder( 
                           borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.orange,
                             width: 2.0,
                           ),
                         ),
-                        prefixIcon: Icon(
+                        prefixIcon: const Icon(
                           Icons.mail_outline_rounded,
                         ),
                       ),
@@ -89,23 +89,23 @@ class Login extends StatelessWidget {
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'password',
-                        labelStyle: TextStyle(color: Colors.orange),
+                        labelStyle: const TextStyle(color: Colors.orange),
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         enabledBorder: OutlineInputBorder( 
                           borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.orange,
                             width: 2.0,
                           ),
                         ),
-                        prefixIcon: Icon(
+                        prefixIcon: const Icon(
                           Icons.lock_outline,
                         ),
                       ),
@@ -124,7 +124,7 @@ class Login extends StatelessWidget {
                   foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor,),
                 ),
                 onPressed: () { },
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
               //********************************************
 
