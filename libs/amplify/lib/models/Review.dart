@@ -19,22 +19,24 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
+import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 
-/** This is an auto generated class representing the Bid type in your schema. */
+/** This is an auto generated class representing the Review type in your schema. */
 @immutable
-class Bid extends Model {
-  static const classType = const _BidModelType();
+class Review extends Model {
+  static const classType = const _ReviewModelType();
   final String id;
+  final int? _rating;
+  final String? _comment;
   final String? _tradesman;
-  final String? _advert;
-  final int? _price_lower;
-  final int? _price_upper;
-  final TemporalDate? _date_created;
+  final String? _date_created;
+  final ArchivedAdvert? _advert;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
+  final String? _reviewAdvertId;
 
   @override
   getInstanceType() => classType;
@@ -44,33 +46,24 @@ class Bid extends Model {
     return id;
   }
   
+  int? get rating {
+    return _rating;
+  }
+  
+  String? get comment {
+    return _comment;
+  }
+  
   String? get tradesman {
     return _tradesman;
   }
   
-  String get advert {
-    try {
-      return _advert!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
-  }
-  
-  int? get price_lower {
-    return _price_lower;
-  }
-  
-  int? get price_upper {
-    return _price_upper;
-  }
-  
-  TemporalDate? get date_created {
+  String? get date_created {
     return _date_created;
+  }
+  
+  ArchivedAdvert? get advert {
+    return _advert;
   }
   
   TemporalDateTime? get createdAt {
@@ -81,16 +74,21 @@ class Bid extends Model {
     return _updatedAt;
   }
   
-  const Bid._internal({required this.id, tradesman, required advert, price_lower, price_upper, date_created, createdAt, updatedAt}): _tradesman = tradesman, _advert = advert, _price_lower = price_lower, _price_upper = price_upper, _date_created = date_created, _createdAt = createdAt, _updatedAt = updatedAt;
+  String? get reviewAdvertId {
+    return _reviewAdvertId;
+  }
   
-  factory Bid({String? id, String? tradesman, required String advert, int? price_lower, int? price_upper, TemporalDate? date_created}) {
-    return Bid._internal(
+  const Review._internal({required this.id, rating, comment, tradesman, date_created, advert, createdAt, updatedAt, reviewAdvertId}): _rating = rating, _comment = comment, _tradesman = tradesman, _date_created = date_created, _advert = advert, _createdAt = createdAt, _updatedAt = updatedAt, _reviewAdvertId = reviewAdvertId;
+  
+  factory Review({String? id, int? rating, String? comment, String? tradesman, String? date_created, ArchivedAdvert? advert, String? reviewAdvertId}) {
+    return Review._internal(
       id: id == null ? UUID.getUUID() : id,
+      rating: rating,
+      comment: comment,
       tradesman: tradesman,
+      date_created: date_created,
       advert: advert,
-      price_lower: price_lower,
-      price_upper: price_upper,
-      date_created: date_created);
+      reviewAdvertId: reviewAdvertId);
   }
   
   bool equals(Object other) {
@@ -100,13 +98,14 @@ class Bid extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Bid &&
+    return other is Review &&
       id == other.id &&
+      _rating == other._rating &&
+      _comment == other._comment &&
       _tradesman == other._tradesman &&
+      _date_created == other._date_created &&
       _advert == other._advert &&
-      _price_lower == other._price_lower &&
-      _price_upper == other._price_upper &&
-      _date_created == other._date_created;
+      _reviewAdvertId == other._reviewAdvertId;
   }
   
   @override
@@ -116,53 +115,60 @@ class Bid extends Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Bid {");
+    buffer.write("Review {");
     buffer.write("id=" + "$id" + ", ");
+    buffer.write("rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
+    buffer.write("comment=" + "$_comment" + ", ");
     buffer.write("tradesman=" + "$_tradesman" + ", ");
-    buffer.write("advert=" + "$_advert" + ", ");
-    buffer.write("price_lower=" + (_price_lower != null ? _price_lower!.toString() : "null") + ", ");
-    buffer.write("price_upper=" + (_price_upper != null ? _price_upper!.toString() : "null") + ", ");
-    buffer.write("date_created=" + (_date_created != null ? _date_created!.format() : "null") + ", ");
+    buffer.write("date_created=" + "$_date_created" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
+    buffer.write("reviewAdvertId=" + "$_reviewAdvertId");
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  Bid copyWith({String? id, String? tradesman, String? advert, int? price_lower, int? price_upper, TemporalDate? date_created}) {
-    return Bid._internal(
+  Review copyWith({String? id, int? rating, String? comment, String? tradesman, String? date_created, ArchivedAdvert? advert, String? reviewAdvertId}) {
+    return Review._internal(
       id: id ?? this.id,
+      rating: rating ?? this.rating,
+      comment: comment ?? this.comment,
       tradesman: tradesman ?? this.tradesman,
+      date_created: date_created ?? this.date_created,
       advert: advert ?? this.advert,
-      price_lower: price_lower ?? this.price_lower,
-      price_upper: price_upper ?? this.price_upper,
-      date_created: date_created ?? this.date_created);
+      reviewAdvertId: reviewAdvertId ?? this.reviewAdvertId);
   }
   
-  Bid.fromJson(Map<String, dynamic> json)  
+  Review.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
+      _rating = (json['rating'] as num?)?.toInt(),
+      _comment = json['comment'],
       _tradesman = json['tradesman'],
-      _advert = json['advert'],
-      _price_lower = (json['price_lower'] as num?)?.toInt(),
-      _price_upper = (json['price_upper'] as num?)?.toInt(),
-      _date_created = json['date_created'] != null ? TemporalDate.fromString(json['date_created']) : null,
+      _date_created = json['date_created'],
+      _advert = json['advert']?['serializedData'] != null
+        ? ArchivedAdvert.fromJson(new Map<String, dynamic>.from(json['advert']['serializedData']))
+        : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null,
+      _reviewAdvertId = json['reviewAdvertId'];
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'tradesman': _tradesman, 'advert': _advert, 'price_lower': _price_lower, 'price_upper': _price_upper, 'date_created': _date_created?.format(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'rating': _rating, 'comment': _comment, 'tradesman': _tradesman, 'date_created': _date_created, 'advert': _advert?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format(), 'reviewAdvertId': _reviewAdvertId
   };
 
-  static final QueryField ID = QueryField(fieldName: "bid.id");
+  static final QueryField ID = QueryField(fieldName: "review.id");
+  static final QueryField RATING = QueryField(fieldName: "rating");
+  static final QueryField COMMENT = QueryField(fieldName: "comment");
   static final QueryField TRADESMAN = QueryField(fieldName: "tradesman");
-  static final QueryField ADVERT = QueryField(fieldName: "advert");
-  static final QueryField PRICE_LOWER = QueryField(fieldName: "price_lower");
-  static final QueryField PRICE_UPPER = QueryField(fieldName: "price_upper");
   static final QueryField DATE_CREATED = QueryField(fieldName: "date_created");
+  static final QueryField ADVERT = QueryField(
+    fieldName: "advert",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (ArchivedAdvert).toString()));
+  static final QueryField REVIEWADVERTID = QueryField(fieldName: "reviewAdvertId");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Bid";
-    modelSchemaDefinition.pluralName = "Bids";
+    modelSchemaDefinition.name = "Review";
+    modelSchemaDefinition.pluralName = "Reviews";
     
     modelSchemaDefinition.authRules = [
       AuthRule(
@@ -178,33 +184,34 @@ class Bid extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Bid.TRADESMAN,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Bid.ADVERT,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Bid.PRICE_LOWER,
+      key: Review.RATING,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Bid.PRICE_UPPER,
+      key: Review.COMMENT,
       isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.int)
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Bid.DATE_CREATED,
+      key: Review.TRADESMAN,
       isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.date)
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Review.DATE_CREATED,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
+      key: Review.ADVERT,
+      isRequired: false,
+      ofModelName: (ArchivedAdvert).toString(),
+      associatedKey: ArchivedAdvert.ID
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -220,14 +227,20 @@ class Bid extends Model {
       isReadOnly: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Review.REVIEWADVERTID,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
   });
 }
 
-class _BidModelType extends ModelType<Bid> {
-  const _BidModelType();
+class _ReviewModelType extends ModelType<Review> {
+  const _ReviewModelType();
   
   @override
-  Bid fromJson(Map<String, dynamic> jsonData) {
-    return Bid.fromJson(jsonData);
+  Review fromJson(Map<String, dynamic> jsonData) {
+    return Review.fromJson(jsonData);
   }
 }

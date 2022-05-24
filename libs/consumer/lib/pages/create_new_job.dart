@@ -102,7 +102,7 @@ class _JobCreationState extends State<JobCreation> {
                       child: StoreConnector<AppState, VoidCallback>(
                         converter: (store) {
                           return () => store.dispatch(CreateAdvertAction(Advert(
-                              consumerID: store.state.user!.getId(),
+                              customer: store.state.user!.getId(),
                               title: titleController.value.text,
                               description: descrController.value.text)));
                         },
