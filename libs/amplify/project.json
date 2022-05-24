@@ -79,6 +79,20 @@
         "command": "flutter build ipa",
         "cwd": "libs/amplify"
       }
+    },
+    "get": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter pub get",
+        "cwd": "libs/amplify"
+      }
+    },
+    "amppull": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "amplify pull",
+        "cwd": "libs/amplify"
+      }
     }
   },
   "tags": []
