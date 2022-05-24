@@ -85,12 +85,12 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => ConsumerListings(
-                                store: widget.store,
-                              ),
-                              // builder: (_) => Bids(
-                              //     store: widget
-                              //         .store), //testing Bids - will remove once integration is done
+                              // builder: (_) => ConsumerListings(
+                              //   store: widget.store,
+                              // ),
+                              builder: (_) => Bids(
+                                  store: widget
+                                      .store), //testing Bids - will remove once integration is done
                             ),
                           );
                         },

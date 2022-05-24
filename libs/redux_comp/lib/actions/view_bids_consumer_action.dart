@@ -15,7 +15,7 @@ class ViewBidsConsumerAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     try {
       final request = ModelQueries.list<Bid>(Bid.classType,
-          where: Bid.ADVERTID.eq(_advertId));
+          where: Bid.ADVERT.eq(_advertId));
       final repsonse = await Amplify.API.query(request: request).response;
 
       List<Bid?>? nullBids = repsonse.data?.items;

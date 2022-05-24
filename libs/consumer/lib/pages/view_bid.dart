@@ -1,11 +1,12 @@
+import 'package:amplify/models/Bid.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/methods/populate_bid_details.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 
 import 'package:general/widgets/card.dart';
-import 'package:general/widgets/divider.dart';
-import 'package:general/widgets/textbox.dart';
 import 'package:general/widgets/button.dart';
+import 'package:redux_comp/models/user_models/consumer_model.dart';
 
 class Bids extends StatelessWidget {
   final Store<AppState> store;
@@ -17,24 +18,13 @@ class Bids extends StatelessWidget {
       store: store,
       child: MaterialApp(
         home: Scaffold(
-            // appBar: AppBar(
-            //   title: const Text('Bid'),
-            // ),
-            backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
-            body: Column(children: const <Widget>[
-              Padding(
-                padding: EdgeInsets.all(20),
-              ),
-              CardWidget(),
-              // DividerWidget(),
-              // Text("BIDS",
-              //     style: TextStyle(
-              //       fontSize: 30,
-              //       color: Colors.white,
-              //     )), //move to job_details and then delete
-              Padding(padding: EdgeInsets.all(10)),
-              ButtonWidget()
-            ])),
+            // body: StoreConnector<AppState, List<Bid>>(
+            //   converter: (store) => (store.state.user as ConsumerModel).getBids(),
+            //   builder: (context, bids) {
+            //     return BidDetails(store: store, adverts: adverts);
+            //   },
+            // ), //this must be implemented AFTER job_details are altered, do not delete
+            ),
       ),
     );
   }
