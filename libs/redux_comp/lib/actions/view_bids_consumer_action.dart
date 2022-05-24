@@ -27,7 +27,7 @@ class ViewBidsConsumerAction extends ReduxAction<AppState> {
 
       List<Bid> bids = [];
 
-      for (int i = 0; i < nullBids!.length; i++) {
+      for (int i = 0; i < nullBids.length; i++) {
         bids.add(nullBids[i]!);
       }
 
