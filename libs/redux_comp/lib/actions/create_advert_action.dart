@@ -13,7 +13,9 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     try {
       Advert ad = Advert(
-          id: advert.id, title: advert.title, description: advert.description);
+          customer: advert.customer,
+          title: advert.title,
+          description: advert.description);
       final request = ModelMutations.create(ad);
       final response = await Amplify.API.mutate(request: request).response;
 
