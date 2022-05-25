@@ -55,7 +55,7 @@ class Login extends StatelessWidget {
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: 'email',
-                        labelStyle: TextStyle(color: Colors.orange),
+                        labelStyle: TextStyle(color: Colors.white),
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         enabledBorder: OutlineInputBorder( 
                           borderRadius: BorderRadius.circular(30),
@@ -73,12 +73,13 @@ class Login extends StatelessWidget {
                         ),
                         prefixIcon: Icon(
                           Icons.mail_outline_rounded,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                     //*******************************************
                       const Divider(
-                        height: 15,
+                        height: 20,
                         thickness: 0.5,
                         indent: 15,
                         endIndent: 10,
@@ -89,7 +90,7 @@ class Login extends StatelessWidget {
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'password',
-                        labelStyle: TextStyle(color: Colors.orange),
+                        labelStyle: TextStyle(color: Colors.white),
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         enabledBorder: OutlineInputBorder( 
                           borderRadius: BorderRadius.circular(30),
@@ -107,6 +108,7 @@ class Login extends StatelessWidget {
                         ),
                         prefixIcon: Icon(
                           Icons.lock_outline,
+                           color: Colors.white,
                         ),
                       ),
                     ),
@@ -119,13 +121,42 @@ class Login extends StatelessWidget {
 
 
               //*****************login swipe**********************
-              TextButton(
-                style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor,),
-                ),
-                onPressed: () { },
-                child: Text('Login'),
-              ),
+              // Container(
+              //   width: MediaQuery.of(context).size.width,
+              //   child: Stack(
+              //     children: [
+              //       Container(
+              //         height: MediaQuery.of(context).size.height,
+              //         child: Image.asset('assets/image/swipe.png', fit: BoxFit.cover,),
+              //       ),
+              //       const Center(
+              //         child: Text('swipe to login', style: TextStyle(
+              //             fontSize: 70.0, 
+              //             fontWeight: FontWeight.w900, 
+              //             backgroundColor: Colors.white, 
+              //             color: Colors.black,
+              //             decorationStyle: TextDecorationStyle.solid,
+              //           ),
+              //         ),
+              //       ),
+              //       Builder(builder: (context) {
+              //         return Padding(
+              //           padding: EdgeInsets.all(8.0),
+              //           child: SlideAction(
+              //             innerColor: Color.black,
+              //             outerColor: Color.white,
+              //             sliderButtonicon. Icon(Icons.lock, color: Colors.white),
+              //             borderRadius: 16.0,
+              //             animationDuration: Duration(seconds: 1),
+              //             onSubmit: () {
+
+              //             },
+              //           ),
+              //         ),
+              //       }),
+              //     ],
+              //   ),
+              // ),
               //********************************************
 
               SizedBox(
