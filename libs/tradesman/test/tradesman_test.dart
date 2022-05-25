@@ -6,6 +6,7 @@ import 'package:tradesman/tradesman.dart';
 
 void main() {
   //test for TradesmanJobListings
+  WidgetsFlutterBinding.ensureInitialized();
   testWidgets("Testing TradesmanJobListings class",
       (WidgetTester tester) async {
     final store = Store<AppState>(initialState: AppState.mock());
