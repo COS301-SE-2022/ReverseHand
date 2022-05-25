@@ -5,8 +5,8 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/tradesman.dart';
 
 void main() {
-  //test for TradesmanJobListings
   WidgetsFlutterBinding.ensureInitialized();
+  //test for TradesmanJobListings
   testWidgets("Testing TradesmanJobListings class",
       (WidgetTester tester) async {
     final store = Store<AppState>(initialState: AppState.mock());
@@ -33,7 +33,7 @@ void main() {
       (WidgetTester tester) async {
     final store = Store<AppState>(initialState: AppState.mock());
     await tester.pumpWidget(TradesmanJobDetails(store: store));
-
+  
     //expect to find exactly one description in a job
     expect(find.widgetWithText(Scaffold, 'Description'), findsOneWidget);
 
