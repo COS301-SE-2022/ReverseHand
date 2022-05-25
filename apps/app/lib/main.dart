@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 void main() {
-   runApp(MyApp());
+   runApp(MyApp(store: Store<AppState>(initialState: AppState.initial())));
 }
 
 class MyApp extends StatelessWidget {
-  final store = Store<AppState>(initialState: AppState.initial());
+  final Store<AppState> store;
+
+  const MyApp({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
