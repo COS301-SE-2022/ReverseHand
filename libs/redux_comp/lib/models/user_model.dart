@@ -19,4 +19,6 @@ abstract class UserModel {
   String getEmail() {
     return _email;
   }
+
+  UserModel replace();
 }

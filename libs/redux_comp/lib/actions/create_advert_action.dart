@@ -3,6 +3,7 @@ import 'package:amplify_api/model_mutations.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../app_state.dart';
+
 class CreateAdvertAction extends ReduxAction<AppState> {
   final Advert advert;
 
@@ -11,11 +12,13 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     try {
-
-      Advert ad = Advert(customer: advert.customer, title: advert.title, description: advert.description);
+      Advert ad = Advert(
+          customer: advert.customer,
+          title: advert.title,
+          description: advert.description);
       final request = ModelMutations.create(ad);
       final response = await Amplify.API.mutate(request: request).response;
-      
+
       Advert? createdAd = response.data!;
       // if (createdAd == null) return state; //in future set warning in app state
       List<Advert> ads = [createdAd] + state.adverts;
