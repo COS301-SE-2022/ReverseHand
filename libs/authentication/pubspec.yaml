@@ -11,6 +11,20 @@ dependencies:
   flutter:
     sdk: flutter
 
+  async_redux: ^14.1.2
+
+  redux_comp:
+    path: '../../libs/redux_comp'
+  
+  consumer:
+    path: '../../libs/consumer'
+    
+  general:
+    path: '../../libs/general'
+
+  tradesman:
+    path: '../../libs/tradesman'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
