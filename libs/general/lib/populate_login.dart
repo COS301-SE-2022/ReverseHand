@@ -55,7 +55,7 @@ class Login extends StatelessWidget {
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: 'email',
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         enabledBorder: OutlineInputBorder( 
                           borderRadius: BorderRadius.circular(30),
@@ -90,7 +90,7 @@ class Login extends StatelessWidget {
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'password',
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         enabledBorder: OutlineInputBorder( 
                           borderRadius: BorderRadius.circular(30),
@@ -121,42 +121,29 @@ class Login extends StatelessWidget {
 
 
               //*****************login swipe**********************
-              // Container(
-              //   width: MediaQuery.of(context).size.width,
-              //   child: Stack(
-              //     children: [
-              //       Container(
-              //         height: MediaQuery.of(context).size.height,
-              //         child: Image.asset('assets/image/swipe.png', fit: BoxFit.cover,),
-              //       ),
-              //       const Center(
-              //         child: Text('swipe to login', style: TextStyle(
-              //             fontSize: 70.0, 
-              //             fontWeight: FontWeight.w900, 
-              //             backgroundColor: Colors.white, 
-              //             color: Colors.black,
-              //             decorationStyle: TextDecorationStyle.solid,
-              //           ),
-              //         ),
-              //       ),
-              //       Builder(builder: (context) {
-              //         return Padding(
-              //           padding: EdgeInsets.all(8.0),
-              //           child: SlideAction(
-              //             innerColor: Color.black,
-              //             outerColor: Color.white,
-              //             sliderButtonicon. Icon(Icons.lock, color: Colors.white),
-              //             borderRadius: 16.0,
-              //             animationDuration: Duration(seconds: 1),
-              //             onSubmit: () {
-
-              //             },
-              //           ),
-              //         ),
-              //       }),
-              //     ],
-              //   ),
-              // ),
+              SizedBox(
+                  width: 290,
+                  height: 90,
+                  child: Column(
+                  children: <Widget>[
+                    ElevatedButton(
+                      child: const Text('Login'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange,
+                        onPrimary: Colors.white,
+                        shadowColor: Colors.black,
+                        elevation: 9,
+                        textStyle: const TextStyle(fontSize: 20),
+                        minimumSize: const Size(400, 50),
+                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                      ),
+                      onPressed: () {
+                        
+                      },
+                    ),
+                  ],
+                  ),
+              ),
               //********************************************
 
               SizedBox(
