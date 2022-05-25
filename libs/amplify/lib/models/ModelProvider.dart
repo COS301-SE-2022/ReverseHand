@@ -21,20 +21,22 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'Advert.dart';
+import 'ArchivedAdvert.dart';
+import 'ArchivedBid.dart';
 import 'Bid.dart';
-import 'Consumer.dart';
-import 'Tradesman.dart';
+import 'Review.dart';
 
 export 'Advert.dart';
+export 'ArchivedAdvert.dart';
+export 'ArchivedBid.dart';
 export 'Bid.dart';
-export 'Consumer.dart';
-export 'Tradesman.dart';
+export 'Review.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "868dbf673a1a393d7bf21acd50221c1f";
+  String version = "f608886cad3318d4e68a3c1e0821a4bb";
   @override
-  List<ModelSchema> modelSchemas = [Advert.schema, Bid.schema, Consumer.schema, Tradesman.schema];
+  List<ModelSchema> modelSchemas = [Advert.schema, ArchivedAdvert.schema, ArchivedBid.schema, Bid.schema, Review.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [];
@@ -45,12 +47,14 @@ class ModelProvider implements ModelProviderInterface {
     switch(modelName) {
       case "Advert":
         return Advert.classType;
+      case "ArchivedAdvert":
+        return ArchivedAdvert.classType;
+      case "ArchivedBid":
+        return ArchivedBid.classType;
       case "Bid":
         return Bid.classType;
-      case "Consumer":
-        return Consumer.classType;
-      case "Tradesman":
-        return Tradesman.classType;
+      case "Review":
+        return Review.classType;
       default:
         throw Exception("Failed to find model in model provider for model name: " + modelName);
     }
