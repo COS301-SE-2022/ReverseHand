@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:redux_comp/redux_comp.dart';
 // import 'package:consumer/consumer.dart';
-import 'package:authentication/pages/populate_login.dart';
+import 'package:authentication/methods/populate_login.dart';
 
 class LoginPage extends StatefulWidget {
   final Store<AppState> store;
