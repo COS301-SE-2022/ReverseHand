@@ -71,22 +71,26 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(20)),
                   child: StoreConnector<AppState, VoidCallback>(
                     converter: (store) {
-                      return () => store.dispatch(
-                          LoginAction(
-                            emailController.value.text, 
-                            passwordController.value.text));
+                      return () => store.dispatch(LoginAction(
+                          emailController.value.text,
+                          passwordController.value.text));
                     },
                     builder: (context, callback) {
                       return TextButton(
-                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(82, 121, 111, 1))),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color.fromRGBO(82, 121, 111, 1))),
                         onPressed: () {
                           callback();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => ConsumerListings(
-                                store: widget.store,
-                              ),
+                              // builder: (_) => ConsumerListings(
+                              //   store: widget.store,
+                              // ),
+                              builder: (_) => Bids(
+                                  store: widget
+                                      .store), //testing Bids - will remove once integration is done
                             ),
                           );
                         },

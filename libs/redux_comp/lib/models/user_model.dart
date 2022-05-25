@@ -20,4 +20,10 @@ abstract class UserModel {
   String getEmail() {
     return _email;
   }
+
+  bool getConfrimed() {
+    return _confirmed;
+  }
+
+  UserModel replace();
 }
