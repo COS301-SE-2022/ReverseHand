@@ -32,7 +32,7 @@ void main() {
       (WidgetTester tester) async {
     final store = Store<AppState>(initialState: AppState.mock());
     await tester.pumpWidget(TradesmanJobDetails(store: store));
-
+  
     //expect to find exactly one description in a job
     expect(find.widgetWithText(Scaffold, 'Description'), findsOneWidget);
 
