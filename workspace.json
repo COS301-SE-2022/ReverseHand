@@ -7,7 +7,7 @@
     "general": "libs/general",
     "amplify": "libs/amplify",
     "tradesman": "libs/tradesman",
-    "consumer": "libs/consumer"
-
+    "consumer": "libs/consumer",
+    "authentication": "libs/authentication"
   }
 }
