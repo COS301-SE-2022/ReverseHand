@@ -5,7 +5,6 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/tradesman.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   //test for TradesmanJobListings
   testWidgets("Testing TradesmanJobListings class",
       (WidgetTester tester) async {
