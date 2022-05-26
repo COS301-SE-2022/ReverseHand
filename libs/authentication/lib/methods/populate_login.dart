@@ -59,7 +59,7 @@ class Login extends StatelessWidget {
                     //********************************************
                     TransparentDividerWidget(),
                     //*****************password**********************
-                    TextFieldWidget(label: 'email', obscure: true),
+                    TextFieldWidget(label: 'password', obscure: true),
                     //**********************************************
                   ],
                  ),
@@ -67,7 +67,7 @@ class Login extends StatelessWidget {
               //****************************************************
 
               //*****************login button**********************
-              const LongButtonWidget(text: "login"),
+              const LongButtonWidget(text: "Login"),
               //***************************************************
 
               //*****************"OR" divider"**********************
@@ -88,7 +88,7 @@ class Login extends StatelessWidget {
               //****************************************************** */
 
               //*****************Sign up Link**********************
-             const LinkWidget(text: "Sign Up"),
+             const LinkWidget(text1: "Don't have an account? ", text2: "Sign Up", link: "SignUp"),
            
               //******************************************************* */
               const Divider(
@@ -118,7 +118,6 @@ class Login extends StatelessWidget {
               ),
            ],
           ),
-
           //******************************************************* */
 
           //*****************Bottom circle blur**********************

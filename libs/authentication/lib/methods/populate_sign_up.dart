@@ -44,8 +44,16 @@ class SignUp extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //*****************LOGO*****************************
-              //to be fixed in coming days
+              //*****************heading*****************************
+              const Text(
+                'Sign Up',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  letterSpacing: 5,
+                  ),
+              ),
               //*************************************************
            
               //*****************form****************************
@@ -54,16 +62,29 @@ class SignUp extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: const <Widget>[
-                    //*****************email**********************
-                    TextFieldWidget(label: 'email', obscure: false),
+                    //currently only created for consumer sign-up
+                    //*****************name**********************
+                    TextFieldWidget(label: 'name', obscure: false),
                     //********************************************
                     TransparentDividerWidget(),
-                    //*****************password**********************
-                    TextFieldWidget(label: 'email', obscure: true),
+                    //*****************email**********************
+                    TextFieldWidget(label: 'email', obscure: false),
+                    //**********************************************
+                    TransparentDividerWidget(),
+                    //*****************cellphone**********************
+                    TextFieldWidget(label: 'cellphone', obscure: false),
+                    //**********************************************
+                    TransparentDividerWidget(),
+                    //*****************location**********************
+                    TextFieldWidget(label: 'location', obscure: false),
                     //**********************************************
                     TransparentDividerWidget(),
                     //*****************password**********************
-                    TextFieldWidget(label: 'email', obscure: true),
+                    TextFieldWidget(label: 'password', obscure: true),
+                    //**********************************************
+                    TransparentDividerWidget(),
+                    //*****************confirm password**********************
+                    TextFieldWidget(label: 'confirm password', obscure: true),
                     //**********************************************
                   ],
                  ),
@@ -71,12 +92,12 @@ class SignUp extends StatelessWidget {
               //****************************************************
 
               //*****************login button**********************
-              const LongButtonWidget(text: "sign up"),
+              const LongButtonWidget(text: "Sign Up"),
               //***************************************************
 
               //*****************"OR" divider"**********************
               SizedBox(
-                height: 50,
+                height: 30,
                 child: Row(
                   children: const [
                     Expanded(
@@ -91,8 +112,8 @@ class SignUp extends StatelessWidget {
               ),
               //****************************************************** */
 
-              //*****************Sign up Link**********************
-             const LinkWidget(text: "Sign In"),
+              //*****************Sign in Link**********************
+             const LinkWidget(text1: "Already have an account? ", text2: "Sign In", link: "Login"),
            
               //******************************************************* */
               const Divider(

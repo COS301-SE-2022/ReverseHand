@@ -27,10 +27,10 @@ class TextFieldWidget extends StatelessWidget {
             width: 2.0,
           ),
         ),
-        prefixIcon: const Icon(
-          Icons.mail_outline_rounded,
-          color: Colors.white,
-        ),
+        // prefixIcon: const Icon(
+        //   Icons.mail_outline_rounded,
+        //   color: Colors.white,
+        // ),
       ),
     );
   }
