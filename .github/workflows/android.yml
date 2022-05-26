@@ -85,7 +85,7 @@ jobs:
         if: inputs.test == 'all'
         run: |
           npx nx run-many --target=test --all --skip-nx-cache --parallel
-          npx nx run-many --target=analyze --all --skip-nx-cache --parallel
+          npx nx run-many --target=analyze --all --skip-nx-cache --parallel --exclude=[libs/amplify/amplify]
 
       - name: Run tests only to generate coverage with help of bash script
         if: inputs.test == 'coverage'
