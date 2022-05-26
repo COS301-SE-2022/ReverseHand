@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:redux_comp/redux_comp.dart';
+import '../methods/populate_sign_up.dart';
 
 class SignUpPage extends StatefulWidget {
   final Store<AppState> store;
@@ -17,7 +18,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return StoreProvider<AppState>(
       store: widget.store,
       child: MaterialApp(
-        //home: SignUp(store: widget.store),
+        home: SignUp(store: widget.store),
         theme: CustomTheme.darkTheme,
       ),
     );
