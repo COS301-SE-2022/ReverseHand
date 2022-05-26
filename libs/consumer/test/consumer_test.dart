@@ -48,9 +48,9 @@ void main() {
     expect(scaff, findsOneWidget);
 
     //AppBar must be a descendant of the Scaffhold
-    final _appbar = find.descendant(of: scaff, matching: find.byType(AppBar));
+    final appbar = find.descendant(of: scaff, matching: find.byType(AppBar));
     //expect to find exactly one appbar
-    expect(_appbar, findsOneWidget);
+    expect(appbar, findsOneWidget);
   });
 
   testWidgets(("Testing the Job Creation Class"), (WidgetTester tester) async {
