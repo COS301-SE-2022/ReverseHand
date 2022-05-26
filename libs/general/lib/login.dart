@@ -83,16 +83,13 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           callback();
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              // builder: (_) => ConsumerListings(
-                              //   store: widget.store,
-                              // ),
-                              builder: (_) => Bids(
-                                  store: widget
-                                      .store), //testing Bids - will remove once integration is done
-                            ),
-                          );
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ConsumerListings(
+                                  //ConsumerListings
+                                  store: widget.store,
+                                ),
+                              ));
                         },
                         child: const Text(
                           'Login',

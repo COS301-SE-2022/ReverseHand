@@ -15,7 +15,7 @@ class ButtonWidget extends StatelessWidget {
       child: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(
-          'ACCEPT BID',
+          'SHORTLIST BID',
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),

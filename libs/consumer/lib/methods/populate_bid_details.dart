@@ -1,11 +1,7 @@
-// import 'package:amplify/amplify.dart';
-// import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 
-// import '../pages/create_new_job.dart';
-// import '../pages/job_details.dart';
 import 'package:general/widgets/card.dart';
 import 'package:general/widgets/button.dart';
 
