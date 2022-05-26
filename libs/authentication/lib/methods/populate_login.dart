@@ -5,6 +5,7 @@ import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/app_state.dart';
 import 'dart:ui';
 import '../widgets/button.dart';
+import '../widgets/divider.dart';
 import '../widgets/link.dart';
 import '../widgets/textfield.dart';
 
@@ -56,13 +57,7 @@ class Login extends StatelessWidget {
                     //*****************email**********************
                     TextFieldWidget(label: 'email', obscure: false),
                     //********************************************
-                    Divider(
-                      height: 20,
-                      thickness: 0.5,
-                      indent: 15,
-                      endIndent: 10,
-                      color: Colors.transparent,
-                    ),
+                    TransparentDividerWidget(),
                     //*****************password**********************
                     TextFieldWidget(label: 'email', obscure: true),
                     //**********************************************
