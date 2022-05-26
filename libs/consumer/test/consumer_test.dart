@@ -1,3 +1,4 @@
+import 'package:amplify/amplify.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,32 @@ import 'package:redux_comp/redux_comp.dart';
 
 void main() {
   final store = Store<AppState>(initialState: AppState.mock());
+  final Advert advert = Advert(id: "12345", title: "Plumbing Job");
 
+  testWidgets("Testing Consumer Details Class", (WidgetTester tester) async {
+    //create an instance of ConsumerDetails widget
+    await tester.pumpWidget(ConsumerDetails(store: store, advert: advert));
+
+    //Check if Active Bids text exists
+    final actBids = find.text("Active Bids");
+    expect(actBids, findsOneWidget);
+
+    //check to see if you can find the Title "Plumbing Job"
+    final title = find.text("Plumbing Job");
+    expect(title, findsOneWidget);
+
+    //expect to find a description in the widget
+    final desc = find.text("Description");
+    expect(desc, findsOneWidget);
+
+    //No description was provided to Advert so look for default message
+    final defMessage = find.text("Description: NULL");
+    expect(defMessage, findsOneWidget);
+
+    //by default we should find "Bid One" text in the widget always
+    final bidOne = find.text("Bid One");
+    expect(bidOne, findsOneWidget);
+  });
   testWidgets("Testing Title from ConsumerListings",
       (WidgetTester tester) async {
     //creating the ConsumerListings widget
