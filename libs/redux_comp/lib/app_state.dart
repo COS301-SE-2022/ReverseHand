@@ -64,16 +64,16 @@ class AppState {
 
   static Future<void> _configureAmplify() async {
     try {
-      final AmplifyAPI _api = AmplifyAPI(modelProvider: ModelProvider.instance);
-      final AmplifyDataStore _ds =
+      final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
+      final AmplifyDataStore ds =
           AmplifyDataStore(modelProvider: ModelProvider.instance);
-      final AmplifyAuthCognito _authPlugin = AmplifyAuthCognito();
+      final AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
 
       // add Amplify plugins
       await Amplify.addPlugins([
-        _api,
-        _ds,
-        _authPlugin,
+        api,
+        ds,
+        authPlugin,
       ]);
 
       // configure Amplify
