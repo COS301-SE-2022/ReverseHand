@@ -14,10 +14,10 @@ dependencies:
 
   # amplify
   amplify_flutter: ^0.5.1
-  amplify_auth_cognito: ^0.5.1
-  amplify_datastore: ^0.5.1
-  amplify_api: ^0.5.1
-  amazon_cognito_identity_dart_2: ^2.1.1
+  # amplify_auth_cognito: ^0.5.1
+  # amplify_datastore: ^0.5.1
+  # amplify_api: ^0.5.1
+  # amazon_cognito_identity_dart_2: ^2.1.1
 
   async_redux: ^14.1.2
 
