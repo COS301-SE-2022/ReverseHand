@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class SIgnUpPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   final Store<AppState> store;
-  const SIgnUpPage({Key? key, required this.store}) : super(key: key);
+  const SignUpPage({Key? key, required this.store}) : super(key: key);
 
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SIgnUpPage> {
-
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
