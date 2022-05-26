@@ -1,6 +1,6 @@
 // import 'package:amplify/amplify.dart';
-// import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-// import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 // import 'package:flutter/foundation.dart';
 // import 'package:redux_comp/models/user_models/consumer_model.dart';
