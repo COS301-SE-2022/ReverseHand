@@ -33,7 +33,7 @@ dependencies:
   # import others liberaries here
   # redux: ^5.0.0
   # flutter_redux: ^0.9.0
-  async_redux: ^14.1.2
+  async_redux: ^15.0.0
   
   # import our libraries here with comment of what it is e.g. login widtget
   example:
