@@ -2,7 +2,7 @@ import 'dart:async';
 // import 'package:amplify/models/Advert.dart';
 // import 'package:amplify/models/Consumer.dart';
 // // import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+// import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:redux_comp/app_state.dart';
@@ -26,9 +26,9 @@ class LoginAction extends ReduxAction<AppState> {
       String id = (await Amplify.Auth.getCurrentUser()).userId;
       return state.replace(user: ConsumerModel(id, email, email, const []));
       // exception will be handled later
-      } on AuthException catch (e) {
-    // } catch (e) {
-      print(e.underlyingException);
+      // } on AuthException catch (e) {
+    } catch (e) {
+      // print(e.underlyingException);
       return state;
     }
     /*on ApiException catch (e) {

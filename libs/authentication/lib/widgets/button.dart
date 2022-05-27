@@ -23,7 +23,7 @@ class LongButtonWidget extends StatelessWidget {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0))),
             ),
-            onPressed: () {},
+            onPressed: login,
             child: Text(text),
           ),
         ],

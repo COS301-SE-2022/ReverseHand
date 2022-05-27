@@ -1,5 +1,6 @@
 // import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:authentication/authentication.dart';
 import 'package:consumer/pages/job_listings.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
@@ -8,7 +9,6 @@ import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'dart:ui';
 import '../widgets/button.dart';
-import '../widgets/divider.dart';
 import '../widgets/link.dart';
 import '../widgets/textfield.dart';
 
@@ -55,10 +55,6 @@ class Login extends StatelessWidget {
               ),
               //*******************************************************
 
-              //*****************Sign up Link**********************
-             const LinkWidget(text1: "Don't have an account? ", text2: "Sign Up", link: "SignUp"),
-           
-              //******************************************************* */
               const Divider(
                 height: 20,
                 thickness: 0.5,
@@ -126,6 +122,19 @@ class Login extends StatelessWidget {
                   }),
                   //***************************************************
 
+                  //*****************Sign up Link**********************
+                  LinkWidget(
+                      text1: "Don't have an account? ",
+                      text2: "Sign Up",
+                      navigate: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => SignUpPage(store: store)),
+                            )
+                          }),
+                  //******************************************************* */
+
                   //*****************"OR" divider"**********************
                   SizedBox(
                     height: 50,
@@ -144,7 +153,7 @@ class Login extends StatelessWidget {
                   //****************************************************** */
 
                   //*****************Sign up Link**********************
-                  const LinkWidget(text: "Sign Up"),
+                  // const LinkWidget(text1: "Sign Up", text2: "", link: ""),
 
                   //******************************************************* */
                   const Divider(
@@ -174,15 +183,13 @@ class Login extends StatelessWidget {
                   ),
                 ],
               ),
-           ],
+            ],
           ),
           //******************************************************* */
 
-              //*****************Bottom circle blur**********************
-              //to be fixed in coming days
-              //******************************************************* */
-            ],
-          ),
+          //*****************Bottom circle blur**********************
+          //to be fixed in coming days
+          //******************************************************* */
         ),
       ),
     );

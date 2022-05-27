@@ -1,7 +1,9 @@
 // import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/divider.dart';
+import 'package:redux_comp/actions/register_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'dart:ui';
 import '../widgets/button.dart';
@@ -11,14 +13,29 @@ import '../widgets/textfield.dart';
 
 class SignUp extends StatelessWidget {
   final Store<AppState> store;
-  const SignUp({Key? key, required this.store}) : super(key: key);
+  SignUp({Key? key, required this.store}) : super(key: key);
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final cellController = TextEditingController();
+  final locationController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmController = TextEditingController();
+
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    cellController.dispose();
+    locationController.dispose();
+    passwordController.dispose();
+    confirmController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          
           //*****************Top circle blur**********************
           Container(
             width: 100,
@@ -38,8 +55,8 @@ class SignUp extends StatelessWidget {
               ),
             ),
           ),
-          //******************************************************* 
-        
+          //*******************************************************
+
           //*****************signup page****************************
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -52,47 +69,82 @@ class SignUp extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
                   letterSpacing: 5,
-                  ),
+                ),
               ),
               //*************************************************
-           
+
               //*****************form****************************
               Container(
                 margin: const EdgeInsets.only(top: 10.0),
                 padding: const EdgeInsets.all(20),
                 child: Column(
-                  children: const <Widget>[
+                  children: <Widget>[
                     //currently only created for consumer sign-up
                     //*****************name**********************
-                    TextFieldWidget(label: 'name', obscure: false),
+                    TextFieldWidget(
+                      label: 'name',
+                      obscure: false,
+                      controller: nameController,
+                    ),
                     //********************************************
-                    TransparentDividerWidget(),
+                    const TransparentDividerWidget(),
                     //*****************email**********************
-                    TextFieldWidget(label: 'email', obscure: false),
+                    TextFieldWidget(
+                      label: 'email',
+                      obscure: false,
+                      controller: emailController,
+                    ),
                     //**********************************************
-                    TransparentDividerWidget(),
+                    const TransparentDividerWidget(),
                     //*****************cellphone**********************
-                    TextFieldWidget(label: 'cellphone', obscure: false),
+                    TextFieldWidget(
+                        label: 'cellphone',
+                        obscure: false,
+                        controller: cellController),
                     //**********************************************
-                    TransparentDividerWidget(),
+                    const TransparentDividerWidget(),
                     //*****************location**********************
-                    TextFieldWidget(label: 'location', obscure: false),
+                    TextFieldWidget(
+                        label: 'location',
+                        obscure: false,
+                        controller: locationController),
                     //**********************************************
-                    TransparentDividerWidget(),
+                    const TransparentDividerWidget(),
                     //*****************password**********************
-                    TextFieldWidget(label: 'password', obscure: true),
+                    TextFieldWidget(
+                        label: 'password',
+                        obscure: true,
+                        controller: passwordController),
                     //**********************************************
-                    TransparentDividerWidget(),
+                    const TransparentDividerWidget(),
                     //*****************confirm password**********************
-                    TextFieldWidget(label: 'confirm password', obscure: true),
+                    TextFieldWidget(
+                        label: 'confirm password',
+                        obscure: true,
+                        controller: confirmController),
                     //**********************************************
                   ],
-                 ),
+                ),
               ),
               //****************************************************
 
               //*****************login button**********************
-              const LongButtonWidget(text: "Sign Up"),
+              StoreConnector<AppState, VoidCallback>(converter: (store) {
+                return () => store.dispatch(RegisterUserAction(
+                    emailController.value.text, passwordController.value.text));
+              }, builder: (context, callback) {
+                return LongButtonWidget(
+                  text: "Sign Up",
+                  login: () => {
+                    callback(),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => LoginPage(store: store)),
+                    )
+                  },
+                );
+              }),
               //***************************************************
 
               //*****************"OR" divider"**********************
@@ -101,7 +153,7 @@ class SignUp extends StatelessWidget {
                 child: Row(
                   children: const [
                     Expanded(
-                       child: DividerWidget(),
+                      child: DividerWidget(),
                     ),
                     Text("or"),
                     Expanded(
@@ -113,8 +165,17 @@ class SignUp extends StatelessWidget {
               //****************************************************** */
 
               //*****************Sign in Link**********************
-             const LinkWidget(text1: "Already have an account? ", text2: "Sign In", link: "Login"),
-           
+
+              LinkWidget(
+                  text1: "Already have an account? ",
+                  text2: "Sign In",
+                  navigate: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => LoginPage(store: store)),
+                        )
+                      }),
               //******************************************************* */
               const Divider(
                 height: 20,
@@ -141,7 +202,7 @@ class SignUp extends StatelessWidget {
                   ),
                 ],
               ),
-           ],
+            ],
           ),
 
           //******************************************************* */
