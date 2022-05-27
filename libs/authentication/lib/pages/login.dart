@@ -14,23 +14,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: widget.store,
       child: MaterialApp(
         home: Login(store: widget.store),
-        theme: CustomTheme.darkTheme,
       ),
     );
   }
