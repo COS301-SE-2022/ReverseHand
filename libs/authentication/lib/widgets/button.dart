@@ -9,7 +9,7 @@ class LongButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 290,
-      height: 90,
+      height: 70,
       child: Column(
         children: <Widget>[
           ElevatedButton(
@@ -23,8 +23,8 @@ class LongButtonWidget extends StatelessWidget {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0))),
             ),
-            onPressed: login,
-            child: const Text("LOGIN"),
+            onPressed: () {},
+            child: Text(text),
           ),
         ],
       ),

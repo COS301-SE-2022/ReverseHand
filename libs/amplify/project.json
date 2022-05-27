@@ -27,7 +27,7 @@
     "test": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "flutter test",
+        "command": "flutter test --coverage",
         "cwd": "libs/amplify"
       }
     },

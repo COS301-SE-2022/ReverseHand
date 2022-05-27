@@ -8,6 +8,7 @@ import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'dart:ui';
 import '../widgets/button.dart';
+import '../widgets/divider.dart';
 import '../widgets/link.dart';
 import '../widgets/textfield.dart';
 
@@ -54,7 +55,18 @@ class Login extends StatelessWidget {
               ),
               //*******************************************************
 
-              //*****************login page****************************
+              //*****************Sign up Link**********************
+             const LinkWidget(text1: "Don't have an account? ", text2: "Sign Up", link: "SignUp"),
+           
+              //******************************************************* */
+              const Divider(
+                height: 20,
+                thickness: 0.5,
+                indent: 15,
+                endIndent: 10,
+                color: Colors.transparent,
+              ),
+              //*******************sign in with text************************** */
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -162,8 +174,9 @@ class Login extends StatelessWidget {
                   ),
                 ],
               ),
-
-              //******************************************************* */
+           ],
+          ),
+          //******************************************************* */
 
               //*****************Bottom circle blur**********************
               //to be fixed in coming days
