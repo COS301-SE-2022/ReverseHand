@@ -19,9 +19,14 @@ class BidDetails extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(20),
               ),
-              CardWidget(titleText: "TESTING"),
+              CardWidget(
+                  titleText: "MR J SMITH",
+                  price: "R800",
+                  details: "info@gmail.com"),
               Padding(padding: EdgeInsets.all(10)),
-              ButtonWidget()
+              ButtonWidget(
+                buttonText: "SHORTLIST BID",
+              )
             ])),
       ),
     );
