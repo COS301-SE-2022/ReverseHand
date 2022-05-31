@@ -44,6 +44,13 @@ fs.writeFile("./libs/general/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
+fs.writeFile("./libs/amplify/test/gather_files.sh",content,function(err){
+    if(err) throw err;
+})
+
+fs.writeFile("./libs/authentication/test/gather_files.sh",content,function(err){
+    if(err) throw err;
+})
 /*fs.writeFile("./libs/redux_comp/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })*/
@@ -56,3 +63,5 @@ script = exec("bash ./libs/example/test/gather_files.sh")
 script = exec("bash ./libs/general/test/gather_files.sh")
 // script = exec("bash ./libs/redux_comp/test/gather_files.sh")
 script = exec("bash ./libs/tradesman/test/gather_files.sh")
+script = exec("bash ./libs/amplify/test/gather_files.sh")
+script = exec("bash ./libs/authentication/test/gather_files.sh")
