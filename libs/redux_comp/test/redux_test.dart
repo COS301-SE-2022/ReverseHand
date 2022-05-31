@@ -1,8 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-// import 'package:redux/redux.dart'; // uncommment when tests are implemented
+// import 'package:redux_comp/app_state.dart';
+// import 'package:redux_comp/models/user_models/consumer_model.dart';
 
 void main() {
-  test("Mock test does nothing", () {
-    expect(true, true);
+  test("Mock Test Redux", () {
+    expect(true,true);
   });
 }

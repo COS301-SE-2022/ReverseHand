@@ -3,8 +3,6 @@ name: CI TESTS
 on:
   pull_request:
     branches: [develop]
-  #push:
-  #  branches: [develop]
   workflow_dispatch:
     inputs:
       testChoice:
@@ -16,29 +14,8 @@ on:
         - affected
 
 jobs:
-  test-affected-analyze:
-    uses: ./.github/workflows/android.yml
-    if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
-    with:
-      test: 'affected'
-      testType: 'analyze'
-    
-  test-affected-tests:
-    uses: ./.github/workflows/android.yml
-    if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
-    with:
-      test: 'affected'
-      testType: 'test'
-
-  test-affected-build:
-    uses: ./.github/workflows/android.yml
-    if: ${{github.event.inputs.testChoice == 'affected' || github.event.inputs.testChoice == ''}}
-    with:
-      test: 'affected'
-      testType: 'build'
-
   test-all:
     uses: ./.github/workflows/android.yml
-    if: ${{github.event.inputs.testChoice == 'all'}}
+    if: ${{github.event.inputs.testChoice == 'all' || github.event.inputs.testChoice == ''}}
     with:
       test: 'all'

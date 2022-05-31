@@ -27,7 +27,7 @@
     "test": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "flutter test",
+        "command": "flutter test --coverage",
         "cwd": "libs/general"
       }
     },
@@ -77,6 +77,13 @@
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ipa",
+        "cwd": "libs/general"
+      }
+    },
+    "get": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter pub get",
         "cwd": "libs/general"
       }
     }

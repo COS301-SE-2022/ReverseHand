@@ -1,4 +1,4 @@
-name: CI Tests Full
+name: Coverage Generator
 
 on:
   push:
@@ -8,4 +8,4 @@ jobs:
   test-all:
     uses: ./.github/workflows/android.yml
     with:
-      test: 'all'
+      test: 'coverage'

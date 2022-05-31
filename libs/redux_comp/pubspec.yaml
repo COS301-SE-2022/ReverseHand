@@ -2,6 +2,7 @@ name: redux_comp
 description: redux componenets for the project
 version: 0.0.1
 homepage:
+publish_to: none
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -11,10 +12,21 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # amplify
+  amplify_flutter: ^0.5.1
+  amplify_auth_cognito: ^0.5.1
+  amplify_datastore: ^0.5.1
+  amplify_api: ^0.5.1
+
+  async_redux: ^15.0.0
+
+  amplify:
+    path: '../amplify'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

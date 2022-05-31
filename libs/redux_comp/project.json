@@ -27,7 +27,7 @@
     "test": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "flutter test",
+        "command": "flutter test --coverage",
         "cwd": "libs/redux_comp"
       }
     },
@@ -77,6 +77,20 @@
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ipa",
+        "cwd": "libs/redux_comp"
+      }
+    },
+    "action": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "python3 create_action.py",
+        "cwd": "libs/redux_comp"
+      }
+    },
+    "get": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter pub get",
         "cwd": "libs/redux_comp"
       }
     }
