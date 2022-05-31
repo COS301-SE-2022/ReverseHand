@@ -27,4 +27,3 @@ phases:
 artifacts:
   files:
     - apps\app\build\app\outputs\flutter-apk\app-release.apk
-  discard-paths: yes
