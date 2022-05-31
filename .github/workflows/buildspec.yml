@@ -19,6 +19,7 @@ build:
       - npx nx run-many --target=test --all --parallel 
       - echo Build started on `date`
       - flutter build apk --no-shrink
+      - pwd
       - ls -al
   post_build:
     commands:
