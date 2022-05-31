@@ -25,6 +25,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo $CODEBUILD_SRC_DIR
+      - ls /codebuild/output/src357656516/src
 artifacts:
   files:
     - '**/*'
