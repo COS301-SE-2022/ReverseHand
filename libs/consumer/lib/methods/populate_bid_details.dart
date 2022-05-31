@@ -25,7 +25,7 @@ class BidDetails extends StatelessWidget {
                   details: "info@gmail.com"),
               Padding(padding: EdgeInsets.all(10)),
               ButtonWidget(
-                buttonText: "SHORTLIST BID",
+                text: "SHORTLIST",
               )
             ])),
       ),
