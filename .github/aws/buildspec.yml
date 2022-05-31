@@ -24,6 +24,8 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      - echo $CODEBUILD_SRC_DIR
 artifacts:
   files:
-    - apps\app\build\app\outputs\flutter-apk\app-release.apk
+    - '**/*'
+  name: ReverseHand
