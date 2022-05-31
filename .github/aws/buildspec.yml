@@ -26,5 +26,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - build\app\outputs\flutter-apk\app-release.apk
+    - apps\app\build\app\outputs\flutter-apk\app-release.apk
   discard-paths: yes
