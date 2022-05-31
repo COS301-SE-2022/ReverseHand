@@ -18,7 +18,7 @@ phases:
       - npx nx run-many --target=analyze --all --parallel --exclude=amplify
       - npx nx run-many --target=test --all --parallel 
       - echo Build started on `date`
-      - flutter build apk --no-shrink
+      - npx nx run app:buildApk
       - pwd
       - ls -al
   post_build:
@@ -26,5 +26,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - build/app/outputs/apk/release/*.apk
+    - build\app\outputs\flutter-apk\app-release.apk
   discard-paths: yes
