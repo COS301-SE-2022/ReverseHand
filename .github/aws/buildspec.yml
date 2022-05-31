@@ -1,0 +1,31 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      android: 28
+      java: corretto8
+    commands:
+      - pwd
+  pre_build:
+    commands:
+      - echo Pre Build started on `date`
+      - git clone https://github.com/flutter/flutter.git -b stable
+      - export PATH="$PATH:`pwd`/flutter/bin"
+      - npm install
+  build:
+    commands:
+      - echo Testing started on `date`
+      - npx nx run-many --target=analyze --all --parallel --exclude=amplify
+      - npx nx run-many --target=test --all --parallel 
+      - echo Build started on `date`
+      - npx nx run app:buildApk
+      - pwd
+      - ls -al
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo $CODEBUILD_SRC_DIR
+artifacts:
+  files:
+    - '**/app-release.apk'
+  name: ReverseHand
