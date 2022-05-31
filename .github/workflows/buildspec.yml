@@ -1,0 +1,29 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      android: 29
+      java: openjdk8
+    commands:
+      - pwd
+  pre_build:
+    commands:
+      - echo Pre Build started on `date`
+      - git clone https://github.com/flutter/flutter.git -b stable
+      - export PATH="$PATH:`pwd`/flutter/bin"
+      - npm install
+build:
+    commands:
+      - echo Testing started on `date`
+      - npx nx run-many --target=analyze --all --parallel --exclude=amplify
+      - npx nx run-many --target=test --all --parallel 
+      - echo Build started on `date`
+      - flutter build apk --no-shrink
+      - ls -al
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - build/app/outputs/apk/release/*.apk
+  discard-paths: yes
