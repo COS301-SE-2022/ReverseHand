@@ -123,17 +123,22 @@ class _JobCreationState extends State<JobCreation> {
             // ),
 
             //COMMENTS ARE KEPT TO INTEGRATE WITH BACKEND LATER!
-            body: Column(
-              children: const <Widget>[
-                Padding(padding: EdgeInsets.all(15)),
-                TextFieldWidget(label: "Title", obscure: false),
-                Padding(padding: EdgeInsets.all(15)),
-                TextFieldWidget(label: "Description", obscure: false),
-                Padding(padding: EdgeInsets.all(15)),
-                TextFieldWidget(label: "Location", obscure: false),
-                Padding(padding: EdgeInsets.all(15)),
-                ButtonWidget(text: "Add Job")
-              ],
+            body: SingleChildScrollView(
+              child: Column(
+                children: const <Widget>[
+                  // Padding(padding: EdgeInsets.all(15)),
+                  // TextboxWidget(text: "Creating a new job"), //unsure if we want headings?
+                  Padding(padding: EdgeInsets.all(15)),
+                  Padding(padding: EdgeInsets.all(15)),
+                  TextFieldWidget(label: "Title", obscure: false),
+                  Padding(padding: EdgeInsets.all(15)),
+                  TextFieldWidget(label: "Description", obscure: false),
+                  Padding(padding: EdgeInsets.all(15)),
+                  TextFieldWidget(label: "Location", obscure: false),
+                  Padding(padding: EdgeInsets.all(15)),
+                  ButtonWidget(text: "Add Job")
+                ],
+              ),
             )),
       ),
     );
