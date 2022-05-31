@@ -58,153 +58,157 @@ class SignUp extends StatelessWidget {
           //*******************************************************
 
           //*****************signup page****************************
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //*****************heading*****************************
-              const Text(
-                'Sign Up',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  letterSpacing: 5,
-                ),
-              ),
-              //*************************************************
-
-              //*****************form****************************
-              Container(
-                margin: const EdgeInsets.only(top: 10.0),
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: <Widget>[
-                    //currently only created for consumer sign-up
-                    //*****************name**********************
-                    TextFieldWidget(
-                      label: 'name',
-                      obscure: false,
-                      controller: nameController,
-                    ),
-                    //********************************************
-                    const TransparentDividerWidget(),
-                    //*****************email**********************
-                    TextFieldWidget(
-                      label: 'email',
-                      obscure: false,
-                      controller: emailController,
-                    ),
-                    //**********************************************
-                    const TransparentDividerWidget(),
-                    //*****************cellphone**********************
-                    TextFieldWidget(
-                        label: 'cellphone',
-                        obscure: false,
-                        controller: cellController),
-                    //**********************************************
-                    const TransparentDividerWidget(),
-                    //*****************location**********************
-                    TextFieldWidget(
-                        label: 'location',
-                        obscure: false,
-                        controller: locationController),
-                    //**********************************************
-                    const TransparentDividerWidget(),
-                    //*****************password**********************
-                    TextFieldWidget(
-                        label: 'password',
-                        obscure: true,
-                        controller: passwordController),
-                    //**********************************************
-                    const TransparentDividerWidget(),
-                    //*****************confirm password**********************
-                    TextFieldWidget(
-                        label: 'confirm password',
-                        obscure: true,
-                        controller: confirmController),
-                    //**********************************************
-                  ],
-                ),
-              ),
-              //****************************************************
-
-              //*****************login button**********************
-              StoreConnector<AppState, VoidCallback>(converter: (store) {
-                return () => store.dispatch(RegisterUserAction(
-                    emailController.value.text, passwordController.value.text));
-              }, builder: (context, callback) {
-                return LongButtonWidget(
-                  text: "Sign Up",
-                  login: () => {
-                    callback(),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => LoginPage(store: store)),
-                    )
-                  },
-                );
-              }),
-              //***************************************************
-
-              //*****************"OR" divider"**********************
-              SizedBox(
-                height: 30,
-                child: Row(
-                  children: const [
-                    Expanded(
-                      child: DividerWidget(),
-                    ),
-                    Text("or"),
-                    Expanded(
-                      child: DividerWidget(),
-                    ),
-                  ],
-                ),
-              ),
-              //****************************************************** */
-
-              //*****************Sign in Link**********************
-
-              LinkWidget(
-                  text1: "Already have an account? ",
-                  text2: "Sign In",
-                  navigate: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => LoginPage(store: store)),
-                        )
-                      }),
-              //******************************************************* */
-              const Divider(
-                height: 20,
-                thickness: 0.5,
-                indent: 15,
-                endIndent: 10,
-                color: Colors.transparent,
-              ),
-              //*******************sign in with text************************** */
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  SizedBox(
-                    height: 20,
-                    child: Text(
-                      'or sign up with:',
-                      style: TextStyle(
-                        fontFamily: 'Segoe UI',
-                        fontSize: 12,
-                        color: Color(0x7df5fffa),
-                      ),
-                      softWrap: false,
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //*****************heading*****************************
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0,15,0,0),
+                  child: Text(
+                    'Sign Up',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      letterSpacing: 5,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                //*************************************************
 
+                //*****************form****************************
+                Container(
+                  margin: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: <Widget>[
+                      //currently only created for consumer sign-up
+                      //*****************name**********************
+                      TextFieldWidget(
+                        label: 'name',
+                        obscure: false,
+                        controller: nameController,
+                      ),
+                      //********************************************
+                      const TransparentDividerWidget(),
+                      //*****************email**********************
+                      TextFieldWidget(
+                        label: 'email',
+                        obscure: false,
+                        controller: emailController,
+                      ),
+                      //**********************************************
+                      const TransparentDividerWidget(),
+                      //*****************cellphone**********************
+                      TextFieldWidget(
+                          label: 'cellphone',
+                          obscure: false,
+                          controller: cellController),
+                      //**********************************************
+                      const TransparentDividerWidget(),
+                      //*****************location**********************
+                      TextFieldWidget(
+                          label: 'location',
+                          obscure: false,
+                          controller: locationController),
+                      //**********************************************
+                      const TransparentDividerWidget(),
+                      //*****************password**********************
+                      TextFieldWidget(
+                          label: 'password',
+                          obscure: true,
+                          controller: passwordController),
+                      //**********************************************
+                      const TransparentDividerWidget(),
+                      //*****************confirm password**********************
+                      TextFieldWidget(
+                          label: 'confirm password',
+                          obscure: true,
+                          controller: confirmController),
+                      //**********************************************
+                    ],
+                  ),
+                ),
+                //****************************************************
+
+                //*****************login button**********************
+                StoreConnector<AppState, VoidCallback>(converter: (store) {
+                  return () => store.dispatch(RegisterUserAction(
+                      emailController.value.text, passwordController.value.text));
+                }, builder: (context, callback) {
+                  return LongButtonWidget(
+                    text: "Sign Up",
+                    login: () => {
+                      callback(),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => LoginPage(store: store)),
+                      )
+                    },
+                  );
+                }),
+                //***************************************************
+
+                //*****************"OR" divider"**********************
+                SizedBox(
+                  height: 30,
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: DividerWidget(),
+                      ),
+                      Text("or"),
+                      Expanded(
+                        child: DividerWidget(),
+                      ),
+                    ],
+                  ),
+                ),
+                //****************************************************** */
+
+                //*****************Sign in Link**********************
+
+                LinkWidget(
+                    text1: "Already have an account? ",
+                    text2: "Sign In",
+                    navigate: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => LoginPage(store: store)),
+                          )
+                        }),
+                //******************************************************* */
+                const Divider(
+                  height: 20,
+                  thickness: 0.5,
+                  indent: 15,
+                  endIndent: 10,
+                  color: Colors.transparent,
+                ),
+                //*******************sign in with text************************** */
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    SizedBox(
+                      height: 20,
+                      child: Text(
+                        'or sign up with:',
+                        style: TextStyle(
+                          fontFamily: 'Segoe UI',
+                          fontSize: 12,
+                          color: Color(0x7df5fffa),
+                        ),
+                        softWrap: false,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
           //******************************************************* */
 
           //*****************Bottom circle blur**********************
