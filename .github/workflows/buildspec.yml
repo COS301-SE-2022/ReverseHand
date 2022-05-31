@@ -12,7 +12,7 @@ phases:
       - git clone https://github.com/flutter/flutter.git -b stable
       - export PATH="$PATH:`pwd`/flutter/bin"
       - npm install
-build:
+  build:
     commands:
       - echo Testing started on `date`
       - npx nx run-many --target=analyze --all --parallel --exclude=amplify
