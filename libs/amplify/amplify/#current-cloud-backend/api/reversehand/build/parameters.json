@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "reversehand",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-reversehand-staging-65245-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/9138d0955800277d34c1a5100da43f6436840097"
+}
