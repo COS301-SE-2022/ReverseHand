@@ -1,10 +1,10 @@
 import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:general/widgets/textbox.dart';
-import 'package:general/widgets/card.dart';
 
 import '../pages/job_listings.dart';
 
@@ -57,12 +57,12 @@ class JobDetails extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(20),
                 ),
-                const CardWidget(
-                    titleText: "test",
-                    price1: "test",
-                    price2: "test",
-                    details: "test",
-                    quote: false),
+                const JobCardWidget(
+                  titleText: "PAINTING",
+                  descText: "Painting of one outer wall.",
+                  date: "25 May 2022",
+                  location: "Menlopark, Pretoria",
+                ),
                 const DividerWidget(),
                 const Text(
                   "BIDS",
@@ -70,7 +70,7 @@ class JobDetails extends StatelessWidget {
                 ),
                 Container(
                     padding: const EdgeInsets.all(30),
-                    child: const TextboxWidget(text: "Mr J Smith"))
+                    child: const TextboxWidget(text: "Mr J Smith")),
               ],
             ),
           ),
