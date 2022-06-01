@@ -24,7 +24,7 @@ class LoginAction extends ReduxAction<AppState> {
       );
 
       String id = (await Amplify.Auth.getCurrentUser()).userId;
-      return state.replace(user: ConsumerModel(id, email, email, const []));
+      return state.replace(user: ConsumerModel(id, email, email));
       // exception will be handled later
       //} on AuthException catch (e) {
     } catch (e) {

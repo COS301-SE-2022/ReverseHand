@@ -1,4 +1,3 @@
-import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/create_advert_action.dart';
@@ -100,12 +99,12 @@ class _JobCreationState extends State<JobCreation> {
                           color: const Color.fromRGBO(132, 169, 140, 1),
                           borderRadius: BorderRadius.circular(20)),
                       child: StoreConnector<AppState, VoidCallback>(
-                        converter: (store) {
-                          return () => store.dispatch(CreateAdvertAction(Advert(
-                              customer: store.state.user!.getId(),
-                              title: titleController.value.text,
-                              description: descrController.value.text)));
-                        },
+                        // converter: (store) {
+                        //   return () => store.dispatch(CreateAdvertAction(Advert(
+                        //       customer: store.state.user!.getId(),
+                        //       title: titleController.value.text,
+                        //       description: descrController.value.text)));
+                        // },
                         builder: (context, callback) {
                           return TextButton(
                             onPressed: () {

@@ -1,4 +1,3 @@
-import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
@@ -9,20 +8,20 @@ import '../pages/job_details.dart';
 class JobListings extends StatelessWidget {
 
   final Store<AppState> store;
-  final List<Advert?> adverts;
+  // final List<Advert?> adverts;
 
 
-  const JobListings({Key? key, required this.store, required this.adverts}) : super(key: key);
+  const JobListings({Key? key, required this.store, /* required this.adverts */}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: ListView(
-            children: adverts.map((advert) => JobListing(store: store, advert: advert)).toList()
-          ),
-        ),
+        // Expanded(
+        //   child: ListView(
+        //     children: adverts.map((advert) => JobListing(store: store, advert: advert)).toList()
+        //   ),
+        // ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -65,9 +64,9 @@ class JobListings extends StatelessWidget {
 class JobListing extends StatelessWidget {
 
   final Store<AppState> store;
-  final Advert? advert;
+  // final Advert? advert;
 
-  const JobListing({Key? key, required this.store, required this.advert}) : super(key: key);
+  const JobListing({Key? key, required this.store, /*required this.advert*/}) : super(key: key);
 
 
  @override
@@ -77,7 +76,7 @@ class JobListing extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => ConsumerDetails(store: store, advert: advert)));
+                builder: (_) => ConsumerDetails(store: store)));
       },
       child: Card(
         color: const Color.fromRGBO(53, 79, 82, 1),
@@ -86,15 +85,15 @@ class JobListing extends StatelessWidget {
         ),
         elevation: 2,
         child: Column(
-          children: [
+          children: const [
             ListTile(
-              title: Text(
-                advert!.title ?? "Title: null",
-                style: const TextStyle(fontSize: 25.0, color: Colors.white),
+              title:  Text(
+                "Title: null",
+                style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
               subtitle:  Text(
-                advert!.description ?? "Description: null",
-                style: const TextStyle(fontSize: 15.0, color: Colors.white),
+                "Description: null",
+                style:  TextStyle(fontSize: 15.0, color: Colors.white),
               ),
               //!!!DO NOT REMOVE COMMENTS//TO BE IMPLEMENTED!!!
               // trailing: Text(
