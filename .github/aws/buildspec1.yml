@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      android: 28
+      java: corretto8
+    commands:
+      - pwd
+  pre_build:
+    commands:
+      - echo Pre Build started on `date`
+      - git clone https://github.com/flutter/flutter.git -b stable
+      - export PATH="$PATH:`pwd`/flutter/bin"
+      - npm install
+  build:
+    commands:
+      - echo Testing started on `date`
+      - npx nx run-many --target=analyze --all --parallel --exclude=amplify
+      - npx nx run-many --target=test --all --parallel 
+   
+  post_build:
+    commands:
+      - echo Unit Tests and Linting completed on `date`
