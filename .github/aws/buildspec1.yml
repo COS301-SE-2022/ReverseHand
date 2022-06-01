@@ -1,3 +1,5 @@
+#This file is for the Unit_Test phase of the pipeline where unit tests and linting is done
+#before we move on to the Integration Test and APK build stage of pipeline
 version: 0.2
 phases:
   install:
@@ -8,14 +10,21 @@ phases:
       - pwd
   pre_build:
     commands:
+    #For log purposes the date of the build is echoed
       - echo Pre Build started on `date`
+    #Adding Flutter to the Ubuntu image
       - git clone https://github.com/flutter/flutter.git -b stable
       - export PATH="$PATH:`pwd`/flutter/bin"
+    #Installing node so that one can take advantage of using nx to run tests in parallel
       - npm install
   build:
     commands:
+    #For log purposes the data at which the test is started is echoed
       - echo Testing started on `date`
+    #amplify project excluded from analyze because Flutter does not like how amplify generates its models and those models should not be 
+    #changed as they immutable to please the linter
       - npx nx run-many --target=analyze --all --parallel --exclude=amplify
+    #Executing the widget tests and unit tests
       - npx nx run-many --target=test --all --parallel 
    
   post_build:
