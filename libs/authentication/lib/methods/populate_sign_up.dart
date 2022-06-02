@@ -9,7 +9,9 @@ import 'dart:ui';
 import '../widgets/button.dart';
 import '../widgets/divider.dart';
 import '../widgets/link.dart';
+import '../widgets/pop_up.dart';
 import '../widgets/textfield.dart';
+import 'package:general/widgets/dialog_helper.dart';
 
 class SignUp extends StatelessWidget {
   final Store<AppState> store;
@@ -132,7 +134,7 @@ class SignUp extends StatelessWidget {
                 ),
                 //****************************************************
 
-                //*****************login button**********************
+                //*****************signup button**********************
                 StoreConnector<AppState, VoidCallback>(converter: (store) {
                   return () => store.dispatch(RegisterUserAction(
                       emailController.value.text, passwordController.value.text));
@@ -140,13 +142,9 @@ class SignUp extends StatelessWidget {
                   return LongButtonWidget(
                     text: "Sign Up",
                     login: () => {
-                      callback(),
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => LoginPage(store: store)),
-                      )
+                      DialogHelper.exit(context, const PopupWidget()),
                     },
+
                   );
                 }),
                 //***************************************************
