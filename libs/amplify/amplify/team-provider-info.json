@@ -1,0 +1,15 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-reversehand-staging-144520-authRole",
+      "UnauthRoleArn": "arn:aws:iam::727515863527:role/amplify-reversehand-staging-144520-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::727515863527:role/amplify-reversehand-staging-144520-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+      "UnauthRoleName": "amplify-reversehand-staging-144520-unauthRole",
+      "StackName": "amplify-reversehand-staging-144520",
+      "StackId": "arn:aws:cloudformation:eu-west-1:727515863527:stack/amplify-reversehand-staging-144520/76536920-e1b9-11ec-88f2-0214fb4beb3f",
+      "AmplifyAppId": "d1qa8zxtog58do"
+    }
+  }
+}
