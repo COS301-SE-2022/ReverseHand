@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:redux_comp/actions/view_bids_action.dart';
+import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:authentication/methods/populate_login.dart';
 import 'package:amplify/amplifyconfiguration.dart';
@@ -25,8 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
 
   @override
-  void initState() async {
-    await _initializeApp();
+  void initState() {
+    widget.store.dispatch(InitAmplifyAction());
     super.initState();
     widget.store.dispatch(ViewBidsAction());
   }
@@ -47,43 +48,5 @@ class _LoginPageState extends State<LoginPage> {
         theme: CustomTheme.darkTheme,
       ),
     );
-  }
-
-  // ===========================================================================
-  // used for configuring amplify
-  Future<void> _configureAmplify() async {
-    try {
-      final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
-      final AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
-      final AmplifyDataStore ds =
-          AmplifyDataStore(modelProvider: ModelProvider.instance);
-
-      // add Amplify plugins
-      await Amplify.addPlugins([
-        ds,
-        api,
-        authPlugin,
-      ]);
-
-      // configure Amplify
-      // note that Amplify cannot be configured more than once!
-      await Amplify.configure(
-          amplifyconfig); // uncomment this line and add your amplify config package
-
-      if (kDebugMode) {
-        print('Amplify Successfully Configured 🎉');
-      }
-    } catch (e) {
-      // error handling can be improved for sure!
-      // but this will be sufficient for the purposes of this tutorial
-      if (kDebugMode) {
-        print('An error occurred while configuring Amplify: $e');
-      }
-    }
-  }
-
-  Future<void> _initializeApp() async {
-    // configure Amplify
-    await _configureAmplify();
   }
 }
