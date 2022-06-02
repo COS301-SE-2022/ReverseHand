@@ -142,7 +142,7 @@ class SignUp extends StatelessWidget {
                   return LongButtonWidget(
                     text: "Sign Up",
                     login: () => {
-                      DialogHelper.exit(context, const PopupWidget()),
+                      DialogHelper.exit(context, PopupWidget()),
                     },
 
                   );

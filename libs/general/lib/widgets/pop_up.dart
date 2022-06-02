@@ -21,11 +21,12 @@ class PopupCardWidget extends StatelessWidget {
   
   _buildPopUp(BuildContext context, Widget widget) {
     return Container(
-      height: 350,
+      height: 500,
+      width: 550,
       decoration: const BoxDecoration(
-        color: Colors.black,
+        color: Colors.black54,
         shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12))
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
       ),
       child: widget,
     );
