@@ -7,7 +7,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "viewBidResolver": {
+        "viewBidsResolver": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

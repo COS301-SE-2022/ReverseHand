@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "viewBidResolver",
+            "viewBidsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "viewBidResolver",
+                  "viewBidsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole36591ae2",
+            "reversehandLambdaRole1d01906a",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole36591ae2",
+                  "reversehandLambdaRole1d01906a",
                   "-",
                   {
                     "Ref": "env"

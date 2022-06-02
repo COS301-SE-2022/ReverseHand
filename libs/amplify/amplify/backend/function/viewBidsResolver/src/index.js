@@ -1,4 +1,5 @@
-const AWS = require("aws-sdk");
+
+
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -6,8 +7,7 @@ const AWS = require("aws-sdk");
 exports.handler = async (event, context) => {
     console.log(event);
     console.log(context);
-
     return {
-        id: "001",
+        id: "001"
     };
 };

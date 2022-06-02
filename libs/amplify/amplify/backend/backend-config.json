@@ -35,7 +35,7 @@
     }
   },
   "function": {
-    "viewBidResolver": {
+    "viewBidsResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

@@ -8,7 +8,11 @@ type User @model {
   email: String!
 }
 
+type Advert {
+  id: String
+}
+
 type Query {
-  viewBids: String
-    @function(name: "viewBidResolver-${env}")
+  viewBids: Advert
+    @function(name: "viewBidsResolver-${env}")
 }
