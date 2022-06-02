@@ -1,5 +1,6 @@
 import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:general/widgets/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
@@ -21,60 +22,74 @@ class JobDetails extends StatelessWidget {
 
       // title: Text(advert.title ?? "Title: NULL"),
 
-      body: Row(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                // Card(
-                //   color: const Color.fromRGBO(53, 79, 82, 1),
-                //   shape: RoundedRectangleBorder(
-                //     borderRadius: BorderRadius.circular(15.0),
-                //   ),
-                //   elevation: 2,
-                //   child: Column(
-                //     children: [
-                //       const ListTile(
-                //         title: Text(
-                //           "Description",
-                //           style: TextStyle(fontSize: 25.0, color: Colors.white),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                //         child: Text(
-                //            advert.description ?? "Description: NULL",
-                //           style:
-                //               TextStyle(color: Colors.white.withOpacity(0.9)),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+      body: SingleChildScrollView(
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  // Card(
+                  //   color: const Color.fromRGBO(53, 79, 82, 1),
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(15.0),
+                  //   ),
+                  //   elevation: 2,
+                  //   child: Column(
+                  //     children: [
+                  //       const ListTile(
+                  //         title: Text(
+                  //           "Description",
+                  //           style: TextStyle(fontSize: 25.0, color: Colors.white),
+                  //         ),
+                  //       ),
+                  //       Padding(
+                  //         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  //         child: Text(
+                  //            advert.description ?? "Description: NULL",
+                  //           style:
+                  //               TextStyle(color: Colors.white.withOpacity(0.9)),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
 
-                //KEEP COMMENTS UNTIL BACKEND IS LINKED
+                  //KEEP COMMENTS UNTIL BACKEND IS LINKED
 
-                const Padding(
-                  padding: EdgeInsets.all(20),
-                ),
-                const JobCardWidget(
-                  titleText: "PAINTING",
-                  descText: "Painting of one outer wall.",
-                  date: "25 May 2022",
-                  location: "Menlopark, Pretoria",
-                ),
-                const DividerWidget(),
-                const Text(
-                  "BIDS",
-                  style: TextStyle(fontSize: 25.0, color: Colors.white),
-                ),
-                Container(
+                  const Padding(
+                    padding: EdgeInsets.all(20),
+                  ),
+                  const JobCardWidget(
+                    titleText: "PAINTING",
+                    descText: "Painting of one outer wall.",
+                    date: "25 May 2022",
+                    location: "Menlopark, Pretoria",
+                  ),
+                  const DividerWidget(),
+                  const Text(
+                    "BIDS",
+                    style: TextStyle(fontSize: 25.0, color: Colors.white),
+                  ),
+                  const Padding(padding: EdgeInsets.all(15)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Padding(padding: EdgeInsets.all(11)),
+                      TabWidget(text: "ACTIVE"),
+                      Padding(padding: EdgeInsets.all(5)),
+                      TabWidget(text: "SHORTLIST"),
+                      Padding(padding: EdgeInsets.all(11)),
+                    ],
+                  ),
+                  Container(
                     padding: const EdgeInsets.all(30),
-                    child: const TextboxWidget(text: "Mr J Smith")),
-              ],
+                    child: const TextboxWidget(text: "Mr J Smith"),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

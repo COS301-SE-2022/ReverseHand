@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:general/widgets/quote.dart';
 
 class CardWidget extends StatelessWidget {
   final String titleText;
@@ -45,14 +46,10 @@ class CardWidget extends StatelessWidget {
                     style: TextStyle(fontSize: 20, color: Colors.white70)),
                 Text("$price1 - $price2",
                     style: const TextStyle(fontSize: 20, color: Colors.white)),
-                Center(
-                  child: Column(
-                    children: [
-                      if (quote) ...[
-                        //ADD A QUOTE WIDGET HERE
-                      ]
-                    ],
-                  ),
+                Column(
+                  children: [
+                    if (quote) ...[const QuoteWidget()]
+                  ],
                 )
               ],
             ),
