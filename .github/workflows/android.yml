@@ -8,13 +8,13 @@ on:
         required: true
         type: string
       testType:
-        description: 'Type of test (analyze, test, build)'
+        description: 'Type of test (analyze, test)'
         required: false
         type: string
 
 jobs:
   test:
-    name: Build-Test-Analyze
+    name: Test-Analyze
     runs-on: ubuntu-latest
 
     steps:
@@ -86,7 +86,10 @@ jobs:
         run: |
           npx nx run-many --target=test --all --skip-nx-cache --parallel
           npx nx run-many --target=analyze --all --skip-nx-cache --parallel --exclude=amplify
+        #Amplify excluded from analyze as flutter has issues with the way amplify generates models
+        #and since the models are auto generated they should not be changed
 
+    #Call the script to assist CodeCov with showing accurate coverage
       - name: Run tests only to generate coverage with help of bash script
         if: inputs.test == 'coverage'
         run: |
