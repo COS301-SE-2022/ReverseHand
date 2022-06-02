@@ -5,8 +5,9 @@ abstract class UserModel {
   final String _id;
   final String _name;
   final String _email;
+  final bool _confirmed;
 
-  const UserModel(this._id, this._name, this._email);
+  const UserModel(this._id, this._name, this._email, this._confirmed);
 
   String getId() {
     return _id;
@@ -18,6 +19,10 @@ abstract class UserModel {
 
   String getEmail() {
     return _email;
+  }
+
+  bool getConfrimed() {
+    return _confirmed;
   }
 
   UserModel replace();
