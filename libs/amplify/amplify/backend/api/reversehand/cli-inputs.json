@@ -3,21 +3,10 @@
   "serviceConfiguration": {
     "apiName": "reversehand",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-102e9fcd-2e69-48a7-a32d-a0c8a493365a/amplify/backend/api/reversehand/schema.graphql",
+    "gqlSchemaPath": "/Users/richardlastrucci/Desktop/ReverseHand/libs/amplify/amplify/backend/api/reversehand/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
-      "keyDescription": "api key description",
-      "expirationTime": 30
-    },
-    "additionalAuthTypes": [
-      {
-        "mode": "AWS_IAM"
-      }
-    ],
-    "conflictResolution": {
-      "defaultResolutionStrategy": {
-        "type": "AUTOMERGE"
-      }
+      "expirationTime": 7
     }
   }
 }

@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "reversehand",
+  "projectName": "ReverseHand",
   "version": "3.1",
   "frontend": "flutter",
   "flutter": {

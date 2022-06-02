@@ -1,4 +1,3 @@
-import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
@@ -6,9 +5,9 @@ import 'package:redux_comp/app_state.dart';
 import '../pages/job_listings.dart';
 
 class JobDetails extends StatelessWidget {
-  final Advert advert;
+  // final Advert advert;
   final Store<AppState> store;
-  const JobDetails({Key? key, required this.advert,required this.store}) : super(key: key);
+  const JobDetails({Key? key, /*required this.advert, */required this.store}) : super(key: key);
 
 
   @override
@@ -26,7 +25,7 @@ class JobDetails extends StatelessWidget {
                     builder: (_) => ConsumerListings(store: store)));
           },
         ),
-        title: Text(advert.title ?? "Title: NULL" ),
+        title: const Text("Title: NULL" ),
       ),
       body: Row(
         children: [
@@ -49,9 +48,9 @@ class JobDetails extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
                         child: Text(
-                          advert.description ?? "Description: NULL",
+                          "Description: NULL",
                           style: TextStyle(
                               color: Colors.white.withOpacity(0.9)),
                         ),

@@ -1,50 +1,14 @@
-type Review @model @auth(rules: [{allow: public}]) {
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type User @model {
   id: ID!
-  rating: Int
-  comment: String
-  tradesman: ID
-  date_created: String
-  advert: ArchivedAdvert @hasOne
+  name: String!
+  email: String!
 }
 
-type ArchivedBid @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  tradesman: ID
-  date_created: AWSDate
-  date_closed: AWSDate
-  price_lower: Int
-  price_upper: Int
-  advert: ID! @index(name: "byArchivedAdvert")
-  accepted_bid: ArchivedAdvert @belongsTo
+type Query {
+  viewBids: String
+    @function(name: "viewBidResolver-${env}")
 }
-
-type ArchivedAdvert @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  title: String
-  description: String
-  customer: ID
-  location: AWSJSON
-  date_created: AWSDate
-  date_closed: AWSDate
-  bids: [ArchivedBid] @hasMany(indexName: "byArchivedAdvert", fields: ["id"])
-}
-
-type Advert @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  bids: [Bid] @hasMany(indexName: "byAdvert", fields: ["id"])
-  title: String
-  description: String
-  customer: ID
-  location: AWSJSON
-  date_created: AWSDate
-}
-
-type Bid @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  tradesman: ID
-  advert: ID! @index(name: "byAdvert")
-  price_lower: Int
-  price_upper: Int
-  date_created: AWSDate
-}
- 
