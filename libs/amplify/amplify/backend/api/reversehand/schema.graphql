@@ -7,3 +7,8 @@ type User @model {
   name: String!
   email: String!
 }
+
+type Query {
+  viewBids(): String
+    @function(name: "viewBidsResolver-${env}")
+}
