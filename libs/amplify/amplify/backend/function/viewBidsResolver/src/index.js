@@ -12,19 +12,18 @@ exports.handler = async (event, context) => {
 
     let params = {
         TableName: ReverseHandTable,
-        IndexName: "part_id-user_id-index",
         KeyConditionExpression: "user_id = c#001",
     };
 
     try {
-        const data = await docClient.query(params).promise();
+        const data = await docClient.scan(params).promise();
 
         return {
-            id: err
+            id: "Hi"
         };
-    } catch {
+    } catch(e) {
         return {
-            id: err
+            id: e
         };
     }
 

@@ -190,6 +190,7 @@
                 "dynamodb:BatchWriteItem",
                 "dynamodb:List*",
                 "dynamodb:Query",
+                "dynamodb:Scan",
                 "dynamodb:Delete*"
               ],
               "Resource": [
