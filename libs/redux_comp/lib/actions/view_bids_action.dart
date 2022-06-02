@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -8,7 +10,9 @@ class ViewBidsAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     String graphQLDocument = '''
       query {
-        viewBids
+        viewBids {
+          id
+        }
       }
     ''';
 
@@ -17,7 +21,15 @@ class ViewBidsAction extends ReduxAction<AppState> {
     );
 
     final response = await Amplify.API.query(request: request).response;
-    print(response);
+    print(response.data);
+    print(jsonDecode(response.data));
+    /*
+    {
+      viewBids : {
+        id : "001"
+      }
+    }
+    */
 
     return state;
   }
