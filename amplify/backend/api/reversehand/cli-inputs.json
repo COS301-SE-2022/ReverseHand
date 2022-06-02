@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "reversehand",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/richardlastrucci/Desktop/ReverseHand/libs/amplify/amplify/backend/api/reversehand/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}
