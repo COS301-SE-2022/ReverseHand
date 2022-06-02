@@ -10,6 +10,27 @@
       "StackName": "amplify-reversehand-staging-144520",
       "StackId": "arn:aws:cloudformation:eu-west-1:727515863527:stack/amplify-reversehand-staging-144520/76536920-e1b9-11ec-88f2-0214fb4beb3f",
       "AmplifyAppId": "d1qa8zxtog58do"
+    },
+    "categories": {
+      "storage": {
+        "ReverseHand": {
+          "tableName": "ReverseHand",
+          "region": "eu-west-1",
+          "arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/ReverseHand",
+          "partitionKeyName": "user_id",
+          "partitionKeyType": "S",
+          "sortKeyName": "sort_key",
+          "sortKeyType": "S"
+        }
+      },
+      "auth": {
+        "reversehand8526215b": {
+          "userPoolId": "eu-west-1_clLdX1pB9",
+          "userPoolName": "ReverseHand",
+          "webClientId": "4seqkag6053v331qrf4m5v091q",
+          "nativeClientId": "4seqkag6053v331qrf4m5v091q"
+        }
+      }
     }
   }
 }
