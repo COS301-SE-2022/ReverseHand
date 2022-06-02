@@ -13,6 +13,6 @@ type Advert {
 }
 
 type Query {
-  viewBids: Advert
+  viewBids(id: String!): Advert
     @function(name: "viewBidsResolver-${env}")
 }
