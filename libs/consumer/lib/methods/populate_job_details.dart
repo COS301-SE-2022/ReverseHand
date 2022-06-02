@@ -48,7 +48,7 @@ class JobDetails extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                         child: Text(
                           "Description: NULL",
                           style: TextStyle(

@@ -1,4 +1,4 @@
-import 'package:amplify/amplify.dart';
+// import 'package:amplify/amplify.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
