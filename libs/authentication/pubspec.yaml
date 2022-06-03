@@ -14,12 +14,6 @@ dependencies:
 
   async_redux: ^15.0.0
 
-  # amplify libs
-  amplify_flutter: ^0.5.1
-  amplify_auth_cognito: ^0.5.1
-  amplify_datastore: ^0.5.1
-  amplify_api: ^0.5.1
-
   redux_comp:
     path: '../redux_comp'
   
