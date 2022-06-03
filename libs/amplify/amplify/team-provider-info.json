@@ -29,12 +29,17 @@
           "userPoolName": "ReverseHand",
           "webClientId": "4seqkag6053v331qrf4m5v091q",
           "nativeClientId": "4seqkag6053v331qrf4m5v091q"
-        }
+        },
+        "reversehand8ac8d062": {}
       },
       "function": {
         "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
-          "s3Key": "amplify-builds/viewBidsResolver-31345578574d4b2b4374-build.zip"
+          "s3Key": "amplify-builds/viewBidsResolver-574a7153395931746c58-build.zip"
+        },
+        "shortListBidResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+          "s3Key": "amplify-builds/shortListBidResolver-4d473668414f354d3659-build.zip"
         }
       }
     }

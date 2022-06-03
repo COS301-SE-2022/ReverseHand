@@ -8,12 +8,31 @@
     }
   },
   "auth": {
-    "reversehand8526215b": {
+    "reversehand8ac8d062": {
       "service": "Cognito",
-      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "customAuth": false
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      }
     }
   },
   "api": {
@@ -40,7 +59,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "shortListBid": {
+    "shortListBidResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

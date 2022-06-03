@@ -10,7 +10,7 @@ type User @model {
 
 type Query {
   viewBids(ad_id: String!): [Bid]!
-    @function(name: "viewBidsResolver-${env}")
+  @function(name: "viewBidsResolver-${env}")
 }
 
 type Advert implements UniqueID {
