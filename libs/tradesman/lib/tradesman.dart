@@ -1,4 +1,4 @@
 library tradesman;
 
-export './job_listings.dart';
-export './job_details.dart';
+export 'pages/job_listings.dart';
+export 'pages/job_details.dart';

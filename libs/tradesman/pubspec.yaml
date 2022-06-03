@@ -17,6 +17,12 @@ dependencies:
   redux_comp: 
     path: '../redux_comp'
 
+  general:
+    path: '../general'
+
+  authentication:
+    path: '../authentication'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
