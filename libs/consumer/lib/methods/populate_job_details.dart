@@ -1,4 +1,3 @@
-import 'package:amplify/models/Advert.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:general/widgets/tab.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +10,9 @@ import 'package:general/widgets/textbox.dart';
 // this import will be used when backend is linked again
 
 class JobDetails extends StatelessWidget {
-  final Advert advert;
+  // final Advert advert;
   final Store<AppState> store;
-  const JobDetails({Key? key, required this.store, required this.advert})
+  const JobDetails({Key? key, /*required this.advert, */ required this.store})
       : super(key: key);
 
   @override

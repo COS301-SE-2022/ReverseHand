@@ -26,6 +26,9 @@ dependencies:
   tradesman:
     path: '../tradesman'
 
+  amplify:
+    path: '../../libs/amplify'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

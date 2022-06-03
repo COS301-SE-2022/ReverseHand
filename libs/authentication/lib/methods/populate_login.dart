@@ -18,7 +18,6 @@ class Login extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          
           //*****************Top circle blur**********************
           Container(
             width: 100,
@@ -38,8 +37,8 @@ class Login extends StatelessWidget {
               ),
             ),
           ),
-          //******************************************************* 
-        
+          //*******************************************************
+
           //*****************login page****************************
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +46,7 @@ class Login extends StatelessWidget {
               //*****************LOGO*****************************
               //to be fixed in coming days
               //*************************************************
-           
+
               //*****************form****************************
               Container(
                 margin: const EdgeInsets.only(top: 10.0),
@@ -62,7 +61,7 @@ class Login extends StatelessWidget {
                     TextFieldWidget(label: 'password', obscure: true),
                     //**********************************************
                   ],
-                 ),
+                ),
               ),
               //****************************************************
 
@@ -76,7 +75,7 @@ class Login extends StatelessWidget {
                 child: Row(
                   children: const [
                     Expanded(
-                       child: DividerWidget(),
+                      child: DividerWidget(),
                     ),
                     Text("or"),
                     Expanded(
@@ -88,8 +87,11 @@ class Login extends StatelessWidget {
               //****************************************************** */
 
               //*****************Sign up Link**********************
-             const LinkWidget(text1: "Don't have an account? ", text2: "Sign Up", link: "SignUp"),
-           
+              const LinkWidget(
+                  text1: "Don't have an account? ",
+                  text2: "Sign Up",
+                  link: "SignUp"),
+
               //******************************************************* */
               const Divider(
                 height: 20,
@@ -116,7 +118,7 @@ class Login extends StatelessWidget {
                   ),
                 ],
               ),
-           ],
+            ],
           ),
           //******************************************************* */
 
