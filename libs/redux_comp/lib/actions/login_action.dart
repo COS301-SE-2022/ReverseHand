@@ -26,8 +26,9 @@ class LoginAction extends ReduxAction<AppState> {
       // return state.replace(user: ConsumerModel());
       return state;
       // exception will be handled later
-      //} on AuthException catch (e) {
+      // } on AuthException catch (e) {
     } catch (e) {
+      // print(e.underlyingException);
       return state;
     }
     /*on ApiException catch (e) {

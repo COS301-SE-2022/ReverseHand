@@ -15,6 +15,9 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "apiGraphQLAPIIdOutput": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -47,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "viewBidResolver",
+            "viewBidsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "viewBidResolver",
+                  "viewBidsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -69,7 +72,8 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            }
+            },
+            "REVERSEHAND": "ReverseHand"
           }
         },
         "Role": {
@@ -89,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole36591ae2",
+            "reversehandLambdaRole1d01906a",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole36591ae2",
+                  "reversehandLambdaRole1d01906a",
                   "-",
                   {
                     "Ref": "env"
@@ -160,6 +164,53 @@
                   }
                 ]
               }
+            }
+          ]
+        }
+      }
+    },
+    "AccessDynamoDBApiResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:BatchWriteItem",
+                "dynamodb:List*",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:Delete*"
+              ],
+              "Resource": [
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
+                    {
+                      "tablename": "ReverseHand"
+                    }
+                  ]
+                },
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
+                    {
+                      "tablename": "ReverseHand"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

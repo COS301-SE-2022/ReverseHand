@@ -32,9 +32,9 @@
         }
       },
       "function": {
-        "viewBidResolver": {
+        "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
-          "s3Key": "amplify-builds/viewBidResolver-4c6c5031434a31715345-build.zip"
+          "s3Key": "amplify-builds/viewBidsResolver-7637524f565070424642-build.zip"
         }
       }
     }
