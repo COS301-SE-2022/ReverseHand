@@ -35,6 +35,9 @@ class RegisterUserAction extends ReduxAction<AppState> {
         )
       );
 
+      if (res.isSignUpComplete) {
+        Amplify.Auth.signIn(username: username, password: password);
+      }
       String uID = (await Amplify.Auth.getCurrentUser()).userId;
 
       return state.replace(

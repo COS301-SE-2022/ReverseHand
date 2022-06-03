@@ -146,8 +146,9 @@ class SignUp extends StatelessWidget {
                   return LongButtonWidget(
                     text: "Sign Up",
                     login: () => {
-                      DialogHelper.display(
-                          context, PopupWidget()), //trigger OTP popup
+                      callback(),
+                      // DialogHelper.display(
+                      //     context, PopupWidget()), //trigger OTP popup
                     },
                   );
                 }),
