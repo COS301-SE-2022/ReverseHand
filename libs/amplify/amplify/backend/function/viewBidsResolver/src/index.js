@@ -30,17 +30,15 @@ exports.handler = async (event, context) => {
                 user_id: item['user'],
                 price_lower: item['price_lower'],
                 price_upper: item['price_upper'],
-                quote: null,
-                date_created: item['date'],
-                date_closed: null
+                quote: item['quote'],
+                date_created: item['date_opened'],
+                date_closed: item['date_closed']
             });
         }
 
         return bids;
     } catch(e) {
         console.log(e)
-        return {
-            id: e
-        };
+        return e;
     }
 };
