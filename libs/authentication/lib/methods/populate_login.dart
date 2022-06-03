@@ -105,8 +105,8 @@ class Login extends StatelessWidget {
 
                   StoreConnector<AppState, VoidCallback>(converter: (store) {
                     return () => store.dispatch(LoginAction(
-                        emailController.value.text,
-                        passwordController.value.text));
+                        emailController.value.text.trim(),
+                        passwordController.value.text.trim()));
                   }, builder: (context, callback) {
                     return LongButtonWidget(
                       text: "login",

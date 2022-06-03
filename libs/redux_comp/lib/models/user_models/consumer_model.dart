@@ -5,8 +5,8 @@ import 'package:redux_comp/models/user_model.dart';
 @immutable
 class ConsumerModel extends UserModel {
 
-  const ConsumerModel(String id, String name, String email)
-      : super(id, name, email, false);
+  const ConsumerModel(String id, String name, String email, String confirmed)
+      : super(id, name, email, confirmed);
 
   // List<Bid> getBids() {
   //   return _bids;
@@ -17,12 +17,14 @@ class ConsumerModel extends UserModel {
     String? id,
     String? name,
     String? email,
+    String? confirmed,
     // List<Bid>? bids,
   }) {
     return ConsumerModel(
       id ?? getId(),
       name ?? getName(),
       email ?? getEmail(),
+      confirmed ?? getConfrimed(),
       // bids ?? _bids,
     );
   }

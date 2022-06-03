@@ -28,14 +28,14 @@ class AppState {
 
   factory AppState.mock() {
     return const AppState(
-      user: ConsumerModel("0", "name", "some@email.com"),
+      user: ConsumerModel("0", "name", "some@email.com", "confirmed"),
       // adverts: [],
       signUpComplete: false,
     );
   }
 
   // easy way to replace store wihtout specifying all paramters
-  AppState replace({
+  AppState replace(ConsumerModel consumerModel, {
     UserModel? user,
     // List<Advert>? adverts,
     bool? signUpComplete,

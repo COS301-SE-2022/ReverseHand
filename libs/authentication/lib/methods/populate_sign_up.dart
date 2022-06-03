@@ -66,7 +66,7 @@ class SignUp extends StatelessWidget {
               children: [
                 //*****************heading*****************************
                 const Padding(
-                  padding: EdgeInsets.fromLTRB(0,15,0,0),
+                  padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
                   child: Text(
                     'Sign Up',
                     textAlign: TextAlign.center,
@@ -137,14 +137,18 @@ class SignUp extends StatelessWidget {
                 //*****************signup button**********************
                 StoreConnector<AppState, VoidCallback>(converter: (store) {
                   return () => store.dispatch(RegisterUserAction(
-                      emailController.value.text, passwordController.value.text));
+                      emailController.value.text.trim(),
+                      nameController.value.text.trim(),
+                      cellController.value.text.trim(),
+                      locationController.value.text.trim(),
+                      passwordController.value.text.trim()));
                 }, builder: (context, callback) {
                   return LongButtonWidget(
                     text: "Sign Up",
                     login: () => {
-                      DialogHelper.display(context, PopupWidget()), //trigger OTP popup
+                      DialogHelper.display(
+                          context, PopupWidget()), //trigger OTP popup
                     },
-
                   );
                 }),
                 //***************************************************

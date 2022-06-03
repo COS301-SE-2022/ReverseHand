@@ -1,47 +1,56 @@
 // import 'package:amplify/amplify.dart';
 // import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 // import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:flutter/foundation.dart';
 // import 'package:flutter/foundation.dart';
 // import 'package:redux_comp/models/user_models/consumer_model.dart';
 import '../app_state.dart';
+import '../models/user_models/consumer_model.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;
+  final String name;
+  final String cellNo;
+  final String location;
   final String password;
 
-  RegisterUserAction(this.username, this.password);
+  RegisterUserAction(this.username,this.name,this.cellNo,this.location, this.password);
 
   @override
   Future<AppState?> reduce() async {
     try {
-      // Map<CognitoUserAttributeKey, String> userAttributes = {
-      //   CognitoUserAttributeKey.email: 'email@domain.com',
-      //   // additional attributes as needed
-      // };
-      // final userPool = CognitoUserPool(
-      //   'ap-southeast-1_xxxxxxxxx',
-      //   'k165j5iid3jlctq8uv2naigue',
-      // );
-      // final userAttributes = [
-      //   const AttributeArg(name: 'first_name', value: 'Jimmy'),
-      //   const AttributeArg(name: 'last_name', value: 'Wong'),
-      // ];
+      Map<CognitoUserAttributeKey, String> userAttributes = {
+        CognitoUserAttributeKey.email : username,
+        CognitoUserAttributeKey.phoneNumber: cellNo
+      };
 
-      // /*CognitoUserPoolData res = */ await userPool.signUp(
-      //   'email@inspire.my',
-      //   'Password001',
-      //   userAttributes: userAttributes,
-      // );
+       SignUpResult res = await Amplify.Auth.signUp(
+        username: username,
+        password: password,
+        options: CognitoSignUpOptions(
+          userAttributes: userAttributes
+        )
+      );
 
+      String uID = (await Amplify.Auth.getCurrentUser()).userId;
+
+      return state.replace(
+        ConsumerModel(
+          uID,
+          name,
+          username,
+          res.nextStep.signUpStep        )
+      );
+    } on AuthException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
       return state;
-    } catch (e) {
+    } catch(e) {
       return state;
     }
-    /*on ApiException catch (e) {
-      // print(
-      //     'Getting data failed $e'); // temp fix later, add error to store, through error class
-      return state;
-    }*/
   }
 }

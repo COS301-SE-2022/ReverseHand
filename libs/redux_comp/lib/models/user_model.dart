@@ -5,7 +5,7 @@ abstract class UserModel {
   final String _id;
   final String _name;
   final String _email;
-  final bool _confirmed;
+  final String _confirmed;
 
   const UserModel(this._id, this._name, this._email, this._confirmed);
 
@@ -21,7 +21,7 @@ abstract class UserModel {
     return _email;
   }
 
-  bool getConfrimed() {
+  String getConfrimed() {
     return _confirmed;
   }
 
