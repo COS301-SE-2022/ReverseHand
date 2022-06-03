@@ -5,8 +5,7 @@ import 'package:redux_comp/redux_comp.dart';
 
 class ConsumerDetails extends StatelessWidget {
   final Store<AppState> store;
-  const ConsumerDetails({Key? key, required this.store})
-      : super(key: key);
+  const ConsumerDetails({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +15,3 @@ class ConsumerDetails extends StatelessWidget {
     );
   }
 }
-
-              // DividerWidget(),
-              // Text("BIDS",
-              //     style: TextStyle(
-              //       fontSize: 30,
-              //       color: Colors.white,
-              //     )), add this and delete

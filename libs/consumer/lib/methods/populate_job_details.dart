@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/methods/populate_bid_details.dart';
 import 'package:general/widgets/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
@@ -81,10 +82,32 @@ class JobDetails extends StatelessWidget {
                       Padding(padding: EdgeInsets.all(11)),
                     ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(30),
-                    child: const TextboxWidget(text: "Mr J Smith"),
-                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: InkWell(
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: const Color.fromRGBO(255, 153, 0, 1),
+                                width: 2.0),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20.0)),
+                          ),
+                          child: const Text(
+                            "Mr J Smith",
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => BidDetails(store: store)));
+                        }),
+                  )
                 ],
               ),
             ),
