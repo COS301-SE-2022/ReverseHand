@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  final String label; 
+  final String label;
   final bool obscure;
-  const TextFieldWidget({Key? key, required this.label, required this.obscure}) : super(key: key);
-  
+  const TextFieldWidget({Key? key, required this.label, required this.obscure})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -13,7 +14,7 @@ class TextFieldWidget extends StatelessWidget {
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
-        enabledBorder: OutlineInputBorder( 
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(
             color: Colors.grey,
