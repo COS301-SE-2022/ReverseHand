@@ -28,7 +28,7 @@ class AppState {
 
   factory AppState.mock() {
     return const AppState(
-      user: ConsumerModel("0", "name", "some@email.com"),
+      user: ConsumerModel("0", "name", "some@email.com", []),
       // adverts: [],
       signUpComplete: false,
     );
