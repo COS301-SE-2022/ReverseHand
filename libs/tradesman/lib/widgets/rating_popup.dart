@@ -1,24 +1,27 @@
 import 'package:authentication/widgets/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
+import 'package:tradesman/widgets/rating_stars.dart';
 
-class PlaceBidPopupWidget extends StatelessWidget {
-  
-  const PlaceBidPopupWidget({
+typedef void RatingChangeCallback(double rating);
+
+class RatingPopUpWidget extends StatelessWidget {
+
+  const RatingPopUpWidget({
     Key? key,
   }): super(key: key);
 
+    
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PlaceBidPopUp(),
+      body: RatingPopUp(),
     );
   }
-
 }
 
-class PlaceBidPopUp extends StatefulWidget {
-  PlaceBidPopUp({Key? key}) : super(key: key);
+class RatingPopUp extends StatefulWidget {
+  RatingPopUp({Key? key}) : super(key: key);
   final otpController = TextEditingController();
 
   void dispose() {
@@ -26,12 +29,12 @@ class PlaceBidPopUp extends StatefulWidget {
   }
 
   @override
-  State<PlaceBidPopUp> createState() => PlaceBidPopUpState();
+  State<RatingPopUp> createState() => RatingPopUpState();
 }
 
-class PlaceBidPopUpState extends State<PlaceBidPopUp> {
-  RangeValues _currentRangeValues = const RangeValues(10, 3000);
-
+class RatingPopUpState extends State<RatingPopUp> {
+  double rating = 3.5;
+  
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -61,26 +64,19 @@ class PlaceBidPopUpState extends State<PlaceBidPopUp> {
                 padding: const EdgeInsets.all(8.0),
                 alignment: Alignment.topCenter,
               child: const Text(
-                  "Place Bid",
+                  "Rate Tradesman",
                   style: TextStyle(fontSize: 20),
                 ),
               ),
               const TransparentDividerWidget(),
 
-              //*****************Tradesman rates slider**********************
-              RangeSlider(
-                values: _currentRangeValues,
-                max: 3000,
-                divisions: 10,
-                labels: RangeLabels(
-                  _currentRangeValues.start.round().toString(),
-                  _currentRangeValues.end.round().toString(),
+              //*****************rating stars**********************
+              Align(
+                alignment: Alignment.center,
+                child: StarRating(
+                  rating: rating,
+                  onRatingChanged: (rating) => setState(() => this.rating = rating), color: Colors.orange,
                 ),
-                onChanged: (RangeValues values) {
-                  setState(() {
-                    _currentRangeValues = values;
-                  });
-                },
               ),
               const TransparentDividerWidget(),
               //*****************************************************
@@ -99,3 +95,5 @@ class PlaceBidPopUpState extends State<PlaceBidPopUp> {
   }
   
 }
+
+
