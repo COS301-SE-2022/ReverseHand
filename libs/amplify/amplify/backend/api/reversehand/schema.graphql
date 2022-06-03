@@ -8,11 +8,58 @@ type User @model {
   email: String!
 }
 
-type Advert {
-  id: String
+type Query {
+  viewBids(user_id: String!, ad_id: String!): [Bid]
+    @function(name: "viewBidsResolver-${env}")
 }
 
-type Query {
-  viewBids(id: String!): Advert
-    @function(name: "viewBidsResolver-${env}")
+type Advert implements UniqueID {
+  id: String!
+  title: String!
+  description: String
+  type: JobType
+  bids: [Bid]!
+  shortlisted_bids: [Bid]!
+  accepted_bid: Bid
+  user_id: String!
+  location: String # temporary
+  date_created: String! # temporary
+  date_closed: String # temporary
+}
+
+type Notification implements UniqueID {
+  id: String!
+  user_id: String!
+  notification: String # temporary
+  date_created: String # temporary
+  seen: Boolean!
+}
+
+type Bid implements UniqueID {
+  id: String!
+  advert_id: String!
+  user_id: String!
+  price_upper: Int!
+  price_lower: Int!
+  quote: String # filename of quote stored in s3 bucket
+  date_created: String!
+  date_closed: String
+}
+
+type Review implements UniqueID {
+  id: String!
+  rating: Int
+  comment: String
+  user_id: String!
+  advert_id: String!
+  date_created: String!
+}
+
+# add more jobs here as we think of them
+enum JobType {
+  Plumbing
+}
+
+interface UniqueID {
+  id: String!
 }
