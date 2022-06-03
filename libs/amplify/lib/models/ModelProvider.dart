@@ -20,43 +20,29 @@
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'package:amplify_core/amplify_core.dart';
-import 'Advert.dart';
-import 'ArchivedAdvert.dart';
-import 'ArchivedBid.dart';
-import 'Bid.dart';
-import 'Review.dart';
+import 'User.dart';
 
-export 'Advert.dart';
-export 'ArchivedAdvert.dart';
-export 'ArchivedBid.dart';
-export 'Bid.dart';
-export 'Review.dart';
+export 'User.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "f608886cad3318d4e68a3c1e0821a4bb";
+  String version = "cf68e3e4443b7e1c6b32f128d6e5b32b";
   @override
-  List<ModelSchema> modelSchemas = [Advert.schema, ArchivedAdvert.schema, ArchivedBid.schema, Bid.schema, Review.schema];
+  List<ModelSchema> modelSchemas = [User.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
-  
+
   ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
-      case "Advert":
-        return Advert.classType;
-      case "ArchivedAdvert":
-        return ArchivedAdvert.classType;
-      case "ArchivedBid":
-        return ArchivedBid.classType;
-      case "Bid":
-        return Bid.classType;
-      case "Review":
-        return Review.classType;
+    switch (modelName) {
+      case "User":
+        return User.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }
