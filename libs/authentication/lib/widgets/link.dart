@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class LinkWidget extends StatelessWidget {
   final String text1; 
   final String text2; 
-  final String link;
-  const LinkWidget({Key? key, required this.text1, required this.text2, required this.link}) : super(key: key);
+  final void Function() navigate;
+  const LinkWidget({Key? key, required this.text1, required this.text2, required this.navigate}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -21,13 +21,7 @@ class LinkWidget extends StatelessWidget {
             softWrap: false,
           ),
           GestureDetector(
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //     MaterialPageRoute(builder: (context) => const Login(store: widget.store,),
-              //   ),
-              // );
-            },
+            onTap: navigate,
             child: Text(
               text2,
               style: TextStyle(
