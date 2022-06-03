@@ -9,7 +9,7 @@ import 'dart:ui';
 import '../widgets/button.dart';
 import '../widgets/divider.dart';
 import '../widgets/link.dart';
-import '../widgets/pop_up.dart';
+import '../widgets/otp_pop_up.dart';
 import '../widgets/textfield.dart';
 import 'package:general/widgets/dialog_helper.dart';
 
@@ -142,7 +142,7 @@ class SignUp extends StatelessWidget {
                   return LongButtonWidget(
                     text: "Sign Up",
                     login: () => {
-                      DialogHelper.exit(context, PopupWidget()),
+                      DialogHelper.display(context, PopupWidget()), //trigger OTP popup
                     },
 
                   );

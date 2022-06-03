@@ -20,15 +20,17 @@ class PopupCardWidget extends StatelessWidget {
   }
   
   _buildPopUp(BuildContext context, Widget widget) {
-    return Container(
-      height: 500,
-      width: 550,
-      decoration: const BoxDecoration(
-        color: Colors.black54,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
+    return Center(
+      child: Container(
+        height: 500,
+        width: 700,
+        decoration: const BoxDecoration(
+          color: Colors.black87,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
+        ),
+        child: widget, //call external popup widget
       ),
-      child: widget,
     );
   }
 }
