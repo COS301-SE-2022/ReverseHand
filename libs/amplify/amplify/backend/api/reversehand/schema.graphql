@@ -9,7 +9,7 @@ type User @model {
 }
 
 type Query {
-  viewBids(user_id: String!, ad_id: String!): [Bid]
+  viewBids(ad_id: String!): [Bid]!
     @function(name: "viewBidsResolver-${env}")
 }
 
@@ -39,8 +39,8 @@ type Bid implements UniqueID {
   id: String!
   advert_id: String!
   user_id: String!
-  price_upper: Int!
   price_lower: Int!
+  price_upper: Int!
   quote: String # filename of quote stored in s3 bucket
   date_created: String!
   date_closed: String
