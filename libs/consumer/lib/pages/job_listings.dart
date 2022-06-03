@@ -17,14 +17,14 @@ class ConsumerListings extends StatelessWidget {
             title: const Text('My Job Listings'),
             backgroundColor: const Color.fromRGBO(82, 121, 111, 1),
           ),
-          // body: 
+          // body:
           // StoreConnector<AppState, VoidCallback> (
           //   converter: (store) => store.state.adverts,
           //   builder: (context, adverts) {
           //     return JobListings(store: store, adverts: adverts);
           //   },
-          ),
         ),
+      ),
       // ),
     );
   }

@@ -32,21 +32,21 @@ class _JobCreationState extends State<JobCreation> {
       store: widget.store,
       child: MaterialApp(
         home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Creating a job'),
-            backgroundColor: const Color.fromRGBO(82, 121, 111, 1),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => ConsumerListings(store: widget.store)));
-              },
+            appBar: AppBar(
+              title: const Text('Creating a job'),
+              backgroundColor: const Color.fromRGBO(82, 121, 111, 1),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              ConsumerListings(store: widget.store)));
+                },
+              ),
             ),
-          ),
-          body: Row(
-            children: [
+            body: Row(children: [
               Expanded(
                 child: Column(
                   children: [
@@ -126,9 +126,7 @@ class _JobCreationState extends State<JobCreation> {
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ])),
       ),
     );
   }

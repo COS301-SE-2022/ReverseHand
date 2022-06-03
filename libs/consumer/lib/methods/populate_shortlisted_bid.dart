@@ -5,9 +5,9 @@ import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/card.dart';
 import 'package:general/widgets/button.dart';
 
-class BidDetails extends StatelessWidget {
+class ShortListBidDetails extends StatelessWidget {
   final Store<AppState> store;
-  const BidDetails({Key? key, required this.store}) : super(key: key);
+  const ShortListBidDetails({Key? key, required this.store}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -24,11 +24,11 @@ class BidDetails extends StatelessWidget {
                 price1: "R800",
                 price2: "R900",
                 details: "info@gmail.com",
-                quote: false,
+                quote: true,
               ),
               Padding(padding: EdgeInsets.all(10)),
               ButtonWidget(
-                text: "SHORTLIST",
+                text: "ACCEPT",
               )
             ])),
       ),
