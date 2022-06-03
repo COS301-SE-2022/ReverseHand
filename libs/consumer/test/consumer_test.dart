@@ -7,11 +7,11 @@ import 'package:redux_comp/redux_comp.dart';
 
 void main() {
   final store = Store<AppState>(initialState: AppState.mock());
-  final Advert advert = Advert(id: "12345", title: "Plumbing Job");
+  // final Advert advert = Advert(id: "12345", title: "Plumbing Job");
 
   testWidgets("Testing Consumer Details Class", (WidgetTester tester) async {
     //create an instance of ConsumerDetails widget
-    await tester.pumpWidget(ConsumerDetails(store: store, advert: advert));
+    // await tester.pumpWidget(ConsumerDetails(store: store, advert: advert));
 
     //Check if Active Bids text exists
     final actBids = find.text("Active Bids");
