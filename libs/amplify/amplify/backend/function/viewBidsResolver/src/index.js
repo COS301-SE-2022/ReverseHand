@@ -30,7 +30,9 @@ exports.handler = async (event, context) => {
                 user_id: item['user'],
                 price_lower: item['price_lower'],
                 price_upper: item['price_upper'],
-                date_created: item['date']
+                quote: null,
+                date_created: item['date'],
+                date_closed: null
             });
         }
 
