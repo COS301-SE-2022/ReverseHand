@@ -38,14 +38,20 @@ class PopupWidget extends StatelessWidget {
                 ),
               ),
               const TransparentDividerWidget(),
-                //*****************OTP**********************
+
+              //*****************OTP text field**********************
               TextFieldWidget(
                   label: 'otp',
                   obscure: false,
                   controller: otpController,
                 ),
                 const TransparentDividerWidget(),
+                //*****************************************************
+
+                //***************Verify Button *********************** */
                 const ButtonWidget(),
+                //*****************************************************
+
             ],
           ),
         ),

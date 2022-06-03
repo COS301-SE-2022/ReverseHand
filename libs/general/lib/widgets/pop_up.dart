@@ -29,7 +29,7 @@ class PopupCardWidget extends StatelessWidget {
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
         ),
-        child: widget,
+        child: widget, //call external popup widget
       ),
     );
   }
