@@ -22,7 +22,9 @@ class ButtonWidget extends StatelessWidget {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0))),
             ),
-            onPressed: () {},
+            onPressed: () {
+              //Demo 3: pass a path as a parameter to a widget constructor
+            },
             child: Text(text),
           ),
         ],

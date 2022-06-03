@@ -26,29 +26,29 @@ class JobListings extends StatelessWidget {
       Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          height: 60,
-          width: 80,
-          decoration: BoxDecoration(
-              color: const Color.fromRGBO(132, 169, 140, 1),
-              borderRadius: BorderRadius.circular(30)),
-          child: TextButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                    const Color.fromRGBO(132, 169, 140, 1)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ))),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => JobCreation(store: store)));
-            },
-            child: const Text(
-              '+',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-          ),
-        ),
+            height: 60,
+            width: 80,
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(132, 169, 140, 1),
+                borderRadius: BorderRadius.circular(30)),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.orange,
+                onPrimary: Colors.white,
+                shadowColor: Colors.black,
+                elevation: 9,
+                textStyle: const TextStyle(fontSize: 30),
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0))),
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => JobCreation(store: store)));
+              },
+              child: const Text("+"), //Look into an icon for demo 3
+            )),
       ),
       const Padding(
         padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
