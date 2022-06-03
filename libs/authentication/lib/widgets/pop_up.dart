@@ -17,29 +17,37 @@ class PopupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 350,
-      decoration: const BoxDecoration(
-        color: Colors.black87,
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
-      ),
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            const Text(
-                "Enter verification code sent to your email/phone",
-                style: TextStyle(fontSize: 20),
+    return Center(
+      child: Container(
+        height: 350,
+        decoration: const BoxDecoration(
+          color: Colors.black87,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
+        ),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(8.0),
+                alignment: Alignment.topCenter,
+              child: const Text(
+                  "Enter verification code sent to your email/phone",
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-            const TransparentDividerWidget(),
-              //*****************OTP**********************
-            TextFieldWidget(
-                label: 'otp',
-                obscure: false,
-                controller: otpController,
-              ),
-              const ButtonWidget(),
-          ],
+              const TransparentDividerWidget(),
+                //*****************OTP**********************
+              TextFieldWidget(
+                  label: 'otp',
+                  obscure: false,
+                  controller: otpController,
+                ),
+                const TransparentDividerWidget(),
+                const ButtonWidget(),
+            ],
+          ),
         ),
       ),
     );
