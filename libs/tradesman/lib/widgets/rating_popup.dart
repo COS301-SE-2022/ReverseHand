@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
 import 'package:tradesman/widgets/rating_stars.dart';
 
-typedef void RatingChangeCallback(double rating);
+typedef RatingChangeCallback = void Function(double rating);
 
 class RatingPopUpWidget extends StatelessWidget {
 
