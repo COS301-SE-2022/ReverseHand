@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/card.dart';
 import 'package:redux_comp/app_state.dart';
 
 import '../pages/create_new_job.dart';
@@ -17,37 +18,72 @@ class JobListings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      // Expanded(
-      //   child: ListView(
-      //     children: adverts.map((advert) => JobListing(store: store, advert: advert)).toList()
-      //   ),
-      // ),
-
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: Colors.orange,
-            onPrimary: Colors.white,
-            shadowColor: Colors.black,
-            elevation: 9,
-            textStyle: const TextStyle(fontSize: 30),
-            minimumSize: const Size(60, 60),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0))),
+    return StoreProvider<AppState>(
+      store: store,
+      child: MaterialApp(
+        home: Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: SingleChildScrollView(
+            child: Column(children: [
+              // Expanded(
+              //   child: ListView(
+              //     children: adverts.map((advert) => JobListing(store: store, advert: advert)).toList()
+              //   ),
+              // ),
+              const Padding(
+                padding: EdgeInsets.all(20),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => ConsumerDetails(store: store)));
+                },
+                //THIS CARD SHOULD CHANGE
+                child: const CardWidget(
+                    titleText: "PAINTING",
+                    price1: "200",
+                    price2: "300",
+                    details: "description here",
+                    quote: false),
+              ),
+              // Expanded(child: Container()),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.orange,
+                      onPrimary: Colors.white,
+                      shadowColor: Colors.black,
+                      elevation: 9,
+                      textStyle: const TextStyle(fontSize: 30),
+                      minimumSize: const Size(60, 60),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(30.0))),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => CreateNewJob(store: store)));
+                    },
+                    child: const Text("+"), //Look into an icon for demo 3
+                  ),
+                ),
+              ),
+              const Padding(
+                padding:
+                    EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+              ),
+            ]),
           ),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (_) => CreateNewJob(store: store)));
-          },
-          child: const Text("+"), //Look into an icon for demo 3
         ),
       ),
-      const Padding(
-        padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-      ),
-    ]);
+    );
   }
 }
 

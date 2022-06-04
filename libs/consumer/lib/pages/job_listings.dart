@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/methods/populate_job_listings.dart';
 import 'package:flutter/material.dart';
+import 'package:general/general.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class ConsumerListings extends StatelessWidget {
@@ -11,7 +12,8 @@ class ConsumerListings extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(home: JobListings(store: store)),
+      child: MaterialApp(
+          home: JobListings(store: store), theme: CustomTheme.darkTheme),
     );
   }
 }
