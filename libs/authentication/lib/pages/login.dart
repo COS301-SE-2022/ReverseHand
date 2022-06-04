@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:authentication/methods/populate_login.dart';
 
@@ -12,6 +13,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
+  @override
+ void initState() {
+   widget.store.dispatch(InitAmplifyAction());
+   super.initState();
+ }
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
