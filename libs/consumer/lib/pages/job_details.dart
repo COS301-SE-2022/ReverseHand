@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/methods/populate_job_details.dart';
 import 'package:flutter/material.dart';
+import 'package:general/theme.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class ConsumerDetails extends StatelessWidget {
@@ -11,7 +12,10 @@ class ConsumerDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(home: JobDetails(store: store)),
+      child: MaterialApp(
+        home: JobDetails(store: store),
+        theme: CustomTheme.darkTheme,
+      ),
     );
   }
 }
