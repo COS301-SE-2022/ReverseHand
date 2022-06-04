@@ -55,7 +55,7 @@ void main() {
 
   testWidgets(("Testing the Job Creation Class"), (WidgetTester tester) async {
     //create an instance of JobCreation
-    await tester.pumpWidget(JobCreation(store: store));
+    // await tester.pumpWidget(JobCreation(store: store));
 
     //find the IconButton
     final iconB = find.byType(IconButton);
