@@ -35,18 +35,18 @@ class RegisterUserAction extends ReduxAction<AppState> {
         )
       );
 
-      if (res.isSignUpComplete) {
-        Amplify.Auth.signIn(username: username, password: password);
-      }
-      String uID = (await Amplify.Auth.getCurrentUser()).userId;
+      if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
+        // await Amplify.Auth.signIn(username: username, password: password);
+        String uID = (await Amplify.Auth.getCurrentUser()).userId;
+        return state.replace(
+          ConsumerModel(
+            uID,
+            name,
+            username,
+            res.nextStep.signUpStep        )
+        );
+      } else print(res.nextStep.signUpStep);
 
-      return state.replace(
-        ConsumerModel(
-          uID,
-          name,
-          username,
-          res.nextStep.signUpStep        )
-      );
     } on AuthException catch (e) {
       if (kDebugMode) {
         print(e);

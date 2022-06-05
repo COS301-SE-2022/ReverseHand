@@ -147,8 +147,8 @@ class SignUp extends StatelessWidget {
                     text: "Sign Up",
                     login: () => {
                       callback(),
-                      // DialogHelper.display(
-                      //     context, PopupWidget()), //trigger OTP popup
+                      DialogHelper.display(
+                          context, PopupWidget(store: store,)), //trigger OTP popup
                     },
                   );
                 }),
