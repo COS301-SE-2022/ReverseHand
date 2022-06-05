@@ -3,11 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
-//Example of command to run integration test
-//flutter drive \
-//  --driver=test_driver/integration_test.dart \
-//  --target=integration_test/counter_test.dart \
-//  -d web-server
+//Example of command to run integration test in apps/app
+//flutter test integration_test/example_test.dart
+//NB: emulator must be running before hand
 
 void main() {
   //make sure service is initialized first to run on device
