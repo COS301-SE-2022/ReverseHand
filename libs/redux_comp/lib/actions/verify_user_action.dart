@@ -1,5 +1,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:redux_comp/models/user_models/consumer_model.dart';
+import 'package:redux_comp/models/user_models/partial_user_model.dart';
 
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -20,7 +21,7 @@ class VerifyUserAction extends ReduxAction<AppState> {
 
       if (res.nextStep.signUpStep == "DONE") {
         return state.replace(
-           ConsumerModel(state.user!.getId(), state.user!.getName(), state.user!.getEmail(), res.nextStep.signUpStep)
+          user: ConsumerModel(state.user!.getId(), state.user!.getName(), state.user!.getEmail(), res.nextStep.signUpStep)
         );
       } else print(res.nextStep.signUpStep);
        return state;// .replace(

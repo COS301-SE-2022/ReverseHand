@@ -59,7 +59,7 @@ class PopupWidget extends StatelessWidget {
                 StoreConnector<AppState, VoidCallback>(converter: (store) {
                   return () => store.dispatch(
                         VerifyUserAction(
-                          store.state.user!.getEmail(),
+                          store.state.partialUser!.getEmail(),
                           otpController.value.text.trim()),
                       );
                 }, builder: (context, callback) {
@@ -67,12 +67,12 @@ class PopupWidget extends StatelessWidget {
                       text: "Verify",
                       function: () => {
                             callback(),
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (_) =>
-                            //           ConsumerListings(store: store)),
-                            // )
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      ConsumerListings(store: store)),
+                            )
                           });
                 }),
                 //*****************************************************

@@ -1,6 +1,5 @@
 import 'package:authentication/widgets/divider.dart';
 import 'package:flutter/material.dart';
-import 'package:general/widgets/button.dart';
 
 class PlaceBidPopupWidget extends StatelessWidget {
   
@@ -86,9 +85,9 @@ class PlaceBidPopUpState extends State<PlaceBidPopUp> {
               //*****************************************************
 
               //***************Verify Button *********************** */
-              const ButtonWidget(
-                //onPressed: Navigator.pop(context),
-              ),
+              // const ButtonWidget(
+              //   // onPressed: Navigator.pop(context),
+              // ),
               //*****************************************************
 
             ],

@@ -8,10 +8,6 @@ class ConsumerModel extends UserModel {
   const ConsumerModel(String id, String name, String email, String confirmed)
       : super(id, name, email, confirmed);
 
-  // List<Bid> getBids() {
-  //   return _bids;
-  // }
-
   @override
   UserModel replace({
     String? id,

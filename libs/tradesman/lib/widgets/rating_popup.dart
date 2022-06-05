@@ -82,10 +82,14 @@ class RatingPopUpState extends State<RatingPopUp> {
               //*****************************************************
 
               //***************Verify Button *********************** */
-              const ButtonWidget(
-                //onPressed: Navigator.pop(context),
-              ),
-              //*****************************************************
+              // Eish when I pulled from dev this button no longer worked, 
+              // I changed the constructor to take a string for the display text, and a function to use anonymously outside the widget
+              // - Richard 
+              //
+              // const ButtonWidget(
+              //   //onPressed: Navigator.pop(context),
+              // ),
+              //*****************************************************//
 
             ],
           ),

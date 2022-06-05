@@ -5,10 +5,11 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
+import 'package:redux_comp/models/user_models/consumer_model.dart';
 // import 'package:flutter/foundation.dart';
 // import 'package:redux_comp/models/user_models/consumer_model.dart';
 import '../app_state.dart';
-import '../models/user_models/consumer_model.dart';
+import '../models/user_models/partial_user_model.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;
@@ -37,11 +38,8 @@ class RegisterUserAction extends ReduxAction<AppState> {
 
       if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
         // await Amplify.Auth.signIn(username: username, password: password);
-        String uID = (await Amplify.Auth.getCurrentUser()).userId;
         return state.replace(
-          ConsumerModel(
-            uID,
-            name,
+          partialUser: PartialUser(
             username,
             res.nextStep.signUpStep        )
         );
