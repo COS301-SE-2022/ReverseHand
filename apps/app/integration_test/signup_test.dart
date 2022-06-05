@@ -55,7 +55,7 @@ void main() {
 
     //Entering an email in the emeail field
     await tester.enterText(email,
-        "johnnyBravo@gmail.com"); //might have to change this to a valid email most probably
+        "johnny_Bravo@gmail.com"); //might have to change this to a valid email most probably
     await tester.pumpAndSettle();
 
     //entering a location
