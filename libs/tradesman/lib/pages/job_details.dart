@@ -1,7 +1,11 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:authentication/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/dialog_helper.dart';
 import 'package:redux_comp/app_state.dart';
-import './job_listings.dart';
+// import '../widgets/place_bid_popup.dart';
+import '../widgets/rating_popup.dart';
+import 'job_listings.dart';
 
 class TradesmanJobDetails extends StatelessWidget {
   final Store<AppState> store;
@@ -86,23 +90,16 @@ class TradesmanJobDetails extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 20)),
-                      onPressed: () {},
-                      child: const Text('Bid'),
+
+                    //***********************Place Bid Button ********************* */
+                    LongButtonWidget(
+                      text: "Place Bid",
+                      login: () => {
+                        DialogHelper.display(context, const RatingPopUpWidget()), //trigger place bid popup
+                        //RatingPopUpWidget PlaceBidPopupWidget
+                      },
                     ),
-                    Divider(
-                      height: 15,
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 10,
-                      color: Colors.black.withOpacity(0.2),
-                    ),
-                    const Text(
-                      "Bids",
-                      style: TextStyle(fontSize: 25.0, color: Colors.black),
-                    ),
+                    //************************************************************* */
                   ],
                 ),
               ),
