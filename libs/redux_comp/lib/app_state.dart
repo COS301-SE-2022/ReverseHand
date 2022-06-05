@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:redux_comp/models/user_models/consumer_model.dart';
 import 'models/error_type_model.dart';
-import 'models/user_model.dart';
+import 'models/user_models/user_model.dart';
 import 'models/user_models/partial_user_model.dart';
 
 @immutable
@@ -29,7 +28,7 @@ class AppState {
 
   factory AppState.mock() {
     return const AppState(
-      user: ConsumerModel("0", "name", "some@email.com", "confirmed"),
+      user: UserModel("0", "some@email.com", "confirmed"),
       partialUser: PartialUser("some@email.com", "confirmed"),
       error: ErrorType.none,
     );

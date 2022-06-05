@@ -105,7 +105,9 @@ class Login extends StatelessWidget {
                   //*****************login button**********************
 
                   StoreConnector<AppState, VoidCallback>(converter: (store) {
-                    return () => store.dispatch(LoginAction(
+                    return () => store.dispatch(
+                      // LogoutAction()
+                      LoginAction(
                         emailController.value.text.trim(),
                         passwordController.value.text.trim()));
                   }, builder: (context, callback) {
