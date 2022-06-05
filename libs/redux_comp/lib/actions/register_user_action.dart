@@ -36,6 +36,7 @@ class RegisterUserAction extends ReduxAction<AppState> {
         return state.replace(
           partialUser: PartialUser(
             username,
+            password,
             res.nextStep.signUpStep        )
         );
       } else print(res.nextStep.signUpStep);

@@ -11,9 +11,10 @@ import '../models/user_models/user_model.dart';
 
 class VerifyUserAction extends ReduxAction<AppState> {
   final String username;
+  final String password;
   final String confirmationCode;
 
-  VerifyUserAction(this.username, this.confirmationCode);
+  VerifyUserAction(this.username, this.password, this.confirmationCode);
   @override
   Future<AppState?> reduce() async {
     try {
@@ -22,7 +23,7 @@ class VerifyUserAction extends ReduxAction<AppState> {
 
       if (res.nextStep.signUpStep == "DONE") {
         return state.replace(
-          user: UserModel(state.user!.getId(), state.user!.getEmail(), res.nextStep.signUpStep)
+          partialUser: PartialUser(username, password,res.nextStep.signUpStep)
         );
       } else print(res.nextStep.signUpStep);
        return state;// .replace(

@@ -29,7 +29,7 @@ class AppState {
   factory AppState.mock() {
     return const AppState(
       user: UserModel("0", "some@email.com", "confirmed"),
-      partialUser: PartialUser("some@email.com", "confirmed"),
+      partialUser: PartialUser("some@email.com", "1234", "confirmed"),
       error: ErrorType.none,
     );
   }

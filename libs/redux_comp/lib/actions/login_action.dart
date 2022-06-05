@@ -3,6 +3,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/error_type_model.dart';
+import 'package:redux_comp/models/user_models/partial_user_model.dart';
 
 import '../models/user_models/user_model.dart';
 
@@ -21,8 +23,15 @@ class LoginAction extends ReduxAction<AppState> {
         password: password,
       );
 
+
+      // if (res. == "CONFIRM_SIGN_UP_STEP") {
+
+      // }
       List<AuthUserAttribute> userAttr = await Amplify.Auth.fetchUserAttributes();
 
+      /* Since fetching user attributes is async, it returns the attributes unordered */
+      /* This simple for loop & case statement will iterate through the list and check the attribute key */
+      /* to assign it to the correct vairable */
       String id = "", username = "", userType = "";
       for (var attr in userAttr) {
         switch (attr.userAttributeKey.key) {
@@ -35,8 +44,6 @@ class LoginAction extends ReduxAction<AppState> {
           case "family_name":
             userType = attr.value;
             break;
-          default:
-            break;
         }
         
       }
@@ -47,9 +54,17 @@ class LoginAction extends ReduxAction<AppState> {
           userType,
       ));
       // exception will be handled later
-      // } on AuthException catch (e) {
-    } catch (e) {
-      // print(e.underlyingException);
+      } on AuthException catch (e) {
+    // } catch (e) {
+      switch (e.message) {
+        case "UserNotConfirmedException": {
+          return state.replace(
+            partialUser: PartialUser(email, password, "CONFIRM_SIGN_UP_STEP"),
+            error: ErrorType.notVerified
+          );
+        }
+      }
+      print (e);
       return state;
     }
     /*on ApiException catch (e) {
