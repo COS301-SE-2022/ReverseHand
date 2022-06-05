@@ -39,7 +39,13 @@ class RegisterUserAction extends ReduxAction<AppState> {
             password,
             res.nextStep.signUpStep        )
         );
-      } else print(res.nextStep.signUpStep);
+      } else {
+        if (kDebugMode) {
+          print(res.nextStep.signUpStep);
+        }
+      }
+
+      return state;
 
     } on AuthException catch (e) {
       if (kDebugMode) {

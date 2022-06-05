@@ -4,7 +4,6 @@ import 'package:authentication/widgets/textfield.dart';
 import 'package:consumer/pages/job_listings.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
-import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/actions/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 
@@ -57,23 +56,24 @@ class PopupWidget extends StatelessWidget {
                 //*****************************************************
 
                 //***************Verify Button *********************** */
-                StoreConnector<AppState, VoidCallback>(
-                  builder: (context, _) {
+                StoreConnector<AppState, VoidCallback>(converter: (store) {
+                  return () => store.dispatch(
+                        VerifyUserAction(
+                          store.state.partialUser!.getEmail(),
+                          store.state.partialUser!.getPassword(),
+                          otpController.value.text.trim()),
+                      );
+                }, builder: (context, callback) {
                   return ButtonWidget(
                       text: "Verify",
                       function: () => {
-                            store.dispatch(VerifyUserAction(store.state.partialUser!.getEmail(), store.state.partialUser!.getPassword(),otpController.text.trim())),
-                            if (store.state.partialUser!.getConfirmed() == "DONE") {
-                              store.dispatch(LoginAction(store.state.partialUser!.getEmail(), store.state.partialUser!.getPassword())),
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        ConsumerListings(store: store)),
-                              )
-                              
-                            }
-                            
+                            callback(),
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      ConsumerListings(store: store)),
+                            )
                           });
                 }),
                 //*****************************************************

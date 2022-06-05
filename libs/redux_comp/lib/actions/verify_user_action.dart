@@ -1,11 +1,10 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:flutter/foundation.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
 
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-
-import '../models/user_models/user_model.dart';
 
 // import '../models/user_models/consumer_model.dart';
 
@@ -25,7 +24,11 @@ class VerifyUserAction extends ReduxAction<AppState> {
         return state.replace(
           partialUser: PartialUser(username, password,res.nextStep.signUpStep)
         );
-      } else print(res.nextStep.signUpStep);
+      } else {
+        if (kDebugMode) {
+          print(res.nextStep.signUpStep);
+        }
+      }
        return state;// .replace(
       //      user: ConsumerModel(id, email, email));
 // } on AuthException catch (e) {
