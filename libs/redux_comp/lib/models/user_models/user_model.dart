@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class UserModel {
   final String _id;
   final String _email;
-  final String _confirmed;
+  final String _userType;
 
-  const UserModel(this._id, this._email, this._confirmed);
+  const UserModel(this._id, this._email, this._userType);
 
   String getId() {
     return _id;
@@ -16,8 +16,8 @@ class UserModel {
     return _email;
   }
 
-  String getConfirmed() {
-    return _confirmed;
+  String getUserType() {
+    return _userType;
   }
 
    UserModel replace({
@@ -28,7 +28,7 @@ class UserModel {
     return UserModel(
       id ?? getId(),
       email ?? getEmail(),
-      confirmed ?? getConfirmed(),
+      confirmed ?? getUserType(),
     );
   }
 }
