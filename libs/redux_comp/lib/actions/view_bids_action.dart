@@ -25,6 +25,8 @@ class ViewBidsAction extends ReduxAction<AppState> {
     final response = await Amplify.API.query(request: request).response;
     if (kDebugMode) {
       print(response.data);
+    }
+    if (kDebugMode) {
       print(jsonDecode(response.data));
     }
     /*

@@ -13,12 +13,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-   @override
-  void initState() {
-    widget.store.dispatch(InitAmplifyAction());
-    super.initState();
-    // widget.store.dispatch(ViewBidsAction());
-  }
+  
+  @override
+ void initState() {
+   widget.store.dispatch(InitAmplifyAction());
+   super.initState();
+ }
 
   @override
   Widget build(BuildContext context) {

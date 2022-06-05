@@ -7,6 +7,7 @@ import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/app_state.dart';
+// import 'package:tradesman/pages/job_listings.dart';
 import 'dart:ui';
 import '../widgets/button.dart';
 import '../widgets/link.dart';
@@ -114,8 +115,9 @@ class Login extends StatelessWidget {
                         callback(),
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (_) => ConsumerListings(store: store)),
+                          MaterialPageRoute( 
+                              builder: (_) => ConsumerListings(store: store)), //comment to rather view tradesman
+                              //builder: (_) => TradesmanJobListings(store: store)), //uncomment to view tradesman
                         )
                       },
                     );

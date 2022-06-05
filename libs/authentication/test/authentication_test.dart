@@ -15,8 +15,8 @@ void main() {
     final password = find.text("password");
     expect(password, findsOneWidget);
 
-    final login = find.text("Login");
-    expect(login, findsOneWidget);
+    //final login = find.text("Login");
+    //expect(login, findsOneWidget);
     expect(find.widgetWithText(Text, "login"), findsNothing);
     expect(find.text("or"), findsOneWidget);
 
