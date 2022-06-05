@@ -1,4 +1,15 @@
 export type AmplifyDependentResourcesAttributes = {
+    "auth": {
+        "reversehand8ac8d062": {
+            "IdentityPoolId": "string",
+            "IdentityPoolName": "string",
+            "UserPoolId": "string",
+            "UserPoolArn": "string",
+            "UserPoolName": "string",
+            "AppClientIDWeb": "string",
+            "AppClientID": "string"
+        }
+    },
     "api": {
         "reversehand": {
             "GraphQLAPIKeyOutput": "string",
@@ -8,6 +19,12 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "function": {
         "viewBidsResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "shortListBidResolver": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

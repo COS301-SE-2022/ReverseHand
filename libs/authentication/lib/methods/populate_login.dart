@@ -7,7 +7,7 @@ import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/app_state.dart';
-// import 'package:tradesman/pages/job_listings.dart';
+import 'package:tradesman/pages/job_listings.dart';
 import 'dart:ui';
 import '../widgets/button.dart';
 import '../widgets/link.dart';
@@ -105,20 +105,31 @@ class Login extends StatelessWidget {
                   //*****************login button**********************
 
                   StoreConnector<AppState, VoidCallback>(converter: (store) {
-                    return () => store.dispatch(LoginAction(
-                        emailController.value.text,
-                        passwordController.value.text));
+                    return () => store.dispatch(
+                      // LogoutAction()
+                      LoginAction(
+                        emailController.value.text.trim(),
+                        passwordController.value.text.trim()));
                   }, builder: (context, callback) {
                     return LongButtonWidget(
                       text: "login",
                       login: () => {
                         callback(),
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute( 
-                              builder: (_) => ConsumerListings(store: store)), //comment to rather view tradesman
-                              //builder: (_) => TradesmanJobListings(store: store)), //uncomment to view tradesman
-                        )
+                        if (store.state.user == null) {
+                          
+                        } 
+                        else if (store.state.user!.getUserType() == "Consumer")
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute( 
+                                builder: (_) => ConsumerListings(store: store)), //comment to rather view tradesman
+                          )
+                        else if (store.state.user!.getUserType() == "tradesman")
+                         Navigator.push(
+                            context,
+                            MaterialPageRoute( 
+                                builder: (_) => TradesmanJobListings(store: store)), //uncomment to view tradesman
+                         )
                       },
                     );
                   }),

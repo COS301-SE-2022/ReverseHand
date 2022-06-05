@@ -23,19 +23,18 @@
           "sortKeyType": "S"
         }
       },
-      "auth": {
-        "reversehand8526215b": {
-          "userPoolId": "eu-west-1_clLdX1pB9",
-          "userPoolName": "ReverseHand",
-          "webClientId": "4seqkag6053v331qrf4m5v091q",
-          "nativeClientId": "4seqkag6053v331qrf4m5v091q"
-        }
-      },
       "function": {
         "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
-          "s3Key": "amplify-builds/viewBidsResolver-7637524f565070424642-build.zip"
+          "s3Key": "amplify-builds/viewBidsResolver-574a7153395931746c58-build.zip"
+        },
+        "shortListBidResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+          "s3Key": "amplify-builds/shortListBidResolver-4d473668414f354d3659-build.zip"
         }
+      },
+      "auth": {
+        "reversehand8ac8d062": {}
       }
     }
   }

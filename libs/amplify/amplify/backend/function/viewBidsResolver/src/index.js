@@ -10,26 +10,35 @@ exports.handler = async (event, context) => {
     // console.log(event);
     // console.log(context);
 
-    let params = {
-        TableName: ReverseHandTable,
-        KeyConditionExpression: "user_id = :u and sort_key = :s",
-        ExpressionAttributeValues: {
-            ":u": event.arguments.user_id,
-            ":s": event.arguments.ad_id
-        }
-    };
-
     try {
+        let params = {
+            TableName: ReverseHandTable,
+            KeyConditionExpression: "user_id = :u",
+            ExpressionAttributeValues: {
+                ":u": event.arguments.ad_id,
+            }
+        };
         const data = await docClient.query(params).promise();
-        console.log(data);
+        console.log(data["Items"]);
+        let items = data["Items"];
+        
+        let bids = [];
+        for (let item of items) {
+            bids.push({
+                id: item['sort_key'],
+                advert_id: item['user_id'], // since this is the advert we searched for
+                user_id: item['user'],
+                price_lower: item['price_lower'],
+                price_upper: item['price_upper'],
+                quote: item['quote'],
+                date_created: item['date_created'],
+                date_closed: item['date_closed']
+            });
+        }
 
-        return {
-            id: "Hi"
-        };
+        return bids;
     } catch(e) {
-        return {
-            id: e
-        };
+        console.log(e)
+        return e;
     }
-
 };
