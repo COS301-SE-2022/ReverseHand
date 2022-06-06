@@ -23,6 +23,9 @@ dependencies:
   general:
     path: '../general'
 
+  authentication:
+    path: '../authentication'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

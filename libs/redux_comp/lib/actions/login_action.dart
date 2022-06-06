@@ -27,7 +27,13 @@ class LoginAction extends ReduxAction<AppState> {
         password: password,
       );
 
+<<<<<<< HEAD
       res.nextStep!.signInStep;
+=======
+      // if (res. == "CONFIRM_SIGN_UP_STEP") {
+
+      // }
+>>>>>>> e705dba639ae0e7e685133bfc489cfcd493094a7
       List<AuthUserAttribute> userAttr =
           await Amplify.Auth.fetchUserAttributes();
 
@@ -50,9 +56,11 @@ class LoginAction extends ReduxAction<AppState> {
       }
       return state.replace(
           user: UserModel(
-        id,
-        username,
-        userType,
+        id: id,
+        email: username,
+        userType: userType,
+        bids: const [],
+        adverts: const [],
       ));
       // exception will be handled later
     } on AuthException catch (e) {

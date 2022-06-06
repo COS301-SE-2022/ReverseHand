@@ -1,0 +1,3 @@
+enum JobType {
+  plumbing,
+}

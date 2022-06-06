@@ -11,6 +11,8 @@ type User @model {
 type Query {
   viewBids(ad_id: String!): [Bid]!
   @function(name: "viewBidsResolver-${env}")
+  viewAdverts(user_id: String!): [Advert]!
+  @function(name: "viewAdvertsResolver-${env}")
 }
 
 type Advert implements UniqueID {
@@ -18,10 +20,7 @@ type Advert implements UniqueID {
   title: String!
   description: String
   type: JobType
-  bids: [Bid]!
-  shortlisted_bids: [Bid]!
-  accepted_bid: Bid
-  user_id: String!
+  accepted_bid: String
   location: String # temporary
   date_created: String! # temporary
   date_closed: String # temporary
