@@ -35,11 +35,20 @@
       "function": {
         "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
-          "s3Key": "amplify-builds/viewBidsResolver-574a7153395931746c58-build.zip"
+          "s3Key": "amplify-builds/viewBidsResolver-436f48664d5156534934-build.zip"
         },
         "shortListBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
           "s3Key": "amplify-builds/shortListBidResolver-4d473668414f354d3659-build.zip"
+        },
+        "getSecrets": {
+          "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+          "s3Key": "amplify-builds/getSecrets-776d764b66474955556e-build.zip",
+          "secretsPathAmplifyAppId": "d1qa8zxtog58do"
+        },
+        "viewAdvertsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+          "s3Key": "amplify-builds/viewAdvertsResolver-35576f4c644762414370-build.zip"
         }
       }
     }

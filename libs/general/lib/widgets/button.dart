@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  const ButtonWidget({Key? key}) : super(key: key);
+  final String text;
+  final void Function() function;
+  const ButtonWidget({Key? key, required this.text, required this.function})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
       style: ElevatedButton.styleFrom(
           primary: const Color.fromRGBO(255, 153, 0, 1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           )),
-      onPressed: () {}, //destination must still be implemented
-      child: const Padding(
-        padding: EdgeInsets.all(8.0),
+      onPressed: function,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Text(
-          'ACCEPT BID',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          text,
+          style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),
     );

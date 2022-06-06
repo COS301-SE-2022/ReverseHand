@@ -2,10 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/user_model.dart';
 
+import '../bid_model.dart';
+
 @immutable
 class ConsumerModel extends UserModel {
+  final List<BidModel> bids;
 
-  const ConsumerModel(String id, String name, String email)
+  const ConsumerModel(String id, String name, String email, this.bids)
       : super(id, name, email);
 
   // List<Bid> getBids() {
@@ -17,13 +20,13 @@ class ConsumerModel extends UserModel {
     String? id,
     String? name,
     String? email,
-    // List<Bid>? bids,
+    List<BidModel>? bids,
   }) {
     return ConsumerModel(
       id ?? getId(),
       name ?? getName(),
       email ?? getEmail(),
-      // bids ?? _bids,
+      bids ?? this.bids,
     );
   }
 }
