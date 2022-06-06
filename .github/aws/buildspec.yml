@@ -17,7 +17,7 @@ phases:
     commands:
       - echo Integration Tests started on `date`
       #below we are trying to install an emulator in the environment
-      - ${ANDROID_HOME}/tools/bin/sdkmanager -- install "system-images;android-29;google_apis_playstore;x86_64"
+      - ${ANDROID_HOME}/tools/bin/avdmanager create avd -n android_emulator -k "system-images;android-25;google_apis;x86"
       - echo Build started on `date`
     #Building the apk for the application
       - npx nx run app:buildApk
