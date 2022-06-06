@@ -9,17 +9,15 @@ import '../pages/job_details.dart';
 
 class JobListings extends StatelessWidget {
   final Store<AppState> store;
-  // final List<Advert?> adverts;
 
   const JobListings({
     Key? key,
     required this.store,
-    /* required this.adverts */
   }) : super(key: key);
 
   Column populateAdverts(List<AdvertModel> adverts, BuildContext context) {
     List<Widget> quickViewJobCardWidgets = [];
-
+    double height = (MediaQuery.of(context).size.height) / 3;
     for (AdvertModel advert in adverts) {
       quickViewJobCardWidgets.add(QuickViewJobCardWidget(
         titleText: advert.title,
@@ -38,37 +36,32 @@ class JobListings extends StatelessWidget {
     }
 
     quickViewJobCardWidgets.add(
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.orange,
-              onPrimary: Colors.white,
-              shadowColor: Colors.black,
-              elevation: 9,
-              textStyle: const TextStyle(fontSize: 30),
-              minimumSize: const Size(60, 60),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0))),
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => CreateNewJob(store: store)));
-            },
-            child: const Text("+"), //Look into an icon for demo 3
+      Padding(
+        padding: EdgeInsets.only(top: height),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.orange,
+            onPrimary: Colors.white,
+            shadowColor: Colors.black,
+            elevation: 9,
+            textStyle: const TextStyle(fontSize: 30),
+            minimumSize: const Size(60, 60),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30.0))),
           ),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => CreateNewJob(store: store)));
+          },
+          child: const Text("+"), //Look into an icon for demo 3
         ),
       ),
     );
-    quickViewJobCardWidgets.add(
-      const Padding(
-        padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-      ),
-    );
+    // quickViewJobCardWidgets.add(
+    //   const Padding(
+    //     padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+    //   ),
+    // );
 
     return Column(children: quickViewJobCardWidgets);
   }
