@@ -14,11 +14,8 @@ class BidDetails extends StatelessWidget {
       store: store,
       child: MaterialApp(
         home: Scaffold(
-            backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: Column(children: <Widget>[
-              // const Padding(
-              //   padding: EdgeInsets.all(20),
-              // ),
               const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
               BackButton(
                 color: Colors.white,
