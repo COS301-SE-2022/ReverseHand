@@ -2,33 +2,33 @@ import 'package:flutter/material.dart';
 
 @immutable
 class UserModel {
-  final String _id;
-  final String _email;
-  final String _userType;
+  final String id;
+  final String email;
+  final String userType;
 
-  const UserModel(this._id, this._email, this._userType);
+  const UserModel(this.id, this.email, this.userType);
 
   String getId() {
-    return _id;
+    return id;
   }
 
   String getEmail() {
-    return _email;
+    return email;
   }
 
   String getUserType() {
-    return _userType;
+    return userType;
   }
 
    UserModel replace({
     String? id,
     String? email,
-    String? confirmed,
+    String? userType,
   }) {
     return UserModel(
-      id ?? getId(),
-      email ?? getEmail(),
-      confirmed ?? getUserType(),
+      id ?? this.id,
+      email ?? this.email,
+      userType ?? this.userType,
     );
   }
 }
