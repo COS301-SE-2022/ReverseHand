@@ -33,11 +33,8 @@ class ViewBidsAction extends ReduxAction<AppState> {
 
     try {
       final response = await Amplify.API.query(request: request).response;
-      print(response.data);
-      print(jsonDecode(response.data));
 
       List<BidModel> bids = [];
-
       response.data['viewBids']
           .forEach((el) => bids.add(BidModel.fromJson(el)));
 
