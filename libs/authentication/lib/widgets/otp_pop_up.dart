@@ -61,14 +61,14 @@ class PopupWidget extends StatelessWidget {
                   return () => {
                         store.dispatch(
                           VerifyUserAction(
-                              store.state.partialUser!.getEmail(),
-                              store.state.partialUser!.getPassword(),
+                              store.state.partialUser!.email,
+                              store.state.partialUser!.password,
                               otpController.value.text.trim()),
                         ),
                         store.dispatch(
                           LoginAction(
-                            store.state.partialUser!.getEmail(),
-                            store.state.partialUser!.getPassword(),
+                            store.state.partialUser!.email,
+                            store.state.partialUser!.password,
                           ),
                         ),
                       };

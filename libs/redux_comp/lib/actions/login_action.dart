@@ -20,20 +20,14 @@ class LoginAction extends ReduxAction<AppState> {
     try {
       await Amplify.Auth.signOut();
       if (store.state.partialUser != null) {
-        await store.waitCondition((state) => state.partialUser!.getConfirmed() == "DONE");
+        await store.waitCondition((state) => state.partialUser!.verified == "DONE");
       }
       SignInResult res = await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
 
-<<<<<<< HEAD
-      res.nextStep!.signInStep;
-=======
-      // if (res. == "CONFIRM_SIGN_UP_STEP") {
-
-      // }
->>>>>>> e705dba639ae0e7e685133bfc489cfcd493094a7
+      
       List<AuthUserAttribute> userAttr =
           await Amplify.Auth.fetchUserAttributes();
 
