@@ -20,6 +20,7 @@ phases:
       - ${ANDROID_HOME}/tools/android list avd
       - ${ANDROID_HOME}/tools/android list target
       - ${ANDROID_HOME}/tools/android list device
+      - ${ANDROID_HOME}/tools/bin/sdkmanager list
       - ${ANDROID_HOME}/tools/bin/avdmanager list
       - ${ANDROID_HOME}/tools/bin/avdmanager --verbose create avd --device "android-28" --name Nexus 
       - ${ANDROID_HOME}/tools/bin/avdmanager list avd
