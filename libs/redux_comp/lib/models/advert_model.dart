@@ -8,8 +8,6 @@ class AdvertModel {
   final String userId;
   final String? description;
   final JobType? type;
-  final List<String> bids;
-  final List<String> shortlistedBid;
   final String? acceptedBid;
   final String? location;
   final String dateCreated;
@@ -20,8 +18,6 @@ class AdvertModel {
     required this.userId,
     this.description,
     this.type,
-    required this.bids,
-    required this.shortlistedBid,
     this.acceptedBid,
     this.location,
     required this.dateCreated,
@@ -34,8 +30,6 @@ class AdvertModel {
       userId: obj['user_id'],
       description: obj['description'],
       type: obj,
-      bids: obj['bids'],
-      shortlistedBid: obj['shortlisted_bids'],
       acceptedBid: obj['accepted_bid'],
       location: obj['location'],
       dateCreated: obj['date_created'],

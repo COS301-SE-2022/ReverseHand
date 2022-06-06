@@ -17,7 +17,7 @@ exports.handler = async (event) => {
         };
 
         const data = await docClient.query(params).promise();
-        let items = data["Items"];
+        let items = data["Items"]['advert_details'];
 
         let adverts = [];
         for (let item of items)
