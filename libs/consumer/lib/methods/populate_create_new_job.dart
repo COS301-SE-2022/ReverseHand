@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/textfield.dart';
+import 'package:general/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../consumer.dart';
