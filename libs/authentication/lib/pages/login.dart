@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     return StoreProvider<AppState>(
       store: widget.store,
       child: MaterialApp(
-        home: ConsumerListings(store: widget.store),
+        home: Login(store: widget.store),
       ),
     );
   }

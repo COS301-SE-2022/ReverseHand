@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/widgets/card.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/actions/view_adverts_action.dart';
 import 'package:redux_comp/app_state.dart';
