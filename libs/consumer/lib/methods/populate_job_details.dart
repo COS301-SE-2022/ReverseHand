@@ -6,11 +6,12 @@ import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:general/widgets/quick_view_bid.dart';
+import 'package:redux_comp/models/advert_model.dart';
 
 class JobDetails extends StatelessWidget {
-  // final Advert advert;
+  final AdvertModel advert;
   final Store<AppState> store;
-  const JobDetails({Key? key, /*required this.advert, */ required this.store})
+  const JobDetails({Key? key, required this.store, required this.advert})
       : super(key: key);
 
   @override
@@ -33,11 +34,11 @@ class JobDetails extends StatelessWidget {
                               builder: (_) => ConsumerListings(store: store)));
                     },
                   ),
-                  const JobCardWidget(
-                    titleText: "PAINTING",
-                    descText: "Painting of one outer wall.",
-                    date: "25 May 2022",
-                    location: "Menlopark, Pretoria",
+                  JobCardWidget(
+                    titleText: advert.title,
+                    descText: advert.description ?? "",
+                    date: advert.dateCreated,
+                    location: advert.location ?? "",
                   ),
                   const DividerWidget(),
                   const Text(

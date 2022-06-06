@@ -26,8 +26,13 @@ class JobListings extends StatelessWidget {
         date: advert.dateCreated,
         location: advert.location ?? "",
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) => ConsumerDetails(store: store)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => ConsumerDetails(
+                        store: store,
+                        advert: advert,
+                      )));
         },
       ));
     }

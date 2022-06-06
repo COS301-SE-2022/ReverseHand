@@ -19,10 +19,10 @@ class BidDetails extends StatelessWidget {
               BackButton(
                 color: Colors.white,
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => ConsumerDetails(store: store)));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => ConsumerDetails(store: store,)));
                 },
               ),
               const CardWidget(
@@ -45,11 +45,11 @@ class BidDetails extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(30.0))),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => ConsumerDetails(store: store)),
-                  );
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => ConsumerDetails(store: store)),
+                  //   );
                 },
                 child: const Text("SHORTLIST"),
               ),
