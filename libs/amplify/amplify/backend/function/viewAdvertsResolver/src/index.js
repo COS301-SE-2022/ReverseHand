@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-
+const ReverseHandTable = process.env.REVERSEHAND;
 // this function is used to retrieve the bids for a specific consumer
 
 /**
@@ -20,7 +20,7 @@ exports.handler = async (event) => {
         let items = data["Items"];
 
         let adverts = [];
-        for (let item in items)
+        for (let item of items)
             adverts.push({
                 id: item['sort_key'],
                 title: item['title'],
