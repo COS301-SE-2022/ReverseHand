@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/bid_model.dart';
 // import 'package:flutter/foundation.dart';

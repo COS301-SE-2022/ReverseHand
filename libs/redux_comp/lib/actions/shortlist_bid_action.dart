@@ -9,5 +9,7 @@ class ShortlistBidAction extends ReduxAction<AppState> {
   ShortlistBidAction(this.adId, this.bidId);
 
   @override
-  Future<AppState?> reduce() async {}
+  Future<AppState?> reduce() async {
+    return state; // temporary remove
+  }
 }
