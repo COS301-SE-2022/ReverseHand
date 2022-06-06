@@ -24,11 +24,11 @@ class LoginAction extends ReduxAction<AppState> {
         password: password,
       );
 
-
       // if (res. == "CONFIRM_SIGN_UP_STEP") {
 
       // }
-      List<AuthUserAttribute> userAttr = await Amplify.Auth.fetchUserAttributes();
+      List<AuthUserAttribute> userAttr =
+          await Amplify.Auth.fetchUserAttributes();
 
       /* Since fetching user attributes is async, it returns the attributes unordered */
       /* This simple for loop & case statement will iterate through the list and check the attribute key */
@@ -46,27 +46,28 @@ class LoginAction extends ReduxAction<AppState> {
             userType = attr.value;
             break;
         }
-        
       }
       return state.replace(
-        user: UserModel(
-          id, 
-          username, 
-          userType,
+          user: UserModel(
+        id: id,
+        email: username,
+        userType: userType,
+        bids: const [],
       ));
       // exception will be handled later
-      } on AuthException catch (e) {
-    // } catch (e) {
+    } on AuthException catch (e) {
+      // } catch (e) {
       switch (e.message) {
-        case "UserNotConfirmedException": {
-          return state.replace(
-            partialUser: PartialUser(email, password, "CONFIRM_SIGN_UP_STEP"),
-            error: ErrorType.notVerified
-          );
-        }
+        case "UserNotConfirmedException":
+          {
+            return state.replace(
+                partialUser:
+                    PartialUser(email, password, "CONFIRM_SIGN_UP_STEP"),
+                error: ErrorType.notVerified);
+          }
       }
       if (kDebugMode) {
-        print (e);
+        print(e);
       }
       return state;
     }

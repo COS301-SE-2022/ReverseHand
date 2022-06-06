@@ -35,7 +35,7 @@ exports.handler = async (event, context) => {
                 date_closed: item['date_closed']
             });
         }
-
+    
         return bids;
     } catch(e) {
         console.log(e)

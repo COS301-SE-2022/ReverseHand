@@ -28,7 +28,8 @@ class AppState {
 
   factory AppState.mock() {
     return const AppState(
-      user: UserModel("0", "some@email.com", "confirmed"),
+      user: UserModel(
+          id: "0", email: "some@email.com", userType: "confirmed", bids: []),
       partialUser: PartialUser("some@email.com", "1234", "confirmed"),
       error: ErrorType.none,
     );
