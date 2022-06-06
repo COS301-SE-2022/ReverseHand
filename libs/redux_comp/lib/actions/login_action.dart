@@ -53,6 +53,7 @@ class LoginAction extends ReduxAction<AppState> {
         email: username,
         userType: userType,
         bids: const [],
+        adverts: const [],
       ));
       // exception will be handled later
     } on AuthException catch (e) {
