@@ -29,23 +29,26 @@ class QuickViewJobCardWidget extends StatelessWidget {
               // mainAxisSize: MainAxisSize.min,
               children: [
                 Text(titleText,
-                    style: const TextStyle(fontSize: 30, color: Colors.white)),
-                const Padding(padding: EdgeInsets.all(3)),
+                  style: const TextStyle(fontSize: 30, color: Colors.white)),
+                  const Padding(padding: EdgeInsets.all(5)),
                     Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                       Icons.place,
                       color: Colors.white,
-                      size: 30.0,
+                      size: 40.0,
                     ),
-                    Text(date,
-                    style:const TextStyle(fontSize: 20, color: Colors.white70))
+                    Column(
+                    children:[
+                      Text(date,
+                      style:const TextStyle(fontSize: 20, color: Colors.white70)),
+                      Text(location,
+                      style:const TextStyle(fontSize: 20, color: Colors.white)) 
+                      ]
+                    )
                     ],
                   ),
-                Text(location,
-                style:const TextStyle(fontSize: 20, color: Colors.white)
-                )
               ],
             ),
           ],
