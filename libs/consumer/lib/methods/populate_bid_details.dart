@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
-
 import 'package:general/widgets/card.dart';
 
 class BidDetails extends StatelessWidget {
@@ -14,10 +13,17 @@ class BidDetails extends StatelessWidget {
       store: store,
       child: MaterialApp(
         home: Scaffold(
-            backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: Column(children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(20),
+              const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
+              BackButton(
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => ConsumerDetails(store: store)));
+                },
               ),
               const CardWidget(
                 titleText: "MR J SMITH",

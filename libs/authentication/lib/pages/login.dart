@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+// import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/redux_comp.dart';
