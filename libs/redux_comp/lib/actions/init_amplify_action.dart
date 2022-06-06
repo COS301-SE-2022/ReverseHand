@@ -12,7 +12,7 @@ class InitAmplifyAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     await _configureAmplify();
 
-    return state;
+    return state.replace(loading: false);
   }
 }
 

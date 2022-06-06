@@ -21,7 +21,6 @@ type Advert implements UniqueID {
   description: String
   type: JobType
   accepted_bid: String
-  user_id: String!
   location: String # temporary
   date_created: String! # temporary
   date_closed: String # temporary

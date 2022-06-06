@@ -5,7 +5,6 @@ import 'job_type.dart';
 class AdvertModel {
   final String id;
   final String title;
-  final String userId;
   final String? description;
   final JobType? type;
   final String? acceptedBid;
@@ -15,7 +14,6 @@ class AdvertModel {
 
   const AdvertModel({
     required this.id,
-    required this.userId,
     required this.title,
     this.description,
     this.type,
@@ -28,10 +26,9 @@ class AdvertModel {
   factory AdvertModel.fromJson(obj) {
     return AdvertModel(
       id: obj['id'],
-      userId: obj['user_id'],
       title: obj['title'],
       description: obj['description'],
-      type: obj,
+      type: null,
       acceptedBid: obj['accepted_bid'],
       location: obj['location'],
       dateCreated: obj['date_created'],
