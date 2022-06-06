@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/user_models/consumer_model.dart';
 
 @immutable
 abstract class UserModel {
@@ -19,10 +18,6 @@ abstract class UserModel {
 
   String getEmail() {
     return _email;
-  }
-
-  ConsumerModel asConsumer() {
-    return this as ConsumerModel;
   }
 
   UserModel replace();

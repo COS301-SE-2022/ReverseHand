@@ -18,6 +18,7 @@ class LoginAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     try {
+      print("HERE");
       await Amplify.Auth.signOut();
       if (store.state.partialUser != null) {
         await store.waitCondition((state) => state.partialUser!.verified == "DONE");
@@ -49,7 +50,7 @@ class LoginAction extends ReduxAction<AppState> {
         }
       }
       return state.replace(
-          user: UserModel(
+        user: UserModel(
         id: id,
         email: username,
         userType: userType,
