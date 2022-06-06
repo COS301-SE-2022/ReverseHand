@@ -7,14 +7,14 @@ import 'package:async_redux/async_redux.dart';
 import '../models/advert_model.dart';
 
 class ViewAdvertsAction extends ReduxAction<AppState> {
-  final String cons_id; // consumer id whos adverts you wish to retrieve
+  final String consId; // consumer id whos adverts you wish to retrieve
 
-  ViewAdvertsAction(this.cons_id);
+  ViewAdvertsAction(this.consId);
 
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      viewBids(ad_id: "$cons_id") {
+      viewBids(ad_id: "$consId") {
         id
         user_id
         description

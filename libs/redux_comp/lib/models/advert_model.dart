@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'job_type.dart';
 
 @immutable
 class AdvertModel {
   final String id;
+  final String title;
   final String userId;
   final String? description;
   final JobType? type;
@@ -16,6 +16,7 @@ class AdvertModel {
   const AdvertModel({
     required this.id,
     required this.userId,
+    required this.title,
     this.description,
     this.type,
     this.acceptedBid,
@@ -28,6 +29,7 @@ class AdvertModel {
     return AdvertModel(
       id: obj['id'],
       userId: obj['user_id'],
+      title: obj['title'],
       description: obj['description'],
       type: obj,
       acceptedBid: obj['accepted_bid'],
