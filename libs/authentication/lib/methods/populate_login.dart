@@ -105,20 +105,33 @@ class Login extends StatelessWidget {
                   //*****************login button**********************
 
                   StoreConnector<AppState, VoidCallback>(converter: (store) {
-                    return () => store.dispatch(LoginAction(
-                        emailController.value.text,
-                        passwordController.value.text));
+                    return () => store.dispatch(
+                        // LogoutAction()
+                        LoginAction(emailController.value.text.trim(),
+                            passwordController.value.text.trim()));
                   }, builder: (context, callback) {
                     return LongButtonWidget(
                       text: "login",
                       login: () => {
                         callback(),
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute( 
-                              // builder: (_) => ConsumerListings(store: store)), //comment to rather view tradesman
-                              builder: (_) => TradesmanJobListings(store: store)), //uncomment to view tradesman
-                        )
+                        if (store.state.user == null)
+                          {}
+                        else if (store.state.user!.userType == "Consumer")
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => ConsumerListings(
+                                    store:
+                                        store)), //comment to rather view tradesman
+                          )
+                        else if (store.state.user!.userType == "tradesman")
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => TradesmanJobListings(
+                                    store:
+                                        store)), //uncomment to view tradesman
+                          )
                       },
                     );
                   }),

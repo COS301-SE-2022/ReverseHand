@@ -1,6 +1,5 @@
 import 'package:authentication/widgets/divider.dart';
 import 'package:flutter/material.dart';
-import 'package:general/widgets/button.dart';
 import 'package:tradesman/widgets/rating_stars.dart';
 
 typedef RatingChangeCallback = void Function(double rating);
@@ -82,10 +81,14 @@ class RatingPopUpState extends State<RatingPopUp> {
               //*****************************************************
 
               //***************Verify Button *********************** */
-              const ButtonWidget(
-                //onPressed: Navigator.pop(context),
-              ),
-              //*****************************************************
+              // Eish when I pulled from dev this button no longer worked, 
+              // I changed the constructor to take a string for the display text, and a function to use anonymously outside the widget
+              // - Richard 
+              //
+              // const ButtonWidget(
+              //   //onPressed: Navigator.pop(context),
+              // ),
+              //*****************************************************//
 
             ],
           ),

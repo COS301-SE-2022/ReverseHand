@@ -1,0 +1,6 @@
+{
+  "lambdaLayers": [],
+  "secretNames": [
+    "api_key"
+  ]
+}
