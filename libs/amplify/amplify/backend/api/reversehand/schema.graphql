@@ -15,6 +15,11 @@ type Query {
   @function(name: "viewAdvertsResolver-${env}")
 }
 
+type Mutation {
+  shortListBid(ad_id: String!, bid_id: String!)
+  @function(name: "shortListBidResolver-${env}")
+}
+
 type Advert implements UniqueID {
   id: String!
   title: String!

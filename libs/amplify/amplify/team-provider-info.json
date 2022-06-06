@@ -39,7 +39,7 @@
         },
         "shortListBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
-          "s3Key": "amplify-builds/shortListBidResolver-6c4f5a52497a3879336c-build.zip"
+          "s3Key": "amplify-builds/shortListBidResolver-6e4b2b384d396b597032-build.zip"
         },
         "getSecrets": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
