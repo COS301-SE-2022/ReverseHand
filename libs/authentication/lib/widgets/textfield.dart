@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class TextFieldWidget extends StatelessWidget {
   final String label;
   final bool obscure;
-  const TextFieldWidget({Key? key, required this.label, required this.obscure})
+  final TextEditingController controller;
+  const TextFieldWidget(
+      {Key? key,
+      required this.label,
+      required this.obscure,
+      required this.controller})
       : super(key: key);
 
   @override
@@ -11,6 +16,7 @@ class TextFieldWidget extends StatelessWidget {
     return TextFormField(
       style: const TextStyle(color: Colors.white),
       obscureText: obscure,
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white),

@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import './job_details.dart';
+import 'job_details.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class TradesmanJobListings extends StatelessWidget {
