@@ -72,7 +72,8 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            }
+            },
+            "REVERSEHAND": "ReverseHand"
           }
         },
         "Role": {
