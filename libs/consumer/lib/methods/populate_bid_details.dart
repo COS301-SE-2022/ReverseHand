@@ -19,13 +19,13 @@ class BidDetails extends StatelessWidget {
       child: MaterialApp(
         home: Scaffold(
             backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
-            body: Column(children: const <Widget>[
-              Padding(
+            body: Column(children: <Widget>[
+              const Padding(
                 padding: EdgeInsets.all(20),
               ),
-              CardWidget(titleText: "TESTING"),
-              Padding(padding: EdgeInsets.all(10)),
-              ButtonWidget()
+              const CardWidget(titleText: "TESTING"),
+              const  Padding(padding: EdgeInsets.all(10)),
+              ButtonWidget(text: "ACCEPT BID", function: () => {})
             ])),
       ),
     );
