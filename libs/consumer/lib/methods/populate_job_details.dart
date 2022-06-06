@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/consumer.dart';
 import 'package:consumer/methods/populate_bid_details.dart';
 import 'package:general/widgets/tab.dart';
 import 'package:flutter/material.dart';
@@ -55,9 +56,15 @@ class JobDetails extends StatelessWidget {
                   // ),
 
                   //KEEP COMMENTS UNTIL BACKEND IS LINKED
-
-                  const Padding(
-                    padding: EdgeInsets.all(20),
+                  const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
+                  BackButton(
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => ConsumerListings(store: store)));
+                    },
                   ),
                   const JobCardWidget(
                     titleText: "PAINTING",
@@ -106,7 +113,7 @@ class JobDetails extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (_) => BidDetails(store: store)));
                         }),
-                  )
+                  ),
                 ],
               ),
             ),

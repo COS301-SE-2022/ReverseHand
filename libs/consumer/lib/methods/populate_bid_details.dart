@@ -16,8 +16,18 @@ class BidDetails extends StatelessWidget {
         home: Scaffold(
             backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
             body: Column(children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(20),
+              // const Padding(
+              //   padding: EdgeInsets.all(20),
+              // ),
+              const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
+              BackButton(
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => ConsumerDetails(store: store)));
+                },
               ),
               const CardWidget(
                 titleText: "MR J SMITH",
