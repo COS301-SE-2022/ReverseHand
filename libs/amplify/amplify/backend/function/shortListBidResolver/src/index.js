@@ -29,6 +29,7 @@ exports.handler = async (event) => {
                 user_id: event.arguments.ad_id,
                 sort_key: shortBidId, // prefixing but keeping same suffix
                 bid_details: {
+                    id: event.arguments.bid_id,
                     price_lower: bid['bid_details']['price_lower'],
                     price_upper: bid['bid_details']['price_upper'],
                     quote: bid['bid_details']['quote'],
@@ -40,7 +41,7 @@ exports.handler = async (event) => {
 
         await docClient.put(item).promise();
     
-        return item.Item;
+        return item.Item.bid_details;
     } catch(e) {
         console.log(e)
         return e;
