@@ -35,7 +35,9 @@ phases:
     #  - egrep -c '(vmx|svm)' /proc/cpuinfo
     #  - kvm-ok #NFO: /dev/kvm exists KVM acceleration can be used
       - echo "y" | sudo apt update
-      - sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils #install kvm
+      - sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils #install kvm
+      - sudo systemctl enable --now libvirtd
+      - sudo systemctl start libvirtd
       - ${ANDROID_HOME}/emulator/emulator -avd Nexus -no-window -no-audio
       - ${ANDROID_HOME}/tools/bin/avdmanager create avd -n android_emulator -k "system-images;android-25;google_apis;x86"
       - echo Build started on `date`
