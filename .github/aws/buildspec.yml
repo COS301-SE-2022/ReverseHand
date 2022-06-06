@@ -26,7 +26,11 @@ phases:
       - ${ANDROID_HOME}/tools/bin/avdmanager list
       - echo "n" | ${ANDROID_HOME}/tools/bin/avdmanager --verbose create avd -k "system-images;android-28;google_apis;x86" --name Nexus 
       - ${ANDROID_HOME}/tools/bin/avdmanager list avd
-      - ${ANDROID_HOME}/tools/emulator -avd Nexus
+      - ls ${ANDROID_HOME}
+      - ls ${ANDROID_HOME}/tools
+      - ls ${ANDROID_HOME}/emulator
+      - ls ${ANDROID_HOME}/emulator/emulator
+      - ${ANDROID_HOME}/emulator/emulator -avd Nexus -no-window -no-audio
       - ${ANDROID_HOME}/tools/bin/avdmanager create avd -n android_emulator -k "system-images;android-25;google_apis;x86"
       - echo Build started on `date`
     #Building the apk for the application
