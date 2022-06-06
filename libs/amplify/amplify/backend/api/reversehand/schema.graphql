@@ -13,11 +13,6 @@ type Query {
   @function(name: "viewBidsResolver-${env}")
 }
 
-type Mutation {
-  shortListBid(): Bid!
-  @function(name: "shortListBidResolver-${env}")
-}
-
 type Advert implements UniqueID {
   id: String!
   title: String!
