@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 
 import 'package:general/widgets/card.dart';
-import 'package:general/widgets/button.dart';
 
 class ShortListBidDetails extends StatelessWidget {
   final Store<AppState> store;
@@ -18,7 +17,7 @@ class ShortListBidDetails extends StatelessWidget {
             backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
             body: Column(children: <Widget>[
               const Padding(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
               ),
               const CardWidget(
                 titleText: "MR J SMITH",

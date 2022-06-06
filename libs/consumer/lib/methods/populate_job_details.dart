@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/divider.dart';
-import 'package:general/widgets/textbox.dart';
 
 // import '../pages/job_listings.dart';
 // this import will be used when backend is linked again
