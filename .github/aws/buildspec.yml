@@ -31,9 +31,9 @@ phases:
       - ls ${ANDROID_HOME}/emulator
       - ls ${ANDROID_HOME}/emulator/emulator
       #configuring hardware acceleration for Linux
-      - sudo apt-get install cpu-checker
-      - egrep -c '(vmx|svm)' /proc/cpuinfo
-      - kvm-ok #NFO: /dev/kvm exists KVM acceleration can be used
+    #  - sudo apt-get install cpu-checker
+    #  - egrep -c '(vmx|svm)' /proc/cpuinfo
+    #  - kvm-ok #NFO: /dev/kvm exists KVM acceleration can be used
       - sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils #install kvm
       - ${ANDROID_HOME}/emulator/emulator -avd Nexus -no-window -no-audio
       - ${ANDROID_HOME}/tools/bin/avdmanager create avd -n android_emulator -k "system-images;android-25;google_apis;x86"
