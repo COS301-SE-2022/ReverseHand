@@ -2,9 +2,7 @@
 import 'package:amplify/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/foundation.dart';
-
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -14,7 +12,7 @@ class InitAmplifyAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     await _configureAmplify();
 
-    return state;
+    return state.replace(loading: false);
   }
 }
 
@@ -24,12 +22,9 @@ Future<void> _configureAmplify() async {
   try {
     final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
     final AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
-    final AmplifyDataStore ds =
-        AmplifyDataStore(modelProvider: ModelProvider.instance);
 
     // add Amplify plugins
     await Amplify.addPlugins([
-      ds,
       api,
       authPlugin,
     ]);
