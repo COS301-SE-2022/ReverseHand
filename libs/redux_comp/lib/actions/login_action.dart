@@ -49,9 +49,10 @@ class LoginAction extends ReduxAction<AppState> {
       }
       return state.replace(
           user: UserModel(
-        id,
-        username,
-        userType,
+        id: id,
+        email: username,
+        userType: userType,
+        bids: const [],
       ));
       // exception will be handled later
     } on AuthException catch (e) {

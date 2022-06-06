@@ -41,7 +41,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
       response.data['viewBids']
           .forEach((el) => bids.add(BidModel.fromJson(el)));
 
-      return state.replace(user: state.user!.asConsumer().replace(bids: bids));
+      return state.replace(user: state.user!.replace(bids: bids));
     } catch (e) {
       return state;
     }
