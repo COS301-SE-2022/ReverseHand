@@ -142,7 +142,7 @@ class SignUp extends StatelessWidget {
                       cellController.value.text.trim(),
                       locationController.value.text.trim(),
                       passwordController.value.text.trim(),
-                      "Consumer"));
+                      "tradesman"));
                 }, builder: (context, callback) {
                   return LongButtonWidget(
                     text: "Sign Up",
