@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/card.dart';
+import 'package:general/widgets/quick_view_job_card';
 import 'package:redux_comp/app_state.dart';
 
 import '../pages/create_new_job.dart';
@@ -40,13 +41,11 @@ class JobListings extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (_) => ConsumerDetails(store: store)));
                 },
-                //THIS CARD SHOULD CHANGE
-                child: const CardWidget(
-                    titleText: "PAINTING",
-                    price1: "200",
-                    price2: "300",
-                    details: "description here",
-                    quote: false),
+                child: const QuickViewJobCardWidget(
+                  titleText: "PAINTING",
+                  date: "22 May 2022",
+                  location: "Menlopark, Pretoria",
+                ),
               ),
               // Expanded(child: Container()),
               Align(
