@@ -188,6 +188,7 @@
               "Effect": "Allow",
               "Action": [
                 "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
                 "dynamodb:List*",
                 "dynamodb:Query",
                 "dynamodb:Scan",

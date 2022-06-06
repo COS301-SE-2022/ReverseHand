@@ -35,11 +35,11 @@
       "function": {
         "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
-          "s3Key": "amplify-builds/viewBidsResolver-436f48664d5156534934-build.zip"
+          "s3Key": "amplify-builds/viewBidsResolver-637a7475712b3167654a-build.zip"
         },
         "shortListBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
-          "s3Key": "amplify-builds/shortListBidResolver-4d473668414f354d3659-build.zip"
+          "s3Key": "amplify-builds/shortListBidResolver-6c4f5a52497a3879336c-build.zip"
         },
         "getSecrets": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
