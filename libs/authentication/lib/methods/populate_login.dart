@@ -106,30 +106,32 @@ class Login extends StatelessWidget {
 
                   StoreConnector<AppState, VoidCallback>(converter: (store) {
                     return () => store.dispatch(
-                      // LogoutAction()
-                      LoginAction(
-                        emailController.value.text.trim(),
-                        passwordController.value.text.trim()));
+                        // LogoutAction()
+                        LoginAction(emailController.value.text.trim(),
+                            passwordController.value.text.trim()));
                   }, builder: (context, callback) {
                     return LongButtonWidget(
                       text: "login",
                       login: () => {
                         callback(),
-                        if (store.state.user == null) {
-                          
-                        } 
-                        else if (store.state.user!.getUserType() == "Consumer")
+                        if (store.state.user == null)
+                          {}
+                        else if (store.state.user!.userType == "Consumer")
                           Navigator.push(
                             context,
-                            MaterialPageRoute( 
-                                builder: (_) => ConsumerListings(store: store)), //comment to rather view tradesman
+                            MaterialPageRoute(
+                                builder: (_) => ConsumerListings(
+                                    store:
+                                        store)), //comment to rather view tradesman
                           )
-                        else if (store.state.user!.getUserType() == "tradesman")
-                         Navigator.push(
+                        else if (store.state.user!.userType == "tradesman")
+                          Navigator.push(
                             context,
-                            MaterialPageRoute( 
-                                builder: (_) => TradesmanJobListings(store: store)), //uncomment to view tradesman
-                         )
+                            MaterialPageRoute(
+                                builder: (_) => TradesmanJobListings(
+                                    store:
+                                        store)), //uncomment to view tradesman
+                          )
                       },
                     );
                   }),

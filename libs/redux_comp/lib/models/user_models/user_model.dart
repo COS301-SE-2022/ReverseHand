@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/models/advert_model.dart';
+import '../bid_model.dart';
 
 @immutable
 class UserModel {
-  final String _id;
-  final String _email;
-  final String _userType;
+  final String id;
+  final String email;
+  final String userType;
+  final List<BidModel> bids;
+  final List<AdvertModel> adverts;
 
-  const UserModel(this._id, this._email, this._userType);
+  const UserModel({
+    required this.id,
+    required this.email,
+    required this.userType,
+    required this.bids,
+    required this.adverts,
+  });
 
-  String getId() {
-    return _id;
-  }
-
-  String getEmail() {
-    return _email;
-  }
-
-  String getUserType() {
-    return _userType;
-  }
-
-   UserModel replace({
+  UserModel replace({
     String? id,
     String? email,
     String? confirmed,
+    List<BidModel>? bids,
+    List<AdvertModel>? adverts,
   }) {
     return UserModel(
-      id ?? getId(),
-      email ?? getEmail(),
-      confirmed ?? getUserType(),
+      id: id ?? this.id,
+      email: email ?? this.email,
+      userType: confirmed ?? userType,
+      bids: bids ?? this.bids,
+      adverts: adverts ?? this.adverts,
     );
   }
 }
