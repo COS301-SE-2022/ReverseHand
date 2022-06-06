@@ -15,30 +15,7 @@ phases:
       - npm install
   build:
     commands:
-      - echo Integration Tests started on `date`
-      #below we are trying to install an emulator in the environment
-      - ${ANDROID_HOME}/tools/android list avd
-      - ${ANDROID_HOME}/tools/android list target
-      - ${ANDROID_HOME}/tools/android list device
-      - ${ANDROID_HOME}/tools/bin/sdkmanager "platform-tools" "platforms;android-28"
-      - ${ANDROID_HOME}/tools/bin/sdkmanager "system-images;android-28;google_apis;x86_64"
-      - ${ANDROID_HOME}/tools/bin/sdkmanager "system-images;android-28;google_apis;x86"
-      - ${ANDROID_HOME}/tools/bin/avdmanager list
-      - echo "n" | ${ANDROID_HOME}/tools/bin/avdmanager --verbose create avd -k "system-images;android-28;google_apis;x86" --name Nexus 
-      - ${ANDROID_HOME}/tools/bin/avdmanager list avd
-      - ls ${ANDROID_HOME}
-      - ls ${ANDROID_HOME}/tools
-      - ls ${ANDROID_HOME}/emulator
-      - ls ${ANDROID_HOME}/emulator/emulator
-      #configuring hardware acceleration for Linux
-      - sudo apt install -y cpu-checker
-      - egrep -c '(vmx|svm)' /proc/cpuinfo
-      - kvm-ok #NFO: /dev/kvm exists KVM acceleration can be used
-      - echo "y" | sudo apt update
-      - sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils #install kvm
-      - ${ANDROID_HOME}/emulator/emulator -avd Nexus -no-window -no-audio
-      - ${ANDROID_HOME}/tools/bin/avdmanager create avd -n android_emulator -k "system-images;android-25;google_apis;x86"
-      - echo Build started on `date`
+       - echo Build started on `date`
     #Building the apk for the application
       - npx nx run app:buildApk
   post_build:
