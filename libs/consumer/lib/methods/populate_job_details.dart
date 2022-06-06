@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/consumer.dart';
-import 'package:consumer/methods/populate_bid_details.dart';
 import 'package:general/widgets/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';

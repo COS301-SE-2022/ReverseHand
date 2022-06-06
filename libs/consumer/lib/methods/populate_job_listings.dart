@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
@@ -82,7 +80,6 @@ class JobListings extends StatelessWidget {
               converter: (store) => store.state.user!.adverts,
               builder: (context, adverts) {
                 store.dispatch(ViewAdvertsAction("c#001"));
-                sleep(const Duration(seconds: 5));
                 return populateAdverts(adverts, context);
               },
             ),
