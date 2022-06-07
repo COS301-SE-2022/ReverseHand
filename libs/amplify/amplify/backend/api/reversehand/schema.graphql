@@ -18,6 +18,8 @@ type Query {
 type Mutation {
   shortListBid(ad_id: String!, bid_id: String!): Bid
   @function(name: "shortListBidResolver-${env}")
+  acceptBid(user_id: String!, ad_id: String!, sbid_id: String!): Bid
+  @function(name: "acceptBidResolver-${env}")
 }
 
 type Advert implements UniqueID {
