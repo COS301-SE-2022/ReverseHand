@@ -68,7 +68,14 @@ class Login extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //*****************LOGO*****************************
-                  //to be fixed in coming days
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: 250,
+                      width: 250
+                    ),
+                  ),
                   //*************************************************
 
                   //*****************form****************************
