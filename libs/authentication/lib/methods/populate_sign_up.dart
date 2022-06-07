@@ -1,5 +1,4 @@
 // import 'package:amplify/models/Advert.dart';
-
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +58,30 @@ class SignUp extends StatelessWidget {
             ),
           ),
           //*******************************************************
+          
+          //*****************Bottom circle blur**********************
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              width: 100,
+              height: 100,
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.only(top: 2),
+              decoration: const BoxDecoration(
+                color:  Color.fromRGBO(243, 157, 55, 1),
+                borderRadius:
+                    BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
+                child: Container(
+                  decoration:
+                      BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                ),
+              ),
+            ),
+          ),
+          //******************************************************* */
 
           //*****************signup page****************************
           SingleChildScrollView(
@@ -91,6 +114,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                         label: 'name',
                         obscure: false,
+                        icon: Icons.account_circle_outlined,
                         controller: nameController,
                       ),
                       //********************************************
@@ -99,6 +123,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                         label: 'email',
                         obscure: false,
+                         icon: Icons.mail_outline_rounded,
                         controller: emailController,
                       ),
                       //**********************************************
@@ -107,6 +132,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'cellphone',
                           obscure: false,
+                           icon: Icons.call_end_outlined,
                           controller: cellController),
                       //**********************************************
                       const TransparentDividerWidget(),
@@ -114,6 +140,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'location',
                           obscure: false,
+                           icon: Icons.add_location_outlined,
                           controller: locationController),
                       //**********************************************
                       const TransparentDividerWidget(),
@@ -121,6 +148,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'password',
                           obscure: true,
+                           icon: Icons.lock_outline_rounded,
                           controller: passwordController),
                       //**********************************************
                       const TransparentDividerWidget(),
@@ -128,6 +156,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'confirm password',
                           obscure: true,
+                           icon: Icons.lock_outline_rounded,
                           controller: confirmController),
                       //**********************************************
                     ],
@@ -225,9 +254,6 @@ class SignUp extends StatelessWidget {
           ),
           //******************************************************* */
 
-          //*****************Bottom circle blur**********************
-          //to be fixed in coming days
-          //******************************************************* */
         ],
       ),
     );

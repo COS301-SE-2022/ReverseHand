@@ -51,12 +51,13 @@ class PopupWidget extends StatelessWidget {
                 TextFieldWidget(
                   label: 'otp',
                   obscure: false,
+                   icon: Icons.mail,
                   controller: otpController,
                 ),
                 const TransparentDividerWidget(),
                 //*****************************************************
 
-                //***************Verify Button************************/
+                //***************Verify Button *********************** */
                 StoreConnector<AppState, Future<void> Function()>(
                     converter: (store) {
                   return () async {

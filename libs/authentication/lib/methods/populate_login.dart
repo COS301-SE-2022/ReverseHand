@@ -41,10 +41,10 @@ class Login extends StatelessWidget {
                 margin: const EdgeInsets.all(0),
                 padding: const EdgeInsets.only(top: 2),
                 alignment: Alignment.topLeft,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                decoration: const BoxDecoration(
+                  color:  Color.fromRGBO(243, 157, 55, 1),
                   borderRadius:
-                      const BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
+                      BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
                 ),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
@@ -56,6 +56,30 @@ class Login extends StatelessWidget {
               ),
               //*******************************************************
 
+                //*****************Bottom circle blur**********************
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  margin: const EdgeInsets.all(0),
+                  padding: const EdgeInsets.only(top: 2),
+                  decoration: const BoxDecoration(
+                    color:  Color.fromRGBO(243, 157, 55, 1),
+                    borderRadius:
+                        BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
+                  ),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
+                    child: Container(
+                      decoration:
+                          BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                    ),
+                  ),
+                ),
+              ),
+          //******************************************************* */
+
               const Divider(
                 height: 20,
                 thickness: 0.5,
@@ -63,12 +87,20 @@ class Login extends StatelessWidget {
                 endIndent: 10,
                 color: Colors.transparent,
               ),
+
               //*******************sign in with text************************** */
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //*****************LOGO*****************************
-                  //to be fixed in coming days
+                  // Align(
+                  //   alignment: Alignment.topCenter,
+                  //   child: Image.asset(
+                  //     'assets/images/logo.png',
+                  //     height: 250,
+                  //     width: 250
+                  //   ),
+                  // ),
                   //*************************************************
 
                   //*****************form****************************
@@ -81,6 +113,7 @@ class Login extends StatelessWidget {
                         TextFieldWidget(
                             label: 'email',
                             obscure: false,
+                            icon: Icons.mail_outline_rounded,
                             controller: emailController),
                         //********************************************
                         const Divider(
@@ -94,6 +127,7 @@ class Login extends StatelessWidget {
                         TextFieldWidget(
                           label: 'password',
                           obscure: true,
+                          icon: Icons.lock_outline_rounded,
                           controller: passwordController,
                         ),
                         //**********************************************
@@ -141,19 +175,6 @@ class Login extends StatelessWidget {
                   }),
                   //***************************************************
 
-                  //*****************Sign up Link**********************
-                  LinkWidget(
-                      text1: "Don't have an account? ",
-                      text2: "Sign Up",
-                      navigate: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => SignUpPage(store: store)),
-                            )
-                          }),
-                  //******************************************************* */
-
                   //*****************"OR" divider"**********************
                   SizedBox(
                     height: 50,
@@ -170,6 +191,19 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   //****************************************************** */
+
+                  //*****************Sign up Link**********************
+                  LinkWidget(
+                      text1: "Don't have an account? ",
+                      text2: "Sign Up",
+                      navigate: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => SignUpPage(store: store)),
+                            )
+                          }),
+                  //******************************************************* */
 
                   //*****************Sign up Link**********************
                   // const LinkWidget(text1: "Sign Up", text2: "", link: ""),
@@ -202,13 +236,9 @@ class Login extends StatelessWidget {
                   ),
                 ],
               ),
+             //******************************************************* */
             ],
           ),
-          //******************************************************* */
-
-          //*****************Bottom circle blur**********************
-          //to be fixed in coming days
-          //******************************************************* */
         ),
       ),
     );
