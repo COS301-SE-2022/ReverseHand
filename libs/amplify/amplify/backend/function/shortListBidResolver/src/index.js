@@ -20,25 +20,28 @@ exports.handler = async (event) => {
 
         const data = await docClient.query(params).promise();
         let bid = data["Items"][0];
+        
+        let shortBidId =  's' + event.arguments.bid_id;
 
         let item = {
             TableName: ReverseHandTable,
             Item: {
                 user_id: event.arguments.ad_id,
-                sort_key: 's' + event.arguments.bid_id, // prefixing but keeping same suffix
+                sort_key: shortBidId, // prefixing but keeping same suffix
                 bid_details: {
-                    price_lower: ibidtem['bid_details']['price_lower'],
+                    id: event.arguments.bid_id,
+                    price_lower: bid['bid_details']['price_lower'],
                     price_upper: bid['bid_details']['price_upper'],
-                    quote: item['bid_details']['quote'],
+                    quote: bid['bid_details']['quote'],
                     date_created: bid['bid_details']['date_created'],
                     date_closed: bid['bid_details']['date_closed']
                 }
             }
         };
 
-        await docClient.putItem(item);
+        await docClient.put(item).promise();
     
-        return item.Item;
+        return item.Item.bid_details;
     } catch(e) {
         console.log(e)
         return e;
