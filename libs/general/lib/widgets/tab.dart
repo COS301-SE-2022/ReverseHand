@@ -19,9 +19,9 @@ class _State extends State<TabWidget> {
           primary: flag
               ? Theme.of(context).primaryColor
               : Theme.of(context).scaffoldBackgroundColor,
-          textStyle: const TextStyle(fontSize: 23),
-          minimumSize: Size(deviceWidth(context) / 2.4, 50),
-          maximumSize: Size(deviceWidth(context) / 2.4, 50),
+          textStyle: const TextStyle(fontSize: 22),
+          minimumSize: Size(deviceWidth(context) / 2.3, 50),
+          maximumSize: Size(deviceWidth(context) / 2.3, 50),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0)))),
       child: Text(widget.text),

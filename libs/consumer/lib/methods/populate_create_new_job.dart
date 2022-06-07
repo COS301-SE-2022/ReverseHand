@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../consumer.dart';
 
@@ -15,13 +16,11 @@ class JobCreation extends StatefulWidget {
 class _JobCreationState extends State<JobCreation> {
   final titleController = TextEditingController();
   final descrController = TextEditingController();
-  final dateController = TextEditingController();
 
   @override
   void dispose() {
     titleController.dispose();
     descrController.dispose();
-    dateController.dispose();
     super.dispose();
   }
 
@@ -35,7 +34,11 @@ class _JobCreationState extends State<JobCreation> {
             body: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  //**********PADDING FOR TOP**********************//
                   const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
+                  //***********************************//
+
+                  //**********BACKBUTTON**************************//
                   BackButton(
                     color: Colors.white,
                     onPressed: () {
@@ -47,6 +50,9 @@ class _JobCreationState extends State<JobCreation> {
                       );
                     },
                   ),
+                  //************************************************//
+
+                  //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
                     child: TextFieldWidget(
@@ -63,27 +69,37 @@ class _JobCreationState extends State<JobCreation> {
                       controller: descrController,
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) =>
-                                  ConsumerListings(store: widget.store)),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.orange,
-                        onPrimary: Colors.white,
-                        shadowColor: Colors.black,
-                        elevation: 9,
-                        textStyle: const TextStyle(fontSize: 20),
-                        minimumSize: const Size(180, 50),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30.0))),
-                      ),
-                      child: const Text("Add new job")),
+                  //*************************************************//
+
+                  //**********CREATE NEW JOB BUTTON*****************//
+                  StoreConnector<AppState, VoidCallback>(converter: (store) {
+                    return () => store.dispatch(CreateAdvertAction(
+                        "c001", titleController.value.text.trim(),
+                        description: descrController.value.text.trim()));
+                  }, builder: (context, callback) {
+                    return (ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) =>
+                                    ConsumerListings(store: widget.store)),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.orange,
+                          onPrimary: Colors.white,
+                          shadowColor: Colors.black,
+                          elevation: 9,
+                          textStyle: const TextStyle(fontSize: 20),
+                          minimumSize: const Size(180, 50),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30.0))),
+                        ),
+                        child: const Text("Add new job")));
+                  })
+                  //*************************************************
                 ],
               ),
             ),

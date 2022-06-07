@@ -84,7 +84,7 @@ class JobListings extends StatelessWidget {
             child: StoreConnector<AppState, List<AdvertModel>>(
               converter: (store) => store.state.user!.adverts,
               builder: (context, adverts) {
-                store.dispatch(ViewAdvertsAction("c#001"));
+                // store.dispatch(ViewAdvertsAction("c#001"));
                 return populateAdverts(adverts, context);
               },
             ),
