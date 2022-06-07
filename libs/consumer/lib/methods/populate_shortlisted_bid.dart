@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:general/widgets/card.dart';
 
 class ShortListBidDetails extends StatelessWidget {
   final Store<AppState> store;
@@ -18,13 +17,13 @@ class ShortListBidDetails extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(20),
               ),
-              const CardWidget(
-                titleText: "MR J SMITH",
-                price1: "R800",
-                price2: "R900",
-                details: "info@gmail.com",
-                quote: true,
-              ),
+              // const CardWidget(
+              //   titleText: "MR J SMITH",
+              //   price1: "R800",
+              //   price2: "R900",
+              //   details: "info@gmail.com",
+              //   quote: true,
+              // ),
               const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(

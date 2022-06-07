@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.4.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.3.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -16,7 +16,7 @@
     "s3Key": {
       "Type": "String"
     },
-    "secretsPathAmplifyAppId": {
+    "apiGraphQLAPIIdOutput": {
       "Type": "String"
     }
   },
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getSecrets",
+            "shortListBidResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getSecrets",
+                  "shortListBidResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -73,28 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "api_key": {
-              "Fn::Join": [
-                "",
-                [
-                  {
-                    "Fn::Sub": [
-                      "/amplify/${appId}/${env}/AMPLIFY_${functionName}_",
-                      {
-                        "appId": {
-                          "Ref": "secretsPathAmplifyAppId"
-                        },
-                        "env": {
-                          "Ref": "env"
-                        },
-                        "functionName": "getSecrets"
-                      }
-                    ]
-                  },
-                  "api_key"
-                ]
-              ]
-            }
+            "REVERSEHAND": "ReverseHand"
           }
         },
         "Role": {
@@ -114,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole9cf3b47d",
+            "reversehandLambdaRole70106060",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole9cf3b47d",
+                  "reversehandLambdaRole70106060",
                   "-",
                   {
                     "Ref": "env"
@@ -190,10 +169,13 @@
         }
       }
     },
-    "AmplifyFunctionSecretsPolicy": {
+    "AccessDynamoDBApiResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
       "Type": "AWS::IAM::Policy",
       "Properties": {
-        "PolicyName": "amplify-function-secrets-policy",
+        "PolicyName": "amplify-lambda-execution-policy",
         "Roles": [
           {
             "Ref": "LambdaExecutionRole"
@@ -205,47 +187,35 @@
             {
               "Effect": "Allow",
               "Action": [
-                "ssm:GetParameter",
-                "ssm:GetParameters"
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:List*",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:Delete*"
               ],
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:aws:ssm:",
+              "Resource": [
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
                     {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":parameter",
-                    {
-                      "Fn::Sub": [
-                        "/amplify/${appId}/${env}/AMPLIFY_${functionName}_",
-                        {
-                          "appId": {
-                            "Ref": "secretsPathAmplifyAppId"
-                          },
-                          "env": {
-                            "Ref": "env"
-                          },
-                          "functionName": "getSecrets"
-                        }
-                      ]
-                    },
-                    "*"
+                      "tablename": "ReverseHand"
+                    }
                   ]
-                ]
-              }
+                },
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
+                    {
+                      "tablename": "ReverseHand"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
-      },
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ]
+      }
     }
   },
   "Outputs": {

@@ -72,7 +72,8 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            }
+            },
+            "REVERSEHAND": "ReverseHand"
           }
         },
         "Role": {
@@ -187,6 +188,7 @@
               "Effect": "Allow",
               "Action": [
                 "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
                 "dynamodb:List*",
                 "dynamodb:Query",
                 "dynamodb:Scan",

@@ -15,10 +15,13 @@ dependencies:
   # amplify
   amplify_flutter: ^0.5.1
   amplify_auth_cognito: ^0.5.1
-  amplify_datastore: ^0.5.1
   amplify_api: ^0.5.1
 
+  # redux
   async_redux: ^15.0.0
+
+  # other
+  uuid: ^3.0.6
 
   amplify:
     path: '../amplify'

@@ -3,8 +3,8 @@ import 'package:general/widgets/quote.dart';
 
 class CardWidget extends StatelessWidget {
   final String titleText;
-  final String price1;
-  final String price2;
+  final int price1;
+  final int price2;
   final String details;
   final bool quote; // const CardWidget({Key? key
   // }) : super(key: key);

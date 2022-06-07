@@ -1,12 +1,19 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/card.dart';
+import 'package:redux_comp/models/advert_model.dart';
+import 'package:redux_comp/models/bid_model.dart';
+
+import '../consumer.dart';
 
 class BidDetails extends StatelessWidget {
   final Store<AppState> store;
-  const BidDetails({Key? key, required this.store}) : super(key: key);
+  final AdvertModel advert;
+  final BidModel bid;
+  const BidDetails(
+      {Key? key, required this.store, required this.bid, required this.advert})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -22,13 +29,14 @@ class BidDetails extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => ConsumerDetails(store: store)));
+                          builder: (_) =>
+                              ConsumerDetails(store: store, advert: advert)));
                 },
               ),
-              const CardWidget(
+              CardWidget(
                 titleText: "MR J SMITH",
-                price1: "R800",
-                price2: "R900",
+                price1: bid.priceLower,
+                price2: bid.priceUpper,
                 details: "info@gmail.com",
                 quote: false,
               ),
@@ -48,7 +56,10 @@ class BidDetails extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => ConsumerDetails(store: store)),
+                        builder: (_) => ConsumerDetails(
+                              store: store,
+                              advert: advert,
+                            )),
                   );
                 },
                 child: const Text("SHORTLIST"),

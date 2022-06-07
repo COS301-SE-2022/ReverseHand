@@ -1,3 +1,14 @@
+/**
+ * This script is called when a GitHub action is run and serves the purpose of avoiding empty
+ * lcov files being generated when tests are executed with --coverage
+ * Does this by generating an empty main function which just has the imports in the file
+ * in the form of ../lib/something instead of the usual package prefix as this leads
+ * to empty lcov files for some reason. Every time a new project is created it should manually
+ * be added here. Only the redux project is excluded because of the regex being used in this
+ * bash script. It results in lots of errors as files which are not suppossed to be picked from
+ * the redux project are selected. Hence it is excluded. 
+ */
+
 process.chdir(__dirname);
 const {exec}  =  require('child_process')
 const fs = require('fs');
@@ -51,9 +62,7 @@ fs.writeFile("./libs/amplify/test/gather_files.sh",content,function(err){
 fs.writeFile("./libs/authentication/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
-/*fs.writeFile("./libs/redux_comp/test/gather_files.sh",content,function(err){
-    if(err) throw err;
-})*/
+
 
 
 
@@ -61,7 +70,6 @@ var script = exec("bash ./apps/app/test/gather_files.sh")
 script = exec("bash ./libs/consumer/test/gather_files.sh")
 script = exec("bash ./libs/example/test/gather_files.sh")
 script = exec("bash ./libs/general/test/gather_files.sh")
-// script = exec("bash ./libs/redux_comp/test/gather_files.sh")
 script = exec("bash ./libs/tradesman/test/gather_files.sh")
 script = exec("bash ./libs/amplify/test/gather_files.sh")
 script = exec("bash ./libs/authentication/test/gather_files.sh")

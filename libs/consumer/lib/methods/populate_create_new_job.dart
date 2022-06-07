@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../consumer.dart';
 
-// import 'package:amplify/models/Advert.dart';
-// import 'package:redux_comp/actions/create_advert_action.dart';
-//these imports might be necessary when backend is linked - will be removed after linking
-
 class JobCreation extends StatefulWidget {
   final Store<AppState> store;
   const JobCreation({Key? key, required this.store}) : super(key: key);
@@ -38,96 +34,22 @@ class _JobCreationState extends State<JobCreation> {
         child: MaterialApp(
           home: Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            // body: Row(
-            //   children: [
-            //     Expanded(
-            //       child: Column(
-            //         children: [
-            //           const Padding(
-            //             padding: EdgeInsets.only(top: 15.0),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.only(
-            //                 left: 15.0, right: 15.0, top: 15, bottom: 15),
-            //             child: TextField(
-            //               decoration: const InputDecoration(
-            //                   border: OutlineInputBorder(), labelText: 'Title'),
-            //               controller: titleController,
-            //             ),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.only(
-            //                 left: 15.0, right: 15.0, top: 15, bottom: 15),
-            //             child: TextField(
-            //               controller: descrController,
-            //               decoration: const InputDecoration(
-            //                   border: OutlineInputBorder(),
-            //                   labelText: 'Description'),
-            //             ),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.only(
-            //                 left: 15.0, right: 15.0, top: 15, bottom: 15),
-            //             child: TextField(
-            //               controller: locationController,
-            //               decoration: const InputDecoration(
-            //                   border: OutlineInputBorder(),
-            //                   labelText: 'Location'),
-            //             ),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.only(
-            //                 left: 15.0, right: 15.0, top: 15, bottom: 15),
-            //             child: TextField(
-            //               controller: dateController,
-            //               decoration: const InputDecoration(
-            //                   border: OutlineInputBorder(), labelText: 'Date'),
-            //             ),
-            //           ),
-            //           Container(
-            //             height: 60,
-            //             width: 250,
-            //             decoration: BoxDecoration(
-            //                 color: const Color.fromRGBO(132, 169, 140, 1),
-            //                 borderRadius: BorderRadius.circular(20)),
-            //             child: StoreConnector<AppState, VoidCallback>(
-            //               converter: (store) {
-            //                 return () => store.dispatch(CreateAdvertAction(Advert(
-            //                     customer: store.state.user!.getId(),
-            //                     title: titleController.value.text,
-            //                     description: descrController.value.text)));
-            //               },
-            //               builder: (context, callback) {
-            //                 return TextButton(
-            //                   onPressed: () {
-            //                     callback();
-            //                     Navigator.push(
-            //                         context,
-            //                         MaterialPageRoute(
-            //                             builder: (_) => ConsumerListings(
-            //                                 store: widget.store)));
-            //                   },
-            //                   child: const Text(
-            //                     'Add New Job',
-            //                     style:
-            //                         TextStyle(color: Colors.white, fontSize: 20),
-            //                   ),
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ],
-            // ),
-
-            //COMMENTS ARE KEPT TO INTEGRATE WITH BACKEND LATER!
             body: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
+                  BackButton(
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  ConsumerListings(store: widget.store)));
+                    },
+                  ),
                   const Padding(
-                    padding: EdgeInsets.fromLTRB(10, 70, 10, 10),
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
                     child: TextFieldWidget(label: "Title", obscure: false),
                   ),
                   const Padding(
@@ -163,87 +85,6 @@ class _JobCreationState extends State<JobCreation> {
                 ],
               ),
             ),
-            // body: Row(children: [
-            //   Expanded(
-            //     child: Column(
-            //       children: [
-            //         const Padding(
-            //           padding: EdgeInsets.only(top: 15.0),
-            //         ),
-            //         Padding(
-            //           padding: const EdgeInsets.only(
-            //               left: 15.0, right: 15.0, top: 15, bottom: 15),
-            //           child: TextField(
-            //             decoration: const InputDecoration(
-            //                 border: OutlineInputBorder(), labelText: 'Title'),
-            //             controller: titleController,
-            //           ),
-            //         ),
-            //         Padding(
-            //           padding: const EdgeInsets.only(
-            //               left: 15.0, right: 15.0, top: 15, bottom: 15),
-            //           child: TextField(
-            //             controller: descrController,
-            //             decoration: const InputDecoration(
-            //                 border: OutlineInputBorder(),
-            //                 labelText: 'Description'),
-            //           ),
-            //         ),
-            //         Padding(
-            //           padding: const EdgeInsets.only(
-            //               left: 15.0, right: 15.0, top: 15, bottom: 15),
-            //           child: TextField(
-            //             controller: locationController,
-            //             decoration: const InputDecoration(
-            //                 border: OutlineInputBorder(),
-            //                 labelText: 'Location'),
-            //           ),
-            //         ),
-            //         Padding(
-            //           padding: const EdgeInsets.only(
-            //               left: 15.0, right: 15.0, top: 15, bottom: 15),
-            //           child: TextField(
-            //             controller: dateController,
-            //             decoration: const InputDecoration(
-            //                 border: OutlineInputBorder(), labelText: 'Date'),
-            //           ),
-            //         ),
-            //         Container(
-            //           height: 60,
-            //           width: 250,
-            //           decoration: BoxDecoration(
-            //               color: const Color.fromRGBO(132, 169, 140, 1),
-            //               borderRadius: BorderRadius.circular(20)),
-            //           child: StoreConnector<AppState, VoidCallback>(
-            //             // converter: (store) {
-            //             //   return () => store.dispatch(CreateAdvertAction(Advert(
-            //             //       customer: store.state.user!.getId(),
-            //             //       title: titleController.value.text,
-            //             //       description: descrController.value.text)));
-            //             // },
-            //             builder: (context, callback) {
-            //               return TextButton(
-            //                 onPressed: () {
-            //                   callback();
-            //                   Navigator.push(
-            //                       context,
-            //                       MaterialPageRoute(
-            //                           builder: (_) => ConsumerListings(
-            //                               store: widget.store)));
-            //                 },
-            //                 child: const Text(
-            //                   'Add New Job',
-            //                   style:
-            //                       TextStyle(color: Colors.white, fontSize: 20),
-            //                 ),
-            //               );
-            //             },
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ])),
           ),
         ));
   }
