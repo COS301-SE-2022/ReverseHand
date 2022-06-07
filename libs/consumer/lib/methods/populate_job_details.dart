@@ -45,21 +45,6 @@ class JobDetails extends StatelessWidget {
       ),
     );
 
-    //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
-    for (BidModel bid in bids) {
-      quickViewBidWidgets.add(QuickViewBidWidget(
-        name: bid.dateCreated, //this should be a name
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => ViewBid(
-                        store: store,
-                      )));
-        },
-      ));
-    }
-
     //**********DIVIDER***********//
     quickViewBidWidgets.add(
       const DividerWidget(),
@@ -91,6 +76,22 @@ class JobDetails extends StatelessWidget {
         ],
       ),
     );
+
+    //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
+    for (BidModel bid in bids) {
+      quickViewBidWidgets.add(QuickViewBidWidget(
+        name: bid.dateCreated, //this should be a name or a number
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => ViewBid(
+                        store: store,
+                      )));
+        },
+      ));
+    }
+
     return Column(children: quickViewBidWidgets);
   }
 
