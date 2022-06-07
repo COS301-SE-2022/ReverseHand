@@ -15,14 +15,12 @@ class JobCreation extends StatefulWidget {
 class _JobCreationState extends State<JobCreation> {
   final titleController = TextEditingController();
   final descrController = TextEditingController();
-  final locationController = TextEditingController();
   final dateController = TextEditingController();
 
   @override
   void dispose() {
     titleController.dispose();
     descrController.dispose();
-    locationController.dispose();
     dateController.dispose();
     super.dispose();
   }
@@ -48,18 +46,21 @@ class _JobCreationState extends State<JobCreation> {
                                   ConsumerListings(store: widget.store)));
                     },
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
-                    child: TextFieldWidget(label: "Title", obscure: false),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    child: TextFieldWidget(
+                      label: "Title",
+                      obscure: false,
+                      controller: titleController,
+                    ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
-                    child:
-                        TextFieldWidget(label: "Description", obscure: false),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(10, 30, 10, 30),
-                    child: TextFieldWidget(label: "Location", obscure: false),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                    child: TextFieldWidget(
+                      label: "Description",
+                      obscure: false,
+                      controller: descrController,
+                    ),
                   ),
                   ElevatedButton(
                       onPressed: () {

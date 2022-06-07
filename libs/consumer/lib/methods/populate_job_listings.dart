@@ -19,6 +19,10 @@ class JobListings extends StatelessWidget {
   Column populateAdverts(List<AdvertModel> adverts, BuildContext context) {
     List<Widget> quickViewJobCardWidgets = [];
     double height = (MediaQuery.of(context).size.height) / 3;
+
+    quickViewJobCardWidgets
+        .add(const Padding(padding: EdgeInsets.only(top: 20)));
+
     for (AdvertModel advert in adverts) {
       quickViewJobCardWidgets.add(QuickViewJobCardWidget(
         titleText: advert.title,
@@ -41,30 +45,26 @@ class JobListings extends StatelessWidget {
     quickViewJobCardWidgets.add(
       Align(
         alignment: Alignment.bottomCenter,
-        child: Padding(
-          padding: EdgeInsets.only(top: height),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.orange,
-              onPrimary: Colors.white,
-              shadowColor: Colors.black,
-              elevation: 9,
-              textStyle: const TextStyle(fontSize: 30),
-              minimumSize: const Size(60, 60),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0))),
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => CreateNewJob(store: store)));
-            },
-            child: const Text("+"), //Look into an icon for demo 3
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.orange,
+            onPrimary: Colors.white,
+            shadowColor: Colors.black,
+            elevation: 9,
+            textStyle: const TextStyle(fontSize: 30),
+            minimumSize: const Size(60, 60),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30.0))),
           ),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => CreateNewJob(store: store)));
+          },
+          child: const Text("+"), //Look into an icon for demo 3
         ),
       ),
     );
+
     return Column(children: quickViewJobCardWidgets);
   }
 
