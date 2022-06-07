@@ -101,7 +101,6 @@ class JobDetails extends StatelessWidget {
         child: StoreConnector<AppState, List<BidModel>>(
           converter: (store) => store.state.user!.bids,
           builder: (context, bids) {
-            store.dispatch(ViewBidsAction("a#001"));
             return populateBids(bids, context);
           },
         ),
