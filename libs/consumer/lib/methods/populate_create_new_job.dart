@@ -40,10 +40,11 @@ class _JobCreationState extends State<JobCreation> {
                     color: Colors.white,
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) =>
-                                  ConsumerListings(store: widget.store)));
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ConsumerListings(store: widget.store),
+                        ),
+                      );
                     },
                   ),
                   Padding(

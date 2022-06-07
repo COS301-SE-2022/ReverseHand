@@ -8,7 +8,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 // creates an advert
-// requires the customerdId an advert the rest is optional
+// requires the customerdId and a title the rest is optional
 class CreateAdvertAction extends ReduxAction<AppState> {
   final String customerId;
   final String title;
@@ -22,7 +22,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     this.description,
     this.type,
     this.location,
-  });
+  }); // Create...(id, title, description: desc)
 
   @override
   Future<AppState?> reduce() async {
