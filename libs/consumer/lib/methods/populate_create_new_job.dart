@@ -72,8 +72,9 @@ class _JobCreationState extends State<JobCreation> {
                   //*************************************************//
 
                   //**********CREATE NEW JOB BUTTON*****************//
-                  StoreConnector<AppState, VoidCallback>(converter: (store) {
-                    return () => store.dispatch(
+                  StoreConnector<AppState, Future<void> Function()>(
+                      converter: (store) {
+                    return () async => await store.dispatch(
                           CreateAdvertAction(
                             store.state.user!.id,
                             titleController.value.text.trim(),
@@ -83,12 +84,13 @@ class _JobCreationState extends State<JobCreation> {
                   }, builder: (context, callback) {
                     return (ElevatedButton(
                         onPressed: () {
-                          callback();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  ConsumerListings(store: widget.store),
+                          callback().whenComplete(
+                            () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    ConsumerListings(store: widget.store),
+                              ),
                             ),
                           );
                         },
