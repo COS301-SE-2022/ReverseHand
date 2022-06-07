@@ -4,6 +4,7 @@ import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/card.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
+import 'package:general/widgets/shortlist_accept_button.dart';
 
 import '../consumer.dart';
 
@@ -41,31 +42,20 @@ class BidDetails extends StatelessWidget {
                 quote: false,
               ),
               const Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.orange,
-                  onPrimary: Colors.white,
-                  shadowColor: Colors.black,
-                  elevation: 9,
-                  textStyle: const TextStyle(fontSize: 20),
-                  minimumSize: const Size(200, 50),
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30.0))),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => ConsumerDetails(
-                              store: store,
-                              advert: advert,
-                            )),
-                  );
-                },
-                child: const Text("SHORTLIST"),
-              ),
+              const ShortlistAcceptButtonWidget(),
             ])),
       ),
     );
   }
 }
+
+                // onPressed: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (_) => ConsumerDetails(
+                //               store: store,
+                //               advert: advert,
+                //             )),
+                //   );
+                // },

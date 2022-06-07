@@ -67,11 +67,9 @@ class JobDetails extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Padding(padding: EdgeInsets.all(11)),
           TabWidget(text: "ACTIVE"),
           Padding(padding: EdgeInsets.all(5)),
           TabWidget(text: "SHORTLIST"),
-          Padding(padding: EdgeInsets.all(11)),
         ],
       ),
     );
