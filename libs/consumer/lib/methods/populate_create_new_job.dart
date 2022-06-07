@@ -47,7 +47,7 @@ class _JobCreationState extends State<JobCreation> {
                     },
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
                     child: TextFieldWidget(
                       label: "Title",
                       obscure: false,
@@ -55,7 +55,7 @@ class _JobCreationState extends State<JobCreation> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 30),
                     child: TextFieldWidget(
                       label: "Description",
                       obscure: false,

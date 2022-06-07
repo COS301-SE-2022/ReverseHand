@@ -45,22 +45,27 @@ class JobListings extends StatelessWidget {
     quickViewJobCardWidgets.add(
       Align(
         alignment: Alignment.bottomCenter,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: Colors.orange,
-            onPrimary: Colors.white,
-            shadowColor: Colors.black,
-            elevation: 9,
-            textStyle: const TextStyle(fontSize: 30),
-            minimumSize: const Size(60, 60),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0))),
+        child: Padding(
+          padding: EdgeInsets.all(height / 3),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.orange,
+              onPrimary: Colors.white,
+              shadowColor: Colors.black,
+              elevation: 9,
+              textStyle: const TextStyle(fontSize: 30),
+              minimumSize: const Size(60, 60),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30.0))),
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => CreateNewJob(store: store)));
+            },
+            child: const Text("+"), //Look into an icon for demo 3
           ),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (_) => CreateNewJob(store: store)));
-          },
-          child: const Text("+"), //Look into an icon for demo 3
         ),
       ),
     );
