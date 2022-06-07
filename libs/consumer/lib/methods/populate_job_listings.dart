@@ -65,6 +65,30 @@ class JobListings extends StatelessWidget {
         ),
       ),
     );
+
+    quickViewJobCardWidgets.add( Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        margin: const EdgeInsets.all(5),
+        width: 300,
+        height: 50,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.orange,
+            onPrimary: Colors.white,
+            shadowColor: Colors.black,
+            elevation: 9,
+            textStyle: const TextStyle(fontSize: 30),
+            minimumSize: const Size(400, 50),
+            shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0))),
+          ),
+          onPressed: () {},
+          child: const Text('Log Out'),
+        ),
+      ),
+    ));
+    
     return Column(children: quickViewJobCardWidgets);
   }
 
