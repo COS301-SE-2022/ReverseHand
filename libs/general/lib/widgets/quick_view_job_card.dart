@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 class QuickViewJobCardWidget extends StatelessWidget {
   final String titleText;
   final String date;
-  final String location;
   final void Function() onTap;
 
   const QuickViewJobCardWidget({
     Key? key,
     required this.titleText,
     required this.date,
-    required this.location,
     required this.onTap,
   }) : super(key: key);
 
@@ -41,17 +39,15 @@ class QuickViewJobCardWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(
-                        Icons.place,
+                        Icons.access_time,
                         color: Colors.white,
-                        size: 40.0,
+                        size: 30.0,
                       ),
+                      const Padding(padding: EdgeInsets.all(5)),
                       Column(children: [
-                        Text(date,
+                        Text("Posted $date",
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white70)),
-                        Text(location,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.white))
                       ])
                     ],
                   ),

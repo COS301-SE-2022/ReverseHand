@@ -23,7 +23,6 @@ class JobListings extends StatelessWidget {
       quickViewJobCardWidgets.add(QuickViewJobCardWidget(
         titleText: advert.title,
         date: advert.dateCreated,
-        location: advert.location ?? "",
         onTap: () {
           store.dispatch(ViewBidsAction(advert.id));
           Navigator.push(
@@ -66,12 +65,6 @@ class JobListings extends StatelessWidget {
         ),
       ),
     );
-    // quickViewJobCardWidgets.add(
-    //   const Padding(
-    //     padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-    //   ),
-    // );
-
     return Column(children: quickViewJobCardWidgets);
   }
 
