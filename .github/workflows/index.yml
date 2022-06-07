@@ -1,8 +1,10 @@
+#This file serves as "central point" where everything is called from
 name: CI TESTS
 
 on:
   pull_request:
     branches: [develop]
+  #Manual workflow trigger to run analyze and test
   workflow_dispatch:
     inputs:
       testChoice:
@@ -13,6 +15,8 @@ on:
         - all
         - affected
 
+#Only execute without cache when it comes to checking PR's
+#Too many errors slipping through with cache
 jobs:
   test-all:
     uses: ./.github/workflows/android.yml
