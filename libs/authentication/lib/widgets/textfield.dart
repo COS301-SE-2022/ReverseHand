@@ -13,7 +13,7 @@ class TextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+      return TextFormField(
       style: const TextStyle(color: Colors.white),
       obscureText: obscure,
       controller: controller,

@@ -1,4 +1,5 @@
 // import 'package:amplify/models/Advert.dart';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
@@ -135,21 +136,30 @@ class SignUp extends StatelessWidget {
                 //****************************************************
 
                 //*****************signup button**********************
-                StoreConnector<AppState, VoidCallback>(converter: (store) {
-                  return () => store.dispatch(RegisterUserAction(
-                      emailController.value.text.trim(),
-                      nameController.value.text.trim(),
-                      cellController.value.text.trim(),
-                      locationController.value.text.trim(),
-                      passwordController.value.text.trim(),
-                      "Consumer"));
+                StoreConnector<AppState, Future<void> Function()>(
+                    converter: (store) {
+                  return () async => {
+                        await store.dispatch(
+                          RegisterUserAction(
+                            emailController.value.text.trim(),
+                            nameController.value.text.trim(),
+                            cellController.value.text.trim(),
+                            locationController.value.text.trim(),
+                            passwordController.value.text.trim(),
+                            "Consumer",
+                          ),
+                        ),
+                      };
                 }, builder: (context, callback) {
                   return LongButtonWidget(
                     text: "Sign Up",
                     login: () => {
                       callback(),
                       DialogHelper.display(
-                          context, PopupWidget(store: store,)), //trigger OTP popup
+                          context,
+                          PopupWidget(
+                            store: store,
+                          )), //trigger OTP popup
                     },
                   );
                 }),

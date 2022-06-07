@@ -56,16 +56,18 @@ class PopupWidget extends StatelessWidget {
                 const TransparentDividerWidget(),
                 //*****************************************************
 
-                //***************Verify Button *********************** */
-                StoreConnector<AppState, VoidCallback>(converter: (store) {
-                  return () => {
-                        store.dispatch(
+                //***************Verify Button************************/
+                StoreConnector<AppState, Future<void> Function()>(
+                    converter: (store) {
+                  return () async => {
+                        await store.dispatch(
                           VerifyUserAction(
-                              store.state.partialUser!.email,
-                              store.state.partialUser!.password,
-                              otpController.value.text.trim()),
+                            store.state.partialUser!.email,
+                            store.state.partialUser!.password,
+                            otpController.value.text.trim(),
+                          ),
                         ),
-                        store.dispatch(
+                        await store.dispatch(
                           LoginAction(
                             store.state.partialUser!.email,
                             store.state.partialUser!.password,
@@ -77,12 +79,12 @@ class PopupWidget extends StatelessWidget {
                       text: "Verify",
                       function: () => {
                             callback(),
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      ConsumerListings(store: store)),
-                            )
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ConsumerListings(store: store),
+                                ),
+                              ),
                           });
                 }),
                 //*****************************************************

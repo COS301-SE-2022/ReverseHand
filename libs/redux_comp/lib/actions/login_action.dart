@@ -28,7 +28,6 @@ class LoginAction extends ReduxAction<AppState> {
         password: password,
       );
 
-      
       List<AuthUserAttribute> userAttr =
           await Amplify.Auth.fetchUserAttributes();
 
@@ -51,37 +50,40 @@ class LoginAction extends ReduxAction<AppState> {
       }
       return state.replace(
         user: UserModel(
-        id: id,
-        email: username,
-        userType: userType,
-        bids: const [],
-        adverts: const [],
-      ));
+          id: id,
+          email: username,
+          userType: userType,
+          adverts: const [],
+          bids: const [],
+        ),
+      );
       // exception will be handled later
     } on AuthException catch (e) {
-      // } catch (e) {
       switch (e.message) {
         case "User is not confirmed.":
-            print(e.message);
-            return state.replace(
-              partialUser: PartialUser(email, password, "CONFIRM_SIGN_UP_STEP"),
-              error: ErrorType.userNotFound,
-            );
+          print(e.message);
+          return state.replace(
+            partialUser: PartialUser(email, password, "CONFIRM_SIGN_UP_STEP"),
+            error: ErrorType.userNotFound,
+          );
         case "User does not exist.":
-            print(e.message);
-            return state.replace(
-              error: ErrorType.userNotFound,
-            );
+          print(e.message);
+          return state.replace(
+            error: ErrorType.userNotFound,
+          );
         case "Incorrect username or password.":
-            print(e.message);
-            return state.replace(
-              error: ErrorType.userInvalidPassword,
-            );
+          print(e.message);
+          return state.replace(
+            error: ErrorType.userInvalidPassword,
+          );
         case "Password attempts exceeded":
-            print(e.message);
-            return state.replace(
-              error: ErrorType.passwordAttemptsExceeded,
-            );
+          print(e.message);
+          return state.replace(
+            error: ErrorType.passwordAttemptsExceeded,
+          );
+        default: 
+          print(e);
+          break;
       }
       if (kDebugMode) {
         print(e);

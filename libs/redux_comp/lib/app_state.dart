@@ -22,8 +22,7 @@ class AppState {
   // this methods sets the starting state for the store
   factory AppState.initial() {
     return const AppState(
-      user: UserModel(
-          id: "", email: "", userType: "userType", bids: [], adverts: []),
+      user: null,
       partialUser: null,
       error: ErrorType.none,
       loading: true,

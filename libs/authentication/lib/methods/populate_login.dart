@@ -13,55 +13,22 @@ import '../widgets/button.dart';
 import '../widgets/link.dart';
 import '../widgets/textfield.dart';
 
-class Login extends StatefulWidget {
+class Login extends StatelessWidget {
   final Store<AppState> store;
-  const Login({Key? key, required this.store}) : super(key: key);
+  Login({Key? key, required this.store}) : super(key: key);
 
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
 
-  @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.store.state.user == null)
-      {}
-    else if (widget.store.state.user!.userType == "Consumer") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) => ConsumerListings(
-                store:
-                    widget.store)), //comment to rather view tradesman
-      );
-    }
-    else if (widget.store.state.user!.userType == "tradesman") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) => TradesmanJobListings(
-                store:
-                    widget.store)), //uncomment to view tradesman
-      );
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: widget.store,
+      store: store,
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
@@ -147,6 +114,24 @@ class _LoginState extends State<Login> {
                       text: "login",
                       login: () => {
                         callback(),
+                        if (store.state.user == null)
+                          {}
+                        else if (store.state.user!.userType == "Consumer")
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => ConsumerListings(
+                                    store:
+                                        store)), //comment to rather view tradesman
+                          )
+                        else if (store.state.user!.userType == "tradesman")
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => TradesmanJobListings(
+                                    store:
+                                        store)), //uncomment to view tradesman
+                          )
                       },
                     );
                   }),
@@ -160,7 +145,7 @@ class _LoginState extends State<Login> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => SignUpPage(store: widget.store)),
+                                  builder: (_) => SignUpPage(store: store)),
                             )
                           }),
                   //******************************************************* */
