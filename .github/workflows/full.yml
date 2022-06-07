@@ -1,3 +1,5 @@
+#This workflow is called when a merge is done. It will then execute the tests
+#once more but this time sending the coverage files to CodeCov. No cache used
 name: Coverage Generator
 
 on:
