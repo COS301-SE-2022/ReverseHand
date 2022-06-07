@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/bid_model.dart';
-// import 'package:flutter/foundation.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -38,9 +36,23 @@ class ViewBidsAction extends ReduxAction<AppState> {
       final data = jsonDecode(response.data);
 
       List<BidModel> bids = [];
-      data['viewBids'].forEach((el) => bids.add(BidModel.fromJson(el)));
+      List<BidModel> shortlistedBids = [];
 
-      return state.replace(user: state.user!.replace(bids: bids));
+      for (dynamic d in data['viewBids']) {
+        String id = d['id'];
+        if (id.contains('s')) {
+          shortlistedBids.add(BidModel.fromJson(d));
+        } else {
+          bids.add(BidModel.fromJson(d));
+        }
+      }
+
+      return state.replace(
+        user: state.user!.replace(
+          bids: bids,
+          shortlistBids: shortlistedBids,
+        ),
+      );
     } catch (e) {
       return state;
     }
