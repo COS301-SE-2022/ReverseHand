@@ -2,12 +2,17 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/card.dart';
+import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
+
+import '../consumer.dart';
 
 class BidDetails extends StatelessWidget {
   final Store<AppState> store;
+  final AdvertModel advert;
   final BidModel bid;
-  const BidDetails({Key? key, required this.store, required this.bid})
+  const BidDetails(
+      {Key? key, required this.store, required this.bid, required this.advert})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -21,10 +26,11 @@ class BidDetails extends StatelessWidget {
               BackButton(
                 color: Colors.white,
                 onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (_) => ConsumerDetails(store: store,)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              ConsumerDetails(store: store, advert: advert)));
                 },
               ),
               CardWidget(
@@ -47,11 +53,14 @@ class BidDetails extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(30.0))),
                 ),
                 onPressed: () {
-                  //   Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (_) => ConsumerDetails(store: store)),
-                  //   );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => ConsumerDetails(
+                              store: store,
+                              advert: advert,
+                            )),
+                  );
                 },
                 child: const Text("SHORTLIST"),
               ),

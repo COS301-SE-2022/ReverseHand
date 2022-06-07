@@ -80,12 +80,16 @@ class JobDetails extends StatelessWidget {
     //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
     for (BidModel bid in bids) {
       quickViewBidWidgets.add(QuickViewBidWidget(
-        name: bid.dateCreated, //this should be a name or a number
+        name: bid.advertId, //this should be a name or a number
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (_) => ViewBid(store: store, bid: bid)));
+                  builder: (_) => ViewBid(
+                        store: store,
+                        bid: bid,
+                        advert: advert,
+                      )));
         },
       ));
     }
