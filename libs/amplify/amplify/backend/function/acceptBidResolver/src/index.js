@@ -9,33 +9,36 @@ const ReverseHandTable = process.env.REVERSEHAND;
 // add a bid id to an adverts accepted bid
 // requires customer id and advert id and shorlisted bid id
 exports.handler = async (event) => {
+    // adding accepted bid
     try {
+        let item = {
+            TableName: ReverseHandTable,
+            Key: {
+                user_id: event.arguments.user_id,
+                sort_key: event.arguments.ad_id
+            },
+            UpdateExpression: 'set accepted_bid = :ab',
+            ExpressionAttributeValues: {
+                ':ab': event.arguments.sbid_id,
+            },
+        };
+
+        await docClient.update(item).promise();
+        
+        // getting accepted bi
         let params = {
             TableName: ReverseHandTable,
-            KeyConditionExpression: "user_id = :u and sort_key = :a",
+            KeyConditionExpression: "user_id = :u and sort_key = :s",
             ExpressionAttributeValues: {
-                ":u": event.arguments.user_id,
-                ":a": event.arguments.ad_id
+                ":u": event.arguments.ad_id,
+                ":s": event.arguments.sbid_id
             }
         };
 
         const data = await docClient.query(params).promise();
-        let ad = data["Items"][0]; // should only return one item
-        
-        let item = {
-            TableName: ReverseHandTable,
-            Item: {
-                user_id: event.arguments.ad_id,
-                sort_key: event.arguments.ad_id, // prefixing but keeping same suffix
-                advert_details: {
-                    accepted_bid: sbid_id,
-                }
-            }
-        };
-
-        await docClient.put(item).promise();
+        let sbid = data["Items"][0]['bid_details'];
     
-        return item.Item.advert_details;
+        return sbid;
     } catch(e) {
         console.log(e)
         return e;
