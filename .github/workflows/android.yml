@@ -83,7 +83,7 @@ jobs:
         run: npx affected --target=analyze --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
    
     #Test all which uses no cache
-      - name: Analyze and execute tests
+      - name: Execute tests
         if: inputs.test == 'all'
         run: npx nx run-many --target=test --all --skip-nx-cache --parallel
         #Amplify excluded from analyze as flutter has issues with the way amplify generates models
@@ -170,7 +170,7 @@ jobs:
           flutter-version: ${{ env.flutter_version }}
 
     #Analyze all which uses no cache
-      - name: Analyze and execute tests
+      - name: Analyze
         if: inputs.test == 'all'
         run: npx nx run-many --target=analyze --all --skip-nx-cache --parallel --exclude=amplify
         #Amplify excluded from analyze as flutter has issues with the way amplify generates models
@@ -255,13 +255,13 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
-
-       - name: Execute integration tests
+      - name: Execute integration tests
         if: inputs.test == 'all'
         uses: reactivecircus/android-emulator-runner@v2
         with: 
           api-level: 29
           script: echo 'Hello world' #will be changed once Secrets Manager is running
-
      
 
+
+     
