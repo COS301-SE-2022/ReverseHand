@@ -42,7 +42,7 @@ class Login extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 2),
                 alignment: Alignment.topLeft,
                 decoration: const BoxDecoration(
-                  color:  Color.fromRGBO(243, 157, 55, 1),
+                  color: Color.fromRGBO(243, 157, 55, 1),
                   borderRadius:
                       BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
                 ),
@@ -56,7 +56,7 @@ class Login extends StatelessWidget {
               ),
               //*******************************************************
 
-                //*****************Bottom circle blur**********************
+              //*****************Bottom circle blur**********************
               Align(
                 alignment: Alignment.bottomRight,
                 child: Container(
@@ -65,7 +65,7 @@ class Login extends StatelessWidget {
                   margin: const EdgeInsets.all(0),
                   padding: const EdgeInsets.only(top: 2),
                   decoration: const BoxDecoration(
-                    color:  Color.fromRGBO(243, 157, 55, 1),
+                    color: Color.fromRGBO(243, 157, 55, 1),
                     borderRadius:
                         BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
                   ),
@@ -78,7 +78,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-          //******************************************************* */
+              //******************************************************* */
 
               const Divider(
                 height: 20,
@@ -139,33 +139,37 @@ class Login extends StatelessWidget {
                   //*****************login button**********************
 
                   StoreConnector<AppState, VoidCallback>(converter: (store) {
-                    return () => store.dispatch(
+                    return () async {
+                      store.dispatch(
                         // LogoutAction()
-                        LoginAction(emailController.value.text.trim(),
-                            passwordController.value.text.trim()));
+                        LoginAction(
+                          emailController.value.text.trim(),
+                          passwordController.value.text.trim(),
+                        ),
+                      );
+                    };
                   }, builder: (context, callback) {
                     return LongButtonWidget(
-                      text: "Login",
-                      login: () => {
-                        callback(),
-                        if (store.state.user == null)
-                          {}
-                        else if (store.state.user!.userType == "Consumer")
+                      text: "login",
+                      login: () {
+                        callback();
+                        if (store.state.user == null) {
+                        } else if (store.state.user!.userType == "Consumer") {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => ConsumerListings(
-                                    store:
-                                        store)), //comment to rather view tradesman
-                          )
-                        else if (store.state.user!.userType == "tradesman")
+                              builder: (_) => ConsumerListings(store: store),
+                            ),
+                          );
+                        } else if (store.state.user!.userType == "Tradesman") {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => TradesmanJobListings(
-                                    store:
-                                        store)), //uncomment to view tradesman
-                          )
+                              builder: (_) =>
+                                  TradesmanJobListings(store: store),
+                            ),
+                          );
+                        }
                       },
                     );
                   }),
@@ -232,7 +236,7 @@ class Login extends StatelessWidget {
                   ),
                 ],
               ),
-             //******************************************************* */
+              //******************************************************* */
             ],
           ),
         ),

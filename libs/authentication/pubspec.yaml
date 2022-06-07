@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  amplify_flutter: ^0.5.1
+
   async_redux: ^15.0.0
 
   redux_comp:

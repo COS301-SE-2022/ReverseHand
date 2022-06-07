@@ -1,11 +1,12 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/widgets/divider.dart';
 import 'package:authentication/widgets/textfield.dart';
-import 'package:consumer/pages/job_listings.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
 import 'package:redux_comp/actions/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
+
+import '../methods/populate_login.dart';
 
 class PopupWidget extends StatelessWidget {
   PopupWidget({
@@ -57,25 +58,30 @@ class PopupWidget extends StatelessWidget {
                 //*****************************************************
 
                 //***************Verify Button *********************** */
-                StoreConnector<AppState, VoidCallback>(converter: (store) {
-                  return () => store.dispatch(
-                        VerifyUserAction(
-                          store.state.partialUser!.getEmail(),
-                          store.state.partialUser!.getPassword(),
-                          otpController.value.text.trim()),
-                      );
+                StoreConnector<AppState, Future<void> Function()>(
+                    converter: (store) {
+                  return () async {
+                    await store.dispatch(
+                      VerifyUserAction(
+                        store.state.partialUser!.email,
+                        store.state.partialUser!.password,
+                        otpController.value.text.trim(),
+                      ),
+                    );
+                  };
                 }, builder: (context, callback) {
                   return ButtonWidget(
-                      text: "Verify",
-                      function: () => {
-                            callback(),
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      ConsumerListings(store: store)),
-                            )
-                          });
+                    text: "Verify",
+                    function: () {
+                      callback();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => Login(store: store),
+                        ),
+                      );
+                    },
+                  );
                 }),
                 //*****************************************************
               ],

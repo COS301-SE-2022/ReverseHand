@@ -58,7 +58,7 @@ class SignUp extends StatelessWidget {
             ),
           ),
           //*******************************************************
-          
+
           //*****************Bottom circle blur**********************
           Align(
             alignment: Alignment.bottomRight,
@@ -68,7 +68,7 @@ class SignUp extends StatelessWidget {
               margin: const EdgeInsets.all(0),
               padding: const EdgeInsets.only(top: 2),
               decoration: const BoxDecoration(
-                color:  Color.fromRGBO(243, 157, 55, 1),
+                color: Color.fromRGBO(243, 157, 55, 1),
                 borderRadius:
                     BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
               ),
@@ -123,7 +123,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                         label: 'email',
                         obscure: false,
-                         icon: Icons.mail_outline_rounded,
+                        icon: Icons.mail_outline_rounded,
                         controller: emailController,
                       ),
                       //**********************************************
@@ -132,7 +132,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'cellphone',
                           obscure: false,
-                           icon: Icons.call_end_outlined,
+                          icon: Icons.call_end_outlined,
                           controller: cellController),
                       //**********************************************
                       const TransparentDividerWidget(),
@@ -140,7 +140,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'location',
                           obscure: false,
-                           icon: Icons.add_location_outlined,
+                          icon: Icons.add_location_outlined,
                           controller: locationController),
                       //**********************************************
                       const TransparentDividerWidget(),
@@ -148,7 +148,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'password',
                           obscure: true,
-                           icon: Icons.lock_outline_rounded,
+                          icon: Icons.lock_outline_rounded,
                           controller: passwordController),
                       //**********************************************
                       const TransparentDividerWidget(),
@@ -156,7 +156,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'confirm password',
                           obscure: true,
-                           icon: Icons.lock_outline_rounded,
+                          icon: Icons.lock_outline_rounded,
                           controller: confirmController),
                       //**********************************************
                     ],
@@ -165,21 +165,30 @@ class SignUp extends StatelessWidget {
                 //****************************************************
 
                 //*****************signup button**********************
-                StoreConnector<AppState, VoidCallback>(converter: (store) {
-                  return () => store.dispatch(RegisterUserAction(
-                      emailController.value.text.trim(),
-                      nameController.value.text.trim(),
-                      cellController.value.text.trim(),
-                      locationController.value.text.trim(),
-                      passwordController.value.text.trim(),
-                      "tradesman"));
+                StoreConnector<AppState, Future<void> Function()>(
+                    converter: (store) {
+                  return () async {
+                    await store.dispatch(
+                      RegisterUserAction(
+                        emailController.value.text.trim(),
+                        nameController.value.text.trim(),
+                        cellController.value.text.trim(),
+                        locationController.value.text.trim(),
+                        passwordController.value.text.trim(),
+                        "Consumer",
+                      ),
+                    );
+                  };
                 }, builder: (context, callback) {
                   return LongButtonWidget(
                     text: "Sign Up",
-                    login: () => {
-                      callback(),
+                    login: () {
+                      callback();
                       DialogHelper.display(
-                          context, PopupWidget(store: store,)), //trigger OTP popup
+                          context,
+                          PopupWidget(
+                            store: store,
+                          )); //trigger OTP popup
                     },
                   );
                 }),
@@ -244,7 +253,6 @@ class SignUp extends StatelessWidget {
             ),
           ),
           //******************************************************* */
-
         ],
       ),
     );

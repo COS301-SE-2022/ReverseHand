@@ -1,9 +1,10 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/consumer.dart';
-// import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/redux_comp.dart';
+
+import '../methods/populate_login.dart';
 // import 'package:authentication/methods/populate_login.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,7 +18,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
-    widget.store.dispatch(InitAmplifyAction());
+    if (!Amplify.isConfigured) {
+      widget.store.dispatch(InitAmplifyAction());
+    }
     super.initState();
   }
 
@@ -26,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     return StoreProvider<AppState>(
       store: widget.store,
       child: MaterialApp(
-        home: ConsumerListings(store: widget.store),
+        home: Login(store: widget.store),
       ),
     );
   }
