@@ -59,33 +59,38 @@ class PopupWidget extends StatelessWidget {
                 //***************Verify Button************************/
                 StoreConnector<AppState, Future<void> Function()>(
                     converter: (store) {
-                  return () async => {
+                  return () async  {
+                      print("GOT HERE");
                         await store.dispatch(
                           VerifyUserAction(
                             store.state.partialUser!.email,
                             store.state.partialUser!.password,
                             otpController.value.text.trim(),
                           ),
-                        ),
+                        );
                         await store.dispatch(
                           LoginAction(
                             store.state.partialUser!.email,
                             store.state.partialUser!.password,
                           ),
-                        ),
+                        );
                       };
                 }, builder: (context, callback) {
                   return ButtonWidget(
-                      text: "Verify",
-                      function: () => {
-                            callback(),
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => ConsumerListings(store: store),
-                                ),
-                              ),
-                          });
+                    text: "Verify",
+                    function: () {
+                      callback().then(
+                        (value) {
+                          Navigator.push<void>(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (_) => ConsumerListings(store: store),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
                 }),
                 //*****************************************************
               ],
