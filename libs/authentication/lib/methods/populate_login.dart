@@ -93,14 +93,15 @@ class Login extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //*****************LOGO*****************************
-                  // Align(
-                  //   alignment: Alignment.topCenter,
-                  //   child: Image.asset(
-                  //     'assets/images/logo.png',
-                  //     height: 250,
-                  //     width: 250
-                  //   ),
-                  // ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: 250,
+                      width: 250,
+                      package: 'authentication',
+                    ),
+                  ),
                   //*************************************************
 
                   //*****************form****************************
