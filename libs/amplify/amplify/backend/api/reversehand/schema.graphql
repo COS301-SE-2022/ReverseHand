@@ -48,7 +48,6 @@ type Notification implements UniqueID {
 
 type Bid implements UniqueID {
   id: String!
-  advert_id: String!
   user_id: String!
   price_lower: Int!
   price_upper: Int!
