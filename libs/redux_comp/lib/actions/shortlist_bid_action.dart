@@ -33,7 +33,7 @@ class ShortlistBidAction extends ReduxAction<AppState> {
     );
 
     try {
-      final response = await Amplify.API.query(request: request).response;
+      final response = await Amplify.API.mutate(request: request).response;
 
       List<BidModel> shortListBids = state.user!.shortlistBids;
       shortListBids.add(BidModel.fromJson(response.data['shortListBid']));
