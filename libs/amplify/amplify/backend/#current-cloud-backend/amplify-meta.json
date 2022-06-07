@@ -1,0 +1,255 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-reversehand-staging-144520-authRole",
+      "UnauthRoleArn": "arn:aws:iam::727515863527:role/amplify-reversehand-staging-144520-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::727515863527:role/amplify-reversehand-staging-144520-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+      "UnauthRoleName": "amplify-reversehand-staging-144520-unauthRole",
+      "StackName": "amplify-reversehand-staging-144520",
+      "StackId": "arn:aws:cloudformation:eu-west-1:727515863527:stack/amplify-reversehand-staging-144520/76536920-e1b9-11ec-88f2-0214fb4beb3f",
+      "AmplifyAppId": "d1qa8zxtog58do"
+    }
+  },
+  "storage": {
+    "ReverseHand": {
+      "service": "DynamoDB",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "Name": "ReverseHand",
+        "Region": "eu-west-1",
+        "Arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/ReverseHand",
+        "PartitionKeyName": "user_id",
+        "PartitionKeyType": "S",
+        "SortKeyName": "sort_key",
+        "SortKeyType": "S"
+      },
+      "lastPushTimeStamp": "2022-06-01T18:25:03.556Z"
+    }
+  },
+  "auth": {
+    "reversehand8ac8d062": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reversehand-staging-144520-deployment/amplify-cfn-templates/auth/reversehand8ac8d062-cloudformation-template.json",
+        "logicalId": "authreversehand8ac8d062"
+      },
+      "lastPushTimeStamp": "2022-06-07T13:20:06.729Z",
+      "output": {
+        "UserPoolId": "eu-west-1_ClaH03u1F",
+        "AppClientIDWeb": "71v7r65kokb3b16sokta9r38qu",
+        "AppClientID": "gfcf0ef3e13r5jt0h4ptbvrtb",
+        "IdentityPoolId": "eu-west-1:a1eb280b-ea75-47b9-ba46-d06b54f553e7",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-west-1:727515863527:userpool/eu-west-1_ClaH03u1F",
+        "IdentityPoolName": "reversehand8ac8d062_identitypool_8ac8d062__staging",
+        "UserPoolName": "reversehand8ac8d062_userpool_8ac8d062"
+      },
+      "lastPushDirHash": "cY8wy4KnGZtewBE99VlDSXT1Lbg="
+    }
+  },
+  "api": {
+    "reversehand": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "zkncbqzppbeyhca44sjm2d2j64",
+        "GraphQLAPIEndpointOutput": "https://wpmqlityyvdx7dj6e2mzdulqgi.appsync-api.eu-west-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-5sau56svgvgqhadyr5rhbsaqxy"
+      },
+      "lastPushTimeStamp": "2022-06-07T13:20:07.603Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reversehand-staging-144520-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apireversehand"
+      },
+      "lastPushDirHash": "Fxia4dJvobloUNk5kLVOBZOEpf8="
+    }
+  },
+  "function": {
+    "viewBidsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "Region": "eu-west-1",
+        "Arn": "arn:aws:lambda:eu-west-1:727515863527:function:viewBidsResolver-staging",
+        "Name": "viewBidsResolver-staging",
+        "LambdaExecutionRole": "reversehandLambdaRole1d01906a-staging"
+      },
+      "lastPushTimeStamp": "2022-06-07T13:20:06.737Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reversehand-staging-144520-deployment/amplify-cfn-templates/function/viewBidsResolver-cloudformation-template.json",
+        "logicalId": "functionviewBidsResolver"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+        "s3Key": "amplify-builds/viewBidsResolver-38704d6c523450525948-build.zip"
+      },
+      "lastBuildTimeStamp": "2022-06-07T09:07:46.897Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-06-07T09:07:46.943Z",
+      "distZipFilename": "viewBidsResolver-38704d6c523450525948-build.zip",
+      "lastPushDirHash": "m+OolcFy3CY4XCKrsdyB5XhCWh0="
+    },
+    "shortListBidResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2022-06-06T21:37:09.797Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-06-06T21:37:09.831Z",
+      "distZipFilename": "shortListBidResolver-52334153446f43546e61-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+        "s3Key": "amplify-builds/shortListBidResolver-52334153446f43546e61-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reversehand-staging-144520-deployment/amplify-cfn-templates/function/shortListBidResolver-cloudformation-template.json",
+        "logicalId": "functionshortListBidResolver"
+      },
+      "lastPushTimeStamp": "2022-06-07T13:20:06.740Z",
+      "output": {
+        "Region": "eu-west-1",
+        "Arn": "arn:aws:lambda:eu-west-1:727515863527:function:shortListBidResolver-staging",
+        "Name": "shortListBidResolver-staging",
+        "LambdaExecutionRole": "reversehandLambdaRole70106060-staging"
+      },
+      "lastPushDirHash": "/B83ZKcBeJScajK3WfpuA//NIR0="
+    },
+    "viewAdvertsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2022-06-06T14:43:17.990Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-06-06T14:43:18.026Z",
+      "distZipFilename": "viewAdvertsResolver-6e6d34522b6a68625066-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+        "s3Key": "amplify-builds/viewAdvertsResolver-6e6d34522b6a68625066-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reversehand-staging-144520-deployment/amplify-cfn-templates/function/viewAdvertsResolver-cloudformation-template.json",
+        "logicalId": "functionviewAdvertsResolver"
+      },
+      "lastPushTimeStamp": "2022-06-07T13:20:06.742Z",
+      "output": {
+        "Region": "eu-west-1",
+        "Arn": "arn:aws:lambda:eu-west-1:727515863527:function:viewAdvertsResolver-staging",
+        "Name": "viewAdvertsResolver-staging",
+        "LambdaExecutionRole": "reversehandLambdaRolef55efb5d-staging"
+      },
+      "lastPushDirHash": "+nlokbAOUVoKD+55STLdLwNgHTQ="
+    },
+    "acceptBidResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2022-06-07T07:55:58.653Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-06-07T07:55:58.688Z",
+      "distZipFilename": "acceptBidResolver-3278596d6f7568414b77-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+        "s3Key": "amplify-builds/acceptBidResolver-3278596d6f7568414b77-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reversehand-staging-144520-deployment/amplify-cfn-templates/function/acceptBidResolver-cloudformation-template.json",
+        "logicalId": "functionacceptBidResolver"
+      },
+      "lastPushTimeStamp": "2022-06-07T13:20:06.745Z",
+      "output": {
+        "Region": "eu-west-1",
+        "Arn": "arn:aws:lambda:eu-west-1:727515863527:function:acceptBidResolver-staging",
+        "Name": "acceptBidResolver-staging",
+        "LambdaExecutionRole": "reversehandLambdaRole097f00db-staging"
+      },
+      "lastPushDirHash": "XtF/+EqoD2C1c88k2V4qftLEZV8="
+    },
+    "createAdvertResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2022-06-07T10:00:29.156Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-06-07T10:00:29.183Z",
+      "distZipFilename": "createAdvertResolver-633957786e5356635153-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+        "s3Key": "amplify-builds/createAdvertResolver-633957786e5356635153-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reversehand-staging-144520-deployment/amplify-cfn-templates/function/createAdvertResolver-cloudformation-template.json",
+        "logicalId": "functioncreateAdvertResolver"
+      },
+      "lastPushTimeStamp": "2022-06-07T13:20:06.747Z",
+      "output": {
+        "Region": "eu-west-1",
+        "Arn": "arn:aws:lambda:eu-west-1:727515863527:function:createAdvertResolver-staging",
+        "Name": "createAdvertResolver-staging",
+        "LambdaExecutionRole": "reversehandLambdaRole1e92e00a-staging"
+      },
+      "lastPushDirHash": "x3rW5jC/RFA7Vv4jyKZYT+d/wbY="
+    },
+    "placeBidResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2022-06-07T12:59:53.587Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-06-07T12:59:53.617Z",
+      "distZipFilename": "placeBidResolver-724c4f6b774a644c2b54-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+        "s3Key": "amplify-builds/placeBidResolver-724c4f6b774a644c2b54-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-reversehand-staging-144520-deployment/amplify-cfn-templates/function/placeBidResolver-cloudformation-template.json",
+        "logicalId": "functionplaceBidResolver"
+      },
+      "lastPushTimeStamp": "2022-06-07T13:20:06.749Z",
+      "output": {
+        "Region": "eu-west-1",
+        "Arn": "arn:aws:lambda:eu-west-1:727515863527:function:placeBidResolver-staging",
+        "Name": "placeBidResolver-staging",
+        "LambdaExecutionRole": "reversehandLambdaRoleb19fd878-staging"
+      },
+      "lastPushDirHash": "3zKax/ramoax3ePgJtmkdBuJwxc="
+    }
+  }
+}

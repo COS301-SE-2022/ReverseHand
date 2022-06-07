@@ -8,6 +8,7 @@ class UserModel {
   final String email;
   final String userType;
   final List<BidModel> bids;
+  final List<BidModel> shortlistBids;
   final List<AdvertModel> adverts;
 
   const UserModel({
@@ -15,6 +16,7 @@ class UserModel {
     required this.email,
     required this.userType,
     required this.bids,
+    required this.shortlistBids,
     required this.adverts,
   });
 
@@ -23,6 +25,7 @@ class UserModel {
     String? email,
     String? confirmed,
     List<BidModel>? bids,
+    List<BidModel>? shortlistBids,
     List<AdvertModel>? adverts,
   }) {
     return UserModel(
@@ -30,6 +33,7 @@ class UserModel {
       email: email ?? this.email,
       userType: confirmed ?? userType,
       bids: bids ?? this.bids,
+      shortlistBids: shortlistBids ?? this.shortlistBids,
       adverts: adverts ?? this.adverts,
     );
   }

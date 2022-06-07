@@ -1,3 +1,4 @@
+#this file represents the Build stage of the pipeline where Integration tests are run and an apk is built as an output artifact
 version: 0.2
 phases:
   install:
@@ -14,18 +15,14 @@ phases:
       - npm install
   build:
     commands:
-      - echo Testing started on `date`
-      - npx nx run-many --target=analyze --all --parallel --exclude=amplify
-      - npx nx run-many --target=test --all --parallel 
-      - echo Build started on `date`
+       - echo Build started on `date`
+    #Building the apk for the application
       - npx nx run app:buildApk
-      - pwd
-      - ls -al
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo $CODEBUILD_SRC_DIR
 artifacts:
   files:
+  #Path to where the apk is stored once it is built. This is then placed in the S3 bucket where it can retrieved
     - '**/app-release.apk'
   name: ReverseHand

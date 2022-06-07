@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/actions/view_adverts_action.dart';
+import 'package:redux_comp/actions/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import '../pages/create_new_job.dart';
@@ -9,25 +10,30 @@ import '../pages/job_details.dart';
 
 class JobListings extends StatelessWidget {
   final Store<AppState> store;
-  // final List<Advert?> adverts;
 
   const JobListings({
     Key? key,
     required this.store,
-    /* required this.adverts */
   }) : super(key: key);
 
   Column populateAdverts(List<AdvertModel> adverts, BuildContext context) {
     List<Widget> quickViewJobCardWidgets = [];
-
+    double height = (MediaQuery.of(context).size.height) / 3;
     for (AdvertModel advert in adverts) {
       quickViewJobCardWidgets.add(QuickViewJobCardWidget(
         titleText: advert.title,
         date: advert.dateCreated,
-        location: advert.location ?? "",
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) => ConsumerDetails(store: store)));
+          store.dispatch(ViewBidsAction(advert.id));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ConsumerDetails(
+                store: store,
+                advert: advert,
+              ),
+            ),
+          );
         },
       ));
     }
@@ -36,7 +42,7 @@ class JobListings extends StatelessWidget {
       Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.only(top: height),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               primary: Colors.orange,
@@ -59,12 +65,6 @@ class JobListings extends StatelessWidget {
         ),
       ),
     );
-    quickViewJobCardWidgets.add(
-      const Padding(
-        padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-      ),
-    );
-
     return Column(children: quickViewJobCardWidgets);
   }
 
