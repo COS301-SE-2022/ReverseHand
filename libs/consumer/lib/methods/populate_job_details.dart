@@ -85,9 +85,7 @@ class JobDetails extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (_) => ViewBid(
-                        store: store,
-                      )));
+                  builder: (_) => ViewBid(store: store, bid: bid)));
         },
       ));
     }

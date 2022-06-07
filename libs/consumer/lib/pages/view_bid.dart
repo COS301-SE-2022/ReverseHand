@@ -2,18 +2,21 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/methods/populate_bid_details.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
+import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class ViewBid extends StatelessWidget {
   final Store<AppState> store;
-  const ViewBid({Key? key, required this.store}) : super(key: key);
+  final BidModel bid;
+  const ViewBid({Key? key, required this.store, required this.bid})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
-        home: BidDetails(store: store),
+        home: BidDetails(store: store, bid: bid,),
         theme: CustomTheme.darkTheme,
       ),
     );

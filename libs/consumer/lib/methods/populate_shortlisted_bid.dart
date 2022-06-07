@@ -18,13 +18,13 @@ class ShortListBidDetails extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(20),
               ),
-              const CardWidget(
-                titleText: "MR J SMITH",
-                price1: "R800",
-                price2: "R900",
-                details: "info@gmail.com",
-                quote: true,
-              ),
+              // const CardWidget(
+              //   titleText: "MR J SMITH",
+              //   price1: "R800",
+              //   price2: "R900",
+              //   details: "info@gmail.com",
+              //   quote: true,
+              // ),
               const Padding(padding: EdgeInsets.all(10)),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
