@@ -75,7 +75,7 @@ class _JobCreationState extends State<JobCreation> {
                   StoreConnector<AppState, VoidCallback>(converter: (store) {
                     return () => store.dispatch(
                           CreateAdvertAction(
-                            "c#001",
+                            store.state.user!.id,
                             titleController.value.text.trim(),
                             description: descrController.value.text.trim(),
                           ),

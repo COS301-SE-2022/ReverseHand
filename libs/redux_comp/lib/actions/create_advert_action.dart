@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/job_type.dart';
@@ -48,10 +50,11 @@ class CreateAdvertAction extends ReduxAction<AppState> {
       final response = await Amplify.API.mutate(request: request).response;
 
       List<AdvertModel> adverts = state.user!.adverts;
+      final data = jsonDecode(response.data);
       adverts.add(AdvertModel(
           id: customerId,
           title: title,
-          dateCreated: response.data['createAdvert'][0]['advert_details']
+          dateCreated: data['createAdvert'][0]['advert_details']
               ['date_created']));
 
       return state.replace(user: state.user!.replace(adverts: adverts));

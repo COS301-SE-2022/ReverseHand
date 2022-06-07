@@ -20,9 +20,10 @@ class LoginAction extends ReduxAction<AppState> {
     try {
       await Amplify.Auth.signOut();
       if (store.state.partialUser != null) {
-        await store.waitCondition((state) => state.partialUser!.verified == "DONE");
+        await store
+            .waitCondition((state) => state.partialUser!.verified == "DONE");
       }
-      /*SignInResult res = */await Amplify.Auth.signIn(
+      /*SignInResult res = */ await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -49,7 +50,7 @@ class LoginAction extends ReduxAction<AppState> {
       }
       return state.replace(
         user: UserModel(
-          id: id,
+          id: userType == "Consumer" ? "c#$id" : "t#$id",
           email: username,
           userType: userType,
           bids: const [],
@@ -81,7 +82,7 @@ class LoginAction extends ReduxAction<AppState> {
           return state.replace(
             error: ErrorType.passwordAttemptsExceeded,
           );
-        default: 
+        default:
           // print(e);
           break;
       }
