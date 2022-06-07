@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  amplify_flutter: ^0.5.1
+
   async_redux: ^15.0.0
 
   redux_comp:
@@ -39,10 +41,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  uses-material-design: true
+  
   # To add assets to your package, add an assets section, like this:
-  # assets:
-  #   - ../assets/logo.png
+  assets:
+    - assets/images/
   #   - images/a_dot_ham.jpeg
   #
   # For details regarding assets in packages, see

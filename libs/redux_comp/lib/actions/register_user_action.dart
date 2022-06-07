@@ -31,8 +31,7 @@ class RegisterUserAction extends ReduxAction<AppState> {
         )
       );
 
-      if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
-        // await Amplify.Auth.signIn(username: username, password: password);
+      if (res.  nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
         return state.replace(
           partialUser: PartialUser(
             username,
