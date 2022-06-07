@@ -30,8 +30,8 @@ void main() {
 
   testWidgets("Testing the TradesmanJobDetails class",
       (WidgetTester tester) async {
-    final store = Store<AppState>(initialState: AppState.mock());
-    await tester.pumpWidget(TradesmanJobDetails(store: store));
+    //final store = Store<AppState>(initialState: AppState.mock());
+    //await tester.pumpWidget(TradesmanJobDetails(store: store, advert: null,));
   
     //expect to find exactly one description in a job
     expect(find.widgetWithText(Scaffold, 'Description'), findsOneWidget);

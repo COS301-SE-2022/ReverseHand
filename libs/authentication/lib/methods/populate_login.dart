@@ -151,7 +151,7 @@ class Login extends StatelessWidget {
                     };
                   }, builder: (context, callback) {
                     return LongButtonWidget(
-                      text: "login",
+                      text: "Login",
                       login: () {
                         callback();
                         if (store.state.user == null) {
