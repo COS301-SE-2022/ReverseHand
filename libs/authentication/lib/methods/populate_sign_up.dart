@@ -58,6 +58,30 @@ class SignUp extends StatelessWidget {
             ),
           ),
           //*******************************************************
+          
+          //*****************Bottom circle blur**********************
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              width: 100,
+              height: 100,
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.only(top: 2),
+              decoration: const BoxDecoration(
+                color:  Color.fromRGBO(243, 157, 55, 1),
+                borderRadius:
+                    BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
+                child: Container(
+                  decoration:
+                      BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                ),
+              ),
+            ),
+          ),
+          //******************************************************* */
 
           //*****************signup page****************************
           SingleChildScrollView(
@@ -215,9 +239,6 @@ class SignUp extends StatelessWidget {
           ),
           //******************************************************* */
 
-          //*****************Bottom circle blur**********************
-          //to be fixed in coming days
-          //******************************************************* */
         ],
       ),
     );
