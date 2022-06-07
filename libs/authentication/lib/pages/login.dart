@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/consumer.dart';
 // import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
@@ -25,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     return StoreProvider<AppState>(
       store: widget.store,
       child: MaterialApp(
-        home: Login(store: widget.store),
+        home: ConsumerListings(store: widget.store),
       ),
     );
   }
