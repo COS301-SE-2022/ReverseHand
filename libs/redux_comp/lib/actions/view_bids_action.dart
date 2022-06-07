@@ -1,10 +1,11 @@
+import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/bid_model.dart';
-// import 'package:flutter/foundation.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
+// pass in the advert id whos bids you want to see
 class ViewBidsAction extends ReduxAction<AppState> {
   final String adId;
 
@@ -32,11 +33,26 @@ class ViewBidsAction extends ReduxAction<AppState> {
     try {
       final response = await Amplify.API.query(request: request).response;
 
-      List<BidModel> bids = [];
-      response.data['viewBids']
-          .forEach((el) => bids.add(BidModel.fromJson(el)));
+      final data = jsonDecode(response.data);
 
-      return state.replace(user: state.user!.replace(bids: bids));
+      List<BidModel> bids = [];
+      List<BidModel> shortlistedBids = [];
+
+      for (dynamic d in data['viewBids']) {
+        String id = d['id'];
+        if (id.contains('s')) {
+          shortlistedBids.add(BidModel.fromJson(d));
+        } else {
+          bids.add(BidModel.fromJson(d));
+        }
+      }
+
+      return state.replace(
+        user: state.user!.replace(
+          bids: bids,
+          shortlistBids: shortlistedBids,
+        ),
+      );
     } catch (e) {
       return state;
     }

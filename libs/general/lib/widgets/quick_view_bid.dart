@@ -20,9 +20,9 @@ class QuickViewBidWidget extends StatelessWidget {
                   color: const Color.fromRGBO(255, 153, 0, 1), width: 2.0),
               borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             ),
-            child: const Text(
-              "Mr J Smith",
-              style: TextStyle(fontSize: 25, color: Colors.white),
+            child: Text(
+              name,
+              style: const TextStyle(fontSize: 25, color: Colors.white),
               textAlign: TextAlign.center,
             ),
           )),
