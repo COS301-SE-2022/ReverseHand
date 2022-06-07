@@ -25,7 +25,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    String adId = const Uuid().v1();
+    String adId = "a#${const Uuid().v1()}";
 
     // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
