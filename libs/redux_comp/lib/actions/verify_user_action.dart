@@ -17,20 +17,19 @@ class VerifyUserAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     try {
-      SignUpResult res =  await Amplify.Auth.confirmSignUp(
+      SignUpResult res = await Amplify.Auth.confirmSignUp(
           username: username, confirmationCode: confirmationCode);
 
       if (res.nextStep.signUpStep == "DONE") {
         return state.replace(
-          partialUser: PartialUser(username, password,res.nextStep.signUpStep)
-        );
+            partialUser:
+                PartialUser(username, password, res.nextStep.signUpStep));
       } else {
         if (kDebugMode) {
           print(res.nextStep.signUpStep);
         }
+        return state;
       }
-       return state;// .replace(
-      //      user: ConsumerModel(id, email, email));
 // } on AuthException catch (e) {
     } catch (e) {
       return state;

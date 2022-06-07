@@ -23,7 +23,7 @@ class UserModel {
   UserModel replace({
     String? id,
     String? email,
-    String? confirmed,
+    String? userType,
     List<BidModel>? bids,
     List<BidModel>? shortlistBids,
     List<AdvertModel>? adverts,
@@ -31,7 +31,7 @@ class UserModel {
     return UserModel(
       id: id ?? this.id,
       email: email ?? this.email,
-      userType: confirmed ?? userType,
+      userType: userType ?? this.userType,
       bids: bids ?? this.bids,
       shortlistBids: shortlistBids ?? this.shortlistBids,
       adverts: adverts ?? this.adverts,

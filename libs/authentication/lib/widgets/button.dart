@@ -7,7 +7,7 @@ class LongButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+      return SizedBox(
       width: 290,
       height: 70,
       child: Column(
