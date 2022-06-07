@@ -18,12 +18,11 @@ class LoginAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     try {
-      print("HERE");
       await Amplify.Auth.signOut();
       if (store.state.partialUser != null) {
         await store.waitCondition((state) => state.partialUser!.verified == "DONE");
       }
-      SignInResult res = await Amplify.Auth.signIn(
+      /*SignInResult res = */await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -62,28 +61,28 @@ class LoginAction extends ReduxAction<AppState> {
     } on AuthException catch (e) {
       switch (e.message) {
         case "User is not confirmed.":
-          print(e.message);
+          // print(e.message);
           return state.replace(
             partialUser: PartialUser(email, password, "CONFIRM_SIGN_UP_STEP"),
             error: ErrorType.userNotFound,
           );
         case "User does not exist.":
-          print(e.message);
+          // print(e.message);
           return state.replace(
             error: ErrorType.userNotFound,
           );
         case "Incorrect username or password.":
-          print(e.message);
+          // print(e.message);
           return state.replace(
             error: ErrorType.userInvalidPassword,
           );
         case "Password attempts exceeded":
-          print(e.message);
+          // print(e.message);
           return state.replace(
             error: ErrorType.passwordAttemptsExceeded,
           );
         default: 
-          print(e);
+          // print(e);
           break;
       }
       if (kDebugMode) {

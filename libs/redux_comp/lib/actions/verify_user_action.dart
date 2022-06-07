@@ -1,6 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
-import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
 
 import '../app_state.dart';
@@ -29,6 +28,7 @@ class VerifyUserAction extends ReduxAction<AppState> {
         if (kDebugMode) {
           print(res.nextStep.signUpStep);
         }
+        return state;
       }
 // } on AuthException catch (e) {
     } catch (e) {

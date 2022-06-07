@@ -1,12 +1,12 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/widgets/divider.dart';
 import 'package:authentication/widgets/textfield.dart';
-import 'package:consumer/pages/job_listings.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
-import 'package:redux_comp/actions/login_action.dart';
 import 'package:redux_comp/actions/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
+
+import '../methods/populate_login.dart';
 
 class PopupWidget extends StatelessWidget {
   PopupWidget({
@@ -59,35 +59,25 @@ class PopupWidget extends StatelessWidget {
                 //***************Verify Button************************/
                 StoreConnector<AppState, Future<void> Function()>(
                     converter: (store) {
-                  return () async  {
-                      print("GOT HERE");
-                        await store.dispatch(
-                          VerifyUserAction(
-                            store.state.partialUser!.email,
-                            store.state.partialUser!.password,
-                            otpController.value.text.trim(),
-                          ),
-                        );
-                        await store.dispatch(
-                          LoginAction(
-                            store.state.partialUser!.email,
-                            store.state.partialUser!.password,
-                          ),
-                        );
-                      };
+                  return () async {
+                    await store.dispatch(
+                      VerifyUserAction(
+                        store.state.partialUser!.email,
+                        store.state.partialUser!.password,
+                        otpController.value.text.trim(),
+                      ),
+                    );
+                  };
                 }, builder: (context, callback) {
                   return ButtonWidget(
                     text: "Verify",
                     function: () {
-                      callback().then(
-                        (value) {
-                          Navigator.push<void>(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (_) => ConsumerListings(store: store),
-                            ),
-                          );
-                        },
+                      callback();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => Login(store: store),
+                        ),
                       );
                     },
                   );

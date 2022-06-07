@@ -1,3 +1,5 @@
+import 'package:amplify/amplifyconfiguration.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
@@ -17,7 +19,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
-    widget.store.dispatch(InitAmplifyAction());
+    if (!Amplify.isConfigured) {
+      widget.store.dispatch(InitAmplifyAction());
+    }
     super.initState();
   }
 

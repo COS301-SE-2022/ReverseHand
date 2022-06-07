@@ -138,7 +138,7 @@ class SignUp extends StatelessWidget {
                 //*****************signup button**********************
                 StoreConnector<AppState, Future<void> Function()>(
                     converter: (store) {
-                  return () async => {
+                  return () async {
                         await store.dispatch(
                           RegisterUserAction(
                             emailController.value.text.trim(),
@@ -148,18 +148,18 @@ class SignUp extends StatelessWidget {
                             passwordController.value.text.trim(),
                             "Consumer",
                           ),
-                        ),
+                        );
                       };
                 }, builder: (context, callback) {
                   return LongButtonWidget(
                     text: "Sign Up",
-                    login: () => {
-                      callback(),
+                    login: () {
+                      callback();
                       DialogHelper.display(
                           context,
                           PopupWidget(
                             store: store,
-                          )), //trigger OTP popup
+                          )); //trigger OTP popup
                     },
                   );
                 }),

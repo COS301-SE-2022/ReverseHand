@@ -105,33 +105,37 @@ class Login extends StatelessWidget {
                   //*****************login button**********************
 
                   StoreConnector<AppState, VoidCallback>(converter: (store) {
-                    return () => store.dispatch(
+                    return () async {
+                      store.dispatch(
                         // LogoutAction()
-                        LoginAction(emailController.value.text.trim(),
-                            passwordController.value.text.trim()));
+                        LoginAction(
+                          emailController.value.text.trim(),
+                          passwordController.value.text.trim(),
+                        ),
+                      );
+                    };
                   }, builder: (context, callback) {
                     return LongButtonWidget(
                       text: "login",
-                      login: () => {
-                        callback(),
-                        if (store.state.user == null)
-                          {}
-                        else if (store.state.user!.userType == "Consumer")
+                      login: () {
+                        callback();
+                        if (store.state.user == null) {
+                        } else if (store.state.user!.userType == "Consumer") {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => ConsumerListings(
-                                    store:
-                                        store)), //comment to rather view tradesman
-                          )
-                        else if (store.state.user!.userType == "tradesman")
+                              builder: (_) => ConsumerListings(store: store),
+                            ),
+                          );
+                        } else if (store.state.user!.userType == "Tradesman") {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => TradesmanJobListings(
-                                    store:
-                                        store)), //uncomment to view tradesman
-                          )
+                              builder: (_) =>
+                                  TradesmanJobListings(store: store),
+                            ),
+                          );
+                        }
                       },
                     );
                   }),
