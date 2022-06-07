@@ -13,10 +13,15 @@ import '../widgets/otp_pop_up.dart';
 import '../widgets/textfield.dart';
 import 'package:general/widgets/dialog_helper.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   final Store<AppState> store;
-  SignUp({Key? key, required this.store}) : super(key: key);
+  const SignUp({Key? key, required this.store}) : super(key: key);
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final cellController = TextEditingController();
@@ -24,6 +29,9 @@ class SignUp extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
+  @override
   void dispose() {
     nameController.dispose();
     emailController.dispose();
@@ -31,6 +39,22 @@ class SignUp extends StatelessWidget {
     locationController.dispose();
     passwordController.dispose();
     confirmController.dispose();
+    super.dispose();
+  }
+
+  String? Function(String?) createValidator(
+      String kind, String invalidMsg, RegExp regex) {
+    return (value) {
+      if (value == null || value.isEmpty) {
+        return 'A $kind must be entered';
+      }
+
+      if (!regex.hasMatch(value)) {
+        return "${kind[0].toUpperCase() + kind.substring(1)} $invalidMsg";
+      }
+
+      return null;
+    };
   }
 
   @override
@@ -58,7 +82,7 @@ class SignUp extends StatelessWidget {
             ),
           ),
           //*******************************************************
-          
+
           //*****************Bottom circle blur**********************
           Align(
             alignment: Alignment.bottomRight,
@@ -68,7 +92,7 @@ class SignUp extends StatelessWidget {
               margin: const EdgeInsets.all(0),
               padding: const EdgeInsets.only(top: 2),
               decoration: const BoxDecoration(
-                color:  Color.fromRGBO(243, 157, 55, 1),
+                color: Color.fromRGBO(243, 157, 55, 1),
                 borderRadius:
                     BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
               ),
@@ -107,59 +131,91 @@ class SignUp extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(top: 10.0),
                   padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: <Widget>[
-                      //currently only created for consumer sign-up
-                      //*****************name**********************
-                      TextFieldWidget(
-                        label: 'name',
-                        obscure: false,
-                        icon: Icons.account_circle_outlined,
-                        controller: nameController,
-                      ),
-                      //********************************************
-                      const TransparentDividerWidget(),
-                      //*****************email**********************
-                      TextFieldWidget(
-                        label: 'email',
-                        obscure: false,
-                         icon: Icons.mail_outline_rounded,
-                        controller: emailController,
-                      ),
-                      //**********************************************
-                      const TransparentDividerWidget(),
-                      //*****************cellphone**********************
-                      TextFieldWidget(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        //currently only created for consumer sign-up
+                        //*****************name**********************
+                        TextFieldWidget(
+                            label: 'name',
+                            obscure: false,
+                            icon: Icons.account_circle_outlined,
+                            controller: nameController,
+                            validator: createValidator(
+                                "name",
+                                "must only be letters",
+                                RegExp(
+                                    r"/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u"))),
+                        //********************************************
+                        const TransparentDividerWidget(),
+                        //*****************email**********************
+                        TextFieldWidget(
+                          label: 'email',
+                          obscure: false,
+                          icon: Icons.mail_outline_rounded,
+                          controller: emailController,
+                          validator: createValidator(
+                              'email',
+                              'is invalid',
+                              RegExp(
+                                  r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
+                        ),
+                        //**********************************************
+                        const TransparentDividerWidget(),
+                        //*****************cellphone**********************
+                        TextFieldWidget(
                           label: 'cellphone',
                           obscure: false,
-                           icon: Icons.call_end_outlined,
-                          controller: cellController),
-                      //**********************************************
-                      const TransparentDividerWidget(),
-                      //*****************location**********************
-                      TextFieldWidget(
+                          icon: Icons.call_end_outlined,
+                          controller: cellController,
+                          validator: createValidator('cellphone',
+                              'can only contain numbers', RegExp(r'')),
+                        ),
+                        //**********************************************
+                        const TransparentDividerWidget(),
+                        //*****************location**********************
+                        TextFieldWidget(
                           label: 'location',
                           obscure: false,
-                           icon: Icons.add_location_outlined,
-                          controller: locationController),
-                      //**********************************************
-                      const TransparentDividerWidget(),
-                      //*****************password**********************
-                      TextFieldWidget(
+                          icon: Icons.add_location_outlined,
+                          controller: locationController,
+                        ),
+                        //**********************************************
+                        const TransparentDividerWidget(),
+                        //*****************password**********************
+                        TextFieldWidget(
                           label: 'password',
                           obscure: true,
-                           icon: Icons.lock_outline_rounded,
-                          controller: passwordController),
-                      //**********************************************
-                      const TransparentDividerWidget(),
-                      //*****************confirm password**********************
-                      TextFieldWidget(
+                          icon: Icons.lock_outline_rounded,
+                          controller: passwordController,
+                          validator: createValidator(
+                            'password',
+                            'must be at least 8 characters with upper and lowercase, atleast one number and special character',
+                            RegExp(
+                              r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                            ),
+                          ),
+                        ),
+                        //**********************************************
+                        const TransparentDividerWidget(),
+                        //*****************confirm password**********************
+                        TextFieldWidget(
                           label: 'confirm password',
                           obscure: true,
-                           icon: Icons.lock_outline_rounded,
-                          controller: confirmController),
-                      //**********************************************
-                    ],
+                          icon: Icons.lock_outline_rounded,
+                          controller: confirmController,
+                          validator: createValidator(
+                            'password',
+                            'must be at least 8 characters with upper and lowercase, atleast one number and special character',
+                            RegExp(
+                              r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                            ),
+                          ),
+                        ),
+                        //**********************************************
+                      ],
+                    ),
                   ),
                 ),
                 //****************************************************
@@ -168,27 +224,30 @@ class SignUp extends StatelessWidget {
                 StoreConnector<AppState, Future<void> Function()>(
                     converter: (store) {
                   return () async {
-                        await store.dispatch(
-                          RegisterUserAction(
-                            emailController.value.text.trim(),
-                            nameController.value.text.trim(),
-                            cellController.value.text.trim(),
-                            locationController.value.text.trim(),
-                            passwordController.value.text.trim(),
-                            "Consumer",
-                          ),
-                        );
-                      };
+                    await store.dispatch(
+                      RegisterUserAction(
+                        emailController.value.text.trim(),
+                        nameController.value.text.trim(),
+                        cellController.value.text.trim(),
+                        locationController.value.text.trim(),
+                        passwordController.value.text.trim(),
+                        "Consumer",
+                      ),
+                    );
+                  };
                 }, builder: (context, callback) {
                   return LongButtonWidget(
                     text: "Sign Up",
                     login: () {
-                      callback();
-                      DialogHelper.display(
+                      if (_formKey.currentState!.validate()) {
+                        callback();
+                        DialogHelper.display(
                           context,
                           PopupWidget(
-                            store: store,
-                          )); //trigger OTP popup
+                            store: widget.store,
+                          ),
+                        ); //trigger OTP popup
+                      }
                     },
                   );
                 }),
@@ -220,7 +279,7 @@ class SignUp extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => LoginPage(store: store)),
+                                builder: (_) => LoginPage(store: widget.store)),
                           )
                         }),
                 //******************************************************* */
@@ -253,7 +312,6 @@ class SignUp extends StatelessWidget {
             ),
           ),
           //******************************************************* */
-
         ],
       ),
     );
