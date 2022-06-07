@@ -61,6 +61,10 @@
         "placeBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
           "s3Key": "amplify-builds/placeBidResolver-724c4f6b774a644c2b54-build.zip"
+        },
+        "closeAdvertResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
+          "s3Key": "amplify-builds/closeAdvertResolver-3851525a524f686d4d6b-build.zip"
         }
       }
     }
