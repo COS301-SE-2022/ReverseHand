@@ -3,7 +3,6 @@ import 'package:consumer/consumer.dart';
 import 'package:general/widgets/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
-import 'package:redux_comp/actions/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:general/widgets/quick_view_bid.dart';
