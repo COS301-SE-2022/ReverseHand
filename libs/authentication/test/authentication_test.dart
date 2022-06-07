@@ -119,9 +119,6 @@ void main() {
       //there should be a big verify button which is just checked for existence
       expect(find.text("Verify"), findsOneWidget);
 
-      //await tester.pageBack();
-      //await tester.pumpAndSettle();
-
       //lastly try and click that Sign In link at the bottom of the page and see
       //if it takes you to correct page
 
