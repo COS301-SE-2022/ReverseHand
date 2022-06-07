@@ -10,7 +10,7 @@ class TabWidget extends StatefulWidget {
 
 class _State extends State<TabWidget> {
   bool flag = true;
-
+  double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -19,15 +19,12 @@ class _State extends State<TabWidget> {
           primary: flag
               ? Theme.of(context).primaryColor
               : Theme.of(context).scaffoldBackgroundColor,
-          textStyle: const TextStyle(fontSize: 25),
-          minimumSize: const Size(178, 50),
-          maximumSize: const Size(178, 50),
+          textStyle: const TextStyle(fontSize: 23),
+          minimumSize: Size(deviceWidth(context) / 2.4, 50),
+          maximumSize: Size(deviceWidth(context) / 2.4, 50),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(widget.text),
-      ),
+      child: Text(widget.text),
     );
   }
 }
