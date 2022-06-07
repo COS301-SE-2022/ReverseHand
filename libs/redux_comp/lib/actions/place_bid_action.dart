@@ -21,7 +21,7 @@ class PlaceBidAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    String bidId = const Uuid().v1();
+    String bidId = "b#${const Uuid().v1()}";
 
     // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
