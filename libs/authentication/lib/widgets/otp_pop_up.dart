@@ -50,6 +50,7 @@ class PopupWidget extends StatelessWidget {
                 TextFieldWidget(
                   label: 'otp',
                   obscure: false,
+                   icon: Icons.mail,
                   controller: otpController,
                 ),
                 const TransparentDividerWidget(),

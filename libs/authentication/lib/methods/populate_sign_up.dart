@@ -114,6 +114,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                         label: 'name',
                         obscure: false,
+                        icon: Icons.account_circle_outlined,
                         controller: nameController,
                       ),
                       //********************************************
@@ -122,6 +123,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                         label: 'email',
                         obscure: false,
+                         icon: Icons.mail_outline_rounded,
                         controller: emailController,
                       ),
                       //**********************************************
@@ -130,6 +132,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'cellphone',
                           obscure: false,
+                           icon: Icons.call_end_outlined,
                           controller: cellController),
                       //**********************************************
                       const TransparentDividerWidget(),
@@ -137,6 +140,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'location',
                           obscure: false,
+                           icon: Icons.add_location_outlined,
                           controller: locationController),
                       //**********************************************
                       const TransparentDividerWidget(),
@@ -144,6 +148,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'password',
                           obscure: true,
+                           icon: Icons.lock_outline_rounded,
                           controller: passwordController),
                       //**********************************************
                       const TransparentDividerWidget(),
@@ -151,6 +156,7 @@ class SignUp extends StatelessWidget {
                       TextFieldWidget(
                           label: 'confirm password',
                           obscure: true,
+                           icon: Icons.lock_outline_rounded,
                           controller: confirmController),
                       //**********************************************
                     ],

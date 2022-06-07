@@ -113,6 +113,7 @@ class Login extends StatelessWidget {
                         TextFieldWidget(
                             label: 'email',
                             obscure: false,
+                            icon: Icons.mail_outline_rounded,
                             controller: emailController),
                         //********************************************
                         const Divider(
@@ -126,6 +127,7 @@ class Login extends StatelessWidget {
                         TextFieldWidget(
                           label: 'password',
                           obscure: true,
+                          icon: Icons.lock_outline_rounded,
                           controller: passwordController,
                         ),
                         //**********************************************
@@ -143,7 +145,7 @@ class Login extends StatelessWidget {
                             passwordController.value.text.trim()));
                   }, builder: (context, callback) {
                     return LongButtonWidget(
-                      text: "login",
+                      text: "Login",
                       login: () => {
                         callback(),
                         if (store.state.user == null)
@@ -169,19 +171,6 @@ class Login extends StatelessWidget {
                   }),
                   //***************************************************
 
-                  //*****************Sign up Link**********************
-                  LinkWidget(
-                      text1: "Don't have an account? ",
-                      text2: "Sign Up",
-                      navigate: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => SignUpPage(store: store)),
-                            )
-                          }),
-                  //******************************************************* */
-
                   //*****************"OR" divider"**********************
                   SizedBox(
                     height: 50,
@@ -198,6 +187,19 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   //****************************************************** */
+
+                  //*****************Sign up Link**********************
+                  LinkWidget(
+                      text1: "Don't have an account? ",
+                      text2: "Sign Up",
+                      navigate: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => SignUpPage(store: store)),
+                            )
+                          }),
+                  //******************************************************* */
 
                   //*****************Sign up Link**********************
                   // const LinkWidget(text1: "Sign Up", text2: "", link: ""),
