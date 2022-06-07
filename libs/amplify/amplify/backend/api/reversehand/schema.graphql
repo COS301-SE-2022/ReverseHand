@@ -25,12 +25,9 @@ type Mutation {
   
   createAdvert(customer_id: String!, ad_id: String!, title: String!, description: String, location: String): Bid
   @function(name: "createAdvertResolver-${env}")
-<<<<<<< HEAD
 
   placeBid(ad_id: String!, bid_id: String!, price_lower: Int!, price_upper: Int!, quote: String): Bid # quote is optional and represents a name of a file in a S3 bucket
   @function(name: "placeBidResolver-${env}")
-=======
->>>>>>> 533fbfdf0fcd3257129cef541d4d6d9d6919c258
 }
 
 type Advert implements UniqueID {
