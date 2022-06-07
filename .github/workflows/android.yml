@@ -15,7 +15,7 @@ on:
 jobs:
   test:
     name: Test-Analyze
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     #Checking out to develop branch
@@ -88,6 +88,12 @@ jobs:
           npx nx run-many --target=analyze --all --skip-nx-cache --parallel --exclude=amplify
         #Amplify excluded from analyze as flutter has issues with the way amplify generates models
         #and since the models are auto generated they should not be changed
+      - name: Execute integration tests
+        if: inputs.test == 'all'
+        uses: reactivecircus/android-emulator-runner@v2
+        with: 
+          api-level: 29
+          script: echo 'Hello world' #will be changed once Secrets Manager is running
 
     #Call the script to assist CodeCov with showing accurate coverage
       - name: Run tests only to generate coverage with help of bash script
