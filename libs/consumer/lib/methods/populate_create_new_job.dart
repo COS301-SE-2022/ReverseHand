@@ -73,17 +73,23 @@ class _JobCreationState extends State<JobCreation> {
 
                   //**********CREATE NEW JOB BUTTON*****************//
                   StoreConnector<AppState, VoidCallback>(converter: (store) {
-                    return () => store.dispatch(CreateAdvertAction(
-                        "c001", titleController.value.text.trim(),
-                        description: descrController.value.text.trim()));
+                    return () => store.dispatch(
+                          CreateAdvertAction(
+                            "c#001",
+                            titleController.value.text.trim(),
+                            description: descrController.value.text.trim(),
+                          ),
+                        );
                   }, builder: (context, callback) {
                     return (ElevatedButton(
                         onPressed: () {
+                          callback();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) =>
-                                    ConsumerListings(store: widget.store)),
+                              builder: (_) =>
+                                  ConsumerListings(store: widget.store),
+                            ),
                           );
                         },
                         style: ElevatedButton.styleFrom(
