@@ -4,13 +4,11 @@ class JobCardWidget extends StatelessWidget {
   final String titleText;
   final String descText;
   final String date;
-  final String location;
   const JobCardWidget(
       {Key? key,
       required this.titleText,
       required this.descText,
-      required this.date,
-      required this.location})
+      required this.date})
       : super(key: key);
 
   @override
@@ -39,7 +37,7 @@ class JobCardWidget extends StatelessWidget {
                 Row(
                   children: [
                     const Text(
-                      "Posted     :   ",
+                      "Posted: ",
                       style: TextStyle(fontSize: 20, color: Colors.white70),
                     ),
                     Text(
@@ -49,20 +47,20 @@ class JobCardWidget extends StatelessWidget {
                   ],
                 ),
                 const Padding(padding: EdgeInsets.all(2)),
-                Row(
-                  children: [
-                    const Text(
-                      "Location  :   ",
-                      style: TextStyle(fontSize: 20, color: Colors.white70),
-                    ),
-                    Text(
-                      location,
-                      maxLines: 1,
-                      overflow: TextOverflow.clip,
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
-                    )
-                  ],
-                )
+                // Row(
+                //   children: [
+                //     const Text(
+                //       "Location  :   ",
+                //       style: TextStyle(fontSize: 20, color: Colors.white70),
+                //     ),
+                //     Text(
+                //       location,
+                //       maxLines: 1,
+                //       overflow: TextOverflow.clip,
+                //       style: const TextStyle(fontSize: 20, color: Colors.white),
+                //     )
+                //   ],
+                // )
               ],
             ),
           ],

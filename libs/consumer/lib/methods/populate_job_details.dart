@@ -41,7 +41,7 @@ class JobDetails extends StatelessWidget {
         titleText: advert.title,
         descText: advert.description ?? "",
         date: advert.dateCreated,
-        location: advert.location ?? "",
+        // location: advert.location ?? "",
       ),
     );
 
