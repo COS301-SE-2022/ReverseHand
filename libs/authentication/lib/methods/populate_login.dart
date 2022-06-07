@@ -94,14 +94,15 @@ class Login extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //*****************LOGO*****************************
-                  // Align(
-                  //   alignment: Alignment.topCenter,
-                  //   child: Image.asset(
-                  //     'assets/images/logo.png',
-                  //     height: 250,
-                  //     width: 250
-                  //   ),
-                  // ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: 250,
+                      width: 250,
+                      package: 'authentication',
+                    ),
+                  ),
                   //*************************************************
 
                   //*****************form****************************
@@ -152,7 +153,7 @@ class Login extends StatelessWidget {
                     };
                   }, builder: (context, callback) {
                     return LongButtonWidget(
-                      text: "login",
+                      text: "Login",
                       login: () {
                         callback().whenComplete(() {
                           if (store.state.user == null) {

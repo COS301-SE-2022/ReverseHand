@@ -4,8 +4,12 @@ const ReverseHandTable = process.env.REVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
-*/
+ */
+
+// add a date_closed field to an advert_details map
+// requires customer id and advert id
 exports.handler = async (event) => {
+    
     const date = new Date();
     const dd = String(date.getDate()).padStart(2, '0');
     const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -13,33 +17,39 @@ exports.handler = async (event) => {
     const currentDate = mm + '-' + dd + '-' + yyyy;
     
     try {
-   
-        await docClient.update({
+        let item = {
             TableName: ReverseHandTable,
             Key: {
                 user_id: event.arguments.user_id,
-                sortkey: event.arguments.ad_id
+                sort_key: event.arguments.ad_id
             },
-            UpdateExpression: 'set date_closed = :dc', 
+            UpdateExpression: 'set date_closed = :dc',
             ExpressionAttributeValues: {
                 ':dc': currentDate,
             },
-        }).promise();
+        };
 
-        const data = await docClient.query({
+        console.log(item);
+
+
+        await docClient.update(item).promise();
+        
+        // getting closed advert
+        let params = {
             TableName: ReverseHandTable,
             KeyConditionExpression: "user_id = :u and sort_key = :s",
             ExpressionAttributeValues: {
                 ":u": event.arguments.user_id,
                 ":s": event.arguments.ad_id
             }
-        })
+        };
 
-        let closed_advert = data["Items"][0]['advert_details']
-
-        return closed_advert;
-
-    } catch (e) {
+        console.log(params);
+        
+        const data = await docClient.query(params).promise();
+        console.log(data);
+    
+    } catch(e) {
         console.log(e)
         return e;
     }

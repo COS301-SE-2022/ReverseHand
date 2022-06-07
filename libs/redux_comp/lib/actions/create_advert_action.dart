@@ -33,12 +33,11 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     String graphQLDocument = '''mutation {
       createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", location: "$location") {
         id
-        user_id
-        price_lower
-        price_upper
-        quote
         date_created
-        date_closed
+        location
+        title
+        type
+        description
       }
     }''';
 
@@ -54,8 +53,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
       adverts.add(AdvertModel(
           id: customerId,
           title: title,
-          dateCreated: data['createAdvert'][0]['advert_details']
-              ['date_created']));
+          dateCreated: data['createAdvert']['date_created']));
 
       return state.replace(user: state.user!.replace(adverts: adverts));
     } catch (e) {
