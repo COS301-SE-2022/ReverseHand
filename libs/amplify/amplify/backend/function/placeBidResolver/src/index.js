@@ -23,7 +23,7 @@ exports.handler = async (event) => {
             sort_key: event.arguments.bid_id, // prefixing but keeping same suffix
             bid_details: {
                 id: event.arguments.bid_id,
-                user_id: event.arguments.user_id,
+                user: event.arguments.user_id,
                 price_lower: event.arguments.price_lower,
                 price_upper:event.arguments.price_upper,
                 quote: event.arguments.quote, //optional parameter
