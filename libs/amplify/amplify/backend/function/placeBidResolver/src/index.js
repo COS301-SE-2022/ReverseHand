@@ -7,7 +7,8 @@ const ReverseHandTable = process.env.REVERSEHAND;
 */
 
 // places a bid on an advert, requires the bid to place as well as the id the advert to place the bid
-// created_date will be made in resolver whereas UUID ofbid will be passed in
+// created_date will be made in resolver whereas UUID of a bid will be passed in
+// the tradesmans id should also be passed in
 exports.handler = async (event) => {
     // getting current date
     const date = new Date();
@@ -23,7 +24,7 @@ exports.handler = async (event) => {
             sort_key: event.arguments.bid_id, // prefixing but keeping same suffix
             bid_details: {
                 id: event.arguments.bid_id,
-                user: event.arguments.user_id,
+                user: event.arguments.tradesman_id,
                 price_lower: event.arguments.price_lower,
                 price_upper:event.arguments.price_upper,
                 quote: event.arguments.quote, //optional parameter

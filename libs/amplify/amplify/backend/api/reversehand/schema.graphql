@@ -23,10 +23,10 @@ type Mutation {
   acceptBid(user_id: String!, ad_id: String!, sbid_id: String!): Bid
   @function(name: "acceptBidResolver-${env}")
   
-  createAdvert(customer_id: String!, ad_id: String!, title: String!, description: String, location: String): Bid
+  createAdvert(customer_id: String!, ad_id: String!, title: String!, description: String, location: String): Advert
   @function(name: "createAdvertResolver-${env}")
 
-  placeBid(ad_id: String!, bid_id: String!, user_id: String!, price_lower: Int!, price_upper: Int!, quote: String): Bid # quote is optional and represents a name of a file in a S3 bucket
+  placeBid(ad_id: String!, bid_id: String!, tradesman_id: String!,  price_lower: Int!, price_upper: Int!, quote: String): Bid # quote is optional and represents a name of a file in a S3 bucket
   @function(name: "placeBidResolver-${env}")
 
   closeAdvert(user_id: String!, ad_id: String!): Advert 
