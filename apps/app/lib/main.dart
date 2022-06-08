@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
-import 'package:consumer/pages/job_listings.dart';
+import 'package:consumer/consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/tradesman.dart';
@@ -37,8 +37,12 @@ class Launch extends StatelessWidget {
           '/': (context) => LoginPage(
                 store: store,
               ),
-          '/consumer': (context) => ConsumerListings(store: store),
+          // consumer routes
+          '/consumer': (context) => ConsumerListingsPage(store: store),
+          '/consumer/create_advert': (context) => CreateNewJob(store: store),
+          // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
+          // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
         },
