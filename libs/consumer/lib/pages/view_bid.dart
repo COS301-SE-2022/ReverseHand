@@ -2,8 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/methods/populate_bid_details.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
-import 'package:redux_comp/models/advert_model.dart';
-import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class ViewBid extends StatelessWidget {
