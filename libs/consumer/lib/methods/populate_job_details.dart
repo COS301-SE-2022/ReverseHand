@@ -16,7 +16,7 @@ class JobDetails extends StatelessWidget {
   const JobDetails({Key? key, required this.store, required this.advert})
       : super(key: key);
 
-  Column populateBids(List<List<BidModel>> bids, BuildContext context) {
+  Column populateBids(List<BidModel> bids, BuildContext context) {
     List<Widget> quickViewBidWidgets = [];
     //**********PADDING FROM TOP***********//
     quickViewBidWidgets
@@ -76,23 +76,21 @@ class JobDetails extends StatelessWidget {
     );
 
     //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
-    for (List<BidModel> bid in bids) {
-      for (BidModel b in bid) {
-        quickViewBidWidgets.add(QuickViewBidWidget(
-          name: b.id, // this should be a name or a number
-          onTap: () {
-            store.dispatch(SetActiveBidAction(b.id));
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ViewBid(
-                  store: store,
-                ),
+    for (BidModel bid in bids) {
+      quickViewBidWidgets.add(QuickViewBidWidget(
+        name: bid.id, // this should be a name or a number
+        onTap: () {
+          store.dispatch(SetActiveBidAction(bid.id));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ViewBid(
+                store: store,
               ),
-            );
-          },
-        ));
-      }
+            ),
+          );
+        },
+      ));
     }
 
     return Column(children: quickViewBidWidgets);
@@ -103,9 +101,8 @@ class JobDetails extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
-        child: StoreConnector<AppState, List<List<BidModel>>>(
-          converter: (store) =>
-              [store.state.user!.bids, store.state.user!.shortlistBids],
+        child: StoreConnector<AppState, List<BidModel>>(
+          converter: (store) => store.state.user!.viewBids,
           builder: (context, bids) {
             return populateBids(bids, context);
           },
