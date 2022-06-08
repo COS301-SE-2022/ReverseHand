@@ -21,16 +21,6 @@ class QuickViewJobCardWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          // onTap: () => store.dispatch(ViewBidsAction(advert.id));
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          // builder: (_) => ConsumerDetails(
-          //           store: store,
-          //           advert: advert,
-          //         ),
-          //       ),
-          //     );,
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
             margin: const EdgeInsets.all(10),

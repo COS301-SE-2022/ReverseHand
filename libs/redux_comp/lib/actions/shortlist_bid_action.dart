@@ -8,15 +8,12 @@ import 'package:async_redux/async_redux.dart';
 import '../models/bid_model.dart';
 
 class ShortlistBidAction extends ReduxAction<AppState> {
-  final String adId;
-  final String bidId;
-
-  ShortlistBidAction(this.adId, this.bidId);
+  ShortlistBidAction();
 
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      shortListBid(ad_id: "$adId", bid_id: "$bidId") {
+      shortListBid(ad_id: "${state.user!.activeAd!.id}", bid_id: "${state.user!.activeBid!.id}") {
         id
         user_id
         price_lower
@@ -42,7 +39,7 @@ class ShortlistBidAction extends ReduxAction<AppState> {
       List<BidModel> bids = [];
 
       for (BidModel bid in store.state.user!.bids) {
-        if (bid.id != bidId) {
+        if (bid.id != state.user!.activeBid!.id) {
           bids.add(bid);
         }
       }

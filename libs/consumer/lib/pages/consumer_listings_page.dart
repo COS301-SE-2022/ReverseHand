@@ -8,32 +8,19 @@ class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
   const ConsumerListingsPage({Key? key, required this.store}) : super(key: key);
 
-  Column populateAdverts(List<AdvertModel> adverts) {
+  List<Widget> populateAdverts(List<AdvertModel> adverts) {
     List<Widget> quickViewJobCardWidgets = [];
 
-    //*******QUICK VIEW AD WIDGETS - TAKES YOU TO DETAILED JOB VIEW ON CLICK********//
     for (AdvertModel advert in adverts) {
       quickViewJobCardWidgets.add(
         QuickViewJobCardWidget(
-          advert: advert, store: store,
-          // onTap: () {
-          //   store.dispatch(ViewBidsAction(advert.id));
-          //   Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (_) => ConsumerDetails(
-          //         store: store,
-          //         advert: advert,
-          //       ),
-          //     ),
-          //   );
-          // },
+          advert: advert,
+          store: store,
         ),
       );
     }
-    //****************************************************************************//
 
-    return Column(children: quickViewJobCardWidgets);
+    return quickViewJobCardWidgets;
   }
 
   //*****Calls method display all active jobs made by a consumer*****//
@@ -54,7 +41,7 @@ class ConsumerListingsPage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 20)),
 
                   // populating column with adverts
-                  populateAdverts(vm.adverts),
+                  ...populateAdverts(vm.adverts),
 
                   // button to create a new advert
                   Align(

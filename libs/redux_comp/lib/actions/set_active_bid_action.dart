@@ -16,4 +16,8 @@ class SetActiveBidAction extends ReduxAction<AppState> {
 
     return store.state.replace(user: store.state.user!.replace(activeBid: bid));
   }
+
+  @override
+  void after() => dispatch(NavigateAction.pushNamed(
+      "/consumer/advert_details/bid_details")); // move to page after action completes
 }

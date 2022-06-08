@@ -7,16 +7,12 @@ import 'package:async_redux/async_redux.dart';
 import '../models/bid_model.dart';
 
 class AcceptBidAction extends ReduxAction<AppState> {
-  final String adId;
-  final String sbidId;
-  final String userId;
-
-  AcceptBidAction(this.userId, this.adId, this.sbidId);
+  AcceptBidAction();
 
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      acceptBid(user_id: "$userId", ad_id: "$adId", sbid_id: "$sbidId") {
+      acceptBid(user_id: "${state.user!.id}", ad_id: "${state.user!.activeAd!.id}", sbid_id: "${state.user!.activeBid!.id}") {
         id
         user_id
         price_lower
@@ -38,10 +34,12 @@ class AcceptBidAction extends ReduxAction<AppState> {
           .response; // in futre may want to do something with accepted advert
 
       final List<BidModel> shortBids = state.user!.shortlistBids;
-      shortBids.removeWhere((element) => element.id == sbidId);
+      shortBids
+          .removeWhere((element) => element.id == state.user!.activeBid!.id);
 
       final List<BidModel> viewBids = state.user!.viewBids;
-      viewBids.removeWhere((element) => element.id == sbidId);
+      viewBids
+          .removeWhere((element) => element.id == state.user!.activeBid!.id);
 
       return state.replace(
         user: state.user!.replace(
@@ -53,4 +51,8 @@ class AcceptBidAction extends ReduxAction<AppState> {
       return state;
     }
   }
+
+  @override
+  void after() => dispatch(NavigateAction
+      .pop()); // after bid has been accepted no more to do so leave page
 }
