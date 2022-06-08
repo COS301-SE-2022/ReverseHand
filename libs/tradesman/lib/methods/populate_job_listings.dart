@@ -17,7 +17,6 @@ final Store<AppState> store;
 
   Column populateAdverts(List<AdvertModel> adverts, BuildContext context) {
     List<Widget> quickViewJobCardWidgets = [];
-    double height = (MediaQuery.of(context).size.height) / 3;
     for (AdvertModel advert in adverts) {
       quickViewJobCardWidgets.add(QuickViewJobCardWidget(
         titleText: advert.title,
