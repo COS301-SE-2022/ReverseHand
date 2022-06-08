@@ -7,6 +7,7 @@ import 'package:redux_comp/actions/register_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'dart:ui';
 import '../widgets/button.dart';
+import '../widgets/circle_blur_widget.dart';
 import '../widgets/divider.dart';
 import '../widgets/link.dart';
 import '../widgets/otp_pop_up.dart';
@@ -63,47 +64,13 @@ class _SignUpState extends State<SignUp> {
       body: Stack(
         children: <Widget>[
           //*****************Top circle blur**********************
-          Container(
-            width: 100,
-            height: 100,
-            margin: const EdgeInsets.all(0),
-            padding: const EdgeInsets.only(top: 2),
-            alignment: Alignment.topLeft,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius:
-                  const BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
-            ),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
-              child: Container(
-                decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
-              ),
-            ),
-          ),
+          const CircleBlurWidget(),
           //*******************************************************
 
           //*****************Bottom circle blur**********************
-          Align(
+          const Align(
             alignment: Alignment.bottomRight,
-            child: Container(
-              width: 100,
-              height: 100,
-              margin: const EdgeInsets.all(0),
-              padding: const EdgeInsets.only(top: 2),
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(243, 157, 55, 1),
-                borderRadius:
-                    BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
-                child: Container(
-                  decoration:
-                      BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                ),
-              ),
-            ),
+            child: CircleBlurWidget(),
           ),
           //******************************************************* */
 
@@ -135,7 +102,6 @@ class _SignUpState extends State<SignUp> {
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
-                        //currently only created for consumer sign-up
                         //*****************name**********************
                         TextFieldWidget(
                             label: 'name',
@@ -221,36 +187,38 @@ class _SignUpState extends State<SignUp> {
                 //****************************************************
 
                 //*****************signup button**********************
-                StoreConnector<AppState, Future<void> Function()>(
-                    converter: (store) {
-                  return () async {
-                    await store.dispatch(
-                      RegisterUserAction(
-                        emailController.value.text.trim(),
-                        nameController.value.text.trim(),
-                        cellController.value.text.trim(),
-                        locationController.value.text.trim(),
-                        passwordController.value.text.trim(),
-                        "Consumer",
-                      ),
-                    );
-                  };
-                }, builder: (context, callback) {
-                  return LongButtonWidget(
-                    text: "Sign Up",
-                    login: () {
-                      if (_formKey.currentState!.validate()) {
-                        callback();
-                        DialogHelper.display(
-                          context,
-                          PopupWidget(
-                            store: widget.store,
-                          ),
-                        ); //trigger OTP popup
-                      }
-                    },
-                  );
-                }),
+                StoreConnector<AppState, ViewModel>(
+                    vm: () => Factory(this),
+                    //   converter: (store) {
+                    //   return () async {
+                    //     await store.dispatch(
+                    //       RegisterUserAction(
+                    //         emailController.value.text.trim(),
+                    //         nameController.value.text.trim(),
+                    //         cellController.value.text.trim(),
+                    //         locationController.value.text.trim(),
+                    //         passwordController.value.text.trim(),
+                    //         "Consumer",
+                    //       ),
+                    //     );
+                    //   };
+                    // },
+                    builder: (BuildContext context, ViewModel vm) {
+                      return LongButtonWidget(
+                        text: "Sign Up",
+                        login: () {
+                          if (_formKey.currentState!.validate()) {
+                            callback();
+                            DialogHelper.display(
+                              context,
+                              PopupWidget(
+                                store: widget.store,
+                              ),
+                            ); //trigger OTP popup
+                          }
+                        },
+                      );
+                    }),
                 //***************************************************
 
                 //*****************"OR" divider"**********************
@@ -271,17 +239,14 @@ class _SignUpState extends State<SignUp> {
                 //****************************************************** */
 
                 //*****************Sign in Link**********************
-
-                LinkWidget(
+                StoreConnector<AppState, ViewModel>(
+                  vm: () => Factory(this),
+                  builder: (BuildContext context, ViewModel vm) => LinkWidget(
                     text1: "Already have an account? ",
                     text2: "Sign In",
-                    navigate: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => LoginPage(store: widget.store)),
-                          )
-                        }),
+                    navigate: () => vm.pushLoginPage(),
+                  ),
+                ),
                 //******************************************************* */
                 const Divider(
                   height: 20,

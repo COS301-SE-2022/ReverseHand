@@ -40,6 +40,7 @@ class Launch extends StatelessWidget {
           '/consumer': (context) => ConsumerListings(store: store),
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/signup': (context) => SignUpPage(store: store),
+          '/login': (context) => LoginPage(store: store),
         },
       ),
     );

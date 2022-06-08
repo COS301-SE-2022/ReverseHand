@@ -102,9 +102,9 @@ class LoginPage extends StatelessWidget {
 
                   //*****************login button**********************
 
-                  StoreConnector<AppState, ViewModel>(
-                    vm: () => Factory(this),
-                    builder: (BuildContext context, ViewModel vm) =>
+                  StoreConnector<AppState, _ViewModel>(
+                    vm: () => _Factory(this),
+                    builder: (BuildContext context, _ViewModel vm) =>
                         LongButtonWidget(
                       text: "Login",
                       login: () {
@@ -135,9 +135,10 @@ class LoginPage extends StatelessWidget {
                   //****************************************************** */
 
                   //*****************Sign up Link**********************
-                  StoreConnector<AppState, ViewModel>(
-                    vm: () => Factory(this),
-                    builder: (BuildContext context, ViewModel vm) => LinkWidget(
+                  StoreConnector<AppState, _ViewModel>(
+                    vm: () => _Factory(this),
+                    builder: (BuildContext context, _ViewModel vm) =>
+                        LinkWidget(
                       text1: "Don't have an account? ",
                       text2: "Sign Up",
                       navigate: () => vm.pushSignUpPage(),
@@ -186,11 +187,11 @@ class LoginPage extends StatelessWidget {
 }
 
 // factory for view model
-class Factory extends VmFactory<AppState, LoginPage> {
-  Factory(widget) : super(widget);
+class _Factory extends VmFactory<AppState, LoginPage> {
+  _Factory(widget) : super(widget);
 
   @override
-  ViewModel fromStore() => ViewModel(
+  _ViewModel fromStore() => _ViewModel(
         pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/signup')),
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
@@ -199,11 +200,11 @@ class Factory extends VmFactory<AppState, LoginPage> {
 }
 
 // view model
-class ViewModel extends Vm {
+class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
   final VoidCallback pushSignUpPage;
 
-  ViewModel({
+  _ViewModel({
     required this.dispatchLoginAction,
     required this.pushSignUpPage,
   }); // implementinf hashcode
