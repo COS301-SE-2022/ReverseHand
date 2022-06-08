@@ -6,20 +6,15 @@ import 'package:general/widgets/button.dart';
 import 'package:redux_comp/actions/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 
-import '../methods/populate_login.dart';
-
 class PopupWidget extends StatelessWidget {
+  final otpController = TextEditingController();
+
+  final Store<AppState> store;
+
   PopupWidget({
     Key? key,
     required this.store,
   }) : super(key: key);
-
-  final otpController = TextEditingController();
-
-  final Store<AppState> store;
-  void dispose() {
-    otpController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,38 +46,22 @@ class PopupWidget extends StatelessWidget {
                 TextFieldWidget(
                   label: 'otp',
                   obscure: false,
-                   icon: Icons.mail,
+                  icon: Icons.mail,
                   controller: otpController,
                 ),
                 const TransparentDividerWidget(),
                 //*****************************************************
 
                 //***************Verify Button *********************** */
-                StoreConnector<AppState, Future<void> Function()>(
-                    converter: (store) {
-                  return () async {
-                    await store.dispatch(
-                      VerifyUserAction(
-                        store.state.partialUser!.email,
-                        store.state.partialUser!.password,
-                        otpController.value.text.trim(),
-                      ),
-                    );
-                  };
-                }, builder: (context, callback) {
-                  return ButtonWidget(
+                StoreConnector<AppState, _ViewModel>(
+                  vm: () => _Factory(this),
+                  builder: (BuildContext context, _ViewModel vm) =>
+                      ButtonWidget(
                     text: "Verify",
-                    function: () {
-                      callback();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => Login(store: store),
-                        ),
-                      );
-                    },
-                  );
-                }),
+                    function: () => vm.dispatchVerifyUserAction(
+                        otpController.value.text.trim()),
+                  ),
+                ),
                 //*****************************************************
               ],
             ),
@@ -91,4 +70,23 @@ class PopupWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+// factory for view model
+class _Factory extends VmFactory<AppState, PopupWidget> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+        dispatchVerifyUserAction: (otp) => dispatch(VerifyUserAction(otp)),
+      );
+}
+
+// view model
+class _ViewModel extends Vm {
+  final void Function(String) dispatchVerifyUserAction;
+
+  _ViewModel({
+    required this.dispatchVerifyUserAction,
+  }); // implementing hashcode
 }

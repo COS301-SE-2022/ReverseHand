@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TextFieldWidget extends StatelessWidget {
   final String label;
   final bool obscure;
-  final IconData icon;
+  final IconData? icon;
   final TextEditingController controller;
   final String? Function(String?)? validator;
 
@@ -11,7 +11,7 @@ class TextFieldWidget extends StatelessWidget {
     Key? key,
     required this.label,
     required this.obscure,
-    required this.icon,
+    this.icon,
     required this.controller,
     this.validator,
   }) : super(key: key);
