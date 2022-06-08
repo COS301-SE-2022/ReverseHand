@@ -41,7 +41,8 @@ class Launch extends StatelessWidget {
               ),
           // consumer routes
           '/consumer': (context) => ConsumerListingsPage(store: store),
-          '/consumer/create_advert': (context) => CreateNewJob(store: store),
+          '/consumer/create_advert': (context) =>
+              CreateNewAdvertPage(store: store),
           '/consumer/advert_details': (context) =>
               AdvertDetailsPage(store: store),
           '/consumer/advert_details/bid_details': (context) =>
