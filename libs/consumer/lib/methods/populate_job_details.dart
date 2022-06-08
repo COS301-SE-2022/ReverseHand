@@ -23,7 +23,8 @@ class AdvertDetailsPage extends StatelessWidget {
     //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
     for (BidModel bid in bids) {
       quickViewBidWidgets.add(QuickViewBidWidget(
-        bid: bid, // this should be a name or a number
+        bid: bid,
+        store: store,
         // onTap: () {
         //   widget.store.dispatch(SetActiveBidAction(bid.id));
         //   Navigator.push(
