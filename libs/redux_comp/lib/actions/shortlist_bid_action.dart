@@ -18,7 +18,6 @@ class ShortlistBidAction extends ReduxAction<AppState> {
     String graphQLDocument = '''mutation {
       shortListBid(ad_id: "$adId", bid_id: "$bidId") {
         id
-        advert_id
         user_id
         price_lower
         price_upper
