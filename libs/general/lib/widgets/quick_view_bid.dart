@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/models/bid_model.dart';
 
 class QuickViewBidWidget extends StatelessWidget {
-  final String name;
-  final void Function() onTap;
-  const QuickViewBidWidget({Key? key, required this.onTap, required this.name})
-      : super(key: key);
+  // final String name;
+  // final void Function() onTap;
+
+  final BidModel bid;
+
+  const QuickViewBidWidget({
+    Key? key,
+    required this.bid,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
-          onTap: onTap,
+          onTap: () {
+          widget.store.dispatch(SetActiveBidAction(bid.id));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ViewBid(
+                store: widget.store,
+              ),
+            ),
+          );
+        },,
           child: Container(
             padding: const EdgeInsets.all(12),
             alignment: Alignment.center,
@@ -21,7 +37,7 @@ class QuickViewBidWidget extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             ),
             child: Text(
-              name,
+              bid.id,
               style: const TextStyle(fontSize: 25, color: Colors.white),
               textAlign: TextAlign.center,
             ),

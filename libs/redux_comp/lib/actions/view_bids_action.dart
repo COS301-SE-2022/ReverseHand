@@ -56,7 +56,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
           bids: bids,
           shortlistBids: shortlistedBids,
           viewBids: bids + shortlistedBids,
-          activeAd: ad,
+          activeAd: ad, // setting the active ad
         ),
       );
     } catch (e) {

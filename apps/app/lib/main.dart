@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:consumer/consumer.dart';
+import 'package:consumer/methods/populate_job_details.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/tradesman.dart';
@@ -40,6 +41,7 @@ class Launch extends StatelessWidget {
           // consumer routes
           '/consumer': (context) => ConsumerListingsPage(store: store),
           '/consumer/create_advert': (context) => CreateNewJob(store: store),
+          '/consumer/advert_details': (context) => JobDetails(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           // authentication routes

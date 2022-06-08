@@ -17,8 +17,8 @@ class ConsumerDetails extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
-        home: JobDetails(store: store, advert: advert),
         theme: CustomTheme.darkTheme,
+        home: JobDetails(store: store, advert: advert),
       ),
     );
   }
