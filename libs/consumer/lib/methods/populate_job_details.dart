@@ -9,13 +9,19 @@ import 'package:general/widgets/quick_view_bid.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/set_active_bid_action.dart';
+import 'package:redux_comp/actions/toggle_view_bids_action.dart';
 
-class JobDetails extends StatelessWidget {
+class JobDetails extends StatefulWidget {
   final AdvertModel advert;
   final Store<AppState> store;
   const JobDetails({Key? key, required this.store, required this.advert})
       : super(key: key);
 
+  @override
+  State<JobDetails> createState() => _JobDetailsState();
+}
+
+class _JobDetailsState extends State<JobDetails> {
   Column populateBids(List<BidModel> bids, BuildContext context) {
     List<Widget> quickViewBidWidgets = [];
     //**********PADDING FROM TOP***********//
@@ -30,7 +36,7 @@ class JobDetails extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (_) => ConsumerListings(store: store)));
+                  builder: (_) => ConsumerListings(store: widget.store)));
         },
       ),
     );
@@ -38,9 +44,9 @@ class JobDetails extends StatelessWidget {
     //**********DETAILED JOB INFORMATION***********//
     quickViewBidWidgets.add(
       JobCardWidget(
-        titleText: advert.title,
-        descText: advert.description ?? "",
-        date: advert.dateCreated,
+        titleText: widget.advert.title,
+        descText: widget.advert.description ?? "",
+        date: widget.advert.dateCreated,
         // location: advert.location ?? "",
       ),
     );
@@ -67,10 +73,20 @@ class JobDetails extends StatelessWidget {
     quickViewBidWidgets.add(
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          TabWidget(text: "ACTIVE"),
-          Padding(padding: EdgeInsets.all(5)),
-          TabWidget(text: "SHORTLIST"),
+        children: [
+          TabWidget(
+            text: "ACTIVE",
+            onPressed: (activate) {
+              widget.store.dispatch(ToggleViewBidsAction(false, activate));
+            },
+          ),
+          const Padding(padding: EdgeInsets.all(5)),
+          TabWidget(
+            text: "SHORTLIST",
+            onPressed: (activate) {
+              widget.store.dispatch(ToggleViewBidsAction(true, activate));
+            },
+          ),
         ],
       ),
     );
@@ -80,12 +96,12 @@ class JobDetails extends StatelessWidget {
       quickViewBidWidgets.add(QuickViewBidWidget(
         name: bid.id, // this should be a name or a number
         onTap: () {
-          store.dispatch(SetActiveBidAction(bid.id));
+          widget.store.dispatch(SetActiveBidAction(bid.id));
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => ViewBid(
-                store: store,
+                store: widget.store,
               ),
             ),
           );
@@ -104,6 +120,9 @@ class JobDetails extends StatelessWidget {
         child: StoreConnector<AppState, List<BidModel>>(
           converter: (store) => store.state.user!.viewBids,
           builder: (context, bids) {
+            widget.store.onChange.listen((event) {
+              setState(() {});
+            });
             return populateBids(bids, context);
           },
         ),
