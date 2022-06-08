@@ -10,24 +10,12 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/toggle_view_bids_action.dart';
 
+import '../methods/populate_adverts.dart';
+
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
 
   const AdvertDetailsPage({Key? key, required this.store}) : super(key: key);
-
-  List<Widget> populateBids(List<BidModel> bids) {
-    List<Widget> quickViewBidWidgets = [];
-
-    //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
-    for (BidModel bid in bids) {
-      quickViewBidWidgets.add(QuickViewBidWidget(
-        bid: bid,
-        store: store,
-      ));
-    }
-
-    return quickViewBidWidgets;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +85,7 @@ class AdvertDetailsPage extends StatelessWidget {
                   //***********************************************************//
 
                   // creating bid widgets
-                  ...populateBids(vm.bids)
+                  ...populateBids(vm.bids, store)
                 ],
               ),
             ),

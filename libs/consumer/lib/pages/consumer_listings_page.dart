@@ -5,24 +5,11 @@ import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
+import '../methods/populate_adverts.dart';
+
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
   const ConsumerListingsPage({Key? key, required this.store}) : super(key: key);
-
-  List<Widget> populateAdverts(List<AdvertModel> adverts) {
-    List<Widget> quickViewJobCardWidgets = [];
-
-    for (AdvertModel advert in adverts) {
-      quickViewJobCardWidgets.add(
-        QuickViewJobCardWidget(
-          advert: advert,
-          store: store,
-        ),
-      );
-    }
-
-    return quickViewJobCardWidgets;
-  }
 
   //*****Calls method display all active jobs made by a consumer*****//
   @override
@@ -42,7 +29,7 @@ class ConsumerListingsPage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 20)),
 
                   // populating column with adverts
-                  ...populateAdverts(vm.adverts),
+                  ...populateAdverts(vm.adverts, store),
 
                   // button to create a new advert
                   Align(
