@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ShortlistAcceptButtonWidget extends StatefulWidget {
-  const ShortlistAcceptButtonWidget({Key? key}) : super(key: key);
+  VoidCallback onTap;
+  ShortlistAcceptButtonWidget({Key? key, required this.onTap})
+      : super(key: key);
 
   @override
   State<ShortlistAcceptButtonWidget> createState() => _State();
@@ -13,7 +15,7 @@ class _State extends State<ShortlistAcceptButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => setState(() => displayShortlist = false),
+      onPressed: widget.onTap,
       style: ElevatedButton.styleFrom(
           primary: const Color.fromRGBO(255, 153, 0, 1),
           shape: RoundedRectangleBorder(

@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/card.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -42,20 +43,13 @@ class BidDetails extends StatelessWidget {
                 quote: false,
               ),
               const Padding(padding: EdgeInsets.all(10)),
-              const ShortlistAcceptButtonWidget(),
+              ShortlistAcceptButtonWidget(
+                onTap: () {
+                  store.dispatch(ShortlistBidAction(advert.id, bid.id));
+                },
+              ),
             ])),
       ),
     );
   }
 }
-
-                // onPressed: () {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (_) => ConsumerDetails(
-                //               store: store,
-                //               advert: advert,
-                //             )),
-                //   );
-                // },
