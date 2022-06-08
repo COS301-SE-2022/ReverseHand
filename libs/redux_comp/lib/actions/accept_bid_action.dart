@@ -4,6 +4,8 @@ import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
+import '../models/bid_model.dart';
+
 class AcceptBidAction extends ReduxAction<AppState> {
   final String adId;
   final String sbidId;

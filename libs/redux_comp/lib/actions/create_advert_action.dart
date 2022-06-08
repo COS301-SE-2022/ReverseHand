@@ -60,4 +60,8 @@ class CreateAdvertAction extends ReduxAction<AppState> {
       return state;
     }
   }
+
+  @override
+  void after() => dispatch(NavigateAction.pushNamed(
+      "/consumer"));
 }
