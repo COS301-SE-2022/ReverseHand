@@ -2,13 +2,11 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/actions/view_adverts_action.dart';
-import 'package:redux_comp/actions/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
-import 'package:tradesman/pages/job_details.dart';
 
 class JobListings extends StatelessWidget {
-final Store<AppState> store;
+  final Store<AppState> store;
 
   const JobListings({
     Key? key,
@@ -38,7 +36,7 @@ final Store<AppState> store;
       ));
     }
 
-    quickViewJobCardWidgets.add( Align(
+    quickViewJobCardWidgets.add(Align(
       alignment: Alignment.bottomCenter,
       child: Container(
         margin: const EdgeInsets.all(5),
@@ -53,7 +51,7 @@ final Store<AppState> store;
             textStyle: const TextStyle(fontSize: 30),
             minimumSize: const Size(400, 50),
             shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                borderRadius: BorderRadius.all(Radius.circular(30.0))),
           ),
           onPressed: () {},
           child: const Text('Log Out'),
