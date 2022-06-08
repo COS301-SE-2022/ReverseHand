@@ -55,31 +55,15 @@ class PopupWidget extends StatelessWidget {
                 //*****************************************************
 
                 //***************Verify Button *********************** */
-                StoreConnector<AppState, Future<void> Function()>(
-                    converter: (store) {
-                  return () async {
-                    await store.dispatch(
-                      VerifyUserAction(
-                        store.state.partialUser!.email,
-                        store.state.partialUser!.password,
-                        otpController.value.text.trim(),
-                      ),
-                    );
-                  };
-                }, builder: (context, callback) {
-                  return ButtonWidget(
+                StoreConnector<AppState, _ViewModel>(
+                  vm: () => _Factory(this),
+                  builder: (BuildContext context, _ViewModel vm) =>
+                      ButtonWidget(
                     text: "Verify",
-                    function: () {
-                      callback();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => Login(store: store),
-                        ),
-                      );
-                    },
-                  );
-                }),
+                    function: () => vm.dispatchVerifyUserAction(
+                        otpController.value.text.trim()),
+                  ),
+                ),
                 //*****************************************************
               ],
             ),

@@ -38,4 +38,7 @@ class VerifyUserAction extends ReduxAction<AppState> {
       return state;
     }
   }
+
+  @override
+  void after() => dispatch(NavigateAction.pushNamed("/login"));
 }
