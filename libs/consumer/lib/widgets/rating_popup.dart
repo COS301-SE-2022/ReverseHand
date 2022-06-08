@@ -1,6 +1,6 @@
 import 'package:authentication/widgets/divider.dart';
 import 'package:flutter/material.dart';
-import 'package:tradesman/widgets/rating_stars.dart';
+import 'package:consumer/widgets/rating_stars.dart';
 
 typedef RatingChangeCallback = void Function(double rating);
 
