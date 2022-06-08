@@ -11,7 +11,7 @@ class RegisterUserAction extends ReduxAction<AppState> {
   final String cellNo;
   final String location;
   final String password;
-  final String userType;
+  final bool userType;
 
   RegisterUserAction(this.username, this.name, this.cellNo, this.location,
       this.password, this.userType);
@@ -23,25 +23,18 @@ class RegisterUserAction extends ReduxAction<AppState> {
       /* For now we are using familyName to specify user type in future we will create a custome attribute */
       Map<CognitoUserAttributeKey, String> userAttributes = {
         CognitoUserAttributeKey.email: username,
-        CognitoUserAttributeKey.familyName: userType,
+        CognitoUserAttributeKey.familyName: userType ? 'Consumer' : 'Tradesman',
       };
 
       SignUpResult res = await Amplify.Auth.signUp(
-        username: username,
-        password: password,
-        options: CognitoSignUpOptions(userAttributes: userAttributes),
-      );
+          username: username,
+          password: password,
+          options: CognitoSignUpOptions(userAttributes: userAttributes));
 
-      /* if the user has a successful signup, the next step is to verify */
       if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
-        /* we return a partial user model to hold username for the confirmation code*/
         return state.replace(
-          partialUser: PartialUser(
-            username,
-            password,
-            res.nextStep.signUpStep,
-          ),
-        );
+            partialUser:
+                PartialUser(username, password, res.nextStep.signUpStep));
       } else {
         return null; /* do not modify state */
       }

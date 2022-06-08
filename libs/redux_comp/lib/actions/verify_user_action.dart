@@ -6,27 +6,22 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class VerifyUserAction extends ReduxAction<AppState> {
-  final String username;
-  final String password;
   final String confirmationCode;
 
-  /* theoritically this action just requires a username and confirm code, */ 
-  /* but in a perfect world we could dispatch a login action from here and that requires a password */
-  VerifyUserAction(this.username, this.password, this.confirmationCode);
+  VerifyUserAction(this.confirmationCode);
   @override
   Future<AppState?> reduce() async {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
-        username: username,
-        confirmationCode: confirmationCode,
-      );
+          username: state.partialUser!.email,
+          confirmationCode: confirmationCode);
 
       if (res.nextStep.signUpStep == "DONE") {
         /* If the user is verified then the signUpStep is DONE, so we just update the partial user model */
         return state.replace(
           partialUser: PartialUser(
-            username,
-            password,
+            state.partialUser!.email,
+            state.partialUser!.password,
             res.nextStep.signUpStep,
           ),
         );
@@ -34,11 +29,14 @@ class VerifyUserAction extends ReduxAction<AppState> {
         debugPrint(res.nextStep.signUpStep);
         return null; /* if the user fails the CONFIRM_SIGNUP_STEP do not modify the state. */
       }
-    } on AuthException catch (e) { 
-          debugPrint(e.message); /* Error handling will be done later */
+    } on AuthException catch (e) {
+      debugPrint(e.message); /* Error handling will be done later */
       return null; /* On Error do not modify state */
     } catch (e) {
-      return null; 
+      return null;
     }
   }
+
+  @override
+  void after() => dispatch(NavigateAction.pushNamed("/login"));
 }

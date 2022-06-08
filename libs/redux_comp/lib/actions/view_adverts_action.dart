@@ -14,8 +14,6 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    await store.waitCondition((state) => state.loading == false);
-
     String graphQLDocument = '''query {
       viewAdverts(user_id: "$consId") {
         date_created

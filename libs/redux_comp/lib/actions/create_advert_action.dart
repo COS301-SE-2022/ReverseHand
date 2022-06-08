@@ -60,4 +60,8 @@ class CreateAdvertAction extends ReduxAction<AppState> {
       return null; /* on error don't modify appstate */
     }
   }
+
+  @override
+  void after() => dispatch(NavigateAction.pushNamed(
+      "/consumer"));
 }

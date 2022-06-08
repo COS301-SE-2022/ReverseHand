@@ -4,7 +4,6 @@ import 'package:redux_comp/models/bid_model.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-
 import '../models/advert_model.dart';
 
 // pass in the advert id whos bids you want to see
@@ -56,7 +55,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
           bids: bids,
           shortlistBids: shortlistedBids,
           viewBids: bids + shortlistedBids,
-          activeAd: ad,
+          activeAd: ad, // setting the active ad
         ),
       );
     } catch (e) {
@@ -64,4 +63,8 @@ class ViewBidsAction extends ReduxAction<AppState> {
 
     }
   }
+
+  @override
+  void after() => dispatch(NavigateAction.pushNamed(
+      "/consumer/advert_details")); // move to page after action completes
 }
