@@ -19,20 +19,22 @@ class JobListings extends StatelessWidget {
     List<Widget> quickViewJobCardWidgets = [];
     for (AdvertModel advert in adverts) {
       quickViewJobCardWidgets.add(QuickViewJobCardWidget(
-        titleText: advert.title,
-        date: advert.dateCreated,
-        onTap: () {
-          store.dispatch(ViewBidsAction(advert.id));
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => TradesmanJobDetails(
-                store: store,
-                advert: advert,
-              ),
-            ),
-          );
-        },
+        advert: advert,
+        store: store,
+        // titleText: advert.title,
+        // date: advert.dateCreated,
+        // onTap: () {
+        //   store.dispatch(ViewBidsAction(advert.id));
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (_) => TradesmanJobDetails(
+        //         store: store,
+        //         advert: advert,
+        //       ),
+        //     ),
+        //   );
+        // },
       ));
     }
     return Column(children: quickViewJobCardWidgets);

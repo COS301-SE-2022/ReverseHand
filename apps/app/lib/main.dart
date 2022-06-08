@@ -2,7 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:consumer/consumer.dart';
 import 'package:consumer/pages/advert_details_page.dart';
-import 'package:consumer/pages/populate_bid_details.dart';
+import 'package:consumer/pages/bid_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/tradesman.dart';

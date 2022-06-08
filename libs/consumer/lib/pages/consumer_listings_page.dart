@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/general.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -31,8 +32,8 @@ class ConsumerListingsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
+        theme: CustomTheme.darkTheme,
         home: Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SingleChildScrollView(
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),

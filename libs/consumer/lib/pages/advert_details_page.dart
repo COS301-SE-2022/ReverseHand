@@ -114,10 +114,11 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+        change: state.change,
         dispatchToggleViewBidsAction: (toggleShort, activate) =>
             dispatch(ToggleViewBidsAction(toggleShort, activate)),
         popPage: () => dispatch(NavigateAction.pop()),
-        bids: state.user!.bids,
+        bids: state.user!.viewBids,
         advert: state.user!.activeAd!,
       );
 }
@@ -127,12 +128,14 @@ class _ViewModel extends Vm {
   final AdvertModel advert;
   final List<BidModel> bids;
   final VoidCallback popPage;
+  final bool change;
   final void Function(bool, bool) dispatchToggleViewBidsAction;
 
   _ViewModel({
     required this.dispatchToggleViewBidsAction,
+    required this.change,
     required this.popPage,
     required this.bids,
     required this.advert,
-  }); // implementinf hashcode
+  }) : super(equals: [change]); // implementing hashcode
 }

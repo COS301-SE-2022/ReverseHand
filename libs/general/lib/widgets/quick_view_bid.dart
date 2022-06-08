@@ -24,17 +24,6 @@ class QuickViewBidWidget extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: InkWell(
             onTap: () => vm.dispatchSetActiveBid(bid),
-            // () {
-            //   widget.store.dispatch(SetActiveBidAction(bid.id));
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (_) => ViewBid(
-            //         store: widget.store,
-            //       ),
-            //     ),
-            //   );
-            // },
             child: Container(
               padding: const EdgeInsets.all(12),
               alignment: Alignment.center,
