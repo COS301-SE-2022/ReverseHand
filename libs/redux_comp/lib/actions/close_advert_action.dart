@@ -5,13 +5,13 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class CloseAdvertAction extends ReduxAction<AppState> {
-	@override
-
-  final String adId;
+  
+	final String adId;
   final String userId;
 
   CloseAdvertAction(this.userId, this.adId);
 
+  @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
       closeAdvert(user_id: "$userId", ad_id: "$adId") {
@@ -37,6 +37,8 @@ class CloseAdvertAction extends ReduxAction<AppState> {
       return state; // currently no change in state required
     } catch (e) {
       return state;
-    }
+    } 
+
+
   }
 }
