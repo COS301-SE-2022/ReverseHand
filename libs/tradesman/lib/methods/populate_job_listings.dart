@@ -8,7 +8,7 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/pages/job_details.dart';
 
 class JobListings extends StatelessWidget {
-final Store<AppState> store;
+  final Store<AppState> store;
 
   const JobListings({
     Key? key,
@@ -17,7 +17,6 @@ final Store<AppState> store;
 
   Column populateAdverts(List<AdvertModel> adverts, BuildContext context) {
     List<Widget> quickViewJobCardWidgets = [];
-    double height = (MediaQuery.of(context).size.height) / 3;
     for (AdvertModel advert in adverts) {
       quickViewJobCardWidgets.add(QuickViewJobCardWidget(
         titleText: advert.title,
