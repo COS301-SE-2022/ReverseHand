@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class TabWidget extends StatefulWidget {
   final String text;
-  const TabWidget({Key? key, required this.text}) : super(key: key);
+  final void Function(bool activate) onPressed;
+
+  const TabWidget({Key? key, required this.text, required this.onPressed})
+      : super(key: key);
 
   @override
   State<TabWidget> createState() => _State();
@@ -10,24 +13,24 @@ class TabWidget extends StatefulWidget {
 
 class _State extends State<TabWidget> {
   bool flag = true;
-
+  double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => setState(() => flag = !flag),
+      onPressed: () {
+        setState(() => flag = !flag);
+        widget.onPressed(flag);
+      },
       style: ElevatedButton.styleFrom(
           primary: flag
               ? Theme.of(context).primaryColor
               : Theme.of(context).scaffoldBackgroundColor,
-          textStyle: const TextStyle(fontSize: 25),
-          minimumSize: const Size(178, 50),
-          maximumSize: const Size(178, 50),
+          textStyle: const TextStyle(fontSize: 22),
+          minimumSize: Size(deviceWidth(context) / 2.3, 50),
+          maximumSize: Size(deviceWidth(context) / 2.3, 50),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(widget.text),
-      ),
+      child: Text(widget.text),
     );
   }
 }
