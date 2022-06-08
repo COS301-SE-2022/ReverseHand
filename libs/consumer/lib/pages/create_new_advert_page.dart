@@ -55,20 +55,17 @@ class CreateNewAdvertPage extends StatelessWidget {
                     controller: descrController,
                   ),
                 ),
-
                 //*************************************************//
 
                 //**********CREATE NEW JOB BUTTON*****************//
                 StoreConnector<AppState, _ViewModel>(
                   vm: () => _Factory(this),
                   builder: (BuildContext context, _ViewModel vm) =>
-                      (ElevatedButton(
-                    onPressed: () {
-                      vm.dispatchCreateAdvertActions(
-                          store.state.user!.id,
-                          titleController.value.text,
-                          descrController.value.text);
-                    },
+                      ElevatedButton(
+                    onPressed: () => vm.dispatchCreateAdvertActions(
+                        store.state.user!.id,
+                        titleController.value.text,
+                        descrController.value.text),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.orange,
                       onPrimary: Colors.white,
@@ -81,7 +78,7 @@ class CreateNewAdvertPage extends StatelessWidget {
                               BorderRadius.all(Radius.circular(30.0))),
                     ),
                     child: const Text("Add new job"),
-                  )),
+                  ),
                 )
                 //*************************************************??
               ],
