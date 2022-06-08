@@ -1,4 +1,4 @@
 library authentication;
 
-export './pages/login.dart';
+export 'pages/login_page.dart';
 export './pages/sign_up.dart';

@@ -17,6 +17,8 @@ class LoginAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
+    await store.waitCondition((state) => Amplify.isConfigured == true);
+
     try {
       await Amplify.Auth.signOut();
       if (store.state.partialUser != null) {
@@ -58,6 +60,7 @@ class LoginAction extends ReduxAction<AppState> {
           viewBids: const [],
           adverts: const [],
         ),
+        loading: false,
       );
       // exception will be handled later
     } on AuthException catch (e) {
