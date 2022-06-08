@@ -19,6 +19,8 @@ class RegisterUserAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     try {
+      /* You can specify which user attributes you want to store */
+      /* For now we are using familyName to specify user type in future we will create a custome attribute */
       Map<CognitoUserAttributeKey, String> userAttributes = {
         CognitoUserAttributeKey.email: username,
         CognitoUserAttributeKey.familyName: userType ? 'Consumer' : 'Tradesman',
@@ -34,19 +36,15 @@ class RegisterUserAction extends ReduxAction<AppState> {
             partialUser:
                 PartialUser(username, password, res.nextStep.signUpStep));
       } else {
-        if (kDebugMode) {
-          print(res.nextStep.signUpStep);
-        }
+        return null; /* do not modify state */
       }
-
-      return state;
     } on AuthException catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      return state;
+      /* Cognito can throw a series of errors on signup */
+      /* In future these will return error models to the state */
+      debugPrint(e.message);
+      return null;
     } catch (e) {
-      return state;
+      return null;
     }
   }
 }
