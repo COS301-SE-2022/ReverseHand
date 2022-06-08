@@ -3,6 +3,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
+import 'package:redux_comp/actions/view_adverts_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
@@ -24,7 +25,8 @@ class LoginAction extends ReduxAction<AppState> {
         await store
             .waitCondition((state) => state.partialUser!.verified == "DONE");
       }
-      /*SignInResult res = */ await Amplify.Auth.signIn(
+      /*SignInResult res = */
+      await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -49,6 +51,7 @@ class LoginAction extends ReduxAction<AppState> {
             break;
         }
       }
+
       return state.replace(
         user: UserModel(
           id: userType == "Consumer" ? "c#$id" : "t#$id",
@@ -61,7 +64,8 @@ class LoginAction extends ReduxAction<AppState> {
         ),
         loading: false,
       );
-      // exception will be handled later
+      /* Cognito will throw an AuthException object that is not fun to interact with */
+      /* The most useful part of the AuthException is the AuthException message */
     } on AuthException catch (e) {
       switch (e.message) {
         case "User is not confirmed.":
@@ -71,28 +75,24 @@ class LoginAction extends ReduxAction<AppState> {
             error: ErrorType.userNotFound,
           );
         case "User does not exist.":
-          // print(e.message);
+          debugPrint(e.message);
           return state.replace(
             error: ErrorType.userNotFound,
           );
         case "Incorrect username or password.":
-          // print(e.message);
+          debugPrint(e.message);
           return state.replace(
             error: ErrorType.userInvalidPassword,
           );
         case "Password attempts exceeded":
-          // print(e.message);
+          debugPrint(e.message);
           return state.replace(
             error: ErrorType.passwordAttemptsExceeded,
           );
         default:
-          // print(e);
-          break;
+          debugPrint(e.message);
+          return null;
       }
-      if (kDebugMode) {
-        print(e);
-      }
-      return state;
     }
     /*on ApiException catch (e) {
       // print(
@@ -102,6 +102,9 @@ class LoginAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() => dispatch(NavigateAction.pushNamed(
-      "/${state.user!.userType.toLowerCase()}")); // we know that state wont be null
+  void after() async {
+    await dispatch(ViewAdvertsAction(state.user!.id));
+    dispatch(
+        NavigateAction.pushNamed("/${state.user!.userType.toLowerCase()}"));
+  } // we know that state wont be null
 }

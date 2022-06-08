@@ -8,7 +8,7 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/pages/job_details.dart';
 
 class JobListings extends StatelessWidget {
-  final Store<AppState> store;
+final Store<AppState> store;
 
   const JobListings({
     Key? key,
@@ -19,22 +19,48 @@ class JobListings extends StatelessWidget {
     List<Widget> quickViewJobCardWidgets = [];
     for (AdvertModel advert in adverts) {
       quickViewJobCardWidgets.add(QuickViewJobCardWidget(
-        titleText: advert.title,
-        date: advert.dateCreated,
-        onTap: () {
-          store.dispatch(ViewBidsAction(advert.id));
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => TradesmanJobDetails(
-                store: store,
-                advert: advert,
-              ),
-            ),
-          );
-        },
+        advert: advert,
+        store: store,
+        // titleText: advert.title,
+        // date: advert.dateCreated,
+        // onTap: () {
+        //   store.dispatch(ViewBidsAction(advert.id));
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (_) => TradesmanJobDetails(
+        //         store: store,
+        //         advert: advert,
+        //       ),
+        //     ),
+        //   );
+        // },
       ));
     }
+
+    quickViewJobCardWidgets.add( Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        margin: const EdgeInsets.all(5),
+        width: 300,
+        height: 50,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.orange,
+            onPrimary: Colors.white,
+            shadowColor: Colors.black,
+            elevation: 9,
+            textStyle: const TextStyle(fontSize: 30),
+            minimumSize: const Size(400, 50),
+            shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0))),
+          ),
+          onPressed: () {},
+          child: const Text('Log Out'),
+        ),
+      ),
+    ));
+
     return Column(children: quickViewJobCardWidgets);
   }
 

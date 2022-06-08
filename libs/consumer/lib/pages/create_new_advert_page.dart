@@ -5,9 +5,11 @@ import 'package:general/general.dart';
 import 'package:redux_comp/actions/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class CreateNewJob extends StatelessWidget {
+class CreateNewAdvertPage extends StatelessWidget {
   final Store<AppState> store;
-  CreateNewJob({Key? key, required this.store}) : super(key: key);
+
+  CreateNewAdvertPage({Key? key, required this.store}) : super(key: key);
+
   final titleController = TextEditingController();
   final descrController = TextEditingController();
 
@@ -19,7 +21,8 @@ class CreateNewJob extends StatelessWidget {
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
-          backgroundColor: const Color.fromRGBO(18, 26, 34, 1), //background colour
+          backgroundColor:
+              const Color.fromRGBO(18, 26, 34, 1), //background colour
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -52,20 +55,17 @@ class CreateNewJob extends StatelessWidget {
                     controller: descrController,
                   ),
                 ),
-
                 //*************************************************//
 
                 //**********CREATE NEW JOB BUTTON*****************//
                 StoreConnector<AppState, _ViewModel>(
                   vm: () => _Factory(this),
                   builder: (BuildContext context, _ViewModel vm) =>
-                      (ElevatedButton(
-                    onPressed: () {
-                      vm.dispatchCreateAdvertActions(
-                          store.state.user!.id,
-                          titleController.value.text,
-                          descrController.value.text);
-                    },
+                      ElevatedButton(
+                    onPressed: () => vm.dispatchCreateAdvertActions(
+                        store.state.user!.id,
+                        titleController.value.text,
+                        descrController.value.text),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.orange,
                       onPrimary: Colors.white,
@@ -78,7 +78,7 @@ class CreateNewJob extends StatelessWidget {
                               BorderRadius.all(Radius.circular(30.0))),
                     ),
                     child: const Text("Add new job"),
-                  )),
+                  ),
                 )
                 //*************************************************??
               ],
@@ -91,7 +91,7 @@ class CreateNewJob extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, CreateNewJob> {
+class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
   _Factory(widget) : super(widget);
 
   @override

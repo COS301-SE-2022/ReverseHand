@@ -43,11 +43,11 @@ class PlaceBidAction extends ReduxAction<AppState> {
     try {
       await Amplify.API
           .mutate(request: request)
-          .response; // currently don't need to response return but may be later
+          .response; // currently don't need a response return but maybe later
 
-      return state; // no change to bid currently
+      return null; // no change to state currently
     } catch (e) {
-      return state;
+      return null;
     }
   }
 }

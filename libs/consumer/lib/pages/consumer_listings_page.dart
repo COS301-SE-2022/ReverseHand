@@ -1,81 +1,13 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/methods/populate_job_listings.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:general/widgets/quick_view_job_card.dart';
-import 'package:redux_comp/actions/view_bids_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-
-import 'create_new_job.dart';
-import 'job_details.dart';
+import '../methods/populate_adverts.dart';
 
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
   const ConsumerListingsPage({Key? key, required this.store}) : super(key: key);
-
-  Column populateAdverts(List<AdvertModel> adverts, BuildContext context) {
-    List<Widget> quickViewJobCardWidgets = [];
-    double height = (MediaQuery.of(context).size.height) / 3;
-
-    //*******************PADDING FOR THE TOP*******************//
-    quickViewJobCardWidgets
-        .add(const Padding(padding: EdgeInsets.only(top: 20)));
-    //*********************************************************//
-
-    //*******QUICK VIEW AD WIDGETS - TAKES YOU TO DETAILED JOB VIEW ON CLICK********//
-    for (AdvertModel advert in adverts) {
-      quickViewJobCardWidgets.add(QuickViewJobCardWidget(
-        titleText: advert.title,
-        date: advert.dateCreated,
-        onTap: () {
-          store.dispatch(ViewBidsAction(advert.id));
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => ConsumerDetails(
-                store: store,
-                advert: advert,
-              ),
-            ),
-          );
-        },
-      ));
-    }
-    //****************************************************************************//
-
-    //********BUTTON TO CREATE A NEW JOB - TAKES YOU TO CREATE_NEW_JOB ON CLICK********//
-    quickViewJobCardWidgets.add(
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: Padding(
-          padding: EdgeInsets.all(height / 3),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.orange,
-              onPrimary: Colors.white,
-              shadowColor: Colors.black,
-              elevation: 9,
-              textStyle: const TextStyle(fontSize: 30),
-              minimumSize: const Size(60, 60),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0))),
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => CreateNewJob(store: store)));
-            },
-            child: const Text("+"), //Look into an icon for demo 3
-          ),
-        ),
-      ),
-    );
-    //*******************************************************************************//
-
-    return Column(children: quickViewJobCardWidgets);
-  }
 
   //*****Calls method display all active jobs made by a consumer*****//
   @override
@@ -85,44 +17,42 @@ class ConsumerListingsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
+        theme: CustomTheme.darkTheme,
         home: Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.all(height / 3),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.orange,
-                        onPrimary: Colors.white,
-                        shadowColor: Colors.black,
-                        elevation: 9,
-                        textStyle: const TextStyle(fontSize: 30),
-                        minimumSize: const Size(60, 60),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30.0))),
+            child: StoreConnector<AppState, _ViewModel>(
+              vm: () => _Factory(this),
+              builder: (BuildContext context, _ViewModel vm) => Column(
+                children: [
+                  const Padding(padding: EdgeInsets.only(top: 20)),
+
+                  // populating column with adverts
+                  ...populateAdverts(vm.adverts, store),
+
+                  // button to create a new advert
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.all(height / 3),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.orange,
+                          onPrimary: Colors.white,
+                          shadowColor: Colors.black,
+                          elevation: 9,
+                          textStyle: const TextStyle(fontSize: 30),
+                          minimumSize: const Size(60, 60),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30.0))),
+                        ),
+                        onPressed: () => vm.pushCreateAdvertPage(),
+                        child: const Text("+"), //Look into an icon for demo 3
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => CreateNewJob(store: store)));
-                      },
-                      child: const Text("+"), //Look into an icon for demo 3
                     ),
                   ),
-                ),
-                StoreConnector<AppState, List<AdvertModel>>(
-                  converter: (store) => store.state.user!.adverts,
-                  builder: (context, adverts) {
-                    return populateAdverts(adverts, context);
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -137,8 +67,9 @@ class _Factory extends VmFactory<AppState, ConsumerListingsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+        adverts: state.user!.adverts,
         pushCreateAdvertPage: () => dispatch(
-          NavigateAction.pushNamed('/signup'),
+          NavigateAction.pushNamed('/consumer/create_advert'),
         ),
       );
 }
@@ -146,8 +77,10 @@ class _Factory extends VmFactory<AppState, ConsumerListingsPage> {
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushCreateAdvertPage;
+  final List<AdvertModel> adverts;
 
   _ViewModel({
+    required this.adverts,
     required this.pushCreateAdvertPage,
   }); // implementinf hashcode
 }
