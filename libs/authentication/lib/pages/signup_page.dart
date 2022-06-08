@@ -326,5 +326,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.dispatchSignUpAction,
     required this.pushLoginPage,
-  }); // implementinf hashcode
+  }); // implementing hashcode
 }

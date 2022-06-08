@@ -9,21 +9,24 @@ import 'package:async_redux/async_redux.dart';
 // import '../models/user_models/consumer_model.dart';
 
 class VerifyUserAction extends ReduxAction<AppState> {
-  final String username;
-  final String password;
   final String confirmationCode;
 
-  VerifyUserAction(this.username, this.password, this.confirmationCode);
+  VerifyUserAction(this.confirmationCode);
   @override
   Future<AppState?> reduce() async {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
-          username: username, confirmationCode: confirmationCode);
+          username: state.partialUser!.email,
+          confirmationCode: confirmationCode);
 
       if (res.nextStep.signUpStep == "DONE") {
         return state.replace(
-            partialUser:
-                PartialUser(username, password, res.nextStep.signUpStep));
+          partialUser: PartialUser(
+            state.partialUser!.email,
+            state.partialUser!.password,
+            res.nextStep.signUpStep,
+          ),
+        );
       } else {
         if (kDebugMode) {
           print(res.nextStep.signUpStep);

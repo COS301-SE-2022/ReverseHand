@@ -9,17 +9,14 @@ import 'package:redux_comp/app_state.dart';
 import '../methods/populate_login.dart';
 
 class PopupWidget extends StatelessWidget {
+  final otpController = TextEditingController();
+
+  final Store<AppState> store;
+
   PopupWidget({
     Key? key,
     required this.store,
   }) : super(key: key);
-
-  final otpController = TextEditingController();
-
-  final Store<AppState> store;
-  void dispose() {
-    otpController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +48,7 @@ class PopupWidget extends StatelessWidget {
                 TextFieldWidget(
                   label: 'otp',
                   obscure: false,
-                   icon: Icons.mail,
+                  icon: Icons.mail,
                   controller: otpController,
                 ),
                 const TransparentDividerWidget(),
@@ -91,4 +88,23 @@ class PopupWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+// factory for view model
+class _Factory extends VmFactory<AppState, PopupWidget> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+        dispatchVerifyUserAction: (otp) => dispatch(VerifyUserAction(otp)),
+      );
+}
+
+// view model
+class _ViewModel extends Vm {
+  final void Function(String) dispatchVerifyUserAction;
+
+  _ViewModel({
+    required this.dispatchVerifyUserAction,
+  }); // implementing hashcode
 }
