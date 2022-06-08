@@ -39,7 +39,7 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
 
       return state.replace(user: state.user!.replace(adverts: adverts));
     } catch (e) {
-      return state;
+      return null; /* On Error do not modify state */
     }
   }
 }

@@ -29,14 +29,14 @@ class CloseAdvertAction extends ReduxAction<AppState> {
     );
 
     try {
-      // getting the bid which has beena accepted is just a graphql convention
+      /* return the advert that was closed */
       await Amplify.API
           .mutate(request: request)
-          .response; // in futre may want to do something with accepted advert
+          .response; 
 
-      return state; // currently no change in state required
+      return null; /* return null as we do not want to modify state as of now */ 
     } catch (e) {
-      return state;
+      return null;
     } 
 
 

@@ -35,9 +35,9 @@ class AcceptBidAction extends ReduxAction<AppState> {
           .mutate(request: request)
           .response; // in futre may want to do something with accepted advert
 
-      return state; // currently no change in state required
+      return null; // currently no change in state required
     } catch (e) {
-      return state;
+      return null;
     }
   }
 }

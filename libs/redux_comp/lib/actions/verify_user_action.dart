@@ -1,38 +1,44 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
-
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-
-// import '../models/user_models/consumer_model.dart';
 
 class VerifyUserAction extends ReduxAction<AppState> {
   final String username;
   final String password;
   final String confirmationCode;
 
+  /* theoritically this action just requires a username and confirm code, */ 
+  /* but in a perfect world we could dispatch a login action from here and that requires a password */
   VerifyUserAction(this.username, this.password, this.confirmationCode);
   @override
   Future<AppState?> reduce() async {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
-          username: username, confirmationCode: confirmationCode);
+        username: username,
+        confirmationCode: confirmationCode,
+      );
 
       if (res.nextStep.signUpStep == "DONE") {
+        /* If the user is verified then the signUpStep is DONE, so we just update the partial user model */
         return state.replace(
-            partialUser:
-                PartialUser(username, password, res.nextStep.signUpStep));
+          partialUser: PartialUser(
+            username,
+            password,
+            res.nextStep.signUpStep,
+          ),
+        );
       } else {
-        if (kDebugMode) {
-          print(res.nextStep.signUpStep);
-        }
-        return state;
+        debugPrint(res.nextStep.signUpStep);
+        return null; /* if the user fails the CONFIRM_SIGNUP_STEP do not modify the state. */
       }
-// } on AuthException catch (e) {
+    } on AuthException catch (e) { 
+          debugPrint(e.message); /* Error handling will be done later */
+      return null; /* On Error do not modify state */
     } catch (e) {
-      return state;
+      return null; 
     }
   }
 }

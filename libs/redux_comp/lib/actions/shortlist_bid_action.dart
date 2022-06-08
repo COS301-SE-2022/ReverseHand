@@ -1,10 +1,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-
 import '../app_state.dart';
-// import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-
 import '../models/bid_model.dart';
 
 class ShortlistBidAction extends ReduxAction<AppState> {
@@ -39,9 +36,10 @@ class ShortlistBidAction extends ReduxAction<AppState> {
       shortListBids.add(BidModel.fromJson(response.data['shortListBid']));
 
       return state.replace(
-          user: state.user!.replace(shortlistBids: shortListBids));
+        user: state.user!.replace(shortlistBids: shortListBids),
+      );
     } catch (e) {
-      return state;
+      return null;
     }
   }
 }
