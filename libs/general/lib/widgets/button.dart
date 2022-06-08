@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class ButtonWidget extends StatelessWidget {
   final String text;
   final void Function() function;
-  const ButtonWidget({Key? key, required this.text, required this.function})
+  final bool? waiting;
+  const ButtonWidget({Key? key, required this.text, required this.function, this.waiting})
       : super(key: key);
 
   @override
