@@ -1,4 +1,5 @@
 import 'package:amplify_api/amplify_api.dart';
+import 'package:redux_comp/models/bid_model.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -15,7 +16,6 @@ class AcceptBidAction extends ReduxAction<AppState> {
     String graphQLDocument = '''mutation {
       acceptBid(user_id: "$userId", ad_id: "$adId", sbid_id: "$sbidId") {
         id
-        advert_id
         user_id
         price_lower
         price_upper
@@ -35,7 +35,18 @@ class AcceptBidAction extends ReduxAction<AppState> {
           .mutate(request: request)
           .response; // in futre may want to do something with accepted advert
 
-      return state; // currently no change in state required
+      final List<BidModel> shortBids = state.user!.shortlistBids;
+      shortBids.removeWhere((element) => element.id == sbidId);
+
+      final List<BidModel> viewBids = state.user!.viewBids;
+      viewBids.removeWhere((element) => element.id == sbidId);
+
+      return state.replace(
+        user: state.user!.replace(
+          shortlistBids: shortBids,
+          viewBids: viewBids,
+        ),
+      );
     } catch (e) {
       return state;
     }

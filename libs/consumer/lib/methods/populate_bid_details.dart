@@ -1,32 +1,34 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/accept_bid_action.dart';
 import 'package:redux_comp/actions/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:general/widgets/card.dart';
-import 'package:redux_comp/models/advert_model.dart';
-import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/shortlist_accept_button.dart';
-
 import '../consumer.dart';
 
-//Populates the detailed information of a bid
-
-class BidDetails extends StatelessWidget {
+class BidDetails extends StatefulWidget {
   final Store<AppState> store;
-  final AdvertModel advert;
-  final BidModel bid;
-  const BidDetails(
-      {Key? key, required this.store, required this.bid, required this.advert})
-      : super(key: key);
+
+  const BidDetails({
+    Key? key,
+    required this.store,
+  }) : super(key: key);
+
+  @override
+  State<BidDetails> createState() => _BidDetailsState();
+}
+
+class _BidDetailsState extends State<BidDetails> {
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: MaterialApp(
         home: Scaffold(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: Column(children: <Widget>[
-              //*******************PADDING FOR THE TOP*******************//
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: Column(
+            children: <Widget>[
               const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
 
               //********************************************************//
@@ -36,10 +38,14 @@ class BidDetails extends StatelessWidget {
                 color: Colors.white,
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) =>
-                              ConsumerDetails(store: store, advert: advert)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ConsumerDetails(
+                        store: widget.store,
+                        advert: widget.store.state.user!.activeAd!,
+                      ),
+                    ),
+                  );
                 },
               ),
 
@@ -48,8 +54,8 @@ class BidDetails extends StatelessWidget {
               //***********************CARD*****************************//
               CardWidget(
                 titleText: "MR J SMITH",
-                price1: bid.priceLower,
-                price2: bid.priceUpper,
+                price1: widget.store.state.user!.activeBid!.priceLower,
+                price2: widget.store.state.user!.activeBid!.priceUpper,
                 details: "info@gmail.com",
                 quote: false,
               ),
@@ -58,17 +64,45 @@ class BidDetails extends StatelessWidget {
 
               //***********PADDING BETWEEN CARD AND BUTTON*************//
               const Padding(padding: EdgeInsets.all(10)),
-              //*******************************************************//
-
-              //*******************BUTTON TO ACCEPT BID****************//
-              ShortlistAcceptButtonWidget(
-                onTap: () {
-                  store.dispatch(ShortlistBidAction(advert.id, bid.id));
+              StoreConnector<AppState, Future<void> Function()>(
+                converter: (store) => () async {
+                  store.state.user!.activeBid!.isShortlisted()
+                      // if bid has been shortlisted
+                      ? await store.dispatch(
+                          AcceptBidAction(
+                            store.state.user!.id,
+                            store.state.user!.activeAd!.id,
+                            store.state.user!.activeBid!
+                                .id, // must be a shortlisted bid
+                          ),
+                        )
+                      // if bid has not been shortlisted
+                      : await store.dispatch(
+                          ShortlistBidAction(
+                            store.state.user!.activeAd!.id,
+                            store.state.user!.activeBid!.id,
+                          ),
+                        );
+                },
+                builder: (context, reduce) {
+                  return ShortlistAcceptButtonWidget(
+                    store: widget.store,
+                    onTap: () {
+                      reduce().whenComplete(
+                        () {
+                          // if (widget.store.state.user!.activeBid!
+                          //     .isShortlisted()) {
+                          //   Navigator.pop(context);
+                          // }
+                        },
+                      );
+                    },
+                  );
                 },
               ),
-
-              //********************************************************//
-            ])),
+            ],
+          ),
+        ),
       ),
     );
   }

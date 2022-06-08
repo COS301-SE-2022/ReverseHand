@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class TabWidget extends StatefulWidget {
   final String text;
-  const TabWidget({Key? key, required this.text}) : super(key: key);
+  final void Function(bool activate) onPressed;
+
+  const TabWidget({Key? key, required this.text, required this.onPressed})
+      : super(key: key);
 
   @override
   State<TabWidget> createState() => _State();
@@ -14,7 +17,10 @@ class _State extends State<TabWidget> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => setState(() => flag = !flag),
+      onPressed: () {
+        setState(() => flag = !flag);
+        widget.onPressed(flag);
+      },
       style: ElevatedButton.styleFrom(
           primary: flag
               ? Theme.of(context).primaryColor
