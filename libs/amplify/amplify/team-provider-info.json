@@ -12,6 +12,9 @@
       "AmplifyAppId": "d1qa8zxtog58do"
     },
     "categories": {
+      "auth": {
+        "reversehand8ac8d062": {}
+      },
       "storage": {
         "ReverseHand": {
           "tableName": "ReverseHand",
@@ -23,15 +26,6 @@
           "sortKeyType": "S"
         }
       },
-      "auth": {
-        "reversehand8526215b": {
-          "userPoolId": "eu-west-1_clLdX1pB9",
-          "userPoolName": "ReverseHand",
-          "webClientId": "4seqkag6053v331qrf4m5v091q",
-          "nativeClientId": "4seqkag6053v331qrf4m5v091q"
-        },
-        "reversehand8ac8d062": {}
-      },
       "function": {
         "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
@@ -40,11 +34,6 @@
         "shortListBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
           "s3Key": "amplify-builds/shortListBidResolver-52334153446f43546e61-build.zip"
-        },
-        "getSecrets": {
-          "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",
-          "s3Key": "amplify-builds/getSecrets-776d764b66474955556e-build.zip",
-          "secretsPathAmplifyAppId": "d1qa8zxtog58do"
         },
         "viewAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-144520-deployment",

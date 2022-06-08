@@ -3,8 +3,7 @@ import 'package:authentication/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/dialog_helper.dart';
 import 'package:redux_comp/app_state.dart';
-// import '../widgets/place_bid_popup.dart';
-import '../widgets/rating_popup.dart';
+import '../widgets/place_bid_popup.dart';
 import 'job_listings.dart';
 
 class TradesmanJobDetails extends StatelessWidget {
@@ -95,7 +94,8 @@ class TradesmanJobDetails extends StatelessWidget {
                     LongButtonWidget(
                       text: "Place Bid",
                       login: () => {
-                        DialogHelper.display(context, const RatingPopUpWidget()), //trigger place bid popup
+                        DialogHelper.display(context,
+                            const PlaceBidPopupWidget()), //trigger place bid popup
                         //RatingPopUpWidget PlaceBidPopupWidget
                       },
                     ),
