@@ -55,6 +55,7 @@ class LoginAction extends ReduxAction<AppState> {
           userType: userType,
           bids: const [],
           shortlistBids: const [],
+          viewBids: const [],
           adverts: const [],
         ),
       );

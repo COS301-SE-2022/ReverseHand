@@ -55,6 +55,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
         user: state.user!.replace(
           bids: bids,
           shortlistBids: shortlistedBids,
+          viewBids: bids + shortlistedBids,
           activeAd: ad,
         ),
       );

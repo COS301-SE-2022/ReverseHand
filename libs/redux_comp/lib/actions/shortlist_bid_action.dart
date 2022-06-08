@@ -39,8 +39,17 @@ class ShortlistBidAction extends ReduxAction<AppState> {
           BidModel.fromJson(jsonDecode(response.data)['shortListBid']);
       shortListBids.add(shortListedBid);
 
+      List<BidModel> bids = [];
+
+      for (BidModel bid in store.state.user!.bids) {
+        if (bid.id != bidId) {
+          bids.add(bid);
+        }
+      }
+
       return state.replace(
         user: state.user!.replace(
+          bids: bids,
           shortlistBids: shortListBids,
           activeBid: shortListedBid,
         ),
