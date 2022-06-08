@@ -1,7 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/methods/populate_job_listings.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/actions/view_bids_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -88,41 +86,39 @@ class ConsumerListingsPage extends StatelessWidget {
         home: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.all(height / 3),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.orange,
-                        onPrimary: Colors.white,
-                        shadowColor: Colors.black,
-                        elevation: 9,
-                        textStyle: const TextStyle(fontSize: 30),
-                        minimumSize: const Size(60, 60),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30.0))),
+            child: StoreConnector<AppState, _ViewModel>(
+              vm: () => _Factory(this),
+              builder: (BuildContext context, _ViewModel vm) => Column(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.all(height / 3),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.orange,
+                          onPrimary: Colors.white,
+                          shadowColor: Colors.black,
+                          elevation: 9,
+                          textStyle: const TextStyle(fontSize: 30),
+                          minimumSize: const Size(60, 60),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30.0))),
+                        ),
+                        onPressed: () => vm.pushCreateAdvertPage(),
+                        child: const Text("+"), //Look into an icon for demo 3
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => CreateNewJob(store: store)));
-                      },
-                      child: const Text("+"), //Look into an icon for demo 3
                     ),
                   ),
-                ),
-                StoreConnector<AppState, List<AdvertModel>>(
-                  converter: (store) => store.state.user!.adverts,
-                  builder: (context, adverts) {
-                    return populateAdverts(adverts, context);
-                  },
-                ),
-              ],
+                  StoreConnector<AppState, List<AdvertModel>>(
+                    converter: (store) => store.state.user!.adverts,
+                    builder: (context, adverts) {
+                      return populateAdverts(adverts, context);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -138,7 +134,7 @@ class _Factory extends VmFactory<AppState, ConsumerListingsPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         pushCreateAdvertPage: () => dispatch(
-          NavigateAction.pushNamed('/signup'),
+          NavigateAction.pushNamed('/consumer/create_advert'),
         ),
       );
 }
