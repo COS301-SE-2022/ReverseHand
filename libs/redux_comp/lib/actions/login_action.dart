@@ -51,11 +51,12 @@ class LoginAction extends ReduxAction<AppState> {
       }
       return state.replace(
         user: UserModel(
-          id: id,
+          id: userType == "Consumer" ? "c#$id" : "t#$id",
           email: username,
           userType: userType,
           bids: const [],
           shortlistBids: const [],
+          viewBids: const [],
           adverts: const [],
         ),
       );

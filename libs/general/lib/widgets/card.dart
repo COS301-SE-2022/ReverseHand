@@ -44,7 +44,7 @@ class CardWidget extends StatelessWidget {
                 const Padding(padding: EdgeInsets.all(5)),
                 const Text("Quoted price: ",
                     style: TextStyle(fontSize: 20, color: Colors.white70)),
-                Text("$price1 - $price2",
+                Text("R$price1 - R$price2",
                     style: const TextStyle(fontSize: 20, color: Colors.white)),
                 Column(
                   children: [

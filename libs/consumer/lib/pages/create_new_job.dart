@@ -8,6 +8,7 @@ class CreateNewJob extends StatelessWidget {
   final Store<AppState> store;
   const CreateNewJob({Key? key, required this.store}) : super(key: key);
 
+  //*****Calls method to create a new job*****//
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -37,7 +38,11 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
       dynamic data = jsonDecode(response.data)['viewAdverts'];
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
-      return state.replace(user: state.user!.replace(adverts: adverts));
+      return state.replace(
+        user: state.user!.replace(
+          adverts: adverts,
+        ),
+      );
     } catch (e) {
       return null; /* On Error do not modify state */
     }
