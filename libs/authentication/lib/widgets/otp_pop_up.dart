@@ -6,8 +6,6 @@ import 'package:general/widgets/button.dart';
 import 'package:redux_comp/actions/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 
-import '../methods/populate_login.dart';
-
 class PopupWidget extends StatelessWidget {
   final otpController = TextEditingController();
 
