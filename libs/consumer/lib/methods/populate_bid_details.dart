@@ -29,6 +29,7 @@ class _BidDetailsState extends State<BidDetails> {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: Column(
             children: <Widget>[
+              //*******************PADDING FROM TOP*********************//
               const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
 
               //********************************************************//
@@ -64,6 +65,8 @@ class _BidDetailsState extends State<BidDetails> {
 
               //***********PADDING BETWEEN CARD AND BUTTON*************//
               const Padding(padding: EdgeInsets.all(10)),
+
+              //****************BUTTON TO SHORTLIST/ACCEPT**************//
               StoreConnector<AppState, Future<void> Function()>(
                 converter: (store) => () async {
                   store.state.user!.activeBid!.isShortlisted()
@@ -99,6 +102,7 @@ class _BidDetailsState extends State<BidDetails> {
                     },
                   );
                 },
+                //********************************************************//
               ),
             ],
           ),

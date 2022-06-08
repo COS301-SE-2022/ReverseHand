@@ -24,6 +24,7 @@ class JobListings extends StatelessWidget {
     //*******************PADDING FOR THE TOP*******************//
     quickViewJobCardWidgets
         .add(const Padding(padding: EdgeInsets.only(top: 20)));
+    //*********************************************************//
 
     //*******QUICK VIEW AD WIDGETS - TAKES YOU TO DETAILED JOB VIEW ON CLICK********//
     for (AdvertModel advert in adverts) {
@@ -44,6 +45,7 @@ class JobListings extends StatelessWidget {
         },
       ));
     }
+    //****************************************************************************//
 
     //********BUTTON TO CREATE A NEW JOB - TAKES YOU TO CREATE_NEW_JOB ON CLICK********//
     quickViewJobCardWidgets.add(
@@ -73,6 +75,7 @@ class JobListings extends StatelessWidget {
         ),
       ),
     );
+    //*******************************************************************************//
 
     return Column(children: quickViewJobCardWidgets);
   }
