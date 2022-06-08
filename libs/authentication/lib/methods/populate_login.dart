@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/login_action.dart';
+import 'package:redux_comp/actions/view_adverts_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:tradesman/pages/job_listings.dart';
 import 'dart:ui';
@@ -139,9 +140,10 @@ class Login extends StatelessWidget {
 
                   //*****************login button**********************
 
-                  StoreConnector<AppState, VoidCallback>(converter: (store) {
+                  StoreConnector<AppState, Future<void> Function()>(
+                      converter: (store) {
                     return () async {
-                      store.dispatch(
+                      await store.dispatch(
                         // LogoutAction()
                         LoginAction(
                           emailController.value.text.trim(),
@@ -153,24 +155,28 @@ class Login extends StatelessWidget {
                     return LongButtonWidget(
                       text: "Login",
                       login: () {
-                        callback();
-                        if (store.state.user == null) {
-                        } else if (store.state.user!.userType == "Consumer") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ConsumerListings(store: store),
-                            ),
-                          );
-                        } else if (store.state.user!.userType == "Tradesman") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  TradesmanJobListings(store: store),
-                            ),
-                          );
-                        }
+                        callback().whenComplete(() {
+                          if (store.state.user == null) {
+                          } else if (store.state.user!.userType == "Consumer") {
+                            store.dispatch(
+                                ViewAdvertsAction(store.state.user!.id));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ConsumerListings(store: store),
+                              ),
+                            );
+                          } else if (store.state.user!.userType ==
+                              "Tradesman") {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    TradesmanJobListings(store: store),
+                              ),
+                            );
+                          }
+                        });
                       },
                     );
                   }),

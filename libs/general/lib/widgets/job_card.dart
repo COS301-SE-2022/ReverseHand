@@ -11,10 +11,13 @@ class JobCardWidget extends StatelessWidget {
       required this.date})
       : super(key: key);
 
+  double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
+
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(10),
+      // margin: const EdgeInsets.all(10),
+      margin: EdgeInsets.all(deviceWidth(context) / 50),
       color: const Color.fromRGBO(35, 47, 62, 1),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -47,20 +50,6 @@ class JobCardWidget extends StatelessWidget {
                   ],
                 ),
                 const Padding(padding: EdgeInsets.all(2)),
-                // Row(
-                //   children: [
-                //     const Text(
-                //       "Location  :   ",
-                //       style: TextStyle(fontSize: 20, color: Colors.white70),
-                //     ),
-                //     Text(
-                //       location,
-                //       maxLines: 1,
-                //       overflow: TextOverflow.clip,
-                //       style: const TextStyle(fontSize: 20, color: Colors.white),
-                //     )
-                //   ],
-                // )
               ],
             ),
           ],

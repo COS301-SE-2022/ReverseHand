@@ -23,12 +23,14 @@ class AppState {
   factory AppState.initial() {
     return const AppState(
       user: UserModel(
-          id: "",
-          email: "",
-          userType: "userType",
-          bids: [],
-          shortlistBids: [],
-          adverts: []),
+        id: "",
+        email: "",
+        userType: "userType",
+        bids: [],
+        shortlistBids: [],
+        viewBids: [],
+        adverts: [],
+      ),
       partialUser: null,
       error: ErrorType.none,
       loading: true,
@@ -42,6 +44,7 @@ class AppState {
         email: "some@email.com",
         userType: "confirmed",
         bids: [],
+        viewBids: [],
         shortlistBids: [],
         adverts: [],
       ),
