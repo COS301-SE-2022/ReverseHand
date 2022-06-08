@@ -8,11 +8,10 @@ import 'package:redux_comp/redux_comp.dart';
 
 class ViewBid extends StatelessWidget {
   final Store<AppState> store;
-  final BidModel bid;
-  final AdvertModel advert;
-  const ViewBid(
-      {Key? key, required this.store, required this.bid, required this.advert})
-      : super(key: key);
+  const ViewBid({
+    Key? key,
+    required this.store,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +20,6 @@ class ViewBid extends StatelessWidget {
       child: MaterialApp(
         home: BidDetails(
           store: store,
-          bid: bid,
-          advert: advert,
         ),
         theme: CustomTheme.darkTheme,
       ),

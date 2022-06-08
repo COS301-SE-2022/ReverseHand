@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ShortlistAcceptButtonWidget extends StatefulWidget {
-  VoidCallback onTap;
-  ShortlistAcceptButtonWidget({Key? key, required this.onTap})
+  final VoidCallback onTap;
+  final bool isShorListedBid;
+  const ShortlistAcceptButtonWidget(
+      {Key? key, required this.onTap, required this.isShorListedBid})
       : super(key: key);
 
   @override
@@ -10,8 +12,6 @@ class ShortlistAcceptButtonWidget extends StatefulWidget {
 }
 
 class _State extends State<ShortlistAcceptButtonWidget> {
-  bool displayShortlist = true;
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -24,7 +24,7 @@ class _State extends State<ShortlistAcceptButtonWidget> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          displayShortlist ? "SHORTLIST" : "ACCEPT",
+          widget.isShorListedBid ? "ACCEPT" : "SHORTLIST",
           style: const TextStyle(color: Colors.white, fontSize: 22),
         ),
       ),
