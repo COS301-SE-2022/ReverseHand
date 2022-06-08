@@ -1,21 +1,35 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/advert_model.dart';
 
 class QuickViewJobCardWidget extends StatelessWidget {
-  final String titleText;
-  final String date;
-  final void Function() onTap;
+  // final String titleText;
+  // final String date;
+  // final void Function() onTap;
+
+  final AdvertModel advert;
+  final Store<AppState> store;
 
   const QuickViewJobCardWidget({
     Key? key,
-    required this.titleText,
-    required this.date,
-    required this.onTap,
+    required this.advert,
+    required this.store,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () => store.dispatch(ViewBidsAction(advert.id));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ConsumerDetails(
+                store: store,
+                advert: advert,
+              ),
+            ),
+          );,
       child: Card(
         margin: const EdgeInsets.all(10),
         color: const Color.fromRGBO(35, 47, 62, 1),
@@ -31,7 +45,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(titleText,
+                  Text(advert.title,
                       style:
                           const TextStyle(fontSize: 30, color: Colors.white)),
                   const Padding(padding: EdgeInsets.all(5)),
@@ -45,7 +59,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
                       Column(children: [
-                        Text("Posted $date",
+                        Text("Posted ${advert.dateCreated}",
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white70)),
                       ])
