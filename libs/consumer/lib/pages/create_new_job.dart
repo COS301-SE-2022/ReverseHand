@@ -19,7 +19,7 @@ class CreateNewJob extends StatelessWidget {
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
-          backgroundColor: const Color.fromRGBO(18, 26, 34, 1), //background colourconst Color.fromRGBO(18, 26, 34, 1), //background colour
+          backgroundColor: const Color.fromRGBO(18, 26, 34, 1), //background colour
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
