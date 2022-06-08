@@ -34,14 +34,9 @@ Future<void> _configureAmplify() async {
     // await Amplify.configure(
     //     amplifyconfig); // uncomment this line and add your amplify config package
 
-    if (kDebugMode) {
-      print('Amplify Successfully Configured 🎉');
-    }
+    debugPrint('Amplify Successfully Configured 🎉');
   } catch (e) {
     // error handling can be improved for sure!
-    // but this will be sufficient for the purposes of this tutorial
-    if (kDebugMode) {
-      print('An error occurred while configuring Amplify: $e');
-    }
+    debugPrint('An error occurred while configuring Amplify: $e');
   }
 }

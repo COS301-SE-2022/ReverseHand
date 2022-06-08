@@ -48,7 +48,7 @@ class AcceptBidAction extends ReduxAction<AppState> {
         ),
       );
     } catch (e) {
-      return state;
+      return null;
     }
   }
 }

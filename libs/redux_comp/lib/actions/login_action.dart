@@ -23,7 +23,8 @@ class LoginAction extends ReduxAction<AppState> {
         await store
             .waitCondition((state) => state.partialUser!.verified == "DONE");
       }
-      /*SignInResult res catch=*/ await Amplify.Auth.signIn(
+      /*SignInResult res = */
+      await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -59,7 +60,8 @@ class LoginAction extends ReduxAction<AppState> {
           adverts: const [],
         ),
       );
-      // exception will be handled later
+      /* Cognito will throw an AuthException object that is not fun to interact with */
+      /* The most useful part of the AuthException is the AuthException message */
     } on AuthException catch (e) {
       switch (e.message) {
         case "User is not confirmed.":
@@ -69,28 +71,24 @@ class LoginAction extends ReduxAction<AppState> {
             error: ErrorType.userNotFound,
           );
         case "User does not exist.":
-          // print(e.message);
+          debugPrint(e.message);
           return state.replace(
             error: ErrorType.userNotFound,
           );
         case "Incorrect username or password.":
-          // print(e.message);
+          debugPrint(e.message);
           return state.replace(
             error: ErrorType.userInvalidPassword,
           );
         case "Password attempts exceeded":
-          // print(e.message);
+          debugPrint(e.message);
           return state.replace(
             error: ErrorType.passwordAttemptsExceeded,
           );
         default:
-          // print(e);
-          break;
+          debugPrint(e.message);
+          return null;
       }
-      if (kDebugMode) {
-        print(e);
-      }
-      return state;
     }
     /*on ApiException catch (e) {
       // print(
