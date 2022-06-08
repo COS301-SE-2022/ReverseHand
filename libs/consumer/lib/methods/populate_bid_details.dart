@@ -78,10 +78,10 @@ class _BidDetailsState extends State<BidDetails> {
                     onTap: () {
                       reduce().whenComplete(
                         () {
-                          if (widget.store.state.user!.activeBid!
-                              .isShortlisted()) {
-                            Navigator.pop(context);
-                          }
+                          // if (widget.store.state.user!.activeBid!
+                          //     .isShortlisted()) {
+                          //   Navigator.pop(context);
+                          // }
                         },
                       );
                     },
