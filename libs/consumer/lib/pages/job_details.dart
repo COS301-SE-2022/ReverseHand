@@ -11,6 +11,7 @@ class ConsumerDetails extends StatelessWidget {
   const ConsumerDetails({Key? key, required this.store, required this.advert})
       : super(key: key);
 
+  //*****Calls method to get detailed job details*****//
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(

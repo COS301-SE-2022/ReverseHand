@@ -9,6 +9,8 @@ import 'package:general/widgets/quick_view_bid.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 
+//Populated detailed information of an advert
+
 class JobDetails extends StatelessWidget {
   final AdvertModel advert;
   final Store<AppState> store;
@@ -17,11 +19,13 @@ class JobDetails extends StatelessWidget {
 
   Column populateBids(List<BidModel> bids, BuildContext context) {
     List<Widget> quickViewBidWidgets = [];
-    //**********PADDING FROM TOP***********//
+    //**********PADDING FROM TOP*****************//
     quickViewBidWidgets
         .add(const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)));
 
-    //**********BACK BUTTON***********//
+    //*******************************************//
+
+    //**********BACK BUTTON*********************//
     quickViewBidWidgets.add(
       BackButton(
         color: Colors.white,
@@ -33,6 +37,7 @@ class JobDetails extends StatelessWidget {
         },
       ),
     );
+    //*******************************************//
 
     //**********DETAILED JOB INFORMATION***********//
     quickViewBidWidgets.add(
@@ -43,24 +48,28 @@ class JobDetails extends StatelessWidget {
         // location: advert.location ?? "",
       ),
     );
+    //*******************************************//
 
-    //**********DIVIDER***********//
+    //**********DIVIDER**************************//
     quickViewBidWidgets.add(
       const DividerWidget(),
     );
+    //*******************************************//
 
-    //**********HEADING***********//
+    //**********HEADING**************************//
     quickViewBidWidgets.add(
       const Text(
         "BIDS",
         style: TextStyle(fontSize: 25.0, color: Colors.white),
       ),
     );
+    //*******************************************//
 
-    //**********PADDING***********//
+    //**********PADDING**************************//
     quickViewBidWidgets.add(
       const Padding(padding: EdgeInsets.all(15)),
     );
+    //*******************************************//
 
     //**********TABS TO FILTER ACTIVE/SHORTLISTED BIDS***********//
     quickViewBidWidgets.add(
@@ -73,6 +82,7 @@ class JobDetails extends StatelessWidget {
         ],
       ),
     );
+    //***********************************************************//
 
     //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
     for (BidModel bid in bids) {
@@ -95,6 +105,7 @@ class JobDetails extends StatelessWidget {
 
     return Column(children: quickViewBidWidgets);
   }
+  //**************************************************************************************//
 
   @override
   Widget build(BuildContext context) {

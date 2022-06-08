@@ -7,6 +7,8 @@ import 'package:redux_comp/models/advert_model.dart';
 import '../pages/create_new_job.dart';
 import '../pages/job_details.dart';
 
+//Populated all the advert a consumer has made on one page
+
 class JobListings extends StatelessWidget {
   final Store<AppState> store;
 
@@ -19,9 +21,11 @@ class JobListings extends StatelessWidget {
     List<Widget> quickViewJobCardWidgets = [];
     double height = (MediaQuery.of(context).size.height) / 3;
 
+    //*******************PADDING FOR THE TOP*******************//
     quickViewJobCardWidgets
         .add(const Padding(padding: EdgeInsets.only(top: 20)));
 
+    //*******QUICK VIEW AD WIDGETS - TAKES YOU TO DETAILED JOB VIEW ON CLICK********//
     for (AdvertModel advert in adverts) {
       quickViewJobCardWidgets.add(QuickViewJobCardWidget(
         titleText: advert.title,
@@ -41,6 +45,7 @@ class JobListings extends StatelessWidget {
       ));
     }
 
+    //********BUTTON TO CREATE A NEW JOB - TAKES YOU TO CREATE_NEW_JOB ON CLICK********//
     quickViewJobCardWidgets.add(
       Align(
         alignment: Alignment.bottomCenter,

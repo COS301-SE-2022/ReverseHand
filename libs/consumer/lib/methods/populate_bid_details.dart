@@ -9,6 +9,8 @@ import 'package:general/widgets/shortlist_accept_button.dart';
 
 import '../consumer.dart';
 
+//Populates the detailed information of a bid
+
 class BidDetails extends StatelessWidget {
   final Store<AppState> store;
   final AdvertModel advert;
@@ -24,7 +26,12 @@ class BidDetails extends StatelessWidget {
         home: Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: Column(children: <Widget>[
+              //*******************PADDING FOR THE TOP*******************//
               const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
+
+              //********************************************************//
+
+              //**********************BACK BUTTON**********************//
               BackButton(
                 color: Colors.white,
                 onPressed: () {
@@ -35,6 +42,10 @@ class BidDetails extends StatelessWidget {
                               ConsumerDetails(store: store, advert: advert)));
                 },
               ),
+
+              //********************************************************//
+
+              //***********************CARD*****************************//
               CardWidget(
                 titleText: "MR J SMITH",
                 price1: bid.priceLower,
@@ -42,12 +53,21 @@ class BidDetails extends StatelessWidget {
                 details: "info@gmail.com",
                 quote: false,
               ),
+
+              //********************************************************//
+
+              //***********PADDING BETWEEN CARD AND BUTTON*************//
               const Padding(padding: EdgeInsets.all(10)),
+              //*******************************************************//
+
+              //*******************BUTTON TO ACCEPT BID****************//
               ShortlistAcceptButtonWidget(
                 onTap: () {
                   store.dispatch(ShortlistBidAction(advert.id, bid.id));
                 },
               ),
+
+              //********************************************************//
             ])),
       ),
     );

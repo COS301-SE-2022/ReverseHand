@@ -5,6 +5,8 @@ import 'package:redux_comp/actions/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../consumer.dart';
 
+//Used to create a new advert as a consumer
+
 class JobCreation extends StatefulWidget {
   final Store<AppState> store;
   const JobCreation({Key? key, required this.store}) : super(key: key);
@@ -36,7 +38,7 @@ class _JobCreationState extends State<JobCreation> {
                 children: <Widget>[
                   //**********PADDING FOR TOP**********************//
                   const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
-                  //***********************************//
+                  //***********************************************//
 
                   //**********BACKBUTTON**************************//
                   BackButton(
@@ -69,6 +71,7 @@ class _JobCreationState extends State<JobCreation> {
                       controller: descrController,
                     ),
                   ),
+
                   //*************************************************//
 
                   //**********CREATE NEW JOB BUTTON*****************//
@@ -107,7 +110,7 @@ class _JobCreationState extends State<JobCreation> {
                         ),
                         child: const Text("Add new job")));
                   })
-                  //*************************************************
+                  //*************************************************??
                 ],
               ),
             ),

@@ -14,6 +14,7 @@ class ViewBid extends StatelessWidget {
       {Key? key, required this.store, required this.bid, required this.advert})
       : super(key: key);
 
+  //*****Calls method to view detailed information of a bid*****//
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(

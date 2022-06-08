@@ -8,6 +8,7 @@ class ConsumerListings extends StatelessWidget {
   final Store<AppState> store;
   const ConsumerListings({Key? key, required this.store}) : super(key: key);
 
+  //*****Calls method display all active jobs made by a consumer*****//
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
