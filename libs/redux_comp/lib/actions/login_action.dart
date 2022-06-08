@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
-
 import '../models/user_models/user_model.dart';
 
 class LoginAction extends ReduxAction<AppState> {
@@ -101,4 +100,8 @@ class LoginAction extends ReduxAction<AppState> {
       return state;
     }*/
   }
+
+  @override
+  void after() => dispatch(NavigateAction.pushNamed(
+      "/${state.user!.userType.toLowerCase()}")); // we know that state wont be null
 }
