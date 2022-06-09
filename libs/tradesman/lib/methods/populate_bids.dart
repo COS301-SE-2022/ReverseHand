@@ -6,42 +6,44 @@ List<Widget> populateBids(List<BidModel> bids) {
   List<Widget> quickViewBidWidgets = [];
 
   //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
-  for (BidModel bid in bids) {
+  for (int i = 0; i < bids.length; i++) {
     quickViewBidWidgets.add(QuickViewBidWidget(
-      bid: bid,
+      name: "Bid $i",
+      bid: bids[i],
     ));
   }
+
   return quickViewBidWidgets;
 }
 
-
 class QuickViewBidWidget extends StatelessWidget {
   final BidModel bid;
+  final String name;
 
   const QuickViewBidWidget({
     Key? key,
     required this.bid,
+    required this.name,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-         return Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Container(
-              padding: const EdgeInsets.all(12),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: const Color.fromRGBO(255, 153, 0, 1), width: 2.0),
-                borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-              ),
-              child: Text(
-                bid.id,
-                style: const TextStyle(fontSize: 25, color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          border: Border.all(
+              color: const Color.fromRGBO(255, 153, 0, 1), width: 2.0),
+          borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+        ),
+        child: Text(
+          name,
+          style: const TextStyle(fontSize: 25, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
 }
-

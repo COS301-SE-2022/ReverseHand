@@ -9,9 +9,11 @@ List<Widget> populateBids(List<BidModel> bids, Store<AppState> store) {
   List<Widget> quickViewBidWidgets = [];
 
   //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
-  for (BidModel bid in bids) {
+  // for (BidModel bid in bids) {
+  for (int i = 0; i < bids.length; i++) {
     quickViewBidWidgets.add(QuickViewBidWidget(
-      bid: bid,
+      name: "Bid $i",
+      bid: bids[i],
       store: store,
     ));
   }
