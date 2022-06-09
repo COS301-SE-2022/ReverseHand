@@ -11,8 +11,23 @@ void main() {
   //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group("End-To-End-Test", () {
-    testWidgets("Login And Use App", (WidgetTester tester) async {
+  testWidgets("press signUp", (WidgetTester tester) async {
+    app.main(); //start the app from the main function
+    await tester.pumpAndSettle();
+    debugPrint("passed main starting");
+
+    final signUp = find.widgetWithText(GestureDetector, "Sign Up");
+    expect(signUp, findsOneWidget);
+
+    await tester.dragUntilVisible(
+        signUp, find.byType(Scaffold), const Offset(0.0, 300));
+    await tester.pumpAndSettle();
+
+    //press the sign up text and proceed to the signup page
+    await tester.tap(signUp);
+    await tester.pumpAndSettle();
+  });
+  /*testWidgets("Login And Use App", (WidgetTester tester) async {
       app.main(); //start the app from the main function
       await tester.pumpAndSettle();
 
@@ -113,6 +128,5 @@ void main() {
 
       //have to find out how errors are displayed for incorrect signup
       //4: (To be continued as code is finalized)
-    });
-  });
+    });*/
 }

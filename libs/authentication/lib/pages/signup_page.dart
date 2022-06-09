@@ -45,261 +45,263 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: CustomTheme.darkTheme,
-      home: Scaffold(
-        body: Stack(
-          children: <Widget>[
-            //*****************Top circle blur**********************
-            Container(
-              width: 100,
-              height: 100,
-              margin: const EdgeInsets.all(0),
-              padding: const EdgeInsets.only(top: 2),
-              alignment: Alignment.topLeft,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius:
-                    const BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
-                child: Container(
-                  decoration:
-                      BoxDecoration(color: Colors.white.withOpacity(0.0)),
+    return StoreProvider<AppState>(
+        store: store,
+        child: MaterialApp(
+          theme: CustomTheme.darkTheme,
+          home: Scaffold(
+            body: Stack(
+              children: <Widget>[
+                //*****************Top circle blur**********************
+                Container(
+                  width: 100,
+                  height: 100,
+                  margin: const EdgeInsets.all(0),
+                  padding: const EdgeInsets.only(top: 2),
+                  alignment: Alignment.topLeft,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: const BorderRadius.all(
+                        Radius.elliptical(9999.0, 9999.0)),
+                  ),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
+                    child: Container(
+                      decoration:
+                          BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            //*******************************************************
+                //*******************************************************
 
-            //*****************Bottom circle blur**********************
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                width: 100,
-                height: 100,
-                margin: const EdgeInsets.all(0),
-                padding: const EdgeInsets.only(top: 2),
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(243, 157, 55, 1),
-                  borderRadius:
-                      BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
+                //*****************Bottom circle blur**********************
+                Align(
+                  alignment: Alignment.bottomRight,
                   child: Container(
-                    decoration:
-                        BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                    width: 100,
+                    height: 100,
+                    margin: const EdgeInsets.all(0),
+                    padding: const EdgeInsets.only(top: 2),
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(243, 157, 55, 1),
+                      borderRadius:
+                          BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
+                    ),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
+                      child: Container(
+                        decoration:
+                            BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            //******************************************************* */
+                //******************************************************* */
 
-            //*****************signup page****************************
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //*****************heading*****************************
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                    child: Text(
-                      'Sign Up',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                        letterSpacing: 5,
-                      ),
-                    ),
-                  ),
-                  //*************************************************
-
-                  //*****************form****************************
-                  Container(
-                    margin: const EdgeInsets.only(top: 10.0),
-                    padding: const EdgeInsets.all(20),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          //currently only created for consumer sign-up
-                          //*****************name**********************
-                          TextFieldWidget(
-                              label: 'name',
-                              obscure: false,
-                              icon: Icons.account_circle_outlined,
-                              controller: nameController,
-                              validator: _createValidator(
-                                  "name",
-                                  "must only be letters",
-                                  RegExp(
-                                      r"/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u"))),
-                          //********************************************
-                          const TransparentDividerWidget(),
-                          //*****************email**********************
-                          TextFieldWidget(
-                            label: 'email',
-                            obscure: false,
-                            icon: Icons.mail_outline_rounded,
-                            controller: emailController,
-                            validator: _createValidator(
-                                'email',
-                                'is invalid',
-                                RegExp(
-                                    r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
-                          ),
-                          //**********************************************
-                          const TransparentDividerWidget(),
-                          //*****************cellphone**********************
-                          TextFieldWidget(
-                            label: 'cellphone',
-                            obscure: false,
-                            icon: Icons.call_end_outlined,
-                            controller: cellController,
-                            validator: _createValidator('cellphone',
-                                'can only contain numbers', RegExp(r'')),
-                          ),
-                          //**********************************************
-                          const TransparentDividerWidget(),
-                          //*****************location**********************
-                          TextFieldWidget(
-                            label: 'location',
-                            obscure: false,
-                            icon: Icons.add_location_outlined,
-                            controller: locationController,
-                          ),
-                          //**********************************************
-                          const TransparentDividerWidget(),
-                          //*****************password**********************
-                          TextFieldWidget(
-                            label: 'password',
-                            obscure: true,
-                            icon: Icons.lock_outline_rounded,
-                            controller: passwordController,
-                            validator: _createValidator(
-                              'password',
-                              'must be at least 8 characters with upper and lowercase, atleast one number and special character',
-                              RegExp(
-                                r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                              ),
-                            ),
-                          ),
-                          //**********************************************
-                          const TransparentDividerWidget(),
-                          //*****************confirm password**********************
-                          TextFieldWidget(
-                            label: 'confirm password',
-                            obscure: true,
-                            icon: Icons.lock_outline_rounded,
-                            controller: confirmController,
-                            validator: _createValidator(
-                              'password',
-                              'must be at least 8 characters with upper and lowercase, atleast one number and special character',
-                              RegExp(
-                                r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                              ),
-                            ),
-                          ),
-                          //**********************************************
-                        ],
-                      ),
-                    ),
-                  ),
-                  //****************************************************
-
-                  //*****************signup button**********************
-                  StoreConnector<AppState, _ViewModel>(
-                    vm: () => _Factory(this),
-                    builder: (BuildContext context, _ViewModel vm) =>
-                        LongButtonWidget(
-                      text: "Sign Up",
-                      login: () {
-                        if (_formKey.currentState!.validate()) {
-                          vm.dispatchSignUpAction(
-                            emailController.value.text.trim(),
-                            nameController.value.text.trim(),
-                            cellController.value.text.trim(),
-                            locationController.value.text.trim(),
-                            passwordController.value.text.trim(),
-                            true,
-                          );
-
-                          DialogHelper.display(
-                            context,
-                            PopupWidget(
-                              store: store,
-                            ),
-                          ); //trigger OTP popup
-                        }
-                      },
-                    ),
-                  ),
-                  //***************************************************
-
-                  //*****************"OR" divider"**********************
-                  SizedBox(
-                    height: 30,
-                    child: Row(
-                      children: const [
-                        Expanded(
-                          child: DividerWidget(),
-                        ),
-                        Text("or"),
-                        Expanded(
-                          child: DividerWidget(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  //****************************************************** */
-
-                  //*****************Sign in Link**********************
-                  StoreConnector<AppState, _ViewModel>(
-                    vm: () => _Factory(this),
-                    builder: (BuildContext context, _ViewModel vm) =>
-                        LinkWidget(
-                      text1: "Already have an account? ",
-                      text2: "Sign In",
-                      navigate: () => vm.pushLoginPage(),
-                    ),
-                  ),
-
-                  //******************************************************* */
-                  const Divider(
-                    height: 20,
-                    thickness: 0.5,
-                    indent: 15,
-                    endIndent: 10,
-                    color: Colors.transparent,
-                  ),
-                  //*******************sign in with text************************** */
-                  Column(
+                //*****************signup page****************************
+                SingleChildScrollView(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      SizedBox(
-                        height: 20,
+                    children: [
+                      //*****************heading*****************************
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
                         child: Text(
-                          'or sign up with:',
+                          'Sign Up',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontFamily: 'Segoe UI',
-                            fontSize: 12,
-                            color: Color(0x7df5fffa),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                            letterSpacing: 5,
                           ),
-                          softWrap: false,
                         ),
+                      ),
+                      //*************************************************
+
+                      //*****************form****************************
+                      Container(
+                        margin: const EdgeInsets.only(top: 10.0),
+                        padding: const EdgeInsets.all(20),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              //currently only created for consumer sign-up
+                              //*****************name**********************
+                              TextFieldWidget(
+                                  label: 'name',
+                                  obscure: false,
+                                  icon: Icons.account_circle_outlined,
+                                  controller: nameController,
+                                  validator: _createValidator(
+                                      "name",
+                                      "must only be letters",
+                                      RegExp(
+                                          r"/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u"))),
+                              //********************************************
+                              const TransparentDividerWidget(),
+                              //*****************email**********************
+                              TextFieldWidget(
+                                label: 'email',
+                                obscure: false,
+                                icon: Icons.mail_outline_rounded,
+                                controller: emailController,
+                                validator: _createValidator(
+                                    'email',
+                                    'is invalid',
+                                    RegExp(
+                                        r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
+                              ),
+                              //**********************************************
+                              const TransparentDividerWidget(),
+                              //*****************cellphone**********************
+                              TextFieldWidget(
+                                label: 'cellphone',
+                                obscure: false,
+                                icon: Icons.call_end_outlined,
+                                controller: cellController,
+                                validator: _createValidator('cellphone',
+                                    'can only contain numbers', RegExp(r'')),
+                              ),
+                              //**********************************************
+                              const TransparentDividerWidget(),
+                              //*****************location**********************
+                              TextFieldWidget(
+                                label: 'location',
+                                obscure: false,
+                                icon: Icons.add_location_outlined,
+                                controller: locationController,
+                              ),
+                              //**********************************************
+                              const TransparentDividerWidget(),
+                              //*****************password**********************
+                              TextFieldWidget(
+                                label: 'password',
+                                obscure: true,
+                                icon: Icons.lock_outline_rounded,
+                                controller: passwordController,
+                                validator: _createValidator(
+                                  'password',
+                                  'must be at least 8 characters with upper and lowercase, atleast one number and special character',
+                                  RegExp(
+                                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                                  ),
+                                ),
+                              ),
+                              //**********************************************
+                              const TransparentDividerWidget(),
+                              //*****************confirm password**********************
+                              TextFieldWidget(
+                                label: 'confirm password',
+                                obscure: true,
+                                icon: Icons.lock_outline_rounded,
+                                controller: confirmController,
+                                validator: _createValidator(
+                                  'password',
+                                  'must be at least 8 characters with upper and lowercase, atleast one number and special character',
+                                  RegExp(
+                                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                                  ),
+                                ),
+                              ),
+                              //**********************************************
+                            ],
+                          ),
+                        ),
+                      ),
+                      //****************************************************
+
+                      //*****************signup button**********************
+                      StoreConnector<AppState, _ViewModel>(
+                        vm: () => _Factory(this),
+                        builder: (BuildContext context, _ViewModel vm) =>
+                            LongButtonWidget(
+                          text: "Sign Up",
+                          login: () {
+                            if (_formKey.currentState!.validate()) {
+                              vm.dispatchSignUpAction(
+                                emailController.value.text.trim(),
+                                nameController.value.text.trim(),
+                                cellController.value.text.trim(),
+                                locationController.value.text.trim(),
+                                passwordController.value.text.trim(),
+                                true,
+                              );
+
+                              DialogHelper.display(
+                                context,
+                                PopupWidget(
+                                  store: store,
+                                ),
+                              ); //trigger OTP popup
+                            }
+                          },
+                        ),
+                      ),
+                      //***************************************************
+
+                      //*****************"OR" divider"**********************
+                      SizedBox(
+                        height: 30,
+                        child: Row(
+                          children: const [
+                            Expanded(
+                              child: DividerWidget(),
+                            ),
+                            Text("or"),
+                            Expanded(
+                              child: DividerWidget(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      //****************************************************** */
+
+                      //*****************Sign in Link**********************
+                      StoreConnector<AppState, _ViewModel>(
+                        vm: () => _Factory(this),
+                        builder: (BuildContext context, _ViewModel vm) =>
+                            LinkWidget(
+                          text1: "Already have an account? ",
+                          text2: "Sign In",
+                          navigate: () => vm.pushLoginPage(),
+                        ),
+                      ),
+
+                      //******************************************************* */
+                      const Divider(
+                        height: 20,
+                        thickness: 0.5,
+                        indent: 15,
+                        endIndent: 10,
+                        color: Colors.transparent,
+                      ),
+                      //*******************sign in with text************************** */
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          SizedBox(
+                            height: 20,
+                            child: Text(
+                              'or sign up with:',
+                              style: TextStyle(
+                                fontFamily: 'Segoe UI',
+                                fontSize: 12,
+                                color: Color(0x7df5fffa),
+                              ),
+                              softWrap: false,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                //******************************************************* */
+              ],
             ),
-            //******************************************************* */
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
 
