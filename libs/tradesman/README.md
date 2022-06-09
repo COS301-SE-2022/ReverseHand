@@ -10,30 +10,20 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
+# Tradesman Library
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+This library contains the code for all Tradesman related pages and files. 
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Structure
+- populate_advert.dart = containing code for displaying adverts on the tradesman opening screen
+- populate_bids.dart = containing code for displaying competitors bids on the job details view
+- advert_details.dart = contains code for displaying detailed adverts
+- tradesman_listings.dart = contains code for displaying different job listings on tradesman page
+- widgets folder = containing place_bid_popup.dart containing the code for the popup allowing a tradesman to place a bid
+- test folder = containing unit tests for library
 
-## Getting started
+![image](https://user-images.githubusercontent.com/83949715/172946475-8c54134f-f9b8-44cf-ab4d-38aa570d423c.png)
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
