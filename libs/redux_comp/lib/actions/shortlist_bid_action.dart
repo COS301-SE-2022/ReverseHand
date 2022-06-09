@@ -44,6 +44,7 @@ class ShortlistBidAction extends ReduxAction<AppState> {
       }
 
       return state.replace(
+        change: !state.change,
         user: state.user!.replace(
           bids: bids,
           shortlistBids: shortListBids,

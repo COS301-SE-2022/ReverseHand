@@ -4,6 +4,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
 import 'package:redux_comp/actions/view_adverts_action.dart';
+import 'package:redux_comp/actions/view_jobs_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
@@ -103,7 +104,7 @@ class LoginAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    await dispatch(ViewAdvertsAction(state.user!.id));
+    state.user!.userType == "Consumer" ? await dispatch(ViewAdvertsAction(state.user!.id)) : await dispatch(ViewJobsAction());
     dispatch(
         NavigateAction.pushNamed("/${state.user!.userType.toLowerCase()}"));
   } // we know that state wont be null
