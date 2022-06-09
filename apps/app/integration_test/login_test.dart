@@ -3,6 +3,7 @@ import 'package:authentication/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:general/widgets/card.dart';
+import 'package:general/widgets/quick_view_bid.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:general/widgets/tab.dart';
 import 'package:integration_test/integration_test.dart';
@@ -48,17 +49,69 @@ void main() {
     //now clicking the login button
     await tester.tap(login);
     await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 25), () {});
+    await Future.delayed(const Duration(seconds: 20), () {});
+    await tester.tap(login);
+
+    await Future.delayed(const Duration(seconds: 15), () {});
+    //await tester.tap(login);
+
+    await Future.delayed(const Duration(seconds: 6), () {});
 
     //Now on page showing all the adverts.
     var advert = find.widgetWithText(QuickViewJobCardWidget, "Painting");
     expect(advert, findsOneWidget);
 
+    await Future.delayed(const Duration(seconds: 6), () {});
+
     //click on the advert
     await tester.tap(advert);
     await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 3), () {});
+    await Future.delayed(const Duration(seconds: 10), () {});
+    await tester.tap(advert);
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 2), () {});
 
-    //get the active button
+    //get the active button and other buttons on screen
+    // var active = find.widgetWithText(TabWidget, "ACTIVE");
+    var active = find.text("ACTIVE");
+    expect(active, findsOneWidget);
+    // var shortlist1 = find.widgetWithText(TabWidget, "SHORTLIST");
+    var shortlist1 = find.text("SHORTLIST");
+    expect(shortlist1, findsOneWidget);
+    // var bid0 = find.widgetWithText(QuickViewBidWidget, "Bid 0");
+    var bid0 = find.text("Bid 0");
+    expect(bid0, findsOneWidget);
+
+    //press some buttons to demonstrate they work
+    await tester.tap(active); //deactivate
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 1), () {});
+
+    await tester.tap(active); //activate
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 1), () {});
+
+    await tester.tap(shortlist1); //activate
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 1), () {});
+
+    await tester.tap(shortlist1); //deactivate
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 1), () {});
+
+    //tap the Bid 0
+    await tester.tap(bid0);
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 2), () {});
+
+    //click the shortlist button
+    await tester.tap(shortlist1);
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 2), () {});
+
+    //go back to the last page
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 2), () {});
   });
 }
