@@ -10,30 +10,28 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
+# Authentication Library
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+This library contains the code for the login and sign-up pages. 
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Structure
+- login_page = contains all relevant login code
+- signup_page = contains all relevant sign-up code
+- widgets folder = containing all shared widgets files (such as button.dart, textfield.dart, etc.)
+- tests = containing relevant unit tests
+- assets = containining logo and other relevant images
+- ![image](https://user-images.githubusercontent.com/83949715/172945069-62be4421-399c-4fef-9b5a-37d376b5d8bb.png)
 
-## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Login and Sign-Up UI Screens
+#### Login 
+<img height="450px" src="https://user-images.githubusercontent.com/83949715/172944903-63230718-ef38-492b-9903-879365c1d2f9.png" /> 
 
-## Usage
+#### Sign-Up
+<img height="450px" src="https://user-images.githubusercontent.com/83949715/172944941-2c08aed2-8755-4ef8-87c8-01f7e1fef7bc.png" /> 
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
 
-```dart
-const like = 'sample';
-```
 
-## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
