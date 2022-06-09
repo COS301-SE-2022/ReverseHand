@@ -32,19 +32,19 @@ class AdvertDetailsPage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
                   //*******************************************//
 
-                  //**********BACK BUTTON*********************//
-                  BackButton(
-                    color: Colors.white,
-                    onPressed: () => vm.popPage(),
-                  ),
-                  //*******************************************//
-
                   //**********DETAILED JOB INFORMATION***********//
                   JobCardWidget(
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
                     date: vm.advert.dateCreated,
                     // location: advert.location ?? "",
+                  ),
+                  //*******************************************//
+
+                  //**********BACK BUTTON*********************//
+                  BackButton(
+                    color: Colors.white,
+                    onPressed: () => vm.popPage(),
                   ),
                   //*******************************************//
 

@@ -26,17 +26,9 @@ class CreateNewAdvertPage extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                //**********PADDING FOR TOP**********************//
+                //*******************PADDING FROM TOP*********************//
                 const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
-                //***********************************************//
-
-                //**********BACKBUTTON**************************//
-                StoreConnector<AppState, _ViewModel>(
-                  vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) => BackButton(
-                      color: Colors.white, onPressed: vm.pushConsumerListings),
-                ),
-                //************************************************//
+                //********************************************************//
 
                 //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
                 Padding(
@@ -56,6 +48,18 @@ class CreateNewAdvertPage extends StatelessWidget {
                   ),
                 ),
                 //*************************************************//
+
+                //**********BACKBUTTON**************************//
+                StoreConnector<AppState, _ViewModel>(
+                  vm: () => _Factory(this),
+                  builder: (BuildContext context, _ViewModel vm) => BackButton(
+                      color: Colors.white, onPressed: vm.pushConsumerListings),
+                ),
+                //************************************************//
+
+                //***********PADDING BETWEEN BACK BUTTON AND CREATE JOB BUTTON*************//
+                const Padding(padding: EdgeInsets.all(10)),
+                //********************************************************//
 
                 //**********CREATE NEW JOB BUTTON*****************//
                 StoreConnector<AppState, _ViewModel>(
