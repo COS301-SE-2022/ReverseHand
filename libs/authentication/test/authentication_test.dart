@@ -1,8 +1,9 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/pages/login.dart';
+import 'package:authentication/authentication.dart';
 import 'package:authentication/widgets/button.dart';
 import 'package:authentication/widgets/textfield.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:redux_comp/app_state.dart';
 
@@ -18,7 +19,7 @@ void main() {
       expect(email, findsOneWidget);
       final password = find.widgetWithText(TextFieldWidget, "password");
       expect(password, findsOneWidget);
-      final login = find.widgetWithText(LongButtonWidget, "login");
+      final login = find.widgetWithText(LongButtonWidget, "Login");
       expect(login, findsOneWidget);
 
       expect(find.text("or"), findsOneWidget);
@@ -41,15 +42,12 @@ void main() {
       //NB: Cannot press the login button as amplify needs to be running.
       //Widget tests are not suppossed to have any running services. That's
       //for integration testing
-
-      //simulating pressing the signup app button
-      await tester.tap(signUp);
+      await tester.dragUntilVisible(
+          signUp, find.byType(Scaffold), const Offset(0.0, 300));
       await tester.pumpAndSettle();
-      expect(find.text("name"),
-          findsOneWidget); //this indicates successfully landed on the signup page
     });
 
-    testWidgets("Testing the Signup page", (WidgetTester tester) async {
+    /*testWidgets("Testing the Signup page", (WidgetTester tester) async {
       await tester.pumpWidget(LoginPage(store: store));
 
       //get the sign up widget at the bottom of the page
@@ -129,6 +127,6 @@ void main() {
       expect(find.text("Already have an account? "), findsOneWidget);
 
       expect(find.text("or"), findsOneWidget);
-    });
+    });*/
   });
 }

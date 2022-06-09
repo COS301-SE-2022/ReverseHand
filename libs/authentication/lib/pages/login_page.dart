@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
-          body: Stack(
+          body: ListView(
             children: <Widget>[
               //*****************Top circle blur**********************
               const CircleBlurWidget(),
