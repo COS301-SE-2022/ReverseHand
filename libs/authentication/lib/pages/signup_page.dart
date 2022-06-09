@@ -187,6 +187,8 @@ class SignUpPage extends StatelessWidget {
                               RegExp(
                                 r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
                               ),
+                            ),
+                          ),
                               //**********************************************
                               const TransparentDividerWidget(),
                               //*****************confirm password**********************

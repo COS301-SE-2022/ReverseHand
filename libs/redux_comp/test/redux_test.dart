@@ -32,6 +32,7 @@ void main() {
   UserModel user = const UserModel(
       id: '001',
       email: 'some@example.com',
+      name: 'someone',
       userType: 'Consumer',
       bids: [],
       shortlistBids: [],
