@@ -38,7 +38,7 @@ class LoginAction extends ReduxAction<AppState> {
       /* Since fetching user attributes is async, it returns the attributes unordered */
       /* This simple for loop & case statement will iterate through the list and check the attribute key */
       /* to assign it to the correct vairable */
-      String id = "", username = "", userType = "";
+      String id = "", username = "", userType = "", name = "";
       for (var attr in userAttr) {
         switch (attr.userAttributeKey.key) {
           case "sub":
@@ -46,6 +46,9 @@ class LoginAction extends ReduxAction<AppState> {
             break;
           case "email":
             username = attr.value;
+            break;
+          case "name":
+            name = attr.value;
             break;
           case "family_name":
             userType = attr.value;
@@ -57,6 +60,7 @@ class LoginAction extends ReduxAction<AppState> {
         user: UserModel(
           id: userType == "Consumer" ? "c#$id" : "t#$id",
           email: username,
+          name: name,
           userType: userType,
           bids: const [],
           shortlistBids: const [],

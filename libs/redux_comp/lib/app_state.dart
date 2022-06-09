@@ -27,6 +27,7 @@ class AppState {
       user: UserModel(
         id: "",
         email: "",
+        name: "",
         userType: "userType",
         bids: [],
         shortlistBids: [],
@@ -45,6 +46,7 @@ class AppState {
       user: UserModel(
         id: "0",
         email: "some@email.com",
+        name: "Someone",
         userType: "confirmed",
         bids: [],
         viewBids: [],
