@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 @immutable
 class BidModel {
   final String id;
+  final String? name;
   final String userId;
   final int priceLower;
   final int priceUpper;
@@ -16,6 +17,7 @@ class BidModel {
     required this.priceLower,
     required this.priceUpper,
     this.quote,
+    this.name,
     required this.dateCreated,
     this.dateClosed,
   });

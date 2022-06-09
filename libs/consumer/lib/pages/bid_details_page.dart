@@ -32,7 +32,7 @@ class BidDetailsPage extends StatelessWidget {
                 //**********************BACK BUTTON**********************//
                 BackButton(
                   color: Colors.white,
-                  onPressed: () => vm.popPage,
+                  onPressed: () => vm.popPage(),
                 ),
 
                 //********************************************************//
