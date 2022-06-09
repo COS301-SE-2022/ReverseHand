@@ -66,5 +66,5 @@ class ViewBidsAction extends ReduxAction<AppState> {
 
   @override
   void after() => dispatch(NavigateAction.pushNamed(
-      "/consumer/advert_details")); // move to page after action completes
+      "/${state.user!.userType.toLowerCase()}/advert_details")); // move to page after action completes
 }

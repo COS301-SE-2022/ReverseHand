@@ -14,6 +14,9 @@ type Query {
 
   viewAdverts(user_id: String!): [Advert]!
   @function(name: "viewAdvertsResolver-${env}")
+
+  viewJobs: [Advert]!
+  @function(name: "viewJobsResolver-${env}")
 }
 
 type Mutation {
