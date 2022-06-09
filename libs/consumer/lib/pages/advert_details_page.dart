@@ -8,7 +8,6 @@ import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/toggle_view_bids_action.dart';
-
 import '../methods/populate_bids.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
