@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import '../app_state.dart';
@@ -14,6 +13,7 @@ class ShortlistBidAction extends ReduxAction<AppState> {
     String graphQLDocument = '''mutation {
       shortListBid(ad_id: "${state.user!.activeAd!.id}", bid_id: "${state.user!.activeBid!.id}") {
         id
+        name
         user_id
         price_lower
         price_upper
@@ -35,13 +35,9 @@ class ShortlistBidAction extends ReduxAction<AppState> {
           BidModel.fromJson(jsonDecode(response.data)['shortListBid']);
       shortListBids.add(shortListedBid);
 
-      List<BidModel> bids = [];
-
-      for (BidModel bid in store.state.user!.bids) {
-        if (bid.id != state.user!.activeBid!.id) {
-          bids.add(bid);
-        }
-      }
+      List<BidModel> bids = store.state.user!.bids;
+      bids.removeWhere(
+          (element) => element.id == store.state.user!.activeBid!.id);
 
       return state.replace(
         change: !state.change,
@@ -49,6 +45,7 @@ class ShortlistBidAction extends ReduxAction<AppState> {
           bids: bids,
           shortlistBids: shortListBids,
           activeBid: shortListedBid,
+          viewBids: bids + shortListBids,
         ),
       );
     } catch (e) {
