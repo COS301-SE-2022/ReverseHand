@@ -4,6 +4,7 @@ import 'package:redux_comp/models/bid_model.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+import '../models/advert_model.dart';
 
 // pass in the advert id whos bids you want to see
 class ViewBidsAction extends ReduxAction<AppState> {
@@ -16,7 +17,6 @@ class ViewBidsAction extends ReduxAction<AppState> {
     String graphQLDocument = '''query {
       viewBids(ad_id: "$adId") {
         id
-        advert_id
         user_id
         price_lower
         price_upper
@@ -47,14 +47,24 @@ class ViewBidsAction extends ReduxAction<AppState> {
         }
       }
 
+      final AdvertModel ad =
+          state.user!.adverts.firstWhere((element) => element.id == adId);
+
       return state.replace(
         user: state.user!.replace(
           bids: bids,
           shortlistBids: shortlistedBids,
+          viewBids: bids + shortlistedBids,
+          activeAd: ad, // setting the active ad
         ),
       );
     } catch (e) {
-      return state;
+      return null; /* On Error do not modify state */
+
     }
   }
+
+  @override
+  void after() => dispatch(NavigateAction.pushNamed(
+      "/${state.user!.userType.toLowerCase()}/advert_details")); // move to page after action completes
 }

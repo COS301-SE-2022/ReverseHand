@@ -1,32 +1,29 @@
-// import 'package:amplify/models/Advert.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/authentication.dart';
-import 'package:consumer/pages/job_listings.dart';
+import 'package:authentication/widgets/circle_blur_widget.dart';
+import 'package:authentication/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
-import 'package:redux_comp/actions/login_action.dart';
-import 'package:redux_comp/app_state.dart';
-import 'package:tradesman/pages/job_listings.dart';
-import 'dart:ui';
+import 'package:redux_comp/actions/init_amplify_action.dart';
+import 'package:redux_comp/redux_comp.dart';
 import '../widgets/button.dart';
 import '../widgets/link.dart';
-import '../widgets/textfield.dart';
 
-class Login extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   final Store<AppState> store;
-  Login({Key? key, required this.store}) : super(key: key);
+  LoginPage({Key? key, required this.store}) : super(key: key);
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    // confugures amplify
+    if (!Amplify.isConfigured) {
+      store.dispatch(InitAmplifyAction());
+    }
+
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
@@ -35,48 +32,13 @@ class Login extends StatelessWidget {
           body: Stack(
             children: <Widget>[
               //*****************Top circle blur**********************
-              Container(
-                width: 100,
-                height: 100,
-                margin: const EdgeInsets.all(0),
-                padding: const EdgeInsets.only(top: 2),
-                alignment: Alignment.topLeft,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(243, 157, 55, 1),
-                  borderRadius:
-                      BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
-                  child: Container(
-                    decoration:
-                        BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                  ),
-                ),
-              ),
+              const CircleBlurWidget(),
               //*******************************************************
 
               //*****************Bottom circle blur**********************
-              Align(
+              const Align(
                 alignment: Alignment.bottomRight,
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  margin: const EdgeInsets.all(0),
-                  padding: const EdgeInsets.only(top: 2),
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(243, 157, 55, 1),
-                    borderRadius:
-                        BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
-                  ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
-                    child: Container(
-                      decoration:
-                          BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                    ),
-                  ),
-                ),
+                child: CircleBlurWidget(),
               ),
               //******************************************************* */
 
@@ -93,14 +55,15 @@ class Login extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //*****************LOGO*****************************
-                  // Align(
-                  //   alignment: Alignment.topCenter,
-                  //   child: Image.asset(
-                  //     'assets/images/logo.png',
-                  //     height: 250,
-                  //     width: 250
-                  //   ),
-                  // ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: 250,
+                      width: 250,
+                      package: 'authentication',
+                    ),
+                  ),
                   //*************************************************
 
                   //*****************form****************************
@@ -111,10 +74,11 @@ class Login extends StatelessWidget {
                       children: <Widget>[
                         //*****************email**********************
                         TextFieldWidget(
-                            label: 'email',
-                            obscure: false,
-                            icon: Icons.mail_outline_rounded,
-                            controller: emailController),
+                          label: 'email',
+                          obscure: false,
+                          icon: Icons.mail_outline_rounded,
+                          controller: emailController,
+                        ),
                         //********************************************
                         const Divider(
                           height: 20,
@@ -138,41 +102,19 @@ class Login extends StatelessWidget {
 
                   //*****************login button**********************
 
-                  StoreConnector<AppState, VoidCallback>(converter: (store) {
-                    return () async {
-                      store.dispatch(
-                        // LogoutAction()
-                        LoginAction(
+                  StoreConnector<AppState, _ViewModel>(
+                    vm: () => _Factory(this),
+                    builder: (BuildContext context, _ViewModel vm) =>
+                        LongButtonWidget(
+                      text: "Login",
+                      login: () {
+                        vm.dispatchLoginAction(
                           emailController.value.text.trim(),
                           passwordController.value.text.trim(),
-                        ),
-                      );
-                    };
-                  }, builder: (context, callback) {
-                    return LongButtonWidget(
-                      text: "login",
-                      login: () {
-                        callback();
-                        if (store.state.user == null) {
-                        } else if (store.state.user!.userType == "Consumer") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ConsumerListings(store: store),
-                            ),
-                          );
-                        } else if (store.state.user!.userType == "Tradesman") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  TradesmanJobListings(store: store),
-                            ),
-                          );
-                        }
+                        );
                       },
-                    );
-                  }),
+                    ),
+                  ),
                   //***************************************************
 
                   //*****************"OR" divider"**********************
@@ -193,16 +135,15 @@ class Login extends StatelessWidget {
                   //****************************************************** */
 
                   //*****************Sign up Link**********************
-                  LinkWidget(
+                  StoreConnector<AppState, _ViewModel>(
+                    vm: () => _Factory(this),
+                    builder: (BuildContext context, _ViewModel vm) =>
+                        LinkWidget(
                       text1: "Don't have an account? ",
                       text2: "Sign Up",
-                      navigate: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => SignUpPage(store: store)),
-                            )
-                          }),
+                      navigate: () => vm.pushSignUpPage(),
+                    ),
+                  ),
                   //******************************************************* */
 
                   //*****************Sign up Link**********************
@@ -243,4 +184,28 @@ class Login extends StatelessWidget {
       ),
     );
   }
+}
+
+// factory for view model
+class _Factory extends VmFactory<AppState, LoginPage> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+        pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/signup')),
+        dispatchLoginAction: (String email, String password) => dispatch(
+          LoginAction(email, password),
+        ),
+      );
+}
+
+// view model
+class _ViewModel extends Vm {
+  final void Function(String, String) dispatchLoginAction;
+  final VoidCallback pushSignUpPage;
+
+  _ViewModel({
+    required this.dispatchLoginAction,
+    required this.pushSignUpPage,
+  }); // implementinf hashcode
 }
