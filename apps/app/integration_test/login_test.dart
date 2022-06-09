@@ -1,11 +1,6 @@
-import 'package:authentication/widgets/button.dart';
-import 'package:authentication/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:general/widgets/card.dart';
-import 'package:general/widgets/quick_view_bid.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
-import 'package:general/widgets/tab.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
@@ -27,18 +22,18 @@ void main() {
     const passowrd = "Consumer#01";
 
     //get the widgets to enter text and login button
-    var _email = find.widgetWithText(TextFormField, "email");
-    expect(_email, findsOneWidget);
-    var _password = find.widgetWithText(TextFormField, "password");
-    expect(_password, findsOneWidget);
+    var email_ = find.widgetWithText(TextFormField, "email");
+    expect(email_, findsOneWidget);
+    var password_ = find.widgetWithText(TextFormField, "password");
+    expect(password_, findsOneWidget);
     var login = find.widgetWithText(ElevatedButton, "Login");
     expect(login, findsOneWidget);
 
     //now entering the values in the fields
-    await tester.enterText(_email, email);
+    await tester.enterText(email_, email);
     await tester.pumpAndSettle();
 
-    await tester.enterText(_password, passowrd);
+    await tester.enterText(password_, passowrd);
     await tester.pumpAndSettle();
 
     //scrolling a bit
