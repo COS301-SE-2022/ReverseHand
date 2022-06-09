@@ -12,12 +12,24 @@
     🎥
     <a href="https://drive.google.com/file/d/19QPdKOJYpkuIWU2AzhOgUYOry-I__beV/view?usp=sharing">CacheMoney-Demo1</a>
     | 📝
-    <a href="https://drive.google.com/file/d/1OLeDUd0gvCwrvpCdfkIVaZ8S64F_9DUM/view?usp=sharing">SRS Documentation</a>
+    <a href="https://drive.google.com/file/d/1OLeDUd0gvCwrvpCdfkIVaZ8S64F_9DUM/view?usp=sharing">SRS Documentation-V1</a>
     | 📋
     <a href="https://github.com/COS301-SE-2022/ReverseHand/projects/1">Project Board</a>
     | 🌐
     <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki</a>
-  </p>   <br />   <br />
+  </p>   <br/>
+  <p align="center">
+    🎥
+    <a href="https://github.com/COS301-SE-2022/ReverseHand">CacheMoney-Demo2</a>
+    | 📝
+    <a href="https://github.com/COS301-SE-2022/ReverseHand">SRS Documentation-V2</a>
+    | 📋
+    <a href="https://github.com/COS301-SE-2022/ReverseHand">User Manual</a>
+    | 🌐
+    <a href="https://github.com/COS301-SE-2022/ReverseHand">Coding Standards</a>
+  </p> 
+  
+  <br />   <br />
 
 <div class="img-container" align="center"> 
   <img height="50px" src="https://user-images.githubusercontent.com/83949715/168064805-34d473b7-d845-4740-a9a0-a7a754725a85.png" /> <br/> <br/>
