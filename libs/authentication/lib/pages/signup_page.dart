@@ -127,15 +127,16 @@ class SignUpPage extends StatelessWidget {
                           //currently only created for consumer sign-up
                           //*****************name**********************
                           TextFieldWidget(
-                              label: 'name',
-                              obscure: false,
-                              icon: Icons.account_circle_outlined,
-                              controller: nameController,
-                              validator: _createValidator(
-                                  "name",
-                                  "must only be letters",
-                                  RegExp(
-                                      r"/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u"))),
+                            label: 'name',
+                            obscure: false,
+                            icon: Icons.account_circle_outlined,
+                            controller: nameController,
+                            // validator: _createValidator(
+                            //     "name",
+                            //     "must only be letters",
+                            //     RegExp(
+                            //         r"/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")),
+                          ),
                           //********************************************
                           const TransparentDividerWidget(),
                           //*****************email**********************
@@ -144,11 +145,11 @@ class SignUpPage extends StatelessWidget {
                             obscure: false,
                             icon: Icons.mail_outline_rounded,
                             controller: emailController,
-                            validator: _createValidator(
-                                'email',
-                                'is invalid',
-                                RegExp(
-                                    r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
+                            // validator: _createValidator(
+                            //     'email',
+                            //     'is invalid',
+                            //     RegExp(
+                            //         r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
                           ),
                           //**********************************************
                           const TransparentDividerWidget(),
@@ -158,8 +159,8 @@ class SignUpPage extends StatelessWidget {
                             obscure: false,
                             icon: Icons.call_end_outlined,
                             controller: cellController,
-                            validator: _createValidator('cellphone',
-                                'can only contain numbers', RegExp(r'')),
+                            // validator: _createValidator('cellphone',
+                            //     'can only contain numbers', RegExp(r'')),
                           ),
                           //**********************************************
                           const TransparentDividerWidget(),
@@ -178,13 +179,13 @@ class SignUpPage extends StatelessWidget {
                             obscure: true,
                             icon: Icons.lock_outline_rounded,
                             controller: passwordController,
-                            validator: _createValidator(
-                              'password',
-                              'must be at least 8 characters with upper and lowercase, atleast one number and special character',
-                              RegExp(
-                                r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                              ),
-                            ),
+                            // validator: _createValidator(
+                            //   'password',
+                            //   'must be at least 8 characters with upper and lowercase, atleast one number and special character',
+                            //   RegExp(
+                            //     r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                            //   ),
+                            // ),
                           ),
                           //**********************************************
                           const TransparentDividerWidget(),
@@ -194,13 +195,13 @@ class SignUpPage extends StatelessWidget {
                             obscure: true,
                             icon: Icons.lock_outline_rounded,
                             controller: confirmController,
-                            validator: _createValidator(
-                              'password',
-                              'must be at least 8 characters with upper and lowercase, atleast one number and special character',
-                              RegExp(
-                                r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                              ),
-                            ),
+                            // validator: _createValidator(
+                            //   'password',
+                            //   'must be at least 8 characters with upper and lowercase, atleast one number and special character',
+                            //   RegExp(
+                            //     r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                            //   ),
+                            // ),
                           ),
                           //**********************************************
                         ],
@@ -223,7 +224,7 @@ class SignUpPage extends StatelessWidget {
                             cellController.value.text.trim(),
                             locationController.value.text.trim(),
                             passwordController.value.text.trim(),
-                            true,
+                            false, // comment true for Consumer
                           );
 
                           DialogHelper.display(
