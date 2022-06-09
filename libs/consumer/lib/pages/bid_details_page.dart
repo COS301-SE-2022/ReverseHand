@@ -29,14 +29,6 @@ class BidDetailsPage extends StatelessWidget {
                 const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
                 //********************************************************//
 
-                //**********************BACK BUTTON**********************//
-                BackButton(
-                  color: Colors.white,
-                  onPressed: () => vm.popPage(),
-                ),
-
-                //********************************************************//
-
                 //***********************CARD*****************************//
                 CardWidget(
                   titleText: "MR J SMITH",
@@ -49,6 +41,19 @@ class BidDetailsPage extends StatelessWidget {
 
                 //***********PADDING BETWEEN CARD AND BUTTON*************//
                 const Padding(padding: EdgeInsets.all(10)),
+                //********************************************************//
+
+                //**********************BACK BUTTON**********************//
+                BackButton(
+                  color: Colors.white,
+                  onPressed: () => vm.popPage(),
+                ),
+
+                //********************************************************//
+
+                //***********PADDING BETWEEN BACK BUTTON AND ACCEPT*************//
+                const Padding(padding: EdgeInsets.all(10)),
+                //********************************************************//
 
                 //****************BUTTON TO SHORTLIST/ACCEPT**************//
                 ShortlistAcceptButtonWidget(
@@ -57,6 +62,7 @@ class BidDetailsPage extends StatelessWidget {
                       ? vm.dispatchAcceptBidAction()
                       : vm.dispatchShortListBidAction(),
                 ),
+                //********************************************************//
               ],
             ),
           ),
@@ -94,5 +100,5 @@ class _ViewModel extends Vm {
     required this.bid,
     required this.popPage,
     required this.change,
-  }):super(equals: [change]); // implementinf hashcode
+  }) : super(equals: [change]); // implementinf hashcode
 }
