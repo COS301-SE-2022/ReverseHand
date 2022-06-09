@@ -1,5 +1,6 @@
 import 'package:amplify/amplify.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 // import 'package:redux_comp/app_state.dart';
@@ -30,5 +31,30 @@ void main() {
       verified: 'DONE'
     ).verified, 'DONE');
   });
+
+  UserModel user = const UserModel(id: '001', email: 'some@example.com', userType: 'Consumer', bids: [], shortlistBids: [], viewBids: [], adverts: []);
+
+  test('Test to get UserId', () {
+    expect('001', user.id);
+  });
+
+  test('Test to get User Email', () {
+    expect('some@example.com', user.email);
+  });
+
+  test('Test to get UserType', () {
+    expect('Consumer', user.userType);
+  });  
+
+
+  test('Test to get UserAdverts', () {
+    expect([], user.adverts);
+  });  
+
+  AdvertModel ad = const AdvertModel(id: "a#001", title: "TestAd", dateCreated: 'today');
+
+  test('Test to add UserAdvert', () {
+    expect([ad], user.replace(adverts: [ad]).adverts);
+  });  
   
 }
