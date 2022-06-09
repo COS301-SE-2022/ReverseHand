@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:redux_comp/actions/logout_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -41,7 +42,7 @@ class TradesmanJobListings extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30.0))),
                       ),
-                      onPressed: () {},
+                      onPressed: () => vm.dispatchLogoutAction(),
                       child: const Text('Log Out'),
                     ),
                   ),
@@ -60,22 +61,16 @@ class _Factory extends VmFactory<AppState, TradesmanJobListings> {
   @override
   _ViewModel fromStore() => _ViewModel(
         adverts: state.user!.adverts,
+        dispatchLogoutAction: () => dispatch(LogoutAction()),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final List<AdvertModel> adverts;
+  final void Function() dispatchLogoutAction;
   _ViewModel({
     required this.adverts,
+    required this.dispatchLogoutAction,
   });
 }
-
-
-// Column populateAdverts(List<AdvertModel> adverts, BuildContext context) {
-//     List<Widget> quickViewJobCardWidgets = [];
-
-
-
-//     return Column(children: quickViewJobCardWidgets);
-//   }

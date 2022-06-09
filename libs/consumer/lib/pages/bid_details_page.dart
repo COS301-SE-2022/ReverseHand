@@ -32,7 +32,7 @@ class BidDetailsPage extends StatelessWidget {
                 //**********************BACK BUTTON**********************//
                 BackButton(
                   color: Colors.white,
-                  onPressed: () => vm.popPage,
+                  onPressed: () => vm.popPage(),
                 ),
 
                 //********************************************************//
@@ -76,6 +76,7 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
         bid: state.user!.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
+        change: state.change,
       );
 }
 
@@ -85,11 +86,13 @@ class _ViewModel extends Vm {
   final BidModel bid;
   final VoidCallback dispatchShortListBidAction;
   final VoidCallback dispatchAcceptBidAction;
+  final bool change;
 
   _ViewModel({
     required this.dispatchAcceptBidAction,
     required this.dispatchShortListBidAction,
     required this.bid,
     required this.popPage,
-  }); // implementinf hashcode
+    required this.change,
+  }):super(equals: [change]); // implementinf hashcode
 }

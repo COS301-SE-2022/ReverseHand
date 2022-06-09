@@ -78,7 +78,7 @@ class TradesmanJobDetails extends StatelessWidget {
                     function: () {
                       DialogHelper.display(
                         context,
-                        const PlaceBidPopupWidget(),
+                        PlaceBidPopupWidget(store: store),
                       ); //trigger Place Bid popup
                     },
                     text: 'Place Bid',
