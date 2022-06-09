@@ -6,10 +6,9 @@ List<Widget> populateBids(List<BidModel> bids) {
   List<Widget> quickViewBidWidgets = [];
 
   //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
-  for (int i = 0; i < bids.length; i++) {
+  for (BidModel bid in bids) {
     quickViewBidWidgets.add(QuickViewBidWidget(
-      name: "Bid $i",
-      bid: bids[i],
+      bid: bid,
     ));
   }
 
@@ -18,12 +17,10 @@ List<Widget> populateBids(List<BidModel> bids) {
 
 class QuickViewBidWidget extends StatelessWidget {
   final BidModel bid;
-  final String name;
 
   const QuickViewBidWidget({
     Key? key,
     required this.bid,
-    required this.name,
   }) : super(key: key);
 
   @override
@@ -39,7 +36,7 @@ class QuickViewBidWidget extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(20.0)),
         ),
         child: Text(
-          name,
+          '${bid.name} : ${bid.priceLower} - ${bid.priceUpper}',
           style: const TextStyle(fontSize: 25, color: Colors.white),
           textAlign: TextAlign.center,
         ),
