@@ -66,21 +66,29 @@ void main() {
     //click on the advert
     await tester.tap(advert);
     await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 10), () {});
-    await tester.tap(advert);
+    await Future.delayed(const Duration(seconds: 20), () {});
+
+    debugPrint("clicking advert for the 2nd time");
+    await tester.dragUntilVisible(
+        advert, find.byType(Scaffold), const Offset(0.0, 300));
     await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 2), () {});
+
+    //await tester.tap(advert);
+    //await tester.pumpAndSettle();
+    //await Future.delayed(const Duration(seconds: 2), () {});
 
     //get the active button and other buttons on screen
     // var active = find.widgetWithText(TabWidget, "ACTIVE");
     var active = find.text("ACTIVE");
     expect(active, findsOneWidget);
+    await Future.delayed(const Duration(seconds: 5), () {});
+
     // var shortlist1 = find.widgetWithText(TabWidget, "SHORTLIST");
     var shortlist1 = find.text("SHORTLIST");
     expect(shortlist1, findsOneWidget);
     // var bid0 = find.widgetWithText(QuickViewBidWidget, "Bid 0");
-    var bid0 = find.text("Bid 0");
-    expect(bid0, findsOneWidget);
+    //var bid0 = find.text("Bid 0");
+    //expect(bid0, findsOneWidget);
 
     //press some buttons to demonstrate they work
     await tester.tap(active); //deactivate
@@ -100,14 +108,14 @@ void main() {
     await Future.delayed(const Duration(seconds: 1), () {});
 
     //tap the Bid 0
-    await tester.tap(bid0);
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 2), () {});
+    //await tester.tap(bid0);
+    //await tester.pumpAndSettle();
+    //await Future.delayed(const Duration(seconds: 2), () {});
 
     //click the shortlist button
-    await tester.tap(shortlist1);
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 2), () {});
+    //await tester.tap(shortlist1);
+    //await tester.pumpAndSettle();
+    //await Future.delayed(const Duration(seconds: 2), () {});
 
     //go back to the last page
     await tester.pageBack();
