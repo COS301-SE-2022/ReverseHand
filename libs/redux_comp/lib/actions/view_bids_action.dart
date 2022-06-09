@@ -17,6 +17,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
     String graphQLDocument = '''query {
       viewBids(ad_id: "$adId") {
         id
+        name
         user_id
         price_lower
         price_upper

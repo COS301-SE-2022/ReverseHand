@@ -6,6 +6,7 @@ import '../bid_model.dart';
 class UserModel {
   final String id;
   final String email;
+  final String name;
   final String userType;
   final List<BidModel> bids;
   final List<BidModel> shortlistBids;
@@ -19,6 +20,7 @@ class UserModel {
   const UserModel({
     required this.id,
     required this.email,
+    required this.name,
     required this.userType,
     required this.bids,
     required this.shortlistBids,
@@ -31,6 +33,7 @@ class UserModel {
   UserModel replace({
     String? id,
     String? email,
+    String? name,
     String? userType,
     List<BidModel>? bids,
     List<BidModel>? shortlistBids,
@@ -42,6 +45,7 @@ class UserModel {
     return UserModel(
       id: id ?? this.id,
       email: email ?? this.email,
+      name: name ?? this.name,
       userType: userType ?? this.userType,
       bids: bids ?? this.bids,
       shortlistBids: shortlistBids ?? this.shortlistBids,

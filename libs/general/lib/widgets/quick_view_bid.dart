@@ -7,12 +7,10 @@ import 'package:redux_comp/models/bid_model.dart';
 class QuickViewBidWidget extends StatelessWidget {
   final BidModel bid;
   final Store<AppState> store;
-  final String name;
 
   const QuickViewBidWidget({
     Key? key,
     required this.store,
-    required this.name,
     required this.bid,
   }) : super(key: key);
 
@@ -35,7 +33,7 @@ class QuickViewBidWidget extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(20.0)),
               ),
               child: Text(
-                name,
+                '${bid.name} : ${bid.priceLower} - ${bid.priceUpper}',
                 style: const TextStyle(fontSize: 25, color: Colors.white),
                 textAlign: TextAlign.center,
               ),

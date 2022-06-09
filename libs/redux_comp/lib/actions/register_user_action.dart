@@ -23,6 +23,7 @@ class RegisterUserAction extends ReduxAction<AppState> {
       /* For now we are using familyName to specify user type in future we will create a custome attribute */
       Map<CognitoUserAttributeKey, String> userAttributes = {
         CognitoUserAttributeKey.email: username,
+        CognitoUserAttributeKey.name: name,
         CognitoUserAttributeKey.familyName: userType ? 'Consumer' : 'Tradesman',
       };
 
