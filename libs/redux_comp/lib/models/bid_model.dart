@@ -30,6 +30,7 @@ class BidModel {
     return BidModel(
       id: obj['id'],
       userId: obj['user_id'],
+      name: obj['name'],
       priceLower: obj['price_lower'],
       priceUpper: obj['price_upper'],
       quote: obj['quote'],
