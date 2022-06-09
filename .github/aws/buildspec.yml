@@ -15,8 +15,7 @@ phases:
       - npm install
   build:
     commands:
-       - echo Build started on `date`
-    #Building the apk for the application
+      - echo Build started on `date`
       - npx nx run app:buildApk
   post_build:
     commands:
