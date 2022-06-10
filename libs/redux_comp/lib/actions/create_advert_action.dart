@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/job_type.dart';
@@ -62,6 +61,5 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() => dispatch(NavigateAction.pushNamed(
-      "/consumer"));
+  void after() => dispatch(NavigateAction.pushNamed("/consumer"));
 }

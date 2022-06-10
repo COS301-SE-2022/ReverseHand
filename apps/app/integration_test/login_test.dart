@@ -44,24 +44,24 @@ void main() {
     //now clicking the login button
     await tester.tap(login);
     await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 20), () {});
+    await Future.delayed(const Duration(seconds: 5), () {});
     await tester.tap(login);
 
-    await Future.delayed(const Duration(seconds: 15), () {});
+    await Future.delayed(const Duration(seconds: 5), () {});
     //await tester.tap(login);
 
-    await Future.delayed(const Duration(seconds: 6), () {});
+    await Future.delayed(const Duration(seconds: 5), () {});
 
     //Now on page showing all the adverts.
     var advert = find.widgetWithText(QuickViewJobCardWidget, "Painting");
     expect(advert, findsOneWidget);
 
-    await Future.delayed(const Duration(seconds: 6), () {});
+    await Future.delayed(const Duration(seconds: 5), () {});
 
     //click on the advert
     await tester.tap(advert);
     await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 20), () {});
+    await Future.delayed(const Duration(seconds: 5), () {});
 
     debugPrint("clicking advert for the 2nd time");
     await tester.dragUntilVisible(
