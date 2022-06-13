@@ -31,7 +31,7 @@ class ConsumerListingsPage extends StatelessWidget {
                   // populating column with adverts
                   ...populateAdverts(vm.adverts, store),
 
-                  // button to create a new advert
+                  // button to create a new advert - WILL MOVE TO BOTTOM NAV
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
@@ -57,6 +57,38 @@ class ConsumerListingsPage extends StatelessWidget {
               ),
             ),
           ),
+          //the colour of navigation should change! this does not work yet
+          // bottomNavigationBar: BottomNavigationBar(
+          //   items: <BottomNavigationBarItem>[
+          //     BottomNavigationBarItem(
+          //         icon: const Icon(Icons.home),
+          //         label: 'Home',
+          //         backgroundColor: CustomTheme.darkTheme.primaryColorDark),
+          //     const BottomNavigationBarItem(
+          //       icon: Icon(Icons.business),
+          //       label: 'Business',
+          //       backgroundColor: Color.fromARGB(255, 27, 32, 27),
+          //     ),
+          //     const BottomNavigationBarItem(
+          //       icon: Icon(Icons.school),
+          //       label: 'School',
+          //       backgroundColor: Colors.purple,
+          //     ),
+          //     const BottomNavigationBarItem(
+          //       icon: Icon(Icons.settings),
+          //       label: 'Settings',
+          //       backgroundColor: Colors.pink,
+          //     ),
+          //     const BottomNavigationBarItem(
+          //       icon: Icon(Icons.settings),
+          //       label: 'Settings',
+          //       backgroundColor: Colors.pink,
+          //     ),
+          //   ],
+          //   // currentIndex: _selectedIndex,
+          //   // selectedItemColor: Colors.amber[800],
+          //   // onTap: _onItemTapped,
+          // ),
         ),
       ),
     );
