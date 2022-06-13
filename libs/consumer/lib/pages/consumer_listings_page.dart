@@ -24,7 +24,9 @@ class ConsumerListingsPage extends StatelessWidget {
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
-                  const Padding(padding: EdgeInsets.only(top: 20)),
+                  //*******************PADDING FROM TOP*********************//
+                  const Padding(padding: EdgeInsets.only(top: 50)),
+                  //********************************************************//
 
                   // populating column with adverts
                   ...populateAdverts(vm.adverts, store),

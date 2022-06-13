@@ -27,7 +27,7 @@ class CreateNewAdvertPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 //*******************PADDING FROM TOP*********************//
-                const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
+                const Padding(padding: EdgeInsets.only(top: 50)),
                 //********************************************************//
 
                 //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
