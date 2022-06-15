@@ -14,7 +14,7 @@
     | 📝
     <a href="https://drive.google.com/file/d/1OLeDUd0gvCwrvpCdfkIVaZ8S64F_9DUM/view?usp=sharing">SRS Documentation-V1</a>
     | 📋
-    <a href="https://github.com/COS301-SE-2022/ReverseHand/projects/1">Project Board</a>
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/projects/5">Project Board</a>
     | 🌐
     <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki</a>
   </p>   <br/>
