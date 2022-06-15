@@ -68,10 +68,11 @@ jobs:
 
     #Including the Flutter action
       - name: Setup flutter
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2
         with: 
           channel: stable
           flutter-version: ${{ env.flutter_version }}
+          architecture: x64
     #Try to execute tests
       - name: Test affected
         if: inputs.test == 'affected' && inputs.testType == 'test'
