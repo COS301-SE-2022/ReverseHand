@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//should be converted to stateless
+
 class NavBarWidget extends StatefulWidget {
   const NavBarWidget({
     Key? key,
@@ -10,19 +12,14 @@ class NavBarWidget extends StatefulWidget {
 }
 
 class _NavBarWidgetState extends State<NavBarWidget> {
-  int index = 0;
-  final pages = [
-    //add pages here
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            topRight: Radius.circular(20), topLeft: Radius.circular(20)),
         boxShadow: [
-          BoxShadow(color: Colors.black, spreadRadius: 0, blurRadius: 10),
+          BoxShadow(color: Colors.black, spreadRadius: 0, blurRadius: 6),
         ],
       ),
       child: ClipRRect(
@@ -33,10 +30,10 @@ class _NavBarWidgetState extends State<NavBarWidget> {
         child: BottomAppBar(
             color: Theme.of(context).primaryColorDark,
             shape: const CircularNotchedRectangle(),
-            notchMargin: 7,
+            notchMargin: 5,
             child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 IconButton(
                   icon: const Icon(
@@ -44,6 +41,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     color: Colors.white,
                   ),
                   onPressed: () {},
+                  splashRadius: 30,
+                  highlightColor: Colors.orange,
+                  splashColor: Colors.white,
                 ),
                 IconButton(
                   icon: const Icon(
@@ -51,6 +51,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     color: Colors.white,
                   ),
                   onPressed: () {},
+                  splashRadius: 30,
+                  highlightColor: Colors.orange,
+                  splashColor: Colors.white,
                 ),
                 IconButton(
                   icon: const Icon(
@@ -58,6 +61,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     color: Colors.white,
                   ),
                   onPressed: () {},
+                  splashRadius: 30,
+                  highlightColor: Colors.orange,
+                  splashColor: Colors.white,
                 ),
                 IconButton(
                   icon: const Icon(
@@ -65,63 +71,12 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     color: Colors.white,
                   ),
                   onPressed: () {},
+                  splashRadius: 30,
+                  highlightColor: Colors.orange,
+                  splashColor: Colors.white,
                 ),
               ],
             )),
-        // child: NavigationBar(
-
-        //     height: 60,
-        //     selectedIndex: index,
-        //     backgroundColor: Theme.of(context).primaryColorDark,
-        //     onDestinationSelected: (index) =>
-        //         setState(() => this.index = index),
-        //     destinations: const [
-        //       //AT LEAST 2 NAVIGATION DESTINATIONS MUST BE PRESENT
-        //       NavigationDestination(
-        //         icon: Icon(
-        //           Icons.email_outlined,
-        //           color: Colors.white,
-        //         ),
-        //         selectedIcon: Icon(
-        //           Icons.email,
-        //           color: Colors.white,
-        //         ),
-        //         label: "first",
-        //       ),
-        //       NavigationDestination(
-        //         icon: Icon(
-        //           Icons.email_outlined,
-        //           color: Colors.white,
-        //         ),
-        //         selectedIcon: Icon(
-        //           Icons.email,
-        //           color: Colors.white,
-        //         ),
-        //         label: "first",
-        //       ),
-        //       NavigationDestination(
-        //         icon: Icon(
-        //           Icons.email_outlined,
-        //           color: Colors.white,
-        //         ),
-        //         selectedIcon: Icon(
-        //           Icons.email,
-        //           color: Colors.white,
-        //         ),
-        //         label: "first",
-        //       ),
-        //       NavigationDestination(
-        //         icon: Icon(
-        //           Icons.email_outlined,
-        //           color: Colors.white,
-        //         ),
-        //         selectedIcon: Icon(
-        //           Icons.email,
-        //           color: Colors.white,
-        //         ),
-        //         label: "first",
-        //       ),
-        // ]),
       ),
     );
   }
