@@ -15,7 +15,7 @@ on:
 jobs:
   test:
     name: Unit and Widget Tests
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         api-level: [29]
@@ -72,7 +72,6 @@ jobs:
         with: 
           channel: stable
           flutter-version: ${{ env.flutter_version }}
-          architecture: arm64
     #Try to execute tests
       - name: Test affected
         if: inputs.test == 'affected' && inputs.testType == 'test'
