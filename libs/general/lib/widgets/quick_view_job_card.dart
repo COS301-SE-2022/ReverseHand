@@ -38,7 +38,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     // mainAxisSize: MainAxisSize.min,
                     children: [
-                      //not working ?
+                      //not working yet?
                       Text(advert.title,
                           style: const TextStyle(
                               fontFamily: 'Futura',

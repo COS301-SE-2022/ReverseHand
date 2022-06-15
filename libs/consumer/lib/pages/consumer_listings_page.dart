@@ -13,8 +13,6 @@ class ConsumerListingsPage extends StatelessWidget {
   //*****Calls method display all active jobs made by a consumer*****//
   @override
   Widget build(BuildContext context) {
-    double height = (MediaQuery.of(context).size.height) / 3;
-
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
@@ -31,33 +29,22 @@ class ConsumerListingsPage extends StatelessWidget {
 
                   // populating column with adverts
                   ...populateAdverts(vm.adverts, store),
-
-                  // button to create a new advert - WILL MOVE TO BOTTOM NAV
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.all(height / 3),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.orange,
-                          onPrimary: Colors.white,
-                          shadowColor: Colors.black,
-                          elevation: 9,
-                          textStyle: const TextStyle(fontSize: 30),
-                          minimumSize: const Size(60, 60),
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30.0))),
-                        ),
-                        onPressed: () => vm.pushCreateAdvertPage(),
-                        child: const Text("+"), //Look into an icon for demo 3
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
           ),
+
+          //*******************ADD BUTTON********************//
+          floatingActionButton: FloatingActionButton(
+            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
+            onPressed: () {},
+            backgroundColor: Colors.orange,
+            child: const Icon(Icons.add),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          //*************************************************//
+
           //************************NAVBAR***********************/
           bottomNavigationBar: const NavBarWidget(),
           //*****************************************************/
