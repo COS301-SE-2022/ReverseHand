@@ -73,7 +73,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand"
+            "REVERSEHAND": "ReverseHand",
+            "CUSTOMERVIEW": "customer_view"
           }
         },
         "Role": {
