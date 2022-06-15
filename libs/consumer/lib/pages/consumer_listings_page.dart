@@ -4,6 +4,7 @@ import 'package:general/general.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../methods/populate_adverts.dart';
+import 'package:general/widgets/navbar.dart';
 
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -57,38 +58,9 @@ class ConsumerListingsPage extends StatelessWidget {
               ),
             ),
           ),
-          //the colour of navigation should change! this does not work yet
-          // bottomNavigationBar: BottomNavigationBar(
-          //   items: <BottomNavigationBarItem>[
-          //     BottomNavigationBarItem(
-          //         icon: const Icon(Icons.home),
-          //         label: 'Home',
-          //         backgroundColor: CustomTheme.darkTheme.primaryColorDark),
-          //     const BottomNavigationBarItem(
-          //       icon: Icon(Icons.business),
-          //       label: 'Business',
-          //       backgroundColor: Color.fromARGB(255, 27, 32, 27),
-          //     ),
-          //     const BottomNavigationBarItem(
-          //       icon: Icon(Icons.school),
-          //       label: 'School',
-          //       backgroundColor: Colors.purple,
-          //     ),
-          //     const BottomNavigationBarItem(
-          //       icon: Icon(Icons.settings),
-          //       label: 'Settings',
-          //       backgroundColor: Colors.pink,
-          //     ),
-          //     const BottomNavigationBarItem(
-          //       icon: Icon(Icons.settings),
-          //       label: 'Settings',
-          //       backgroundColor: Colors.pink,
-          //     ),
-          //   ],
-          //   // currentIndex: _selectedIndex,
-          //   // selectedItemColor: Colors.amber[800],
-          //   // onTap: _onItemTapped,
-          // ),
+          //************************NAVBAR***********************/
+          bottomNavigationBar: const NavBarWidget(),
+          //*****************************************************/
         ),
       ),
     );
