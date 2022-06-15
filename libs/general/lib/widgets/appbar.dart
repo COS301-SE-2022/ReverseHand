@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget {
-  const AppBarWidget({Key? key}) : super(key: key);
+  final String title;
+  const AppBarWidget({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,15 +10,12 @@ class AppBarWidget extends StatelessWidget {
       clipper: AppBarClipper(),
       child: Container(
         height: 135, //still deciding on a good height
-        padding: const EdgeInsets.all(35),
-        // alignment: const Alignment(0, -.5),
+        alignment: const Alignment(
+            0, -.5), //might swap this out for an Align widget around text
         color: Theme.of(context).primaryColorDark,
-        child: const Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            "Job Listings",
-            style: TextStyle(fontSize: 20),
-          ),
+        child: Text(
+          title,
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     );
