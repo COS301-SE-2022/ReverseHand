@@ -29,10 +29,10 @@ exports.handler = async (event) => {
     let item = {
         TableName: ReverseHandTable,
         Item: {
-            user_id: event.arguments.customer_id,
+            part_key: event.arguments.ad_id,
             sort_key: event.arguments.ad_id, // prefixing but keeping same suffix
+            customer_id: event.arguments.customer_id,
             advert_details: {
-                id: event.arguments.ad_id,
                 title: event.arguments.title,
                 description: event.arguments.description,
                 location: event.arguments.location,
