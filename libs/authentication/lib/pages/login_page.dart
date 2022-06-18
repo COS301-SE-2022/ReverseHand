@@ -168,47 +168,69 @@ class LoginPage extends StatelessWidget {
                            //**********************************************************************/
 
                           //*******************sign in with image elements************************** */
-                          Column(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              //Facebook
-                              Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Image.asset(
-                                  'assets/images/facebook.png',
-                                  height: 100,
-                                  width: 100,
-                                  package: 'authentication',
-                                ),
+                              Column(
+                                children: [
+                                //Facebook
+                                  GestureDetector(
+                                  onTap: () {}, // Image tapped
+                                  child: Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Image.asset(
+                                      'assets/images/facebook.png',
+                                      height: 100,
+                                      width: 100,
+                                      package: 'authentication',
+                                    ),
+                                  ),
+                                  ),
+                                ],
                               ),
-                              //Google
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Image.asset(
-                                  'assets/images/google.png',
-                                  height: 100,
-                                  width: 100,
-                                  package: 'authentication',
-                                ),
+                              Column(
+                                children: [
+                                  //Google
+                                   GestureDetector(
+                                  onTap: () {}, // Image tapped
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Image.asset(
+                                      'assets/images/google.png',
+                                      height: 100,
+                                      width: 100,
+                                      package: 'authentication',
+                                    ),
+                                  ),
+                                  ),
+                                ],
                               ),
-                              //Apple
-                              //Shouldn't always display, figure out device being used: todo
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: Image.asset(
-                                  'assets/images/apple.png',
-                                  height: 100,
-                                  width: 100,
-                                  package: 'authentication',
-                                ),
+                              Column(
+                                children: [
+                                  //Apple
+                                  //Shouldn't always display, figure out device being used: todo
+                                   GestureDetector(
+                                  onTap: () {}, // Image tapped
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Image.asset(
+                                      'assets/images/apple.png',
+                                      height: 100,
+                                      width: 100,
+                                      package: 'authentication',
+                                    ),
+                                  ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          //******************************************************* */
+                        //******************************************************* */
                         ],
                       ),
                     //******************************************************* */
-                  ],
-                ),
+                    ],
+                  ),
               ),
             ],
           ),
