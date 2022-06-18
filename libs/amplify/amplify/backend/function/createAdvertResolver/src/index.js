@@ -44,5 +44,6 @@ exports.handler = async (event) => {
 
     await docClient.put(item).promise();
 
+    item.Item.advert_details['id'] = event.arguments.ad_id; // adding advert id to be returned
     return item.Item.advert_details;
 };

@@ -11,7 +11,7 @@ exports.handler = async (event) => {
     try {
         let params = {
             TableName: ReverseHandTable,
-            IndexName: CustomerView,
+            IndexName: "customer_view",
             KeyConditionExpression: "customer_id = :p",
             ExpressionAttributeValues: {
                 ":p": event.arguments.user_id, // should be a consumers id

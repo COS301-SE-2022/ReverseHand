@@ -189,6 +189,7 @@
               "Action": [
                 "dynamodb:BatchWriteItem",
                 "dynamodb:PutItem",
+                "dynamodb:GetItem",
                 "dynamodb:List*",
                 "dynamodb:Query",
                 "dynamodb:Scan",
