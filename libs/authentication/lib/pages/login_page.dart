@@ -33,7 +33,10 @@ class LoginPage extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 //*****************Top circle blur**********************
-                const CircleBlurWidget(),
+                const Align(
+                  alignment: Alignment.topLeft,
+                  child: CircleBlurWidget(),
+                ),
                 //*******************************************************
 
                 //*****************Bottom circle blur**********************
