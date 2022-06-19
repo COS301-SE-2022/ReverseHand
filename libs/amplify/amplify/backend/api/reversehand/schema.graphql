@@ -15,7 +15,7 @@ type Query {
   viewAdverts(user_id: String!): [Advert]!
   @function(name: "viewAdvertsResolver-${env}")
 
-  viewJobs: [Advert]!
+  viewJobs(locations: [String]!, type: String!): [Advert]!
   @function(name: "viewJobsResolver-${env}")
 }
 
