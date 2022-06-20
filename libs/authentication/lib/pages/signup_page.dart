@@ -118,76 +118,74 @@ class SignUpPage extends StatelessWidget {
                       ),
                       //*************************************************
 
-                      //*****************form****************************
-                      Container(
-                        margin: const EdgeInsets.only(top: 10.0),
-                        padding: const EdgeInsets.all(20),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: <Widget>[
-                              //currently only created for consumer sign-up
-                              //*****************name**********************
-                              TextFieldWidget(
-                                label: 'name',
-                                obscure: false,
-                                icon: Icons.account_circle_outlined,
-                                controller: nameController,
-                                // validator: _createValidator(
-                                //     "name",
-                                //     "must only be letters",
-                                //     RegExp(
-                                //         r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")),
-                              ),
-                              //********************************************
-                              const TransparentDividerWidget(),
-                              //*****************email**********************
-                              TextFieldWidget(
-                                label: 'email',
-                                obscure: false,
-                                icon: Icons.mail_outline_rounded,
-                                controller: emailController,
-                                validator: _createValidator(
-                                    'email',
-                                    'is invalid',
-                                    RegExp(
-                                        r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
-                              ),
-                              //**********************************************
-                              const TransparentDividerWidget(),
-                              //*****************cellphone**********************
-                              TextFieldWidget(
-                                label: 'cellphone',
-                                obscure: false,
-                                icon: Icons.call_end_outlined,
-                                controller: cellController,
-                                validator: _createValidator('cellphone',
-                                    'can only contain numbers', RegExp(r'')),
-                              ),
-                              //**********************************************
-                              const TransparentDividerWidget(),
-                              //*****************location**********************
-                              TextFieldWidget(
-                                label: 'location',
-                                obscure: false,
-                                icon: Icons.add_location_outlined,
-                                controller: locationController,
-                              ),
-                              //**********************************************
-                              const TransparentDividerWidget(),
-                              //*****************password**********************
-                              TextFieldWidget(
-                                label: 'password',
-                                obscure: true,
-                                icon: Icons.lock_outline_rounded,
-                                controller: passwordController,
-                                validator: _createValidator(
-                                  'password',
-                                  'must be at least 8 characters with upper and lowercase, atleast one number and special character',
-                                  RegExp(
-                                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                                  ),
-                                ),
+                  //*****************form****************************
+                  Container(
+                    margin: const EdgeInsets.only(top: 10.0),
+                    padding: const EdgeInsets.all(20),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          //currently only created for consumer sign-up
+                          //*****************name**********************
+                          TextFieldWidget(
+                            label: 'name',
+                            obscure: false,
+                            icon: Icons.account_circle_outlined,
+                            controller: nameController,
+                            // validator: _createValidator(
+                            //     "name",
+                            //     "must only be letters",
+                            //     RegExp(
+                            //         r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")),
+                          ),
+                          //********************************************
+                          const TransparentDividerWidget(),
+                          //*****************email**********************
+                          TextFieldWidget(
+                            label: 'email',
+                            obscure: false,
+                            icon: Icons.mail_outline_rounded,
+                            controller: emailController,
+                            validator: _createValidator(
+                                'email',
+                                'is invalid',
+                                RegExp(
+                                    r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
+                          ),
+                          //**********************************************
+                          const TransparentDividerWidget(),
+                          //*****************cellphone**********************
+                          TextFieldWidget(
+                            label: 'cellphone',
+                            obscure: false,
+                            icon: Icons.call_end_outlined,
+                            controller: cellController,
+                            validator: _createValidator('cellphone',
+                                'can only contain numbers', RegExp(r'')),
+                          ),
+                          //**********************************************
+                          const TransparentDividerWidget(),
+                          //*****************location**********************
+                          TextFieldWidget(
+                            label: 'location',
+                            obscure: false,
+                            icon: Icons.add_location_outlined,
+                            controller: locationController,
+                          ),
+                          //**********************************************
+                          const TransparentDividerWidget(),
+                          //*****************password**********************
+                          TextFieldWidget(
+                            label: 'password',
+                            obscure: true,
+                            icon: Icons.lock_outline_rounded,
+                            controller: passwordController,
+                            validator: _createValidator(
+                              'password',
+                              'must be at least 8 characters with upper and lowercase, atleast one number and special character',
+                              RegExp(
+                                r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
                               ),
                               //**********************************************
                               const TransparentDividerWidget(),
