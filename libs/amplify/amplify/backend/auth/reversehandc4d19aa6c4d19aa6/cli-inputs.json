@@ -1,20 +1,18 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "reversehand8ac8d062_identitypool_8ac8d062",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "revers8ac8d062",
-    "userPoolName": "reversehand8ac8d062_userpool_8ac8d062",
+    "resourceNameTruncated": "reversc4d19aa6",
+    "userPoolName": "reversehandc4d19aa6_userpool_c4d19aa6",
     "autoVerifiedAttributes": [
       "email"
     ],
-    "mfaConfiguration": "OFF",
+    "mfaConfiguration": "OPTIONAL",
     "mfaTypes": [
-      "SMS Text Message"
+      "TOTP"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
+    "emailVerificationSubject": "ReverseHand Verification Code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
@@ -31,16 +29,23 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "revers8ac8d062_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "reversc4d19aa6_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "8ac8d062",
-    "resourceName": "reversehand8ac8d062",
-    "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "sharedId": "c4d19aa6",
+    "resourceName": "reversehandc4d19aa6c4d19aa6",
+    "authSelections": "userPoolOnly",
+    "useDefault": "manual",
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroupList": [],
+    "userPoolGroups": true,
+    "adminQueries": true,
+    "triggers": {},
+    "hostedUI": false,
+    "userPoolGroupList": [
+      "customer",
+      "tradesman"
+    ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true

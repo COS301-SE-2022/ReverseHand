@@ -13,7 +13,8 @@
       "securityenhancementnotification": false,
       "showfieldauthnotification": false,
       "usesubusernamefordefaultidentityclaim": true,
-      "usefieldnameforprimarykeyconnectionfield": false
+      "usefieldnameforprimarykeyconnectionfield": false,
+      "enableautoindexquerynames": false
     },
     "frontend-ios": {
       "enablexcodeintegration": true
@@ -53,6 +54,6 @@
     }
   },
   "debug": {
-    "shareProjectConfig": false
+    "shareProjectConfig": true
   }
 }

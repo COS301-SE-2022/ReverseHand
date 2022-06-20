@@ -29,7 +29,7 @@ exports.handler = async (event, context) => {
             bids.push({
                 id: item['sort_key'],
                 advert_id: event.arguments.ad_id, // since this is the advert we searched for
-                user_id: item['bid_details']['tradesman_id'],
+                tradesman_id: item['bid_details']['tradesman_id'],
                 name: item['bid_details']['name'],
                 price_lower: item['bid_details']['price_lower'],
                 price_upper: item['bid_details']['price_upper'],

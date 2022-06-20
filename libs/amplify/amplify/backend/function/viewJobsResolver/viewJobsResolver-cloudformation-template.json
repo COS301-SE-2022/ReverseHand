@@ -93,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole2fe8a291",
+            "reversehandLambdaRolec8241e87",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole2fe8a291",
+                  "reversehandLambdaRolec8241e87",
                   "-",
                   {
                     "Ref": "env"
@@ -188,10 +188,12 @@
               "Effect": "Allow",
               "Action": [
                 "dynamodb:BatchGetItem",
+                "dynamodb:PutItem",
                 "dynamodb:List*",
                 "dynamodb:Query",
                 "dynamodb:Scan",
-                "dynamodb:Delete*"
+                "dynamodb:Delete*",
+                "dynamodb:UpdateItem"
               ],
               "Resource": [
                 {

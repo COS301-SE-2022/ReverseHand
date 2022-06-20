@@ -22,7 +22,7 @@ exports.handler = async (event) => {
         let items = data["Items"];
 
         let adverts = [];
-        for (let item of items)
+        for (let item of items) 
             adverts.push({
                 id: item['part_key'],
                 title: item['advert_details']['title'],

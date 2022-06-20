@@ -14,10 +14,10 @@ exports.handler = async (event) => {
         let item = {
             TableName: ReverseHandTable,
             Key: {
-                user_id: event.arguments.user_id,
+                part_key: event.arguments.ad_id,
                 sort_key: event.arguments.ad_id
             },
-            UpdateExpression: 'set accepted_bid = :ab',
+            UpdateExpression: 'set advert_details.accepted_bid = :ab',
             ExpressionAttributeValues: {
                 ':ab': event.arguments.sbid_id,
             },
@@ -28,9 +28,9 @@ exports.handler = async (event) => {
         // getting accepted bi
         let params = {
             TableName: ReverseHandTable,
-            KeyConditionExpression: "user_id = :u and sort_key = :s",
+            KeyConditionExpression: "part_key = :p and sort_key = :s",
             ExpressionAttributeValues: {
-                ":u": event.arguments.ad_id,
+                ":p": event.arguments.ad_id,
                 ":s": event.arguments.sbid_id
             }
         };

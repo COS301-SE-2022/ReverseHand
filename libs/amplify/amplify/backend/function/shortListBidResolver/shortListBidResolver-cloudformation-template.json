@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.3.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.5.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -93,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole70106060",
+            "reversehandLambdaRole7788845d",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole70106060",
+                  "reversehandLambdaRole7788845d",
                   "-",
                   {
                     "Ref": "env"
@@ -187,13 +187,13 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:BatchWriteItem",
-                "dynamodb:PutItem",
                 "dynamodb:GetItem",
+                "dynamodb:PutItem",
                 "dynamodb:List*",
                 "dynamodb:Query",
                 "dynamodb:Scan",
-                "dynamodb:Delete*"
+                "dynamodb:Delete*",
+                "dynamodb:UpdateItem"
               ],
               "Resource": [
                 {
