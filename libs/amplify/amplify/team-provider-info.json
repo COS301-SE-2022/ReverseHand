@@ -1,0 +1,66 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-reversehand-staging-100406-authRole",
+      "UnauthRoleArn": "arn:aws:iam::727515863527:role/amplify-reversehand-staging-100406-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::727515863527:role/amplify-reversehand-staging-100406-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+      "UnauthRoleName": "amplify-reversehand-staging-100406-unauthRole",
+      "StackName": "amplify-reversehand-staging-100406",
+      "StackId": "arn:aws:cloudformation:eu-west-1:727515863527:stack/amplify-reversehand-staging-100406/52985d80-f080-11ec-b88b-0a883353f35b",
+      "AmplifyAppId": "dxqhez3c8w3op"
+    },
+    "categories": {
+      "storage": {
+        "ReverseHand": {
+          "tableName": "ReverseHand",
+          "region": "eu-west-1",
+          "arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/ReverseHand",
+          "partitionKeyName": "part_key",
+          "partitionKeyType": "S",
+          "sortKeyName": "sort_key",
+          "sortKeyType": "S"
+        }
+      },
+      "auth": {
+        "reversehandc4d19aa6c4d19aa6": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "closeAdvertResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/closeAdvertResolver-50384f4254754c546c42-build.zip"
+        },
+        "createAdvertResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/createAdvertResolver-5036394f61506a636641-build.zip"
+        },
+        "shortListBidResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/shortListBidResolver-3030664f6a5462424644-build.zip"
+        },
+        "viewAdvertsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/viewAdvertsResolver-303648684a384d715a6e-build.zip"
+        },
+        "viewJobsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/viewJobsResolver-427556686f6b76663245-build.zip"
+        },
+        "viewBidsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/viewBidsResolver-306a4c546c6a6b554d49-build.zip"
+        },
+        "placeBidResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/placeBidResolver-514846316a68724d6344-build.zip"
+        },
+        "acceptBidResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/acceptBidResolver-716e574645392b4b5755-build.zip"
+        }
+      }
+    }
+  }
+}
