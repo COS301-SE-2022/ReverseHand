@@ -133,11 +133,11 @@ class SignUpPage extends StatelessWidget {
                             obscure: false,
                             icon: Icons.account_circle_outlined,
                             controller: nameController,
-                            validator: _createValidator(
-                                "name",
-                                "must only be letters",
-                                RegExp(
-                                    r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")),
+                            // validator: _createValidator(
+                            //     "name",
+                            //     "must only be letters",
+                            //     RegExp(
+                            //         r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")),
                           ),
                           //********************************************
                           const TransparentDividerWidget(),
