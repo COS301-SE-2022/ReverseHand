@@ -28,13 +28,16 @@ type Mutation {
 
   closeAdvert(ad_id: String!): Advert 
   @function(name: "closeAdvertResolver-${env}")
+
+  addUserToGroup(email: String!, group: String!): String
+  @function(name: "addUserToGroupResolver-${env}")
 }
 
 type Advert implements UniqueID {
   id: String!
   title: String!
   description: String
-  type: JobType
+  type: String
   accepted_bid: String
   location: String # temporary
   date_created: String! # temporary
@@ -72,7 +75,8 @@ type Review implements UniqueID {
 
 # add more jobs here as we think of them
 enum JobType {
-  Plumbing
+  Plumbing,
+  Painting
 }
 
 interface UniqueID {
