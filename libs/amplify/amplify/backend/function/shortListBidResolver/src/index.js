@@ -11,25 +11,37 @@ exports.handler = async (event) => {
     try {
         let params = {
             TableName: ReverseHandTable,
-            KeyConditionExpression: "user_id = :u and sort_key = :s",
-            ExpressionAttributeValues: {
-                ":u": event.arguments.ad_id,
-                ":s": event.arguments.bid_id
+            Key: {
+                part_key: event.arguments.ad_id,
+                sort_key: event.arguments.bid_id
             }
         };
 
-        const data = await docClient.query(params).promise();
-        let bid = data["Items"][0];
+        const data = await docClient.get(params).promise();
+        
+        let bid = data['Item'];
+        
+        // removing from bids
+        let del = {
+            TableName: ReverseHandTable,
+            Key: {
+                part_key: event.arguments.ad_id,
+                sort_key: event.arguments.bid_id
+            },
+        }
+        await docClient.delete(del).promise();
         
         let shortBidId =  's' + event.arguments.bid_id;
 
         let item = {
             TableName: ReverseHandTable,
             Item: {
-                user_id: event.arguments.ad_id,
+                part_key: event.arguments.ad_id,
                 sort_key: shortBidId, // prefixing but keeping same suffix
                 bid_details: {
-                    id: event.arguments.bid_id,
+                    id: shortBidId,
+                    tradesman_id: bid['bid_details']['tradesman_id'],
+                    name: bid['bid_details']['name'],
                     price_lower: bid['bid_details']['price_lower'],
                     price_upper: bid['bid_details']['price_upper'],
                     quote: bid['bid_details']['quote'],
@@ -40,6 +52,8 @@ exports.handler = async (event) => {
         };
 
         await docClient.put(item).promise();
+        
+        item.Item.bid_details['tradesman_id'] = bid['bid_details']['tradesman_id'];
     
         return item.Item.bid_details;
     } catch(e) {
