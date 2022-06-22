@@ -18,7 +18,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
       viewBids(ad_id: "$adId") {
         id
         name
-        user_id
+        tradesman_id
         price_lower
         price_upper
         quote
