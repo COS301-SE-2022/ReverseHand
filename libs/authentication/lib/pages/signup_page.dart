@@ -7,6 +7,7 @@ import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/register_user_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/button.dart';
+import '../widgets/circle_blur_widget.dart';
 import '../widgets/divider.dart';
 import '../widgets/link.dart';
 import '../widgets/otp_pop_up.dart';
@@ -53,48 +54,13 @@ class SignUpPage extends StatelessWidget {
             body: Stack(
               children: <Widget>[
                 //*****************Top circle blur**********************
-                Container(
-                  width: 100,
-                  height: 100,
-                  margin: const EdgeInsets.all(0),
-                  padding: const EdgeInsets.only(top: 2),
-                  alignment: Alignment.topLeft,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: const BorderRadius.all(
-                        Radius.elliptical(9999.0, 9999.0)),
-                  ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
-                    child: Container(
-                      decoration:
-                          BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                    ),
-                  ),
-                ),
+                const CircleBlurWidget(),
                 //*******************************************************
 
                 //*****************Bottom circle blur**********************
-                Align(
+                const Align(
                   alignment: Alignment.bottomRight,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    margin: const EdgeInsets.all(0),
-                    padding: const EdgeInsets.only(top: 2),
-                    decoration: const BoxDecoration(
-                      color: Color.fromRGBO(243, 157, 55, 1),
-                      borderRadius:
-                          BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),
-                    ),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 60.0),
-                      child: Container(
-                        decoration:
-                            BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                      ),
-                    ),
-                  ),
+                  child: CircleBlurWidget(),
                 ),
                 //******************************************************* */
 
@@ -295,6 +261,67 @@ class SignUpPage extends StatelessWidget {
                           ),
                         ],
                       ),
+                      //**********************************************************************/
+
+                      //*******************sign in with image elements************************** */
+                         Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                children: [
+                                //Facebook
+                                  GestureDetector(
+                                  onTap: () {}, // Image tapped
+                                  child: Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Image.asset(
+                                      'assets/images/facebook.png',
+                                      height: 100,
+                                      width: 100,
+                                      package: 'authentication',
+                                    ),
+                                  ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  //Google
+                                   GestureDetector(
+                                  onTap: () {}, // Image tapped
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Image.asset(
+                                      'assets/images/google.png',
+                                      height: 100,
+                                      width: 100,
+                                      package: 'authentication',
+                                    ),
+                                  ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  //Apple
+                                  //Shouldn't always display, figure out device being used: todo
+                                   GestureDetector(
+                                  onTap: () {}, // Image tapped
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Image.asset(
+                                      'assets/images/apple.png',
+                                      height: 100,
+                                      width: 100,
+                                      package: 'authentication',
+                                    ),
+                                  ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                    //******************************************************* */
                     ],
                   ),
                 ),
