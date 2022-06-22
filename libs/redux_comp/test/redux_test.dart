@@ -17,8 +17,8 @@ void main() {
     expect('someone@example.com', partUser.email);
   });
 
-  test('Test to get PartialUser Password', () {
-    expect('password', partUser.password);
+  test('Test to get PartialUser Group', () {
+    expect('password', partUser.group);
   });
 
   test('Test to get PartialUser Verification Step', () {

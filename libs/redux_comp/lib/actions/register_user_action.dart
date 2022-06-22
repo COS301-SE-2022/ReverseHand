@@ -24,7 +24,6 @@ class RegisterUserAction extends ReduxAction<AppState> {
       Map<CognitoUserAttributeKey, String> userAttributes = {
         CognitoUserAttributeKey.email: username,
         CognitoUserAttributeKey.name: name,
-        CognitoUserAttributeKey.familyName: userType ? 'Consumer' : 'Tradesman',
       };
 
       SignUpResult res = await Amplify.Auth.signUp(
@@ -35,7 +34,7 @@ class RegisterUserAction extends ReduxAction<AppState> {
       if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
         return state.replace(
             partialUser:
-                PartialUser(username, password, res.nextStep.signUpStep));
+                PartialUser(username, userType ? "customer" : "tradesman", res.nextStep.signUpStep));
       } else {
         return null; /* do not modify state */
       }

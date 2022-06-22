@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/advert_model.dart';
-import 'package:redux_comp/models/job_type.dart';
 import 'package:uuid/uuid.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -14,15 +13,15 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   final String customerId;
   final String title;
   final String? description;
-  final JobType? type;
-  final String? location;
+  final String type;
+  final String location;
 
   CreateAdvertAction(
     this.customerId,
-    this.title, {
-    this.description,
-    this.type,
+    this.title,
     this.location,
+    this.type, {
+    this.description,
   }); // Create...(id, title, description: desc)
 
   @override
@@ -31,7 +30,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
 
     // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
-      createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", location: "$location") {
+      createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", location: "$location", type: "Plumbing") {
         id
         date_created
         location
@@ -62,6 +61,5 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() => dispatch(NavigateAction.pushNamed(
-      "/consumer"));
+  void after() => dispatch(NavigateAction.pushNamed("/consumer"));
 }
