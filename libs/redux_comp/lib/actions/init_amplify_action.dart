@@ -1,4 +1,4 @@
-import 'package:amplify/amplifyconfiguration.dart';
+// import 'package:amplify/amplifyconfiguration.dart';
 import 'package:amplify/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -31,8 +31,8 @@ Future<void> _configureAmplify() async {
 
     // configure Amplify
     // note that Amplify cannot be configured more than once!
-    await Amplify.configure(
-       amplifyconfig); // uncomment this line and add your amplify config package
+    // await Amplify.configure(
+    //    amplifyconfig); // uncomment this line and add your amplify config package
 
     debugPrint('Amplify Successfully Configured 🎉');
   } catch (e) {

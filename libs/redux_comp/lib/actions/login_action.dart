@@ -27,7 +27,7 @@ class LoginAction extends ReduxAction<AppState> {
         await store
             .waitCondition((state) => state.partialUser!.verified == "DONE");
       }
-      SignInResult res = await Amplify.Auth.signIn(
+      /*SignInResult res =*/ await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
