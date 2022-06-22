@@ -20,11 +20,11 @@ exports.handler = async (event) => {
     let item = {
         TableName: ReverseHandTable,
         Item: {
-            user_id: event.arguments.ad_id,
+            part_key: event.arguments.ad_id,
             sort_key: event.arguments.bid_id, // prefixing but keeping same suffix
             bid_details: {
-                id: event.arguments.bid_id,
-                user: event.arguments.tradesman_id,
+                name: event.arguments.name,
+                tradesman_id: event.arguments.tradesman_id,
                 price_lower: event.arguments.price_lower,
                 price_upper:event.arguments.price_upper,
                 quote: event.arguments.quote, //optional parameter
@@ -35,5 +35,6 @@ exports.handler = async (event) => {
 
     await docClient.put(item).promise();
 
+    item.Item.bid_details['id'] = event.arguments.bid_id; // bids id to be returned
     return item.Item.bid_details;
 };

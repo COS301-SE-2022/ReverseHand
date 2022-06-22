@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+const CustomerView = process.env.CUSTOMERVIEW;
 // this function is used to retrieve the bids for a specific consumer
 
 /**
@@ -10,29 +11,30 @@ exports.handler = async (event) => {
     try {
         let params = {
             TableName: ReverseHandTable,
-            KeyConditionExpression: "user_id = :u",
+            IndexName: "customer_view",
+            KeyConditionExpression: "customer_id = :p",
             ExpressionAttributeValues: {
-                ":u": event.arguments.user_id, // should be a consumers id
+                ":p": event.arguments.user_id, // should be a consumers id
             }
         };
 
         const data = await docClient.query(params).promise();
-        let items = data["Items"]['advert_details'];
+        let items = data["Items"];
 
         let adverts = [];
-        for (let item of items)
+        for (let item of items) 
             adverts.push({
-                id: item['sort_key'],
-                title: item['title'],
-                description: item['description'],
-                type: item['type'],
-                bids: item['bids'],
-                shortlisted_bids: item['shortlisted_bids'],
-                accepted_bid: item['accepted_bid'],
-                user_id: item['user_id'],
-                location: item['location'],
-                date_created: item['date_created'],
-                date_closed: item['date_closed'],
+                id: item['part_key'],
+                title: item['advert_details']['title'],
+                description: item['advert_details']['description'],
+                type: item['advert_details']['type'],
+                bids: item['advert_details']['bids'],
+                shortlisted_bids: item['advert_details']['shortlisted_bids'],
+                accepted_bid: item['advert_details']['accepted_bid'],
+                customer_id: item['customer_id'],
+                location: item['advert_details']['location'],
+                date_created: item['advert_details']['date_created'],
+                date_closed: item['advert_details']['date_closed'],
             });
 
         return adverts;

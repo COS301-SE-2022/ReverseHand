@@ -8,7 +8,22 @@
     }
   },
   "auth": {
-    "reversehand8ac8d062": {
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "reversehandc4d19aa6c4d19aa6",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID"
+          ]
+        }
+      ]
+    },
+    "reversehandc4d19aa6c4d19aa6": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -25,9 +40,9 @@
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "OPTIONAL",
         "mfaTypes": [
-          "SMS"
+          "TOTP"
         ],
         "verificationMechanisms": [
           "EMAIL"
@@ -36,7 +51,7 @@
     }
   },
   "api": {
-    "reversehand": {
+    "reversehandapi": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -45,7 +60,9 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDays": 30,
+              "apiKeyExpirationDate": "2022-07-20T10:14:31.193Z",
+              "description": "The API key for the ReverseHand API"
             }
           },
           "additionalAuthenticationProviders": []
@@ -54,28 +71,12 @@
     }
   },
   "function": {
-    "viewBidsResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "shortListBidResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "getSecrets": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
-    },
-    "viewAdvertsResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "acceptBidResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "closeAdvertResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -90,12 +91,27 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "closeAdvertResolver": {
+    "shortListBidResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "viewAdvertsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "viewBidsResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
     "viewJobsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "addUserToGroupResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
