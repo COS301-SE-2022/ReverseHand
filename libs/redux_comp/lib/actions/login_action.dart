@@ -8,6 +8,7 @@ import 'package:redux_comp/actions/view_jobs_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import '../models/user_models/user_model.dart';
 
 class LoginAction extends ReduxAction<AppState> {
@@ -26,8 +27,7 @@ class LoginAction extends ReduxAction<AppState> {
         await store
             .waitCondition((state) => state.partialUser!.verified == "DONE");
       }
-      /*SignInResult res = */
-      await Amplify.Auth.signIn(
+      /*SignInResult res =*/ await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -35,30 +35,43 @@ class LoginAction extends ReduxAction<AppState> {
       List<AuthUserAttribute> userAttr =
           await Amplify.Auth.fetchUserAttributes();
 
+      AuthUser user = await Amplify.Auth.getCurrentUser();
+      String id = user.userId, username = "", userType = "";
+
+      final authSession = (await Amplify.Auth.fetchAuthSession(
+        options: CognitoSessionOptions(getAWSCredentials: true),
+      )) as CognitoAuthSession;
+
+      Map<String, dynamic> payload =
+          Jwt.parseJwt(authSession.userPoolTokens!.accessToken);
+
+      List groups = payload["cognito:groups"];
+
+      if (groups.contains("tradesman")) {
+        userType = "Tradesman";
+      } else if (groups.contains("customer")) {
+        userType = "Consumer";
+      }
+      // Amplify.Auth.fetchAuthSession(options: Cognito)
+      // List groups = authSession.userPoolTokens;
       /* Since fetching user attributes is async, it returns the attributes unordered */
       /* This simple for loop & case statement will iterate through the list and check the attribute key */
       /* to assign it to the correct vairable */
-      String id = "", username = "", userType = "", name = "";
+      String name = "";
       for (var attr in userAttr) {
         switch (attr.userAttributeKey.key) {
-          case "sub":
-            id = attr.value;
-            break;
-          case "email":
-            username = attr.value;
-            break;
           case "name":
             name = attr.value;
             break;
-          case "family_name":
-            userType = attr.value;
+          case "email":
+            username = attr.value;
             break;
         }
       }
 
       return state.replace(
         user: UserModel(
-          id: userType == "Consumer" ? "c#$id" : "t#$id",
+          id: userType == "customer" ? "c#$id" : "t#$id",
           email: username,
           name: name,
           userType: userType,
@@ -108,7 +121,9 @@ class LoginAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    state.user!.userType == "Consumer" ? await dispatch(ViewAdvertsAction(state.user!.id)) : await dispatch(ViewJobsAction());
+    state.user!.userType == "Consumer"
+        ? await dispatch(ViewAdvertsAction(state.user!.id))
+        : await dispatch(ViewJobsAction());
     dispatch(
         NavigateAction.pushNamed("/${state.user!.userType.toLowerCase()}"));
   } // we know that state wont be null

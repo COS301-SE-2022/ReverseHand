@@ -29,7 +29,7 @@ class BidModel {
   factory BidModel.fromJson(obj) {
     return BidModel(
       id: obj['id'],
-      userId: obj['user_id'],
+      userId: obj['tradesman_id'],
       name: obj['name'],
       priceLower: obj['price_lower'],
       priceUpper: obj['price_upper'],

@@ -104,7 +104,8 @@ class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
             dispatch(NavigateAction.pushNamed('/consumer')),
         dispatchCreateAdvertActions:
             (String customerId, String title, String? description) => dispatch(
-          CreateAdvertAction(customerId, title, description: description),
+          CreateAdvertAction(customerId, title, "Pretoria", "Plumbing",
+              description: description),
         ),
       );
 }

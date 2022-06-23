@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+
   # amplify
   amplify_flutter: ^0.5.1
   amplify_auth_cognito: ^0.5.1
@@ -22,6 +23,7 @@ dependencies:
 
   # other
   uuid: ^3.0.6
+  jwt_decode: ^0.3.1
 
   amplify:
     path: '../amplify'

@@ -12,7 +12,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
 	@override
 	Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      viewJobs {
+      viewJobs(locations: "Pretoria", type: "Plumbing") {
         date_created
         date_closed
         description
