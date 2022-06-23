@@ -4,6 +4,7 @@ import 'package:general/general.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../methods/populate_adverts.dart';
+import 'package:general/widgets/appbar.dart';
 
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -25,6 +26,13 @@ class ConsumerListingsPage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   const Padding(padding: EdgeInsets.only(top: 20)),
+                  //*******************APP BAR WIDGET*********************//
+                  const AppBarWidget(title: "Job Listings"),
+                  //********************************************************//
+
+                  //**************PADDING FROM APP BAR TO CARDS*************//
+                  const Padding(padding: EdgeInsets.only(top: 50)),
+                  //********************************************************//
 
                   // populating column with adverts
                   ...populateAdverts(vm.adverts, store),
