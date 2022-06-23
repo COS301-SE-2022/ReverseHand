@@ -5,6 +5,7 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/bottom_overlay.dart';
 
 class ConsumerProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -37,59 +38,98 @@ class ConsumerProfilePage extends StatelessWidget {
 
                   //*********PADDING BETWEEN NAME AND OTHER DETAILS********//
 
-                  const Padding(padding: EdgeInsets.all(50)),
+                  const Padding(padding: EdgeInsets.all(20)),
                   //**************************************************//
 
-                  //*******************CONSUMER DETAILS************************//
-                  //location
-                  const Text("Location",
-                      style: TextStyle(fontSize: 20, color: Colors.white70)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.white,
-                        size: 29.0,
-                      ),
-                      Text("Pretoria, Gauteng",
-                          style: TextStyle(fontSize: 20, color: Colors.white))
-                    ],
-                  ),
-                  const Padding(padding: EdgeInsets.all(10)),
-                  //email
-                  const Text("Email",
-                      style: TextStyle(fontSize: 20, color: Colors.white70)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.email,
-                        color: Colors.white,
-                        size: 29.0,
-                      ),
-                      Text("info@gmail.com",
-                          style: TextStyle(fontSize: 20, color: Colors.white))
-                    ],
-                  ),
-                  const Padding(padding: EdgeInsets.all(10)),
-                  //cellphone
-                  const Text("Cellphone",
-                      style: TextStyle(fontSize: 20, color: Colors.white70)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.phone,
-                        color: Colors.white,
-                        size: 29.0,
-                      ),
-                      Text("012 345 6789",
-                          style: TextStyle(fontSize: 20, color: Colors.white))
-                    ],
-                  ),
+                  Stack(children: <Widget>[
+                    //*******************CONSUMER DETAILS************************//
+                    BottomOverlayWidget(
+                      height: MediaQuery.of(context).size.height / 1.5,
+                    ),
 
-                  //********************************************************//
+                    //location
+                    const Positioned(
+                      top: 20,
+                      left: 70,
+                      child: Text("Location",
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.white70)),
+                    ),
+                    Positioned(
+                      top: 45,
+                      left: 45,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.location_on,
+                            color: Colors.white,
+                            size: 25.0,
+                          ),
+                          Padding(padding: EdgeInsets.only(right: 4)),
+                          Text("Pretoria, Gauteng",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white))
+                        ],
+                      ),
+                    ),
+
+                    //email
+                    const Positioned(
+                      top: 90,
+                      left: 70,
+                      child: Text("Email",
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.white70)),
+                    ),
+                    Positioned(
+                      top: 115,
+                      left: 45,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.email,
+                            color: Colors.white,
+                            size: 25.0,
+                          ),
+                          Padding(padding: EdgeInsets.only(right: 4)),
+                          Text("info@gmail.com",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white))
+                        ],
+                      ),
+                    ),
+
+                    //cellphone
+                    const Positioned(
+                      top: 160,
+                      left: 70,
+                      child: Text("Cellphone",
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.white70)),
+                    ),
+                    Positioned(
+                      top: 185,
+                      left: 45,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.phone,
+                            color: Colors.white,
+                            size: 25.0,
+                          ),
+                          Padding(padding: EdgeInsets.only(right: 4)),
+                          Text("012 345 6789",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white))
+                        ],
+                      ),
+                    ),
+
+                    //********************************************************//
+                  ]),
                 ],
               ),
             ),

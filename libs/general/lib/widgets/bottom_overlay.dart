@@ -11,9 +11,9 @@ class BottomOverlayWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+            topRight: Radius.circular(0), topLeft: Radius.circular(70)),
         boxShadow: const [
-          BoxShadow(color: Colors.black, spreadRadius: 0, blurRadius: 6),
+          BoxShadow(color: Colors.black, spreadRadius: 0, blurRadius: 3),
         ],
       ),
     );

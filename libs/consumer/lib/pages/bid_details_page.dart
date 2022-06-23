@@ -4,7 +4,7 @@ import 'package:general/general.dart';
 import 'package:redux_comp/actions/accept_bid_action.dart';
 import 'package:redux_comp/actions/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:general/widgets/card.dart';
+import 'package:general/widgets/bid_card.dart';
 import 'package:general/widgets/shortlist_accept_button.dart';
 import 'package:redux_comp/models/bid_model.dart';
 
