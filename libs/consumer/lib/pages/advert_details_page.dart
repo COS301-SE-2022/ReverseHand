@@ -28,9 +28,9 @@ class AdvertDetailsPage extends StatelessWidget {
                 SingleChildScrollView(
               child: Column(
                 children: [
-                  //**********PADDING FROM TOP*****************//
-                  const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
-                  //*******************************************//
+                  //*******************PADDING FROM TOP*********************//
+                  const Padding(padding: EdgeInsets.only(top: 50)),
+                  //********************************************************//
 
                   //**********DETAILED JOB INFORMATION***********//
                   JobCardWidget(
