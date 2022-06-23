@@ -6,6 +6,7 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
+import 'package:general/widgets/button.dart';
 
 class ConsumerProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -127,7 +128,15 @@ class ConsumerProfilePage extends StatelessWidget {
                         ],
                       ),
                     ),
-
+                    Positioned(
+                      top: 250,
+                      right: 40,
+                      child: ButtonWidget(
+                          text: "Edit",
+                          function: vm
+                              .pushEditProfilePage //this is not the correct path yet
+                          ),
+                    )
                     //********************************************************//
                   ]),
                 ],
@@ -161,20 +170,16 @@ class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        adverts: state.user!.adverts,
-        pushCreateAdvertPage: () => dispatch(
-          NavigateAction.pushNamed('/consumer/create_advert'),
-        ),
-      );
+      pushEditProfilePage: () => dispatch(
+            NavigateAction.pushNamed('/consumer/consumer_profile_page'),
+          ));
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushCreateAdvertPage;
-  final List<AdvertModel> adverts;
+  final VoidCallback pushEditProfilePage;
 
   _ViewModel({
-    required this.adverts,
-    required this.pushCreateAdvertPage,
+    required this.pushEditProfilePage,
   }); // implementinf hashcode
 }
