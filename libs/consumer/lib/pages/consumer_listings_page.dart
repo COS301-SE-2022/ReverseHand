@@ -29,7 +29,7 @@ class ConsumerListingsPage extends StatelessWidget {
                   //********************************************************//
 
                   //**************PADDING FROM APP BAR TO CARDS*************//
-                  const Padding(padding: EdgeInsets.only(top: 50)),
+                  // const Padding(padding: EdgeInsets.only(top: 50)),
                   //********************************************************//
 
                   // populating column with adverts

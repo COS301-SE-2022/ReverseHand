@@ -7,6 +7,7 @@ class CustomTheme {
       scaffoldBackgroundColor:
           const Color.fromRGBO(18, 26, 34, 1), //background colour
       primaryColorDark: const Color.fromRGBO(35, 47, 62, 1), //primary blue used
+      primaryColorLight: const Color.fromRGBO(68, 82, 98, 1),
       textTheme: ThemeData.dark().textTheme,
       fontFamily: 'Segoe UI',
       colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),

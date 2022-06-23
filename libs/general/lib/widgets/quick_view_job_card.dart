@@ -24,9 +24,9 @@ class QuickViewJobCardWidget extends StatelessWidget {
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
             margin: const EdgeInsets.all(10),
-            color: const Color.fromRGBO(35, 47, 62, 1),
+            color: Theme.of(context).primaryColorLight,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(30.0),
             ),
             elevation: 2,
             child: Padding(
@@ -44,21 +44,24 @@ class QuickViewJobCardWidget extends StatelessWidget {
                               fontFamily: 'Futura',
                               fontSize: 30,
                               color: Colors.white)),
-                      const Padding(padding: EdgeInsets.all(5)),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
+                        child: Text(advert.dateCreated,
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.white70)),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.access_time,
+                        children: const [
+                          Icon(
+                            Icons.location_on,
                             color: Colors.white,
                             size: 30.0,
                           ),
-                          const Padding(padding: EdgeInsets.all(5)),
-                          Column(children: [
-                            Text("Posted ${advert.dateCreated}",
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.white70)),
-                          ])
+                          Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
+                          Text("location",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white))
                         ],
                       ),
                     ],
