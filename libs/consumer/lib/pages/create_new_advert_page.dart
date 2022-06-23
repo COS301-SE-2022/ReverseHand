@@ -6,6 +6,7 @@ import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:general/widgets/bottom_overlay.dart';
 
 class CreateNewAdvertPage extends StatelessWidget {
   final Store<AppState> store;
@@ -14,6 +15,8 @@ class CreateNewAdvertPage extends StatelessWidget {
 
   final titleController = TextEditingController();
   final descrController = TextEditingController();
+  double deviceHeight(BuildContext context) =>
+      MediaQuery.of(context).size.height;
 
   //*****Calls method to create a new job*****//
   @override
@@ -89,7 +92,7 @@ class CreateNewAdvertPage extends StatelessWidget {
                     ),
                     child: const Text("Create job"),
                   ),
-                )
+                ),
                 //*************************************************??
               ],
             ),
