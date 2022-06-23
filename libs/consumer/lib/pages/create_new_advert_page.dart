@@ -1,7 +1,9 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/navbar.dart';
+import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
@@ -26,36 +28,40 @@ class CreateNewAdvertPage extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                //*******************PADDING FROM TOP*********************//
-                const Padding(padding: EdgeInsets.only(top: 50)),
+                //*******************APP BAR WIDGET*********************//
+                const AppBarWidget(title: "Create a Job"),
                 //********************************************************//
 
                 //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
                   child: TextFieldWidget(
                     label: "Title",
                     obscure: false,
+                    min: 2,
                     controller: titleController,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 30, 10, 30),
+                  padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
                   child: TextFieldWidget(
                     label: "Description",
                     obscure: false,
+                    min: 3,
                     controller: descrController,
                   ),
                 ),
                 //*************************************************//
 
                 //**********BACKBUTTON**************************//
-                StoreConnector<AppState, _ViewModel>(
-                  vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) => BackButton(
-                      color: Colors.white, onPressed: vm.pushConsumerListings),
-                ),
+                // StoreConnector<AppState, _ViewModel>(
+                //   vm: () => _Factory(this),
+                //   builder: (BuildContext context, _ViewModel vm) => BackButton(
+                //       color: Colors.white, onPressed: vm.pushConsumerListings),
+                // ),
                 //************************************************//
+
+                //logic of backbutton will be used - UI will not be used
 
                 //***********PADDING BETWEEN BACK BUTTON AND CREATE JOB BUTTON*************//
                 const Padding(padding: EdgeInsets.all(10)),
@@ -81,13 +87,26 @@ class CreateNewAdvertPage extends StatelessWidget {
                           borderRadius:
                               BorderRadius.all(Radius.circular(30.0))),
                     ),
-                    child: const Text("Add new job"),
+                    child: const Text("Create job"),
                   ),
                 )
                 //*************************************************??
               ],
             ),
           ),
+          //*******************ADD BUTTON********************//
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: Colors.orange,
+            child: const Icon(Icons.add),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          //*************************************************//
+
+          //************************NAVBAR***********************/
+          bottomNavigationBar: const NavBarWidget(),
+          //*****************************************************/
         ),
       ),
     );

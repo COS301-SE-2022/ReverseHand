@@ -6,28 +6,15 @@ class AppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return ClipPath(
-    //   clipper: AppBarClipper(),
-    //   child: Container(
-    //     height: 135, //still deciding on a good height
-    //     alignment: const Alignment(
-    //         0, -.5), //might swap this out for an Align widget around text
-    //     color: Theme.of(context).primaryColorDark,
-    //     child: Text(
-    //       title,
-    //       style: const TextStyle(fontSize: 20),
-    //     ),
-    //   ),
-    // );
+    //ClipPath is alternative - keep this comment for now to remember
     return PhysicalShape(
         clipper: AppBarClipper(),
-        elevation: 4.0,
+        elevation: 3.0,
         color: Theme.of(context).primaryColorDark,
         child: Container(
           height: 135, //still deciding on a good height
           alignment: const Alignment(
               0, -.5), //might swap this out for an Align widget around text
-          // color: Theme.of(context).primaryColorDark,
           child: Text(
             title,
             style: const TextStyle(fontSize: 20),
