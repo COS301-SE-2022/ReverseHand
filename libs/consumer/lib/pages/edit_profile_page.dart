@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
@@ -22,11 +23,47 @@ class EditProfilePage extends StatelessWidget {
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) => Column(
-                children: const [
+                children: [
                   //*******************APP BAR WIDGET*********************//
 
-                  AppBarWidget(title: "Edit Profile"),
+                  const AppBarWidget(title: "Edit Profile"),
                   //********************************************************//
+
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                    child: TextFieldWidget(
+                      initialVal: "Luke Skywalker",
+                      label: "name",
+                      obscure: false,
+                      min: 1,
+                      controller: null,
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                    child: TextFieldWidget(
+                      initialVal: "012 345 6789",
+                      label: "cellphone number",
+                      obscure: false,
+                      controller: null,
+                      min: 1,
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 100),
+                    child: TextFieldWidget(
+                      initialVal: "info@gmail.com",
+                      label: "email",
+                      obscure: false,
+                      controller: null,
+                      min: 1,
+                    ),
+                  ),
+
+                  ButtonWidget(
+                      text: "Save changes", function: vm.pushProfilePage)
                 ],
               ),
             ),
@@ -58,16 +95,16 @@ class _Factory extends VmFactory<AppState, EditProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      pushEditProfilePage: () => dispatch(
+      pushProfilePage: () => dispatch(
             NavigateAction.pushNamed('/consumer/consumer_profile_page'),
           ));
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushEditProfilePage;
+  final VoidCallback pushProfilePage;
 
   _ViewModel({
-    required this.pushEditProfilePage,
+    required this.pushProfilePage,
   }); // implementinf hashcode
 }

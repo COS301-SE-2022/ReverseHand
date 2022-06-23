@@ -42,6 +42,7 @@ class CreateNewAdvertPage extends StatelessWidget {
                     obscure: false,
                     min: 2,
                     controller: titleController,
+                    initialVal: null,
                   ),
                 ),
                 Padding(
@@ -51,6 +52,7 @@ class CreateNewAdvertPage extends StatelessWidget {
                     obscure: false,
                     min: 3,
                     controller: descrController,
+                    initialVal: null,
                   ),
                 ),
                 //*************************************************//

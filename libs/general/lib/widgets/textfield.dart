@@ -4,29 +4,32 @@ class TextFieldWidget extends StatelessWidget {
   final String label;
   final bool obscure;
   final int min;
-  final TextEditingController controller;
+  final String? initialVal;
+  final TextEditingController? controller;
   const TextFieldWidget(
       {Key? key,
       required this.label,
       required this.obscure,
       required this.min,
-      required this.controller})
+      required this.controller,
+      required this.initialVal})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialVal,
       minLines: min,
       maxLines: 5,
       style: const TextStyle(color: Colors.white),
       obscureText: obscure,
-      controller: controller,
+      controller: null,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(20),
           borderSide: const BorderSide(
             color: Colors.grey,
             width: 1.0,

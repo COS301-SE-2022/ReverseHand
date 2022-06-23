@@ -4,7 +4,8 @@ class ButtonWidget extends StatelessWidget {
   final String text;
   final void Function() function;
   final bool? waiting;
-  const ButtonWidget({Key? key, required this.text, required this.function, this.waiting})
+  const ButtonWidget(
+      {Key? key, required this.text, required this.function, this.waiting})
       : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class ButtonWidget extends StatelessWidget {
           )),
       onPressed: function,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: Text(
           text,
           style: const TextStyle(color: Colors.white, fontSize: 20),
