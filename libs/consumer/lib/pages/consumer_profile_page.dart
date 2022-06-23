@@ -1,7 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
@@ -171,7 +170,7 @@ class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
       pushEditProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/consumer/consumer_profile_page'),
+            NavigateAction.pushNamed('/consumer/edit_profile_page'),
           ));
 }
 
