@@ -15,14 +15,15 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
             topRight: Radius.circular(20), topLeft: Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-              color: Theme.of(context).primaryColorLight,
-              spreadRadius: 4,
-              blurRadius: 6),
+            color: Colors.black,
+            spreadRadius: 2,
+            blurRadius: 5,
+          ),
         ],
       ),
       child: ClipRRect(
