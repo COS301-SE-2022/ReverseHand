@@ -52,7 +52,7 @@ class EditProfilePage extends StatelessWidget {
                   ),
 
                   const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 100),
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 70),
                     child: TextFieldWidget(
                       initialVal: "info@gmail.com",
                       label: "email",
@@ -63,7 +63,12 @@ class EditProfilePage extends StatelessWidget {
                   ),
 
                   ButtonWidget(
-                      text: "Save changes", function: vm.pushProfilePage)
+                      text: "SAVE CHANGES", function: vm.pushProfilePage),
+                  const Padding(padding: EdgeInsets.all(8)),
+                  ButtonWidget(
+                      text: "DISCARD",
+                      transparent: true,
+                      function: vm.pushProfilePage)
                 ],
               ),
             ),

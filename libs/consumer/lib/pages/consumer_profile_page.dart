@@ -41,8 +41,9 @@ class ConsumerProfilePage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.all(20)),
                   //**************************************************//
 
+                  //*******************CONSUMER DETAILS************************//
+
                   Stack(children: <Widget>[
-                    //*******************CONSUMER DETAILS************************//
                     BottomOverlayWidget(
                       height: MediaQuery.of(context).size.height / 1.5,
                     ),
@@ -127,14 +128,15 @@ class ConsumerProfilePage extends StatelessWidget {
                         ],
                       ),
                     ),
+
+                    //edit button - still deciding on transparency + positioning
                     Positioned(
-                      top: 250,
+                      top: 270,
                       right: 40,
                       child: ButtonWidget(
-                          text: "Edit",
-                          function: vm
-                              .pushEditProfilePage //this is not the correct path yet
-                          ),
+                          text: "EDIT",
+                          transparent: true,
+                          function: vm.pushEditProfilePage),
                     )
                     //********************************************************//
                   ]),
