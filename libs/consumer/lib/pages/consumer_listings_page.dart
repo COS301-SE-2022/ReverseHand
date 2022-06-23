@@ -28,10 +28,6 @@ class ConsumerListingsPage extends StatelessWidget {
                   const AppBarWidget(title: "Job Listings"),
                   //********************************************************//
 
-                  //**************PADDING FROM APP BAR TO CARDS*************//
-                  // const Padding(padding: EdgeInsets.only(top: 50)),
-                  //********************************************************//
-
                   // populating column with adverts
                   ...populateAdverts(vm.adverts, store),
                 ],
