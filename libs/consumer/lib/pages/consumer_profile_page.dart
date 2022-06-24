@@ -145,7 +145,12 @@ class ConsumerProfilePage extends StatelessWidget {
             ),
           ),
 
+          //************************NAVBAR***********************/
+          bottomNavigationBar: const NavBarWidget(),
+          //*****************************************************/
+
           //*******************ADD BUTTON********************//
+          resizeToAvoidBottomInset: false,
           floatingActionButton: FloatingActionButton(
             // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
             onPressed: () {},
@@ -154,11 +159,8 @@ class ConsumerProfilePage extends StatelessWidget {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          //*************************************************//
 
-          //************************NAVBAR***********************/
-          bottomNavigationBar: const NavBarWidget(),
-          //*****************************************************/
+          //*************************************************//
         ),
       ),
     );

@@ -19,6 +19,8 @@ class EditProfilePage extends StatelessWidget {
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
+          resizeToAvoidBottomInset:
+              false, //prevents floatingActionButton appearing above keyboard
           body: SingleChildScrollView(
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
@@ -73,7 +75,6 @@ class EditProfilePage extends StatelessWidget {
               ),
             ),
           ),
-
           //*******************ADD BUTTON********************//
           floatingActionButton: FloatingActionButton(
             // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
@@ -83,7 +84,7 @@ class EditProfilePage extends StatelessWidget {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          //*************************************************//
+          //*****************************************************/
 
           //************************NAVBAR***********************/
           bottomNavigationBar: const NavBarWidget(),

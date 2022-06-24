@@ -25,6 +25,8 @@ class CreateNewAdvertPage extends StatelessWidget {
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
+          resizeToAvoidBottomInset:
+              false, //prevents floatingActionButton appearing above keyboard
           backgroundColor:
               const Color.fromRGBO(18, 26, 34, 1), //background colour
           body: SingleChildScrollView(

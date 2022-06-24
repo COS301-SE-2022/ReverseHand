@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/redux_comp.dart';
+import 'package:async_redux/async_redux.dart';
 
-//should be converted to stateless
+//stateless?
 
 class NavBarWidget extends StatefulWidget {
   const NavBarWidget({
@@ -84,4 +86,24 @@ class _NavBarWidgetState extends State<NavBarWidget> {
       ),
     );
   }
+}
+
+// factory for view model
+class _Factory extends VmFactory<AppState, NavBarWidget> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+      pushEditProfilePage: () => dispatch(
+            NavigateAction.pushNamed('/consumer/edit_profile_page'),
+          ));
+}
+
+// view model
+class _ViewModel extends Vm {
+  final VoidCallback pushEditProfilePage;
+
+  _ViewModel({
+    required this.pushEditProfilePage,
+  });
 }
