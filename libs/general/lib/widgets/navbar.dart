@@ -16,6 +16,7 @@ class NavBarWidget extends StatefulWidget {
 class _NavBarWidgetState extends State<NavBarWidget> {
   @override
   Widget build(BuildContext context) {
+    //general shape and shadows
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -28,11 +29,15 @@ class _NavBarWidgetState extends State<NavBarWidget> {
           ),
         ],
       ),
+
+      //extra clipping off edges
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10.0),
           topRight: Radius.circular(10.0),
         ),
+
+        //bottom nav functionality
         child: BottomAppBar(
             color: Theme.of(context).primaryColorDark,
             shape: const CircularNotchedRectangle(),
@@ -41,6 +46,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
+                //icon 1 - Profile
                 IconButton(
                   icon: const Icon(
                     Icons.menu,
@@ -51,6 +57,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   highlightColor: Colors.orange,
                   splashColor: Colors.white,
                 ),
+
+                //icon 2 - Consumer Listings
                 IconButton(
                   icon: const Icon(
                     Icons.search,
@@ -61,6 +69,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   highlightColor: Colors.orange,
                   splashColor: Colors.white,
                 ),
+
+                //icon 3
                 IconButton(
                   icon: const Icon(
                     Icons.print,
@@ -71,6 +81,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   highlightColor: Colors.orange,
                   splashColor: Colors.white,
                 ),
+
+                //icon 4
                 IconButton(
                   icon: const Icon(
                     Icons.people,
@@ -94,16 +106,20 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      pushEditProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/consumer/edit_profile_page'),
-          ));
+        pushProfilePage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/consumer_profile_page'),
+        ),
+        pushConsumerListings: () => dispatch(
+          NavigateAction.pushNamed('/consumer'),
+        ),
+      );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushEditProfilePage;
+  final VoidCallback pushProfilePage;
+  final VoidCallback pushConsumerListings;
 
-  _ViewModel({
-    required this.pushEditProfilePage,
-  });
+  _ViewModel(
+      {required this.pushProfilePage, required this.pushConsumerListings});
 }
