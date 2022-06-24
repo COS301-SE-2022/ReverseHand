@@ -9,7 +9,7 @@ class BottomOverlayWidget extends StatelessWidget {
     return Container(
       height: height,
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Theme.of(context).primaryColorDark,
         borderRadius: const BorderRadius.only(
             topRight: Radius.circular(10), topLeft: Radius.circular(70)),
         boxShadow: const [

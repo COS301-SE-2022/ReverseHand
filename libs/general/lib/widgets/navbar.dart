@@ -71,7 +71,9 @@ class NavBarWidget extends StatelessWidget {
                               Icons.search,
                               color: Colors.white,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              vm.pushConsumerListings();
+                            },
                             splashRadius: 30,
                             highlightColor: Colors.orange,
                             splashColor: Colors.white,
