@@ -54,6 +54,7 @@ class ConsumerProfilePage extends StatelessWidget {
                   //*******************CONSUMER DETAILS************************//
 
                   Stack(children: <Widget>[
+                    //overlay
                     BottomOverlayWidget(
                       height: MediaQuery.of(context).size.height / 1.5,
                     ),
@@ -83,6 +84,7 @@ class ConsumerProfilePage extends StatelessWidget {
                         child: Text("Pretoria, Gauteng",
                             style:
                                 TextStyle(fontSize: 20, color: Colors.white))),
+
                     //cellphone
                     Positioned(
                       top: 140,
@@ -134,59 +136,6 @@ class ConsumerProfilePage extends StatelessWidget {
                         child: Text("info@gmail.com",
                             style:
                                 TextStyle(fontSize: 20, color: Colors.white))),
-                    //email
-                    // const Positioned(
-                    //   top: 90,
-                    //   left: 70,
-                    //   child: Text("Email",
-                    //       style:
-                    //           TextStyle(fontSize: 20, color: Colors.white70)),
-                    // ),
-                    // Positioned(
-                    //   top: 115,
-                    //   left: 45,
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: const [
-                    //       Icon(
-                    //         Icons.email,
-                    //         color: Colors.white,
-                    //         size: 25.0,
-                    //       ),
-                    //       Padding(padding: EdgeInsets.only(right: 4)),
-                    //       Text("info@gmail.com",
-                    //           style:
-                    //               TextStyle(fontSize: 20, color: Colors.white))
-                    //     ],
-                    //   ),
-                    // ),
-
-                    //cellphone
-                    // const Positioned(
-                    //   top: 160,
-                    //   left: 70,
-                    //   child: Text("Cellphone",
-                    //       style:
-                    //           TextStyle(fontSize: 20, color: Colors.white70)),
-                    // ),
-                    // Positioned(
-                    //   top: 185,
-                    //   left: 45,
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: const [
-                    //       Icon(
-                    //         Icons.phone,
-                    //         color: Colors.white,
-                    //         size: 25.0,
-                    //       ),
-                    //       Padding(padding: EdgeInsets.only(right: 4)),
-                    //       Text("012 345 6789",
-                    //           style:
-                    //               TextStyle(fontSize: 20, color: Colors.white))
-                    //     ],
-                    //   ),
-                    // ),
 
                     // edit button - still deciding on transparency + positioning
                     Positioned(
@@ -197,19 +146,6 @@ class ConsumerProfilePage extends StatelessWidget {
                           transparent: false,
                           function: vm.pushEditProfilePage),
                     )
-
-                    // Positioned(
-                    //   top: 340,
-                    //   child: InkWell(
-
-                    //     onTap: () => vm.pushEditProfilePage(),
-                    //     child: const Text(
-                    //       'Edit account information',
-                    //       style: TextStyle(fontSize: 15),
-                    //     ),
-                    //   ),
-                    // )
-                    //********************************************************//
                   ]),
                 ],
               ),

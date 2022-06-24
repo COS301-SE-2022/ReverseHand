@@ -1,5 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:general/theme.dart';
+import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
@@ -28,9 +30,10 @@ class AdvertDetailsPage extends StatelessWidget {
                 SingleChildScrollView(
               child: Column(
                 children: [
-                  //*******************PADDING FROM TOP*********************//
-                  const Padding(padding: EdgeInsets.only(top: 50)),
-                  //********************************************************//
+                  //**********APPBAR***********//
+                  const AppBarWidget(title: "Job Details"),
+
+                  //*******************************************//
 
                   //**********DETAILED JOB INFORMATION***********//
                   JobCardWidget(
@@ -39,17 +42,7 @@ class AdvertDetailsPage extends StatelessWidget {
                     date: vm.advert.dateCreated,
                     // location: advert.location ?? "",
                   ),
-                  //*******************************************//
 
-                  //**********BACK BUTTON*********************//
-                  BackButton(
-                    color: Colors.white,
-                    onPressed: () => vm.popPage(),
-                  ),
-                  //*******************************************//
-
-                  //**********DIVIDER**************************//
-                  const DividerWidget(),
                   //*******************************************//
 
                   //**********HEADING**************************//
@@ -88,6 +81,24 @@ class AdvertDetailsPage extends StatelessWidget {
               ),
             ),
           ),
+          //************************NAVBAR***********************/
+          bottomNavigationBar: NavBarWidget(
+            store: store,
+          ),
+          //*****************************************************/
+
+          //*******************ADD BUTTON********************//
+          resizeToAvoidBottomInset: false,
+          floatingActionButton: FloatingActionButton(
+            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
+            onPressed: () {},
+            backgroundColor: Colors.orange,
+            child: const Icon(Icons.add),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+
+          //*************************************************//
         ),
       ),
     );

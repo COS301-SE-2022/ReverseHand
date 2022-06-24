@@ -51,24 +51,10 @@ class NavBarWidget extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          //icon 1 - Profile
+                          //icon 1 - Consumer Listings
                           IconButton(
                             icon: const Icon(
-                              Icons.menu,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              vm.pushProfilePage();
-                            },
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
-                          ),
-
-                          //icon 2 - Consumer Listings
-                          IconButton(
-                            icon: const Icon(
-                              Icons.search,
+                              Icons.work,
                               color: Colors.white,
                             ),
                             onPressed: () {
@@ -79,10 +65,10 @@ class NavBarWidget extends StatelessWidget {
                             splashColor: Colors.white,
                           ),
 
-                          //icon 3
+                          //icon 2 - chat
                           IconButton(
                             icon: const Icon(
-                              Icons.print,
+                              Icons.forum,
                               color: Colors.white,
                             ),
                             onPressed: () {},
@@ -91,10 +77,24 @@ class NavBarWidget extends StatelessWidget {
                             splashColor: Colors.white,
                           ),
 
-                          //icon 4
+                          //icon 3 - profile
                           IconButton(
                             icon: const Icon(
-                              Icons.people,
+                              Icons.person,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              vm.pushProfilePage();
+                            },
+                            splashRadius: 30,
+                            highlightColor: Colors.orange,
+                            splashColor: Colors.white,
+                          ),
+
+                          //icon 4 - log out ?
+                          IconButton(
+                            icon: const Icon(
+                              Icons.logout,
                               color: Colors.white,
                             ),
                             onPressed: () {},

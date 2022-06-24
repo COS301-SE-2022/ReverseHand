@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/button.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/create_advert_action.dart';
@@ -77,23 +78,12 @@ class CreateNewAdvertPage extends StatelessWidget {
                 StoreConnector<AppState, _ViewModel>(
                   vm: () => _Factory(this),
                   builder: (BuildContext context, _ViewModel vm) =>
-                      ElevatedButton(
-                    onPressed: () => vm.dispatchCreateAdvertActions(
+                      ButtonWidget(
+                    text: "Create Job",
+                    function: () => vm.dispatchCreateAdvertActions(
                         store.state.user!.id,
                         titleController.value.text,
                         descrController.value.text),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orange,
-                      onPrimary: Colors.white,
-                      shadowColor: Colors.black,
-                      elevation: 9,
-                      textStyle: const TextStyle(fontSize: 20),
-                      minimumSize: const Size(180, 50),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(30.0))),
-                    ),
-                    child: const Text("Create job"),
                   ),
                 ),
                 //*************************************************??

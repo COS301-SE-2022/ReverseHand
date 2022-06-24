@@ -34,7 +34,7 @@ class Launch extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
-        initialRoute: '/',
+        initialRoute: '/consumer/create_advert',
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
