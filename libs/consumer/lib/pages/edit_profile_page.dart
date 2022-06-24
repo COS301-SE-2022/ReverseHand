@@ -87,7 +87,9 @@ class EditProfilePage extends StatelessWidget {
           //*****************************************************/
 
           //************************NAVBAR***********************/
-          bottomNavigationBar: const NavBarWidget(),
+          bottomNavigationBar: NavBarWidget(
+            store: store,
+          ),
           //*****************************************************/
         ),
       ),
