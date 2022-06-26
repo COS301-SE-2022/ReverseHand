@@ -64,6 +64,10 @@ class _SignUpPageState extends State<SignUpPage> {
       "Tiler", 
       "Carpenter",
       "Cleaner",
+      "Designer",
+      "Landscaper",
+      "Electrician",
+      "Plumber",
     ];
 
     final List<String>? results = await showDialog(
@@ -253,16 +257,24 @@ class _SignUpPageState extends State<SignUpPage> {
                                         height: 60,
                                         icon: Icons.construction_outlined,
                                     ),
-                                    const Divider(
-                                      height: 30,
-                                    ),
+
                                     // display selected items
                                     Wrap(
+                                      spacing: 8.0,
+                                      runSpacing: 8.0,
                                       children: selectedItems
-                                          .map((e) => Chip(
-                                                label: Text(e),
-                                              ))
-                                          .toList(),
+                                        .map((types) => Chip(
+                                          labelPadding: const EdgeInsets.all(2.0),
+                                          label: Text(
+                                            types,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          backgroundColor: const Color.fromRGBO(35, 47, 62, 1),
+                                          padding: const EdgeInsets.all(8.0),
+                                        ))
+                                      .toList(),
                                     ),
                                     //**********************************************
                                   ],
