@@ -135,7 +135,7 @@ class LoginPage extends StatelessWidget {
                                 LinkWidget(
                               text1: "Don't have an account? ",
                               text2: "Sign Up",
-                              navigate: () => vm.pushSignUpChoicePage(),
+                              navigate: () => vm.pushSignUpPage(),
                             ),
                           ),
                           //******************************************************* */
@@ -246,7 +246,7 @@ class _Factory extends VmFactory<AppState, LoginPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushSignUpChoicePage: () => dispatch(NavigateAction.pushNamed('/signupchoice')),
+        pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/signup')),
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),
@@ -256,10 +256,10 @@ class _Factory extends VmFactory<AppState, LoginPage> {
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
-  final VoidCallback pushSignUpChoicePage;
+  final VoidCallback pushSignUpPage;
 
   _ViewModel({
     required this.dispatchLoginAction,
-    required this.pushSignUpChoicePage,
+    required this.pushSignUpPage,
   }); // implementinf hashcode
 }
