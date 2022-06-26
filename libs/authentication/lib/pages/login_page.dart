@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
+import 'package:redux_comp/actions/get_address_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/button.dart';
 import '../widgets/link.dart';
@@ -102,10 +103,11 @@ class LoginPage extends StatelessWidget {
                                 LongButtonWidget(
                               text: "Login",
                               login: () {
-                                vm.dispatchLoginAction(
-                                  emailController.value.text.trim(),
-                                  passwordController.value.text.trim(),
-                                );
+                                // vm.dispatchLoginAction(
+                                //   emailController.value.text.trim(),
+                                //   passwordController.value.text.trim(),
+                                // );
+                                vm.dispatchGetAddressAction();
                               },
                             ),
                           ),
@@ -250,21 +252,21 @@ class _Factory extends VmFactory<AppState, LoginPage> {
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),
-        // dispathGetAddressAction: () => dispatch(
-        //   GetAddressAction(),
-        // ),
+        dispatchGetAddressAction: () => dispatch(
+          GetAddressAction(),
+        ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
-  // final void Function() dispathGetAddressAction;
+  final void Function() dispatchGetAddressAction;
   final VoidCallback pushSignUpPage;
 
   _ViewModel({
     required this.dispatchLoginAction,
-    // required this.dispathGetAddressAction,
+    required this.dispatchGetAddressAction,
     required this.pushSignUpPage,
   }); // implementinf hashcode
 }
