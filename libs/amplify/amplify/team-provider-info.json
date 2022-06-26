@@ -64,6 +64,10 @@
         "addUserToGroupResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/addUserToGroupResolver-433166306d6e422f4952-build.zip"
+        },
+        "changeUserDetailsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/changeUserDetailsResolver-6e5a396d724b5342516f-build.zip"
         }
       }
     }
