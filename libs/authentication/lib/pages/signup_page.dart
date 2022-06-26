@@ -9,6 +9,7 @@ import '../widgets/button.dart';
 import '../widgets/circle_blur_widget.dart';
 import '../widgets/divider.dart';
 import '../widgets/link.dart';
+import '../widgets/multiselect_widget.dart';
 import '../widgets/otp_pop_up.dart';
 import '../widgets/textfield.dart';
 
@@ -78,13 +79,15 @@ class SignUpPage extends StatelessWidget {
                         tabs: [
                            //*****************Tabs**********************
                           Tab(child: Text(
-                            'Contractor', style: TextStyle(
-                            fontSize: 20,
+                            'Contractor', 
+                            style: TextStyle(
+                              fontSize: 20,
                             ),
                           )),
                           Tab(child: Text(
-                            'Client', style: TextStyle(
-                            fontSize: 20,
+                            'Client', 
+                            style: TextStyle(
+                              fontSize: 20,
                             ),
                           )),
                            //*******************************************
@@ -173,12 +176,15 @@ class SignUpPage extends StatelessWidget {
                                       //**********************************************
                                       const TransparentDividerWidget(),
                                       //*****************trade type**********************
-                                      TextFieldWidget(
-                                        label: 'trade type',
-                                        obscure: false,
-                                        icon: Icons.add_location_outlined,
-                                        controller: locationController,
+                                      const MultiSelectWidget(
+                                        items: [
+                                          "Painter", 
+                                          "Tiler", 
+                                          "Carpenter",
+                                          "Cleaner",
+                                        ],
                                       ),
+                                     
                                       //**********************************************
                                       const TransparentDividerWidget(),
                                       //*****************password**********************
