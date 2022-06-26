@@ -5,7 +5,6 @@ import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
 
 class EditProfilePage extends StatelessWidget {
