@@ -50,6 +50,8 @@ class TextFieldWidget extends StatelessWidget {
             icon,
             color: Colors.blueGrey,
           ),
+          filled: true,
+          fillColor: Colors.black.withOpacity(0.28),
           labelText: label,
           labelStyle: const TextStyle(color: Colors.white),
           floatingLabelBehavior: FloatingLabelBehavior.auto,
