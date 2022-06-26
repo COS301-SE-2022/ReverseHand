@@ -29,8 +29,7 @@ class LoginPage extends StatelessWidget {
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
-          body: SingleChildScrollView(
-            child: Stack(
+          body: Stack(
               children: <Widget>[
                 //*****************Top circle blur**********************
                 const CircleBlurWidget(),
@@ -42,45 +41,105 @@ class LoginPage extends StatelessWidget {
                   child: CircleBlurWidget(),
                 ),
                 //******************************************************* */
-
-                const Divider(
-                  height: 20,
-                  thickness: 0.5,
-                  indent: 15,
-                  endIndent: 10,
-                  color: Colors.transparent,
-                ),
-
-                //*******************sign in with text************************** */
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //*****************LOGO*****************************
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                        height: 250,
-                        width: 250,
-                        package: 'authentication',
-                      ),
-                    ),
-                    //*************************************************
-
-                    //*****************form****************************
-                    Container(
-                      margin: const EdgeInsets.only(top: 10.0),
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        children: <Widget>[
-                          //*****************email**********************
-                          TextFieldWidget(
-                            label: 'email',
-                            obscure: false,
-                            icon: Icons.mail_outline_rounded,
-                            controller: emailController,
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //*****************LOGO*****************************
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              height: 250,
+                              width: 250,
+                              package: 'authentication',
+                            ),
                           ),
-                          //********************************************
+                          //*************************************************
+
+                          //*****************form****************************
+                          Container(
+                            margin: const EdgeInsets.only(top: 10.0),
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: <Widget>[
+                                //*****************email**********************
+                                TextFieldWidget(
+                                  label: 'email',
+                                  obscure: false,
+                                  icon: Icons.mail_outline_rounded,
+                                  controller: emailController,
+                                ),
+                                //********************************************
+                                const Divider(
+                                  height: 20,
+                                  thickness: 0.5,
+                                  indent: 15,
+                                  endIndent: 10,
+                                  color: Colors.transparent,
+                                ),
+                                //*****************password**********************
+                                TextFieldWidget(
+                                  label: 'password',
+                                  obscure: true,
+                                  icon: Icons.lock_outline_rounded,
+                                  controller: passwordController,
+                                ),
+                                //**********************************************
+                              ],
+                            ),
+                          ),
+                          //****************************************************
+
+                          //*****************login button**********************
+
+                          StoreConnector<AppState, _ViewModel>(
+                            vm: () => _Factory(this),
+                            builder: (BuildContext context, _ViewModel vm) =>
+                                LongButtonWidget(
+                              text: "Login",
+                              login: () {
+                                vm.dispatchLoginAction(
+                                  emailController.value.text.trim(),
+                                  passwordController.value.text.trim(),
+                                );
+                              },
+                            ),
+                          ),
+                          //***************************************************
+
+                          //*****************"OR" divider"**********************
+                          SizedBox(
+                            height: 50,
+                            child: Row(
+                              children: const [
+                                Expanded(
+                                  child: DividerWidget(),
+                                ),
+                                Text("or"),
+                                Expanded(
+                                  child: DividerWidget(),
+                                ),
+                              ],
+                            ),
+                          ),
+                          //****************************************************** */
+
+                          //*****************Sign up Link**********************
+                          StoreConnector<AppState, _ViewModel>(
+                            vm: () => _Factory(this),
+                            builder: (BuildContext context, _ViewModel vm) =>
+                                LinkWidget(
+                              text1: "Don't have an account? ",
+                              text2: "Sign Up",
+                              navigate: () => vm.pushSignUpPage(),
+                            ),
+                          ),
+                          //******************************************************* */
+
                           const Divider(
                             height: 20,
                             thickness: 0.5,
@@ -88,99 +147,92 @@ class LoginPage extends StatelessWidget {
                             endIndent: 10,
                             color: Colors.transparent,
                           ),
-                          //*****************password**********************
-                          TextFieldWidget(
-                            label: 'password',
-                            obscure: true,
-                            icon: Icons.lock_outline_rounded,
-                            controller: passwordController,
+                          //*******************sign in with text************************** */
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              SizedBox(
+                                height: 20,
+                                child: Text(
+                                  'or login with:',
+                                  style: TextStyle(
+                                    fontFamily: 'Segoe UI',
+                                    fontSize: 12,
+                                    color: Color(0x7df5fffa),
+                                  ),
+                                  softWrap: false,
+                                ),
+                              ),
+                            ],
                           ),
-                          //**********************************************
+                           //**********************************************************************/
+
+                          //*******************sign in with image elements************************** */
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                children: [
+                                //Facebook
+                                  GestureDetector(
+                                  onTap: () {}, // Image tapped
+                                  child: Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Image.asset(
+                                      'assets/images/facebook.png',
+                                      height: 100,
+                                      width: 100,
+                                      package: 'authentication',
+                                    ),
+                                  ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  //Google
+                                   GestureDetector(
+                                  onTap: () {}, // Image tapped
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Image.asset(
+                                      'assets/images/google.png',
+                                      height: 100,
+                                      width: 100,
+                                      package: 'authentication',
+                                    ),
+                                  ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  //Apple
+                                  //Shouldn't always display, figure out device being used: todo
+                                   GestureDetector(
+                                  onTap: () {}, // Image tapped
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Image.asset(
+                                      'assets/images/apple.png',
+                                      height: 100,
+                                      width: 100,
+                                      package: 'authentication',
+                                    ),
+                                  ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        //******************************************************* */
                         ],
                       ),
-                    ),
-                    //****************************************************
-
-                    //*****************login button**********************
-
-                    StoreConnector<AppState, _ViewModel>(
-                      vm: () => _Factory(this),
-                      builder: (BuildContext context, _ViewModel vm) =>
-                          LongButtonWidget(
-                        text: "Login",
-                        login: () {
-                          vm.dispatchLoginAction(
-                            emailController.value.text.trim(),
-                            passwordController.value.text.trim(),
-                          );
-                        },
-                      ),
-                    ),
-                    //***************************************************
-
-                    //*****************"OR" divider"**********************
-                    SizedBox(
-                      height: 50,
-                      child: Row(
-                        children: const [
-                          Expanded(
-                            child: DividerWidget(),
-                          ),
-                          Text("or"),
-                          Expanded(
-                            child: DividerWidget(),
-                          ),
-                        ],
-                      ),
-                    ),
-                    //****************************************************** */
-
-                    //*****************Sign up Link**********************
-                    StoreConnector<AppState, _ViewModel>(
-                      vm: () => _Factory(this),
-                      builder: (BuildContext context, _ViewModel vm) =>
-                          LinkWidget(
-                        text1: "Don't have an account? ",
-                        text2: "Sign Up",
-                        navigate: () => vm.pushSignUpPage(),
-                      ),
-                    ),
                     //******************************************************* */
-
-                    //*****************Sign up Link**********************
-                    // const LinkWidget(text1: "Sign Up", text2: "", link: ""),
-
-                    //******************************************************* */
-                    const Divider(
-                      height: 20,
-                      thickness: 0.5,
-                      indent: 15,
-                      endIndent: 10,
-                      color: Colors.transparent,
-                    ),
-                    //*******************sign in with text************************** */
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        SizedBox(
-                          height: 20,
-                          child: Text(
-                            'or login with:',
-                            style: TextStyle(
-                              fontFamily: 'Segoe UI',
-                              fontSize: 12,
-                              color: Color(0x7df5fffa),
-                            ),
-                            softWrap: false,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                //******************************************************* */
-              ],
-            ),
+                    ],
+                  ),
+              ),
+            ],
           ),
         ),
       ),

@@ -53,6 +53,7 @@ class Launch extends StatelessWidget {
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
+
         },
       ),
     );
