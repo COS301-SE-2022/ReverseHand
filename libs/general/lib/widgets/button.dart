@@ -4,15 +4,25 @@ class ButtonWidget extends StatelessWidget {
   final String text;
   final void Function() function;
   final bool? waiting;
-  const ButtonWidget({Key? key, required this.text, required this.function, this.waiting})
+  final bool? transparent;
+  const ButtonWidget(
+      {Key? key,
+      required this.text,
+      required this.function,
+      this.waiting,
+      this.transparent})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          primary: const Color.fromRGBO(255, 153, 0, 1),
+          primary: transparent == true
+              ? Theme.of(context).scaffoldBackgroundColor
+              : const Color.fromRGBO(255, 153, 0, 1),
           shape: RoundedRectangleBorder(
+            side: const BorderSide(
+                width: 1.2, color: Color.fromRGBO(255, 153, 0, 1)),
             borderRadius: BorderRadius.circular(30.0),
           )),
       onPressed: function,

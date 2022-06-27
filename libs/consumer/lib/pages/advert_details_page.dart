@@ -1,10 +1,11 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:general/theme.dart';
+import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/toggle_view_bids_action.dart';
@@ -28,8 +29,9 @@ class AdvertDetailsPage extends StatelessWidget {
                 SingleChildScrollView(
               child: Column(
                 children: [
-                  //**********PADDING FROM TOP*****************//
-                  const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
+                  //**********APPBAR***********//
+                  const AppBarWidget(title: "Job Details"),
+
                   //*******************************************//
 
                   //**********DETAILED JOB INFORMATION***********//
@@ -39,17 +41,7 @@ class AdvertDetailsPage extends StatelessWidget {
                     date: vm.advert.dateCreated,
                     // location: advert.location ?? "",
                   ),
-                  //*******************************************//
 
-                  //**********BACK BUTTON*********************//
-                  BackButton(
-                    color: Colors.white,
-                    onPressed: () => vm.popPage(),
-                  ),
-                  //*******************************************//
-
-                  //**********DIVIDER**************************//
-                  const DividerWidget(),
                   //*******************************************//
 
                   //**********HEADING**************************//
@@ -88,6 +80,24 @@ class AdvertDetailsPage extends StatelessWidget {
               ),
             ),
           ),
+          //************************NAVBAR***********************/
+          bottomNavigationBar: NavBarWidget(
+            store: store,
+          ),
+          //*****************************************************/
+
+          //*******************ADD BUTTON********************//
+          resizeToAvoidBottomInset: false,
+          floatingActionButton: FloatingActionButton(
+            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
+            onPressed: () {},
+            backgroundColor: Colors.orange,
+            child: const Icon(Icons.add),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+
+          //*************************************************//
         ),
       ),
     );
