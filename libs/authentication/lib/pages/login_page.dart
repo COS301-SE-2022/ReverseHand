@@ -70,7 +70,7 @@ class LoginPage extends StatelessWidget {
                                 TextFieldWidget(
                                   label: 'email',
                                   obscure: false,
-                                  icon: Icons.mail_outline_rounded,
+                                  icon: Icons.alternate_email_outlined,
                                   controller: emailController,
                                 ),
                                 //********************************************
