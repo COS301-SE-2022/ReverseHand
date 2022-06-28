@@ -6,6 +6,7 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
+import 'package:general/widgets/floating_button.dart';
 
 class EditProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -75,12 +76,7 @@ class EditProfilePage extends StatelessWidget {
             ),
           ),
           //*******************ADD BUTTON********************//
-          floatingActionButton: FloatingActionButton(
-            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
-            onPressed: () {},
-            backgroundColor: Colors.orange,
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           //*****************************************************/

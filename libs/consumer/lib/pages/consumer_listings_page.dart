@@ -6,6 +6,7 @@ import 'package:redux_comp/redux_comp.dart';
 import '../methods/populate_adverts.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/floating_button.dart';
 
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -36,12 +37,7 @@ class ConsumerListingsPage extends StatelessWidget {
           ),
 
           //*******************ADD BUTTON********************//
-          floatingActionButton: FloatingActionButton(
-            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
-            onPressed: () {},
-            backgroundColor: Colors.orange,
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           //*************************************************//

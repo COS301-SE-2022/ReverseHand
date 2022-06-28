@@ -6,6 +6,7 @@ import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
+import 'package:general/widgets/floating_button.dart';
 
 class ConsumerProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -159,12 +160,7 @@ class ConsumerProfilePage extends StatelessWidget {
 
           //*******************ADD BUTTON********************//
           resizeToAvoidBottomInset: false,
-          floatingActionButton: FloatingActionButton(
-            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
-            onPressed: () {},
-            backgroundColor: Colors.orange,
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
 

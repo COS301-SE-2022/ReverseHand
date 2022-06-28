@@ -10,6 +10,7 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/toggle_view_bids_action.dart';
 import '../methods/populate_bids.dart';
+import 'package:general/widgets/floating_button.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -88,12 +89,7 @@ class AdvertDetailsPage extends StatelessWidget {
 
           //*******************ADD BUTTON********************//
           resizeToAvoidBottomInset: false,
-          floatingActionButton: FloatingActionButton(
-            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
-            onPressed: () {},
-            backgroundColor: Colors.orange,
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
 
