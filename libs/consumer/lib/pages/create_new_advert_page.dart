@@ -60,33 +60,34 @@ class CreateNewAdvertPage extends StatelessWidget {
                 ),
                 //*************************************************//
 
-                //**********BACKBUTTON**************************//
-                // StoreConnector<AppState, _ViewModel>(
-                //   vm: () => _Factory(this),
-                //   builder: (BuildContext context, _ViewModel vm) => BackButton(
-                //       color: Colors.white, onPressed: vm.pushConsumerListings),
-                // ),
-                //************************************************//
-
-                //logic of backbutton will be used - UI will not be used
-
-                //***********PADDING BETWEEN BACK BUTTON AND CREATE JOB BUTTON*************//
-                const Padding(padding: EdgeInsets.all(10)),
-                //********************************************************//
-
-                //**********CREATE NEW JOB BUTTON*****************//
+                //*************STORECONNECTOR**********************//
                 StoreConnector<AppState, _ViewModel>(
                   vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) =>
+                  builder: (BuildContext context, _ViewModel vm) => Column(
+                    children: [
+                      const Padding(padding: EdgeInsets.all(50)),
+
+                      //*********CREATE JOB BUTTON******************//
                       ButtonWidget(
-                    text: "Create Job",
-                    function: () => vm.dispatchCreateAdvertActions(
-                        store.state.user!.id,
-                        titleController.value.text,
-                        descrController.value.text),
+                        text: "CREATE JOB",
+                        function: () => vm.dispatchCreateAdvertActions(
+                            store.state.user!.id,
+                            titleController.value.text,
+                            descrController.value.text),
+                      ),
+                      //********************************************//
+                      const Padding(padding: EdgeInsets.all(5)),
+
+                      //************DISCARD BUTTON*****************//
+                      ButtonWidget(
+                          text: "DISCARD",
+                          transparent: true,
+                          function: vm.pushConsumerListings)
+                      //********************************************//
+                    ],
                   ),
                 ),
-                //*************************************************??
+                //********************************************************//
               ],
             ),
           ),

@@ -34,7 +34,7 @@ class Launch extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
-        initialRoute: '/',
+        initialRoute: '/consumer/create_advert',
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
@@ -60,7 +60,6 @@ class Launch extends StatelessWidget {
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
-
         },
       ),
     );
