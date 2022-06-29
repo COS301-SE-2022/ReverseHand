@@ -13,7 +13,7 @@ class BottomOverlayWidget extends StatelessWidget {
         borderRadius: const BorderRadius.only(
             topRight: Radius.circular(40), topLeft: Radius.circular(40)),
         boxShadow: const [
-          BoxShadow(color: Colors.black, spreadRadius: 1, blurRadius: 3),
+          BoxShadow(color: Colors.black, spreadRadius: 0.5, blurRadius: 3),
         ],
       ),
     );

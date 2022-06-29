@@ -8,9 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
-import 'package:redux_comp/models/bid_model.dart';
-import 'package:redux_comp/actions/toggle_view_bids_action.dart';
-import '../methods/populate_bids.dart';
 import 'package:general/widgets/floating_button.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
@@ -80,7 +77,7 @@ class AdvertDetailsPage extends StatelessWidget {
                     Positioned(
                         top: 30,
                         child: ButtonWidget(
-                            text: "View Bids", function: vm.popPage)),
+                            text: "View Bids", function: vm.pushViewBidsPage)),
 
                     //Delete - onPressed not correct yet
                     Positioned(
@@ -88,7 +85,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: ButtonWidget(
                             text: "Delete",
                             transparent: true,
-                            function: vm.popPage))
+                            function: vm.pushViewBidsPage))
                   ]),
                   //*************BOTTOM BUTTONS**************//
                 ],
@@ -120,11 +117,9 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        change: state.change,
-        dispatchToggleViewBidsAction: (toggleShort, activate) =>
-            dispatch(ToggleViewBidsAction(toggleShort, activate)),
-        popPage: () => dispatch(NavigateAction.pop()),
-        bids: state.user!.viewBids,
+        pushViewBidsPage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/view_bids'),
+        ),
         advert: state.user!.activeAd!,
       );
 }
@@ -132,16 +127,10 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 // view model
 class _ViewModel extends Vm {
   final AdvertModel advert;
-  final List<BidModel> bids;
-  final VoidCallback popPage;
-  final bool change;
-  final void Function(bool, bool) dispatchToggleViewBidsAction;
+  final VoidCallback pushViewBidsPage;
 
   _ViewModel({
-    required this.dispatchToggleViewBidsAction,
-    required this.change,
-    required this.popPage,
-    required this.bids,
     required this.advert,
-  }) : super(equals: [change]); // implementing hashcode
+    required this.pushViewBidsPage,
+  }); // implementinf hashcode
 }

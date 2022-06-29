@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
@@ -28,10 +29,9 @@ class ViewBidsPage extends StatelessWidget {
                 SingleChildScrollView(
               child: Column(
                 children: [
-                  //**********APPBAR***********//
+                  //**********APPBAR*************//
                   const AppBarWidget(title: "JOB INFO"),
-
-                  //*******************************************//
+                  //******************************//
 
                   //**********DETAILED JOB INFORMATION***********//
                   JobCardWidget(
@@ -40,7 +40,6 @@ class ViewBidsPage extends StatelessWidget {
                     date: vm.advert.dateCreated,
                     // location: advert.location ?? "",
                   ),
-
                   //*******************************************//
 
                   //**********TABS TO FILTER ACTIVE/SHORTLISTED BIDS***********//
@@ -62,10 +61,55 @@ class ViewBidsPage extends StatelessWidget {
                   // ),
                   //***********************************************************//
 
+                  //^^^keep this to integrate toggle
+
                   // creating bid widgets
                   // ...populateBids(vm.bids, store)
 
-                  const Padding(padding: EdgeInsets.only(top: 130)),
+                  const Padding(padding: EdgeInsets.only(top: 30)),
+                  //make sure this works with longer text
+
+                  //************STACK FOR TABS AND OVERLAY**************//
+                  Stack(alignment: AlignmentDirectional.center, children: [
+                    //************OVERLAY**************//
+                    BottomOverlayWidget(
+                      height: MediaQuery.of(context).size.height / 1.5,
+                    ),
+                    //*********************************//
+
+                    //*****************Tabs**********************
+                    const Positioned(
+                      top: 10,
+                      child: DefaultTabController(
+                        length: 2,
+                        child: TabBar(
+                          isScrollable: true,
+                          indicatorColor: Color.fromRGBO(243, 157, 55, 1),
+                          indicatorWeight: 5,
+                          labelColor: Colors.white, //selected text color
+                          unselectedLabelColor: Colors.grey, //Unselected text
+                          tabs: [
+                            Tab(
+                                child: Text(
+                              'All',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            )),
+                            Tab(
+                                child: Text(
+                              'Shortlisted',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            )),
+                          ],
+                        ),
+                      ),
+                    ),
+                    //*******************************************
+                  ])
+                  //***************END OF STACK*****************//
                 ],
               ),
             ),
@@ -81,7 +125,6 @@ class ViewBidsPage extends StatelessWidget {
           floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-
           //*************************************************//
         ),
       ),
