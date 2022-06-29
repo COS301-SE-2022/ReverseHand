@@ -1,8 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/bottom_overlay.dart';
+import 'package:general/widgets/button.dart';
 import 'package:general/widgets/navbar.dart';
-import 'package:general/widgets/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
@@ -45,38 +46,51 @@ class AdvertDetailsPage extends StatelessWidget {
 
                   //*******************************************//
 
-                  //**********HEADING**************************//
-                  const Text(
-                    "BIDS",
-                    style: TextStyle(fontSize: 25.0, color: Colors.white),
-                  ),
-                  //*******************************************//
-
-                  //**********PADDING**************************//
-                  const Padding(padding: EdgeInsets.all(15)),
-                  //*******************************************//
-
                   //**********TABS TO FILTER ACTIVE/SHORTLISTED BIDS***********//
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TabWidget(
-                        text: "ACTIVE",
-                        onPressed: (activate) =>
-                            vm.dispatchToggleViewBidsAction(false, activate),
-                      ),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      TabWidget(
-                        text: "SHORTLIST",
-                        onPressed: (activate) =>
-                            vm.dispatchToggleViewBidsAction(true, activate),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     TabWidget(
+                  //       text: "ACTIVE",
+                  //       onPressed: (activate) =>
+                  //           vm.dispatchToggleViewBidsAction(false, activate),
+                  //     ),
+                  //     const Padding(padding: EdgeInsets.all(5)),
+                  //     TabWidget(
+                  //       text: "SHORTLIST",
+                  //       onPressed: (activate) =>
+                  //           vm.dispatchToggleViewBidsAction(true, activate),
+                  //     ),
+                  //   ],
+                  // ),
                   //***********************************************************//
 
                   // creating bid widgets
-                  ...populateBids(vm.bids, store)
+                  // ...populateBids(vm.bids, store)
+
+                  const Padding(padding: EdgeInsets.only(top: 150)),
+
+                  //*************BOTTOM BUTTONS**************//
+                  Stack(alignment: Alignment.center, children: <Widget>[
+                    BottomOverlayWidget(
+                      height: MediaQuery.of(context).size.height / 3,
+                    ),
+
+                    //view bids - onpressed not correct yet
+                    Positioned(
+                        top: 60,
+                        child: ButtonWidget(
+                            text: "View Bids", function: vm.popPage)),
+
+                    //Delete - onPressed not correct yet
+                    Positioned(
+                        top: 110,
+                        child: ButtonWidget(
+                            text: "Delete",
+                            transparent: true,
+                            function: vm.popPage))
+                  ]),
+                  //*************BOTTOM BUTTONS**************//
                 ],
               ),
             ),

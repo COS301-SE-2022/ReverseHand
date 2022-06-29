@@ -18,7 +18,7 @@ class ButtonWidget extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           primary: transparent == true
-              ? Theme.of(context).scaffoldBackgroundColor
+              ? Theme.of(context).primaryColorDark
               : const Color.fromRGBO(255, 153, 0, 1),
           shape: RoundedRectangleBorder(
             side: const BorderSide(

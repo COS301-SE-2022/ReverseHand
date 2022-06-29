@@ -22,24 +22,51 @@ class JobCardWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              //****************TITLE********************//
               Text(titleText,
-                  style: const TextStyle(fontSize: 30, color: Colors.white)),
-              const Padding(padding: EdgeInsets.all(3)),
-              Text(descText,
-                  style: const TextStyle(fontSize: 20, color: Colors.white)),
-              const Padding(padding: EdgeInsets.all(5)),
+                  style: const TextStyle(fontSize: 35, color: Colors.white)),
+              //*****************************************//
+
               Row(
                 children: [
-                  const Text(
-                    "Posted: ",
-                    style: TextStyle(fontSize: 20, color: Colors.white70),
-                  ),
+                  // const Text(
+                  //   "Posted: ",
+                  //   style: TextStyle(fontSize: 20, color: Colors.white70),
+                  // ),
+                  //still deciding if this should be here
                   Text(
                     date,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                    style: const TextStyle(fontSize: 20, color: Colors.white70),
                   )
                 ],
               ),
+
+              //****************LOCATION********************//
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(
+              //     children: const [
+              //       Icon(
+              //         Icons.location_on,
+              //         color: Colors.white,
+              //         size: 30.0,
+              //       ),
+              //       Text("Pretoria, Gauteng",
+              //           style: TextStyle(fontSize: 20, color: Colors.white))
+              //     ],
+              //   ),
+              // ),
+              //*****************************************//
+
+              //will be added when location is implemented
+
+              const Padding(padding: EdgeInsets.all(10)),
+
+              //****************DESCRIPTION*******************//
+              Text(descText,
+                  style: const TextStyle(fontSize: 20, color: Colors.white)),
+              //**********************************************/
+
               const Padding(padding: EdgeInsets.all(2)),
             ],
           ),
