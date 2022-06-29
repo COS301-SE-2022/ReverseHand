@@ -53,7 +53,7 @@ class ConsumerProfilePage extends StatelessWidget {
 
                   //*******************CONSUMER DETAILS************************//
 
-                  Stack(children: <Widget>[
+                  Stack(alignment: Alignment.center, children: <Widget>[
                     //overlay
                     BottomOverlayWidget(
                       height: MediaQuery.of(context).size.height / 1.5,
@@ -139,11 +139,11 @@ class ConsumerProfilePage extends StatelessWidget {
 
                     // edit button - still deciding on transparency + positioning
                     Positioned(
-                      top: 320,
-                      left: 280,
+                      top: 310,
+                      left: 290,
                       child: ButtonWidget(
                           text: "EDIT",
-                          transparent: false,
+                          transparent: true,
                           function: vm.pushEditProfilePage),
                     )
                   ]),

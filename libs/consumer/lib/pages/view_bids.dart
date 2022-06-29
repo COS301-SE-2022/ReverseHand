@@ -1,8 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/bottom_overlay.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
@@ -10,13 +8,12 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/toggle_view_bids_action.dart';
-import '../methods/populate_bids.dart';
 import 'package:general/widgets/floating_button.dart';
 
-class AdvertDetailsPage extends StatelessWidget {
+class ViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
 
-  const AdvertDetailsPage({Key? key, required this.store}) : super(key: key);
+  const ViewBidsPage({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,28 +66,6 @@ class AdvertDetailsPage extends StatelessWidget {
                   // ...populateBids(vm.bids, store)
 
                   const Padding(padding: EdgeInsets.only(top: 130)),
-
-                  //*************BOTTOM BUTTONS**************//
-                  Stack(alignment: Alignment.center, children: <Widget>[
-                    BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 3,
-                    ),
-
-                    //view bids - onpressed not correct yet
-                    Positioned(
-                        top: 30,
-                        child: ButtonWidget(
-                            text: "View Bids", function: vm.popPage)),
-
-                    //Delete - onPressed not correct yet
-                    Positioned(
-                        top: 80,
-                        child: ButtonWidget(
-                            text: "Delete",
-                            transparent: true,
-                            function: vm.popPage))
-                  ]),
-                  //*************BOTTOM BUTTONS**************//
                 ],
               ),
             ),
@@ -115,7 +90,7 @@ class AdvertDetailsPage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
+class _Factory extends VmFactory<AppState, ViewBidsPage> {
   _Factory(widget) : super(widget);
 
   @override
