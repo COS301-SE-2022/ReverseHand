@@ -15,6 +15,7 @@ const ReverseHandTable = process.env.REVERSEHAND;
 */
 exports.handler = async (event) => {
     try {
+        // updating item
         let args = [];
         let expressionAttributeNames = {};
         if (event.arguments.title !== undefined) {
@@ -65,7 +66,18 @@ exports.handler = async (event) => {
 
         await docClient.update(params).promise();
 
-        return 'test for now';
+        // getting item to be returned
+        params = {
+            TableName: ReverseHandTable,
+            Key: {
+                part_key: event.arguments.ad_id,
+                sort_key: event.arguments.ad_id
+            }
+        };
+
+        const data = await docClient.get(params).promise();
+
+        return data['advert_details'];
     } catch(e) {
         console.log(e);
     }
