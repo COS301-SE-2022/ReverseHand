@@ -1,5 +1,4 @@
 const AWS = require("aws-sdk");
-const { updateExpressionStatement } = require("typescript");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
 
@@ -16,16 +15,42 @@ const ReverseHandTable = process.env.REVERSEHAND;
 */
 exports.handler = async (event) => {
     try {
-        let updateExpression = {
-            advert_details: {}
-        };
-        updateExpression.advert_details['title'] = event.arguments.title;
-        updateExpression.advert_details['description'] = event.arguments.description;
-        updateExpression.advert_details['type'] = event.arguments.type;
-        updateExpression.advert_details['location'] = event.arguments.location;
-        updateExpression.advert_details['date_closed'] = event.arguments.date_closed;
+        let args = [];
+        let expressionAttributeNames = {};
+        if (event.arguments.title !== undefined) {
+            args.push('advert_details.#title = :title');
+            expressionAttributeNames['#title'] = 'title';
+        }
+        if (event.arguments.description !== undefined) {
+            args.push('advert_details.#description = :description');
+            expressionAttributeNames['#description'] = 'description';
+        }
+        if (event.arguments.type !== undefined) {
+            args.push('advert_details.#type = :type');
+            expressionAttributeNames['#type'] = 'type';
+        }
+        if (event.arguments.location !== undefined) {
+            args.push('advert_details.#location = :location');
+            expressionAttributeNames['#location'] = 'location';
+        }
+        if (event.arguments.date_closed !== undefined) {
+            args.push('advert_details.#date_closed = :date_closed');
+            expressionAttributeNames['#date_closed'] = 'date_closed';
+        }
+            
+        let updateExpression = 'set ';
+        for (let i = 0; i < args.length - 1; i++)
+            updateExpression += args[i] + ', ';
+        updateExpression += args[args.length - 1];
+        
+        let expressionAttributeValues = {
 
-        let setString = 'set ';
+        };
+        expressionAttributeValues[':title'] = event.arguments.title;
+        expressionAttributeValues[':description'] = event.arguments.description;
+        expressionAttributeValues[':type'] = event.arguments.type;
+        expressionAttributeValues[':location'] = event.arguments.location;
+        expressionAttributeValues[':date_closed'] = event.arguments.date_closed;
 
         let params = {
             TableName: ReverseHandTable,
@@ -34,6 +59,8 @@ exports.handler = async (event) => {
                 sort_key: event.arguments.advert_id
             },
             UpdateExpression: updateExpression,
+            ExpressionAttributeValues: expressionAttributeValues,
+            ExpressionAttributeNames: expressionAttributeNames,
         }
 
         await docClient.update(params).promise();
