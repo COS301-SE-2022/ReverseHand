@@ -100,39 +100,41 @@ class ViewBidsPage extends StatelessWidget {
 
                   // create widgets for each tab bar here
                   Expanded(
-                    child: TabBarView(
-                      children: [
-                        // first tab bar view widget
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Theme.of(context).primaryColorDark,
-                          child: Column(children: [
-                            ButtonWidget(
-                                text: "Back",
-                                transparent: true,
-                                whiteBorder: true,
-                                function: vm.popPage)
-                          ]
-                              //bids should be populated here
-                              ),
-                        ),
+                    child: Stack(children: [
+                      BottomOverlayWidget(
+                          height: MediaQuery.of(context).size.height / 2),
+                      TabBarView(
+                        children: [
+                          // first tab bar view widget
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(children: [
+                              ButtonWidget(
+                                  text: "Back",
+                                  transparent: true,
+                                  whiteBorder: true,
+                                  function: vm.popPage)
+                            ]
+                                //bids should be populated here
+                                ),
+                          ),
 
-                        // second tab bar viiew widget
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Theme.of(context).primaryColorDark,
-                          child: Column(children: [
-                            ButtonWidget(
-                                text: "Back",
-                                transparent: true,
-                                whiteBorder: true,
-                                function: vm.popPage)
-                          ]
-                              //bids should be populated here
-                              ),
-                        ),
-                      ],
-                    ),
+                          // second tab bar viiew widget
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(children: [
+                              ButtonWidget(
+                                  text: "Back",
+                                  transparent: true,
+                                  whiteBorder: true,
+                                  function: vm.popPage)
+                            ]
+                                //bids should be populated here
+                                ),
+                          ),
+                        ],
+                      ),
+                    ]),
                   ),
                 ],
               ),

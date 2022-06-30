@@ -53,13 +53,13 @@ class AdvertDetailsPage extends StatelessWidget {
                     ),
                   ),
 
-                  const Padding(padding: EdgeInsets.only(top: 90)),
+                  const Padding(padding: EdgeInsets.only(top: 50)),
                   //**********************************************/
 
                   //*************BOTTOM BUTTONS**************//
                   Stack(alignment: Alignment.center, children: <Widget>[
                     BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 3,
+                      height: MediaQuery.of(context).size.height / 2,
                     ),
 
                     //view bids
@@ -70,7 +70,7 @@ class AdvertDetailsPage extends StatelessWidget {
 
                     //Delete - currently just takes you back to Consumer Listings page
                     Positioned(
-                        top: 65,
+                        top: 75,
                         child: ButtonWidget(
                             text: "Delete",
                             transparent: true,
@@ -78,7 +78,7 @@ class AdvertDetailsPage extends StatelessWidget {
 
                     //Back
                     Positioned(
-                        top: 115,
+                        top: 135,
                         child: ButtonWidget(
                             text: "Back",
                             transparent: true,
