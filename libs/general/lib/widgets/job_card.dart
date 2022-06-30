@@ -1,4 +1,6 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/app_state.dart';
 
 class JobCardWidget extends StatelessWidget {
   final String titleText;
@@ -38,7 +40,7 @@ class JobCardWidget extends StatelessWidget {
                   Text(
                     date,
                     style: const TextStyle(fontSize: 18, color: Colors.white70),
-                  )
+                  ),
                 ],
               ),
               //****************************************//
@@ -68,11 +70,42 @@ class JobCardWidget extends StatelessWidget {
               ),
               //**********************************************/
 
-              const Padding(padding: EdgeInsets.all(2)),
+              //*****************EDIT ICON**********************//
+              StoreConnector<AppState, _ViewModel>(
+                vm: () => _Factory(this),
+                builder: (BuildContext context, _ViewModel vm) => Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: IconButton(
+                    onPressed: vm.pushCreateNewAdvert,
+                    icon: const Icon(Icons.edit),
+                    color: Colors.white70,
+                  ),
+                ),
+              ),
+              //**********************************************/
             ],
           ),
         ],
       ),
     );
   }
+}
+
+class _Factory extends VmFactory<AppState, JobCardWidget> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+      pushCreateNewAdvert: () => dispatch(
+            NavigateAction.pushNamed('/consumer/create_advert'),
+          ));
+}
+
+// view model
+class _ViewModel extends Vm {
+  final VoidCallback pushCreateNewAdvert;
+
+  _ViewModel({
+    required this.pushCreateNewAdvert,
+  }); // implementinf hashcode
 }

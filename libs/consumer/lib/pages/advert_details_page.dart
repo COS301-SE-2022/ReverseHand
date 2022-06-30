@@ -43,29 +43,7 @@ class AdvertDetailsPage extends StatelessWidget {
 
                   //*******************************************//
 
-                  //**********TABS TO FILTER ACTIVE/SHORTLISTED BIDS***********//
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     TabWidget(
-                  //       text: "ACTIVE",
-                  //       onPressed: (activate) =>
-                  //           vm.dispatchToggleViewBidsAction(false, activate),
-                  //     ),
-                  //     const Padding(padding: EdgeInsets.all(5)),
-                  //     TabWidget(
-                  //       text: "SHORTLIST",
-                  //       onPressed: (activate) =>
-                  //           vm.dispatchToggleViewBidsAction(true, activate),
-                  //     ),
-                  //   ],
-                  // ),
-                  //***********************************************************//
-
-                  // creating bid widgets
-                  // ...populateBids(vm.bids, store)
-
-                  const Padding(padding: EdgeInsets.only(top: 130)),
+                  const Padding(padding: EdgeInsets.only(top: 110)),
 
                   //*************BOTTOM BUTTONS**************//
                   Stack(alignment: Alignment.center, children: <Widget>[
