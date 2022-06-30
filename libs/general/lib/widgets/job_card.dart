@@ -1,6 +1,4 @@
-import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/app_state.dart';
 
 class JobCardWidget extends StatelessWidget {
   final String titleText;
@@ -75,23 +73,4 @@ class JobCardWidget extends StatelessWidget {
       ),
     );
   }
-}
-
-class _Factory extends VmFactory<AppState, JobCardWidget> {
-  _Factory(widget) : super(widget);
-
-  @override
-  _ViewModel fromStore() => _ViewModel(
-      pushCreateNewAdvert: () => dispatch(
-            NavigateAction.pushNamed('/consumer/create_advert'),
-          ));
-}
-
-// view model
-class _ViewModel extends Vm {
-  final VoidCallback pushCreateNewAdvert;
-
-  _ViewModel({
-    required this.pushCreateNewAdvert,
-  }); // implementinf hashcode
 }

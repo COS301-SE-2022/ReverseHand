@@ -2,12 +2,15 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/floating_button.dart';
+import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/actions/accept_bid_action.dart';
 import 'package:redux_comp/actions/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:general/widgets/bid_card.dart';
 import 'package:general/widgets/shortlist_accept_button.dart';
 import 'package:redux_comp/models/bid_model.dart';
+import 'package:general/widgets/bottom_overlay.dart';
+import 'package:general/widgets/button.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -24,26 +27,61 @@ class BidDetailsPage extends StatelessWidget {
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) => Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                //**********APPBAR***********//
-                const AppBarWidget(title: "BID DETAILS"),
-                //***************************//
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Stack(children: [
+                    //**********APPBAR***********//
+                    const AppBarWidget(title: "BID DETAILS"),
+                    //***************************//
 
-                //******************INFO***************//
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 0.0, horizontal: 35),
-                  child: Column(
+                    //************DATE***********//
+                    Positioned(
+                      top: 90,
+                      left: 35,
+                      child: Text('${vm.bid.name}',
+                          style: const TextStyle(
+                              fontSize: 33, color: Colors.white)),
+                    ),
+                    //***************************//
+
+                    //**********NAME***********//
+                    Positioned(
+                      top: 95,
+                      right: 35,
+                      child: Text(vm.bid.dateCreated,
+                          style: const TextStyle(
+                              fontSize: 17, color: Colors.white70)),
+                    ),
+                    //***************************//
+                  ]),
+
+                  //**********DIVIDER***********//
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Divider(
+                      height: 20,
+                      thickness: 0.5,
+                      indent: 15,
+                      endIndent: 15,
+                      color: Theme.of(context).primaryColorLight,
+                    ),
+                  ),
+                  //****************************//
+
+                  //******************INFO***************//
+                  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         //name
-                        Text('${vm.bid.name}',
-                            style: const TextStyle(
-                                fontSize: 33, color: Colors.white)),
+                        // Text('${vm.bid.name}',
+                        //     style: const TextStyle(
+                        //         fontSize: 33, color: Colors.white)),
 
-                        const Padding(padding: EdgeInsets.all(20)),
+                        //if this does not work in stack with appBar on other screens
+
+                        const Padding(padding: EdgeInsets.all(15)),
 
                         //bid range
                         const Center(
@@ -95,25 +133,54 @@ class BidDetailsPage extends StatelessWidget {
                               ],
                             ),
                           ],
-                        ) //need to get this info dynamically
+                        ),
+
+                        //need to get this info dynamically
                       ]),
-                ),
-                //*************************************//
+                  //*************************************//
 
-                //***********PADDING BETWEEN BACK BUTTON AND ACCEPT*******//
-                const Padding(padding: EdgeInsets.all(10)),
-                //********************************************************//
+                  //****************BOTTOM BUTTONS**************//
+                  const Padding(padding: EdgeInsets.all(15)),
+                  Stack(alignment: Alignment.center, children: <Widget>[
+                    BottomOverlayWidget(
+                      height: MediaQuery.of(context).size.height / 2,
+                    ),
 
-                //****************BUTTON TO SHORTLIST/ACCEPT**************//
-                // ShortlistAcceptButtonWidget(
-                //   shortBid: vm.bid.isShortlisted(),
-                //   onTap: () => vm.bid.isShortlisted()
-                //       ? vm.dispatchAcceptBidAction()
-                //       : vm.dispatchShortListBidAction(),
-                // ),
-                //********************************************************//
-              ],
+                    //shortlist/accept
+                    Positioned(
+                      top: 20,
+                      child: ShortlistAcceptButtonWidget(
+                        shortBid: vm.bid.isShortlisted(),
+                        onTap: () => vm.bid.isShortlisted()
+                            ? vm.dispatchAcceptBidAction()
+                            : vm.dispatchShortListBidAction(),
+                      ),
+                    ),
+
+                    //Back
+                    Positioned(
+                        top: 80,
+                        child: ButtonWidget(
+                            text: "Back",
+                            transparent: true,
+                            whiteBorder: true,
+                            function: vm.popPage)),
+                  ]),
+                  //******************************************//
+                ],
+              ),
             ),
+            //*******************ADD BUTTON********************//
+            floatingActionButton: const FloatingButtonWidget(),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            //*************************************************//
+
+            //************************NAVBAR***********************/
+            bottomNavigationBar: NavBarWidget(
+              store: store,
+            ),
+            //*****************************************************/
           ),
         ),
       ),
