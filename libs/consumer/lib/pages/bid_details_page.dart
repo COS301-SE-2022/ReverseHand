@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/actions/accept_bid_action.dart';
 import 'package:redux_comp/actions/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -24,44 +25,92 @@ class BidDetailsPage extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) => Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                //*******************PADDING FROM TOP*********************//
-                const Padding(padding: EdgeInsets.only(top: 50)),
-                //********************************************************//
+                //**********APPBAR***********//
+                const AppBarWidget(title: "BID DETAILS"),
+                //***************************//
 
-                //***********************CARD*****************************//
-                CardWidget(
-                  titleText: "MR J SMITH",
-                  price1: vm.bid.priceLower,
-                  price2: vm.bid.priceUpper,
-                  details: "info@gmail.com",
-                  quote: false,
+                //******************INFO***************//
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 0.0, horizontal: 35),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        //name
+                        Text('${vm.bid.name}',
+                            style: const TextStyle(
+                                fontSize: 33, color: Colors.white)),
+
+                        const Padding(padding: EdgeInsets.all(20)),
+
+                        //bid range
+                        const Center(
+                          child: Text(
+                            'Quoted price',
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white70),
+                          ),
+                        ),
+                        const Padding(padding: EdgeInsets.all(8)),
+                        Center(
+                          child: Text(
+                            'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
+                            style: const TextStyle(
+                                fontSize: 40,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+
+                        const Padding(padding: EdgeInsets.all(40)),
+
+                        //contact information
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.info_outline,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            const Padding(padding: EdgeInsets.all(3)),
+                            Column(
+                              children: const [
+                                Center(
+                                  child: Text(
+                                    'Contact Details',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white70),
+                                  ),
+                                ),
+                                Center(
+                                  child: Text(
+                                    'info@gmail.com',
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ) //need to get this info dynamically
+                      ]),
                 ),
-                //********************************************************//
+                //*************************************//
 
-                //***********PADDING BETWEEN CARD AND BUTTON*************//
-                const Padding(padding: EdgeInsets.all(10)),
-                //********************************************************//
-
-                //**********************BACK BUTTON**********************//
-                BackButton(
-                  color: Colors.white,
-                  onPressed: () => vm.popPage(),
-                ),
-
-                //********************************************************//
-
-                //***********PADDING BETWEEN BACK BUTTON AND ACCEPT*************//
+                //***********PADDING BETWEEN BACK BUTTON AND ACCEPT*******//
                 const Padding(padding: EdgeInsets.all(10)),
                 //********************************************************//
 
                 //****************BUTTON TO SHORTLIST/ACCEPT**************//
-                ShortlistAcceptButtonWidget(
-                  shortBid: vm.bid.isShortlisted(),
-                  onTap: () => vm.bid.isShortlisted()
-                      ? vm.dispatchAcceptBidAction()
-                      : vm.dispatchShortListBidAction(),
-                ),
+                // ShortlistAcceptButtonWidget(
+                //   shortBid: vm.bid.isShortlisted(),
+                //   onTap: () => vm.bid.isShortlisted()
+                //       ? vm.dispatchAcceptBidAction()
+                //       : vm.dispatchShortListBidAction(),
+                // ),
                 //********************************************************//
               ],
             ),

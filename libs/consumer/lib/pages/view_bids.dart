@@ -97,6 +97,7 @@ class ViewBidsPage extends StatelessWidget {
                       )),
                     ],
                   ),
+                  ...populateBids(vm.bids, store),
 
                   // create widgets for each tab bar here
                   Expanded(
