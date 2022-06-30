@@ -104,6 +104,7 @@ class ViewBidsPage extends StatelessWidget {
                       children: [
                         // first tab bar view widget
                         Container(
+                          padding: const EdgeInsets.all(8),
                           color: Theme.of(context).primaryColorDark,
                           child: Column(children: [
                             ButtonWidget(
@@ -118,6 +119,7 @@ class ViewBidsPage extends StatelessWidget {
 
                         // second tab bar viiew widget
                         Container(
+                          padding: const EdgeInsets.all(8),
                           color: Theme.of(context).primaryColorDark,
                           child: Column(children: [
                             ButtonWidget(

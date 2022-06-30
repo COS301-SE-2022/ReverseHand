@@ -83,7 +83,7 @@ class CreateNewAdvertPage extends StatelessWidget {
                       ButtonWidget(
                           text: "DISCARD",
                           transparent: true,
-                          function: vm.pushConsumerListings)
+                          function: vm.popPage)
                       //********************************************//
                     ],
                   ),
@@ -115,8 +115,7 @@ class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushConsumerListings: () =>
-            dispatch(NavigateAction.pushNamed('/consumer')),
+        popPage: () => dispatch(NavigateAction.pop()),
         dispatchCreateAdvertActions:
             (String customerId, String title, String? description) => dispatch(
           CreateAdvertAction(customerId, title, "Pretoria", "Plumbing",
@@ -128,10 +127,10 @@ class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String, String?) dispatchCreateAdvertActions;
-  final VoidCallback pushConsumerListings;
+  final VoidCallback popPage;
 
   _ViewModel({
     required this.dispatchCreateAdvertActions,
-    required this.pushConsumerListings,
+    required this.popPage,
   }); // implementinf hashcode
 }

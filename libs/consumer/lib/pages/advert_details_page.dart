@@ -68,13 +68,13 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: ButtonWidget(
                             text: "View Bids", function: vm.pushViewBidsPage)),
 
-                    //Delete - onPressed ???
+                    //Delete - currently just takes you back to Consumer Listings page
                     Positioned(
                         top: 65,
                         child: ButtonWidget(
                             text: "Delete",
                             transparent: true,
-                            function: vm.pushViewBidsPage)),
+                            function: vm.pushConsumerListings)),
 
                     //Back
                     Positioned(
@@ -121,6 +121,9 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushCreateNewAdvert: () => dispatch(
           NavigateAction.pushNamed('/consumer/create_advert'),
         ),
+        pushConsumerListings: () => dispatch(
+          NavigateAction.pushNamed('/consumer'),
+        ),
         popPage: () => dispatch(NavigateAction.pop()),
         advert: state.user!.activeAd!,
       );
@@ -131,11 +134,13 @@ class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushViewBidsPage;
   final VoidCallback pushCreateNewAdvert;
+  final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
 
   _ViewModel(
       {required this.advert,
       required this.pushCreateNewAdvert,
       required this.pushViewBidsPage,
+      required this.pushConsumerListings,
       required this.popPage}); // implementinf hashcode
 }
