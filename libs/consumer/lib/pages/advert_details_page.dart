@@ -43,7 +43,18 @@ class AdvertDetailsPage extends StatelessWidget {
 
                   //*******************************************//
 
-                  const Padding(padding: EdgeInsets.only(top: 110)),
+                  //******************EDIT ICON****************//
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: IconButton(
+                      onPressed: vm.pushCreateNewAdvert,
+                      icon: const Icon(Icons.edit),
+                      color: Colors.white70,
+                    ),
+                  ),
+
+                  const Padding(padding: EdgeInsets.only(top: 90)),
+                  //**********************************************/
 
                   //*************BOTTOM BUTTONS**************//
                   Stack(alignment: Alignment.center, children: <Widget>[
@@ -98,6 +109,9 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushViewBidsPage: () => dispatch(
           NavigateAction.pushNamed('/consumer/view_bids'),
         ),
+        pushCreateNewAdvert: () => dispatch(
+          NavigateAction.pushNamed('/consumer/create_advert'),
+        ),
         advert: state.user!.activeAd!,
       );
 }
@@ -106,9 +120,11 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushViewBidsPage;
+  final VoidCallback pushCreateNewAdvert;
 
   _ViewModel({
     required this.advert,
+    required this.pushCreateNewAdvert,
     required this.pushViewBidsPage,
   }); // implementinf hashcode
 }

@@ -69,20 +69,6 @@ class JobCardWidget extends StatelessWidget {
                     style: const TextStyle(fontSize: 20, color: Colors.white)),
               ),
               //**********************************************/
-
-              //*****************EDIT ICON**********************//
-              StoreConnector<AppState, _ViewModel>(
-                vm: () => _Factory(this),
-                builder: (BuildContext context, _ViewModel vm) => Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: IconButton(
-                    onPressed: vm.pushCreateNewAdvert,
-                    icon: const Icon(Icons.edit),
-                    color: Colors.white70,
-                  ),
-                ),
-              ),
-              //**********************************************/
             ],
           ),
         ],
