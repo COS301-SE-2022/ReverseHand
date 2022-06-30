@@ -13,7 +13,6 @@
     },
     "categories": {
       "auth": {
-        "reversehand8ac8d062": {},
         "userPoolGroups": {},
         "reversehandc4d19aa6c4d19aa6": {}
       },
@@ -29,21 +28,13 @@
         }
       },
       "function": {
-        "viewBidsResolver": {
-          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/viewBidsResolver-306a4c546c6a6b554d49-build.zip"
-        },
-        "shortListBidResolver": {
-          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/shortListBidResolver-3030664f6a5462424644-build.zip"
-        },
-        "viewAdvertsResolver": {
-          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/viewAdvertsResolver-303648684a384d715a6e-build.zip"
-        },
         "acceptBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/acceptBidResolver-716e574645392b4b5755-build.zip"
+        },
+        "closeAdvertResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/closeAdvertResolver-50384f4254754c546c42-build.zip"
         },
         "createAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -53,9 +44,17 @@
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/placeBidResolver-514846316a68724d6344-build.zip"
         },
-        "closeAdvertResolver": {
+        "shortListBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/closeAdvertResolver-50384f4254754c546c42-build.zip"
+          "s3Key": "amplify-builds/createAdvertResolver-74667355345357384833-build.zip"
+        },
+        "viewAdvertsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/viewAdvertsResolver-303648684a384d715a6e-build.zip"
+        },
+        "viewBidsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/viewBidsResolver-306a4c546c6a6b554d49-build.zip"
         },
         "viewJobsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
