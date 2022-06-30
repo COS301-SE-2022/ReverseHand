@@ -62,19 +62,28 @@ class AdvertDetailsPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 3,
                     ),
 
-                    //view bids - onpressed not correct yet
+                    //view bids
                     Positioned(
-                        top: 30,
+                        top: 15,
                         child: ButtonWidget(
                             text: "View Bids", function: vm.pushViewBidsPage)),
 
-                    //Delete - onPressed not correct yet
+                    //Delete - onPressed ???
                     Positioned(
-                        top: 80,
+                        top: 65,
                         child: ButtonWidget(
                             text: "Delete",
                             transparent: true,
-                            function: vm.pushViewBidsPage))
+                            function: vm.pushViewBidsPage)),
+
+                    //Back
+                    Positioned(
+                        top: 115,
+                        child: ButtonWidget(
+                            text: "Back",
+                            transparent: true,
+                            whiteBorder: true,
+                            function: vm.popPage))
                   ]),
                   //*************BOTTOM BUTTONS**************//
                 ],
@@ -112,6 +121,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushCreateNewAdvert: () => dispatch(
           NavigateAction.pushNamed('/consumer/create_advert'),
         ),
+        popPage: () => dispatch(NavigateAction.pop()),
         advert: state.user!.activeAd!,
       );
 }
@@ -121,10 +131,11 @@ class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushViewBidsPage;
   final VoidCallback pushCreateNewAdvert;
+  final VoidCallback popPage;
 
-  _ViewModel({
-    required this.advert,
-    required this.pushCreateNewAdvert,
-    required this.pushViewBidsPage,
-  }); // implementinf hashcode
+  _ViewModel(
+      {required this.advert,
+      required this.pushCreateNewAdvert,
+      required this.pushViewBidsPage,
+      required this.popPage}); // implementinf hashcode
 }

@@ -5,6 +5,7 @@ import 'package:consumer/methods/populate_bids.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
+import 'package:general/widgets/button.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
@@ -104,7 +105,13 @@ class ViewBidsPage extends StatelessWidget {
                         // first tab bar view widget
                         Container(
                           color: Theme.of(context).primaryColorDark,
-                          child: Column(
+                          child: Column(children: [
+                            ButtonWidget(
+                                text: "Back",
+                                transparent: true,
+                                whiteBorder: true,
+                                function: vm.popPage)
+                          ]
                               //bids should be populated here
                               ),
                         ),
@@ -112,7 +119,13 @@ class ViewBidsPage extends StatelessWidget {
                         // second tab bar viiew widget
                         Container(
                           color: Theme.of(context).primaryColorDark,
-                          child: Column(
+                          child: Column(children: [
+                            ButtonWidget(
+                                text: "Back",
+                                transparent: true,
+                                whiteBorder: true,
+                                function: vm.popPage)
+                          ]
                               //bids should be populated here
                               ),
                         ),
@@ -151,7 +164,7 @@ class _Factory extends VmFactory<AppState, ViewBidsPage> {
         change: state.change,
         dispatchToggleViewBidsAction: (toggleShort, activate) =>
             dispatch(ToggleViewBidsAction(toggleShort, activate)),
-        // popPage: () => dispatch(NavigateAction.pop()),
+        popPage: () => dispatch(NavigateAction.pop()),
         bids: state.user!.viewBids,
         advert: state.user!.activeAd!,
       );
@@ -161,14 +174,14 @@ class _Factory extends VmFactory<AppState, ViewBidsPage> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final List<BidModel> bids;
-  // final VoidCallback popPage;
+  final VoidCallback popPage;
   final bool change;
   final void Function(bool, bool) dispatchToggleViewBidsAction;
 
   _ViewModel({
     required this.dispatchToggleViewBidsAction,
     required this.change,
-    // required this.popPage,
+    required this.popPage,
     required this.bids,
     required this.advert,
   }) : super(equals: [change]); // implementing hashcode
