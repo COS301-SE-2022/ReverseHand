@@ -73,6 +73,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         top: 75,
                         child: ButtonWidget(
                             text: "Delete",
+                            color: "light",
                             transparent: true,
                             function: vm.pushConsumerListings)),
 
@@ -81,7 +82,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         top: 135,
                         child: ButtonWidget(
                             text: "Back",
-                            transparent: true,
+                            color: "light",
                             whiteBorder: true,
                             function: vm.popPage))
                   ]),

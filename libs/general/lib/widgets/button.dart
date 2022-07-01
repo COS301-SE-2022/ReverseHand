@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String text;
+  final String? color;
   final void Function() function;
   final bool? waiting;
   final bool? transparent; //no background
@@ -9,6 +10,7 @@ class ButtonWidget extends StatelessWidget {
   const ButtonWidget(
       {Key? key,
       required this.text,
+      this.color,
       required this.function,
       this.waiting,
       this.transparent,
@@ -19,9 +21,11 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          primary: transparent == true
-              ? Theme.of(context).primaryColorDark
-              : const Color.fromRGBO(255, 153, 0, 1),
+          primary: color == "dark"
+              ? Theme.of(context).scaffoldBackgroundColor
+              : color == "light"
+                  ? Theme.of(context).primaryColorDark
+                  : const Color.fromRGBO(255, 153, 0, 1),
           shape: RoundedRectangleBorder(
             side: BorderSide(
                 width: 1.2,

@@ -112,7 +112,7 @@ class ViewBidsPage extends StatelessWidget {
                             child: Column(children: [
                               ButtonWidget(
                                   text: "Back",
-                                  transparent: true,
+                                  color: "light",
                                   whiteBorder: true,
                                   function: vm.popPage)
                             ]
@@ -126,7 +126,7 @@ class ViewBidsPage extends StatelessWidget {
                             child: Column(children: [
                               ButtonWidget(
                                   text: "Back",
-                                  transparent: true,
+                                  color: "light",
                                   whiteBorder: true,
                                   function: vm.popPage)
                             ]

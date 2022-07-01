@@ -70,7 +70,7 @@ class CreateNewAdvertPage extends StatelessWidget {
 
                       //*********CREATE JOB BUTTON******************//
                       ButtonWidget(
-                        text: "CREATE JOB",
+                        text: "Create Job",
                         function: () => vm.dispatchCreateAdvertActions(
                             store.state.user!.id,
                             titleController.value.text,
@@ -81,9 +81,7 @@ class CreateNewAdvertPage extends StatelessWidget {
 
                       //************DISCARD BUTTON*****************//
                       ButtonWidget(
-                          text: "DISCARD",
-                          transparent: true,
-                          function: vm.popPage)
+                          text: "Discard", color: "dark", function: vm.popPage)
                       //********************************************//
                     ],
                   ),

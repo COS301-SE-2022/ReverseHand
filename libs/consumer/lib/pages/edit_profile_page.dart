@@ -65,11 +65,11 @@ class EditProfilePage extends StatelessWidget {
                   ),
 
                   ButtonWidget(
-                      text: "SAVE CHANGES", function: vm.pushProfilePage),
+                      text: "Save Changes", function: vm.pushProfilePage),
                   const Padding(padding: EdgeInsets.all(8)),
                   ButtonWidget(
-                      text: "DISCARD",
-                      transparent: true,
+                      text: "Discard",
+                      color: "dark",
                       function: vm.pushProfilePage)
                 ],
               ),
