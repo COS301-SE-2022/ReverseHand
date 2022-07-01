@@ -36,13 +36,11 @@ class ConsumerListingsPage extends StatelessWidget {
             ),
           ),
 
-          //*******************ADD BUTTON********************//
+          //************************NAVBAR***********************/
           floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          //*************************************************//
 
-          //************************NAVBAR***********************/
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String text;
-  final String? color;
+  final String?
+      color; //blue or scaffold colour, depending on background - orange is default
   final void Function() function;
   final bool? waiting;
-  final bool? transparent; //no background
   final bool? whiteBorder; //white border and lower opacity
   const ButtonWidget(
       {Key? key,
@@ -13,7 +13,6 @@ class ButtonWidget extends StatelessWidget {
       this.color,
       required this.function,
       this.waiting,
-      this.transparent,
       this.whiteBorder})
       : super(key: key);
 

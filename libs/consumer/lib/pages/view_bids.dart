@@ -73,7 +73,7 @@ class ViewBidsPage extends StatelessWidget {
 
                   const Padding(padding: EdgeInsets.all(10)),
 
-                  // the tab bar with two items
+                  //*****************TABS***********************//
                   const TabBar(
                     isScrollable: true,
                     indicatorColor: Color.fromRGBO(243, 157, 55, 1),
@@ -97,16 +97,16 @@ class ViewBidsPage extends StatelessWidget {
                       )),
                     ],
                   ),
+                  //*****************TABS***********************//
                   ...populateBids(vm.bids, store),
 
-                  // create widgets for each tab bar here
                   Expanded(
                     child: Stack(children: [
                       BottomOverlayWidget(
                           height: MediaQuery.of(context).size.height / 2),
                       TabBarView(
                         children: [
-                          // first tab bar view widget
+                          //**************TAB 1 INFO********************//
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: Column(children: [
@@ -119,8 +119,9 @@ class ViewBidsPage extends StatelessWidget {
                                 //bids should be populated here
                                 ),
                           ),
+                          //****************************************//
 
-                          // second tab bar viiew widget
+                          //*****************TAB 2 INFO******************//
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: Column(children: [
@@ -133,6 +134,7 @@ class ViewBidsPage extends StatelessWidget {
                                 //bids should be populated here
                                 ),
                           ),
+                          //*****************TAB 2******************//
                         ],
                       ),
                     ]),
@@ -145,9 +147,7 @@ class ViewBidsPage extends StatelessWidget {
             bottomNavigationBar: NavBarWidget(
               store: store,
             ),
-            //*****************************************************/
 
-            //*******************ADD BUTTON********************//
             resizeToAvoidBottomInset: false,
             floatingActionButton: const FloatingButtonWidget(),
             floatingActionButtonLocation:

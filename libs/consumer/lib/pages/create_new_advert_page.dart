@@ -61,7 +61,6 @@ class CreateNewAdvertPage extends StatelessWidget {
                 ),
                 //*************************************************//
 
-                //*************STORECONNECTOR**********************//
                 StoreConnector<AppState, _ViewModel>(
                   vm: () => _Factory(this),
                   builder: (BuildContext context, _ViewModel vm) => Column(
@@ -86,17 +85,14 @@ class CreateNewAdvertPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                //********************************************************//
               ],
             ),
           ),
-          //*******************ADD BUTTON********************//
+          //************************NAVBAR***********************/
           floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          //*************************************************//
 
-          //************************NAVBAR***********************/
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),

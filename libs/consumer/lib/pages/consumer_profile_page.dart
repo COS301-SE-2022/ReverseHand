@@ -137,15 +137,15 @@ class ConsumerProfilePage extends StatelessWidget {
                             style:
                                 TextStyle(fontSize: 20, color: Colors.white))),
 
-                    // edit button - still deciding on transparency + positioning
                     Positioned(
-                      top: 310,
-                      left: 290,
-                      child: ButtonWidget(
-                          text: "EDIT",
-                          transparent: true,
-                          function: vm.pushEditProfilePage),
-                    )
+                      top: 280,
+                      right: 35,
+                      child: IconButton(
+                        onPressed: vm.pushEditProfilePage,
+                        icon: const Icon(Icons.edit),
+                        color: Colors.white70,
+                      ),
+                    ),
                   ]),
                 ],
               ),
@@ -156,9 +156,7 @@ class ConsumerProfilePage extends StatelessWidget {
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),
-          //*****************************************************/
 
-          //*******************ADD BUTTON********************//
           resizeToAvoidBottomInset: false,
           floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:

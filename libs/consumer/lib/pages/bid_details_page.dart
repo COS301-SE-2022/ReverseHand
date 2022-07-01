@@ -162,7 +162,7 @@ class BidDetailsPage extends StatelessWidget {
                         top: 80,
                         child: ButtonWidget(
                             text: "Back",
-                            transparent: true,
+                            color: "light",
                             whiteBorder: true,
                             function: vm.popPage)),
                   ]),
@@ -170,13 +170,11 @@ class BidDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
-            //*******************ADD BUTTON********************//
+            //************************NAVBAR***********************/
             floatingActionButton: const FloatingButtonWidget(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            //*************************************************//
 
-            //************************NAVBAR***********************/
             bottomNavigationBar: NavBarWidget(
               store: store,
             ),

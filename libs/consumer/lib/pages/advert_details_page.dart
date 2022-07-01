@@ -52,9 +52,9 @@ class AdvertDetailsPage extends StatelessWidget {
                       color: Colors.white70,
                     ),
                   ),
+                  //**********************************************/
 
                   const Padding(padding: EdgeInsets.only(top: 50)),
-                  //**********************************************/
 
                   //*************BOTTOM BUTTONS**************//
                   Stack(alignment: Alignment.center, children: <Widget>[
@@ -74,7 +74,6 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: ButtonWidget(
                             text: "Delete",
                             color: "light",
-                            transparent: true,
                             function: vm.pushConsumerListings)),
 
                     //Back
@@ -95,9 +94,7 @@ class AdvertDetailsPage extends StatelessWidget {
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),
-          //*****************************************************/
 
-          //*******************ADD BUTTON********************//
           resizeToAvoidBottomInset: false,
           floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:

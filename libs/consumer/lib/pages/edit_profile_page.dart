@@ -26,11 +26,12 @@ class EditProfilePage extends StatelessWidget {
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
-                  //*******************APP BAR WIDGET*********************//
+                  //*******************APP BAR WIDGET******************//
 
                   const AppBarWidget(title: "Edit Profile"),
-                  //********************************************************//
+                  //***************************************************//
 
+                  //**********************NAME************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
@@ -41,7 +42,9 @@ class EditProfilePage extends StatelessWidget {
                       controller: null,
                     ),
                   ),
+                  //**************************************************//
 
+                  //********************NUMBER**********************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
@@ -52,7 +55,9 @@ class EditProfilePage extends StatelessWidget {
                       min: 1,
                     ),
                   ),
+                  //**************************************************//
 
+                  //**********************EMAIL************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 70),
                     child: TextFieldWidget(
@@ -63,25 +68,30 @@ class EditProfilePage extends StatelessWidget {
                       min: 1,
                     ),
                   ),
+                  //**************************************************//
 
+                  //*******************SAVE BUTTON********************//
                   ButtonWidget(
                       text: "Save Changes", function: vm.pushProfilePage),
+                  //**************************************************//
+
                   const Padding(padding: EdgeInsets.all(8)),
+
+                  //*******************DISCARD BUTTON*****************//
                   ButtonWidget(
                       text: "Discard",
                       color: "dark",
                       function: vm.pushProfilePage)
+                  //**********************NAME************************//
                 ],
               ),
             ),
           ),
-          //*******************ADD BUTTON********************//
+          //************************NAVBAR***********************/
           floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          //*****************************************************/
 
-          //************************NAVBAR***********************/
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),
