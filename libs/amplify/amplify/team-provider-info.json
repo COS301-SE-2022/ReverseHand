@@ -25,6 +25,13 @@
           "partitionKeyType": "S",
           "sortKeyName": "sort_key",
           "sortKeyType": "S"
+        },
+        "User": {
+          "tableName": "User",
+          "region": "eu-west-1",
+          "arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/User",
+          "partitionKeyName": "user_id",
+          "partitionKeyType": "S"
         }
       },
       "function": {
@@ -46,7 +53,7 @@
         },
         "shortListBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/createAdvertResolver-74667355345357384833-build.zip"
+          "s3Key": "amplify-builds/shortListBidResolver-3030664f6a5462424644-build.zip"
         },
         "viewAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -71,6 +78,10 @@
         "editAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/editAdvertResolver-645647777630556b6b54-build.zip"
+        },
+        "createUserResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/createUserResolver-535765446a5278485655-build.zip"
         }
       }
     }
