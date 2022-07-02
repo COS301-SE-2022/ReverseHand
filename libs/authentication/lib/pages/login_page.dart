@@ -103,11 +103,11 @@ class LoginPage extends StatelessWidget {
                                 LongButtonWidget(
                               text: "Login",
                               login: () {
-                                // vm.dispatchLoginAction(
-                                //   emailController.value.text.trim(),
-                                //   passwordController.value.text.trim(),
-                                // );
-                                vm.dispatchGetAddressAction();
+                                vm.dispatchLoginAction(
+                                  emailController.value.text.trim(),
+                                  passwordController.value.text.trim(),
+                                );
+                                // vm.dispatchGetAddressAction();
                               },
                             ),
                           ),
