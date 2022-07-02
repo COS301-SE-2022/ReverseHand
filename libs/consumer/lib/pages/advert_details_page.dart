@@ -47,7 +47,7 @@ class AdvertDetailsPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: IconButton(
-                      onPressed: vm.pushCreateNewAdvert,
+                      onPressed: vm.pushEditAdvert,
                       icon: const Icon(Icons.edit),
                       color: Colors.white70,
                     ),
@@ -116,8 +116,8 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushViewBidsPage: () => dispatch(
           NavigateAction.pushNamed('/consumer/view_bids'),
         ),
-        pushCreateNewAdvert: () => dispatch(
-          NavigateAction.pushNamed('/consumer/create_advert'),
+        pushEditAdvert: () => dispatch(
+          NavigateAction.pushNamed('/consumer/edit_advert_page'),
         ),
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/consumer'),
@@ -131,13 +131,13 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushViewBidsPage;
-  final VoidCallback pushCreateNewAdvert;
+  final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
 
   _ViewModel(
       {required this.advert,
-      required this.pushCreateNewAdvert,
+      required this.pushEditAdvert,
       required this.pushViewBidsPage,
       required this.pushConsumerListings,
       required this.popPage}); // implementinf hashcode
