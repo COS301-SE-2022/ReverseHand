@@ -16,10 +16,12 @@ exports.handler = async (event) => {
             }
         };
         const data = await docClient.query(params).promise();
-        let items = data["Items"];
-    
-        return items;
+        let item = data["Items"][0];
         
+        item.id = item.user_id;
+        delete item.user_id;
+        
+        return item;
     } catch(e) {
         return e;
     }
