@@ -8,11 +8,25 @@ const ReverseHandTable = process.env.REVERSEHAND;
 
 // deletes an advert, requires
 /*
-    id
+    ad_id
 */
 exports.handler = async (event) => {
     try {
+        let params = {
+            TableName: ReverseHandTable,
+            Key: {
+              part_key: event.arguments.ad_id,
+              sort_key: event.arguments.ad_id
+            },
+        };
 
+        // getting advert
+        const data = await docClient.get(params).promise();
+
+        // deleting advert
+        await docClient.delete(params).promise();
+
+        return data['advert_details'];
     } catch(e) {
         console.log(e);
     }
