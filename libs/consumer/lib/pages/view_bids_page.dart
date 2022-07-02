@@ -116,7 +116,7 @@ class ViewBidsPage extends StatelessWidget {
                                   whiteBorder: true,
                                   function: vm.popPage)
                             ]
-                                //bids should be populated here
+                                //all bids should be populated here
                                 ),
                           ),
                           //****************************************//
@@ -131,7 +131,7 @@ class ViewBidsPage extends StatelessWidget {
                                   whiteBorder: true,
                                   function: vm.popPage)
                             ]
-                                //bids should be populated here
+                                //active bids should be populated here
                                 ),
                           ),
                           //*****************TAB 2******************//

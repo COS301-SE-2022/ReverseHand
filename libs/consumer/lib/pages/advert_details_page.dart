@@ -4,11 +4,11 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/navbar.dart';
-import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
+import 'package:general/widgets/floating_button.dart';
+import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
-import 'package:general/widgets/floating_button.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -30,7 +30,6 @@ class AdvertDetailsPage extends StatelessWidget {
                 children: [
                   //**********APPBAR***********//
                   const AppBarWidget(title: "JOB INFO"),
-
                   //*******************************************//
 
                   //**********DETAILED JOB INFORMATION***********//

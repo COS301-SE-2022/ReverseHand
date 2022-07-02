@@ -5,7 +5,6 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/textfield.dart';
-import 'package:redux_comp/actions/create_advert_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/floating_button.dart';
@@ -30,8 +29,7 @@ class EditAdvertPage extends StatelessWidget {
         home: Scaffold(
           resizeToAvoidBottomInset:
               false, //prevents floatingActionButton appearing above keyboard
-          backgroundColor:
-              const Color.fromRGBO(18, 26, 34, 1), //background colour
+          backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
           body: SingleChildScrollView(
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),

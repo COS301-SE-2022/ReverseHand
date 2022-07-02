@@ -79,7 +79,7 @@ class BidDetailsPage extends StatelessWidget {
                         //     style: const TextStyle(
                         //         fontSize: 33, color: Colors.white)),
 
-                        //if this does not work in stack with appBar on other screens
+                        //keep for now - still testing if appBar stack works on other screens
 
                         const Padding(padding: EdgeInsets.all(15)),
 

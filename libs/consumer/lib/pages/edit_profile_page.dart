@@ -27,7 +27,6 @@ class EditProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-
                   const AppBarWidget(title: "Edit Profile"),
                   //***************************************************//
 

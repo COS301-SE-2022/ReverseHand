@@ -29,8 +29,7 @@ class CreateNewAdvertPage extends StatelessWidget {
         home: Scaffold(
           resizeToAvoidBottomInset:
               false, //prevents floatingActionButton appearing above keyboard
-          backgroundColor:
-              const Color.fromRGBO(18, 26, 34, 1), //background colour
+          backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -38,7 +37,9 @@ class CreateNewAdvertPage extends StatelessWidget {
                 const AppBarWidget(title: "Create a Job"),
                 //********************************************************//
 
-                //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
+                //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER***//
+
+                //title
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
                   child: TextFieldWidget(
@@ -49,6 +50,8 @@ class CreateNewAdvertPage extends StatelessWidget {
                     initialVal: null,
                   ),
                 ),
+
+                //description
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
                   child: TextFieldWidget(
