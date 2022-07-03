@@ -43,13 +43,12 @@ class EditAdvertAction extends ReduxAction<AppState> {
       adverts.removeWhere((element) => element.id == advertId);
 
       //add the updated details as a new advert.
-      //Problem: type comes as a String but its enum in AdvertModel
       adverts.add(AdvertModel(
           id: ad.id,
           title: ad.title,
           dateCreated: ad.dateCreated,
           description: description,
-          type: ad.type,
+          type: type,
           location: location,
           dateClosed: dateClosed));
 
