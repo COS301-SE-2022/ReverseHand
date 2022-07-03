@@ -20,6 +20,7 @@ const ReverseHandTable = process.env.REVERSEHAND;
 */
 exports.handler = async (event) => {
     try {
+        // getting current date
         const date = new Date();
         const dd = String(date.getDate()).padStart(2, '0');
         const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -64,5 +65,4 @@ exports.handler = async (event) => {
     } catch(e) {
         console.log(e);
     }
-    // getting current date
 };

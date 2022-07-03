@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.5.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "createAdvertResolver",
+            "deleteAdvertResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "createAdvertResolver",
+                  "deleteAdvertResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -93,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRolebd1943b2",
+            "reversehandLambdaRole2afa4f8c",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRolebd1943b2",
+                  "reversehandLambdaRole2afa4f8c",
                   "-",
                   {
                     "Ref": "env"
@@ -187,13 +187,8 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:BatchWriteItem",
-                "dynamodb:PutItem",
-                "dynamodb:List*",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:Delete*",
-                "dynamodb:UpdateItem"
+                "dynamodb:GetItem",
+                "dynamodb:Delete*"
               ],
               "Resource": [
                 {

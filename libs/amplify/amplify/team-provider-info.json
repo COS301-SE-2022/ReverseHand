@@ -25,6 +25,13 @@
           "partitionKeyType": "S",
           "sortKeyName": "sort_key",
           "sortKeyType": "S"
+        },
+        "User": {
+          "tableName": "User",
+          "region": "eu-west-1",
+          "arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/User",
+          "partitionKeyName": "user_id",
+          "partitionKeyType": "S"
         }
       },
       "function": {
@@ -38,7 +45,7 @@
         },
         "createAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/createAdvertResolver-74667355345357384833-build.zip"
+          "s3Key": "amplify-builds/createAdvertResolver-414f4d56787358727148-build.zip"
         },
         "placeBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -70,7 +77,19 @@
         },
         "editAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/editAdvertResolver-5a6e456231626c49386a-build.zip"
+          "s3Key": "amplify-builds/editAdvertResolver-372b6f6a366d7a424b70-build.zip"
+        },
+        "createUserResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/createUserResolver-7533527a76705247736e-build.zip"
+        },
+        "deleteAdvertResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/deleteAdvertResolver-4652356f6b766d693868-build.zip"
+        },
+        "viewUserResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/viewUserResolver-74784c5a6b55767a5635-build.zip"
         }
       }
     }

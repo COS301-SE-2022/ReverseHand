@@ -11,6 +11,9 @@ type Query {
 
   viewJobs(locations: [String]!, type: String!): [Advert]!
   @function(name: "viewJobsResolver-${env}")
+
+  viewUser(user_id: String!) : User
+  @function(name: "viewUserResolver-${env}")
 }
 
 type Mutation {
@@ -31,6 +34,23 @@ type Mutation {
 
   addUserToGroup(email: String!, group: String!): String
   @function(name: "addUserToGroupResolver-${env}")
+
+  createUser(user_id: String!, name: String!, lat: String!, long: String!, tradetypes: [String!], domains: [String]) : User 
+  @function(name: "createUserResolver-${env}")
+
+}
+
+type User implements UniqueID {
+  id: String!,
+  name: String!,
+  location: Location!,
+  domains: [String!],
+  tradetypes: [String!]
+}
+
+type Location {
+  lat: String!,
+  long: String!
 }
 
 type Advert implements UniqueID {

@@ -62,7 +62,7 @@ exports.handler = async (event) => {
             UpdateExpression: updateExpression,
             ExpressionAttributeValues: expressionAttributeValues,
             ExpressionAttributeNames: expressionAttributeNames,
-        }
+        };
 
         await docClient.update(params).promise();
 
