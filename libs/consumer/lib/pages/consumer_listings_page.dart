@@ -6,6 +6,7 @@ import 'package:redux_comp/redux_comp.dart';
 import '../methods/populate_adverts.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/floating_button.dart';
 
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -25,7 +26,7 @@ class ConsumerListingsPage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "Job Listings"),
+                  const AppBarWidget(title: "MY JOBS"),
                   //********************************************************//
 
                   // populating column with adverts
@@ -35,18 +36,11 @@ class ConsumerListingsPage extends StatelessWidget {
             ),
           ),
 
-          //*******************ADD BUTTON********************//
-          floatingActionButton: FloatingActionButton(
-            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
-            onPressed: () {},
-            backgroundColor: Colors.orange,
-            child: const Icon(Icons.add),
-          ),
+          //************************NAVBAR***********************/
+          floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          //*************************************************//
 
-          //************************NAVBAR***********************/
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),

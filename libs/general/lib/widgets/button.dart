@@ -2,27 +2,35 @@ import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String text;
+  final String?
+      color; //blue or scaffold colour, depending on background - orange is default
   final void Function() function;
   final bool? waiting;
-  final bool? transparent;
+  final bool? whiteBorder; //white border and lower opacity
   const ButtonWidget(
       {Key? key,
       required this.text,
+      this.color,
       required this.function,
       this.waiting,
-      this.transparent})
+      this.whiteBorder})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          primary: transparent == true
+          primary: color == "dark"
               ? Theme.of(context).scaffoldBackgroundColor
-              : const Color.fromRGBO(255, 153, 0, 1),
+              : color == "light"
+                  ? Theme.of(context).primaryColorDark
+                  : const Color.fromRGBO(255, 153, 0, 1),
           shape: RoundedRectangleBorder(
-            side: const BorderSide(
-                width: 1.2, color: Color.fromRGBO(255, 153, 0, 1)),
+            side: BorderSide(
+                width: 1.2,
+                color: whiteBorder == true
+                    ? Colors.white70
+                    : const Color.fromRGBO(255, 153, 0, 1)),
             borderRadius: BorderRadius.circular(30.0),
           )),
       onPressed: function,
@@ -30,7 +38,9 @@ class ButtonWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           text,
-          style: const TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(
+              color: whiteBorder == true ? Colors.white70 : Colors.white,
+              fontSize: 20),
         ),
       ),
     );

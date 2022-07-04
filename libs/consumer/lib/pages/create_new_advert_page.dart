@@ -7,6 +7,7 @@ import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:general/widgets/floating_button.dart';
 
 class CreateNewAdvertPage extends StatelessWidget {
   final Store<AppState> store;
@@ -28,8 +29,7 @@ class CreateNewAdvertPage extends StatelessWidget {
         home: Scaffold(
           resizeToAvoidBottomInset:
               false, //prevents floatingActionButton appearing above keyboard
-          backgroundColor:
-              const Color.fromRGBO(18, 26, 34, 1), //background colour
+          backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -37,7 +37,9 @@ class CreateNewAdvertPage extends StatelessWidget {
                 const AppBarWidget(title: "Create a Job"),
                 //********************************************************//
 
-                //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
+                //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER***//
+
+                //title
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
                   child: TextFieldWidget(
@@ -48,6 +50,8 @@ class CreateNewAdvertPage extends StatelessWidget {
                     initialVal: null,
                   ),
                 ),
+
+                //description
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
                   child: TextFieldWidget(
@@ -60,47 +64,38 @@ class CreateNewAdvertPage extends StatelessWidget {
                 ),
                 //*************************************************//
 
-                //**********BACKBUTTON**************************//
-                // StoreConnector<AppState, _ViewModel>(
-                //   vm: () => _Factory(this),
-                //   builder: (BuildContext context, _ViewModel vm) => BackButton(
-                //       color: Colors.white, onPressed: vm.pushConsumerListings),
-                // ),
-                //************************************************//
-
-                //logic of backbutton will be used - UI will not be used
-
-                //***********PADDING BETWEEN BACK BUTTON AND CREATE JOB BUTTON*************//
-                const Padding(padding: EdgeInsets.all(10)),
-                //********************************************************//
-
-                //**********CREATE NEW JOB BUTTON*****************//
                 StoreConnector<AppState, _ViewModel>(
                   vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) =>
+                  builder: (BuildContext context, _ViewModel vm) => Column(
+                    children: [
+                      const Padding(padding: EdgeInsets.all(50)),
+
+                      //*********CREATE JOB BUTTON******************//
                       ButtonWidget(
-                    text: "Create Job",
-                    function: () => vm.dispatchCreateAdvertActions(
-                        store.state.user!.id,
-                        titleController.value.text,
-                        descrController.value.text),
+                        text: "Create Job",
+                        function: () => vm.dispatchCreateAdvertActions(
+                            store.state.user!.id,
+                            titleController.value.text,
+                            descrController.value.text),
+                      ),
+                      //********************************************//
+                      const Padding(padding: EdgeInsets.all(5)),
+
+                      //************DISCARD BUTTON*****************//
+                      ButtonWidget(
+                          text: "Discard", color: "dark", function: vm.popPage)
+                      //********************************************//
+                    ],
                   ),
                 ),
-                //*************************************************??
               ],
             ),
           ),
-          //*******************ADD BUTTON********************//
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: Colors.orange,
-            child: const Icon(Icons.add),
-          ),
+          //************************NAVBAR***********************/
+          floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          //*************************************************//
 
-          //************************NAVBAR***********************/
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),
@@ -117,8 +112,7 @@ class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushConsumerListings: () =>
-            dispatch(NavigateAction.pushNamed('/consumer')),
+        popPage: () => dispatch(NavigateAction.pop()),
         dispatchCreateAdvertActions:
             (String customerId, String title, String? description) => dispatch(
           CreateAdvertAction(customerId, title, "Pretoria", "Plumbing",
@@ -130,10 +124,10 @@ class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String, String?) dispatchCreateAdvertActions;
-  final VoidCallback pushConsumerListings;
+  final VoidCallback popPage;
 
   _ViewModel({
     required this.dispatchCreateAdvertActions,
-    required this.pushConsumerListings,
+    required this.popPage,
   }); // implementinf hashcode
 }
