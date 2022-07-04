@@ -1,5 +1,7 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/quote.dart';
+import 'package:redux_comp/app_state.dart';
 
 class CardWidget extends StatelessWidget {
   final String titleText;
@@ -8,24 +10,21 @@ class CardWidget extends StatelessWidget {
   final String details;
   final bool quote; // const CardWidget({Key? key
   // }) : super(key: key);
+  final Store<AppState> store;
   const CardWidget(
       {Key? key,
       required this.titleText,
       required this.price1,
       required this.price2,
       required this.details,
-      required this.quote})
+      required this.quote,
+      required this.store})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(10),
-      color: const Color.fromRGBO(35, 47, 62, 1),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      elevation: 2,
+    return StoreProvider<AppState>(
+      store: store,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
         child: Row(

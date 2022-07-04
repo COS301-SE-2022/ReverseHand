@@ -1,12 +1,16 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/floating_button.dart';
+import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/actions/accept_bid_action.dart';
 import 'package:redux_comp/actions/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:general/widgets/bid_card.dart';
 import 'package:general/widgets/shortlist_accept_button.dart';
 import 'package:redux_comp/models/bid_model.dart';
+import 'package:general/widgets/bottom_overlay.dart';
+import 'package:general/widgets/button.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -23,48 +27,158 @@ class BidDetailsPage extends StatelessWidget {
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) => Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: Column(
-              children: <Widget>[
-                //*******************PADDING FROM TOP*********************//
-                const Padding(padding: EdgeInsets.only(top: 50)),
-                //********************************************************//
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Stack(children: [
+                    //**********APPBAR***********//
+                    const AppBarWidget(title: "BID DETAILS"),
+                    //***************************//
 
-                //***********************CARD*****************************//
-                CardWidget(
-                  titleText: "MR J SMITH",
-                  price1: vm.bid.priceLower,
-                  price2: vm.bid.priceUpper,
-                  details: "info@gmail.com",
-                  quote: false,
-                ),
-                //********************************************************//
+                    //************DATE***********//
+                    Positioned(
+                      top: 90,
+                      left: 35,
+                      child: Text('${vm.bid.name}',
+                          style: const TextStyle(
+                              fontSize: 33, color: Colors.white)),
+                    ),
+                    //***************************//
 
-                //***********PADDING BETWEEN CARD AND BUTTON*************//
-                const Padding(padding: EdgeInsets.all(10)),
-                //********************************************************//
+                    //**********NAME***********//
+                    Positioned(
+                      top: 95,
+                      right: 35,
+                      child: Text(vm.bid.dateCreated,
+                          style: const TextStyle(
+                              fontSize: 17, color: Colors.white70)),
+                    ),
+                    //***************************//
+                  ]),
 
-                //**********************BACK BUTTON**********************//
-                BackButton(
-                  color: Colors.white,
-                  onPressed: () => vm.popPage(),
-                ),
+                  //**********DIVIDER***********//
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Divider(
+                      height: 20,
+                      thickness: 0.5,
+                      indent: 15,
+                      endIndent: 15,
+                      color: Theme.of(context).primaryColorLight,
+                    ),
+                  ),
+                  //****************************//
 
-                //********************************************************//
+                  //******************INFO***************//
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        //name
+                        // Text('${vm.bid.name}',
+                        //     style: const TextStyle(
+                        //         fontSize: 33, color: Colors.white)),
 
-                //***********PADDING BETWEEN BACK BUTTON AND ACCEPT*************//
-                const Padding(padding: EdgeInsets.all(10)),
-                //********************************************************//
+                        //keep for now - still testing if appBar stack works on other screens
 
-                //****************BUTTON TO SHORTLIST/ACCEPT**************//
-                ShortlistAcceptButtonWidget(
-                  shortBid: vm.bid.isShortlisted(),
-                  onTap: () => vm.bid.isShortlisted()
-                      ? vm.dispatchAcceptBidAction()
-                      : vm.dispatchShortListBidAction(),
-                ),
-                //********************************************************//
-              ],
+                        const Padding(padding: EdgeInsets.all(15)),
+
+                        //bid range
+                        const Center(
+                          child: Text(
+                            'Quoted price',
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white70),
+                          ),
+                        ),
+                        const Padding(padding: EdgeInsets.all(8)),
+                        Center(
+                          child: Text(
+                            'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
+                            style: const TextStyle(
+                                fontSize: 40,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+
+                        const Padding(padding: EdgeInsets.all(40)),
+
+                        //contact information
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.info_outline,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            const Padding(padding: EdgeInsets.all(3)),
+                            Column(
+                              children: const [
+                                Center(
+                                  child: Text(
+                                    'Contact Details',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white70),
+                                  ),
+                                ),
+                                Center(
+                                  child: Text(
+                                    'info@gmail.com',
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+
+                        //need to get this info dynamically
+                      ]),
+                  //*************************************//
+
+                  //****************BOTTOM BUTTONS**************//
+                  const Padding(padding: EdgeInsets.all(15)),
+                  Stack(alignment: Alignment.center, children: <Widget>[
+                    BottomOverlayWidget(
+                      height: MediaQuery.of(context).size.height / 2,
+                    ),
+
+                    //shortlist/accept
+                    Positioned(
+                      top: 20,
+                      child: ShortlistAcceptButtonWidget(
+                        shortBid: vm.bid.isShortlisted(),
+                        onTap: () => vm.bid.isShortlisted()
+                            ? vm.dispatchAcceptBidAction()
+                            : vm.dispatchShortListBidAction(),
+                      ),
+                    ),
+
+                    //Back
+                    Positioned(
+                        top: 80,
+                        child: ButtonWidget(
+                            text: "Back",
+                            color: "light",
+                            whiteBorder: true,
+                            function: vm.popPage)),
+                  ]),
+                  //******************************************//
+                ],
+              ),
             ),
+            //************************NAVBAR***********************/
+            floatingActionButton: const FloatingButtonWidget(),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+
+            bottomNavigationBar: NavBarWidget(
+              store: store,
+            ),
+            //*****************************************************/
           ),
         ),
       ),
