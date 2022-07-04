@@ -5,7 +5,6 @@ import 'package:async_redux/async_redux.dart';
 
 class GetAddressAction extends ReduxAction<AppState> {
 
-  GetAddressAction();
   
 	@override
 	Future<AppState?> reduce() async {
@@ -39,7 +38,11 @@ class GetAddressAction extends ReduxAction<AppState> {
 
       Map<String, dynamic> address = place.toJson();
 
-      return null;
+      return state.replace(
+        partialUser: state.partialUser!.replace(position: pos)
+      );
+
+  
     } catch (e) {
       return null;
     }
