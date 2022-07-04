@@ -1,15 +1,18 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
+import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/dialog_helper.dart';
 import 'package:general/widgets/divider.dart';
+import 'package:general/widgets/floating_button.dart';
 import 'package:general/widgets/job_card.dart';
+import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:tradesman/methods/populate_bids.dart';
-
 import '../widgets/place_bid_popup.dart';
 
 class TradesmanJobDetails extends StatelessWidget {
@@ -23,18 +26,15 @@ class TradesmanJobDetails extends StatelessWidget {
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
+          body: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
+              builder: (BuildContext context, _ViewModel vm) => SingleChildScrollView(
+              child: Column(
                 children: [
-                  //**********PADDING FROM TOP***********//
-                  const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
-                  //**********BACK BUTTON***********//
-                  BackButton(
-                    color: Colors.white,
-                    onPressed: () => vm.popPage(),
-                  ),
+                  //**********APPBAR***********//
+                  const AppBarWidget(title: "JOB INFO"),
+                  //*******************************************//
+
                   //**********DETAILED JOB INFORMATION***********//
                   JobCardWidget(
                     titleText: vm.advert.title,
@@ -42,8 +42,9 @@ class TradesmanJobDetails extends StatelessWidget {
                     date: vm.advert.dateCreated,
                     // location: advert.location ?? "",
                   ),
-                  //**********DIVIDER***********//
-                  const DividerWidget(),
+
+                  const Padding(padding: EdgeInsets.only(top: 50)),
+                  
                   //**********HEADING***********//
                   const Text(
                     "Information",
@@ -52,8 +53,10 @@ class TradesmanJobDetails extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
+
                   //**********PADDING***********//
                   const Padding(padding: EdgeInsets.all(15)),
+
                   //**********Consumer Information***********//
                   Column(
                     children: const <Widget>[
@@ -71,24 +74,59 @@ class TradesmanJobDetails extends StatelessWidget {
                       ),
                     ],
                   ),
-                  //**********PADDING***********//
-                  const Padding(padding: EdgeInsets.all(15)),
-                  //**********Place Bid***********//
-                  ButtonWidget(
-                    function: () {
-                      DialogHelper.display(
-                        context,
-                        PlaceBidPopupWidget(store: store),
-                      ); //trigger Place Bid popup
-                    },
-                    text: 'Place Bid',
-                  ),
+                  const Padding(padding: EdgeInsets.only(top: 30)),
 
+                  //*************BOTTOM BUTTONS**************//
+                  Stack(alignment: Alignment.center, children: <Widget>[
+                    BottomOverlayWidget(
+                      height: MediaQuery.of(context).size.height / 2,
+                    ),
+
+                    //place bid
+                    Positioned(
+                        top: 15,
+                        child: ButtonWidget(
+                            text: "Place Bid", function: vm.pushViewBidsPage)),
+                            //fix function call here
+                            //DialogHelper.display(context,PlaceBidPopupWidget(store: store),) 
+
+                    //view bids
+                    Positioned(
+                        top: 75,
+                        child: ButtonWidget(
+                            text: "View Bids", function: vm.pushViewBidsPage)),
+
+                    //Delete - currently just takes you back to Consumer Listings page
+                    Positioned(
+                        top: 135,
+                        child: ButtonWidget(
+                            text: "Delete",
+                            color: "light",
+                            function: vm.pushConsumerListings)),
+
+                    //Back
+                    Positioned(
+                        top: 195,
+                        child: ButtonWidget(
+                            text: "Back",
+                            color: "light",
+                            whiteBorder: true,
+                            function: vm.popPage))
+                  ]),
+                  //*************BOTTOM BUTTONS**************//
                   ...populateBids(vm.bids)
                 ],
               ),
             ),
           ),
+          //************************NAVBAR***********************/
+          bottomNavigationBar: NavBarWidget(
+            store: store,
+          ),
+          resizeToAvoidBottomInset: false,
+          floatingActionButton: const FloatingButtonWidget(),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          //*************************************************//
         ),
       ),
     );
@@ -105,6 +143,15 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         popPage: () => dispatch(
           NavigateAction.pop(),
         ),
+        pushViewBidsPage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/view_bids'),
+        ),
+        pushEditAdvert: () => dispatch(
+          NavigateAction.pushNamed('/consumer/edit_advert_page'),
+        ),
+        pushConsumerListings: () => dispatch(
+          NavigateAction.pushNamed('/consumer'),
+        ),
       );
 }
 
@@ -113,10 +160,16 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final AdvertModel advert;
   final List<BidModel> bids;
+  final VoidCallback pushViewBidsPage;
+  final VoidCallback pushEditAdvert;
+  final VoidCallback pushConsumerListings;
 
   _ViewModel({
     required this.advert,
     required this.bids,
     required this.popPage,
+    required this.pushEditAdvert,
+    required this.pushViewBidsPage,
+    required this.pushConsumerListings,
   }); // implementinf hashcode
 }
