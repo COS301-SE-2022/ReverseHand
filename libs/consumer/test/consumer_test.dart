@@ -21,8 +21,8 @@ void main() {
     expect(desc, findsOneWidget);
 
     //check if there is a  button which says add new job
-    var btn = find.text("Add new job");
-    expect(btn, findsOneWidget);
+    // var btn = find.text("Add new job");
+    // expect(btn, findsOneWidget);
 
     //enter some text in the title field
     await tester.enterText(title, "Painting");
