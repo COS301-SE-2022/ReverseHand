@@ -41,6 +41,9 @@ type Mutation {
   editAdvert(ad_id: String!,title: String!, description: String, type: String, location: String, date_closed: String ) : Advert 
   @function(name: "editAdvertResolver-${env}")
 
+  deleteBid(ad_id: String!, bid_id: String!) : Bid
+  @function(name: "deleteBidResolver-${env}")
+
 }
 
 type User implements UniqueID {
