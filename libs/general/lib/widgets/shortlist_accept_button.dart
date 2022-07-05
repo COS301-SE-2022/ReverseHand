@@ -27,8 +27,8 @@ class _State extends State<ShortlistAcceptButtonWidget> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          widget.shortBid ? "ACCEPT" : "SHORTLIST",
-          style: const TextStyle(color: Colors.white, fontSize: 22),
+          widget.shortBid ? "Accept Bid" : "Shortlist Bid",
+          style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),
     );

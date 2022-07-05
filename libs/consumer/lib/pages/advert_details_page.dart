@@ -1,15 +1,14 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/bottom_overlay.dart';
+import 'package:general/widgets/button.dart';
 import 'package:general/widgets/navbar.dart';
-import 'package:general/widgets/tab.dart';
-import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
+import 'package:general/widgets/floating_button.dart';
+import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
-import 'package:redux_comp/models/bid_model.dart';
-import 'package:redux_comp/actions/toggle_view_bids_action.dart';
-import '../methods/populate_bids.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -30,8 +29,7 @@ class AdvertDetailsPage extends StatelessWidget {
               child: Column(
                 children: [
                   //**********APPBAR***********//
-                  const AppBarWidget(title: "Job Details"),
-
+                  const AppBarWidget(title: "JOB INFO"),
                   //*******************************************//
 
                   //**********DETAILED JOB INFORMATION***********//
@@ -44,38 +42,49 @@ class AdvertDetailsPage extends StatelessWidget {
 
                   //*******************************************//
 
-                  //**********HEADING**************************//
-                  const Text(
-                    "BIDS",
-                    style: TextStyle(fontSize: 25.0, color: Colors.white),
+                  //******************EDIT ICON****************//
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: IconButton(
+                      onPressed: vm.pushEditAdvert,
+                      icon: const Icon(Icons.edit),
+                      color: Colors.white70,
+                    ),
                   ),
-                  //*******************************************//
+                  //**********************************************/
 
-                  //**********PADDING**************************//
-                  const Padding(padding: EdgeInsets.all(15)),
-                  //*******************************************//
+                  const Padding(padding: EdgeInsets.only(top: 50)),
 
-                  //**********TABS TO FILTER ACTIVE/SHORTLISTED BIDS***********//
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TabWidget(
-                        text: "ACTIVE",
-                        onPressed: (activate) =>
-                            vm.dispatchToggleViewBidsAction(false, activate),
-                      ),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      TabWidget(
-                        text: "SHORTLIST",
-                        onPressed: (activate) =>
-                            vm.dispatchToggleViewBidsAction(true, activate),
-                      ),
-                    ],
-                  ),
-                  //***********************************************************//
+                  //*************BOTTOM BUTTONS**************//
+                  Stack(alignment: Alignment.center, children: <Widget>[
+                    BottomOverlayWidget(
+                      height: MediaQuery.of(context).size.height / 2,
+                    ),
 
-                  // creating bid widgets
-                  ...populateBids(vm.bids, store)
+                    //view bids
+                    Positioned(
+                        top: 15,
+                        child: ButtonWidget(
+                            text: "View Bids", function: vm.pushViewBidsPage)),
+
+                    //Delete - currently just takes you back to Consumer Listings page
+                    Positioned(
+                        top: 75,
+                        child: ButtonWidget(
+                            text: "Delete",
+                            color: "light",
+                            function: vm.pushConsumerListings)),
+
+                    //Back
+                    Positioned(
+                        top: 135,
+                        child: ButtonWidget(
+                            text: "Back",
+                            color: "light",
+                            whiteBorder: true,
+                            function: vm.popPage))
+                  ]),
+                  //*************BOTTOM BUTTONS**************//
                 ],
               ),
             ),
@@ -84,16 +93,9 @@ class AdvertDetailsPage extends StatelessWidget {
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),
-          //*****************************************************/
 
-          //*******************ADD BUTTON********************//
           resizeToAvoidBottomInset: false,
-          floatingActionButton: FloatingActionButton(
-            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
-            onPressed: () {},
-            backgroundColor: Colors.orange,
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
 
@@ -110,11 +112,16 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        change: state.change,
-        dispatchToggleViewBidsAction: (toggleShort, activate) =>
-            dispatch(ToggleViewBidsAction(toggleShort, activate)),
+        pushViewBidsPage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/view_bids'),
+        ),
+        pushEditAdvert: () => dispatch(
+          NavigateAction.pushNamed('/consumer/edit_advert_page'),
+        ),
+        pushConsumerListings: () => dispatch(
+          NavigateAction.pushNamed('/consumer'),
+        ),
         popPage: () => dispatch(NavigateAction.pop()),
-        bids: state.user!.viewBids,
         advert: state.user!.activeAd!,
       );
 }
@@ -122,16 +129,15 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 // view model
 class _ViewModel extends Vm {
   final AdvertModel advert;
-  final List<BidModel> bids;
+  final VoidCallback pushViewBidsPage;
+  final VoidCallback pushEditAdvert;
+  final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
-  final bool change;
-  final void Function(bool, bool) dispatchToggleViewBidsAction;
 
-  _ViewModel({
-    required this.dispatchToggleViewBidsAction,
-    required this.change,
-    required this.popPage,
-    required this.bids,
-    required this.advert,
-  }) : super(equals: [change]); // implementing hashcode
+  _ViewModel(
+      {required this.advert,
+      required this.pushEditAdvert,
+      required this.pushViewBidsPage,
+      required this.pushConsumerListings,
+      required this.popPage}); // implementinf hashcode
 }

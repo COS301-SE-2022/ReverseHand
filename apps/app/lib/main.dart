@@ -4,7 +4,9 @@ import 'package:consumer/consumer.dart';
 import 'package:consumer/pages/advert_details_page.dart';
 import 'package:consumer/pages/bid_details_page.dart';
 import 'package:consumer/pages/consumer_profile_page.dart';
+import 'package:consumer/pages/edit_advert_page.dart';
 import 'package:consumer/pages/edit_profile_page.dart';
+import 'package:consumer/pages/view_bids_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/tradesman.dart';
@@ -53,6 +55,9 @@ class Launch extends StatelessWidget {
               ConsumerProfilePage(store: store),
           '/consumer/edit_profile_page': (context) =>
               EditProfilePage(store: store),
+          '/consumer/view_bids': (context) => ViewBidsPage(store: store),
+          '/consumer/edit_advert_page': (context) =>
+              EditAdvertPage(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
@@ -60,7 +65,6 @@ class Launch extends StatelessWidget {
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
-
         },
       ),
     );

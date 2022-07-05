@@ -6,6 +6,7 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
+import 'package:general/widgets/floating_button.dart';
 
 class EditProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -25,11 +26,11 @@ class EditProfilePage extends StatelessWidget {
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
-                  //*******************APP BAR WIDGET*********************//
-
+                  //*******************APP BAR WIDGET******************//
                   const AppBarWidget(title: "Edit Profile"),
-                  //********************************************************//
+                  //***************************************************//
 
+                  //**********************NAME************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
@@ -40,7 +41,9 @@ class EditProfilePage extends StatelessWidget {
                       controller: null,
                     ),
                   ),
+                  //**************************************************//
 
+                  //********************NUMBER**********************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
@@ -51,7 +54,9 @@ class EditProfilePage extends StatelessWidget {
                       min: 1,
                     ),
                   ),
+                  //**************************************************//
 
+                  //**********************EMAIL************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 70),
                     child: TextFieldWidget(
@@ -62,30 +67,30 @@ class EditProfilePage extends StatelessWidget {
                       min: 1,
                     ),
                   ),
+                  //**************************************************//
 
+                  //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "SAVE CHANGES", function: vm.pushProfilePage),
+                      text: "Save Changes", function: vm.pushProfilePage),
+                  //**************************************************//
+
                   const Padding(padding: EdgeInsets.all(8)),
+
+                  //*******************DISCARD BUTTON*****************//
                   ButtonWidget(
-                      text: "DISCARD",
-                      transparent: true,
+                      text: "Discard",
+                      color: "dark",
                       function: vm.pushProfilePage)
+                  //**********************NAME************************//
                 ],
               ),
             ),
           ),
-          //*******************ADD BUTTON********************//
-          floatingActionButton: FloatingActionButton(
-            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
-            onPressed: () {},
-            backgroundColor: Colors.orange,
-            child: const Icon(Icons.add),
-          ),
+          //************************NAVBAR***********************/
+          floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          //*****************************************************/
 
-          //************************NAVBAR***********************/
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),
