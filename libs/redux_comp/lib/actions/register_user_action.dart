@@ -2,11 +2,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:redux_comp/actions/get_address_action.dart';
 import '../app_state.dart';
-import '../models/user_models/partial_user_model.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;

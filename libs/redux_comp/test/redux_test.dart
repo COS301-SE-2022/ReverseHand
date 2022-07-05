@@ -10,27 +10,25 @@ void main() {
     expect(true, true);
   });
 
-  // I need to update the partialUser model to store geolocation information, so these tests need refactoring
-  // I'll try get to it later - Rich
 
-  // PartialUser partUser = PartialUser(
-  //     'someone@example.com', 'someone','CONFIRM_SIGN_UP_STEP', );
+  PartialUser partUser = const PartialUser(
+      email: 'someone@example.com', name: 'someone', group: "test", verified: 'CONFIRM_SIGN_UP_STEP', );
 
-  // test('Test to get PartialUser Email', () {
-  //   expect('someone@example.com', partUser.email);
-  // });
+  test('Test to get PartialUser Email', () {
+    expect('someone@example.com', partUser.email);
+  });
 
-  // test('Test to get PartialUser Group', () {
-  //   expect('password', partUser.group);
-  // });
+  test('Test to get PartialUser Group', () {
+    expect('password', partUser.group);
+  });
 
-  // test('Test to get PartialUser Verification Step', () {
-  //   expect('CONFIRM_SIGN_UP_STEP', partUser.verified);
-  // });
+  test('Test to get PartialUser Verification Step', () {
+    expect('CONFIRM_SIGN_UP_STEP', partUser.verified);
+  });
 
-  // test('Test to get PartialUser Replace Method', () {
-  //   expect(partUser.replace(verified: 'DONE').verified, 'DONE');
-  // });
+  test('Test to get PartialUser Replace Method', () {
+    expect(partUser.replace(verified: 'DONE').verified, 'DONE');
+  });
 
   UserModel user = const UserModel(
       id: '001',

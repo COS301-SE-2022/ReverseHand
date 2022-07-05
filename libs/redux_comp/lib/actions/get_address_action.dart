@@ -1,5 +1,4 @@
 import '../app_state.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -32,11 +31,10 @@ class GetAddressAction extends ReduxAction<AppState> {
   } 
     try {
       Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-      List<Placemark> placemarks = await placemarkFromCoordinates(pos.latitude, pos.longitude);
-
-      Placemark place = placemarks[0];
-
-      Map<String, dynamic> address = place.toJson();
+      // Could be useful later
+      // List<Placemark> placemarks = await placemarkFromCoordinates(pos.latitude, pos.longitude);
+      // Placemark place = placemarks[0];
+      // Map<String, dynamic> address = place.toJson();
 
       return state.replace(
         partialUser: state.partialUser!.replace(position: pos)
