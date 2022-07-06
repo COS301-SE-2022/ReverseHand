@@ -93,7 +93,11 @@
         },
         "deleteBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/deleteBidResolver-6f4c6d6f647a6632412b-build.zip"
+          "s3Key": "amplify-builds/deleteBidResolver-66686d5a6e6742684a58-build.zip"
+        },
+        "getGoogleApiKeyResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getGoogleApiKeyResolver-7264352f5a502b4f502b-build.zip"
         }
       }
     }
