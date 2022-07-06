@@ -19,9 +19,8 @@ const ReverseHandTable = process.env.REVERSEHAND;
     location // will become required later on
 */
 exports.handler = async (event) => {
-    
     try {
-        
+        // getting current date
         const date = new Date();
         const dd = String(date.getDate()).padStart(2, '0');
         const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -63,6 +62,7 @@ exports.handler = async (event) => {
     
         item.Item.advert_details['id'] = event.arguments.ad_id; // adding advert id to be returned
         return item.Item.advert_details;
-    } catch(e) {console.log(e)}
-    // getting current date
+    } catch(e) {
+        console.log(e);
+    }
 };
