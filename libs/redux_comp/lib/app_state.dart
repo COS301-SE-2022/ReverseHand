@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:redux_comp/models/geolocation/geolocation_model.dart';
 import 'models/error_type_model.dart';
 import 'models/user_models/user_model.dart';
 import 'models/user_models/partial_user_model.dart';
@@ -8,6 +9,7 @@ class AppState {
   // put all app state requiered here
   final UserModel? user; 
   final PartialUser? partialUser; 
+  final Geolocation? geo; 
   final ErrorType error;
   final bool loading;
   final bool change; // used to show that state changed and must rebuild
@@ -16,6 +18,7 @@ class AppState {
   const AppState({
     required this.user,
     required this.partialUser,
+    required this.geo,
     required this.error,
     required this.loading,
     required this.change,
@@ -35,6 +38,7 @@ class AppState {
         adverts: [],
       ),
       partialUser: PartialUser(email: "", group: "", verified: ""),
+      geo: Geolocation(),
       error: ErrorType.none,
       loading: true,
       change: false,
@@ -54,6 +58,7 @@ class AppState {
         adverts: [],
       ),
       partialUser: null,
+      geo: Geolocation(),
       error: ErrorType.none,
       loading: false,
       change: false,
@@ -63,6 +68,7 @@ class AppState {
   AppState replace({
     UserModel? user,
     PartialUser? partialUser,
+    Geolocation? geo,
     ErrorType? error,
     bool? loading,
     bool? change,
@@ -70,6 +76,7 @@ class AppState {
     return AppState(
       user: user ?? this.user,
       partialUser: partialUser ?? this.partialUser,
+      geo: geo ?? this.geo,
       error: error ?? this.error,
       loading: loading ?? this.loading,
       change: change ?? this.change,

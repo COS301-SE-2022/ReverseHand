@@ -40,8 +40,8 @@ class VerifyUserAction extends ReduxAction<AppState> {
 
         final String name = state.partialUser!.email;
         final String id = (group == "customer") ? "c#${user.userId}" : "t#${user.userId}";
-        final double lat = state.partialUser!.position!.latitude;
-        final double long = state.partialUser!.position!.longitude;
+        final double lat = 0;// = state.partialUser!.position!.latitude;
+        final double long = 0;// = state.partialUser!.position!.longitude;
 
         String graphQLDocTwo = '''mutation  {
           createUser(lat: "$lat", long: "$long", name: "$name", user_id: "$id") {
