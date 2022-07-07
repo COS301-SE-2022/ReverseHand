@@ -51,8 +51,8 @@ class RegisterUserAction extends ReduxAction<AppState> {
     }
   }
 
-  @override
-  void before() async {
-   await dispatch(GetAddressAction());
-  }
+  // @override
+  // void before() async {
+  //  await dispatch(GetAddressAction());
+  // }
 }
