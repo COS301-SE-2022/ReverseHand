@@ -14,6 +14,9 @@ type Query {
 
   viewUser(user_id: String!) : User
   @function(name: "viewUserResolver-${env}")
+
+  viewKey : String 
+  @function(name: "getGoogleApiKeyResolver-${env}")
 }
 
 type Mutation {
