@@ -10,8 +10,9 @@ void main() {
     expect(true, true);
   });
 
+
   PartialUser partUser = const PartialUser(
-      'someone@example.com', 'password', 'CONFIRM_SIGN_UP_STEP');
+      email: 'someone@example.com', name: 'someone', group: "test", verified: 'CONFIRM_SIGN_UP_STEP', );
 
   test('Test to get PartialUser Email', () {
     expect('someone@example.com', partUser.email);

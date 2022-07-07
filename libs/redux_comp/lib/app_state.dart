@@ -34,7 +34,7 @@ class AppState {
         viewBids: [],
         adverts: [],
       ),
-      partialUser: null,
+      partialUser: PartialUser(email: "", group: "", verified: ""),
       error: ErrorType.none,
       loading: true,
       change: false,
@@ -53,13 +53,12 @@ class AppState {
         shortlistBids: [],
         adverts: [],
       ),
-      partialUser: PartialUser("some@email.com", "1234", "confirmed"),
+      partialUser: null,
       error: ErrorType.none,
       loading: false,
       change: false,
     );
   }
-
   // easy way to replace store wihtout specifying all paramters
   AppState replace({
     UserModel? user,

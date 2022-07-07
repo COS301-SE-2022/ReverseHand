@@ -5,7 +5,7 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
-import 'package:general/widgets/button.dart';
+import 'package:general/widgets/floating_button.dart';
 
 class ConsumerProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -24,9 +24,10 @@ class ConsumerProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-
                   const AppBarWidget(title: "Profile"),
                   //********************************************************//
+
+                  //ALL INFO IS CURRENTLY HARDCODED
 
                   //*******************CONSUMER NAME************************//
                   Row(
@@ -45,14 +46,11 @@ class ConsumerProfilePage extends StatelessWidget {
                       ]),
                   //********************************************************//
 
-                  //*********PADDING BETWEEN NAME AND OTHER DETAILS********//
-
                   const Padding(padding: EdgeInsets.all(20)),
-                  //**************************************************//
 
                   //*******************CONSUMER DETAILS************************//
 
-                  Stack(children: <Widget>[
+                  Stack(alignment: Alignment.center, children: <Widget>[
                     //overlay
                     BottomOverlayWidget(
                       height: MediaQuery.of(context).size.height / 1.5,
@@ -136,15 +134,15 @@ class ConsumerProfilePage extends StatelessWidget {
                             style:
                                 TextStyle(fontSize: 20, color: Colors.white))),
 
-                    // edit button - still deciding on transparency + positioning
                     Positioned(
-                      top: 320,
-                      left: 280,
-                      child: ButtonWidget(
-                          text: "EDIT",
-                          transparent: false,
-                          function: vm.pushEditProfilePage),
-                    )
+                      top: 280,
+                      right: 35,
+                      child: IconButton(
+                        onPressed: vm.pushEditProfilePage,
+                        icon: const Icon(Icons.edit),
+                        color: Colors.white70,
+                      ),
+                    ),
                   ]),
                 ],
               ),
@@ -155,16 +153,9 @@ class ConsumerProfilePage extends StatelessWidget {
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),
-          //*****************************************************/
 
-          //*******************ADD BUTTON********************//
           resizeToAvoidBottomInset: false,
-          floatingActionButton: FloatingActionButton(
-            // onPressed: () => vm.pushCreateAdvertPage(), //how to get vm?
-            onPressed: () {},
-            backgroundColor: Colors.orange,
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
 

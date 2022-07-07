@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'job_type.dart';
 
 @immutable
 class AdvertModel {
   final String id;
   final String title;
   final String? description;
-  final JobType? type;
+  final String? type;
   final String? acceptedBid;
   final String? location;
   final String dateCreated;

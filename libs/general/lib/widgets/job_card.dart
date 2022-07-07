@@ -16,31 +16,57 @@ class JobCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 35),
       child: Row(
         children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              //****************TITLE********************//
               Text(titleText,
-                  style: const TextStyle(fontSize: 30, color: Colors.white)),
-              const Padding(padding: EdgeInsets.all(3)),
-              Text(descText,
-                  style: const TextStyle(fontSize: 20, color: Colors.white)),
-              const Padding(padding: EdgeInsets.all(5)),
+                  style: const TextStyle(fontSize: 35, color: Colors.white)),
+              //*****************************************//
+
+              //****************DATE*******************//
               Row(
                 children: [
-                  const Text(
-                    "Posted: ",
-                    style: TextStyle(fontSize: 20, color: Colors.white70),
-                  ),
+                  // const Text(
+                  //   "Posted: ",
+                  //   style: TextStyle(fontSize: 20, color: Colors.white70),
+                  // ),
+                  //still deciding if this should be here
                   Text(
                     date,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
-                  )
+                    style: const TextStyle(fontSize: 18, color: Colors.white70),
+                  ),
                 ],
               ),
-              const Padding(padding: EdgeInsets.all(2)),
+              //****************************************//
+
+              //****************LOCATION********************//
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Row(
+                  children: const [
+                    // Icon(
+                    //   Icons.location_on,
+                    //   color: Colors.white,
+                    //   size: 30.0,
+                    // ), //icon spacing is giving issues at the moment
+                    Text("Pretoria, Gauteng",
+                        style: TextStyle(fontSize: 20, color: Colors.white))
+                  ],
+                ),
+              ),
+              //*****************************************//
+
+              //****************DESCRIPTION*******************//
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 35, 0, 0),
+                child: Text(descText,
+                    style: const TextStyle(fontSize: 20, color: Colors.white)),
+              ),
+              //**********************************************/
             ],
           ),
         ],
