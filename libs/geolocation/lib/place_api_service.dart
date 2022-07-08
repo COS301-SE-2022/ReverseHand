@@ -9,9 +9,10 @@ import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 
 class PlaceApiService {
   final client = http.Client();
-
   final sessionToken;
 
+  PlaceApiService(this.sessionToken);
+  
   Future<String> getApiKey() async {
     String graphQLDocument = '''query {
       viewKey
@@ -28,8 +29,6 @@ class PlaceApiService {
       return "Fetching Key Failed";
     }
   }
-
-  PlaceApiService(this.sessionToken);
 
   Future<List<Suggestion>> fetchSuggestions(String input) async {
     final apiKey = await getApiKey();
