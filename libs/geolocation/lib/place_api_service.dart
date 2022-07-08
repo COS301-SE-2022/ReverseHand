@@ -5,6 +5,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux_comp/models/geolocation/place_model.dart';
 import 'package:redux_comp/models/geolocation/suggestion_model.dart';
+import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 
 
 class PlaceApiService {
@@ -64,8 +65,10 @@ class PlaceApiService {
       if (result['status'] == 'OK') {
         final components =
             result['result']['address_components'] as List<dynamic>;
+        final coords = result['result']['geometry']['location'];
         // build result
         final place = Place();
+        final location = Coordinates(lat: coords['lat'],long: coords['long']);
         for (var c in components) {
           final List type = c['types'];
           if (type.contains('street_number')) {
@@ -81,6 +84,7 @@ class PlaceApiService {
             place.zipCode = c['long_name'];
           }
         }
+        place.location = location;
         return place;
       }
       throw Exception(result['error_message']);

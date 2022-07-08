@@ -20,6 +20,9 @@ class GetPLaceAction extends ReduxAction<AppState> {
       return state.replace(
         geo: state.geo!.replace(
           result: result
+        ),
+        partialUser: state.partialUser!.replace(
+          place: result
         )
       );
     } catch (e) {

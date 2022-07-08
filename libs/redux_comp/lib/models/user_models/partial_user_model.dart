@@ -1,8 +1,6 @@
 /* MODDEL TO STORE USER INFO PRIOR TO CONFIRMATION */
 
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/geolocation/coordinates_model.dart';
-
 import '../geolocation/place_model.dart';
 
 @immutable
