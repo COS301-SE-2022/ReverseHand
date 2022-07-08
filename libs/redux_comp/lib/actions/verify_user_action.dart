@@ -18,30 +18,57 @@ class VerifyUserAction extends ReduxAction<AppState> {
           confirmationCode: confirmationCode);
 
       final String username = state.partialUser!.email;
+      final AuthUser user = await Amplify.Auth.getCurrentUser();
       final String group = state.partialUser!.group;
 
       if (res.nextStep.signUpStep == "DONE") {
-        /* If the user is verified then the signUpStep is DONE, so we just update the partial user model */
-        String graphQLDocument = '''mutation  {
+        /* If the user is verified then the signUpStep is DONE, so we just update the partial user model and add the user to the correct group*/
+        String graphQLDocOne = '''mutation  {
           addUserToGroup(email: "$username", group: "$group")
         }
         ''';
-
-        final request = GraphQLRequest(
-          document: graphQLDocument,
+        final requestUserGroup = GraphQLRequest(
+          document: graphQLDocOne,
         );
 
-        try {
-          await Amplify.API.mutate(request: request).response;
-        } catch (e) {
+         try {
+          await Amplify.API.mutate(request: requestUserGroup).response;
+        } on ApiException catch (e) {
+          debugPrint(e.message);
           return null;
         }
 
+        final String name = state.partialUser!.email;
+        final String id = (group == "customer") ? "c#${user.userId}" : "t#${user.userId}";
+        final double lat = state.partialUser!.place!.location!.lat!;
+        final double long = state.partialUser!.place!.location!.long!;
+
+        String graphQLDocTwo = '''mutation  {
+          createUser(lat: "$lat", long: "$long", name: "$name", user_id: "$id") {
+            id
+          }
+        }
+        ''';
+
+        final requestCreateUser = GraphQLRequest(
+          document: graphQLDocTwo,
+        );
+
+        try {
+          GraphQLResponse response = await Amplify.API.mutate(request: requestCreateUser).response;
+          debugPrint(response.toString());
+
+        } on ApiException catch (e) {
+          debugPrint(e.message);
+          return null;
+        }
+
+
         return state.replace(
           partialUser: PartialUser(
-            state.partialUser!.email,
-            state.partialUser!.group,
-            res.nextStep.signUpStep,
+            email: state.partialUser!.email,
+            group: state.partialUser!.group,
+            verified: res.nextStep.signUpStep,
           ),
         );
       } else {

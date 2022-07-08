@@ -106,6 +106,7 @@ class LoginPage extends StatelessWidget {
                                   emailController.value.text.trim(),
                                   passwordController.value.text.trim(),
                                 );
+                                // vm.dispatchGetAddressAction();
                               },
                             ),
                           ),
@@ -250,16 +251,21 @@ class _Factory extends VmFactory<AppState, LoginPage> {
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),
+        // dispatchGetAddressAction: () => dispatch(
+        //   GetAddressAction(),
+        // ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
+  // final void Function() dispatchGetAddressAction;
   final VoidCallback pushSignUpPage;
 
   _ViewModel({
     required this.dispatchLoginAction,
+    // required this.dispatchGetAddressAction,
     required this.pushSignUpPage,
   }); // implementinf hashcode
 }

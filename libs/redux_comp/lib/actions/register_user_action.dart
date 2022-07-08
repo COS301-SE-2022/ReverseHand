@@ -3,24 +3,22 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
 import '../app_state.dart';
-import '../models/user_models/partial_user_model.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;
   final String name;
   final String cellNo;
-  final String location;
+  final String position;
   final String password;
   final bool userType;
 
-  RegisterUserAction(this.username, this.name, this.cellNo, this.location,
+  RegisterUserAction(this.username, this.name, this.cellNo, this.position,
       this.password, this.userType);
 
   @override
   Future<AppState?> reduce() async {
     try {
       /* You can specify which user attributes you want to store */
-      /* For now we are using familyName to specify user type in future we will create a custome attribute */
       Map<CognitoUserAttributeKey, String> userAttributes = {
         CognitoUserAttributeKey.email: username,
         CognitoUserAttributeKey.name: name,
@@ -33,8 +31,12 @@ class RegisterUserAction extends ReduxAction<AppState> {
 
       if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
         return state.replace(
-            partialUser:
-                PartialUser(username, userType ? "customer" : "tradesman", res.nextStep.signUpStep));
+            partialUser: state.partialUser!.replace(
+              email: username,
+              name: name,
+              group: (userType) ? "customer" : "tradesman",
+              verified: res.nextStep.signUpStep)
+            );
       } else {
         return null; /* do not modify state */
       }
@@ -47,4 +49,9 @@ class RegisterUserAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  // @override
+  // void before() async {
+  //  await dispatch(GetAddressAction());
+  // }
 }

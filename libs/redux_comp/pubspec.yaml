@@ -12,6 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
 
+  geolocation:
+    path: ../geolocation
+
+  geocoding: ^2.0.4
+  geolocator: ^9.0.0
 
   # amplify
   amplify_flutter: ^0.5.1
