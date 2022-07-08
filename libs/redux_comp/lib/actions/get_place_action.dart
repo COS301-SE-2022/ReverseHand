@@ -5,12 +5,12 @@ import '../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:geolocation/place_api_service.dart';
 
-class GetPLaceAction extends ReduxAction<AppState> {
+class GetPlaceAction extends ReduxAction<AppState> {
 
   Suggestion input;
   PlaceApiService placeApi;
 
-  GetPLaceAction(this.input, this.placeApi);
+  GetPlaceAction(this.input, this.placeApi);
 
 	@override
 	Future<AppState?> reduce() async {

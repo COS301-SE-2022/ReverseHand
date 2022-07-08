@@ -215,7 +215,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                       icon: Icons.add_location_outlined,
                                       controller: locationController,
                                       onTap: () async {
-                                        
+                                        const sessionToken = 1234;
+                                        showSearch(
+                                          context: context,
+                                          delegate: AddressSearch(sessionToken, widget.store),
+                                        );
                                       }
                                     ),
                                     //**********************************************

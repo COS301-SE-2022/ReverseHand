@@ -38,7 +38,7 @@ class AppState {
         adverts: [],
       ),
       partialUser: PartialUser(email: "", group: "", verified: ""),
-      geo: Geolocation(),
+      geo: Geolocation(suggestions: []),
       error: ErrorType.none,
       loading: true,
       change: false,
