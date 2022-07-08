@@ -6,6 +6,7 @@ class TextFieldWidget extends StatelessWidget {
   final IconData? icon;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final Function()? onTap;
 
   const TextFieldWidget({
     Key? key,
@@ -13,7 +14,8 @@ class TextFieldWidget extends StatelessWidget {
     required this.obscure,
     this.icon,
     required this.controller,
-    this.validator,
+    this.validator, 
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -39,6 +41,7 @@ class TextFieldWidget extends StatelessWidget {
       validator: validator,
       obscureText: obscure,
       controller: controller,
+      onTap: onTap,
       decoration: InputDecoration(
           // for errros
           errorStyle: const TextStyle(color: Colors.red),

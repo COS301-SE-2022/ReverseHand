@@ -13,6 +13,7 @@ import '../widgets/link.dart';
 import '../widgets/multiselect_widget.dart';
 import '../widgets/otp_pop_up.dart';
 import '../widgets/textfield.dart';
+import 'location_page.dart';
 
 class SignUpPage extends StatefulWidget {
   final Store<AppState> store;
@@ -208,12 +209,43 @@ class _SignUpPageState extends State<SignUpPage> {
                                     //**********************************************
                                     const TransparentDividerWidget(),
                                     //*****************location**********************
-                                    BlueButtonWidget(
-                                      text: 'location',
-                                      function: () => showMultiSelect(), //change to location function
-                                      width: 350,
-                                      height: 60,
+                                    TextFieldWidget(
+                                      label: 'location',
+                                      obscure: false,
                                       icon: Icons.add_location_outlined,
+                                      controller: locationController,
+                                      onTap: () async {
+                                        
+                                      }
+                                    ),
+                                    //**********************************************
+                                    const TransparentDividerWidget(),
+                                    //*****************trade type**********************
+                                    BlueButtonWidget(
+                                      text: 'trade type',
+                                        function: () => showMultiSelect(),
+                                        width: 350,
+                                        height: 60,
+                                        icon: Icons.construction_outlined,
+                                    ),
+
+                                    // display selected items
+                                    Wrap(
+                                      spacing: 8.0,
+                                      runSpacing: 8.0,
+                                      children: selectedItems
+                                        .map((types) => Chip(
+                                          labelPadding: const EdgeInsets.all(2.0),
+                                          label: Text(
+                                            types,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          backgroundColor: const Color.fromRGBO(35, 47, 62, 1),
+                                          padding: const EdgeInsets.all(8.0),
+                                        ))
+                                      .toList(),
                                     ),
                                     //**********************************************
                                     const TransparentDividerWidget(),
@@ -246,35 +278,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                           r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
                                         ),
                                       ),
-                                    ),
-                                    //**********************************************
-                                    const TransparentDividerWidget(),
-                                    //*****************trade type**********************
-                                    BlueButtonWidget(
-                                      text: 'trade type',
-                                        function: () => showMultiSelect(),
-                                        width: 350,
-                                        height: 60,
-                                        icon: Icons.construction_outlined,
-                                    ),
-
-                                    // display selected items
-                                    Wrap(
-                                      spacing: 8.0,
-                                      runSpacing: 8.0,
-                                      children: selectedItems
-                                        .map((types) => Chip(
-                                          labelPadding: const EdgeInsets.all(2.0),
-                                          label: Text(
-                                            types,
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          backgroundColor: const Color.fromRGBO(35, 47, 62, 1),
-                                          padding: const EdgeInsets.all(8.0),
-                                        ))
-                                      .toList(),
                                     ),
                                     //**********************************************
                                   ],
