@@ -67,8 +67,8 @@ class PlaceApiService {
             result['result']['address_components'] as List<dynamic>;
         final coords = result['result']['geometry']['location'];
         // build result
-        final place = Place();
         final location = Coordinates(lat: coords['lat'],long: coords['long']);
+        final place = Place();
         for (var c in components) {
           final List type = c['types'];
           if (type.contains('street_number')) {

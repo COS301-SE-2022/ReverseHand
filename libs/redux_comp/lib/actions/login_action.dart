@@ -67,6 +67,7 @@ class LoginAction extends ReduxAction<AppState> {
           id: userType == "Consumer" ? "c#$id" : "t#$id",
           email: email,
           name: name,
+          cellNo: "Mock",
           userType: userType,
           bids: const [],
           shortlistBids: const [],

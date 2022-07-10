@@ -34,6 +34,7 @@ void main() {
       id: '001',
       email: 'some@example.com',
       name: 'someone',
+      cellNo: '0821234567',
       userType: 'Consumer',
       bids: [],
       shortlistBids: [],

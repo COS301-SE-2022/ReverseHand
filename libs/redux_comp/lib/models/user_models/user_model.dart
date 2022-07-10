@@ -7,6 +7,7 @@ class UserModel {
   final String id;
   final String email;
   final String name;
+  final String cellNo;
   final String userType;
   final List<BidModel> bids;
   final List<BidModel> shortlistBids;
@@ -21,6 +22,7 @@ class UserModel {
     required this.id,
     required this.email,
     required this.name,
+    required this.cellNo,
     required this.userType,
     required this.bids,
     required this.shortlistBids,
@@ -34,6 +36,7 @@ class UserModel {
     String? id,
     String? email,
     String? name,
+    String? cellNo,
     String? userType,
     List<BidModel>? bids,
     List<BidModel>? shortlistBids,
@@ -46,6 +49,7 @@ class UserModel {
       id: id ?? this.id,
       email: email ?? this.email,
       name: name ?? this.name,
+      cellNo: cellNo ?? this.cellNo,
       userType: userType ?? this.userType,
       bids: bids ?? this.bids,
       shortlistBids: shortlistBids ?? this.shortlistBids,

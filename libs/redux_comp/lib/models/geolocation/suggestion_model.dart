@@ -4,8 +4,4 @@ class Suggestion {
 
   Suggestion(this.placeId, this.description);
 
-  @override
-  String toString() {
-    return 'Suggestion(description: $description, placeId: $placeId)';
-  }
 }

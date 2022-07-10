@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:redux_comp/models/geolocation/geolocation_model.dart';
+import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 import 'models/error_type_model.dart';
 import 'models/user_models/user_model.dart';
 import 'models/user_models/partial_user_model.dart';
@@ -9,7 +9,7 @@ class AppState {
   // put all app state requiered here
   final UserModel? user; 
   final PartialUser? partialUser; 
-  final Geolocation? geo; 
+  final List<Suggestion> suggestions; 
   final ErrorType error;
   final bool loading;
   final bool change; // used to show that state changed and must rebuild
@@ -18,7 +18,7 @@ class AppState {
   const AppState({
     required this.user,
     required this.partialUser,
-    required this.geo,
+    required this.suggestions,
     required this.error,
     required this.loading,
     required this.change,
@@ -31,6 +31,7 @@ class AppState {
         id: "",
         email: "",
         name: "",
+        cellNo: "",
         userType: "userType",
         bids: [],
         shortlistBids: [],
@@ -38,7 +39,7 @@ class AppState {
         adverts: [],
       ),
       partialUser: PartialUser(email: "", group: "", verified: ""),
-      geo: Geolocation(),
+      suggestions: [],
       error: ErrorType.none,
       loading: true,
       change: false,
@@ -51,6 +52,7 @@ class AppState {
         id: "0",
         email: "some@email.com",
         name: "Someone",
+        cellNo: "0821234567",
         userType: "confirmed",
         bids: [],
         viewBids: [],
@@ -58,7 +60,7 @@ class AppState {
         adverts: [],
       ),
       partialUser: null,
-      geo: Geolocation(),
+      suggestions: [],
       error: ErrorType.none,
       loading: false,
       change: false,
@@ -68,7 +70,7 @@ class AppState {
   AppState replace({
     UserModel? user,
     PartialUser? partialUser,
-    Geolocation? geo,
+    List<Suggestion>? suggestions,
     ErrorType? error,
     bool? loading,
     bool? change,
@@ -76,7 +78,7 @@ class AppState {
     return AppState(
       user: user ?? this.user,
       partialUser: partialUser ?? this.partialUser,
-      geo: geo ?? this.geo,
+      suggestions: suggestions ?? this.suggestions,
       error: error ?? this.error,
       loading: loading ?? this.loading,
       change: change ?? this.change,

@@ -2,6 +2,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
+import 'package:redux_comp/actions/get_place_action.dart';
 import '../app_state.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
@@ -10,7 +11,7 @@ class RegisterUserAction extends ReduxAction<AppState> {
   final String cellNo;
   final String position;
   final String password;
-  final bool userType;
+  final bool userType; // true for customer
 
   RegisterUserAction(this.username, this.name, this.cellNo, this.position,
       this.password, this.userType);
@@ -18,25 +19,18 @@ class RegisterUserAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     try {
-      /* You can specify which user attributes you want to store */
-      Map<CognitoUserAttributeKey, String> userAttributes = {
-        CognitoUserAttributeKey.email: username,
-        CognitoUserAttributeKey.name: name,
-      };
-
-      SignUpResult res = await Amplify.Auth.signUp(
-          username: username,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: userAttributes));
+      SignUpResult res =
+          await Amplify.Auth.signUp(username: username, password: password);
 
       if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
         return state.replace(
             partialUser: state.partialUser!.replace(
-              email: username,
-              name: name,
-              group: (userType) ? "customer" : "tradesman",
-              verified: res.nextStep.signUpStep)
-            );
+                email: username,
+                password: password,
+                name: name,
+                cellNo: cellNo,
+                group: (userType) ? "customer" : "tradesman",
+                verified: res.nextStep.signUpStep));
       } else {
         return null; /* do not modify state */
       }
@@ -50,8 +44,8 @@ class RegisterUserAction extends ReduxAction<AppState> {
     }
   }
 
-  // @override
-  // void before() async {
-  //  await dispatch(GetAddressAction());
-  // }
+  @override
+  void before() async {
+   await dispatch(GetPlaceAction());
+  }
 }

@@ -17,9 +17,7 @@ class GetSuggestionsAction extends ReduxAction<AppState> {
       List<Suggestion> suggestions = await placeApi.fetchSuggestions(input);
 
       return state.replace(
-        geo: state.geo!.replace(
-          suggestions: suggestions
-        )
+        suggestions: suggestions
       );
     } catch (e) {
       return null;
