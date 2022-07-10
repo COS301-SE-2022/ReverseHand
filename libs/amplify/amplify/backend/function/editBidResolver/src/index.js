@@ -29,7 +29,7 @@ exports.handler = async (event) => {
         }
 
 
-        let updateExpression = 'set';
+        let updateExpression = 'set ';
         for (let i = 0; i < args.length - 1; i++)
             updateExpression += args[i] + ', ';
         updateExpression += args[args.length - 1];
@@ -38,7 +38,7 @@ exports.handler = async (event) => {
 
         expressionAttributeValues[':name'] = event.arguments.name;
         expressionAttributeValues[':price_lower'] = event.arguments.price_lower;
-        expressionAttributeValues['price_upper'] = event.arguments.price_upper;
+        expressionAttributeValues[':price_upper'] = event.arguments.price_upper;
 
         let params = {
             TableName: ReverseHandTable,
@@ -64,7 +64,7 @@ exports.handler = async (event) => {
 
         const data = await docClient.get(params).promise();
 
-        return data['bid_details'];
+        return data.Item['bid_details'];
 
     } catch (error) {
         console.log(error);
