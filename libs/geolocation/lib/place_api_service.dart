@@ -10,7 +10,7 @@ import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 
 class PlaceApiService {
   final client = http.Client();
-  final sessionToken;
+  final int sessionToken;
 
   PlaceApiService(this.sessionToken);
   

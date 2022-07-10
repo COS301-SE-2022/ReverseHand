@@ -19,10 +19,6 @@ dependencies:
   redux_comp: 
     path: '../redux_comp'
 
-
-  geocoding: ^2.0.4
-  geolocator: ^9.0.0
-
   amplify_flutter: ^0.5.1
   amplify_api: ^0.5.1
 

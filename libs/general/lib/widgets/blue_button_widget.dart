@@ -4,32 +4,32 @@ class BlueButtonWidget extends StatelessWidget {
   final String text;
   final void Function() function;
   final bool? waiting;
-  const BlueButtonWidget({Key? key, required this.text, required this.function, this.waiting})
+  final double width;
+  final double height;
+  final IconData? icon;
+  const BlueButtonWidget({Key? key, required this.text, required this.function, this.waiting, required this.width, required this.height, required this.icon})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150, 
-      height: 50,
-      child: ElevatedButton(
+      width: width, 
+      height: height,
+      child: ElevatedButton.icon(
+        icon: Icon(
+          icon,
+          color: Colors.blueGrey,
+        ), 
+        label: Align(alignment: Alignment.centerLeft, child: Text(text)),
         style: ElevatedButton.styleFrom(
-            primary: const Color.fromRGBO(18, 26, 34, 1),
-            side: const BorderSide(width: 2, color: Color.fromARGB(110, 160, 160, 160)),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            shadowColor: const Color.fromARGB(0, 0, 0, 0),
-        ),
+          primary: Colors.black.withOpacity(0),
+          onPrimary: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+            side: const BorderSide(color: Colors.grey, width: 1),
+          )),
         onPressed: function,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            text,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
-          ),
         ),
-      ),
     );
   }
 }

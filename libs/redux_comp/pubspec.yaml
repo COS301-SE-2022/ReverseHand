@@ -15,9 +15,6 @@ dependencies:
   geolocation:
     path: ../geolocation
 
-  geocoding: ^2.0.4
-  geolocator: ^9.0.0
-
   # amplify
   amplify_flutter: ^0.5.1
   amplify_auth_cognito: ^0.5.1
