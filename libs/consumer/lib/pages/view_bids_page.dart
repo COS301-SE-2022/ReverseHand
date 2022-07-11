@@ -112,112 +112,176 @@ class ViewBidsPage extends StatelessWidget {
                       TabBarView(
                         children: [
                           //**************TAB 1 INFO********************//
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(children: [
-                              ButtonWidget(
-                                  text: "Back",
-                                  color: "light",
-                                  whiteBorder: true,
-                                  function: vm.popPage)
-                            ]
-                                //all bids should be populated here
-                                ),
+                          SingleChildScrollView(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(children: [
+                                ButtonWidget(
+                                    text: "Back",
+                                    color: "light",
+                                    whiteBorder: true,
+                                    function: vm.popPage)
+                              ]
+                                  //all bids should be populated here
+                                  ),
+                            ),
                           ),
                           //****************************************//
 
                           //*****************TAB 2 INFO******************//
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(children: [
-                              ButtonWidget(
-                                  text: "Back",
-                                  color: "light",
-                                  whiteBorder: true,
-                                  function: vm.popPage)
-                            ]
-                                //active bids should be populated here
-                                ),
+                          SingleChildScrollView(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(children: [
+                                ButtonWidget(
+                                    text: "Back",
+                                    color: "light",
+                                    whiteBorder: true,
+                                    function: vm.popPage)
+                              ]
+                                  //active bids should be populated here
+                                  ),
+                            ),
                           ),
                           //*****************TAB 2******************//
 
                           //*****************TAB 3 INFO******************//
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 45, top: 10),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Sort By",
-                                    style: TextStyle(fontSize: 22),
+                          SingleChildScrollView(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(children: [
+                                //***************SORT BY******************//
+                                //text
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 45, top: 10),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "Sort By",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const Padding(
-                                  padding: EdgeInsets.only(bottom: 10)),
-
-                              //****************DROPDOWN******************//
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                height: 40,
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  borderRadius: BorderRadius.circular(
-                                      20.0), //borderRadius for container
-                                  border: Border.all(
-                                      color: Colors.white,
-                                      style: BorderStyle.solid,
-                                      width: 1),
-                                ),
-
-                                //start of DropDownButton
-                                child: DropdownButton(
-                                    dropdownColor: Theme.of(context)
+                                const Padding(
+                                    padding: EdgeInsets.only(bottom: 10)),
+                                //dropdown container
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  height: 40,
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.5,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
                                         .scaffoldBackgroundColor,
                                     borderRadius: BorderRadius.circular(
-                                        20.0), //borderRadius for dropdownMenu
-                                    isExpanded: true,
-                                    underline: const SizedBox.shrink(),
-                                    value: _dropdownValues.first,
-                                    icon: const Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Icon(
-                                        Icons.arrow_drop_down,
+                                        20.0), //borderRadius for container
+                                    border: Border.all(
                                         color: Colors.white,
-                                      ),
-                                    ),
-                                    items: _dropdownValues
-                                        .map((value) => DropdownMenuItem(
-                                              value: value,
-                                              child: Text(value),
-                                            ))
-                                        .toList(),
-                                    onChanged: (_) {}),
-                              ),
-                              //**********************************************//
-
-                              const Padding(padding: EdgeInsets.all(10)),
-
-                              //Buttons
-                              ButtonWidget(
-                                  text: "Apply",
-                                  function:
-                                      vm.popPage //need a different function
+                                        style: BorderStyle.solid,
+                                        width: 1),
                                   ),
-                              ButtonWidget(
-                                  text: "Cancel",
-                                  color: "light",
-                                  whiteBorder: true,
-                                  function:
-                                      vm.popPage //need a different function
-                                  )
-                            ]
-                                //active bids should be populated here
+                                  //actual dropdown
+                                  child: DropdownButton(
+                                      dropdownColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      borderRadius: BorderRadius.circular(
+                                          20.0), //borderRadius for dropdownMenu
+                                      isExpanded: true,
+                                      underline: const SizedBox.shrink(),
+                                      value: _dropdownValues.first,
+                                      icon: const Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      items: _dropdownValues
+                                          .map((value) => DropdownMenuItem(
+                                                value: value,
+                                                child: Text(value),
+                                              ))
+                                          .toList(),
+                                      onChanged: ((_) {})),
                                 ),
+                                //******************************************//
+
+                                //*****************PRICE RANGE******************//
+                                //text
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 45, top: 10),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "Price Range",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                ),
+                                const Padding(
+                                    padding: EdgeInsets.only(bottom: 10)),
+
+                                //dropdown container
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  height: 40,
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.5,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.circular(
+                                        20.0), //borderRadius for container
+                                    border: Border.all(
+                                        color: Colors.white,
+                                        style: BorderStyle.solid,
+                                        width: 1),
+                                  ),
+                                  //actual dropdown
+                                  child: DropdownButton(
+                                      dropdownColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      borderRadius: BorderRadius.circular(
+                                          20.0), //borderRadius for dropdownMenu
+                                      isExpanded: true,
+                                      underline: const SizedBox.shrink(),
+                                      value: _dropdownValues.first,
+                                      icon: const Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      items: _dropdownValues
+                                          .map((value) => DropdownMenuItem(
+                                                value: value,
+                                                child: Text(value),
+                                              ))
+                                          .toList(),
+                                      onChanged: ((_) {})),
+                                ),
+                                //*******************************************//
+
+                                const Padding(padding: EdgeInsets.all(10)),
+
+                                //Buttons
+                                ButtonWidget(
+                                    text: "Apply",
+                                    function:
+                                        vm.popPage //need a different function
+                                    ),
+                                ButtonWidget(
+                                    text: "Cancel",
+                                    color: "light",
+                                    whiteBorder: true,
+                                    function:
+                                        vm.popPage //need a different function
+                                    )
+                              ]
+                                  //active bids should be populated here
+                                  ),
+                            ),
                           ),
                           //*****************TAB 3******************//
                         ],
