@@ -14,12 +14,12 @@ class AddUserToGroupAction extends ReduxAction<AppState> {
 
     if (state.partialUser!.verified == "DONE") {
       /* If the user is verified then the signUpStep is DONE, so we just update the partial user model and add the user to the correct group*/
-      String graphQLDocOne = '''mutation  {
+      String graphQLDoc = '''mutation  {
           addUserToGroup(email: "$username", group: "$group")
         }
         ''';
       final requestUserGroup = GraphQLRequest(
-        document: graphQLDocOne,
+        document: graphQLDoc,
       );
 
       try {

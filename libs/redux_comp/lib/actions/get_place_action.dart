@@ -8,10 +8,10 @@ import 'package:geolocation/place_api_service.dart';
 
 class GetPlaceAction extends ReduxAction<AppState> {
 
-  Suggestion input;
-  PlaceApiService placeApi;
+  // Suggestion input;
+  // PlaceApiService placeApi;
 
-  GetPlaceAction(this.input, this.placeApi);
+  // GetPlaceAction(/*this.input, this.placeApi*/);
 
 	@override
 	Future<AppState?> reduce() async {

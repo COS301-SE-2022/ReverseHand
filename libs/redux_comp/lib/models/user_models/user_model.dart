@@ -5,9 +5,9 @@ import '../bid_model.dart';
 @immutable
 class UserModel {
   final String id;
-  final String email;
-  final String name;
-  final String cellNo;
+  final String? email;
+  final String? name;
+  final String? cellNo;
   final String userType;
   final List<BidModel> bids;
   final List<BidModel> shortlistBids;
@@ -20,9 +20,9 @@ class UserModel {
 
   const UserModel({
     required this.id,
-    required this.email,
-    required this.name,
-    required this.cellNo,
+    this.email,
+    this.name,
+    this.cellNo,
     required this.userType,
     required this.bids,
     required this.shortlistBids,

@@ -32,7 +32,7 @@ class AppState {
         email: "",
         name: "",
         cellNo: "",
-        userType: "userType",
+        userType: "",
         bids: [],
         shortlistBids: [],
         viewBids: [],
