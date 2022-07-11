@@ -17,8 +17,12 @@ import 'package:general/widgets/floating_button.dart';
 
 class ViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
-
-  const ViewBidsPage({Key? key, required this.store}) : super(key: key);
+  final List<String> _dropdownValues = [
+    "Any",
+    "Price: Low to High", //think about this wording
+    "Price: High to Low",
+  ];
+  ViewBidsPage({Key? key, required this.store}) : super(key: key);
 
   @override
 
@@ -142,27 +146,7 @@ class ViewBidsPage extends StatelessWidget {
                             padding: const EdgeInsets.all(8),
                             child: Column(children: [
                               const Padding(
-                                padding: EdgeInsets.only(left: 45),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Price Range",
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.only(left: 45),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Constructor Rating",
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.only(left: 45),
+                                padding: EdgeInsets.only(left: 45, top: 10),
                                 child: Align(
                                   alignment: Alignment.topLeft,
                                   child: Text(
@@ -171,7 +155,54 @@ class ViewBidsPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              const Padding(
+                                  padding: EdgeInsets.only(bottom: 10)),
+
+                              //****************DROPDOWN******************//
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                height: 40,
+                                width: MediaQuery.of(context).size.width / 1.5,
+                                decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  borderRadius: BorderRadius.circular(
+                                      20.0), //borderRadius for container
+                                  border: Border.all(
+                                      color: Colors.white,
+                                      style: BorderStyle.solid,
+                                      width: 1),
+                                ),
+
+                                //start of DropDownButton
+                                child: DropdownButton(
+                                    dropdownColor: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.circular(
+                                        20.0), //borderRadius for dropdownMenu
+                                    isExpanded: true,
+                                    underline: const SizedBox.shrink(),
+                                    value: _dropdownValues.first,
+                                    icon: const Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    items: _dropdownValues
+                                        .map((value) => DropdownMenuItem(
+                                              value: value,
+                                              child: Text(value),
+                                            ))
+                                        .toList(),
+                                    onChanged: (_) {}),
+                              ),
+                              //**********************************************//
+
                               const Padding(padding: EdgeInsets.all(10)),
+
+                              //Buttons
                               ButtonWidget(
                                   text: "Apply",
                                   function:
