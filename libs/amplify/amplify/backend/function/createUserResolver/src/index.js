@@ -19,28 +19,44 @@ const UserTable = process.env.USER;
 */
 exports.handler = async (event) => {
     try {
-    
         let item = {
             TableName: UserTable,
             Item: {
                 user_id: event.arguments.user_id,
                 name: event.arguments.name,
-                domains: event.arguments.domains,
-                tradetypes: event.arguments.tradetypes,
+                email: event.arguments.email,
+                cellNo: event.arguments.cellNo,
                 notifications: [],
                 reviews: [],
                 location: {
-                    lat: event.arguments.lat,
-                    long: event.arguments.long,
+                    address: {
+                        streetNumber: event.arguments.streetnumber,
+                        street: event.arguments.street,
+                        city: event.arguments.city,
+                        zipCode: event.arguments.zipCode
+                    },
+                    coordinates: {
+                        lat: event.arguments.lat,
+                        long: event.arguments.long
+                    }
                 }
             }
         };
         
+        if (event.arguments.domains !== undefined) {
+            item.Item.domains = JSON.parse(event.arguments.domains);
+        }
+        
+        if (event.arguments.tradetypes !== undefined) {
+            item.Item.tradetypes = JSON.parse(event.arguments.tradetypes);
+        }
+        
         await docClient.put(item).promise();
-    
+        
+        item.Item.id = item.Item.user_id;
+        delete item.Item.user_id;
         return item.Item;
     } catch(e) {
         console.log(e);
     }
-    // getting current date
 };

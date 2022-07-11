@@ -51,6 +51,8 @@ type Mutation {
 
 type User implements UniqueID {
   id: String!,
+  email: String!,
+  cellNo: String!,
   name: String!,
   location: Location!,
   domains: [String!],
@@ -58,8 +60,20 @@ type User implements UniqueID {
 }
 
 type Location {
+  address: Address!,
+  coordinates: Coordinates!
+}
+
+type Coordinates {
   lat: String!,
   long: String!
+}
+
+type Address {
+  streetNumber: String!,
+  street: String!,
+  city: String!,
+  zipCode: String!
 }
 
 type Advert implements UniqueID {
