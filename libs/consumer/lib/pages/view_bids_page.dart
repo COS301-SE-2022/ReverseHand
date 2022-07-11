@@ -50,7 +50,7 @@ class ViewBidsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: MaterialApp(
           theme: CustomTheme.darkTheme,
           home: Scaffold(
@@ -95,10 +95,11 @@ class ViewBidsPage extends StatelessWidget {
                           fontSize: 20,
                         ),
                       )),
+                      Tab(child: Icon(Icons.filter_alt)),
                     ],
                   ),
                   //*****************TABS***********************//
-                  ...populateBids(vm.bids, store),
+                  // ...populateBids(vm.bids, store),
 
                   Expanded(
                     child: Stack(children: [
@@ -135,6 +136,59 @@ class ViewBidsPage extends StatelessWidget {
                                 ),
                           ),
                           //*****************TAB 2******************//
+
+                          //*****************TAB 3 INFO******************//
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(children: [
+                              const Padding(
+                                padding: EdgeInsets.only(left: 45),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "Price Range",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 45),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "Constructor Rating",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 45),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "Sort By",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ),
+                              ),
+                              const Padding(padding: EdgeInsets.all(10)),
+                              ButtonWidget(
+                                  text: "Apply",
+                                  function:
+                                      vm.popPage //need a different function
+                                  ),
+                              ButtonWidget(
+                                  text: "Cancel",
+                                  color: "light",
+                                  whiteBorder: true,
+                                  function:
+                                      vm.popPage //need a different function
+                                  )
+                            ]
+                                //active bids should be populated here
+                                ),
+                          ),
+                          //*****************TAB 3******************//
                         ],
                       ),
                     ]),
