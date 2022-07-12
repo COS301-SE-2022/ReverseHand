@@ -101,7 +101,7 @@ class LoginPage extends StatelessWidget {
                             builder: (BuildContext context, _ViewModel vm) =>
                                 LongButtonWidget(
                               text: "Login",
-                              login: () {
+                              function: () {
                                 vm.dispatchLoginAction(
                                   emailController.value.text.trim(),
                                   passwordController.value.text.trim(),

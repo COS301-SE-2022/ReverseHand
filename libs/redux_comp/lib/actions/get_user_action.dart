@@ -52,8 +52,8 @@ class GetUserAction extends ReduxAction<AppState> {
         p.street = user["location"]["address"]["street"];
         p.city = user["location"]["address"]["city"];
         p.city = user["location"]["address"]["zipCode"];
-        c.lat = user["location"]["coordinates"]["lat"];
-        c.long = user["location"]["coordinates"]["long"];
+        c.lat = double.parse(user["location"]["coordinates"]["lat"]) ;
+        c.long = double.parse(user["location"]["coordinates"]["long"]);
         p.location = c;
 
         return state.replace(
@@ -108,24 +108,24 @@ class GetUserAction extends ReduxAction<AppState> {
                 .data);
         final user = data["viewUser"];
 
-        Place p = Place();
-        Coordinates c = Coordinates();
-        p.streetNumber = user["location"]["address"]["streetNumber"];
-        p.street = user["location"]["address"]["street"];
-        p.city = user["location"]["address"]["city"];
-        p.city = user["location"]["address"]["zipCode"];
-        c.lat = user["location"]["coordinates"]["lat"];
-        c.long = user["location"]["coordinates"]["long"];
-        p.location = c;
-
+        Place place = Place();
+        Coordinates coords = Coordinates();
+        place.streetNumber = user["location"]["address"]["streetNumber"];
+        place.street = user["location"]["address"]["street"];
+        place.city = user["location"]["address"]["city"];
+        place.city = user["location"]["address"]["zipCode"];
+        coords.lat = double.parse(user["location"]["coordinates"]["lat"]);
+        coords.long = double.parse(user["location"]["coordinates"]["long"]);
+        place.location = coords;
+        
         return state.replace(
           user: state.user!.replace(
             name: user["name"],
             email: user["email"],
             cellNo: user["cellNo"],
             domains: user["domains"],
-            tradeTypes: user["tradeTypes"],
-            place: p,
+            tradeTypes: user["tradetypes"],
+            place: place,
             bids: const [],
             shortlistBids: const [],
             viewBids: const [],

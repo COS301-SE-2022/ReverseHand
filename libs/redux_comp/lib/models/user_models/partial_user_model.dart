@@ -11,12 +11,12 @@ class PartialUser {
   final String? name;
   final String? cellNo;
   final Place? place;
-  final String? domain;
-  final List<String>? tradeType;
+  final List<String>? domains;
+  final List<String>? tradeTypes;
   final String group;
   final String verified;
 
-  const PartialUser({required this.email, this.password, this.id, this.domain, this.tradeType, this.name, this.cellNo, this.place, required this.group, required this.verified});
+  const PartialUser({required this.email, this.password, this.id, this.domains, this.tradeTypes, this.name, this.cellNo, this.place, required this.group, required this.verified});
 
   PartialUser replace({
     String? email,
@@ -25,8 +25,8 @@ class PartialUser {
     String? name,
     String? cellNo,
     Place? place,
-    String? domain,
-    List<String>? tradeType,
+    List<String>? domains,
+    List<String>? tradeTypes,
     String? group,
     String? verified,
   }) {
@@ -37,8 +37,8 @@ class PartialUser {
       name: name ?? this.name,
       cellNo: cellNo ?? this.cellNo,
       place: place ?? this.place,
-      domain: domain ?? this.domain,
-      tradeType: tradeType ?? this.tradeType,
+      domains: domains ?? this.domains,
+      tradeTypes: tradeTypes ?? this.tradeTypes,
       group: group ?? this.group,
       verified: verified ?? this.verified,
     );

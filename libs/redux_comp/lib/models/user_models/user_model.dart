@@ -9,8 +9,8 @@ class UserModel {
   final String? email;
   final String? name;
   final String? cellNo;
-  final List<String>? domains;
-  final List<String>? tradeTypes;
+  final List<dynamic>? domains;
+  final List<dynamic>? tradeTypes;
   final String userType;
   final Place? place;
   final List<BidModel> bids;
@@ -44,8 +44,8 @@ class UserModel {
     String? email,
     String? name,
     String? cellNo,
-    List<String>? domains,
-    List<String>? tradeTypes,
+    List<dynamic>? domains,
+    List<dynamic>? tradeTypes,
     String? userType,
     Place? place,
     List<BidModel>? bids,

@@ -9,11 +9,11 @@ class RegisterUserAction extends ReduxAction<AppState> {
   final String username;
   final String name;
   final String cellNo;
-  final String position;
+  final List<String> tradeTypes;
   final String password;
   final bool userType; // true for customer
 
-  RegisterUserAction(this.username, this.name, this.cellNo, this.position,
+  RegisterUserAction(this.username, this.name, this.cellNo, this.tradeTypes,
       this.password, this.userType);
 
   @override
@@ -23,14 +23,26 @@ class RegisterUserAction extends ReduxAction<AppState> {
           await Amplify.Auth.signUp(username: username, password: password);
 
       if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
-        return state.replace(
-            partialUser: state.partialUser!.replace(
-                email: username,
-                password: password,
-                name: name,
-                cellNo: cellNo,
-                group: (userType) ? "customer" : "tradesman",
-                verified: res.nextStep.signUpStep));
+        if (userType) {
+          return state.replace(
+              partialUser: state.partialUser!.replace(
+                  email: username,
+                  password: password,
+                  name: name,
+                  cellNo: cellNo,
+                  group: "customer",
+                  verified: res.nextStep.signUpStep));
+        } else {
+          return state.replace(
+              partialUser: state.partialUser!.replace(
+                  email: username,
+                  password: password,
+                  name: name,
+                  cellNo: cellNo,
+                  tradeTypes: tradeTypes,
+                  group: "tradesman",
+                  verified: res.nextStep.signUpStep));
+        }
       } else {
         return null; /* do not modify state */
       }

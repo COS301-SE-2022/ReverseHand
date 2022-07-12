@@ -32,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final cellController = TextEditingController();
-  final locationController = TextEditingController();
+  final tradeController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
 
@@ -213,7 +213,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       label: 'location',
                                       obscure: false,
                                       icon: Icons.add_location_outlined,
-                                      controller: locationController,
+                                      controller: tradeController,
                                       onTap: () async {
                                         const sessionToken = 1234;
                                         showSearch(
@@ -296,15 +296,15 @@ class _SignUpPageState extends State<SignUpPage> {
                               builder: (BuildContext context, _ViewModel vm) =>
                                   LongButtonWidget(
                                 text: "Sign Up",
-                                login: () {
+                                function: () {
                                   if (_tradesmanFormKey.currentState!.validate()) {
                                     vm.dispatchSignUpAction(
                                       emailController.value.text.trim(),
                                       nameController.value.text.trim(),
                                       cellController.value.text.trim(),
-                                      locationController.value.text.trim(),
+                                      selectedItems,
                                       passwordController.value.text.trim(),
-                                      true, // comment true for Consumer
+                                      false, // comment true for Consumer
                                     );
 
                                     DialogHelper.display(
@@ -561,13 +561,13 @@ class _SignUpPageState extends State<SignUpPage> {
                               builder: (BuildContext context, _ViewModel vm) =>
                                   LongButtonWidget(
                                 text: "Sign Up",
-                                login: () {
+                                function: () {
                                   if (_consumerFormKey.currentState!.validate()) {
                                     vm.dispatchSignUpAction(
                                       emailController.value.text.trim(),
                                       nameController.value.text.trim(),
                                       cellController.value.text.trim(),
-                                      locationController.value.text.trim(),
+                                      selectedItems,
                                       passwordController.value.text.trim(),
                                       true, // comment true for Consumer
                                     );
@@ -726,9 +726,9 @@ class _Factory extends VmFactory<AppState, _SignUpPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchSignUpAction:
-            (email, name, cell, location, password, isConsumer) => dispatch(
+            (email, name, cell, tradeTypes, password, isConsumer) => dispatch(
                 RegisterUserAction(
-                    email, name, cell, location, password, isConsumer)),
+                    email, name, cell, tradeTypes, password, isConsumer)),
         pushLoginPage: () => dispatch(NavigateAction.pushNamed('/login')),
       );
 }
@@ -736,7 +736,7 @@ class _Factory extends VmFactory<AppState, _SignUpPageState> {
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushLoginPage;
-  final void Function(String, String, String, String, String, bool)
+  final void Function(String, String, String, List<String>, String, bool)
       dispatchSignUpAction;
 
   _ViewModel({
