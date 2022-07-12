@@ -59,6 +59,7 @@ void main() {
 
     //check whether we are on signup page by looking for "Sign Up"
     //text right on top of the page
+    //NB COMMENTED OUT -- NEED TO BE FIXED
     // expect(find.text("Sign Up"), findsNWidgets(2));
 
     //store important widgets to be used
