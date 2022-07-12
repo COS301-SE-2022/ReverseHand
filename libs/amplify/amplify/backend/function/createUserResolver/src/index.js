@@ -30,7 +30,7 @@ exports.handler = async (event) => {
                 reviews: [],
                 location: {
                     address: {
-                        streetNumber: event.arguments.streetnumber,
+                        streetNumber: event.arguments.streetNumber,
                         street: event.arguments.street,
                         city: event.arguments.city,
                         zipCode: event.arguments.zipCode
@@ -44,11 +44,11 @@ exports.handler = async (event) => {
         };
         
         if (event.arguments.domains !== undefined) {
-            item.Item.domains = JSON.parse(event.arguments.domains);
+            item.Item.domains = event.arguments.domains;
         }
         
         if (event.arguments.tradetypes !== undefined) {
-            item.Item.tradetypes = JSON.parse(event.arguments.tradetypes);
+            item.Item.tradetypes = event.arguments.tradetypes;
         }
         
         await docClient.put(item).promise();
