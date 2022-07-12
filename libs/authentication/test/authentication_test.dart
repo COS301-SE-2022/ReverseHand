@@ -48,7 +48,7 @@ void main() {
     await tester.pumpWidget(SignUpPage(store: store));
 
     final signUp = find.widgetWithText(GestureDetector, "Sign Up");
-    expect(signUp, findsOneWidget);
+    expect(signUp, findsWidgets);
 
     await tester.dragUntilVisible(
         signUp, find.byType(Scaffold), const Offset(0.0, 300));
