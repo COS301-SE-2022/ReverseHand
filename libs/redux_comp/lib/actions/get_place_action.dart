@@ -18,7 +18,7 @@ class GetPlaceAction extends ReduxAction<AppState> {
     try {
       // Place result = await placeApi.getPlaceDetailFromId(input.placeId);
 
-      Place result = Place(streetNumber: "318", street: "The Rand", city: "Pretoria", zipCode: "0102", location: const Coordinates(lat: 22.23, long: 25.34));
+      Place result = Place(streetNumber: "318", street: "The Rand", city: "Pretoria", zipCode: "0102", location: Coordinates(lat: 22.23, long: 25.34));
 
       return state.replace(
         partialUser: state.partialUser!.replace(

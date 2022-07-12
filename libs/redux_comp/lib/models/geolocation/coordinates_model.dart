@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-@immutable
-class Coordinates {
-  final double? lat;
-  final double? long;
 
-  const Coordinates({
+class Coordinates {
+  double? lat;
+  double? long;
+
+  Coordinates({
     this.lat, this.long
   });
 }

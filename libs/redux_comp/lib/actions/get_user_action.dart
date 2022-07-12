@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/models/geolocation/coordinates_model.dart';
+import 'package:redux_comp/models/geolocation/place_model.dart';
 
 import '../app_state.dart';
 import 'package:async_redux/async_redux.dart';
@@ -34,22 +36,32 @@ class GetUserAction extends ReduxAction<AppState> {
       }
       ''';
 
-      final requestCreateUser = GraphQLRequest(
+      final request = GraphQLRequest(
         document: graphQLDoc,
       );
 
       try {
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: requestCreateUser).response)
+            (await Amplify.API.mutate(request: request).response)
                 .data);
-        final user = data['viewUser'];
+        final user = data["viewUser"];
 
-        debugPrint(user.toString());
+        Place p = Place();
+        Coordinates c = Coordinates();
+        p.streetNumber = user["location"]["address"]["streetNumber"];
+        p.street = user["location"]["address"]["street"];
+        p.city = user["location"]["address"]["city"];
+        p.city = user["location"]["address"]["zipCode"];
+        c.lat = user["location"]["coordinates"]["lat"];
+        c.long = user["location"]["coordinates"]["long"];
+        p.location = c;
+
         return state.replace(
           user: state.user!.replace(
             name: user["name"],
             cellNo: user["cellNo"],
             email: user["email"],
+            place: p,
             bids: const [],
             shortlistBids: const [],
             viewBids: const [],
@@ -60,25 +72,70 @@ class GetUserAction extends ReduxAction<AppState> {
         debugPrint(e.message);
         return null;
       }
-    } else {}
+    } else {
+      final String id = state.user!.id;
+      String graphQLDoc = '''query {
+        viewUser(user_id: "$id") {
+          id
+          email
+          name
+          cellNo
+          domains
+          tradetypes
+          location {
+            address {
+              streetNumber
+              street
+              city
+              zipCode
+            }
+            coordinates {
+              lat
+              long
+            }
+          }
+        }
+      }
+      ''';
+
+      final request = GraphQLRequest(
+        document: graphQLDoc,
+      );
+
+      try {
+        final data = jsonDecode(
+            (await Amplify.API.mutate(request: request).response)
+                .data);
+        final user = data["viewUser"];
+
+        Place p = Place();
+        Coordinates c = Coordinates();
+        p.streetNumber = user["location"]["address"]["streetNumber"];
+        p.street = user["location"]["address"]["street"];
+        p.city = user["location"]["address"]["city"];
+        p.city = user["location"]["address"]["zipCode"];
+        c.lat = user["location"]["coordinates"]["lat"];
+        c.long = user["location"]["coordinates"]["long"];
+        p.location = c;
+
+        return state.replace(
+          user: state.user!.replace(
+            name: user["name"],
+            email: user["email"],
+            cellNo: user["cellNo"],
+            domains: user["domains"],
+            tradeTypes: user["tradeTypes"],
+            place: p,
+            bids: const [],
+            shortlistBids: const [],
+            viewBids: const [],
+            adverts: const [],
+          ),
+        );
+      } on ApiException catch (e) {
+        debugPrint(e.message);
+        return null;
+      }
+    }
   }
 }
-
-// {
-//   "email":"socey92288@leupus.com",
-//   "id":"c#97aa91db-ed9e-483a-8326-d8c6ebe4931b",
-//   "cellNo":"082309",
-//   "location":{
-//     "address":{
-//       "streetNumber":"318",
-//       "street":"The Rand",
-//       "city":"Pretoria",
-//       "zipCode":"0102"
-//       },
-//     "coordinates":{
-//       "lat":"22.23",
-//       "long":"25.34"
-//       }
-//     },
-//   "name":"Rich"
-// }
