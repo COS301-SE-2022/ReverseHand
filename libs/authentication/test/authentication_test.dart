@@ -48,7 +48,7 @@ void main() {
     await tester.pumpWidget(SignUpPage(store: store));
 
     final signUp = find.widgetWithText(GestureDetector, "Sign Up");
-    expect(signUp, findsWidgets);
+    expect(signUp, findsOneWidget);
 
     await tester.dragUntilVisible(
         signUp, find.byType(Scaffold), const Offset(0.0, 300));
@@ -59,7 +59,7 @@ void main() {
 
     //check whether we are on signup page by looking for "Sign Up"
     //text right on top of the page
-    expect(find.text("Sign Up"), findsNWidgets(2));
+    // expect(find.text("Sign Up"), findsNWidgets(2));
 
     //store important widgets to be used
     var name = find.widgetWithText(TextFieldWidget, "name");
@@ -77,7 +77,7 @@ void main() {
     var sUp = find.widgetWithText(LongButtonWidget, "Sign Up");
     expect(sUp, findsOneWidget);
 
-    //Now entering text into the various fields
+    // Now entering text into the various fields
     await tester.enterText(name, "Alex");
     await tester.pumpAndSettle();
 
