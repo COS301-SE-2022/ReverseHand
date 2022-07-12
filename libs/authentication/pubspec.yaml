@@ -18,6 +18,9 @@ dependencies:
 
   redux_comp:
     path: '../redux_comp'
+
+  geolocation:
+    path: ../geolocation
   
   consumer:
     path: '../consumer'

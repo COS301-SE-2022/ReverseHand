@@ -71,6 +71,9 @@ class PopupWidget extends StatelessWidget {
                 text: "Verify OTP",
                 function: () => vm.dispatchVerifyUserAction(
                     otpController.value.text.trim()),
+                width: 150,
+                height: 50,
+                icon: Icons.domain_verification_outlined,
               ),
             ),
             //*****************************************************

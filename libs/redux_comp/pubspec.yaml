@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  geolocation:
+    path: ../geolocation
 
   # amplify
   amplify_flutter: ^0.5.1

@@ -11,6 +11,12 @@ type Query {
 
   viewJobs(locations: [String]!, type: String!): [Advert]!
   @function(name: "viewJobsResolver-${env}")
+
+  viewUser(user_id: String!) : User
+  @function(name: "viewUserResolver-${env}")
+
+  viewKey : String 
+  @function(name: "getGoogleApiKeyResolver-${env}")
 }
 
 type Mutation {
@@ -31,6 +37,46 @@ type Mutation {
 
   addUserToGroup(email: String!, group: String!): String
   @function(name: "addUserToGroupResolver-${env}")
+
+  createUser(user_id: String!, name: String!, email: String!, cellNo: String!,  lat: String!, long: String!, streetNumber: String!, street: String!, city: String!, zipCode: String!, tradetypes: [String!], domains: [String]) : User 
+  @function(name: "createUserResolver-${env}")
+
+  editAdvert(ad_id: String!,title: String!, description: String, type: String, location: String, date_closed: String ) : Advert 
+  @function(name: "editAdvertResolver-${env}")
+
+  deleteBid(ad_id: String!, bid_id: String!) : Bid
+  @function(name: "deleteBidResolver-${env}")
+
+  editBid(ad_id: String!, bid_id: String!,name: String, price_lower: Int, price_upper: Int) : Bid
+  @function(name: "editBidResolver-${env}")
+
+}
+
+type User implements UniqueID {
+  id: String!,
+  email: String!,
+  cellNo: String!,
+  name: String!,
+  location: Location!,
+  domains: [String!],
+  tradetypes: [String!]
+}
+
+type Location {
+  address: Address!,
+  coordinates: Coordinates!
+}
+
+type Coordinates {
+  lat: String!,
+  long: String!
+}
+
+type Address {
+  streetNumber: String!,
+  street: String!,
+  city: String!,
+  zipCode: String!
 }
 
 type Advert implements UniqueID {
