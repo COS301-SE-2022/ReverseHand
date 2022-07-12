@@ -19,7 +19,7 @@ void main() {
   });
 
   test('Test to get PartialUser Group', () {
-    expect('password', partUser.group);
+    expect('test', partUser.group);
   });
 
   test('Test to get PartialUser Verification Step', () {
