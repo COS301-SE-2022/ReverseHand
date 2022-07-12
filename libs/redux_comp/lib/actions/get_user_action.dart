@@ -51,7 +51,7 @@ class GetUserAction extends ReduxAction<AppState> {
         p.streetNumber = user["location"]["address"]["streetNumber"];
         p.street = user["location"]["address"]["street"];
         p.city = user["location"]["address"]["city"];
-        p.city = user["location"]["address"]["zipCode"];
+        p.zipCode = user["location"]["address"]["zipCode"];
         c.lat = double.parse(user["location"]["coordinates"]["lat"]) ;
         c.long = double.parse(user["location"]["coordinates"]["long"]);
         p.location = c;
@@ -113,11 +113,11 @@ class GetUserAction extends ReduxAction<AppState> {
         place.streetNumber = user["location"]["address"]["streetNumber"];
         place.street = user["location"]["address"]["street"];
         place.city = user["location"]["address"]["city"];
-        place.city = user["location"]["address"]["zipCode"];
+        place.zipCode = user["location"]["address"]["zipCode"];
         coords.lat = double.parse(user["location"]["coordinates"]["lat"]);
         coords.long = double.parse(user["location"]["coordinates"]["long"]);
         place.location = coords;
-        
+
         return state.replace(
           user: state.user!.replace(
             name: user["name"],

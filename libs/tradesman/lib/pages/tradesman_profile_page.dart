@@ -32,16 +32,16 @@ class TradesmanProfilePage extends StatelessWidget {
                   //*******************CONSUMER NAME************************//
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           Icons.account_circle,
                           color: Colors.white,
                           size: 50.0,
                         ),
-                        Padding(padding: EdgeInsets.only(right: 10)),
+                        const Padding(padding: EdgeInsets.only(right: 10)),
                         Text(
-                          "Steve Harrington",
-                          style: TextStyle(fontSize: 30),
+                          store.state.user!.name!,
+                          style: const TextStyle(fontSize: 30),
                         ),
                       ]),
                   //********************************************************//
@@ -75,12 +75,12 @@ class TradesmanProfilePage extends StatelessWidget {
                       ),
                     ),
 
-                    const Positioned(
+                    Positioned(
                         top: 80,
                         left: 82,
-                        child: Text("Pretoria, Gauteng",
+                        child: Text(store.state.user!.place!.city!,
                             style:
-                                TextStyle(fontSize: 20, color: Colors.white))),
+                                const TextStyle(fontSize: 20, color: Colors.white))),
 
                     //cellphone
                     Positioned(
@@ -101,12 +101,12 @@ class TradesmanProfilePage extends StatelessWidget {
                       ),
                     ),
 
-                    const Positioned(
+                    Positioned(
                         top: 180,
                         left: 82,
-                        child: Text("012 345 6789",
+                        child: Text(store.state.user!.cellNo!,
                             style:
-                                TextStyle(fontSize: 20, color: Colors.white))),
+                                const TextStyle(fontSize: 20, color: Colors.white))),
 
                     //email
                     Positioned(
@@ -127,12 +127,12 @@ class TradesmanProfilePage extends StatelessWidget {
                       ),
                     ),
 
-                    const Positioned(
+                    Positioned(
                         top: 280,
                         left: 82,
-                        child: Text("info@gmail.com",
+                        child: Text(store.state.user!.email!,
                             style:
-                                TextStyle(fontSize: 20, color: Colors.white))),
+                                const TextStyle(fontSize: 20, color: Colors.white))),
 
                     Positioned(
                       top: 280,
