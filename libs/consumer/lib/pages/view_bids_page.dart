@@ -1,7 +1,6 @@
 // import 'dart:html';
 
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/methods/populate_bids.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
@@ -17,11 +16,12 @@ import 'package:general/widgets/floating_button.dart';
 
 class ViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
-  final List<String> _dropdownValues = [
+  final List<String> _dropdownValues1 = [
     "Any",
     "Price: Low to High", //think about this wording
     "Price: High to Low",
   ];
+
   ViewBidsPage({Key? key, required this.store}) : super(key: key);
 
   @override
@@ -75,7 +75,7 @@ class ViewBidsPage extends StatelessWidget {
                   ),
                   //*******************************************//
 
-                  const Padding(padding: EdgeInsets.all(10)),
+                  // const Padding(padding: EdgeInsets.all(10)),
 
                   //*****************TABS***********************//
                   const TabBar(
@@ -108,7 +108,7 @@ class ViewBidsPage extends StatelessWidget {
                   Expanded(
                     child: Stack(children: [
                       BottomOverlayWidget(
-                          height: MediaQuery.of(context).size.height / 2),
+                          height: MediaQuery.of(context).size.height),
                       TabBarView(
                         children: [
                           //**************TAB 1 INFO********************//
@@ -188,7 +188,7 @@ class ViewBidsPage extends StatelessWidget {
                                           20.0), //borderRadius for dropdownMenu
                                       isExpanded: true,
                                       underline: const SizedBox.shrink(),
-                                      value: _dropdownValues.first,
+                                      value: _dropdownValues1.first,
                                       icon: const Align(
                                         alignment: Alignment.centerRight,
                                         child: Icon(
@@ -196,7 +196,7 @@ class ViewBidsPage extends StatelessWidget {
                                           color: Colors.white,
                                         ),
                                       ),
-                                      items: _dropdownValues
+                                      items: _dropdownValues1
                                           .map((value) => DropdownMenuItem(
                                                 value: value,
                                                 child: Text(value),
@@ -221,45 +221,104 @@ class ViewBidsPage extends StatelessWidget {
                                 const Padding(
                                     padding: EdgeInsets.only(bottom: 10)),
 
-                                //dropdown container
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  height: 40,
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.5,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    borderRadius: BorderRadius.circular(
-                                        20.0), //borderRadius for container
-                                    border: Border.all(
-                                        color: Colors.white,
-                                        style: BorderStyle.solid,
-                                        width: 1),
-                                  ),
-                                  //actual dropdown
-                                  child: DropdownButton(
-                                      dropdownColor: Theme.of(context)
-                                          .scaffoldBackgroundColor,
-                                      borderRadius: BorderRadius.circular(
-                                          20.0), //borderRadius for dropdownMenu
-                                      isExpanded: true,
-                                      underline: const SizedBox.shrink(),
-                                      value: _dropdownValues.first,
-                                      icon: const Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Icon(
-                                          Icons.arrow_drop_down,
-                                          color: Colors.white,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    //MINIMUM TEXTFIELD
+                                    Container(
+                                        height: 40,
+                                        width:
+                                            (MediaQuery.of(context).size.width /
+                                                    1.7) /
+                                                2,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                          borderRadius: BorderRadius.circular(
+                                              20.0), //borderRadius for container
                                         ),
-                                      ),
-                                      items: _dropdownValues
-                                          .map((value) => DropdownMenuItem(
-                                                value: value,
-                                                child: Text(value),
-                                              ))
-                                          .toList(),
-                                      onChanged: ((_) {})),
+                                        child: TextFormField(
+                                          // initialValue: "0",
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          controller: null,
+                                          decoration: InputDecoration(
+                                            labelText: "min",
+                                            labelStyle: const TextStyle(
+                                                color: Colors.white),
+                                            floatingLabelBehavior:
+                                                FloatingLabelBehavior.auto,
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              borderSide: const BorderSide(
+                                                color: Colors.white,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              borderSide: const BorderSide(
+                                                color: Colors.orange,
+                                                width: 2.0,
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+
+                                    //PADDING AND "-"
+                                    const Padding(padding: EdgeInsets.all(5)),
+
+                                    const Text(
+                                      "-",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 30),
+                                    ),
+                                    const Padding(padding: EdgeInsets.all(5)),
+
+                                    //MAXIMUM TEXTFIELD
+                                    Container(
+                                        height: 40,
+                                        width:
+                                            (MediaQuery.of(context).size.width /
+                                                    1.7) /
+                                                2,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                          borderRadius: BorderRadius.circular(
+                                              20.0), //borderRadius for container
+                                        ),
+                                        child: TextFormField(
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          controller: null,
+                                          decoration: InputDecoration(
+                                            labelText: "max",
+                                            labelStyle: const TextStyle(
+                                                color: Colors.white),
+                                            floatingLabelBehavior:
+                                                FloatingLabelBehavior.auto,
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              borderSide: const BorderSide(
+                                                color: Colors.white,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              borderSide: const BorderSide(
+                                                color: Colors.orange,
+                                                width: 2.0,
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                                  ],
                                 ),
                                 //*******************************************//
 
@@ -277,10 +336,9 @@ class ViewBidsPage extends StatelessWidget {
                                     whiteBorder: true,
                                     function:
                                         vm.popPage //need a different function
-                                    )
-                              ]
-                                  //active bids should be populated here
-                                  ),
+                                    ),
+                                const Padding(padding: EdgeInsets.all(20))
+                              ]),
                             ),
                           ),
                           //*****************TAB 3******************//

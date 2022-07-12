@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 class TextFieldWidget extends StatelessWidget {
   final String label;
   final bool obscure;
-  final int min;
+  final int? min;
   final String? initialVal;
   final TextEditingController? controller;
-  const TextFieldWidget(
-      {Key? key,
-      required this.label,
-      required this.obscure,
-      required this.min,
-      required this.controller,
-      required this.initialVal})
-      : super(key: key);
+
+  const TextFieldWidget({
+    Key? key,
+    required this.label,
+    required this.obscure,
+    this.min,
+    required this.controller,
+    required this.initialVal,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
