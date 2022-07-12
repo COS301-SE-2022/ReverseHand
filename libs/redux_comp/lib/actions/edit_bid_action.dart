@@ -1,7 +1,6 @@
 import 'dart:ffi';
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:redux_comp/models/advert_model.dart';
 
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -30,6 +29,7 @@ class EditBidAction extends ReduxAction<AppState> {
     final request = GraphQLRequest(document: graphQLDocument);
     try {
       await Amplify.API.mutate(request: request).response;
+      return null;
     } catch (e) {
       return null;
     }

@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:async_redux/async_redux.dart';
+// ignore: depend_on_referenced_packages
 import 'package:consumer/methods/populate_bids.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
