@@ -52,16 +52,16 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
+                        children: [
+                          const Icon(
                             Icons.location_on,
                             color: Colors.white,
                             size: 30.0,
                           ),
-                          Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
-                          Text("location",
+                          const Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
+                          Text(advert.location!,
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white))
+                                  const TextStyle(fontSize: 20, color: Colors.white))
                         ],
                       ),
                     ],

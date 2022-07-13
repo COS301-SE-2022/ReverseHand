@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:uuid/uuid.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -45,21 +46,16 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     );
 
     try {
-      final response = await Amplify.API.mutate(request: request).response;
-
-      List<AdvertModel> adverts = state.user!.adverts;
-      final data = jsonDecode(response.data);
-      adverts.add(AdvertModel(
-          id: customerId,
-          title: title,
-          dateCreated: data['createAdvert']['date_created']));
-
-      return state.replace(user: state.user!.replace(adverts: adverts));
+      /*final response = */await Amplify.API.mutate(request: request).response;
+      return null;
     } catch (e) {
       return null; /* on error don't modify appstate */
     }
   }
 
   @override
-  void after() => dispatch(NavigateAction.pushNamed("/consumer"));
+  void after() async {
+    await dispatch(ViewAdvertsAction(store.state.user!.id));
+    dispatch(NavigateAction.pushNamed("/consumer"));
+  }
 }

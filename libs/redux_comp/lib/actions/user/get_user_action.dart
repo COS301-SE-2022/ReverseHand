@@ -9,9 +9,13 @@ import 'package:redux_comp/models/geolocation/place_model.dart';
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
+/* GetUserAction */
+/* This action fetches a user of a specified group and populates the user model with the results */
+
 class GetUserAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
+    // request different info for different user type
     if (state.user!.userType != "Tradesman") {
       final String id = state.user!.id;
       String graphQLDoc = '''query  {
@@ -45,7 +49,7 @@ class GetUserAction extends ReduxAction<AppState> {
             (await Amplify.API.mutate(request: request).response)
                 .data);
         final user = data["viewUser"];
-
+        // build place model from result 
         Place p = Place();
         Coordinates c = Coordinates();
         p.streetNumber = user["location"]["address"]["streetNumber"];
@@ -107,7 +111,7 @@ class GetUserAction extends ReduxAction<AppState> {
             (await Amplify.API.mutate(request: request).response)
                 .data);
         final user = data["viewUser"];
-
+        
         Place place = Place();
         Coordinates coords = Coordinates();
         place.streetNumber = user["location"]["address"]["streetNumber"];

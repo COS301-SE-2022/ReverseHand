@@ -7,6 +7,7 @@ import '../../app_state.dart';
 import '../../models/advert_model.dart';
 
 class ViewJobsAction extends ReduxAction<AppState> {
+
 	@override
 	Future<AppState?> reduce() async {
     String graphQLDocument = '''query {

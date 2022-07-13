@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -7,14 +6,17 @@ import 'package:redux_comp/models/geolocation/place_model.dart';
 import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 
+/* PLACE API SERVICE */
+/* This is a class to make structured requests to the Google Places api and receive structured output */
+
 
 class PlaceApiService {
   final client = http.Client();
   final int sessionToken;
 
-  PlaceApiService(this.sessionToken);
+  PlaceApiService(this.sessionToken); // The session token is to bundle the requests for cost optimisation 
   
-  Future<String> getApiKey() async {
+  Future<String> getApiKey() async { // This function is to retreive the API key from AWS SecretsManager
     String graphQLDocument = '''query {
       viewKey
     }''';
@@ -31,22 +33,23 @@ class PlaceApiService {
     }
   }
 
+  /* This function returns a list of suggestions from an input string*/
   Future<List<Suggestion>> fetchSuggestions(String input) async {
     final apiKey = await getApiKey();
-    final request =
+    final request = //request involes input string, api key and session token. Response type, language and country are hardcoded as address, english & south africa 
         'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=address&language=en&components=country:za&key=$apiKey&sessiontoken=$sessionToken';
     final response = await client.get(Uri.parse(request));
 
     if (response.statusCode == 200) {
       final result = json.decode(response.body);
       if (result['status'] == 'OK') {
-        // compose suggestions in a list
-        return result['predictions']
+        // map suggestions to a list
+        return result['predictions'] 
             .map<Suggestion>((p) => Suggestion(p['place_id'], p['description']))
             .toList();
       }
       if (result['status'] == 'ZERO_RESULTS') {
-        return [];
+        return []; //if no results, return empty list
       }
       throw Exception(result['error_message']);
     } else {
@@ -54,9 +57,10 @@ class PlaceApiService {
     }
   }
 
+  /* This function returns a Place object with a placeId string obtained from a suggestion*/
   Future<Place> getPlaceDetailFromId(String placeId) async {
     final apiKey = await getApiKey();
-    final request =
+    final request = //request involes placeId, apiKey and sessiontoken, hardcoded response type to address componenets
         'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=address_component&key=$apiKey&sessiontoken=$sessionToken';
     final response = await client.get(Uri.parse(request));
 
@@ -66,7 +70,7 @@ class PlaceApiService {
         final components =
             result['result']['address_components'] as List<dynamic>;
         final coords = result['result']['geometry']['location'];
-        // build result
+        // build result from api response
         final location = Coordinates(lat: coords['lat'],long: coords['long']);
         final place = Place();
         for (var c in components) {
