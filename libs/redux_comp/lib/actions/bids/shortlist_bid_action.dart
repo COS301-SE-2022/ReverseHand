@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import '../app_state.dart';
 import 'package:async_redux/async_redux.dart';
-import '../models/bid_model.dart';
+import '../../models/bid_model.dart';
+import '../../app_state.dart';
 
 class ShortlistBidAction extends ReduxAction<AppState> {
   ShortlistBidAction();

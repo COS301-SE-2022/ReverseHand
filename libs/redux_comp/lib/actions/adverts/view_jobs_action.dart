@@ -1,21 +1,16 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
-import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import '../models/advert_model.dart';
+import '../../app_state.dart';
+import '../../models/advert_model.dart';
 
-class ViewAdvertsAction extends ReduxAction<AppState> {
-  final String consId; // consumer id whos adverts you wish to retrieve
-
-  ViewAdvertsAction(this.consId);
-
-  @override
-  Future<AppState?> reduce() async {
+class ViewJobsAction extends ReduxAction<AppState> {
+	@override
+	Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      viewAdverts(user_id: "$consId") {
+      viewJobs(locations: "Pretoria", type: "Plumbing") {
         date_created
         date_closed
         description
@@ -33,7 +28,7 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
       final response = await Amplify.API.query(request: request).response;
 
       List<AdvertModel> adverts = [];
-      dynamic data = jsonDecode(response.data)['viewAdverts'];
+      dynamic data = jsonDecode(response.data)['viewJobs'];
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
       return state.replace(

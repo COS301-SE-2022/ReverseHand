@@ -2,8 +2,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
-import 'package:redux_comp/actions/get_place_action.dart';
-import '../app_state.dart';
+import 'package:redux_comp/actions/geolocation/get_place_action.dart';
+import '../../app_state.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;

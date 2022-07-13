@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/place_model.dart';
 
-import '../app_state.dart';
+import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
 class GetUserAction extends ReduxAction<AppState> {

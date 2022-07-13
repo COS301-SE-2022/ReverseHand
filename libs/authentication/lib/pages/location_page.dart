@@ -1,7 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/geolocation/get_suggestions_action.dart';
 // import 'package:general/general.dart';
-import 'package:redux_comp/actions/get_suggestions_action.dart';
 import 'package:redux_comp/models/geolocation/place_model.dart';
 import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 import 'package:geolocation/place_api_service.dart';

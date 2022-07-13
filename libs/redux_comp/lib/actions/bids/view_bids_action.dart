@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import '../models/advert_model.dart';
+import '../../models/advert_model.dart';
+import '../../app_state.dart';
 
 // pass in the advert id whos bids you want to see
 class ViewBidsAction extends ReduxAction<AppState> {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/logout_action.dart';
+import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
