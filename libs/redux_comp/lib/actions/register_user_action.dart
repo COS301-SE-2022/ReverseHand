@@ -2,39 +2,47 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
+import 'package:redux_comp/actions/get_place_action.dart';
 import '../app_state.dart';
-import '../models/user_models/partial_user_model.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;
   final String name;
   final String cellNo;
-  final String location;
+  final List<String> tradeTypes;
   final String password;
-  final bool userType;
+  final bool userType; // true for customer
 
-  RegisterUserAction(this.username, this.name, this.cellNo, this.location,
+  RegisterUserAction(this.username, this.name, this.cellNo, this.tradeTypes,
       this.password, this.userType);
 
   @override
   Future<AppState?> reduce() async {
     try {
-      /* You can specify which user attributes you want to store */
-      /* For now we are using familyName to specify user type in future we will create a custome attribute */
-      Map<CognitoUserAttributeKey, String> userAttributes = {
-        CognitoUserAttributeKey.email: username,
-        CognitoUserAttributeKey.name: name,
-      };
-
-      SignUpResult res = await Amplify.Auth.signUp(
-          username: username,
-          password: password,
-          options: CognitoSignUpOptions(userAttributes: userAttributes));
+      SignUpResult res =
+          await Amplify.Auth.signUp(username: username, password: password);
 
       if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
-        return state.replace(
-            partialUser:
-                PartialUser(username, userType ? "customer" : "tradesman", res.nextStep.signUpStep));
+        if (userType) {
+          return state.replace(
+              partialUser: state.partialUser!.replace(
+                  email: username,
+                  password: password,
+                  name: name,
+                  cellNo: cellNo,
+                  group: "customer",
+                  verified: res.nextStep.signUpStep));
+        } else {
+          return state.replace(
+              partialUser: state.partialUser!.replace(
+                  email: username,
+                  password: password,
+                  name: name,
+                  cellNo: cellNo,
+                  tradeTypes: tradeTypes,
+                  group: "tradesman",
+                  verified: res.nextStep.signUpStep));
+        }
       } else {
         return null; /* do not modify state */
       }
@@ -46,5 +54,10 @@ class RegisterUserAction extends ReduxAction<AppState> {
     } catch (e) {
       return null;
     }
+  }
+
+  @override
+  void before() async {
+   await dispatch(GetPlaceAction());
   }
 }

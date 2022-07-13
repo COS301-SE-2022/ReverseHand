@@ -10,15 +10,16 @@ void main() {
     expect(true, true);
   });
 
+
   PartialUser partUser = const PartialUser(
-      'someone@example.com', 'password', 'CONFIRM_SIGN_UP_STEP');
+      email: 'someone@example.com', name: 'someone', group: "test", verified: 'CONFIRM_SIGN_UP_STEP', );
 
   test('Test to get PartialUser Email', () {
     expect('someone@example.com', partUser.email);
   });
 
   test('Test to get PartialUser Group', () {
-    expect('password', partUser.group);
+    expect('test', partUser.group);
   });
 
   test('Test to get PartialUser Verification Step', () {
@@ -33,6 +34,7 @@ void main() {
       id: '001',
       email: 'some@example.com',
       name: 'someone',
+      cellNo: '0821234567',
       userType: 'Consumer',
       bids: [],
       shortlistBids: [],

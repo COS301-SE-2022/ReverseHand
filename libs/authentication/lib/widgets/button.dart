@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class LongButtonWidget extends StatelessWidget {
   final String text;
-  final void Function() login;
-  const LongButtonWidget({Key? key, required this.text, required this.login}) : super(key: key);
+  final void Function() function;
+  const LongButtonWidget({Key? key, required this.text, required this.function}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class LongButtonWidget extends StatelessWidget {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0))),
             ),
-            onPressed: login,
+            onPressed: function,
             child: Text(text),
           ),
         ],

@@ -5,6 +5,8 @@ enum ErrorType {
   userNotVerified, // user created, but email not verified
   userInvalidPassword,
   passwordAttemptsExceeded, // user created, but email not verified
+  failedToAddUserToGroup, // user created, but email not verified
+  failedToCreateUser, // user created, but email not verified
 }
 
 // for use later, have each error typer return its own message
