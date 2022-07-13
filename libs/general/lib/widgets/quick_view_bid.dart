@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/set_active_bid_action.dart';
+import 'package:redux_comp/actions/bids/set_active_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 

@@ -9,6 +9,7 @@
     "tradesman": "libs/tradesman",
     "consumer": "libs/consumer",
     "authentication": "libs/authentication",
-    "geolocation": "libs/geolocation"
+    "geolocation": "libs/geolocation",
+    "notifications": "libs/notifications"
   }
 }

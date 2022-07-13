@@ -4,8 +4,8 @@ class TextFieldWidget extends StatelessWidget {
   final String label;
   final bool obscure;
   final int min;
-  final String? initialVal;
   final TextEditingController? controller;
+  final String? initialVal;
   const TextFieldWidget(
       {Key? key,
       required this.label,
@@ -23,7 +23,7 @@ class TextFieldWidget extends StatelessWidget {
       maxLines: 5,
       style: const TextStyle(color: Colors.white),
       obscureText: obscure,
-      controller: null,
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white),
