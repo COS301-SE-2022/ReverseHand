@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:amplify_api/amplify_api.dart';
+import 'package:redux_comp/models/bid_model.dart';
 
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -9,18 +10,22 @@ import 'package:async_redux/async_redux.dart';
 class EditBidAction extends ReduxAction<AppState> {
   final String advertId;
   final String bidId;
-  final String name;
+  final String quote;
   final Int priceUpper;
   final Int priceLower;
 
   EditBidAction(
-      this.advertId, this.bidId, this.name, this.priceUpper, this.priceLower);
+      this.advertId, this.bidId, this.quote, this.priceUpper, this.priceLower);
+
+  // NB: At time of creating this code, a bid still didn't have a quote but
+  // it is suppossed to have one. That can be a potential error as the code
+  // expects a quote
 
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = ''' mutation {
       editBid(ad_id: "$advertId", bid_id: "$bidId" ){
-        name: "$name",
+        quote: "$quote",
         price_lower: "$priceLower",
         price_upper: "$priceUpper"
       }
@@ -28,8 +33,25 @@ class EditBidAction extends ReduxAction<AppState> {
 
     final request = GraphQLRequest(document: graphQLDocument);
     try {
-      await Amplify.API.mutate(request: request).response;
-      return null;
+      var response = await Amplify.API.mutate(request: request).response;
+
+      List<BidModel> bids = state.user!.bids;
+
+      //get the bid being edited
+      BidModel bd = bids.firstWhere((element) => element.id == bidId);
+      //remove the bid that was changed from the list
+      bids.removeWhere((element) => element.id == bidId);
+      //update the bid as a new bid
+      bids.add(BidModel(
+          id: bd.id,
+          userId: bd.userId,
+          priceLower: response.data.price_lower,
+          priceUpper: response.data.price_upper,
+          dateCreated: bd.dateCreated,
+          quote: response.data.quote,
+          name: bd.name));
+
+      return state.replace(user: state.user!.replace(bids: bids));
     } catch (e) {
       return null;
     }
