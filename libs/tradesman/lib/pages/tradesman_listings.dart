@@ -4,7 +4,7 @@ import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/floating_button.dart';
 import 'package:general/widgets/navbar.dart';
-import 'package:redux_comp/actions/logout_action.dart';
+import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
