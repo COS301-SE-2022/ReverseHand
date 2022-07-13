@@ -61,7 +61,6 @@ class ViewBidsAction extends ReduxAction<AppState> {
       );
     } catch (e) {
       return null; /* On Error do not modify state */
-
     }
   }
 
