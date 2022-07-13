@@ -4,15 +4,15 @@ import 'package:flutter/widgets.dart';
 @immutable
 class FilterBidsModel {
   final Range? priceRange; // range in which to filter price
-  final Sort? sort;
+  final Sort? sort; // how to sort
   final int? ratingLower; // lower bound for rating
-  final int? priceExact; // exact price to search for
+  final bool includeShortlisted; // whether shortlisted bids should be included
 
   const FilterBidsModel({
     this.priceRange,
     this.ratingLower,
-    this.priceExact,
     this.sort,
+    required this.includeShortlisted,
   });
 }
 
