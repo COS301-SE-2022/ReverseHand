@@ -72,12 +72,16 @@ class CreateNewAdvertPage extends StatelessWidget {
 
                       //*********CREATE JOB BUTTON******************//
                       ButtonWidget(
-                        text: "Create Job",
-                        function: () => vm.dispatchCreateAdvertActions(
-                            store.state.user!.id,
-                            titleController.value.text,
-                            descrController.value.text),
-                      ),
+                          text: "Create Job",
+                          function: () {
+                            if (titleController.value.text != "") {
+                              vm.dispatchCreateAdvertActions(
+                                  store.state.user!.id,
+                                  titleController.value.text,
+                                  store.state.user!.place!.city!,
+                                  descrController.value.text);
+                            }
+                          }),
                       //********************************************//
                       const Padding(padding: EdgeInsets.all(5)),
 
@@ -113,9 +117,10 @@ class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         popPage: () => dispatch(NavigateAction.pop()),
-        dispatchCreateAdvertActions:
-            (String customerId, String title, String? description) => dispatch(
-          CreateAdvertAction(customerId, title, "Pretoria", "Plumbing",
+        dispatchCreateAdvertActions: (String customerId, String title,
+                String location, String? description) =>
+            dispatch(
+          CreateAdvertAction(customerId, title, location, "Plumbing",
               description: description),
         ),
       );
@@ -123,7 +128,8 @@ class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String, String, String?) dispatchCreateAdvertActions;
+  final void Function(String, String, String, String?)
+      dispatchCreateAdvertActions;
   final VoidCallback popPage;
 
   _ViewModel({
