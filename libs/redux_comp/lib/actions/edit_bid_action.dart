@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -33,7 +34,8 @@ class EditBidAction extends ReduxAction<AppState> {
 
     final request = GraphQLRequest(document: graphQLDocument);
     try {
-      var response = await Amplify.API.mutate(request: request).response;
+      final data = jsonDecode(
+          (await Amplify.API.mutate(request: request).response).data);
 
       List<BidModel> bids = state.user!.bids;
 
@@ -45,10 +47,10 @@ class EditBidAction extends ReduxAction<AppState> {
       bids.add(BidModel(
           id: bd.id,
           userId: bd.userId,
-          priceLower: response.data.price_lower,
-          priceUpper: response.data.price_upper,
+          priceLower: data["price_lower"],
+          priceUpper: data["price_upper"],
           dateCreated: bd.dateCreated,
-          quote: response.data.quote,
+          quote: data["quote"],
           name: bd.name));
 
       return state.replace(user: state.user!.replace(bids: bids));
