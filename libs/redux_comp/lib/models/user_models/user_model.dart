@@ -8,7 +8,7 @@ class UserModel {
   final String email;
   final String name;
   final String userType;
-  final List<BidModel> bids;
+  final List<BidModel> bids; // holds all of the bids i.e viewBids ⊆ bids
   final List<BidModel> shortlistBids;
   final List<BidModel> viewBids; // holds the list of bids to view
   final List<AdvertModel> adverts;
