@@ -333,13 +333,7 @@ class ViewBidsPage extends StatelessWidget {
                                     function:
                                         vm.popPage //need a different function
                                     ),
-                                ButtonWidget(
-                                    text: "Cancel",
-                                    color: "light",
-                                    whiteBorder: true,
-                                    function:
-                                        vm.popPage //need a different function
-                                    ),
+
                                 const Padding(padding: EdgeInsets.all(20))
                               ]),
                             ),
