@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
-import 'package:redux_comp/actions/get_address_action.dart';
+import 'package:redux_comp/actions/user/login_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/button.dart';
 import '../widgets/link.dart';
@@ -71,7 +71,7 @@ class LoginPage extends StatelessWidget {
                                 TextFieldWidget(
                                   label: 'email',
                                   obscure: false,
-                                  icon: Icons.mail_outline_rounded,
+                                  icon: Icons.alternate_email_outlined,
                                   controller: emailController,
                                 ),
                                 //********************************************
@@ -102,7 +102,7 @@ class LoginPage extends StatelessWidget {
                             builder: (BuildContext context, _ViewModel vm) =>
                                 LongButtonWidget(
                               text: "Login",
-                              login: () {
+                              function: () {
                                 vm.dispatchLoginAction(
                                   emailController.value.text.trim(),
                                   passwordController.value.text.trim(),
@@ -252,21 +252,21 @@ class _Factory extends VmFactory<AppState, LoginPage> {
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),
-        dispatchGetAddressAction: () => dispatch(
-          GetAddressAction(),
-        ),
+        // dispatchGetAddressAction: () => dispatch(
+        //   GetAddressAction(),
+        // ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
-  final void Function() dispatchGetAddressAction;
+  // final void Function() dispatchGetAddressAction;
   final VoidCallback pushSignUpPage;
 
   _ViewModel({
     required this.dispatchLoginAction,
-    required this.dispatchGetAddressAction,
+    // required this.dispatchGetAddressAction,
     required this.pushSignUpPage,
   }); // implementinf hashcode
 }

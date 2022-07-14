@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -97,7 +98,7 @@ class NavBarWidget extends StatelessWidget {
                               Icons.logout,
                               color: Colors.white,
                             ),
-                            onPressed: () {},
+                            onPressed: () => vm.dispatchLogoutAction(),
                             splashRadius: 30,
                             highlightColor: Colors.orange,
                             splashColor: Colors.white,
@@ -122,6 +123,7 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/consumer'),
         ),
+        dispatchLogoutAction: () => dispatch(LogoutAction()),
       );
 }
 
@@ -129,7 +131,8 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
 class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
   final VoidCallback pushConsumerListings;
+  final void Function() dispatchLogoutAction;
 
   _ViewModel(
-      {required this.pushProfilePage, required this.pushConsumerListings});
+      {required this.pushProfilePage, required this.pushConsumerListings,required this.dispatchLogoutAction,});
 }

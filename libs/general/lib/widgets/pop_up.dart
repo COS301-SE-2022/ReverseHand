@@ -25,16 +25,16 @@ class PopupCardWidget extends StatelessWidget {
         height: 500,
         width: 900,
         margin: const EdgeInsets.only(left: 0, right: 0),
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(35, 47, 62, 0.97),
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(35, 47, 62, 0.97),
           shape: BoxShape.rectangle,
-          borderRadius: const BorderRadius.only(
+          borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30), topRight: Radius.circular(30), bottomRight: Radius.circular(30), bottomLeft: Radius.circular(30)
           ),
-          border: Border.all(
-            color: Colors.black87,
-            width: 5,
-          ),
+          // border: Border.all(
+          //   color: Colors.black87,
+          //   width: 5,
+          // ),
         ),
         child: Center(
           child: SizedBox(

@@ -9,6 +9,10 @@ import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:consumer/pages/view_bids_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:tradesman/pages/edit_bid_page.dart';
+import 'package:tradesman/pages/edit_profile_page.dart';
+import 'package:tradesman/pages/tradesman_profile_page.dart';
+import 'package:tradesman/pages/view_bids_page.dart';
 import 'package:tradesman/tradesman.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -62,6 +66,13 @@ class Launch extends StatelessWidget {
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
               TradesmanJobDetails(store: store),
+          '/tradesman/tradesman': (context) =>
+              TradesmanProfilePage(store: store),
+          '/tradesman/edit_profile_page': (context) =>
+              EditTradesmanProfilePage(store: store),
+          '/tradesman/view_bids': (context) => TradesmanViewBidsPage(store: store),
+          '/tradesman/edit_bid_page': (context) =>
+              EditBidPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),

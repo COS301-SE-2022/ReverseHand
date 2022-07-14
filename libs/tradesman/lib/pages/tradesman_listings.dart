@@ -1,7 +1,10 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:redux_comp/actions/logout_action.dart';
+import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/floating_button.dart';
+import 'package:general/widgets/navbar.dart';
+import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -17,39 +20,28 @@ class TradesmanJobListings extends StatelessWidget {
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
-          backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
           body: SingleChildScrollView(
-              child: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) => Column(
-              children: [
-                ...populateAdverts(vm.adverts, store),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: const EdgeInsets.all(5),
-                    width: 300,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.orange,
-                        onPrimary: Colors.white,
-                        shadowColor: Colors.black,
-                        elevation: 9,
-                        textStyle: const TextStyle(fontSize: 30),
-                        minimumSize: const Size(400, 50),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30.0))),
-                      ),
-                      onPressed: () => vm.dispatchLogoutAction(),
-                      child: const Text('Log Out'),
-                    ),
-                  ),
-                )
-              ],
+            child: StoreConnector<AppState, _ViewModel>(
+              vm: () => _Factory(this),
+              builder: (BuildContext context, _ViewModel vm) => Column(
+                children: [
+                  //*******************APP BAR WIDGET*********************//
+                    const AppBarWidget(title: "JOB LISTINGS"),
+                    //********************************************************//
+                  ...populateAdverts(vm.adverts, store),
+                ],
+              ),
             ),
-          )),
+          ),
+           //************************NAVBAR***********************/
+          floatingActionButton: const FloatingButtonWidget(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+
+          bottomNavigationBar: NavBarWidget(
+            store: store,
+          ),
+          //*****************************************************/
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/widgets/divider.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/place_bid_action.dart';
+import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
@@ -31,27 +31,13 @@ class _PlaceBidPopupWidgetState extends State<PlaceBidPopupWidget> {
           builder: (BuildContext context, _ViewModel vm) => Container(
             height: 350,
             decoration: const BoxDecoration(
-              color: Colors.black87,
+              color: Color.fromRGBO(35, 47, 62, 0.97),
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
             ),
             child: Center(
               child: Column(
                 children: <Widget>[
-                  const SizedBox(height: 30),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 20)), 
-                      onPressed: () {
-                        vm.dispatchPlaceBidAction(vm.advert.id,vm.id,_currentRangeValues.start.round(),_currentRangeValues.end.round());
-                        Navigator.pop(context);
-                        },
-                      child: const Text('X'),
-                    ),
-        
-                  ),
                   Container(
                     margin: const EdgeInsets.all(30.0),
                     padding: const EdgeInsets.all(8.0),
@@ -68,6 +54,8 @@ class _PlaceBidPopupWidgetState extends State<PlaceBidPopupWidget> {
                     values: _currentRangeValues,
                     max: 3000,
                     divisions: 10,
+                    activeColor: Colors.orange,
+                    inactiveColor: Colors.black,
                     labels: RangeLabels(
                       _currentRangeValues.start.round().toString(),
                       _currentRangeValues.end.round().toString(),
@@ -80,6 +68,29 @@ class _PlaceBidPopupWidgetState extends State<PlaceBidPopupWidget> {
                   ),
                   const TransparentDividerWidget(),
                   //*****************************************************//
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.orange,
+                    ),
+                    child: const Text('Cancel'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      vm.dispatchPlaceBidAction(vm.advert.id,vm.id,_currentRangeValues.start.round(),_currentRangeValues.end.round());
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent, // Background color
+                      onPrimary: Colors.white, // Text Color (Foreground color)
+                      shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      side: const BorderSide(color: Colors.orange, width: 1),
+                    )),
+                    child: const Text('Submit'),
+                  ),
                 ],
               ),
             ),

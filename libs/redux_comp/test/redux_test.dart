@@ -19,7 +19,7 @@ void main() {
   });
 
   test('Test to get PartialUser Group', () {
-    expect('password', partUser.group);
+    expect('test', partUser.group);
   });
 
   test('Test to get PartialUser Verification Step', () {
@@ -34,6 +34,7 @@ void main() {
       id: '001',
       email: 'some@example.com',
       name: 'someone',
+      cellNo: '0821234567',
       userType: 'Consumer',
       bids: [],
       shortlistBids: [],
