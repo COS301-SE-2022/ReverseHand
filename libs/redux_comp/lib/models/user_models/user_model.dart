@@ -13,7 +13,7 @@ class UserModel {
   final List<dynamic>? tradeTypes;
   final String userType;
   final Place? place;
-  final List<BidModel> bids;
+  final List<BidModel> bids; // holds all of the bids i.e viewBids ⊆ bids
   final List<BidModel> shortlistBids;
   final List<BidModel> viewBids; // holds the list of bids to view
   final List<AdvertModel> adverts;

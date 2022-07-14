@@ -12,10 +12,8 @@ import 'package:general/widgets/floating_button.dart';
 class EditAdvertPage extends StatelessWidget {
   final Store<AppState> store;
 
-  EditAdvertPage({Key? key, required this.store}) : super(key: key);
+  const EditAdvertPage({Key? key, required this.store}) : super(key: key);
 
-  final titleController = TextEditingController();
-  final descrController = TextEditingController();
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
 
@@ -46,7 +44,7 @@ class EditAdvertPage extends StatelessWidget {
                       label: "Title",
                       obscure: false,
                       min: 2,
-                      controller: titleController,
+                      controller: null,
                       initialVal: vm.advert.title,
                     ),
                   ),
@@ -56,7 +54,7 @@ class EditAdvertPage extends StatelessWidget {
                       label: "Description",
                       obscure: false,
                       min: 3,
-                      controller: descrController,
+                      controller: null,
                       initialVal: '${vm.advert.description}',
                     ),
                   ),
