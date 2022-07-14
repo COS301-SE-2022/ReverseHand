@@ -1,18 +1,4 @@
 buildscript {
-    repositories {
-        // ...
-        maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal
-    }
-    dependencies {
-        // ...
-        // OneSignal-Gradle-Plugin
-        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.10, 0.99.99]'
-    }
-}
-
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
-
-buildscript {
     ext.kotlin_version = '1.6.21'
     repositories {
         google()
