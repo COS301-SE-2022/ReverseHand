@@ -24,10 +24,12 @@ class VerifyUserAction extends ReduxAction<AppState> {
       );
 
       AuthUser user = await Amplify.Auth.getCurrentUser();
-    
-      return state.replace(
-        partialUser: state.partialUser!.replace(
-          id: (state.partialUser!.group == "customer") ? "c#${user.userId}" : "t#${user.userId}",
+
+      return state.copy(
+        partialUser: state.partialUser!.copy(
+          id: (state.partialUser!.group == "customer")
+              ? "c#${user.userId}"
+              : "t#${user.userId}",
           verified: res.nextStep.signUpStep,
         ),
       );
@@ -40,7 +42,7 @@ class VerifyUserAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() async{
+  void after() async {
     await dispatch(AddUserToGroupAction());
     await dispatch(CreateUserAction());
   }

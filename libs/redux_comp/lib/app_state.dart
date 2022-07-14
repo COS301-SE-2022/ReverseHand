@@ -1,3 +1,4 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 import 'models/error_type_model.dart';
@@ -7,12 +8,13 @@ import 'models/user_models/partial_user_model.dart';
 @immutable
 class AppState {
   // put all app state requiered here
-  final UserModel? user; 
-  final PartialUser? partialUser; 
-  final List<Suggestion> suggestions; 
+  final UserModel? user;
+  final PartialUser? partialUser;
+  final List<Suggestion> suggestions;
   final ErrorType error;
   final bool loading;
   final bool change; // used to show that state changed and must rebuild
+  final Wait wait; // for progress indicators
 
   // constructor must only take named parameters
   const AppState({
@@ -22,12 +24,13 @@ class AppState {
     required this.error,
     required this.loading,
     required this.change,
+    required this.wait,
   });
 
   // this methods sets the starting state for the store
   factory AppState.initial() {
-    return const AppState(
-      user: UserModel(
+    return AppState(
+      user: const UserModel(
         id: "",
         email: "",
         name: "",
@@ -38,8 +41,9 @@ class AppState {
         viewBids: [],
         adverts: [],
       ),
-      partialUser: PartialUser(email: "", group: "", verified: ""),
-      suggestions: [],
+      wait: Wait(),
+      partialUser: const PartialUser(email: "", group: "", verified: ""),
+      suggestions: const [],
       error: ErrorType.none,
       loading: true,
       change: false,
@@ -47,8 +51,8 @@ class AppState {
   }
 
   factory AppState.mock() {
-    return const AppState(
-      user: UserModel(
+    return AppState(
+      user: const UserModel(
         id: "0",
         email: "some@email.com",
         name: "Someone",
@@ -59,23 +63,26 @@ class AppState {
         shortlistBids: [],
         adverts: [],
       ),
+      wait: Wait(),
       partialUser: null,
-      suggestions: [],
+      suggestions: const [],
       error: ErrorType.none,
       loading: false,
       change: false,
     );
   }
-  // easy way to replace store wihtout specifying all paramters
-  AppState replace({
+  // easy way to copy store wihtout specifying all paramters
+  AppState copy({
     UserModel? user,
     PartialUser? partialUser,
     List<Suggestion>? suggestions,
     ErrorType? error,
     bool? loading,
     bool? change,
+    Wait? wait,
   }) {
     return AppState(
+      wait: wait ?? this.wait,
       user: user ?? this.user,
       partialUser: partialUser ?? this.partialUser,
       suggestions: suggestions ?? this.suggestions,

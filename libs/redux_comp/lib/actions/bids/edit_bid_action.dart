@@ -53,7 +53,7 @@ class EditBidAction extends ReduxAction<AppState> {
           quote: data["quote"],
           name: bd.name));
 
-      return state.replace(user: state.user!.replace(bids: bids));
+      return state.copy(user: state.user!.copy(bids: bids));
     } catch (e) {
       return null;
     }

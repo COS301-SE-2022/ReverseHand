@@ -54,7 +54,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
           title: title,
           dateCreated: data['createAdvert']['date_created']));
 
-      return state.replace(user: state.user!.replace(adverts: adverts));
+      return state.copy(user: state.user!.copy(adverts: adverts));
     } catch (e) {
       return null; /* on error don't modify appstate */
     }

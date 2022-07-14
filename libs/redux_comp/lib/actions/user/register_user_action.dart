@@ -24,8 +24,8 @@ class RegisterUserAction extends ReduxAction<AppState> {
 
       if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
         if (userType) {
-          return state.replace(
-              partialUser: state.partialUser!.replace(
+          return state.copy(
+              partialUser: state.partialUser!.copy(
                   email: username,
                   password: password,
                   name: name,
@@ -33,8 +33,8 @@ class RegisterUserAction extends ReduxAction<AppState> {
                   group: "customer",
                   verified: res.nextStep.signUpStep));
         } else {
-          return state.replace(
-              partialUser: state.partialUser!.replace(
+          return state.copy(
+              partialUser: state.partialUser!.copy(
                   email: username,
                   password: password,
                   name: name,
@@ -58,6 +58,6 @@ class RegisterUserAction extends ReduxAction<AppState> {
 
   @override
   void before() async {
-   await dispatch(GetPlaceAction());
+    await dispatch(GetPlaceAction());
   }
 }

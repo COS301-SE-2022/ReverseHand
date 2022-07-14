@@ -10,9 +10,12 @@ void main() {
     expect(true, true);
   });
 
-
   PartialUser partUser = const PartialUser(
-      email: 'someone@example.com', name: 'someone', group: "test", verified: 'CONFIRM_SIGN_UP_STEP', );
+    email: 'someone@example.com',
+    name: 'someone',
+    group: "test",
+    verified: 'CONFIRM_SIGN_UP_STEP',
+  );
 
   test('Test to get PartialUser Email', () {
     expect('someone@example.com', partUser.email);
@@ -26,8 +29,8 @@ void main() {
     expect('CONFIRM_SIGN_UP_STEP', partUser.verified);
   });
 
-  test('Test to get PartialUser Replace Method', () {
-    expect(partUser.replace(verified: 'DONE').verified, 'DONE');
+  test('Test to get PartialUser copy Method', () {
+    expect(partUser.copy(verified: 'DONE').verified, 'DONE');
   });
 
   UserModel user = const UserModel(
@@ -61,6 +64,6 @@ void main() {
       const AdvertModel(id: "a#001", title: "TestAd", dateCreated: 'today');
 
   test('Test to add UserAdvert', () {
-    expect([ad], user.replace(adverts: [ad]).adverts);
+    expect([ad], user.copy(adverts: [ad]).adverts);
   });
 }

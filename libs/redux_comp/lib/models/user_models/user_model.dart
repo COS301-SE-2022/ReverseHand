@@ -39,7 +39,7 @@ class UserModel {
     this.activeAd,
   });
 
-  UserModel replace({
+  UserModel copy({
     String? id,
     String? email,
     String? name,

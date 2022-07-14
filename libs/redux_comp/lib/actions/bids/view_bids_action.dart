@@ -51,8 +51,8 @@ class ViewBidsAction extends ReduxAction<AppState> {
       final AdvertModel ad =
           state.user!.adverts.firstWhere((element) => element.id == adId);
 
-      return state.replace(
-        user: state.user!.replace(
+      return state.copy(
+        user: state.user!.copy(
           bids: bids,
           shortlistBids: shortlistedBids,
           viewBids: bids + shortlistedBids,

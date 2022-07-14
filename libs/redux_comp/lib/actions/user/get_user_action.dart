@@ -42,8 +42,7 @@ class GetUserAction extends ReduxAction<AppState> {
 
       try {
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response)
-                .data);
+            (await Amplify.API.mutate(request: request).response).data);
         final user = data["viewUser"];
 
         Place p = Place();
@@ -52,12 +51,12 @@ class GetUserAction extends ReduxAction<AppState> {
         p.street = user["location"]["address"]["street"];
         p.city = user["location"]["address"]["city"];
         p.zipCode = user["location"]["address"]["zipCode"];
-        c.lat = double.parse(user["location"]["coordinates"]["lat"]) ;
+        c.lat = double.parse(user["location"]["coordinates"]["lat"]);
         c.long = double.parse(user["location"]["coordinates"]["long"]);
         p.location = c;
 
-        return state.replace(
-          user: state.user!.replace(
+        return state.copy(
+          user: state.user!.copy(
             name: user["name"],
             cellNo: user["cellNo"],
             email: user["email"],
@@ -104,8 +103,7 @@ class GetUserAction extends ReduxAction<AppState> {
 
       try {
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response)
-                .data);
+            (await Amplify.API.mutate(request: request).response).data);
         final user = data["viewUser"];
 
         Place place = Place();
@@ -118,8 +116,8 @@ class GetUserAction extends ReduxAction<AppState> {
         coords.long = double.parse(user["location"]["coordinates"]["long"]);
         place.location = coords;
 
-        return state.replace(
-          user: state.user!.replace(
+        return state.copy(
+          user: state.user!.copy(
             name: user["name"],
             email: user["email"],
             cellNo: user["cellNo"],

@@ -46,8 +46,8 @@ class LoginAction extends ReduxAction<AppState> {
         userType = "Consumer";
       }
 
-      return state.replace(
-        user: state.user!.replace(
+      return state.copy(
+        user: state.user!.copy(
           id: (userType == "Consumer") ? "c#$id" : "t#$id",
           userType: userType,
         ),
@@ -58,22 +58,22 @@ class LoginAction extends ReduxAction<AppState> {
       switch (e.message) {
         case "User is not confirmed.":
           // print(e.message);
-          return state.replace(
+          return state.copy(
             error: ErrorType.userNotFound,
           );
         case "User does not exist.":
           debugPrint(e.message);
-          return state.replace(
+          return state.copy(
             error: ErrorType.userNotFound,
           );
         case "Incorrect username or password.":
           debugPrint(e.message);
-          return state.replace(
+          return state.copy(
             error: ErrorType.userInvalidPassword,
           );
         case "Password attempts exceeded":
           debugPrint(e.message);
-          return state.replace(
+          return state.copy(
             error: ErrorType.passwordAttemptsExceeded,
           );
         default:
@@ -89,12 +89,17 @@ class LoginAction extends ReduxAction<AppState> {
   }
 
   @override
+  void before() => dispatch(WaitAction.add("flag"));
+
+  @override
   void after() async {
     await dispatch(GetUserAction());
     state.user!.userType == "Consumer"
         ? await dispatch(ViewAdvertsAction(state.user!.id))
         : await dispatch(ViewJobsAction());
-    dispatch(
-        NavigateAction.pushNamed("/${state.user!.userType.toLowerCase()}"));
+
+    dispatch(WaitAction.remove("flag"));
+    dispatch(NavigateAction.pushNamed(
+        "/${state.user!.userType.toLowerCase()}")); // moving to new page
   } // we know that state wont be null
 }

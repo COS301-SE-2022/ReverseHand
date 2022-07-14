@@ -5,20 +5,17 @@ import 'package:async_redux/async_redux.dart';
 import 'package:geolocation/place_api_service.dart';
 
 class GetSuggestionsAction extends ReduxAction<AppState> {
-
   String input;
   PlaceApiService placeApi;
 
   GetSuggestionsAction(this.input, this.placeApi);
 
-	@override
-	Future<AppState?> reduce() async {
+  @override
+  Future<AppState?> reduce() async {
     try {
       List<Suggestion> suggestions = await placeApi.fetchSuggestions(input);
 
-      return state.replace(
-        suggestions: suggestions
-      );
+      return state.copy(suggestions: suggestions);
     } catch (e) {
       return null;
     }

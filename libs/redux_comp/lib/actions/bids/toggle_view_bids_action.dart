@@ -28,8 +28,8 @@ class ToggleViewBidsAction extends ReduxAction<AppState> {
       }
     }
 
-    return state.replace(
-      user: state.user!.replace(
+    return state.copy(
+      user: state.user!.copy(
         viewBids: viewBids,
       ),
       change: !state.change, // to show that state has changed

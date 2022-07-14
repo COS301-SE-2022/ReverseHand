@@ -39,9 +39,9 @@ class ShortlistBidAction extends ReduxAction<AppState> {
       bids.removeWhere(
           (element) => element.id == store.state.user!.activeBid!.id);
 
-      return state.replace(
+      return state.copy(
         change: !state.change,
-        user: state.user!.replace(
+        user: state.user!.copy(
           bids: bids,
           shortlistBids: shortListBids,
           activeBid: shortListedBid,

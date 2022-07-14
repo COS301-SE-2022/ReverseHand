@@ -13,7 +13,7 @@ class CreateUserAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     if (state.partialUser!.verified == "DONE") {
-      final String email =  state.partialUser!.email;
+      final String email = state.partialUser!.email;
       final String name = state.partialUser!.name!;
       final String cellNo = state.partialUser!.cellNo!;
       final String id = state.partialUser!.id!;
@@ -53,7 +53,8 @@ class CreateUserAction extends ReduxAction<AppState> {
         );
 
         try {
-          final resp = await Amplify.API.mutate(request: requestCreateUser).response;
+          final resp =
+              await Amplify.API.mutate(request: requestCreateUser).response;
           debugPrint(resp.data);
           return null;
         } on ApiException catch (e) {
@@ -84,7 +85,8 @@ class CreateUserAction extends ReduxAction<AppState> {
         );
 
         try {
-          final resp = await Amplify.API.mutate(request: requestCreateUser).response;
+          final resp =
+              await Amplify.API.mutate(request: requestCreateUser).response;
           debugPrint(resp.data);
           return null;
         } on ApiException catch (e) {
@@ -93,13 +95,14 @@ class CreateUserAction extends ReduxAction<AppState> {
         }
       }
     } else {
-      return state.replace(error: ErrorType.failedToCreateUser);
+      return state.copy(error: ErrorType.failedToCreateUser);
     }
   }
 
   @override
   void after() async {
-    await dispatch(LoginAction(state.partialUser!.email, state.partialUser!.password!));
+    await dispatch(
+        LoginAction(state.partialUser!.email, state.partialUser!.password!));
   }
 }
 // mutation  {
