@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class JobCardWidget extends StatelessWidget {
   final String titleText;
   final String descText;
+  final String location;
   final String date;
   const JobCardWidget(
       {Key? key,
       required this.titleText,
       required this.descText,
+      required this.location,
       required this.date})
       : super(key: key);
 
@@ -47,14 +49,14 @@ class JobCardWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Row(
-                  children: const [
+                  children: [
                     // Icon(
                     //   Icons.location_on,
                     //   color: Colors.white,
                     //   size: 30.0,
                     // ), //icon spacing is giving issues at the moment
-                    Text("Pretoria, Gauteng",
-                        style: TextStyle(fontSize: 20, color: Colors.white))
+                    Text(location,
+                        style: const TextStyle(fontSize: 20, color: Colors.white))
                   ],
                 ),
               ),

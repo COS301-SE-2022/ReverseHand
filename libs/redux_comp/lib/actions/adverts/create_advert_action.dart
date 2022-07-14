@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
-import 'package:redux_comp/models/advert_model.dart';
 import 'package:uuid/uuid.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -47,9 +44,9 @@ class CreateAdvertAction extends ReduxAction<AppState> {
 
     try {
       /*final response = */await Amplify.API.mutate(request: request).response;
-      return null;
+      return null; // create operation does not modify state 
     } catch (e) {
-      return null; /* on error don't modify appstate */
+      return null; // on error does not modify appstate
     }
   }
 

@@ -72,71 +72,36 @@ class BidDetailsPage extends StatelessWidget {
 
                   //******************INFO***************//
                   Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        //name
-                        // Text('${vm.bid.name}',
-                        //     style: const TextStyle(
-                        //         fontSize: 33, color: Colors.white)),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      //name
+                      // Text('${vm.bid.name}',
+                      //     style: const TextStyle(
+                      //         fontSize: 33, color: Colors.white)),
 
-                        //keep for now - still testing if appBar stack works on other screens
+                      //keep for now - still testing if appBar stack works on other screens
 
-                        const Padding(padding: EdgeInsets.all(15)),
+                      const Padding(padding: EdgeInsets.all(15)),
 
-                        //bid range
-                        const Center(
-                          child: Text(
-                            'Quoted price',
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white70),
-                          ),
+                      //bid range
+                      const Center(
+                        child: Text(
+                          'Quoted price',
+                          style: TextStyle(fontSize: 20, color: Colors.white70),
                         ),
-                        const Padding(padding: EdgeInsets.all(8)),
-                        Center(
-                          child: Text(
-                            'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
-                            style: const TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-
-                        const Padding(padding: EdgeInsets.all(40)),
-
-                        //contact information
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.info_outline,
+                      ),
+                      const Padding(padding: EdgeInsets.all(8)),
+                      Center(
+                        child: Text(
+                          'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
+                          style: const TextStyle(
+                              fontSize: 40,
                               color: Colors.white,
-                              size: 30,
-                            ),
-                            const Padding(padding: EdgeInsets.all(3)),
-                            Column(
-                              children: const [
-                                Center(
-                                  child: Text(
-                                    'Contact Details',
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.white70),
-                                  ),
-                                ),
-                                Center(
-                                  child: Text(
-                                    'info@gmail.com',
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                              fontWeight: FontWeight.bold),
                         ),
-
-                        //need to get this info dynamically
-                      ]),
+                      ),
+                    ],
+                  ),
                   //*************************************//
 
                   //****************BOTTOM BUTTONS**************//

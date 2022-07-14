@@ -7,7 +7,7 @@ class AdvertModel {
   final String? description;
   final String? type;
   final String? acceptedBid;
-  final String? location;
+  final String location;
   final String dateCreated;
   final String? dateClosed;
 
@@ -17,7 +17,7 @@ class AdvertModel {
     this.description,
     this.type,
     this.acceptedBid,
-    this.location,
+    required this.location,
     required this.dateCreated,
     this.dateClosed,
   });

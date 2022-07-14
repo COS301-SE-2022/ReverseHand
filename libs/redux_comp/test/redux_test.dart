@@ -58,7 +58,7 @@ void main() {
   });
 
   AdvertModel ad =
-      const AdvertModel(id: "a#001", title: "TestAd", dateCreated: 'today');
+      const AdvertModel(id: "a#001", title: "TestAd", dateCreated: 'today', location: "Pretoria");
 
   test('Test to add UserAdvert', () {
     expect([ad], user.replace(adverts: [ad]).adverts);
