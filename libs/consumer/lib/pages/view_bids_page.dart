@@ -14,6 +14,8 @@ import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import 'package:general/widgets/floating_button.dart';
 
+import '../methods/populate_bids.dart';
+
 class ViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
   final List<String> _dropdownValues1 = [
@@ -116,6 +118,7 @@ class ViewBidsPage extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               child: Column(children: [
+                                ...populateBids(vm.bids, store),
                                 ButtonWidget(
                                     text: "Back",
                                     color: "light",
