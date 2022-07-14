@@ -6,16 +6,16 @@ const ReverseHandTable = process.env.REVERSEHAND;
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 
-//Currently editing : price_lower, price_upper and name
+//Currently editing : price_lower, price_upper and quote
 exports.handler = async (event) => {
     try {
         let args = [];
         let expressionAttributeNames = {};
 
-        if(event.arguments.name !== undefined)
+        if(event.arguments.quote !== undefined)
         {
-            args.push('bid_details.#name = :name');
-            expressionAttributeNames['#name'] = 'name';
+            args.push('bid_details.#quote = :quote');
+            expressionAttributeNames['#quote'] = 'quote';
         }
         if(event.arguments.price_lower !== undefined)
         {
@@ -36,7 +36,7 @@ exports.handler = async (event) => {
 
         let expressionAttributeValues = {};
 
-        expressionAttributeValues[':name'] = event.arguments.name;
+        expressionAttributeValues[':quote'] = event.arguments.quote;
         expressionAttributeValues[':price_lower'] = event.arguments.price_lower;
         expressionAttributeValues[':price_upper'] = event.arguments.price_upper;
 
