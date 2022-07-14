@@ -86,7 +86,13 @@ class TradesmanJobDetails extends StatelessWidget {
                     Positioned(
                         top: 15,
                         child: ButtonWidget(
-                            text: "Place Bid", function: vm.pushViewBidsPage)),
+                            text: "Place Bid",  function: () {
+                            DialogHelper.display(
+                              context,
+                              PlaceBidPopupWidget(store: store),
+                            ); //trigger Place Bid popup
+                          },
+                        )),
                             //fix function call here
                             //DialogHelper.display(context,PlaceBidPopupWidget(store: store),) 
 

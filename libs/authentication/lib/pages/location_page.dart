@@ -52,7 +52,9 @@ class AddressSearch extends SearchDelegate<Suggestion?> {
     if(store.state.geo!.suggestions!.isEmpty && query == "") {
       return Container(
         padding: const EdgeInsets.all(16.0),
-        child: const Text('Enter your address'),
+        child: const Text(
+          'Enter your address'
+        ),
       );
     }
     else {
