@@ -47,7 +47,7 @@ type Mutation {
   deleteBid(ad_id: String!, bid_id: String!) : Bid
   @function(name: "deleteBidResolver-${env}")
 
-  editBid(ad_id: String!, bid_id: String!,quote: String, price_lower: Int, price_upper: Int) : Bid
+  editBid(ad_id: String!, bid_id: String!,name: String, price_lower: Int, price_upper: Int) : Bid
   @function(name: "editBidResolver-${env}")
 
 }
