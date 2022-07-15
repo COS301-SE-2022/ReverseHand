@@ -60,16 +60,6 @@ PODS:
   - integration_test (0.0.1):
     - Flutter
   - ObjectMapper (4.2.0)
-  - OneSignalXCFramework (3.11.2):
-    - OneSignalXCFramework/OneSignalCore (= 3.11.2)
-    - OneSignalXCFramework/OneSignalExtension (= 3.11.2)
-    - OneSignalXCFramework/OneSignalOutcomes (= 3.11.2)
-  - OneSignalXCFramework/OneSignalCore (3.11.2)
-  - OneSignalXCFramework/OneSignalExtension (3.11.2):
-    - OneSignalXCFramework/OneSignalCore
-    - OneSignalXCFramework/OneSignalOutcomes
-  - OneSignalXCFramework/OneSignalOutcomes (3.11.2):
-    - OneSignalXCFramework/OneSignalCore
   - path_provider_ios (0.0.1):
     - Flutter
   - Starscream (4.0.4)
@@ -83,7 +73,6 @@ DEPENDENCIES:
   - amplify_flutter_ios (from `.symlinks/plugins/amplify_flutter_ios/ios`)
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
-  - OneSignalXCFramework (< 4.0, >= 3.4.3)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
 
 SPEC REPOS:
@@ -98,7 +87,6 @@ SPEC REPOS:
     - AWSMobileClient
     - AWSPluginsCore
     - ObjectMapper
-    - OneSignalXCFramework
     - Starscream
     - SwiftFormat
     - SwiftLint
@@ -136,12 +124,11 @@ SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  OneSignalXCFramework: 81ceac017a290f23793443323090cfbe888f74ea
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftFormat: e2342d528f9aee7062abb644ba6c7c01446919d7
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
 
-PODFILE CHECKSUM: ec8df9e98a92f104de79688dd4608b11d990d25c
+PODFILE CHECKSUM: efd43c12b0d50fe0ebc6ec0718d186c90c94e0f2
 
 COCOAPODS: 1.11.3
