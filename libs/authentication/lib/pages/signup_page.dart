@@ -6,6 +6,7 @@ import 'package:general/widgets/dialog_helper.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/user/register_user_action.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:uuid/uuid.dart';
 import '../widgets/button.dart';
 import '../widgets/circle_blur_widget.dart';
 import '../widgets/divider.dart';
@@ -215,7 +216,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       icon: Icons.add_location_outlined,
                                       controller: tradeController,
                                       onTap: () async {
-                                        const sessionToken = 1234;
+                                        final sessionToken = const Uuid().v1();
                                         showSearch(
                                           context: context,
                                           delegate: AddressSearch(sessionToken, widget.store),

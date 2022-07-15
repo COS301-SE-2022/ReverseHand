@@ -12,7 +12,7 @@ import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 
 class PlaceApiService {
   final client = http.Client();
-  final int sessionToken;
+  final String sessionToken;
 
   PlaceApiService(this.sessionToken); // The session token is to bundle the requests for cost optimisation 
   
@@ -61,7 +61,7 @@ class PlaceApiService {
   Future<Place> getPlaceDetailFromId(String placeId) async {
     final apiKey = await getApiKey();
     final request = //request involes placeId, apiKey and sessiontoken, hardcoded response type to address componenets
-        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=address_component&key=$apiKey&sessiontoken=$sessionToken';
+        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=address_component,geometry&key=$apiKey&sessiontoken=$sessionToken';
     final response = await client.get(Uri.parse(request));
 
     if (response.statusCode == 200) {
@@ -71,7 +71,7 @@ class PlaceApiService {
             result['result']['address_components'] as List<dynamic>;
         final coords = result['result']['geometry']['location'];
         // build result from api response
-        final location = Coordinates(lat: coords['lat'],long: coords['long']);
+        final location = Coordinates(lat: coords['lat'],long: coords['lng']);
         final place = Place();
         for (var c in components) {
           final List type = c['types'];
@@ -86,6 +86,9 @@ class PlaceApiService {
           }
           if (type.contains('postal_code')) {
             place.zipCode = c['long_name'];
+          }
+          if (type.contains('administrative_area_level_1')) {
+            place.province = c['long_name'];
           }
         }
         place.location = location;
