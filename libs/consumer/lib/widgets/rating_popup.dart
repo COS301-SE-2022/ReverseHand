@@ -1,21 +1,17 @@
-import 'package:authentication/widgets/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:consumer/widgets/rating_stars.dart';
+import 'package:general/widgets/button.dart';
 
 typedef RatingChangeCallback = void Function(double rating);
 
 class RatingPopUpWidget extends StatelessWidget {
-
   const RatingPopUpWidget({
     Key? key,
-  }): super(key: key);
+  }) : super(key: key);
 
-    
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RatingPopUp(),
-    );
+    return RatingPopUp();
   }
 }
 
@@ -32,71 +28,51 @@ class RatingPopUp extends StatefulWidget {
 }
 
 class RatingPopUpState extends State<RatingPopUp> {
-  double rating = 3.5;
-  
+  double rating = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
       child: Container(
-        height: 350,
+        height: 120,
         decoration: const BoxDecoration(
-          color: Colors.black87,
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
-        ),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              const SizedBox(height: 30),
-              Align(
-                alignment: Alignment.topLeft,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20)), 
-                  onPressed: () {},
-                  child: const Text('X'),
-                ),
+            color: Colors.white,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Please rate the service you received",
+              style: TextStyle(fontSize: 18, color: Colors.black),
+            ),
+            const Padding(padding: EdgeInsets.all(5)),
+            //*****************rating stars**********************
+            StarRating(
+              rating: rating,
+              onRatingChanged: (rating) => setState(() => this.rating = rating),
+              color: Colors.orange,
+            ),
+            //*****************************************************
 
-              ),
-              Container(
-                margin: const EdgeInsets.all(30.0),
-                padding: const EdgeInsets.all(8.0),
-                alignment: Alignment.topCenter,
-              child: const Text(
-                  "Rate Tradesman",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              const TransparentDividerWidget(),
+            //********************BUTTONS*******************//
+            ButtonWidget(text: "submit", function: () {}),
 
-              //*****************rating stars**********************
-              Align(
-                alignment: Alignment.center,
-                child: StarRating(
-                  rating: rating,
-                  onRatingChanged: (rating) => setState(() => this.rating = rating), color: Colors.orange,
-                ),
-              ),
-              const TransparentDividerWidget(),
-              //*****************************************************
+            //**********************************************//
 
-              //***************Verify Button *********************** */
-              // Eish when I pulled from dev this button no longer worked, 
-              // I changed the constructor to take a string for the display text, and a function to use anonymously outside the widget
-              // - Richard 
-              //
-              // const ButtonWidget(
-              //   //onPressed: Navigator.pop(context),
-              // ),
-              //*****************************************************//
-
-            ],
-          ),
+            //***************Verify Button *********************** */
+            // Eish when I pulled from dev this button no longer worked,
+            // I changed the constructor to take a string for the display text, and a function to use anonymously outside the widget
+            // - Richard
+            //
+            // const ButtonWidget(
+            //   //onPressed: Navigator.pop(context),
+            // ),
+            //*****************************************************//
+          ],
         ),
       ),
     );
   }
-  
 }
-
-
