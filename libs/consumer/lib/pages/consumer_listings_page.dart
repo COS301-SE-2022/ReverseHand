@@ -1,6 +1,10 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:authentication/widgets/otp_pop_up.dart';
+import 'package:consumer/widgets/rating_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/button.dart';
+import 'package:general/widgets/dialog_helper.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../methods/populate_adverts.dart';

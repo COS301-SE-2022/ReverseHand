@@ -35,16 +35,15 @@ class RatingPopUpState extends State<RatingPopUp> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
       child: Container(
-        height: 120,
         decoration: const BoxDecoration(
             color: Colors.white,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Padding(padding: EdgeInsets.only(top: 15)),
             const Text(
-              "Please rate the service you received",
+              "Please rate the service you received:",
               style: TextStyle(fontSize: 18, color: Colors.black),
             ),
             const Padding(padding: EdgeInsets.all(5)),
@@ -56,9 +55,19 @@ class RatingPopUpState extends State<RatingPopUp> {
             ),
             //*****************************************************
 
-            //********************BUTTONS*******************//
-            ButtonWidget(text: "submit", function: () {}),
+            //********************REVIEW***********************
+            // const Padding(padding: EdgeInsets.only(top: 10)),
+            // const Text(
+            //   "Would you like to leave a public review?",
+            //   style: TextStyle(fontSize: 18, color: Colors.black),
+            // ),
+            //**************************************************
 
+            const Padding(padding: EdgeInsets.only(top: 10)),
+
+            //********************BUTTONS*******************//
+            ButtonWidget(text: "Submit", function: () {}),
+            const Padding(padding: EdgeInsets.only(top: 5)),
             //**********************************************//
 
             //***************Verify Button *********************** */

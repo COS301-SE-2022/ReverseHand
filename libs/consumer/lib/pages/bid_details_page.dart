@@ -1,4 +1,6 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/dialog_helper.dart';
+import 'package:consumer/widgets/shortlist_bid_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
@@ -7,10 +9,11 @@ import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:general/widgets/shortlist_accept_button.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
+
+import '../widgets/rating_popup.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -147,14 +150,24 @@ class BidDetailsPage extends StatelessWidget {
                     ),
 
                     //shortlist/accept
+                    // Positioned(
+                    //   top: 20,
+                    //   child: ShortlistAcceptButtonWidget(
+                    //     shortBid: vm.bid.isShortlisted(),
+                    //     onTap: () => vm.bid.isShortlisted()
+                    //         ? vm.dispatchAcceptBidAction()
+                    //         : vm.dispatchShortListBidAction(),
+
+                    //   ),
+                    // ),
                     Positioned(
                       top: 20,
-                      child: ShortlistAcceptButtonWidget(
-                        shortBid: vm.bid.isShortlisted(),
-                        onTap: () => vm.bid.isShortlisted()
-                            ? vm.dispatchAcceptBidAction()
-                            : vm.dispatchShortListBidAction(),
-                      ),
+                      child: ButtonWidget(
+                          text: "Shortlist Bid",
+                          function: () {
+                            DialogHelper.display(context,
+                                const ShortlistPopUpWidget()); //trigger OTP popup
+                          }),
                     ),
 
                     //Back
