@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Windows\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.1.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "changeUserDetailsResolver",
+            "EditUserDetailsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "changeUserDetailsResolver",
+                  "EditUserDetailsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -73,7 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "USERPOOLID": "eu-west-1_QpsSD87RL"
+            "USER": "User"
           }
         },
         "Role": {
@@ -93,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRolee8439e0d",
+            "reversehandLambdaRole016b03b6",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRolee8439e0d",
+                  "reversehandLambdaRole016b03b6",
                   "-",
                   {
                     "Ref": "env"
@@ -164,6 +164,46 @@
                   }
                 ]
               }
+            }
+          ]
+        }
+      }
+    },
+    "AccessDynamoDBApiResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:List*",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:Delete*",
+                "dynamodb:UpdateItem"
+              ],
+              "Resource": [
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
+                    {
+                      "tablename": "User"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

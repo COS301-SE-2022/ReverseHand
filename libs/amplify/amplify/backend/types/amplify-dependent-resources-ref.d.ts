@@ -10,7 +10,6 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "api": {
         "reversehandapi": {
-            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
@@ -70,12 +69,6 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "changeUserDetailsResolver": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
         "editAdvertResolver": {
             "Name": "string",
             "Arn": "string",
@@ -113,6 +106,12 @@ export type AmplifyDependentResourcesAttributes = {
             "LambdaExecutionRole": "string"
         },
         "editBidResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "EditUserDetailsResolver": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
