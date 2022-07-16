@@ -22,28 +22,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
   const TradesmanViewBidsPage({Key? key, required this.store}) : super(key: key);
 
   @override
-
-  //**********TABS TO FILTER ACTIVE/SHORTLISTED BIDS***********//
-  // Row(
-  //   mainAxisAlignment: MainAxisAlignment.center,
-  //   children: [
-  //     TabWidget(
-  //       text: "ACTIVE",
-  //       onPressed: (activate) =>
-  //           vm.dispatchToggleViewBidsAction(false, activate),
-  //     ),
-  //     const Padding(padding: EdgeInsets.all(5)),
-  //     TabWidget(
-  //       text: "SHORTLIST",
-  //       onPressed: (activate) =>
-  //           vm.dispatchToggleViewBidsAction(true, activate),
-  //     ),
-  //   ],
-  // ),
-  //***********************************************************//
-
-  //^^^keep this to integrate toggle
-
+ 
   // creating bid widgets
   // ...populateBids(vm.bids, store)
 
@@ -74,43 +53,15 @@ class TradesmanViewBidsPage extends StatelessWidget {
 
                   const Padding(padding: EdgeInsets.all(10)),
 
-                  //*****************TABS***********************//
-                  const TabBar(
-                    isScrollable: true,
-                    indicatorColor: Color.fromRGBO(243, 157, 55, 1),
-                    indicatorWeight: 5,
-                    labelColor: Colors.white, //selected text color
-                    unselectedLabelColor: Colors.grey, //Unselected text
-                    tabs: [
-                      Tab(
-                          child: Text(
-                        'All',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )),
-                      Tab(
-                          child: Text(
-                        'Shortlisted',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )),
-                    ],
-                  ),
-                  //*****************TABS***********************//
-                  ...populateBids(vm.bids, store),
-
                   Expanded(
                     child: Stack(children: [
                       BottomOverlayWidget(
                           height: MediaQuery.of(context).size.height / 2),
-                      TabBarView(
-                        children: [
-                          //**************TAB 1 INFO********************//
+                          //**************BID INFO********************//
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: Column(children: [
+                              ...populateBids(vm.bids, store),
                               ButtonWidget(
                                   text: "Back",
                                   color: "light",
@@ -120,24 +71,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                                 //all bids should be populated here
                                 ),
                           ),
-                          //****************************************//
-
-                          //*****************TAB 2 INFO******************//
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(children: [
-                              ButtonWidget(
-                                  text: "Back",
-                                  color: "light",
-                                  whiteBorder: true,
-                                  function: vm.popPage)
-                            ]
-                                //active bids should be populated here
-                                ),
-                          ),
-                          //*****************TAB 2******************//
-                        ],
-                      ),
+                          //****************************************/
                     ]),
                   ),
                 ],
@@ -190,5 +124,5 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.bids,
     required this.advert,
-  }) : super(equals: [change]); // implementing hashcode
+  }) : super(equals: [change]); 
 }
