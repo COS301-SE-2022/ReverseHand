@@ -60,15 +60,21 @@
     "reversehandapi": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "reversehandc4d19aa6c4d19aa6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "apiKeyExpirationDate": "2022-07-20T10:14:31.193Z",
-              "description": "The API key for the ReverseHand API"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authreversehandc4d19aa6c4d19aa6"
             }
           },
           "additionalAuthenticationProviders": []
@@ -122,11 +128,6 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "changeUserDetailsResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "editAdvertResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -158,6 +159,11 @@
       "service": "Lambda"
     },
     "editBidResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "EditUserDetailsResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
