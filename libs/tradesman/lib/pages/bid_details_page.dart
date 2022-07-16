@@ -12,6 +12,8 @@ import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
 
+import '../widgets/navbar.dart';
+
 class TBidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
 
@@ -146,7 +148,7 @@ class TBidDetailsPage extends StatelessWidget {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
 
-            bottomNavigationBar: NavBarWidget(
+            bottomNavigationBar: TNavBarWidget(
               store: store,
             ),
             //*****************************************************/

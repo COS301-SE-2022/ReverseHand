@@ -9,6 +9,8 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
 
+import '../widgets/navbar.dart';
+
 class TradesmanJobListings extends StatelessWidget {
   final Store<AppState> store;
   const TradesmanJobListings({Key? key, required this.store}) : super(key: key);
@@ -38,7 +40,7 @@ class TradesmanJobListings extends StatelessWidget {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
 
-          bottomNavigationBar: NavBarWidget(
+          bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
           //*****************************************************/

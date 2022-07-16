@@ -12,6 +12,7 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:tradesman/methods/populate_bids.dart';
+import '../widgets/navbar.dart';
 import '../widgets/place_bid_popup.dart';
 // import '../widgets/place_bid_popup.dart';
 
@@ -55,9 +56,10 @@ class TradesmanJobDetails extends StatelessWidget {
                     Positioned(
                         top: 35,
                         child: ButtonWidget(
-                            text: "Place Bid", function: vm.pushViewBidsPage)),
-                            //fix function call here
-                            //DialogHelper.display(context,PlaceBidPopupWidget(store: store)) 
+                            text: "Place Bid", function: () { 
+                              DialogHelper.display(context,PlaceBidPopupWidget(store: store));
+                            }
+                        )),
 
                     //view bids
                     Positioned(
@@ -81,7 +83,7 @@ class TradesmanJobDetails extends StatelessWidget {
             ),
           ),
           //************************NAVBAR***********************/
-          bottomNavigationBar: NavBarWidget(
+          bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
           resizeToAvoidBottomInset: false,

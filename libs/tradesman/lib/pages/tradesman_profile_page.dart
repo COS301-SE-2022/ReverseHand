@@ -7,6 +7,8 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/floating_button.dart';
 
+import '../widgets/navbar.dart';
+
 class TradesmanProfilePage extends StatelessWidget {
   final Store<AppState> store;
   const TradesmanProfilePage({Key? key, required this.store}) : super(key: key);
@@ -150,7 +152,7 @@ class TradesmanProfilePage extends StatelessWidget {
           ),
 
           //************************NAVBAR***********************/
-          bottomNavigationBar: NavBarWidget(
+          bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
 

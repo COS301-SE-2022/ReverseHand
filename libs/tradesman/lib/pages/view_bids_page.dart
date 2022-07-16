@@ -16,6 +16,8 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/floating_button.dart';
 
+import '../widgets/navbar.dart';
+
 class TradesmanViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
 
@@ -79,7 +81,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
             ),
 
             //************************NAVBAR***********************/
-            bottomNavigationBar: NavBarWidget(
+            bottomNavigationBar: TNavBarWidget(
               store: store,
             ),
 

@@ -8,6 +8,8 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/floating_button.dart';
 
+import '../widgets/navbar.dart';
+
 class EditTradesmanProfilePage extends StatelessWidget {
   final Store<AppState> store;
   const EditTradesmanProfilePage({Key? key, required this.store}) : super(key: key);
@@ -91,7 +93,7 @@ class EditTradesmanProfilePage extends StatelessWidget {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
 
-          bottomNavigationBar: NavBarWidget(
+          bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
           //*****************************************************/
