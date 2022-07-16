@@ -1,6 +1,6 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+# input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Query {
   viewBids(ad_id: String!): [Bid]!
@@ -47,7 +47,7 @@ type Mutation {
   deleteBid(ad_id: String!, bid_id: String!) : Bid
   @function(name: "deleteBidResolver-${env}")
 
-  editBid(ad_id: String!, bid_id: String!,name: String, price_lower: Int, price_upper: Int) : Bid
+  editBid(ad_id: String!, bid_id: String!,quote: String, price_lower: Int, price_upper: Int) : Bid
   @function(name: "editBidResolver-${env}")
 
 }
