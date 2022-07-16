@@ -100,16 +100,20 @@ class LoginPage extends StatelessWidget {
                         StoreConnector<AppState, _ViewModel>(
                           vm: () => _Factory(this),
                           builder: (BuildContext context, _ViewModel vm) =>
-                              LongButtonWidget(
-                            text: vm.loading ? "Loading" : "Login",
-                            function: () {
-                              vm.dispatchLoginAction(
-                                emailController.value.text.trim(),
-                                passwordController.value.text.trim(),
-                              );
-                              // vm.dispatchGetAddressAction();
-                            },
-                          ),
+                              vm.loading
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.orange,
+                                    )
+                                  : LongButtonWidget(
+                                      text: "Login",
+                                      function: () {
+                                        vm.dispatchLoginAction(
+                                          emailController.value.text.trim(),
+                                          passwordController.value.text.trim(),
+                                        );
+                                        // vm.dispatchGetAddressAction();
+                                      },
+                                    ),
                         ),
                         //***************************************************
 
