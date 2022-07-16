@@ -49,6 +49,7 @@ class LoginPage extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          const Padding(padding: EdgeInsets.only(top: 20)),
                           //*****************LOGO*****************************
                           Align(
                             alignment: Alignment.topCenter,
@@ -69,7 +70,7 @@ class LoginPage extends StatelessWidget {
                               children: <Widget>[
                                 //*****************email**********************
                                 TextFieldWidget(
-                                  label: 'email',
+                                  label: 'Email',
                                   obscure: false,
                                   icon: Icons.alternate_email_outlined,
                                   controller: emailController,
@@ -84,7 +85,7 @@ class LoginPage extends StatelessWidget {
                                 ),
                                 //*****************password**********************
                                 TextFieldWidget(
-                                  label: 'password',
+                                  label: 'Password',
                                   obscure: true,
                                   icon: Icons.lock_outline_rounded,
                                   controller: passwordController,
@@ -94,6 +95,7 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                           //****************************************************
+
 
                           //*****************login button**********************
 
@@ -112,6 +114,25 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                           //***************************************************
+
+                           //*****************Forgot Password**********************
+                          StoreConnector<AppState, _ViewModel>(
+                            vm: () => _Factory(this),
+                            builder: (BuildContext context, _ViewModel vm) =>
+                              GestureDetector(
+                              onTap: () => vm.pushSignUpPage(), //change this to forgot password page when created
+                              child: const Text(
+                                "Forgot Password",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.grey,
+                                ),
+                                softWrap: false,
+                              ),
+                            ),
+                          ),
+                          //******************************************************* */
+                          const Padding(padding: EdgeInsets.only(top: 10)),
 
                           //*****************"OR" divider"**********************
                           SizedBox(
@@ -159,7 +180,7 @@ class LoginPage extends StatelessWidget {
                                   'or login with:',
                                   style: TextStyle(
                                     fontFamily: 'Segoe UI',
-                                    fontSize: 12,
+                                    fontSize: 15,
                                     color: Color(0x7df5fffa),
                                   ),
                                   softWrap: false,

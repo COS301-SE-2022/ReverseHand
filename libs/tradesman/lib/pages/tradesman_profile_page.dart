@@ -96,7 +96,7 @@ class TradesmanProfilePage extends StatelessWidget {
                             size: 26.0,
                           ),
                           Padding(padding: EdgeInsets.only(left: 8)),
-                          Text("Cellphone",
+                          Text("Phone",
                               style: TextStyle(
                                   fontSize: 26, color: Colors.white70)),
                         ],

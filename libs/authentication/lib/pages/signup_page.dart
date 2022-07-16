@@ -171,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   children: <Widget>[
                                     //*****************name**********************
                                     TextFieldWidget(
-                                      label: 'name',
+                                      label: 'Name',
                                       obscure: false,
                                       icon: Icons.account_circle_outlined,
                                       controller: nameController,
@@ -185,7 +185,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const TransparentDividerWidget(),
                                     //*****************email**********************
                                     TextFieldWidget(
-                                      label: 'email',
+                                      label: 'Email',
                                       obscure: false,
                                       icon: Icons.alternate_email_outlined,
                                       controller: emailController,
@@ -199,7 +199,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const TransparentDividerWidget(),
                                     //*****************cellphone**********************
                                     TextFieldWidget(
-                                      label: 'cellphone',
+                                      label: 'Phone',
                                       obscure: false,
                                       icon: Icons.call_end_outlined,
                                       controller: cellController,
@@ -210,7 +210,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const TransparentDividerWidget(),
                                     //*****************location**********************
                                     TextFieldWidget(
-                                      label: 'location',
+                                      label: 'Location',
                                       obscure: false,
                                       icon: Icons.add_location_outlined,
                                       controller: tradeController,
@@ -226,7 +226,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const TransparentDividerWidget(),
                                     //*****************trade type**********************
                                     BlueButtonWidget(
-                                      text: 'trade type',
+                                      text: 'Trade',
                                         function: () => showMultiSelect(),
                                         width: 350,
                                         height: 60,
@@ -255,7 +255,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const TransparentDividerWidget(),
                                     //*****************password**********************
                                     TextFieldWidget(
-                                      label: 'password',
+                                      label: 'Password',
                                       obscure: true,
                                       icon: Icons.lock_open_outlined,
                                       controller: passwordController,
@@ -271,7 +271,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const TransparentDividerWidget(),
                                     //*****************confirm password**********************
                                     TextFieldWidget(
-                                      label: 'confirm password',
+                                      label: 'Confirm Password',
                                       obscure: true,
                                       icon: Icons.lock_outline_rounded,
                                       controller: confirmController,
@@ -365,7 +365,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     'or sign up with:',
                                     style: TextStyle(
                                       fontFamily: 'Segoe UI',
-                                      fontSize: 12,
+                                      fontSize: 15,
                                       color: Color(0x7df5fffa),
                                     ),
                                     softWrap: false,
@@ -443,7 +443,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     //******************************************************
 
                     //*****************Consumer SignUp**********************
-                    Stack(
+                  Stack(
                     children: <Widget>[
                       //*****************Top circle blur**********************
                       const CircleBlurWidget(),
@@ -471,7 +471,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   children: <Widget>[
                                     //*****************name**********************
                                     TextFieldWidget(
-                                      label: 'name',
+                                      label: 'Name',
                                       obscure: false,
                                       icon: Icons.account_circle_outlined,
                                       controller: nameController,
@@ -485,7 +485,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const TransparentDividerWidget(),
                                     //*****************email**********************
                                     TextFieldWidget(
-                                      label: 'email',
+                                      label: 'Email',
                                       obscure: false,
                                       icon: Icons.alternate_email_outlined,
                                       controller: emailController,
@@ -499,7 +499,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const TransparentDividerWidget(),
                                     //*****************cellphone**********************
                                     TextFieldWidget(
-                                      label: 'cellphone',
+                                      label: 'Phone',
                                       obscure: false,
                                       icon: Icons.call_end_outlined,
                                       controller: cellController,
@@ -509,18 +509,24 @@ class _SignUpPageState extends State<SignUpPage> {
                                     //**********************************************
                                     const TransparentDividerWidget(),
                                     //*****************location**********************
-                                    BlueButtonWidget(
-                                      text: 'location',
-                                      function: () => showMultiSelect(), //change to location function
-                                      width: 350,
-                                      height: 60,
+                                     TextFieldWidget(
+                                      label: 'Location',
+                                      obscure: false,
                                       icon: Icons.add_location_outlined,
+                                      controller: tradeController,
+                                      onTap: () async {
+                                        const sessionToken = 1234;
+                                        showSearch(
+                                          context: context,
+                                          delegate: AddressSearch(sessionToken, widget.store),
+                                        );
+                                      }
                                     ),
                                     //**********************************************        
                                     const TransparentDividerWidget(),
                                     //*****************password**********************
                                     TextFieldWidget(
-                                      label: 'password',
+                                      label: 'Password',
                                       obscure: true,
                                       icon: Icons.lock_open_outlined,
                                       controller: passwordController,
@@ -536,7 +542,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const TransparentDividerWidget(),
                                     //*****************confirm password**********************
                                     TextFieldWidget(
-                                      label: 'confirm password',
+                                      label: 'Confirm Password',
                                       obscure: true,
                                       icon: Icons.lock_outline_rounded,
                                       controller: confirmController,
@@ -630,7 +636,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     'or sign up with:',
                                     style: TextStyle(
                                       fontFamily: 'Segoe UI',
-                                      fontSize: 12,
+                                      fontSize: 15,
                                       color: Color(0x7df5fffa),
                                     ),
                                     softWrap: false,
