@@ -10,7 +10,6 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "api": {
         "reversehandapi": {
-            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
