@@ -19,7 +19,8 @@ import 'package:general/widgets/floating_button.dart';
 class TradesmanViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
 
-  const TradesmanViewBidsPage({Key? key, required this.store}) : super(key: key);
+  const TradesmanViewBidsPage({Key? key, required this.store})
+      : super(key: key);
 
   @override
 
@@ -114,7 +115,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                               ButtonWidget(
                                   text: "Back",
                                   color: "light",
-                                  whiteBorder: true,
+                                  border: "white",
                                   function: vm.popPage)
                             ]
                                 //all bids should be populated here
@@ -129,7 +130,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                               ButtonWidget(
                                   text: "Back",
                                   color: "light",
-                                  whiteBorder: true,
+                                  border: "white",
                                   function: vm.popPage)
                             ]
                                 //active bids should be populated here

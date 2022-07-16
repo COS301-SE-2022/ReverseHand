@@ -81,7 +81,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
-                            whiteBorder: true,
+                            border: "white",
                             function: vm.popPage))
                   ]),
                   //*************BOTTOM BUTTONS**************//

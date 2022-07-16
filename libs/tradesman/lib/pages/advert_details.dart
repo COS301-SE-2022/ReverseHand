@@ -27,8 +27,9 @@ class TradesmanJobDetails extends StatelessWidget {
         theme: CustomTheme.darkTheme,
         home: Scaffold(
           body: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => SingleChildScrollView(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) =>
+                SingleChildScrollView(
               child: Column(
                 children: [
                   //**********APPBAR***********//
@@ -44,7 +45,7 @@ class TradesmanJobDetails extends StatelessWidget {
                   ),
 
                   const Padding(padding: EdgeInsets.only(top: 50)),
-                  
+
                   //**********HEADING***********//
                   const Text(
                     "Information",
@@ -87,8 +88,8 @@ class TradesmanJobDetails extends StatelessWidget {
                         top: 15,
                         child: ButtonWidget(
                             text: "Place Bid", function: vm.pushViewBidsPage)),
-                            //fix function call here
-                            //DialogHelper.display(context,PlaceBidPopupWidget(store: store),) 
+                    //fix function call here
+                    //DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
 
                     //view bids
                     Positioned(
@@ -110,7 +111,7 @@ class TradesmanJobDetails extends StatelessWidget {
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
-                            whiteBorder: true,
+                            border: "white",
                             function: vm.popPage))
                   ]),
                   //*************BOTTOM BUTTONS**************//
@@ -125,7 +126,8 @@ class TradesmanJobDetails extends StatelessWidget {
           ),
           resizeToAvoidBottomInset: false,
           floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           //*************************************************//
         ),
       ),

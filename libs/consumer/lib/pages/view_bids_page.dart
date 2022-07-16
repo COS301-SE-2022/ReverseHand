@@ -122,7 +122,7 @@ class ViewBidsPage extends StatelessWidget {
                                 ButtonWidget(
                                     text: "Back",
                                     color: "light",
-                                    whiteBorder: true,
+                                    border: "white",
                                     function: vm.popPage)
                               ]
                                   //all bids should be populated here
@@ -139,7 +139,7 @@ class ViewBidsPage extends StatelessWidget {
                                 ButtonWidget(
                                     text: "Back",
                                     color: "light",
-                                    whiteBorder: true,
+                                    border: "white",
                                     function: vm.popPage)
                               ]
                                   //active bids should be populated here

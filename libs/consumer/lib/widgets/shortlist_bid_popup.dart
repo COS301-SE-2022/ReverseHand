@@ -27,6 +27,7 @@ class ShortlistPopUpWidget extends StatelessWidget {
               text: "Cancel",
               function: () {},
               color: "light",
+              border: "lightBlue",
             )
           ],
         )
