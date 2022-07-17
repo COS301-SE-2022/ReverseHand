@@ -209,7 +209,6 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
-        dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
         bid: state.user!.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
@@ -220,13 +219,11 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final BidModel bid;
-  final VoidCallback dispatchShortListBidAction;
   final VoidCallback dispatchAcceptBidAction;
   final bool change;
 
   _ViewModel({
     required this.dispatchAcceptBidAction,
-    required this.dispatchShortListBidAction,
     required this.bid,
     required this.popPage,
     required this.change,
