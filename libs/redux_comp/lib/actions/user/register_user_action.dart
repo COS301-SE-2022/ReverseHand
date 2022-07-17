@@ -6,14 +6,10 @@ import '../../app_state.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;
-  final String name;
-  final String cellNo;
-  final List<String> tradeTypes;
   final String password;
   final bool userType; // true for customer
 
-  RegisterUserAction(this.username, this.name, this.cellNo, this.tradeTypes,
-      this.password, this.userType);
+  RegisterUserAction(this.username, this.password, this.userType);
 
   @override
   Future<AppState?> reduce() async {
@@ -27,8 +23,6 @@ class RegisterUserAction extends ReduxAction<AppState> {
               partialUser: state.partialUser!.replace(
                   email: username,
                   password: password,
-                  name: name,
-                  cellNo: cellNo,
                   group: "customer",
                   verified: res.nextStep.signUpStep));
         } else {
@@ -36,9 +30,6 @@ class RegisterUserAction extends ReduxAction<AppState> {
               partialUser: state.partialUser!.replace(
                   email: username,
                   password: password,
-                  name: name,
-                  cellNo: cellNo,
-                  tradeTypes: tradeTypes,
                   group: "tradesman",
                   verified: res.nextStep.signUpStep));
         }

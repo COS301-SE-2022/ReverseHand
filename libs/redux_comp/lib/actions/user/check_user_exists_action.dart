@@ -10,7 +10,7 @@ import 'package:async_redux/async_redux.dart';
 class CheckUserExistsAction extends ReduxAction<AppState> {
 	@override
 	Future<AppState?> reduce() async {
-    String id = store.state.user!.id;
+    String id = store.state.userDetails!.id;
 
     String graphQLDoc = '''query  {
         viewUser(user_id: "$id") {

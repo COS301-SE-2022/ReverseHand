@@ -40,7 +40,7 @@ class TradesmanProfilePage extends StatelessWidget {
                         ),
                         const Padding(padding: EdgeInsets.only(right: 10)),
                         Text(
-                          store.state.user!.name!,
+                          store.state.userDetails!.name!,
                           style: const TextStyle(fontSize: 30),
                         ),
                       ]),
@@ -78,7 +78,7 @@ class TradesmanProfilePage extends StatelessWidget {
                     Positioned(
                         top: 80,
                         left: 82,
-                        child: Text(store.state.user!.place!.city!,
+                        child: Text(store.state.userDetails!.location!.address.city,
                             style:
                                 const TextStyle(fontSize: 20, color: Colors.white))),
 
@@ -104,7 +104,7 @@ class TradesmanProfilePage extends StatelessWidget {
                     Positioned(
                         top: 180,
                         left: 82,
-                        child: Text(store.state.user!.cellNo!,
+                        child: Text(store.state.userDetails!.cellNo!,
                             style:
                                 const TextStyle(fontSize: 20, color: Colors.white))),
 
@@ -130,7 +130,7 @@ class TradesmanProfilePage extends StatelessWidget {
                     Positioned(
                         top: 280,
                         left: 82,
-                        child: Text(store.state.user!.email!,
+                        child: Text(store.state.userDetails!.email!,
                             style:
                                 const TextStyle(fontSize: 20, color: Colors.white))),
 

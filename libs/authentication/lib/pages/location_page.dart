@@ -1,17 +1,16 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/pages/location_search_page.dart';
-import 'package:authentication/widgets/location.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/geolocation/place_model.dart';
+import 'package:redux_comp/models/geolocation/address_model.dart';
 import 'package:uuid/uuid.dart';
 
 class LocationPage extends StatelessWidget {
   final Store<AppState> store;
-  final Place? result;
+  final Address? result;
 
   const LocationPage({Key? key, required this.store, this.result})
       : super(key: key);
@@ -32,7 +31,6 @@ class LocationPage extends StatelessWidget {
 
                 const Padding(padding: EdgeInsets.only(top: 50)),
 
-                LocationResultWidget(store: store),
 
                 ButtonWidget(
                     text: "Search your location",

@@ -159,7 +159,7 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
   _ViewModel fromStore() => _ViewModel(
         dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
-        bid: state.user!.activeBid!,
+        bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
       );

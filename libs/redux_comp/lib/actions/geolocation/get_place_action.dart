@@ -1,5 +1,5 @@
 import 'package:geolocation/place_api_service.dart';
-import 'package:redux_comp/models/geolocation/place_model.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
 
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
@@ -16,13 +16,13 @@ class GetPlaceAction extends ReduxAction<AppState> {
 	@override
 	Future<AppState?> reduce() async {
     try {
-      Place result = await placeApi.getPlaceDetailFromId(input.placeId);
+      Location result = await placeApi.getPlaceDetailFromId(input.placeId);
 
       // Place result = Place(streetNumber: "318", street: "The Rand", city: "Pretoria", zipCode: "0102", location: Coordinates(lat: 22.23, long: 25.34));
 
       return state.replace(
-        partialUser: state.partialUser!.replace(
-          place: result
+        userDetails: state.userDetails!.replace(
+          location: result
         )
       );
     } catch (e) {

@@ -17,20 +17,20 @@ class CreateUserAction extends ReduxAction<AppState> {
     if (state.partialUser!.verified == "DONE") {
       //pass user information into variables
       final String email =  state.partialUser!.email;
-      final String name = state.partialUser!.name!;
-      final String cellNo = state.partialUser!.cellNo!;
-      final String id = state.partialUser!.id!;
-      final double lat = state.partialUser!.place!.location!.lat!;
-      final double long = state.partialUser!.place!.location!.long!;
-      final String streetnumber = state.partialUser!.place!.streetNumber!;
-      final String street = state.partialUser!.place!.street!;
-      final String city = state.partialUser!.place!.city!;
-      final String zipCode = state.partialUser!.place!.zipCode!;
+      final String name = state.userDetails!.name!;
+      final String cellNo = state.userDetails!.cellNo!;
+      final String id = state.userDetails!.id;
+      final double lat = state.userDetails!.location!.coordinates.lat;
+      final double long = state.userDetails!.location!.coordinates.long;
+      final String streetnumber = state.userDetails!.location!.address.streetNumber;
+      final String street = state.userDetails!.location!.address.street;
+      final String city = state.userDetails!.location!.address.city;
+      final String zipCode = state.userDetails!.location!.address.zipCode;
 
       // different queries for different users
       // If tradesman, DO store domains and tradetypes
       if (state.partialUser!.group == "tradesman") {
-        final tradeTypes = jsonEncode(state.partialUser!.tradeTypes!);
+        final tradeTypes = jsonEncode(state.userDetails!.tradeTypes!);
         final domains = jsonEncode([city]);
         String graphQLDoc = '''mutation  {
           createUser(

@@ -17,17 +17,17 @@ class VerifyUserAction extends ReduxAction<AppState> {
           username: state.partialUser!.email,
           confirmationCode: confirmationCode);
 
-      await Amplify.Auth.signOut();
-      await Amplify.Auth.signIn(
-        username: state.partialUser!.email,
-        password: state.partialUser!.password!,
-      );
+      // await Amplify.Auth.signOut();
+      // await Amplify.Auth.signIn(
+      //   username: state.partialUser!.email,
+      //   password: state.partialUser!.password!,
+      // );
 
-      AuthUser user = await Amplify.Auth.getCurrentUser();
+      // AuthUser user = await Amplify.Auth.getCurrentUser();
     
       return state.replace(
         partialUser: state.partialUser!.replace(
-          id: (state.partialUser!.group == "customer") ? "c#${user.userId}" : "t#${user.userId}",
+          // id: (state.partialUser!.group == "customer") ? "c#${user.userId}" : "t#${user.userId}",
           verified: res.nextStep.signUpStep,
         ),
       );

@@ -123,7 +123,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           NavigateAction.pushNamed('/consumer'),
         ),
         popPage: () => dispatch(NavigateAction.pop()),
-        advert: state.user!.activeAd!,
+        advert: state.activeAd!,
       );
 }
 

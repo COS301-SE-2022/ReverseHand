@@ -741,7 +741,7 @@ class _Factory extends VmFactory<AppState, _SignUpPageState> {
         dispatchSignUpAction:
             (email, name, cell, tradeTypes, password, isConsumer) => dispatch(
                 RegisterUserAction(
-                    email, name, cell, tradeTypes, password, isConsumer)),
+                    email, password, isConsumer)),
         pushLoginPage: () => dispatch(NavigateAction.pushNamed('/login')),
         pushLocationPage: () => dispatch(NavigateAction.pushNamed('/location')),
       );
