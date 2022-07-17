@@ -10,8 +10,8 @@ class SetActiveAdAction extends ReduxAction<AppState> {
   @override
   AppState? reduce() {
     final AdvertModel ad =
-        state.user!.adverts.firstWhere((element) => element.id == adId);
+        state.adverts.firstWhere((element) => element.id == adId);
 
-    return store.state.replace(user: store.state.user!.replace(activeAd: ad));
+    return store.state.replace(activeAd: ad);
   }
 }

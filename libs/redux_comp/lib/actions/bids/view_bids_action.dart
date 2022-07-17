@@ -49,15 +49,13 @@ class ViewBidsAction extends ReduxAction<AppState> {
       }
 
       final AdvertModel ad =
-          state.user!.adverts.firstWhere((element) => element.id == adId);
+          state.adverts.firstWhere((element) => element.id == adId);
 
       return state.replace(
-        user: state.user!.replace(
           bids: bids,
           shortlistBids: shortlistedBids,
           viewBids: bids + shortlistedBids,
           activeAd: ad, // setting the active ad
-        ),
       );
     } catch (e) {
       return null; /* On Error do not modify state */
@@ -66,5 +64,5 @@ class ViewBidsAction extends ReduxAction<AppState> {
 
   @override
   void after() => dispatch(NavigateAction.pushNamed(
-      "/${state.user!.userType.toLowerCase()}/advert_details")); // move to page after action completes
+      "/${state.userDetails!.userType.toLowerCase()}/advert_details")); // move to page after action completes
 }

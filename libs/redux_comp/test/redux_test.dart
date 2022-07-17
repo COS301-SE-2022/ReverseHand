@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 // import 'package:redux_comp/app_state.dart';
@@ -10,9 +9,11 @@ void main() {
     expect(true, true);
   });
 
-
   PartialUser partUser = const PartialUser(
-      email: 'someone@example.com', name: 'someone', group: "test", verified: 'CONFIRM_SIGN_UP_STEP', );
+    email: 'someone@example.com',
+    group: "test",
+    verified: 'CONFIRM_SIGN_UP_STEP',
+  );
 
   test('Test to get PartialUser Email', () {
     expect('someone@example.com', partUser.email);
@@ -31,15 +32,12 @@ void main() {
   });
 
   UserModel user = const UserModel(
-      id: '001',
-      email: 'some@example.com',
-      name: 'someone',
-      cellNo: '0821234567',
-      userType: 'Consumer',
-      bids: [],
-      shortlistBids: [],
-      viewBids: [],
-      adverts: []);
+    id: '001',
+    email: 'some@example.com',
+    name: 'someone',
+    cellNo: '0821234567',
+    userType: 'Consumer',
+  );
 
   test('Test to get UserId', () {
     expect('001', user.id);
@@ -53,14 +51,4 @@ void main() {
     expect('Consumer', user.userType);
   });
 
-  test('Test to get UserAdverts', () {
-    expect([], user.adverts);
-  });
-
-  AdvertModel ad =
-      const AdvertModel(id: "a#001", title: "TestAd", dateCreated: 'today');
-
-  test('Test to add UserAdvert', () {
-    expect([ad], user.replace(adverts: [ad]).adverts);
-  });
 }

@@ -2,19 +2,14 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
-import 'package:redux_comp/actions/geolocation/get_place_action.dart';
 import '../../app_state.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;
-  final String name;
-  final String cellNo;
-  final List<String> tradeTypes;
   final String password;
   final bool userType; // true for customer
 
-  RegisterUserAction(this.username, this.name, this.cellNo, this.tradeTypes,
-      this.password, this.userType);
+  RegisterUserAction(this.username, this.password, this.userType);
 
   @override
   Future<AppState?> reduce() async {
@@ -28,8 +23,6 @@ class RegisterUserAction extends ReduxAction<AppState> {
               partialUser: state.partialUser!.replace(
                   email: username,
                   password: password,
-                  name: name,
-                  cellNo: cellNo,
                   group: "customer",
                   verified: res.nextStep.signUpStep));
         } else {
@@ -37,9 +30,6 @@ class RegisterUserAction extends ReduxAction<AppState> {
               partialUser: state.partialUser!.replace(
                   email: username,
                   password: password,
-                  name: name,
-                  cellNo: cellNo,
-                  tradeTypes: tradeTypes,
                   group: "tradesman",
                   verified: res.nextStep.signUpStep));
         }
@@ -56,8 +46,8 @@ class RegisterUserAction extends ReduxAction<AppState> {
     }
   }
 
-  @override
-  void before() async {
-   await dispatch(GetPlaceAction());
-  }
+  // @override
+  // void before() async {
+  //  await dispatch(GetPlaceAction());
+  // }
 }

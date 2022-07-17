@@ -52,7 +52,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobListings> {
   _Factory(widget) : super(widget);
   @override
   _ViewModel fromStore() => _ViewModel(
-        adverts: state.user!.adverts,
+        adverts: state.adverts,
         dispatchLogoutAction: () => dispatch(LogoutAction()),
       );
 }

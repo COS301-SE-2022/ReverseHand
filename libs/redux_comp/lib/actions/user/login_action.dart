@@ -47,7 +47,7 @@ class LoginAction extends ReduxAction<AppState> {
       }
 
       return state.replace(
-        user: state.user!.replace(
+        userDetails: state.userDetails!.replace(
           id: (userType == "Consumer") ? "c#$id" : "t#$id",
           userType: userType,
         ),
@@ -91,10 +91,10 @@ class LoginAction extends ReduxAction<AppState> {
   @override
   void after() async {
     await dispatch(GetUserAction());
-    state.user!.userType == "Consumer"
-        ? await dispatch(ViewAdvertsAction(state.user!.id))
+    state.userDetails!.userType == "Consumer"
+        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
         : await dispatch(ViewJobsAction());
     dispatch(
-        NavigateAction.pushNamed("/${state.user!.userType.toLowerCase()}"));
+        NavigateAction.pushNamed("/${state.userDetails!.userType.toLowerCase()}"));
   } // we know that state wont be null
 }
