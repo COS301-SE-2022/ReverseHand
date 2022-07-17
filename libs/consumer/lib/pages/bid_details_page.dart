@@ -13,8 +13,6 @@ import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
 
-import '../widgets/rating_popup.dart';
-
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
 
@@ -165,19 +163,24 @@ class BidDetailsPage extends StatelessWidget {
                       child: ButtonWidget(
                           text: "Shortlist Bid",
                           function: () {
-                            DialogHelper.display(context,
-                                const ShortlistPopUpWidget()); //trigger OTP popup
+                            DialogHelper.display(
+                                context,
+                                ShortlistPopUpWidget(
+                                  store: store,
+                                )); //trigger OTP popup
                           }),
                     ),
 
                     //Back
                     Positioned(
-                        top: 80,
-                        child: ButtonWidget(
-                            text: "Back",
-                            color: "light",
-                            border: "white",
-                            function: vm.popPage)),
+                      top: 80,
+                      child: ButtonWidget(
+                        text: "Back",
+                        color: "light",
+                        border: "white",
+                        function: vm.popPage,
+                      ),
+                    ),
                   ]),
                   //******************************************//
                 ],
@@ -206,7 +209,6 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
-        dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
         bid: state.user!.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
@@ -217,13 +219,11 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final BidModel bid;
-  final VoidCallback dispatchShortListBidAction;
   final VoidCallback dispatchAcceptBidAction;
   final bool change;
 
   _ViewModel({
     required this.dispatchAcceptBidAction,
-    required this.dispatchShortListBidAction,
     required this.bid,
     required this.popPage,
     required this.change,
