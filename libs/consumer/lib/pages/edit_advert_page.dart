@@ -108,8 +108,9 @@ class _Factory extends VmFactory<AppState, EditAdvertPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      popPage: () => dispatch(NavigateAction.pop()),
-      advert: state.user!.activeAd!);
+        popPage: () => dispatch(NavigateAction.pop()),
+        advert: state.user!.activeAd!,
+      );
 }
 
 // view model
@@ -117,6 +118,8 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final AdvertModel advert;
 
-  _ViewModel(
-      {required this.popPage, required this.advert}); // implementinf hashcode
+  _ViewModel({
+    required this.popPage,
+    required this.advert,
+  }); // implementinf hashcode
 }

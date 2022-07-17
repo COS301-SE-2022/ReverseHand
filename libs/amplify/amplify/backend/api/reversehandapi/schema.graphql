@@ -41,7 +41,7 @@ type Mutation {
   createUser(user_id: String!, name: String!, email: String!, cellNo: String!,  lat: String!, long: String!, streetNumber: String!, street: String!, city: String!, zipCode: String!, tradetypes: [String!], domains: [String]) : User 
   @function(name: "createUserResolver-${env}")
 
-  editAdvert(ad_id: String!,title: String!, description: String, type: String, location: String, date_closed: String ) : Advert 
+  editAdvert(ad_id: String!, title: String, description: String, type: String, location: String) : Advert 
   @function(name: "editAdvertResolver-${env}")
 
   deleteBid(ad_id: String!, bid_id: String!) : Bid

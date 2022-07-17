@@ -134,10 +134,11 @@ class _ViewModel extends Vm {
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
 
-  _ViewModel(
-      {required this.advert,
-      required this.pushEditAdvert,
-      required this.pushViewBidsPage,
-      required this.pushConsumerListings,
-      required this.popPage}); // implementinf hashcode
+  _ViewModel({
+    required this.advert,
+    required this.pushEditAdvert,
+    required this.pushViewBidsPage,
+    required this.pushConsumerListings,
+    required this.popPage,
+  }); // implementinf hashcode
 }

@@ -10,20 +10,21 @@ class EditAdvertAction extends ReduxAction<AppState> {
   final String description;
   final String type;
   final String location;
-  final String dateClosed;
   final String title;
 
-  EditAdvertAction(this.advertId, this.description, this.type, this.location,
-      this.dateClosed, this.title);
+  EditAdvertAction(
+    this.advertId,
+    this.description,
+    this.type,
+    this.location,
+    this.title,
+  );
+
   @override
   Future<AppState?> reduce() async {
-    String graphQLDocument = ''' mutation { 
-      editAdvert(ad_id: "$advertId"){
-        title: "$title",
-        description: "$description",
-        type: "$type",
-        location: "$location",
-        date_closed: "$dateClosed"
+    String graphQLDocument = '''mutation { 
+      editAdvert(ad_id: "$advertId" title: "$title", description: "$description", type: "$type", location: "$location") {
+        id
       }
     } ''';
 
@@ -36,21 +37,23 @@ class EditAdvertAction extends ReduxAction<AppState> {
       //get the advert being edited
       AdvertModel ad = adverts.firstWhere((element) => element.id == advertId);
 
-      //remove it from the current list of adverts then create a new one
-      //with the updated details.
-      //There could potentially be a better way to do this perhaps??
-      //Problem is fields are final so cant change them in the original one
+      // remove it from the current list of adverts then create a new one
+      // with the updated details.
+      // There could potentially be a better way to do this perhaps??
+      // Problem is fields are final so cant change them in the original one
       adverts.removeWhere((element) => element.id == advertId);
 
       //add the updated details as a new advert.
-      adverts.add(AdvertModel(
+      adverts.add(
+        AdvertModel(
           id: ad.id,
           title: ad.title,
           dateCreated: ad.dateCreated,
           description: description,
           type: type,
           location: location,
-          dateClosed: dateClosed));
+        ),
+      );
 
       return state.replace(user: state.user!.replace(adverts: adverts));
     } catch (e) {
