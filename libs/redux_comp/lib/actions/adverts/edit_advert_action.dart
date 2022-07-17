@@ -7,18 +7,18 @@ import 'package:async_redux/async_redux.dart';
 
 class EditAdvertAction extends ReduxAction<AppState> {
   final String advertId;
-  final String description;
-  final String type;
-  final String location;
-  final String title;
+  final String? description;
+  final String? type;
+  final String? location;
+  final String? title;
 
-  EditAdvertAction(
-    this.advertId,
+  EditAdvertAction({
+    required this.advertId,
     this.description,
     this.type,
     this.location,
     this.title,
-  );
+  });
 
   @override
   Future<AppState?> reduce() async {
@@ -30,7 +30,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
 
     final request = GraphQLRequest(document: graphQLDocument);
     try {
-      await Amplify.API.mutate(request: request).response;
+      dynamic response = await Amplify.API.mutate(request: request).response;
 
       List<AdvertModel> adverts = state.user!.adverts;
 

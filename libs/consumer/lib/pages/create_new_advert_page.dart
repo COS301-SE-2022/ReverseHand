@@ -72,16 +72,18 @@ class CreateNewAdvertPage extends StatelessWidget {
 
                       //*********CREATE JOB BUTTON******************//
                       ButtonWidget(
-                          text: "Create Job",
-                          function: () {
-                            if (titleController.value.text != "") {
-                              vm.dispatchCreateAdvertActions(
-                                  store.state.user!.id,
-                                  titleController.value.text,
-                                  store.state.user!.place!.city!,
-                                  descrController.value.text);
-                            }
-                          }),
+                        text: "Create Job",
+                        function: () {
+                          if (titleController.value.text != "") {
+                            vm.dispatchCreateAdvertActions(
+                              store.state.user!.id,
+                              titleController.value.text,
+                              store.state.user!.place!.city!,
+                              descrController.value.text,
+                            );
+                          }
+                        },
+                      ),
                       //********************************************//
                       const Padding(padding: EdgeInsets.all(5)),
 

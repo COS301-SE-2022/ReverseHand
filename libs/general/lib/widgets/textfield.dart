@@ -6,14 +6,14 @@ class TextFieldWidget extends StatelessWidget {
   final int min;
   final TextEditingController? controller;
   final String? initialVal;
-  const TextFieldWidget(
-      {Key? key,
-      required this.label,
-      required this.obscure,
-      required this.min,
-      required this.controller,
-      required this.initialVal})
-      : super(key: key);
+  const TextFieldWidget({
+    Key? key,
+    required this.label,
+    required this.obscure,
+    required this.min,
+    required this.controller,
+    this.initialVal,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
