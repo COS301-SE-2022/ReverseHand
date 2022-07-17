@@ -15,9 +15,12 @@ class AppBarWidget extends StatelessWidget {
           height: 135, //still deciding on a good height
           alignment: const Alignment(
               0, -.5), //might swap this out for an Align widget around text
-          child: Text(
-            title,
-            style: const TextStyle(fontSize: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: Text(
+              title,
+              style: const TextStyle(fontSize: 20),
+            ),
           ),
         ));
   }

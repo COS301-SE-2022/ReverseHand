@@ -24,26 +24,24 @@ class ConsumerProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "Profile"),
+                  const AppBarWidget(title: "PROFILE"),
                   //********************************************************//
 
                   //ALL INFO IS CURRENTLY HARDCODED
 
                   //*******************CONSUMER NAME************************//
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.account_circle,
-                          color: Colors.white,
-                          size: 50.0,
-                        ),
-                        const Padding(padding: EdgeInsets.only(right: 10)),
-                        Text(
-                          store.state.user!.name!,
-                          style: const TextStyle(fontSize: 30),
-                        ),
-                      ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    const Icon(
+                      Icons.account_circle,
+                      color: Colors.white,
+                      size: 50.0,
+                    ),
+                    const Padding(padding: EdgeInsets.only(right: 10)),
+                    Text(
+                      store.state.user!.name!,
+                      style: const TextStyle(fontSize: 30),
+                    ),
+                  ]),
                   //********************************************************//
 
                   const Padding(padding: EdgeInsets.all(20)),
@@ -79,8 +77,8 @@ class ConsumerProfilePage extends StatelessWidget {
                         top: 80,
                         left: 82,
                         child: Text(store.state.user!.place!.city!,
-                            style:
-                                const TextStyle(fontSize: 20, color: Colors.white))),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white))),
 
                     //cellphone
                     Positioned(
@@ -105,8 +103,8 @@ class ConsumerProfilePage extends StatelessWidget {
                         top: 180,
                         left: 82,
                         child: Text(store.state.user!.cellNo!,
-                            style:
-                                const TextStyle(fontSize: 20, color: Colors.white))),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white))),
 
                     //email
                     Positioned(
@@ -131,8 +129,8 @@ class ConsumerProfilePage extends StatelessWidget {
                         top: 280,
                         left: 82,
                         child: Text(store.state.user!.email!,
-                            style:
-                                const TextStyle(fontSize: 20, color: Colors.white))),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white))),
 
                     Positioned(
                       top: 280,

@@ -34,7 +34,7 @@ class EditAdvertPage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: <Widget>[
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "Edit Job"),
+                  const AppBarWidget(title: "EDIT JOB"),
                   //********************************************************//
 
                   //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
