@@ -1,7 +1,6 @@
 // import 'dart:html';
 
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/methods/populate_bids.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
@@ -15,10 +14,17 @@ import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import 'package:general/widgets/floating_button.dart';
 
+import '../methods/populate_bids.dart';
+
 class ViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
+  final List<String> _dropdownValues1 = [
+    "Any",
+    "Price: Low to High", //think about this wording
+    "Price: High to Low",
+  ];
 
-  const ViewBidsPage({Key? key, required this.store}) : super(key: key);
+  ViewBidsPage({Key? key, required this.store}) : super(key: key);
 
   @override
 
@@ -50,7 +56,7 @@ class ViewBidsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: MaterialApp(
           theme: CustomTheme.darkTheme,
           home: Scaffold(
@@ -71,7 +77,7 @@ class ViewBidsPage extends StatelessWidget {
                   ),
                   //*******************************************//
 
-                  const Padding(padding: EdgeInsets.all(10)),
+                  // const Padding(padding: EdgeInsets.all(10)),
 
                   //*****************TABS***********************//
                   const TabBar(
@@ -95,46 +101,244 @@ class ViewBidsPage extends StatelessWidget {
                           fontSize: 20,
                         ),
                       )),
+                      Tab(child: Icon(Icons.filter_alt)),
                     ],
                   ),
                   //*****************TABS***********************//
-                  ...populateBids(vm.bids, store),
+                  // ...populateBids(vm.bids, store),
 
                   Expanded(
                     child: Stack(children: [
                       BottomOverlayWidget(
-                          height: MediaQuery.of(context).size.height / 2),
+                          height: MediaQuery.of(context).size.height),
                       TabBarView(
                         children: [
                           //**************TAB 1 INFO********************//
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(children: [
-                              ButtonWidget(
-                                  text: "Back",
-                                  color: "light",
-                                  whiteBorder: true,
-                                  function: vm.popPage)
-                            ]
-                                //all bids should be populated here
-                                ),
+                          SingleChildScrollView(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(children: [
+                                ...populateBids(vm.bids, store),
+                                ButtonWidget(
+                                    text: "Back",
+                                    color: "light",
+                                    whiteBorder: true,
+                                    function: vm.popPage)
+                              ]
+                                  //all bids should be populated here
+                                  ),
+                            ),
                           ),
                           //****************************************//
 
                           //*****************TAB 2 INFO******************//
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(children: [
-                              ButtonWidget(
-                                  text: "Back",
-                                  color: "light",
-                                  whiteBorder: true,
-                                  function: vm.popPage)
-                            ]
-                                //active bids should be populated here
-                                ),
+                          SingleChildScrollView(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(children: [
+                                ButtonWidget(
+                                    text: "Back",
+                                    color: "light",
+                                    whiteBorder: true,
+                                    function: vm.popPage)
+                              ]
+                                  //active bids should be populated here
+                                  ),
+                            ),
                           ),
                           //*****************TAB 2******************//
+
+                          //*****************TAB 3 INFO******************//
+                          SingleChildScrollView(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(children: [
+                                //***************SORT BY******************//
+                                //text
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 45, top: 10),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "Sort By",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                ),
+                                const Padding(
+                                    padding: EdgeInsets.only(bottom: 10)),
+                                //dropdown container
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  height: 40,
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.5,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.circular(
+                                        20.0), //borderRadius for container
+                                    border: Border.all(
+                                        color: Colors.white,
+                                        style: BorderStyle.solid,
+                                        width: 1),
+                                  ),
+                                  //actual dropdown
+                                  child: DropdownButton(
+                                      dropdownColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      borderRadius: BorderRadius.circular(
+                                          20.0), //borderRadius for dropdownMenu
+                                      isExpanded: true,
+                                      underline: const SizedBox.shrink(),
+                                      value: _dropdownValues1.first,
+                                      icon: const Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      items: _dropdownValues1
+                                          .map((value) => DropdownMenuItem(
+                                                value: value,
+                                                child: Text(value),
+                                              ))
+                                          .toList(),
+                                      onChanged: ((_) {})),
+                                ),
+                                //******************************************//
+
+                                //*****************PRICE RANGE******************//
+                                //text
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 45, top: 10),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "Price Range",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                ),
+                                const Padding(
+                                    padding: EdgeInsets.only(bottom: 10)),
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    //MINIMUM TEXTFIELD
+                                    Container(
+                                        height: 40,
+                                        width:
+                                            (MediaQuery.of(context).size.width /
+                                                    1.7) /
+                                                2,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                          borderRadius: BorderRadius.circular(
+                                              20.0), //borderRadius for container
+                                        ),
+                                        child: TextFormField(
+                                          // initialValue: "0",
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          controller: null,
+                                          decoration: InputDecoration(
+                                            labelText: "min",
+                                            labelStyle: const TextStyle(
+                                                color: Colors.white),
+                                            floatingLabelBehavior:
+                                                FloatingLabelBehavior.auto,
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              borderSide: const BorderSide(
+                                                color: Colors.white,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              borderSide: const BorderSide(
+                                                color: Colors.orange,
+                                                width: 2.0,
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+
+                                    //PADDING AND "-"
+                                    const Padding(padding: EdgeInsets.all(5)),
+
+                                    const Text(
+                                      "-",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 30),
+                                    ),
+                                    const Padding(padding: EdgeInsets.all(5)),
+
+                                    //MAXIMUM TEXTFIELD
+                                    Container(
+                                        height: 40,
+                                        width:
+                                            (MediaQuery.of(context).size.width /
+                                                    1.7) /
+                                                2,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                          borderRadius: BorderRadius.circular(
+                                              20.0), //borderRadius for container
+                                        ),
+                                        child: TextFormField(
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          controller: null,
+                                          decoration: InputDecoration(
+                                            labelText: "max",
+                                            labelStyle: const TextStyle(
+                                                color: Colors.white),
+                                            floatingLabelBehavior:
+                                                FloatingLabelBehavior.auto,
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              borderSide: const BorderSide(
+                                                color: Colors.white,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              borderSide: const BorderSide(
+                                                color: Colors.orange,
+                                                width: 2.0,
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                                //*******************************************//
+
+                                const Padding(padding: EdgeInsets.all(10)),
+
+                                //Buttons
+                                ButtonWidget(
+                                    text: "Apply",
+                                    function:
+                                        vm.popPage //need a different function
+                                    ),
+
+                                const Padding(padding: EdgeInsets.all(20))
+                              ]),
+                            ),
+                          ),
+                          //*****************TAB 3******************//
                         ],
                       ),
                     ]),
