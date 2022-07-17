@@ -34,23 +34,18 @@ class QuickViewBidWidget extends StatelessWidget {
                   color: Theme.of(context).primaryColorLight,
                   borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                 ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      Text(
-                        '${bid.name}',
-                        style:
-                            const TextStyle(fontSize: 25, color: Colors.white),
-                      ),
-                      const Padding(padding: EdgeInsets.only(right: 145)),
-                      Text(
-                        'R${bid.priceLower}  -  R${bid.priceUpper}',
-                        style:
-                            const TextStyle(fontSize: 22, color: Colors.white),
-                      ),
-                    ],
-                  ),
+                child: Row(
+                  children: [
+                    Text(
+                      '${bid.name}',
+                      style: const TextStyle(fontSize: 22, color: Colors.white),
+                    ),
+                    const Padding(padding: EdgeInsets.only(right: 20)),
+                    Text(
+                      'R${bid.priceLower}  -  R${bid.priceUpper}',
+                      style: const TextStyle(fontSize: 22, color: Colors.white),
+                    ),
+                  ],
                 ),
               ),
             ),

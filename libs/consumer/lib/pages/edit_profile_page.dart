@@ -56,19 +56,6 @@ class EditProfilePage extends StatelessWidget {
                   ),
                   //**************************************************//
 
-                  //**********************EMAIL************************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 70),
-                    child: TextFieldWidget(
-                      initialVal: store.state.user!.email,
-                      label: "email",
-                      obscure: false,
-                      controller: null,
-                      min: 1,
-                    ),
-                  ),
-                  //**************************************************//
-
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
                       text: "Save Changes", function: vm.pushProfilePage),

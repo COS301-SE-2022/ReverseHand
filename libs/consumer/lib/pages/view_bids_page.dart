@@ -119,6 +119,17 @@ class ViewBidsPage extends StatelessWidget {
                               padding: const EdgeInsets.all(8),
                               child: Column(children: [
                                 ...populateBids(vm.bids, store),
+                                //********IF NO BIDS********************/
+                                // const Padding(
+                                //   padding: EdgeInsets.all(20.0),
+                                //   child: Text(
+                                //     "No bids have\n been made yet",
+                                //     textAlign: TextAlign.center,
+                                //     style: TextStyle(
+                                //         fontSize: 20, color: Colors.white54),
+                                //   ),
+                                // ),
+                                //**************************************/
                                 ButtonWidget(
                                     text: "Back",
                                     color: "light",
@@ -136,14 +147,23 @@ class ViewBidsPage extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               child: Column(children: [
+                                //********IF NO SHORTLISTED BIDS**********/
+                                // const Padding(
+                                //   padding: EdgeInsets.all(20.0),
+                                //   child: Text(
+                                //     "You have no\n shortlisted bids",
+                                //     textAlign: TextAlign.center,
+                                //     style: TextStyle(
+                                //         fontSize: 20, color: Colors.white54),
+                                //   ),
+                                // ),
+                                //****************************************/
                                 ButtonWidget(
                                     text: "Back",
                                     color: "light",
                                     border: "white",
                                     function: vm.popPage)
-                              ]
-                                  //active bids should be populated here
-                                  ),
+                              ]),
                             ),
                           ),
                           //*****************TAB 2******************//
