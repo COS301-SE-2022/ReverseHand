@@ -1,76 +1,76 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:authentication/pages/location_search_page.dart';
+import 'package:authentication/widgets/location.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/geolocation/get_place_action.dart';
-import 'package:redux_comp/actions/geolocation/get_suggestions_action.dart';
-// import 'package:general/general.dart';
+import 'package:general/theme.dart';
+import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/button.dart';
+import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/geolocation/place_model.dart';
-import 'package:redux_comp/models/geolocation/suggestion_model.dart';
-import 'package:geolocation/place_api_service.dart';
-import 'package:redux_comp/redux_comp.dart';
+import 'package:uuid/uuid.dart';
 
-class AddressSearch extends SearchDelegate<Place?> {
-  final String sessionToken;
-  PlaceApiService apiClient;
-  Suggestion? suggestion;
+class LocationPage extends StatelessWidget {
   final Store<AppState> store;
+  final Place? result;
 
-  AddressSearch(this.sessionToken, this.store)
-      : apiClient = PlaceApiService(sessionToken);
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      IconButton(
-        tooltip: 'Clear',
-        icon: const Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
-      )
-    ];
-  }
+  const LocationPage({Key? key, required this.store, this.result})
+      : super(key: key);
 
   @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      tooltip: 'Back',
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
-    );
-  }
+  Widget build(BuildContext context) {
+    return StoreProvider<AppState>(
+      store: store,
+      child: MaterialApp(
+        theme: CustomTheme.darkTheme,
+        home: Scaffold(
+          body: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) => Column(
+              children: [
+                //**********APPBAR***********//
+                const AppBarWidget(title: "Location Search"),
 
-  
-  @override
-  Widget buildResults(BuildContext context) {
-    return Text(
-      suggestion!.description,
-    ); //TO-DO: put result page here, make api call to place details, lat and long to focus on those coords
-  }
+                const Padding(padding: EdgeInsets.only(top: 50)),
 
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    store.dispatch(GetSuggestionsAction(query, apiClient));
-    if (store.state.suggestions.isEmpty && query.length < 3) {
-      return Container(
-        padding: const EdgeInsets.all(16.0),
-        child: const Text('Enter your address'),
-      );
-    } else {
-      return ListView.builder(
-        itemBuilder: (context, index) => ListTile(
-          title: Text((store.state.suggestions[index]).description),
-          onTap: () {
-            suggestion = store.state.suggestions[index];
-            store.dispatch(GetPlaceAction(suggestion!, apiClient));
-            buildResults(context);
+                LocationResultWidget(store: store),
 
-          },
+                ButtonWidget(
+                    text: "Search your location",
+                    color: "light",
+                    function: () {
+                      final sessionToken = const Uuid().v1();
+                      showSearch(
+                          context: context,
+                          delegate: LocationSearchPage(sessionToken, store));
+                    }),
+
+                //Back
+                ButtonWidget(
+                    text: "Back",
+                    color: "light",
+                    whiteBorder: true,
+                    function: vm.popPage)
+              ],
+            ),
+          ),
         ),
-        itemCount: store.state.suggestions.length,
-      );
-    }
+      ),
+    ); //*******************************************/
   }
+}
 
+// factory for view model
+class _Factory extends VmFactory<AppState, LocationPage> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+        popPage: () => dispatch(NavigateAction.pop()),
+      );
+}
+
+// view model
+class _ViewModel extends Vm {
+  final VoidCallback popPage;
+  _ViewModel({required this.popPage}); // implementinf hashcode
 }
