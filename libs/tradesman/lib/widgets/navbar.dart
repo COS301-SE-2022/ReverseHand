@@ -28,8 +28,8 @@ class TNavBarWidget extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.black,
-              spreadRadius: 2,
-              blurRadius: 5,
+              spreadRadius: 3,
+              blurRadius: 8,
             ),
           ],
         ),
@@ -66,13 +66,15 @@ class TNavBarWidget extends StatelessWidget {
                             splashColor: Colors.white,
                           ),
 
-                          //icon 2 - chat
+                          //icon 2 - activity stream
                           IconButton(
                             icon: const Icon(
-                              Icons.forum,
+                              Icons.notifications,
                               color: Colors.white,
                             ),
-                            onPressed: () {},
+                             onPressed: () {
+                              vm.pushActivityStreamPage();
+                            },
                             splashRadius: 30,
                             highlightColor: Colors.orange,
                             splashColor: Colors.white,
@@ -120,6 +122,9 @@ class _Factory extends VmFactory<AppState, TNavBarWidget> {
         pushProfilePage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/profile'),
         ),
+        pushActivityStreamPage: () => dispatch(
+          NavigateAction.pushNamed('/tradesman/activity_stream'),
+        ),
         pushTradesmanListings: () => dispatch(
           NavigateAction.pushNamed('/tradesman'),
         ),
@@ -130,9 +135,10 @@ class _Factory extends VmFactory<AppState, TNavBarWidget> {
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
+  final VoidCallback pushActivityStreamPage;
   final VoidCallback pushTradesmanListings;
   final void Function() dispatchLogoutAction;
 
   _ViewModel(
-      {required this.pushProfilePage, required this.pushTradesmanListings,required this.dispatchLogoutAction,});
+      {required this.pushProfilePage, required this.pushActivityStreamPage, required this.pushTradesmanListings,required this.dispatchLogoutAction,});
 }

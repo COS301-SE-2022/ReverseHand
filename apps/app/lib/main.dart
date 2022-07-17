@@ -9,6 +9,7 @@ import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:consumer/pages/view_bids_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:tradesman/pages/activity_stream_page.dart';
 import 'package:tradesman/pages/bid_details_page.dart';
 import 'package:tradesman/pages/edit_bid_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
@@ -76,6 +77,8 @@ class Launch extends StatelessWidget {
               EditBidPage(store: store),
           '/tradesman/advert_details/bid_details': (context) =>
               TBidDetailsPage(store: store),
+          '/tradesman/activity_stream': (context) =>
+              ActivityStream(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),

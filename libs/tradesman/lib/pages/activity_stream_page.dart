@@ -2,18 +2,14 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/floating_button.dart';
-import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
-import 'package:redux_comp/models/advert_model.dart';
-import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 import '../widgets/navbar.dart';
 
-class TradesmanJobListings extends StatelessWidget {
+class ActivityStream extends StatelessWidget {
   final Store<AppState> store;
-  const TradesmanJobListings({Key? key, required this.store}) : super(key: key);
+  const ActivityStream({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +22,10 @@ class TradesmanJobListings extends StatelessWidget {
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) => Column(
-                children: [
+                children: const [
                   //*******************APP BAR WIDGET*********************//
-                    const AppBarWidget(title: "JOB LISTINGS"),
+                    AppBarWidget(title: "ACTIVITY STREAM"),
                     //********************************************************//
-                  ...populateAdverts(vm.adverts, store),
                 ],
               ),
             ),
@@ -50,21 +45,18 @@ class TradesmanJobListings extends StatelessWidget {
   }
 }
 
-class _Factory extends VmFactory<AppState, TradesmanJobListings> {
+class _Factory extends VmFactory<AppState, ActivityStream> {
   _Factory(widget) : super(widget);
   @override
   _ViewModel fromStore() => _ViewModel(
-        adverts: state.user!.adverts,
         dispatchLogoutAction: () => dispatch(LogoutAction()),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final List<AdvertModel> adverts;
   final void Function() dispatchLogoutAction;
   _ViewModel({
-    required this.adverts,
     required this.dispatchLogoutAction,
   });
 }

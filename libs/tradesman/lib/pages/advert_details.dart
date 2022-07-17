@@ -86,9 +86,9 @@ class TradesmanJobDetails extends StatelessWidget {
           bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
-          resizeToAvoidBottomInset: false,
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          // resizeToAvoidBottomInset: false,
+          // floatingActionButton: const FloatingButtonWidget(),
+          // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           //*************************************************//
         ),
       ),

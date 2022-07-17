@@ -26,7 +26,7 @@ class TradesmanProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "Profile"),
+                  const AppBarWidget(title: "PROFILE"),
                   //********************************************************//
 
                   //ALL INFO IS CURRENTLY HARDCODED
@@ -156,10 +156,10 @@ class TradesmanProfilePage extends StatelessWidget {
             store: store,
           ),
 
-          resizeToAvoidBottomInset: false,
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          // resizeToAvoidBottomInset: false,
+          // floatingActionButton: const FloatingButtonWidget(),
+          // floatingActionButtonLocation:
+          //     FloatingActionButtonLocation.centerDocked,
 
           //*************************************************//
         ),
