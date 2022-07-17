@@ -1,5 +1,6 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/user/login_action.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -32,9 +33,13 @@ class AddUserToGroupAction extends ReduxAction<AppState> {
         return null;
       }
     } else {
-      return state.replace(
-        error: ErrorType.failedToAddUserToGroup
-      );
+      return state.replace(error: ErrorType.failedToAddUserToGroup);
     }
+  }
+
+  @override
+  void after() async {
+    await dispatch(
+        LoginAction(state.partialUser!.email, state.partialUser!.password!));
   }
 }
