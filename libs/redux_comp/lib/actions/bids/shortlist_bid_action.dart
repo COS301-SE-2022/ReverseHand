@@ -14,7 +14,7 @@ class ShortlistBidAction extends ReduxAction<AppState> {
       shortListBid(ad_id: "${state.user!.activeAd!.id}", bid_id: "${state.user!.activeBid!.id}") {
         id
         name
-        user_id
+        tradesman_id
         price_lower
         price_upper
         quote

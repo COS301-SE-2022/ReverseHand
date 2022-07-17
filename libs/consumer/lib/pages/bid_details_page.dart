@@ -161,7 +161,9 @@ class BidDetailsPage extends StatelessWidget {
                     Positioned(
                       top: 20,
                       child: ButtonWidget(
-                          text: "Shortlist Bid",
+                          text: vm.bid.isShortlisted()
+                              ? "Accept Bid"
+                              : "Shortlist Bid",
                           function: () {
                             DialogHelper.display(
                                 context,
@@ -227,5 +229,5 @@ class _ViewModel extends Vm {
     required this.bid,
     required this.popPage,
     required this.change,
-  }) : super(equals: [change]); // implementinf hashcode
+  }) : super(equals: [change, bid]); // implementinf hashcode
 }
