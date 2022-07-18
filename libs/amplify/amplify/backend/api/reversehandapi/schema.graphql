@@ -50,6 +50,9 @@ type Mutation {
   editBid(ad_id: String!, bid_id: String!,quote: String, price_lower: Int, price_upper: Int) : Bid
   @function(name: "editBidResolver-${env}")
 
+  editUserDetail(user_id: String!, name: String, domains: [String]) : User 
+  @function(name: "editUserDetailResolver-${env}")
+
 }
 
 type User implements UniqueID {
