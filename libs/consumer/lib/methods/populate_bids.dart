@@ -7,22 +7,23 @@ import 'package:redux_comp/models/bid_model.dart';
 // function to create list of bids
 List<Widget> populateBids(
     String userId, List<BidModel> bids, Store<AppState> store) {
-  List<Widget> quickViewBidWidgets = [
-    const Text("This shouldn't be here"),
-  ]; // temporary
+  List<Widget> quickViewBidWidgets = [];
 
-  for (int i = 1; i < bids.length; i++) {
-    // see when to replace temporarry variable
-    if (bids[i].userId == userId) {
-      quickViewBidWidgets[0] = QuickViewBidWidget(
-        store: store,
-        bid: bids[i],
+  for (BidModel bid in bids) {
+    // checking when to append to front
+    if (bid.userId == userId) {
+      quickViewBidWidgets.insert(
+        0,
+        QuickViewBidWidget(
+          bid: bid,
+          store: store,
+        ),
       );
     } else {
       quickViewBidWidgets.add(
         QuickViewBidWidget(
+          bid: bid,
           store: store,
-          bid: bids[i],
         ),
       );
     }
