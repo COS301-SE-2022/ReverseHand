@@ -169,6 +169,8 @@ class BidDetailsPage extends StatelessWidget {
                                 context,
                                 ShortlistPopUpWidget(
                                   store: store,
+                                  shortlisted:
+                                      vm.bid.isShortlisted() ? true : false,
                                 )); //trigger OTP popup
                           }),
                     ),
