@@ -64,7 +64,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(8),
                         child: Column(children: [
-                          ...populateBids(vm.userId, vm.bids, store),
+                          ...populateBids(vm.userId, vm.bids),
                           ButtonWidget(
                               text: "Back",
                               color: "light",

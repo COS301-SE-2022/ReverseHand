@@ -11,7 +11,6 @@ import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:tradesman/methods/populate_bids.dart';
 import '../widgets/navbar.dart';
 import '../widgets/place_bid_popup.dart';
 // import '../widgets/place_bid_popup.dart';
@@ -28,8 +27,9 @@ class TradesmanJobDetails extends StatelessWidget {
         theme: CustomTheme.darkTheme,
         home: Scaffold(
           body: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => SingleChildScrollView(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) =>
+                SingleChildScrollView(
               child: Column(
                 children: [
                   //**********APPBAR***********//
@@ -56,16 +56,19 @@ class TradesmanJobDetails extends StatelessWidget {
                     Positioned(
                         top: 35,
                         child: ButtonWidget(
-                            text: "Place Bid", function: () { 
-                              DialogHelper.display(context,PlaceBidPopupWidget(store: store));
-                            }
-                        )),
+                            text: "Place Bid",
+                            function: () {
+                              DialogHelper.display(
+                                  context, PlaceBidPopupWidget(store: store));
+                            })),
 
                     //view bids
                     Positioned(
                         top: 95,
                         child: ButtonWidget(
-                            text: "View Bids", color: "light", function: vm.pushViewBidsPage)),
+                            text: "View Bids",
+                            color: "light",
+                            function: vm.pushViewBidsPage)),
 
                     //Back
                     Positioned(
@@ -77,7 +80,7 @@ class TradesmanJobDetails extends StatelessWidget {
                             function: vm.popPage))
                   ]),
                   //*************BOTTOM BUTTONS**************//
-                  ...populateBids(vm.bids)
+                  // ...populateBids(vm.us vm.bids)
                 ],
               ),
             ),
