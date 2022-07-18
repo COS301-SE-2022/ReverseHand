@@ -15,6 +15,7 @@ import 'package:tradesman/pages/edit_bid_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
+import 'package:tradesman/pages/location_confirm_page.dart';
 import 'package:tradesman/tradesman.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -79,6 +80,8 @@ class Launch extends StatelessWidget {
               TBidDetailsPage(store: store),
           '/tradesman/activity_stream': (context) =>
               ActivityStream(store: store),
+          '/tradesman/location_confirm': (context) =>
+              LocationConfirmPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),

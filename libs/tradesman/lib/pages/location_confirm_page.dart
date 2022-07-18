@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/blue_button_widget.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/floating_button.dart';
 
 import '../widgets/navbar.dart';
 
-class EditTradesmanProfilePage extends StatelessWidget {
+class LocationConfirmPage extends StatelessWidget {
   final Store<AppState> store;
-  const EditTradesmanProfilePage({Key? key, required this.store}) : super(key: key);
+  const LocationConfirmPage({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,58 +28,60 @@ class EditTradesmanProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  const AppBarWidget(title: "EDIT PROFILE"),
+                  const AppBarWidget(title: "LOCATION CONFIRM"),
                   //***************************************************//
 
-                  //**********************NAME************************//
+                  //**********************StreetNo************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: TextFieldWidget(
-                      initialVal: "Luke Skywalker",
-                      label: "Name",
-                      obscure: false,
-                      min: 1,
-                      controller: null,
+                    child: Text(
+                      "StreetNo",
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                   //**************************************************//
 
-                  //********************NUMBER**********************//
+                   //**********************Street************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: TextFieldWidget(
-                      initialVal: "012 345 6789",
-                      label: "Phone",
-                      obscure: false,
-                      controller: null,
-                      min: 1,
+                    child: Text(
+                      "Street",
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                   //**************************************************//
 
-                  //**********************Domain************************//
-                  // Padding( //will have to become button most likely?
-                  //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 70),
-                  //   child: GestureDetector(
-                  //     onTap: vm.pushLocationConfirmPage,
-                  //     child: const TextFieldWidget(
-                  //     initialVal: "",
-                  //     label: "Domain",
-                  //     obscure: false,
-                  //     controller: null,
-                  //     min: 1,
-                  //     ),
-                  //   ),
-                  // ),
-                  BlueButtonWidget(
-                    function: vm.pushLocationConfirmPage, 
-                    height: 65, 
-                    icon: null, 
-                    text: 'Domain', 
-                    width: 365,
-
+                   //**********************City************************//
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                    child: Text(
+                      "City",
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                   //**************************************************//
+
+                   //**********************Province************************//
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                    child: Text(
+                      "Province",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  //**************************************************//
+
+                  //**********************ZipCode************************//
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                    child: Text(
+                      "Zip Code",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  //**************************************************//
+
+                 
 
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
@@ -115,24 +116,21 @@ class EditTradesmanProfilePage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, EditTradesmanProfilePage> {
+class _Factory extends VmFactory<AppState, LocationConfirmPage> {
   _Factory(widget) : super(widget);
 
   @override
   _ViewModel fromStore() => _ViewModel(
       pushProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/tradesman/tradesman_profile_page'),),
-      pushLocationConfirmPage: () => dispatch(
-            NavigateAction.pushNamed('/tradesman/location_confirm'),
+            NavigateAction.pushNamed('/tradesman/tradesman_profile_page'),
           ));
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
-  final VoidCallback pushLocationConfirmPage;
 
   _ViewModel({
-    required this.pushProfilePage, required this.pushLocationConfirmPage,
+    required this.pushProfilePage,
   }); // implementinf hashcode
 }
