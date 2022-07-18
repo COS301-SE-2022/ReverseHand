@@ -2,7 +2,6 @@
 
 import 'package:async_redux/async_redux.dart';
 // ignore: depend_on_referenced_packages
-import 'package:consumer/methods/populate_bids.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
@@ -15,6 +14,7 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/floating_button.dart';
+import 'package:tradesman/methods/populate_bids.dart';
 
 import '../widgets/navbar.dart';
 
