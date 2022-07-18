@@ -23,33 +23,6 @@ class AppState {
   final ErrorType error;
   final bool change; // used to show that state changed and must rebuild
 
-//  AppState : {
-  // 	user_id : String
-  // 	user_details : {
-  //  email : String
-  //  name : String
-  //  cellNo : String
-  //  location : Location
-  //  domains : [String]
-  //  tradeType : [String]
-  //  }
-  // 	partial_user : {
-  //  email : String
-  //  password : String
-  //  verified : String
-  //  group : Location
-  //  }
-  // 	adverts: []
-  // 	bids : []
-  // 	shortlisted_bids : [Bid]
-  // 	active_ad : Advert
-  // 	active_bid : Bid
-  // 	suggestions : [Suggestion]
-  // 	result : Place
-  // 	error : ErrorType
-  // 	loading : Bool
-//  }
-
   // constructor must only take named parameters
   const AppState({
     required this.userDetails,

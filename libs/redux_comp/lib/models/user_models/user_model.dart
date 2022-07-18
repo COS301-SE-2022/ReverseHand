@@ -12,6 +12,7 @@ class UserModel {
   final List<dynamic>? domains;
   final List<dynamic>? tradeTypes;
   final String userType;
+  final bool? registered;
 
   const UserModel({
     required this.id,
@@ -22,6 +23,7 @@ class UserModel {
     this.tradeTypes,
     required this.userType,
     this.location,
+    this.registered,
   });
 
   UserModel replace({
@@ -33,6 +35,7 @@ class UserModel {
     List<dynamic>? tradeTypes,
     String? userType,
     Location? location,
+    bool? registered,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -43,6 +46,7 @@ class UserModel {
       tradeTypes: tradeTypes ?? this.tradeTypes,
       userType: userType ?? this.userType,
       location: location ?? this.location,
+      registered: registered ?? this.registered,
     );
   }
 }

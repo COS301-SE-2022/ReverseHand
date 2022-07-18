@@ -8,8 +8,8 @@ import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
 class CheckUserExistsAction extends ReduxAction<AppState> {
-	@override
-	Future<AppState?> reduce() async {
+  @override
+  Future<AppState?> reduce() async {
     String id = store.state.userDetails!.id;
 
     String graphQLDoc = '''query  {
@@ -20,23 +20,28 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
       ''';
 
     final request = GraphQLRequest(
-        document: graphQLDoc,
-      );
+      document: graphQLDoc,
+    );
 
-      try {
-        final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response)
-                .data);
-        final user = data["viewUser"];
+    try {
+      final data = jsonDecode(
+          (await Amplify.API.mutate(request: request).response).data);
+      final user = data["viewUser"];
 
-        if (user == "User not found") {
-          return null;
-        } else {
-          store.dispatch(GetUserAction());
-          return null;
-        }
-      } catch(e) {
-        return null;
+      if (user == "User not found") {
+        return state.replace(
+            userDetails: state.userDetails!.replace(
+          registered: false,
+        ));
+      } else {
+        store.dispatch(GetUserAction());
+        return state.replace(
+            userDetails: state.userDetails!.replace(
+          registered: true,
+        ));
       }
+    } catch (e) {
+      return null;
+    }
   }
 }
