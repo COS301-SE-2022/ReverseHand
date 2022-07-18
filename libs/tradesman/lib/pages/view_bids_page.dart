@@ -21,10 +21,11 @@ import '../widgets/navbar.dart';
 class TradesmanViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
 
-  const TradesmanViewBidsPage({Key? key, required this.store}) : super(key: key);
+  const TradesmanViewBidsPage({Key? key, required this.store})
+      : super(key: key);
 
   @override
- 
+
   // creating bid widgets
   // ...populateBids(vm.bids, store)
 
@@ -59,21 +60,21 @@ class TradesmanViewBidsPage extends StatelessWidget {
                     child: Stack(children: [
                       BottomOverlayWidget(
                           height: MediaQuery.of(context).size.height / 2),
-                          //**************BID INFO********************//
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(children: [
-                              ...populateBids(vm.bids, store),
-                              ButtonWidget(
-                                  text: "Back",
-                                  color: "light",
-                                  whiteBorder: true,
-                                  function: vm.popPage)
-                            ]
-                                //all bids should be populated here
-                                ),
-                          ),
-                          //****************************************/
+                      //**************BID INFO********************//
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(children: [
+                          ...populateBids(vm.userId, vm.bids, store),
+                          ButtonWidget(
+                              text: "Back",
+                              color: "light",
+                              whiteBorder: true,
+                              function: vm.popPage)
+                        ]
+                            //all bids should be populated here
+                            ),
+                      ),
+                      //****************************************/
                     ]),
                   ),
                 ],
@@ -109,6 +110,7 @@ class _Factory extends VmFactory<AppState, TradesmanViewBidsPage> {
         popPage: () => dispatch(NavigateAction.pop()),
         bids: state.user!.viewBids,
         advert: state.user!.activeAd!,
+        userId: state.user!.id,
       );
 }
 
@@ -116,6 +118,7 @@ class _Factory extends VmFactory<AppState, TradesmanViewBidsPage> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final List<BidModel> bids;
+  final String userId;
   final VoidCallback popPage;
   final bool change;
   final void Function(bool, bool) dispatchToggleViewBidsAction;
@@ -125,6 +128,7 @@ class _ViewModel extends Vm {
     required this.change,
     required this.popPage,
     required this.bids,
+    required this.userId,
     required this.advert,
-  }) : super(equals: [change]); 
+  }) : super(equals: [change]);
 }
