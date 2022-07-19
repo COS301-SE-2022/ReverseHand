@@ -106,8 +106,8 @@ class _Factory extends VmFactory<AppState, _PlaceBidPopupWidgetState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        advert: state.user!.activeAd!,
-        id: state.user!.id,
+        advert: state.activeAd!,
+        id: state.userDetails!.id,
         dispatchPlaceBidAction:
             (String adId, String userId, int priceLower, int priceUpper) => dispatch(
               PlaceBidAction(adId, userId, priceLower, priceUpper)

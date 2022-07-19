@@ -1,7 +1,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
 import 'package:redux_comp/actions/user/add_user_to_group_action.dart';
-import 'package:redux_comp/actions/user/create_user_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../app_state.dart';
@@ -17,17 +16,17 @@ class VerifyUserAction extends ReduxAction<AppState> {
           username: state.partialUser!.email,
           confirmationCode: confirmationCode);
 
-      await Amplify.Auth.signOut();
-      await Amplify.Auth.signIn(
-        username: state.partialUser!.email,
-        password: state.partialUser!.password!,
-      );
+      // await Amplify.Auth.signOut();
+      // await Amplify.Auth.signIn(
+      //   username: state.partialUser!.email,
+      //   password: state.partialUser!.password!,
+      // );
 
-      AuthUser user = await Amplify.Auth.getCurrentUser();
-    
-      return state.replace(
-        partialUser: state.partialUser!.replace(
-          id: (state.partialUser!.group == "customer") ? "c#${user.userId}" : "t#${user.userId}",
+      // AuthUser user = await Amplify.Auth.getCurrentUser();
+
+      return state.copy(
+        partialUser: state.partialUser!.copy(
+          // id: (state.partialUser!.group == "customer") ? "c#${user.userId}" : "t#${user.userId}",
           verified: res.nextStep.signUpStep,
         ),
       );
@@ -40,8 +39,7 @@ class VerifyUserAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() async{
+  void after() async {
     await dispatch(AddUserToGroupAction());
-    await dispatch(CreateUserAction());
   }
 }

@@ -14,7 +14,7 @@ class SetActiveBidAction extends ReduxAction<AppState> {
     //     orElse: () => state.user!.shortlistBids
     //         .firstWhere((element) => element.id == bidId));
 
-    return store.state.replace(user: store.state.user!.replace(activeBid: bid));
+    return store.state.copy(activeBid: bid);
   }
 
   @override

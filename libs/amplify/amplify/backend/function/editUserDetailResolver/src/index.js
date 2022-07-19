@@ -19,8 +19,37 @@ exports.handler = async (event) => {
             expressionAttributeNames['#domains'] = 'domains';
         }
 
-        if(event.arguments.location !== undefined){
-            args.push('#location = :location');
+        if(event.arguments.city !== undefined){
+            args.push('#location.address.city = :city');
+            expressionAttributeNames['#location'] = 'location';
+        }
+
+        if(event.arguments.street !== undefined){
+            args.push('#location.address.street = :street');
+            expressionAttributeNames['#location'] = 'location';
+        }
+
+        if(event.arguments.streetNumber !== undefined)
+        {
+            args.push('#location.address.streetNumber = :streetNumber');
+            expressionAttributeNames['#location'] = 'location';
+        }
+
+        if(event.arguments.zipCode !== undefined)
+        {
+            args.push("#location.address.zipCode = :zipCode");
+            expressionAttributeNames['#location'] = 'location';
+        }
+
+        if(event.arguments.lat !== undefined)
+        {
+            args.push('#location.coordinates.lat = :lat');
+            expressionAttributeNames['#location'] = 'location';
+        }
+
+        if(event.arguments.lng !== undefined)
+        {
+            args.push("#location.coordinates.lng = :lng");
             expressionAttributeNames['#location'] = 'location';
         }
 
@@ -39,13 +68,18 @@ exports.handler = async (event) => {
 
         expressionAttributeValues[':cellNo'] = event.arguments.cellNo;
         expressionAttributeValues[':domains'] = event.arguments.domains;
-        expressionAttributeValues['location'] = event.arguments.location;
-        expressionAttributeValues['name'] = event.arguments.name;
+        expressionAttributeValues[':city'] = event.arguments.city;
+        expressionAttributeValues[':street'] = event.arguments.street;
+        expressionAttributeValues[':streetNumber'] = event.arguments.streetNumber;
+        expressionAttributeValues[':zipCode'] = event.arguments.zipCode;
+        expressionAttributeValues[':lat'] = event.arguments.lat;
+        expressionAttributeValues[':lng'] = event.arguments.lng;
+        expressionAttributeValues[':name'] = event.arguments.name;
 
         let params = {
             TableName: UserTable,
             Key: {
-                part_key: event.arguments.user_id,
+                user_id: event.arguments.user_id,
             },
             UpdateExpression: updateExpression,
             ExpressionAttributeValues: expressionAttributeValues,
@@ -58,13 +92,13 @@ exports.handler = async (event) => {
         params = {
             TableName: UserTable,
             Key: {
-                part_key: event.arguments.user_id,
+                user_id: event.arguments.user_id,
             }
         };
 
         const data = await docClient.get(params).promise();
 
-        return data;
+        return data['Item'];
         
     } catch (error) {
         console.log(error);

@@ -1,10 +1,13 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/user/login_action.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-
 import '../../models/error_type_model.dart';
+
+/* AddUserToGroupAction */
+/* This action adds a user to a specified group if they have been verified on signup */
 
 class AddUserToGroupAction extends ReduxAction<AppState> {
   @override
@@ -30,9 +33,13 @@ class AddUserToGroupAction extends ReduxAction<AppState> {
         return null;
       }
     } else {
-      return state.replace(
-        error: ErrorType.failedToAddUserToGroup
-      );
+      return state.copy(error: ErrorType.failedToAddUserToGroup);
     }
+  }
+
+  @override
+  void after() async {
+    await dispatch(
+        LoginAction(state.partialUser!.email, state.partialUser!.password!));
   }
 }

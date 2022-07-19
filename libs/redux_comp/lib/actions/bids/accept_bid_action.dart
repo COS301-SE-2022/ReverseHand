@@ -12,7 +12,7 @@ class AcceptBidAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      acceptBid(user_id: "${state.user!.id}", ad_id: "${state.user!.activeAd!.id}", sbid_id: "${state.user!.activeBid!.id}") {
+      acceptBid(user_id: "${state.userDetails!.id}", ad_id: "${state.activeAd!.id}", sbid_id: "${state.activeBid!.id}") {
         id
         user_id
         price_lower
@@ -33,19 +33,15 @@ class AcceptBidAction extends ReduxAction<AppState> {
           .mutate(request: request)
           .response; // in futre may want to do something with accepted advert
 
-      final List<BidModel> shortBids = state.user!.shortlistBids;
-      shortBids
-          .removeWhere((element) => element.id == state.user!.activeBid!.id);
+      final List<BidModel> shortBids = state.shortlistBids;
+      shortBids.removeWhere((element) => element.id == state.activeBid!.id);
 
-      final List<BidModel> viewBids = state.user!.viewBids;
-      viewBids
-          .removeWhere((element) => element.id == state.user!.activeBid!.id);
+      final List<BidModel> viewBids = state.viewBids;
+      viewBids.removeWhere((element) => element.id == state.activeBid!.id);
 
-      return state.replace(
-        user: state.user!.replace(
-          shortlistBids: shortBids,
-          viewBids: viewBids,
-        ),
+      return state.copy(
+        shortlistBids: shortBids,
+        viewBids: viewBids,
       );
     } catch (e) {
       return null;

@@ -109,7 +109,7 @@ class _Factory extends VmFactory<AppState, EditAdvertPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
       popPage: () => dispatch(NavigateAction.pop()),
-      advert: state.user!.activeAd!);
+      advert: state.activeAd!);
 }
 
 // view model

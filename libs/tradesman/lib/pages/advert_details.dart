@@ -41,7 +41,7 @@ class TradesmanJobDetails extends StatelessWidget {
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
                     date: vm.advert.dateCreated,
-                    // location: advert.location ?? "",
+                    location: vm.advert.location,
                   ),
 
                   const Padding(padding: EdgeInsets.only(top: 50)),
@@ -104,8 +104,8 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        advert: state.user!.activeAd!,
-        bids: state.user!.bids + state.user!.shortlistBids,
+        advert: state.activeAd!,
+        bids: state.bids + state.shortlistBids,
         popPage: () => dispatch(
           NavigateAction.pop(),
         ),

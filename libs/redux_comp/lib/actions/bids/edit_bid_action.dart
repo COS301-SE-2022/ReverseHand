@@ -37,7 +37,7 @@ class EditBidAction extends ReduxAction<AppState> {
       final data = jsonDecode(
           (await Amplify.API.mutate(request: request).response).data);
 
-      List<BidModel> bids = state.user!.bids;
+      List<BidModel> bids = state.bids;
 
       //get the bid being edited
       BidModel bd = bids.firstWhere((element) => element.id == bidId);
@@ -53,7 +53,7 @@ class EditBidAction extends ReduxAction<AppState> {
           quote: data["quote"],
           name: bd.name));
 
-      return state.replace(user: state.user!.replace(bids: bids));
+      return state.copy(bids: bids);
     } catch (e) {
       return null;
     }

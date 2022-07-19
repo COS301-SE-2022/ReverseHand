@@ -31,7 +31,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
     try {
       await Amplify.API.mutate(request: request).response;
 
-      List<AdvertModel> adverts = state.user!.adverts;
+      List<AdvertModel> adverts = state.adverts;
 
       //get the advert being edited
       AdvertModel ad = adverts.firstWhere((element) => element.id == advertId);
@@ -52,7 +52,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
           location: location,
           dateClosed: dateClosed));
 
-      return state.replace(user: state.user!.replace(adverts: adverts));
+      return state.copy(adverts: adverts);
     } catch (e) {
       return null;
     }
