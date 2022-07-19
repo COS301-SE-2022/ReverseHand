@@ -38,7 +38,7 @@ type Mutation {
   addUserToGroup(email: String!, group: String!): String
   @function(name: "addUserToGroupResolver-${env}")
 
-  createUser(user_id: String!, name: String!, email: String!, cellNo: String!,  lat: String!, long: String!, streetNumber: String!, street: String!, city: String!, zipCode: String!, tradetypes: [String!], domains: [String]) : User 
+  createUser(user_id: String!, name: String!, email: String!, cellNo: String!,  lat: String!, lng: String!, streetNumber: String!, street: String!, city: String!, zipCode: String!, tradetypes: [String!], domains: [String]) : User 
   @function(name: "createUserResolver-${env}")
 
   editAdvert(ad_id: String!,title: String!, description: String, type: String, location: String, date_closed: String ) : Advert 
@@ -50,7 +50,7 @@ type Mutation {
   editBid(ad_id: String!, bid_id: String!,quote: String, price_lower: Int, price_upper: Int) : Bid
   @function(name: "editBidResolver-${env}")
 
-  editUserDetail(user_id: String!, name: String, domains: [String]) : User 
+  editUserDetail(user_id: String!, name: String, domains: [String], city: String, street: String, streetNumber: String, zipCode: String, lat: String, lng: String) : User 
   @function(name: "editUserDetailResolver-${env}")
 
 }
@@ -72,7 +72,7 @@ type Location {
 
 type Coordinates {
   lat: String!,
-  long: String!
+  lng: String!
 }
 
 type Address {
@@ -131,3 +131,4 @@ enum JobType {
 interface UniqueID {
   id: String!
 }
+
