@@ -111,7 +111,7 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "EditUserDetailsResolver": {
+        "editUserDetailResolver": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
