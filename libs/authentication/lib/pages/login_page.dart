@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
+import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -102,7 +103,7 @@ class LoginPage extends StatelessWidget {
                           vm: () => _Factory(this),
                           onDidChange: (context, store, vm) {
                             final String msg;
-                            switch (vm.error) {
+                            switch (store.state.error) {
                               case ErrorType.none:
                                 return;
                               case ErrorType.userNotFound:
@@ -126,12 +127,7 @@ class LoginPage extends StatelessWidget {
                                 break;
                             }
 
-                            SnackBar snackBar = SnackBar(
-                              content: Text(msg),
-                            );
-
-                            ScaffoldMessenger.of(context!)
-                                .showSnackBar(snackBar);
+                            store.dispatch(ToastErrorAction(context!, msg));
                           },
                           builder: (BuildContext context, _ViewModel vm) =>
                               vm.loading
@@ -310,8 +306,8 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.dispatchLoginAction,
     // required this.dispatchGetAddressAction,
-    required this.error,
     required this.loading,
     required this.pushSignUpPage,
+    required this.error,
   }) : super(equals: [loading, error]); // implementing hashcode
 }

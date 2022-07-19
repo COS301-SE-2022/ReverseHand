@@ -6,6 +6,7 @@ void displayToastError(BuildContext context, String msg) {
   SnackBar snackBar = SnackBar(
     backgroundColor: Colors.orange,
     content: ToastErrorWidget(msg),
+    duration: const Duration(milliseconds: 500),
   );
 
   ScaffoldMessenger.of(context).showSnackBar(snackBar);

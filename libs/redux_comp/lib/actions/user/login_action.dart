@@ -18,7 +18,7 @@ class LoginAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    await store.waitCondition((state) => Amplify.isConfigured == true);
+    await store.waitCondition((_) => Amplify.isConfigured == true);
 
     try {
       await Amplify.Auth.signOut();
@@ -106,6 +106,11 @@ class LoginAction extends ReduxAction<AppState> {
       dispatch(NavigateAction.pushNamed(
           "/${state.userDetails!.userType.toLowerCase()}"));
     }
+
+    // wait until error has finished before stopping loading
+    print("got here 1");
+    await store.waitCondition((state) => state.error == ErrorType.none);
+    print("got here 2");
     dispatch(WaitAction.remove("flag"));
   } // we know that state wont be null
 }

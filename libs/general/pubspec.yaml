@@ -16,8 +16,10 @@ dependencies:
 
   redux_comp: 
     path: '../redux_comp'
+    
   tradesman:
     path: '../tradesman'
+
   consumer:
     path: '../consumer'
 

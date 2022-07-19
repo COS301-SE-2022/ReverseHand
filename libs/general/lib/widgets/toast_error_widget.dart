@@ -11,7 +11,11 @@ class ToastErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.orange,
-      child: Text(msg),
+      // alignment: Alignment.center,
+      child: Text(
+        msg,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
