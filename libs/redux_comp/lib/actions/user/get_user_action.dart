@@ -34,7 +34,7 @@ class GetUserAction extends ReduxAction<AppState> {
             }
             coordinates {
               lat
-              long
+              lng
             }
           }
         }
@@ -55,7 +55,7 @@ class GetUserAction extends ReduxAction<AppState> {
         String city = user["location"]["address"]["city"];
         String zipCode = user["location"]["address"]["zipCode"];
         double lat = double.parse(user["location"]["coordinates"]["lat"]);
-        double long = double.parse(user["location"]["coordinates"]["long"]);
+        double long = double.parse(user["location"]["coordinates"]["lng"]);
         Address address = Address(
             streetNumber: streetNumber,
             street: street,
@@ -95,7 +95,7 @@ class GetUserAction extends ReduxAction<AppState> {
             }
             coordinates {
               lat
-              long
+              lng
             }
           }
         }
@@ -116,7 +116,7 @@ class GetUserAction extends ReduxAction<AppState> {
         String city = user["location"]["address"]["city"];
         String zipCode = user["location"]["address"]["zipCode"];
         double lat = double.parse(user["location"]["coordinates"]["lat"]);
-        double long = double.parse(user["location"]["coordinates"]["long"]);
+        double long = double.parse(user["location"]["coordinates"]["lng"]);
         Address address = Address(
             streetNumber: streetNumber,
             street: street,

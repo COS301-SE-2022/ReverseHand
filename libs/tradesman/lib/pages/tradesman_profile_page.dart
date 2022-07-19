@@ -156,11 +156,6 @@ class TradesmanProfilePage extends StatelessWidget {
             store: store,
           ),
 
-          // resizeToAvoidBottomInset: false,
-          // floatingActionButton: const FloatingButtonWidget(),
-          // floatingActionButtonLocation:
-          //     FloatingActionButtonLocation.centerDocked,
-
           //*************************************************//
         ),
       ),

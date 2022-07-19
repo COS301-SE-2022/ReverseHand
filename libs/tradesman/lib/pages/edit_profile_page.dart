@@ -73,7 +73,7 @@ class EditTradesmanProfilePage extends StatelessWidget {
                   //   ),
                   // ),
                   BlueButtonWidget(
-                    function: vm.pushLocationConfirmPage, 
+                    function: vm.pushDomainConfirmPage, 
                     height: 65, 
                     icon: null, 
                     text: 'Domain', 
@@ -100,10 +100,6 @@ class EditTradesmanProfilePage extends StatelessWidget {
             ),
           ),
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
           bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
@@ -122,17 +118,17 @@ class _Factory extends VmFactory<AppState, EditTradesmanProfilePage> {
   _ViewModel fromStore() => _ViewModel(
       pushProfilePage: () => dispatch(
             NavigateAction.pushNamed('/tradesman/tradesman_profile_page'),),
-      pushLocationConfirmPage: () => dispatch(
-            NavigateAction.pushNamed('/tradesman/location_confirm'),
+      pushDomainConfirmPage: () => dispatch(
+            NavigateAction.pushNamed('/tradesman/domain_confirm'),
           ));
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
-  final VoidCallback pushLocationConfirmPage;
+  final VoidCallback pushDomainConfirmPage;
 
   _ViewModel({
-    required this.pushProfilePage, required this.pushLocationConfirmPage,
+    required this.pushProfilePage, required this.pushDomainConfirmPage,
   }); // implementinf hashcode
 }

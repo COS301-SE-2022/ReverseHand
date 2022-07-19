@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/pages/activity_stream_page.dart';
 import 'package:tradesman/pages/bid_details_page.dart';
+import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_bid_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
@@ -83,6 +84,8 @@ class Launch extends StatelessWidget {
               ActivityStream(store: store),
           '/tradesman/location_confirm': (context) =>
               LocationConfirmPage(store: store),
+          '/tradesman/domain_confirm': (context) =>
+              DomainConfirmPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),

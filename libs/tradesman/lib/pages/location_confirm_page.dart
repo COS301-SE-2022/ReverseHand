@@ -85,7 +85,7 @@ class LocationConfirmPage extends StatelessWidget {
 
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "Save Changes", function: vm.pushProfilePage),
+                      text: "Search Location", function: vm.pushProfilePage),
                   //**************************************************//
 
                   const Padding(padding: EdgeInsets.all(8)),
@@ -101,9 +101,6 @@ class LocationConfirmPage extends StatelessWidget {
             ),
           ),
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
 
           bottomNavigationBar: TNavBarWidget(
             store: store,

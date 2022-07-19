@@ -144,9 +144,6 @@ class TBidDetailsPage extends StatelessWidget {
               ),
             ),
             //************************NAVBAR***********************/
-            floatingActionButton: const FloatingButtonWidget(),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
 
             bottomNavigationBar: TNavBarWidget(
               store: store,
@@ -167,7 +164,7 @@ class _Factory extends VmFactory<AppState, TBidDetailsPage> {
   _ViewModel fromStore() => _ViewModel(
         dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
-        bid: state.user!.activeBid!,
+        bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
       );
