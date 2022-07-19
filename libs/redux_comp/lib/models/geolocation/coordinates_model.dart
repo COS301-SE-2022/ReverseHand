@@ -1,8 +1,11 @@
-class Coordinates {
-  double? lat;
-  double? long;
+import 'package:flutter/material.dart';
 
-  Coordinates({
-    this.lat, this.long
+@immutable
+class Coordinates {
+  final double lat;
+  final double long;
+
+  const Coordinates({
+    required this.lat, required this.long
   });
 }

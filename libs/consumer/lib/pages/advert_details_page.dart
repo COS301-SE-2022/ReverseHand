@@ -36,6 +36,7 @@ class AdvertDetailsPage extends StatelessWidget {
                   JobCardWidget(
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
+                    location: vm.advert.location,
                     date: vm.advert.dateCreated,
                     // location: advert.location ?? "",
                   ),
@@ -122,7 +123,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           NavigateAction.pushNamed('/consumer'),
         ),
         popPage: () => dispatch(NavigateAction.pop()),
-        advert: state.user!.activeAd!,
+        advert: state.activeAd!,
       );
 }
 

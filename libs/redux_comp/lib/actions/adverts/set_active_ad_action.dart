@@ -10,8 +10,8 @@ class SetActiveAdAction extends ReduxAction<AppState> {
   @override
   AppState? reduce() {
     final AdvertModel ad =
-        state.user!.adverts.firstWhere((element) => element.id == adId);
+        state.adverts.firstWhere((element) => element.id == adId);
 
-    return store.state.copy(user: store.state.user!.copy(activeAd: ad));
+    return store.state.copy(activeAd: ad);
   }
 }

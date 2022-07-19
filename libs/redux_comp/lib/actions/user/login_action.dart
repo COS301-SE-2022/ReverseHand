@@ -47,7 +47,7 @@ class LoginAction extends ReduxAction<AppState> {
       }
 
       return state.copy(
-        user: state.user!.copy(
+        userDetails: state.userDetails!.copy(
           id: (userType == "Consumer") ? "c#$id" : "t#$id",
           userType: userType,
         ),
@@ -94,12 +94,11 @@ class LoginAction extends ReduxAction<AppState> {
   @override
   void after() async {
     await dispatch(GetUserAction());
-    state.user!.userType == "Consumer"
-        ? await dispatch(ViewAdvertsAction(state.user!.id))
+    state.userDetails!.userType == "Consumer"
+        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
         : await dispatch(ViewJobsAction());
-
     dispatch(WaitAction.remove("flag"));
     dispatch(NavigateAction.pushNamed(
-        "/${state.user!.userType.toLowerCase()}")); // moving to new page
+        "/${state.userDetails!.userType.toLowerCase()}"));
   } // we know that state wont be null
 }

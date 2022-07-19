@@ -1,28 +1,25 @@
-import 'package:redux_comp/models/geolocation/coordinates_model.dart';
-import 'package:redux_comp/models/geolocation/place_model.dart';
+import 'package:geolocation/place_api_service.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
 
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
-class GetPlaceAction extends ReduxAction<AppState> {
-  // Suggestion input;
-  // PlaceApiService placeApi;
+import '../../models/geolocation/suggestion_model.dart';
 
-  // GetPlaceAction(this.input, this.placeApi);
+class GetPlaceAction extends ReduxAction<AppState> {
+  Suggestion input;
+  PlaceApiService placeApi;
+
+  GetPlaceAction(this.input, this.placeApi);
 
   @override
   Future<AppState?> reduce() async {
     try {
-      // Place result = await placeApi.getPlaceDetailFromId(input.placeId);
+      Location result = await placeApi.getPlaceDetailFromId(input.placeId);
 
-      Place result = Place(
-          streetNumber: "318",
-          street: "The Rand",
-          city: "Pretoria",
-          zipCode: "0102",
-          location: Coordinates(lat: 22.23, long: 25.34));
+      // Place result = Place(streetNumber: "318", street: "The Rand", city: "Pretoria", zipCode: "0102", location: Coordinates(lat: 22.23, long: 25.34));
 
-      return state.copy(partialUser: state.partialUser!.copy(place: result));
+      return state.copy(userDetails: state.userDetails!.copy(location: result));
     } catch (e) {
       return null;
     }

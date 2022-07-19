@@ -37,9 +37,7 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
       return state.copy(
-        user: state.user!.copy(
-          adverts: adverts,
-        ),
+        adverts: adverts,
       );
     } catch (e) {
       return null; /* On Error do not modify state */
