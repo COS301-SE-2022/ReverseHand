@@ -1,3 +1,4 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 import 'models/advert_model.dart';
@@ -22,6 +23,7 @@ class AppState {
   final List<Suggestion> suggestions;
   final ErrorType error;
   final bool change; // used to show that state changed and must rebuild
+  final Wait wait; // for progress indicators
 
 //  AppState : {
   // 	user_id : String
@@ -63,49 +65,58 @@ class AppState {
     required this.suggestions,
     required this.error,
     required this.change,
+    required this.wait,
   });
 
   // this methods sets the starting state for the store
   factory AppState.initial() {
-    return const AppState(
-      userDetails: UserModel(id: "", userType: ""),
-      partialUser: PartialUser(email: "", group: "", verified: ""),
-      adverts: [],
-      bids: [],
-      shortlistBids: [],
-      viewBids: [],
-      activeAd: AdvertModel(id: "", title: "", location: "", dateCreated: ""),
-      activeBid: BidModel(
-          id: "", userId: "", priceLower: 0, priceUpper: 0, dateCreated: ""),
-      suggestions: [],
+    return AppState(
+      userDetails: const UserModel(id: "", userType: ""),
+      partialUser: const PartialUser(email: "", group: "", verified: ""),
+      adverts: const [],
+      bids: const [],
+      shortlistBids: const [],
+      viewBids: const [],
+      activeAd:
+          const AdvertModel(id: "", title: "", location: "", dateCreated: ""),
+      activeBid: const BidModel(
+        id: "",
+        userId: "",
+        priceLower: 0,
+        priceUpper: 0,
+        dateCreated: "",
+      ),
+      suggestions: const [],
       error: ErrorType.none,
       change: false,
+      wait: Wait(),
     );
   }
 
   factory AppState.mock() {
-    return const AppState(
-      userDetails: UserModel(
+    return AppState(
+      userDetails: const UserModel(
         id: "0",
         email: "some@email.com",
         name: "Someone",
         cellNo: "0821234567",
         userType: "confirmed",
       ),
+      wait: Wait(),
       partialUser: null,
-      adverts: [],
-      bids: [],
-      shortlistBids: [],
-      viewBids: [],
+      adverts: const [],
+      bids: const [],
+      shortlistBids: const [],
+      viewBids: const [],
       activeAd: null,
       activeBid: null,
-      suggestions: [],
+      suggestions: const [],
       error: ErrorType.none,
       change: false,
     );
   }
   // easy way to replace store wihtout specifying all paramters
-  AppState replace({
+  AppState copy({
     UserModel? userDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
@@ -118,6 +129,7 @@ class AppState {
     ErrorType? error,
     bool? loading,
     bool? change,
+    Wait? wait,
   }) {
     return AppState(
       userDetails: userDetails ?? this.userDetails,
@@ -131,6 +143,7 @@ class AppState {
       suggestions: suggestions ?? this.suggestions,
       error: error ?? this.error,
       change: change ?? this.change,
+      wait: wait ?? this.wait,
     );
   }
 }

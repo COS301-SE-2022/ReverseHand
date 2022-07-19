@@ -52,7 +52,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
           location: location,
           dateClosed: dateClosed));
 
-      return state.replace(adverts: adverts);
+      return state.copy(adverts: adverts);
     } catch (e) {
       return null;
     }

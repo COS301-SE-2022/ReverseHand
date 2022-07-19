@@ -24,7 +24,7 @@ class UserModel {
     this.location,
   });
 
-  UserModel replace({
+  UserModel copy({
     String? id,
     String? email,
     String? name,

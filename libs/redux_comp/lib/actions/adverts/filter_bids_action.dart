@@ -56,7 +56,7 @@ class FilterBidsAction extends ReduxAction<AppState> {
       }
     }
 
-    return state.replace(
+    return state.copy(
       bids: bids,
     );
   }

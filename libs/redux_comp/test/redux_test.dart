@@ -27,8 +27,8 @@ void main() {
     expect('CONFIRM_SIGN_UP_STEP', partUser.verified);
   });
 
-  test('Test to get PartialUser Replace Method', () {
-    expect(partUser.replace(verified: 'DONE').verified, 'DONE');
+  test('Test to get PartialUser copy Method', () {
+    expect(partUser.copy(verified: 'DONE').verified, 'DONE');
   });
 
   UserModel user = const UserModel(
@@ -50,5 +50,4 @@ void main() {
   test('Test to get UserType', () {
     expect('Consumer', user.userType);
   });
-
 }

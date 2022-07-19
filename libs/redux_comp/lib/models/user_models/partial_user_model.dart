@@ -9,9 +9,13 @@ class PartialUser {
   final String group;
   final String verified;
 
-  const PartialUser({required this.email, this.password, required this.group, required this.verified});
+  const PartialUser(
+      {required this.email,
+      this.password,
+      required this.group,
+      required this.verified});
 
-  PartialUser replace({
+  PartialUser copy({
     String? email,
     String? password,
     String? group,

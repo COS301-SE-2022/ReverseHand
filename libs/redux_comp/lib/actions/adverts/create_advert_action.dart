@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:uuid/uuid.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../app_state.dart';
+import '../../models/advert_model.dart';
 
 // creates an advert
 // requires the customerdId and a title the rest is optional
@@ -43,8 +46,17 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     );
 
     try {
-      /*final response = */await Amplify.API.mutate(request: request).response;
-      return null; // create operation does not modify state 
+      final response = await Amplify.API.mutate(request: request).response;
+
+      List<AdvertModel> adverts = state.adverts;
+      final data = jsonDecode(response.data);
+      adverts.add(AdvertModel(
+          id: customerId,
+          title: title,
+          dateCreated: data['createAdvert']['date_created'],
+          location: 'temp location'));
+
+      return state.copy(adverts: adverts);
     } catch (e) {
       return null; // on error does not modify appstate
     }

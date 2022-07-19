@@ -39,7 +39,7 @@ class AcceptBidAction extends ReduxAction<AppState> {
       final List<BidModel> viewBids = state.viewBids;
       viewBids.removeWhere((element) => element.id == state.activeBid!.id);
 
-      return state.replace(
+      return state.copy(
         shortlistBids: shortBids,
         viewBids: viewBids,
       );

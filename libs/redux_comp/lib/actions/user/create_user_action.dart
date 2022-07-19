@@ -15,13 +15,14 @@ class CreateUserAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     if (state.partialUser!.verified == "DONE") {
       //pass user information into variables
-      final String email =  state.partialUser!.email;
+      final String email = state.partialUser!.email;
       final String name = state.userDetails!.name!;
       final String cellNo = state.userDetails!.cellNo!;
       final String id = state.userDetails!.id;
       final double lat = state.userDetails!.location!.coordinates.lat;
       final double long = state.userDetails!.location!.coordinates.long;
-      final String streetnumber = state.userDetails!.location!.address.streetNumber;
+      final String streetnumber =
+          state.userDetails!.location!.address.streetNumber;
       final String street = state.userDetails!.location!.address.street;
       final String city = state.userDetails!.location!.address.city;
       final String zipCode = state.userDetails!.location!.address.zipCode;
@@ -87,7 +88,8 @@ class CreateUserAction extends ReduxAction<AppState> {
         );
 
         try {
-          final resp = await Amplify.API.mutate(request: requestCreateUser).response;
+          final resp =
+              await Amplify.API.mutate(request: requestCreateUser).response;
           debugPrint(resp.data);
           return null;
         } on ApiException catch (e) {
@@ -96,8 +98,7 @@ class CreateUserAction extends ReduxAction<AppState> {
         }
       }
     } else {
-      return state.replace(error: ErrorType.failedToCreateUser);
+      return state.copy(error: ErrorType.failedToCreateUser);
     }
   }
-
 }

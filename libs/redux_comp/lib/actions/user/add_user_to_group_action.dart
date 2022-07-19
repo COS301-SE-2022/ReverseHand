@@ -33,7 +33,7 @@ class AddUserToGroupAction extends ReduxAction<AppState> {
         return null;
       }
     } else {
-      return state.replace(error: ErrorType.failedToAddUserToGroup);
+      return state.copy(error: ErrorType.failedToAddUserToGroup);
     }
   }
 
