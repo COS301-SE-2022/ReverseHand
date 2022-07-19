@@ -61,6 +61,11 @@ class LoginAction extends ReduxAction<AppState> {
           return state.copy(
             error: ErrorType.userNotFound,
           );
+        case "Username is required to signIn":
+          // print(e.message);
+          return state.copy(
+            error: ErrorType.noInput,
+          );
         case "User does not exist.":
           debugPrint(e.message);
           return state.copy(
@@ -93,12 +98,14 @@ class LoginAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    await dispatch(GetUserAction());
-    state.userDetails!.userType == "Consumer"
-        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
-        : await dispatch(ViewJobsAction());
+    if (state.error == ErrorType.none) {
+      await dispatch(GetUserAction());
+      state.userDetails!.userType == "Consumer"
+          ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
+          : await dispatch(ViewJobsAction());
+      dispatch(NavigateAction.pushNamed(
+          "/${state.userDetails!.userType.toLowerCase()}"));
+    }
     dispatch(WaitAction.remove("flag"));
-    dispatch(NavigateAction.pushNamed(
-        "/${state.userDetails!.userType.toLowerCase()}"));
   } // we know that state wont be null
 }

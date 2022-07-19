@@ -7,6 +7,7 @@ import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/button.dart';
 import '../widgets/link.dart';
@@ -99,6 +100,39 @@ class LoginPage extends StatelessWidget {
 
                         StoreConnector<AppState, _ViewModel>(
                           vm: () => _Factory(this),
+                          onDidChange: (context, store, vm) {
+                            final String msg;
+                            switch (vm.error) {
+                              case ErrorType.none:
+                                return;
+                              case ErrorType.userNotFound:
+                                msg = "User not found";
+                                break;
+                              case ErrorType.userNotVerified:
+                                msg = "User not verified";
+                                break;
+                              case ErrorType.userInvalidPassword:
+                                msg = "Invalid login credentials";
+                                break;
+                              case ErrorType.passwordAttemptsExceeded:
+                                msg =
+                                    "Max number of password attempts exceeded";
+                                break;
+                              case ErrorType.noInput:
+                                msg = "Please input a username and password";
+                                break;
+                              default:
+                                msg = "How did we get here?";
+                                break;
+                            }
+
+                            SnackBar snackBar = SnackBar(
+                              content: Text(msg),
+                            );
+
+                            ScaffoldMessenger.of(context!)
+                                .showSnackBar(snackBar);
+                          },
                           builder: (BuildContext context, _ViewModel vm) =>
                               vm.loading
                                   ? const CircularProgressIndicator(
@@ -111,6 +145,7 @@ class LoginPage extends StatelessWidget {
                                           emailController.value.text.trim(),
                                           passwordController.value.text.trim(),
                                         );
+
                                         // vm.dispatchGetAddressAction();
                                       },
                                     ),
@@ -257,6 +292,7 @@ class _Factory extends VmFactory<AppState, LoginPage> {
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),
+        error: state.error,
         // dispatchGetAddressAction: () => dispatch(
         //   GetAddressAction(),
         // ),
@@ -269,11 +305,13 @@ class _ViewModel extends Vm {
   // final void Function() dispatchGetAddressAction;
   final VoidCallback pushSignUpPage;
   final bool loading;
+  final ErrorType error;
 
   _ViewModel({
     required this.dispatchLoginAction,
     // required this.dispatchGetAddressAction,
+    required this.error,
     required this.loading,
     required this.pushSignUpPage,
-  }) : super(equals: [loading]); // implementing hashcode
+  }) : super(equals: [loading, error]); // implementing hashcode
 }
