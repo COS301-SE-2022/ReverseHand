@@ -31,7 +31,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
       dynamic data = jsonDecode(response.data)['viewJobs'];
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
-      return state.replace(
+      return state.copy(
         adverts: adverts,
       );
     } catch (e) {

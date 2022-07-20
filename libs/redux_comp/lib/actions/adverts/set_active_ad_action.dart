@@ -12,6 +12,6 @@ class SetActiveAdAction extends ReduxAction<AppState> {
     final AdvertModel ad =
         state.adverts.firstWhere((element) => element.id == adId);
 
-    return store.state.replace(activeAd: ad);
+    return store.state.copy(activeAd: ad);
   }
 }

@@ -7,24 +7,19 @@ import 'package:async_redux/async_redux.dart';
 import '../../models/geolocation/suggestion_model.dart';
 
 class GetPlaceAction extends ReduxAction<AppState> {
-
   Suggestion input;
   PlaceApiService placeApi;
 
   GetPlaceAction(this.input, this.placeApi);
 
-	@override
-	Future<AppState?> reduce() async {
+  @override
+  Future<AppState?> reduce() async {
     try {
       Location result = await placeApi.getPlaceDetailFromId(input.placeId);
 
       // Place result = Place(streetNumber: "318", street: "The Rand", city: "Pretoria", zipCode: "0102", location: Coordinates(lat: 22.23, long: 25.34));
 
-      return state.replace(
-        userDetails: state.userDetails!.replace(
-          location: result
-        )
-      );
+      return state.copy(userDetails: state.userDetails!.copy(location: result));
     } catch (e) {
       return null;
     }

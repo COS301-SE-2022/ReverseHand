@@ -163,7 +163,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "EditUserDetailsResolver": {
+    "editUserDetailResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

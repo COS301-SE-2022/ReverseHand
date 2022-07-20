@@ -26,7 +26,7 @@ class UserModel {
     this.registered,
   });
 
-  UserModel replace({
+  UserModel copy({
     String? id,
     String? email,
     String? name,
