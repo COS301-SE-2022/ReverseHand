@@ -37,7 +37,13 @@ class ConsumerListingsPage extends StatelessWidget {
           ),
 
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
+          floatingActionButton: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) =>
+                FloatingButtonWidget(
+              function: vm.pushCreateAdvertPage,
+            ),
+          ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
 

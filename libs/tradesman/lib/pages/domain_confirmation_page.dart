@@ -39,20 +39,13 @@ class DomainConfirmPage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.all(8)),
 
                   //*******************DISCARD BUTTON*****************//
-                  ButtonWidget(
-                      text: "Back",
-                      color: "dark",
-                      function: vm.pop)
+                  ButtonWidget(text: "Back", color: "dark", function: vm.pop)
                   //**********************NAME************************//
                 ],
               ),
             ),
           ),
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
           bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
@@ -80,5 +73,5 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.pop,
-  }); 
+  });
 }

@@ -96,10 +96,6 @@ class CreateNewAdvertPage extends StatelessWidget {
             ),
           ),
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),
