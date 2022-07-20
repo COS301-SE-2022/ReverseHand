@@ -73,7 +73,7 @@ class ViewBidsPage extends StatelessWidget {
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
                     date: vm.advert.dateCreated,
-                    // location: advert.location ?? "",
+                    location: vm.advert.location,
                   ),
                   //*******************************************//
 
@@ -394,8 +394,8 @@ class _Factory extends VmFactory<AppState, ViewBidsPage> {
         dispatchToggleViewBidsAction: (toggleShort, activate) =>
             dispatch(ToggleViewBidsAction(toggleShort, activate)),
         popPage: () => dispatch(NavigateAction.pop()),
-        bids: state.user!.viewBids,
-        advert: state.user!.activeAd!,
+        bids: state.viewBids,
+        advert: state.activeAd!,
       );
 }
 

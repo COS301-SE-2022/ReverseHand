@@ -2,30 +2,35 @@ import 'dart:convert';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:redux_comp/actions/user/login_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+
+/* CreateUserAction */
+/* This action creates a user of a specified group if they have been verified on signup */
 
 class CreateUserAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     if (state.partialUser!.verified == "DONE") {
-      final String email =  state.partialUser!.email;
-      final String name = state.partialUser!.name!;
-      final String cellNo = state.partialUser!.cellNo!;
-      final String id = state.partialUser!.id!;
-      final double lat = state.partialUser!.place!.location!.lat!;
-      final double long = state.partialUser!.place!.location!.long!;
-      final String streetnumber = state.partialUser!.place!.streetNumber!;
-      final String street = state.partialUser!.place!.street!;
-      final String city = state.partialUser!.place!.city!;
-      final String zipCode = state.partialUser!.place!.zipCode!;
+      //pass user information into variables
+      final String email = state.partialUser!.email;
+      final String name = state.userDetails!.name!;
+      final String cellNo = state.userDetails!.cellNo!;
+      final String id = state.userDetails!.id;
+      final double lat = state.userDetails!.location!.coordinates.lat;
+      final double long = state.userDetails!.location!.coordinates.long;
+      final String streetnumber =
+          state.userDetails!.location!.address.streetNumber;
+      final String street = state.userDetails!.location!.address.street;
+      final String city = state.userDetails!.location!.address.city;
+      final String zipCode = state.userDetails!.location!.address.zipCode;
 
+      // different queries for different users
+      // If tradesman, DO store domains and tradetypes
       if (state.partialUser!.group == "tradesman") {
-        final tradeTypes = jsonEncode(state.partialUser!.tradeTypes!);
+        final tradeTypes = jsonEncode(state.userDetails!.tradeTypes!);
         final domains = jsonEncode([city]);
         String graphQLDoc = '''mutation  {
           createUser(
@@ -53,8 +58,7 @@ class CreateUserAction extends ReduxAction<AppState> {
         );
 
         try {
-          final resp = await Amplify.API.mutate(request: requestCreateUser).response;
-          debugPrint(resp.data);
+          await Amplify.API.mutate(request: requestCreateUser).response;
           return null;
         } on ApiException catch (e) {
           debugPrint(e.message);
@@ -84,7 +88,8 @@ class CreateUserAction extends ReduxAction<AppState> {
         );
 
         try {
-          final resp = await Amplify.API.mutate(request: requestCreateUser).response;
+          final resp =
+              await Amplify.API.mutate(request: requestCreateUser).response;
           debugPrint(resp.data);
           return null;
         } on ApiException catch (e) {
@@ -93,30 +98,7 @@ class CreateUserAction extends ReduxAction<AppState> {
         }
       }
     } else {
-      return state.replace(error: ErrorType.failedToCreateUser);
+      return state.copy(error: ErrorType.failedToCreateUser);
     }
   }
-
-  @override
-  void after() async {
-    await dispatch(LoginAction(state.partialUser!.email, state.partialUser!.password!));
-  }
 }
-// mutation  {
-//           createUser(
-//             cellNo: "0823096459",
-//             city: "Pretoria",
-//             email: "lastrucci63@gmail.com",
-//             lat: "22.23",
-//             long: "25.34",
-//             name: "Richard",
-//             streetNumber: "318",
-//             user_id: "t#e19f6fbd-2d2a-456b-b581-6c29579eb009",
-//             zipCode: "0102",
-//             domains: "["Pretoria"]",
-//             street: "The Rand",
-//             tradetypes: "["Plumber","Painter"]"
-//           ) {
-//             id
-//           }
-//         }

@@ -37,7 +37,7 @@ exports.handler = async (event) => {
                     },
                     coordinates: {
                         lat: event.arguments.lat,
-                        long: event.arguments.long
+                        lng: event.arguments.lng
                     }
                 }
             }

@@ -41,41 +41,10 @@ class TradesmanJobDetails extends StatelessWidget {
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
                     date: vm.advert.dateCreated,
-                    // location: advert.location ?? "",
+                    location: vm.advert.location,
                   ),
 
                   const Padding(padding: EdgeInsets.only(top: 50)),
-
-                  //**********HEADING***********//
-                  const Text(
-                    "Information",
-                    style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-
-                  //**********PADDING***********//
-                  const Padding(padding: EdgeInsets.all(15)),
-
-                  //**********Consumer Information***********//
-                  Column(
-                    children: const <Widget>[
-                      Text(
-                        "Client name: Luke Skywalker",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Text(
-                        "Client cellphone: +27 89 076 2347",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Text(
-                        "Client email: consumer@gmail.com",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 30)),
 
                   //*************BOTTOM BUTTONS**************//
                   Stack(alignment: Alignment.center, children: <Widget>[
@@ -140,8 +109,8 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        advert: state.user!.activeAd!,
-        bids: state.user!.bids + state.user!.shortlistBids,
+        advert: state.activeAd!,
+        bids: state.bids + state.shortlistBids,
         popPage: () => dispatch(
           NavigateAction.pop(),
         ),

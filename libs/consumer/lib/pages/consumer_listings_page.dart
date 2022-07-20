@@ -72,7 +72,7 @@ class _Factory extends VmFactory<AppState, ConsumerListingsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        adverts: state.user!.adverts,
+        adverts: state.adverts,
         pushCreateAdvertPage: () => dispatch(
           NavigateAction.pushNamed('/consumer/create_advert'),
         ),

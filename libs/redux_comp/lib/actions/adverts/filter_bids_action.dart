@@ -16,10 +16,10 @@ class FilterBidsAction extends ReduxAction<AppState> {
     List<BidModel> bids = [];
 
     if (filter.includeShortlisted) {
-      bids = state.user!.bids +
-          state.user!.shortlistBids; // bids and shortlisted bids cannot be null
+      bids = state.bids +
+          state.shortlistBids; // bids and shortlisted bids cannot be null
     } else {
-      bids = state.user!.bids;
+      bids = state.bids;
     }
 
     // filter by price
@@ -56,10 +56,8 @@ class FilterBidsAction extends ReduxAction<AppState> {
       }
     }
 
-    return state.replace(
-      user: state.user!.replace(
-        viewBids: bids,
-      ),
+    return state.copy(
+      bids: bids,
     );
   }
 }

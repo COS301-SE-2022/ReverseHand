@@ -69,7 +69,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
                     date: vm.advert.dateCreated,
-                    // location: advert.location ?? "",
+                    location: vm.advert.location,
                   ),
                   //*******************************************//
 
@@ -172,8 +172,8 @@ class _Factory extends VmFactory<AppState, TradesmanViewBidsPage> {
         dispatchToggleViewBidsAction: (toggleShort, activate) =>
             dispatch(ToggleViewBidsAction(toggleShort, activate)),
         popPage: () => dispatch(NavigateAction.pop()),
-        bids: state.user!.viewBids,
-        advert: state.user!.activeAd!,
+        bids: state.viewBids,
+        advert: state.activeAd!,
       );
 }
 
