@@ -22,15 +22,18 @@ class EditAdvertAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    String graphQLDocument = '''mutation { 
-      editAdvert(ad_id: "$advertId" title: "$title", description: "$description", type: "$type", location: "$location") {
-        id
-      }
-    } ''';
+    //commented cause it was unused
+    // String graphQLDocument = '''mutation {
+    //   editAdvert(ad_id: "$advertId" title: "$title", description: "$description", type: "$type", location: "$location") {
+    //     id
+    //   }
+    // } ''';
 
-    final request = GraphQLRequest(document: graphQLDocument);
+    //commented cause it was unused
+    // final request = GraphQLRequest(document: graphQLDocument);
     try {
-      dynamic response = await Amplify.API.mutate(request: request).response;
+      //commented cause it was unused
+      // dynamic response = await Amplify.API.mutate(request: request).response;
 
       List<AdvertModel> adverts = state.adverts;
 
