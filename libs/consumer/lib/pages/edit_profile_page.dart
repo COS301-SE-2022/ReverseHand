@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/blue_button_widget.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
@@ -56,18 +57,18 @@ class EditProfilePage extends StatelessWidget {
                   ),
                   //**************************************************//
 
-                  //**********************EMAIL************************//
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 70),
-                    child: TextFieldWidget(
-                      initialVal: "info@gmail.com",
-                      label: "email",
-                      obscure: false,
-                      controller: null,
-                      min: 1,
-                    ),
+                  /*******************Location Button ****************/
+
+                  BlueButtonWidget(
+                    function: vm.pushLocationConfirmPage, 
+                    height: 65, 
+                    icon: null, 
+                    text: 'Location', 
+                    width: 365,
+
                   ),
-                  //**************************************************//
+
+                  /**************************************************/
 
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
@@ -109,14 +110,18 @@ class _Factory extends VmFactory<AppState, EditProfilePage> {
   _ViewModel fromStore() => _ViewModel(
       pushProfilePage: () => dispatch(
             NavigateAction.pushNamed('/consumer/consumer_profile_page'),
-          ));
+          ),
+      pushLocationConfirmPage: () => dispatch(
+            NavigateAction.pushNamed('/tradesman/location_confirm'),
+      ));
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
+  final VoidCallback pushLocationConfirmPage;
 
   _ViewModel({
-    required this.pushProfilePage,
+    required this.pushProfilePage, required this.pushLocationConfirmPage,
   }); // implementinf hashcode
 }
