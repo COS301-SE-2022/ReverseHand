@@ -29,14 +29,14 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
       final user = data["viewUser"];
 
       if (user == "User not found") {
-        return state.replace(
-            userDetails: state.userDetails!.replace(
+        return state.copy(
+            userDetails: state.userDetails!.copy(
           registered: false,
         ));
       } else {
         store.dispatch(GetUserAction());
-        return state.replace(
-            userDetails: state.userDetails!.replace(
+        return state.copy(
+            userDetails: state.userDetails!.copy(
           registered: true,
         ));
       }
