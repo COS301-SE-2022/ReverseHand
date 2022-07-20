@@ -101,6 +101,29 @@ class BidDetailsPage extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+
+                      if (vm.bid.isShortlisted())
+                        (Column(
+                          children: [
+                            const Padding(padding: EdgeInsets.all(20)),
+                            const Center(
+                              child: Text(
+                                'Contact Details',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white70),
+                              ),
+                            ),
+                            Center(
+                              child: Text(
+                                store.state.userDetails!.email!,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ))
                     ],
                   ),
                   //*************************************//

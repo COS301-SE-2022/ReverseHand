@@ -34,7 +34,7 @@ class EditProfilePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
-                      initialVal: store.state.user!.name,
+                      initialVal: store.state.userDetails!.name,
                       label: "name",
                       obscure: false,
                       min: 1,
@@ -47,7 +47,7 @@ class EditProfilePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
-                      initialVal: store.state.user!.cellNo,
+                      initialVal: store.state.userDetails!.cellNo,
                       label: "cellphone number",
                       obscure: false,
                       controller: null,

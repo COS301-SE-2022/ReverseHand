@@ -35,16 +35,16 @@ class ConsumerListingsPage extends StatelessWidget {
                   ...populateAdverts(vm.adverts, store),
 
                   //************MESSAGE IF THERE ARE NO ADVERTS***********/
-                  //how to check if null?
-                  // Padding(
-                  //   padding: EdgeInsets.only(
-                  //       top: (MediaQuery.of(context).size.height) / 3),
-                  //   child: const Text(
-                  //     "There are no\n active jobs",
-                  //     textAlign: TextAlign.center,
-                  //     style: TextStyle(fontSize: 25, color: Colors.white54),
-                  //   ),
-                  // )
+                  if (vm.adverts.isEmpty)
+                    (Padding(
+                      padding: EdgeInsets.only(
+                          top: (MediaQuery.of(context).size.height) / 3),
+                      child: const Text(
+                        "There are no\n active jobs",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 25, color: Colors.white54),
+                      ),
+                    ))
                   //*****************************************************/
                 ],
               ),

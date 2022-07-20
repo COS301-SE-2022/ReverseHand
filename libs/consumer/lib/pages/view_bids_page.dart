@@ -120,16 +120,18 @@ class ViewBidsPage extends StatelessWidget {
                               child: Column(children: [
                                 ...populateBids(vm.bids, store),
                                 //********IF NO BIDS********************/
-                                // const Padding(
-                                //   padding: EdgeInsets.all(20.0),
-                                //   child: Text(
-                                //     "No bids have\n been made yet",
-                                //     textAlign: TextAlign.center,
-                                //     style: TextStyle(
-                                //         fontSize: 20, color: Colors.white54),
-                                //   ),
-                                // ),
+                                if (vm.bids.isEmpty)
+                                  (const Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: Text(
+                                      "No bids have\n been made yet",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white54),
+                                    ),
+                                  )),
                                 //**************************************/
+
                                 ButtonWidget(
                                     text: "Back",
                                     color: "light",

@@ -51,7 +51,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
           dateCreated: ad.dateCreated,
           description: description,
           type: type,
-          location: location,
+          location: ad.location,
         ),
       );
 

@@ -6,18 +6,18 @@ class LoadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 100,
-      width: 100,
-      // decoration: BoxDecoration(
-      //   borderRadius: BorderRadius.circular(50),
-      //   color: CustomTheme.darkTheme.primaryColor,
-      // ),
-      child: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: CircularProgressIndicator(
-          color: Colors.white,
-          strokeWidth: 15,
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20), color: Colors.white),
+        height: 100,
+        width: 100,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: CircularProgressIndicator(
+            color: CustomTheme.darkTheme.primaryColor,
+            strokeWidth: 15,
+          ),
         ),
       ),
     );
