@@ -23,7 +23,7 @@ class LoginAction extends ReduxAction<AppState> {
     try {
       await Amplify.Auth.signOut();
 
-      SignInResult res = await Amplify.Auth.signIn(
+      /* SignInResult res = */ await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -103,7 +103,7 @@ class LoginAction extends ReduxAction<AppState> {
       state.userDetails!.userType == "Consumer"
           ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
           : await dispatch(ViewJobsAction());
-      dispatch(NavigateAction.pushNamed(
+      dispatch(NavigateAction.pushReplacementNamed(
           "/${state.userDetails!.userType.toLowerCase()}"));
     }
 
