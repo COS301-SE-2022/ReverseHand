@@ -82,7 +82,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
-                            whiteBorder: true,
+                            border: "white",
                             function: vm.popPage))
                   ]),
                   //*************BOTTOM BUTTONS**************//
@@ -135,10 +135,11 @@ class _ViewModel extends Vm {
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
 
-  _ViewModel(
-      {required this.advert,
-      required this.pushEditAdvert,
-      required this.pushViewBidsPage,
-      required this.pushConsumerListings,
-      required this.popPage}); // implementinf hashcode
+  _ViewModel({
+    required this.advert,
+    required this.pushEditAdvert,
+    required this.pushViewBidsPage,
+    required this.pushConsumerListings,
+    required this.popPage,
+  }); // implementinf hashcode
 }

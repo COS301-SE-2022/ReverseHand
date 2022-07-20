@@ -71,9 +71,9 @@ class Launch extends StatelessWidget {
               TradesmanProfilePage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
-          '/tradesman/view_bids': (context) => TradesmanViewBidsPage(store: store),
-          '/tradesman/edit_bid_page': (context) =>
-              EditBidPage(store: store),
+          '/tradesman/view_bids': (context) =>
+              TradesmanViewBidsPage(store: store),
+          '/tradesman/edit_bid_page': (context) => EditBidPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
