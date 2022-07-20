@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/blue_button_widget.dart';
+import 'package:general/widgets/profile_button_widget.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/floating_button.dart';
 
 import '../widgets/navbar.dart';
 
@@ -47,7 +46,7 @@ class EditTradesmanProfilePage extends StatelessWidget {
 
                   //********************NUMBER**********************//
                   const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
                       initialVal: "012 345 6789",
                       label: "Phone",
@@ -59,27 +58,15 @@ class EditTradesmanProfilePage extends StatelessWidget {
                   //**************************************************//
 
                   //**********************Domain************************//
-                  // Padding( //will have to become button most likely?
-                  //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 70),
-                  //   child: GestureDetector(
-                  //     onTap: vm.pushLocationConfirmPage,
-                  //     child: const TextFieldWidget(
-                  //     initialVal: "",
-                  //     label: "Domain",
-                  //     obscure: false,
-                  //     controller: null,
-                  //     min: 1,
-                  //     ),
-                  //   ),
-                  // ),
-                  BlueButtonWidget(
+                  ProfileButtonWidget(
                     function: vm.pushDomainConfirmPage, 
-                    height: 65, 
+                    height: 60, 
                     icon: null, 
                     text: 'Domain', 
                     width: 365,
-
                   ),
+                  
+                  const Padding(padding: EdgeInsets.only(bottom: 30)),
                   //**************************************************//
 
                   //*******************SAVE BUTTON********************//
