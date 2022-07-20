@@ -5,7 +5,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
-import 'package:redux_comp/actions/user/get_user_action.dart';
+import 'package:redux_comp/actions/user/check_user_exists_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:jwt_decode/jwt_decode.dart';
@@ -99,7 +99,7 @@ class LoginAction extends ReduxAction<AppState> {
   @override
   void after() async {
     if (state.error == ErrorType.none) {
-      await dispatch(GetUserAction());
+      await dispatch(CheckUserExistsAction());
       state.userDetails!.userType == "Consumer"
           ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
           : await dispatch(ViewJobsAction());
