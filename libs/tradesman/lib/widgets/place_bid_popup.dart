@@ -44,7 +44,7 @@ class _PlaceBidPopupWidgetState extends State<PlaceBidPopupWidget> {
                     alignment: Alignment.topCenter,
                   child: const Text(
                       "Place Bid",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 30),
                     ),
                   ),
                   const TransparentDividerWidget(),

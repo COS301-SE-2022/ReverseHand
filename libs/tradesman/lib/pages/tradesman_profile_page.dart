@@ -7,6 +7,8 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/floating_button.dart';
 
+import '../widgets/navbar.dart';
+
 class TradesmanProfilePage extends StatelessWidget {
   final Store<AppState> store;
   const TradesmanProfilePage({Key? key, required this.store}) : super(key: key);
@@ -24,7 +26,7 @@ class TradesmanProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "Profile"),
+                  const AppBarWidget(title: "PROFILE"),
                   //********************************************************//
 
                   //ALL INFO IS CURRENTLY HARDCODED
@@ -94,7 +96,7 @@ class TradesmanProfilePage extends StatelessWidget {
                             size: 26.0,
                           ),
                           Padding(padding: EdgeInsets.only(left: 8)),
-                          Text("Cellphone",
+                          Text("Phone",
                               style: TextStyle(
                                   fontSize: 26, color: Colors.white70)),
                         ],
@@ -150,14 +152,9 @@ class TradesmanProfilePage extends StatelessWidget {
           ),
 
           //************************NAVBAR***********************/
-          bottomNavigationBar: NavBarWidget(
+          bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
-
-          resizeToAvoidBottomInset: false,
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
 
           //*************************************************//
         ),

@@ -9,6 +9,8 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/floating_button.dart';
 
+import '../widgets/navbar.dart';
+
 class EditBidPage extends StatelessWidget {
   final Store<AppState> store;
 
@@ -90,11 +92,8 @@ class EditBidPage extends StatelessWidget {
             ),
           ),
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
-          bottomNavigationBar: NavBarWidget(
+      
+          bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
           //*****************************************************/
