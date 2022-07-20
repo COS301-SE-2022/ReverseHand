@@ -28,7 +28,7 @@ class DomainConfirmPage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  const AppBarWidget(title: "DOMAIN CONFIRM"),
+                  const AppBarWidget(title: "DOMAINS DISPLAY"),
                   //***************************************************//
 
                   //**************** Domain Location Cards*************//
@@ -42,7 +42,7 @@ class DomainConfirmPage extends StatelessWidget {
                   ButtonWidget(
                       text: "Back",
                       color: "dark",
-                      function: vm.pushProfilePage)
+                      function: vm.pop)
                   //**********************NAME************************//
                 ],
               ),
@@ -69,16 +69,16 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      pushProfilePage: () => dispatch(
+      pop: () => dispatch(
             NavigateAction.pop(),
           ));
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushProfilePage;
+  final VoidCallback pop;
 
   _ViewModel({
-    required this.pushProfilePage,
+    required this.pop,
   }); 
 }
