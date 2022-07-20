@@ -24,7 +24,7 @@ class EditBidAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    String graphQLDocument = ''' mutation {
+    String graphQLDocument = '''mutation {
       editBid(ad_id: "$advertId", bid_id: "$bidId" ){
         quote: "$quote",
         price_lower: "$priceLower",

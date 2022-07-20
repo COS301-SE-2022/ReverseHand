@@ -44,7 +44,7 @@ class GetUserAction extends ReduxAction<AppState> {
       );
 
       try {
-        await Amplify.API.mutate(request: request).response;
+        await Amplify.API.query(request: request).response;
         final data = jsonDecode(
             (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
@@ -107,7 +107,7 @@ class GetUserAction extends ReduxAction<AppState> {
 
       try {
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response).data);
+            (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
 
         String streetNumber = user["location"]["address"]["streetNumber"];

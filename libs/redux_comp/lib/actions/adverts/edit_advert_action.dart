@@ -17,7 +17,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
       this.dateClosed, this.title);
   @override
   Future<AppState?> reduce() async {
-    String graphQLDocument = ''' mutation { 
+    String graphQLDocument = '''mutation { 
       editAdvert(ad_id: "$advertId"){
         title: "$title",
         description: "$description",
