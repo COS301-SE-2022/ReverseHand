@@ -23,7 +23,7 @@ class LoginAction extends ReduxAction<AppState> {
     try {
       await Amplify.Auth.signOut();
 
-      /*SignInResult res = */ await Amplify.Auth.signIn(
+      SignInResult res = await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -108,9 +108,7 @@ class LoginAction extends ReduxAction<AppState> {
     }
 
     // wait until error has finished before stopping loading
-    print("got here 1");
     await store.waitCondition((state) => state.error == ErrorType.none);
-    print("got here 2");
     dispatch(WaitAction.remove("flag"));
   } // we know that state wont be null
 }
