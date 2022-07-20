@@ -1,12 +1,11 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/floating_button.dart';
 
+import '../widgets/button_bar_widget.dart';
 import '../widgets/navbar.dart';
 
 class LocationConfirmPage extends StatelessWidget {
@@ -31,53 +30,38 @@ class LocationConfirmPage extends StatelessWidget {
                   const AppBarWidget(title: "LOCATION CONFIRM"),
                   //***************************************************//
 
-                  //**********************StreetNo************************//
+                  //**********************StreetNo**********************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: Text(
-                      "StreetNo",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    child: ButtonBarTitleWidget(title: "Street No.", value: "221b"),
                   ),
                   //**************************************************//
 
                    //**********************Street************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: Text(
-                      "Street",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    child: ButtonBarTitleWidget(title: "Street", value: "Baker Street"),
                   ),
                   //**************************************************//
 
                    //**********************City************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: Text(
-                      "City",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    child: ButtonBarTitleWidget(title: "City", value: "Centurion"),
                   ),
                   //**************************************************//
 
                    //**********************Province************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: Text(
-                      "Province",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    child: ButtonBarTitleWidget(title: "Province", value: "Gauteng"),
                   ),
                   //**************************************************//
 
                   //**********************ZipCode************************//
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: Text(
-                      "Zip Code",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    child: ButtonBarTitleWidget(title: "Zip Code", value: "0178"),
                   ),
                   //**************************************************//
 
@@ -85,7 +69,7 @@ class LocationConfirmPage extends StatelessWidget {
 
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "Search Location", function: vm.pushProfilePage),
+                      text: "Search Location", function: vm.pushProfilePage),//fix path
                   //**************************************************//
 
                   const Padding(padding: EdgeInsets.all(8)),
@@ -94,7 +78,8 @@ class LocationConfirmPage extends StatelessWidget {
                   ButtonWidget(
                       text: "Discard",
                       color: "dark",
-                      function: vm.pushProfilePage)
+                      function: vm.popPage,
+                  ),
                   //**********************NAME************************//
                 ],
               ),
@@ -118,6 +103,7 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+      popPage: () => dispatch(NavigateAction.pop()),
       pushProfilePage: () => dispatch(
             NavigateAction.pushNamed('/tradesman/tradesman_profile_page'),
           ));
@@ -126,8 +112,9 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
+  final VoidCallback popPage;
 
   _ViewModel({
-    required this.pushProfilePage,
-  }); // implementinf hashcode
+    required this.pushProfilePage, required this.popPage,
+  });
 }
