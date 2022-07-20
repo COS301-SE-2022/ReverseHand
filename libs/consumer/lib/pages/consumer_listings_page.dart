@@ -12,8 +12,7 @@ import 'package:general/widgets/floating_button.dart';
 
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
-  bool isLoading = false;
-  ConsumerListingsPage({Key? key, required this.store}) : super(key: key);
+  const ConsumerListingsPage({Key? key, required this.store}) : super(key: key);
 
   //*****Calls method display all active jobs made by a consumer*****//
   @override
