@@ -1,7 +1,8 @@
 import 'package:async_redux/async_redux.dart';
+
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:general/widgets/loader.dart';
+
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../methods/populate_adverts.dart';
@@ -44,7 +45,7 @@ class ConsumerListingsPage extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 25, color: Colors.white54),
                       ),
-                    ))
+                    )),
                   //*****************************************************/
                 ],
               ),

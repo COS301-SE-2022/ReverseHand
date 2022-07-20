@@ -43,10 +43,11 @@ class RatingPopUpState extends State<RatingPopUp> {
           children: [
             const Padding(padding: EdgeInsets.only(top: 15)),
             const Text(
-              "Please rate the service you received:",
-              style: TextStyle(fontSize: 18, color: Colors.black),
+              "Please rate the service\n you received:",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 24, color: Colors.black),
             ),
-            const Padding(padding: EdgeInsets.all(5)),
+            const Padding(padding: EdgeInsets.all(20)),
             //*****************rating stars**********************
             StarRating(
               rating: rating,
@@ -54,31 +55,12 @@ class RatingPopUpState extends State<RatingPopUp> {
               color: Colors.orange,
             ),
             //*****************************************************
-
-            //********************REVIEW***********************
-            // const Padding(padding: EdgeInsets.only(top: 10)),
-            // const Text(
-            //   "Would you like to leave a public review?",
-            //   style: TextStyle(fontSize: 18, color: Colors.black),
-            // ),
-            //**************************************************
-
-            const Padding(padding: EdgeInsets.only(top: 10)),
+            const Padding(padding: EdgeInsets.all(25)),
 
             //********************BUTTONS*******************//
             ButtonWidget(text: "Submit", function: () {}),
             const Padding(padding: EdgeInsets.only(top: 5)),
             //**********************************************//
-
-            //***************Verify Button *********************** */
-            // Eish when I pulled from dev this button no longer worked,
-            // I changed the constructor to take a string for the display text, and a function to use anonymously outside the widget
-            // - Richard
-            //
-            // const ButtonWidget(
-            //   //onPressed: Navigator.pop(context),
-            // ),
-            //*****************************************************//
           ],
         ),
       ),
