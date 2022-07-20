@@ -31,7 +31,6 @@ class LocationPage extends StatelessWidget {
 
                 const Padding(padding: EdgeInsets.only(top: 50)),
 
-
                 ButtonWidget(
                     text: "Search your location",
                     color: "light",
@@ -46,7 +45,7 @@ class LocationPage extends StatelessWidget {
                 ButtonWidget(
                     text: "Back",
                     color: "light",
-                    whiteBorder: true,
+                    border: "white",
                     function: vm.popPage)
               ],
             ),

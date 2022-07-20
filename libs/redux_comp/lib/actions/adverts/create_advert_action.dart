@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:uuid/uuid.dart';

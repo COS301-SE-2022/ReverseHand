@@ -27,14 +27,14 @@ class EditProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  const AppBarWidget(title: "Edit Profile"),
+                  const AppBarWidget(title: "EDIT PROFILE"),
                   //***************************************************//
 
                   //**********************NAME************************//
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
-                      initialVal: "Luke Skywalker",
+                      initialVal: store.state.userDetails!.name,
                       label: "name",
                       obscure: false,
                       min: 1,
@@ -44,24 +44,11 @@ class EditProfilePage extends StatelessWidget {
                   //**************************************************//
 
                   //********************NUMBER**********************//
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
-                      initialVal: "012 345 6789",
+                      initialVal: store.state.userDetails!.cellNo,
                       label: "cellphone number",
-                      obscure: false,
-                      controller: null,
-                      min: 1,
-                    ),
-                  ),
-                  //**************************************************//
-
-                  //**********************EMAIL************************//
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 70),
-                    child: TextFieldWidget(
-                      initialVal: "info@gmail.com",
-                      label: "email",
                       obscure: false,
                       controller: null,
                       min: 1,

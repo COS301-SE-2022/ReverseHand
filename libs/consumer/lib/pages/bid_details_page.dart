@@ -1,4 +1,6 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/dialog_helper.dart';
+import 'package:consumer/widgets/shortlist_bid_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
@@ -7,7 +9,6 @@ import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:general/widgets/shortlist_accept_button.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
@@ -100,6 +101,29 @@ class BidDetailsPage extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+
+                      if (vm.bid.isShortlisted())
+                        (Column(
+                          children: [
+                            const Padding(padding: EdgeInsets.all(20)),
+                            const Center(
+                              child: Text(
+                                'Contact Details',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white70),
+                              ),
+                            ),
+                            Center(
+                              child: Text(
+                                store.state.userDetails!.email!,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ))
                     ],
                   ),
                   //*************************************//
@@ -112,24 +136,43 @@ class BidDetailsPage extends StatelessWidget {
                     ),
 
                     //shortlist/accept
+                    // Positioned(
+                    //   top: 20,
+                    //   child: ShortlistAcceptButtonWidget(
+                    //     shortBid: vm.bid.isShortlisted(),
+                    //     onTap: () => vm.bid.isShortlisted()
+                    //         ? vm.dispatchAcceptBidAction()
+                    //         : vm.dispatchShortListBidAction(),
+
+                    //   ),
+                    // ),
                     Positioned(
                       top: 20,
-                      child: ShortlistAcceptButtonWidget(
-                        shortBid: vm.bid.isShortlisted(),
-                        onTap: () => vm.bid.isShortlisted()
-                            ? vm.dispatchAcceptBidAction()
-                            : vm.dispatchShortListBidAction(),
-                      ),
+                      child: ButtonWidget(
+                          text: vm.bid.isShortlisted()
+                              ? "Accept Bid"
+                              : "Shortlist Bid",
+                          function: () {
+                            DialogHelper.display(
+                                context,
+                                ShortlistPopUpWidget(
+                                  store: store,
+                                  shortlisted:
+                                      vm.bid.isShortlisted() ? true : false,
+                                )); //trigger OTP popup
+                          }),
                     ),
 
                     //Back
                     Positioned(
-                        top: 80,
-                        child: ButtonWidget(
-                            text: "Back",
-                            color: "light",
-                            whiteBorder: true,
-                            function: vm.popPage)),
+                      top: 80,
+                      child: ButtonWidget(
+                        text: "Back",
+                        color: "light",
+                        border: "white",
+                        function: vm.popPage,
+                      ),
+                    ),
                   ]),
                   //******************************************//
                 ],
@@ -169,8 +212,8 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final BidModel bid;
-  final VoidCallback dispatchShortListBidAction;
   final VoidCallback dispatchAcceptBidAction;
+  final VoidCallback dispatchShortListBidAction;
   final bool change;
 
   _ViewModel({
@@ -179,5 +222,5 @@ class _ViewModel extends Vm {
     required this.bid,
     required this.popPage,
     required this.change,
-  }) : super(equals: [change]); // implementinf hashcode
+  }) : super(equals: [change, bid]); // implementinf hashcode
 }
