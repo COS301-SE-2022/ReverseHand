@@ -83,6 +83,7 @@ class TradesmanProfilePage extends StatelessWidget {
                         child: Text(store.state.userDetails!.location!.address.city,
                             style:
                                 const TextStyle(fontSize: 20, color: Colors.white))),
+                    //********************************************************//
 
                     //cellphone
                     Positioned(
@@ -109,6 +110,7 @@ class TradesmanProfilePage extends StatelessWidget {
                         child: Text(store.state.userDetails!.cellNo!,
                             style:
                                 const TextStyle(fontSize: 20, color: Colors.white))),
+                     //********************************************************//
 
                     //email
                     Positioned(
@@ -135,9 +137,44 @@ class TradesmanProfilePage extends StatelessWidget {
                         child: Text(store.state.userDetails!.email!,
                             style:
                                 const TextStyle(fontSize: 20, color: Colors.white))),
+                   //********************************************************//
+
+                  //Trade
+                    Positioned(
+                      top: 340,
+                      left: 45,
+                      child: Row(
+                        children: const [
+                          Icon(
+                            Icons.construction_outlined,
+                            color: Colors.white70,
+                            size: 26.0,
+                          ),
+                          Padding(padding: EdgeInsets.only(left: 8)),
+                          Text("Trade",
+                              style: TextStyle(
+                                  fontSize: 26, color: Colors.white70)),
+                        ],
+                      ),
+                    ),
+
+                    //to be integrated by Richard
+                    Positioned(
+                        top: 380,
+                        left: 82,
+                        child: ListView(
+                          children: vm.tradeTypes.map((element) => 
+                          Text(
+                            element as String,
+                             style: const TextStyle(fontSize: 20, color: Colors.white))),
+                          ))
+                          
+                        )
+                    ),
+                     //********************************************************//
 
                     Positioned(
-                      top: 280,
+                      top: 10,
                       right: 35,
                       child: IconButton(
                         onPressed: vm.pushEditProfilePage,
@@ -169,6 +206,7 @@ class _Factory extends VmFactory<AppState, TradesmanProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+      tradeTypes: state.userDetails!.tradeTypes!,
       pushEditProfilePage: () => dispatch(
             NavigateAction.pushNamed('/tradesman/edit_profile_page'),
           ));
@@ -176,9 +214,10 @@ class _Factory extends VmFactory<AppState, TradesmanProfilePage> {
 
 // view model
 class _ViewModel extends Vm {
+  final List<dynamic> tradeTypes;
   final VoidCallback pushEditProfilePage;
 
   _ViewModel({
-    required this.pushEditProfilePage,
-  }); // implementinf hashcode
+    required this.pushEditProfilePage,  required this.tradeTypes,
+  }): super(equals: [tradeTypes]); 
 }

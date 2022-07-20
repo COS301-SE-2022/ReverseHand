@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/blue_button_widget.dart';
+import 'package:general/widgets/profile_button_widget.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
@@ -46,7 +47,7 @@ class EditProfilePage extends StatelessWidget {
 
                   //********************NUMBER**********************//
                   const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
                       initialVal: "012 345 6789",
                       label: "cellphone number",
@@ -59,14 +60,15 @@ class EditProfilePage extends StatelessWidget {
 
                   /*******************Location Button ****************/
 
-                  BlueButtonWidget(
+                  ProfileButtonWidget(
                     function: vm.pushLocationConfirmPage, 
-                    height: 65, 
+                    height: 60, 
                     icon: null, 
                     text: 'Location', 
                     width: 365,
-
                   ),
+
+                  const Padding(padding: EdgeInsets.only(bottom: 30)),
 
                   /**************************************************/
 
