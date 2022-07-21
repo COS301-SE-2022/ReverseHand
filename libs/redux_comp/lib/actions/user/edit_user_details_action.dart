@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/address_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
+import 'package:redux_comp/models/user_models/user_model.dart';
 
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
@@ -68,5 +69,25 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
           email
       }
     } ''';
+    final request = GraphQLRequest(document: graphQLDocument);
+
+    try {
+      final data = jsonDecode(
+          (await Amplify.API.mutate(request: request).response).data);
+
+      UserModel user = UserModel(
+          id: state.userDetails!.id,
+          userType: state.userDetails!.userType,
+          registered: state.userDetails!.registered,
+          tradeTypes: state.userDetails!.tradeTypes,
+          cellNo: data["cellNo"],
+          name: data["name"],
+          location: data["location"],
+          domains: data["domains"],
+          email: data["email"]);
+      return state.copy(userDetails: user);
+    } catch (error) {
+      return null;
+    }
   }
 }
