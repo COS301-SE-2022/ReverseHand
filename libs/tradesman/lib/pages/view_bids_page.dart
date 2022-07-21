@@ -2,19 +2,18 @@
 
 import 'package:async_redux/async_redux.dart';
 // ignore: depend_on_referenced_packages
-import 'package:consumer/methods/populate_bids.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:general/widgets/floating_button.dart';
+
+import '../widgets/navbar.dart';
 
 class TradesmanViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -23,27 +22,6 @@ class TradesmanViewBidsPage extends StatelessWidget {
       : super(key: key);
 
   @override
-
-  //**********TABS TO FILTER ACTIVE/SHORTLISTED BIDS***********//
-  // Row(
-  //   mainAxisAlignment: MainAxisAlignment.center,
-  //   children: [
-  //     TabWidget(
-  //       text: "ACTIVE",
-  //       onPressed: (activate) =>
-  //           vm.dispatchToggleViewBidsAction(false, activate),
-  //     ),
-  //     const Padding(padding: EdgeInsets.all(5)),
-  //     TabWidget(
-  //       text: "SHORTLIST",
-  //       onPressed: (activate) =>
-  //           vm.dispatchToggleViewBidsAction(true, activate),
-  //     ),
-  //   ],
-  // ),
-  //***********************************************************//
-
-  //^^^keep this to integrate toggle
 
   // creating bid widgets
   // ...populateBids(vm.bids, store)
@@ -74,33 +52,6 @@ class TradesmanViewBidsPage extends StatelessWidget {
                   //*******************************************//
 
                   const Padding(padding: EdgeInsets.all(10)),
-
-                  //*****************TABS***********************//
-                  const TabBar(
-                    isScrollable: true,
-                    indicatorColor: Color.fromRGBO(243, 157, 55, 1),
-                    indicatorWeight: 5,
-                    labelColor: Colors.white, //selected text color
-                    unselectedLabelColor: Colors.grey, //Unselected text
-                    tabs: [
-                      Tab(
-                          child: Text(
-                        'All',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )),
-                      Tab(
-                          child: Text(
-                        'Shortlisted',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )),
-                    ],
-                  ),
-                  //*****************TABS***********************//
-                  ...populateBids(vm.bids, store),
 
                   Expanded(
                     child: Stack(children: [
@@ -139,6 +90,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                           //*****************TAB 2******************//
                         ],
                       ),
+                      //****************************************/
                     ]),
                   ),
                 ],
@@ -146,14 +98,10 @@ class TradesmanViewBidsPage extends StatelessWidget {
             ),
 
             //************************NAVBAR***********************/
-            bottomNavigationBar: NavBarWidget(
+            bottomNavigationBar: TNavBarWidget(
               store: store,
             ),
 
-            resizeToAvoidBottomInset: false,
-            floatingActionButton: const FloatingButtonWidget(),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
             //*************************************************//
           ),
         ),
@@ -174,6 +122,7 @@ class _Factory extends VmFactory<AppState, TradesmanViewBidsPage> {
         popPage: () => dispatch(NavigateAction.pop()),
         bids: state.viewBids,
         advert: state.activeAd!,
+        userId: state.userDetails!.id,
       );
 }
 
@@ -181,6 +130,7 @@ class _Factory extends VmFactory<AppState, TradesmanViewBidsPage> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final List<BidModel> bids;
+  final String userId;
   final VoidCallback popPage;
   final bool change;
   final void Function(bool, bool) dispatchToggleViewBidsAction;
@@ -190,6 +140,38 @@ class _ViewModel extends Vm {
     required this.change,
     required this.popPage,
     required this.bids,
+    required this.userId,
     required this.advert,
-  }) : super(equals: [change]); // implementing hashcode
+  }) : super(equals: [change]);
 }
+
+/*
+
+  "domains" : [
+     {
+      city : "Pretoria",
+      coords : {
+        lat : 20,
+        lng: 10
+      },
+     {
+      city : "Pretoria",
+      coords : {
+        lat : 20,
+        lng: 10
+      },
+     {
+      city : "Pretoria",
+      coords : {
+        lat : 20,
+        lng: 10
+      },
+
+  ]
+
+
+
+
+
+
+*/

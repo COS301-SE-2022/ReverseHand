@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 
 class FloatingButtonWidget extends StatelessWidget {
-  const FloatingButtonWidget({Key? key}) : super(key: key);
+  final void Function() function;
+  const FloatingButtonWidget({Key? key, required this.function}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
       vm: () => _Factory(this),
       builder: (BuildContext context, _ViewModel vm) => FloatingActionButton(
-        onPressed: () {
-          vm.pushCreateNewAdvert();
-        },
+        onPressed: function,
         backgroundColor: Colors.orange,
         child: const Icon(Icons.add),
       ),

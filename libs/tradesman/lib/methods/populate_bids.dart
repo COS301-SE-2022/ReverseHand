@@ -2,14 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/models/bid_model.dart';
 
 // function to create list of bids
-List<Widget> populateBids(List<BidModel> bids) {
+// function to create list of bids
+List<Widget> populateBids(String userId, List<BidModel> bids) {
   List<Widget> quickViewBidWidgets = [];
 
-  //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
   for (BidModel bid in bids) {
-    quickViewBidWidgets.add(QuickViewBidWidget(
-      bid: bid,
-    ));
+    // checking when to append to front
+    if (bid.userId == userId) {
+      quickViewBidWidgets.insert(
+        0,
+        QuickViewBidWidget(
+          bid: bid,
+        ),
+      );
+    } else {
+      quickViewBidWidgets.add(
+        QuickViewBidWidget(
+          bid: bid,
+        ),
+      );
+    }
   }
 
   return quickViewBidWidgets;

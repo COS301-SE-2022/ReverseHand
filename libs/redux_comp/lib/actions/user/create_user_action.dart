@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:redux_comp/models/error_type_model.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -11,11 +13,19 @@ import 'package:async_redux/async_redux.dart';
 /* This action creates a user of a specified group if they have been verified on signup */
 
 class CreateUserAction extends ReduxAction<AppState> {
+
+  final String name;
+  final String cellNo;
+  final Location? location;
+  final List<Domain>? domains;
+
+  CreateUserAction({required this.name, required this.cellNo, this.location, this.domains });
+
   @override
   Future<AppState?> reduce() async {
     if (state.partialUser!.verified == "DONE") {
       //pass user information into variables
-      final String email = state.partialUser!.email;
+      final String email = state.userDetails!.email!;
       final String name = state.userDetails!.name!;
       final String cellNo = state.userDetails!.cellNo!;
       final String id = state.userDetails!.id;

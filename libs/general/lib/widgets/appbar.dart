@@ -12,7 +12,7 @@ class AppBarWidget extends StatelessWidget {
         elevation: 3.0,
         color: Theme.of(context).primaryColorDark,
         child: Container(
-          height: 135, //still deciding on a good height
+          height: 155, //still deciding on a good height
           alignment: const Alignment(
               0, -.5), //might swap this out for an Align widget around text
           child: Padding(
