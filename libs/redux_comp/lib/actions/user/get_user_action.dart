@@ -151,7 +151,6 @@ class GetUserAction extends ReduxAction<AppState> {
     state.userDetails!.userType == "Consumer"
         ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
         : await dispatch(ViewJobsAction());
-    dispatch(WaitAction.remove("flag"));
     dispatch(NavigateAction.pushNamed(
         "/${state.userDetails!.userType.toLowerCase()}"));
   }

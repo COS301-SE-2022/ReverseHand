@@ -40,7 +40,6 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
       } else {
         return null;
       }
-      ;
     } catch (e) {
       return null;
     }

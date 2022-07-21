@@ -35,59 +35,62 @@ class LocationConfirmPage extends StatelessWidget {
                   //**********************StreetNo**********************//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: ButtonBarTitleWidget(title: "Street No.", value: vm.address.streetNumber),
+                    child: ButtonBarTitleWidget(
+                        title: "Street No.", value: vm.address.streetNumber),
                   ),
                   //**************************************************//
 
-                   //**********************Street************************//
+                  //**********************Street************************//
+                  Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
+                      child: ButtonBarTitleWidget(
+                          title: "Street", value: vm.address.street)),
+                  //**************************************************//
+
+                  //**********************City************************//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: ButtonBarTitleWidget(title: "Street", value: vm.address.street)
+                    child: ButtonBarTitleWidget(
+                        title: "City", value: vm.address.city),
                   ),
                   //**************************************************//
 
-                   //**********************City************************//
+                  //**********************Province************************//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: ButtonBarTitleWidget(title: "City", value: vm.address.city),
-                  ),
-                  //**************************************************//
-
-                   //**********************Province************************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: ButtonBarTitleWidget(title: "Province", value: vm.address.province),
+                    child: ButtonBarTitleWidget(
+                        title: "Province", value: vm.address.province),
                   ),
                   //**************************************************//
 
                   //**********************ZipCode************************//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: ButtonBarTitleWidget(title: "Zip Code", value: vm.address.zipCode),
+                    child: ButtonBarTitleWidget(
+                        title: "Zip Code", value: vm.address.zipCode),
                   ),
                   //**************************************************//
 
-                 
-
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "Save Location", function: vm.pushEditProfilePage),//fix path
+                      text: "Save Location",
+                      function: vm.popPage), //fix path
                   //**************************************************//
 
                   const Padding(padding: EdgeInsets.all(8)),
 
                   //*******************DISCARD BUTTON*****************//
                   ButtonWidget(
-                      text: "Search again",
-                      color: "dark",
-                      function: () {
-                         final sessionToken = const Uuid().v1();
+                    text: "Search again",
+                    color: "dark",
+                    function: () {
+                      final sessionToken = const Uuid().v1();
+                      vm.popPage();
                       showSearch(
                           context: context,
                           delegate: LocationSearchPage(sessionToken, store));
-                      },
+                    },
                   ),
-                  //**********************NAME************************//
                 ],
               ),
             ),
@@ -105,20 +108,16 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
       popPage: () => dispatch(NavigateAction.pop()),
-      pushEditProfilePage: () => dispatch(
-            NavigateAction.pop(),
-          ),
-      address: state.geoSearch!.result!.address
-          );
+      address: state.geoSearch!.result!.address);
 }
 
 // view model
 class _ViewModel extends Vm {
   final Address address;
-  final VoidCallback pushEditProfilePage;
   final VoidCallback popPage;
 
   _ViewModel({
-    required this.pushEditProfilePage, required this.popPage, required this.address,
+    required this.popPage,
+    required this.address,
   });
 }

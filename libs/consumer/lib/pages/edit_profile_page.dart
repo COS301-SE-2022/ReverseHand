@@ -1,21 +1,16 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:general/widgets/blue_button_widget.dart';
-import 'package:general/widgets/profile_button_widget.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:geolocation/pages/location_search_page.dart';
-import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/floating_button.dart';
 import 'package:uuid/uuid.dart';
 
 class EditProfilePage extends StatefulWidget {
   final Store<AppState> store;
-  EditProfilePage({Key? key, required this.store}) : super(key: key);
+  const EditProfilePage({Key? key, required this.store}) : super(key: key);
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -146,6 +141,8 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+    // dispatchCreateUserAction: () =>
+    //       dispatch(CreateUserAction()),
         pushProfilePage: () => dispatch(
           NavigateAction.pushNamed('/consumer/consumer_profile_page'),
         ),
@@ -158,11 +155,13 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
 
 // view model
 class _ViewModel extends Vm {
+  // final void Function() dispatchCreateUserAction;
   final VoidCallback pushProfilePage;
   final VoidCallback pushLocationConfirmPage;
   final bool isRegistered;
 
   _ViewModel({
+    // required this.dispatchCreateUserAction,
     required this.pushProfilePage,
     required this.pushLocationConfirmPage,
     required this.isRegistered,

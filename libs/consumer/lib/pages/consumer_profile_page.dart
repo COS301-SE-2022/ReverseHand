@@ -5,7 +5,6 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
-import 'package:general/widgets/floating_button.dart';
 
 class ConsumerProfilePage extends StatelessWidget {
   final Store<AppState> store;

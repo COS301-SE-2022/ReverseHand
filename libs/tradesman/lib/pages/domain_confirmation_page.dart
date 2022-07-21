@@ -4,7 +4,6 @@ import 'package:general/general.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/floating_button.dart';
 import 'package:tradesman/widgets/card_widget.dart';
 
 import '../widgets/navbar.dart';

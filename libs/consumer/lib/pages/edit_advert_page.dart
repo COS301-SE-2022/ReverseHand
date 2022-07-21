@@ -7,7 +7,6 @@ import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/floating_button.dart';
 
 class EditAdvertPage extends StatelessWidget {
   final Store<AppState> store;

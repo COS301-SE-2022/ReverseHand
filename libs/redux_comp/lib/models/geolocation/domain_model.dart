@@ -12,7 +12,7 @@ class Domain {
    
   });
 
-  Domain replace({
+  Domain copy({
     String? city,
     Coordinates? coordinates,
   }) {

@@ -51,31 +51,33 @@ class LocationSearchPage extends SearchDelegate<Suggestion?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if (query.length > 2) {
-      store.dispatch(GetSuggestionsAction("318 The Rand", apiClient));
-    }
-    if (store.state.geoSearch!.suggestions.isEmpty && query.length < 3) {
-      return Container(
-        padding: const EdgeInsets.all(16.0),
-        child: const Text('Enter your address'),
-      );
-    } else {
-      return StoreConnector<AppState, _ViewModel>(
-        vm: () => _Factory(this),
-        builder: (BuildContext context, _ViewModel vm) => ListView.builder(
-          itemBuilder: (context, index) => ListTile(
-            title:
-                Text((store.state.geoSearch!.suggestions[index]).description),
-            onTap: () {
-              suggestion = store.state.geoSearch!.suggestions[index];
-              vm.dispatchGetPlaceAction(suggestion!, apiClient);
-              close(context, suggestion);
-            },
-          ),
-          itemCount: store.state.geoSearch!.suggestions.length,
-        ),
-      );
-    }
+    return StoreConnector<AppState, _ViewModel>(
+      vm: () => _Factory(this),
+      builder: (BuildContext context, _ViewModel vm) {
+        if (query.length > 5) {
+          vm.dispatchGetSuggestionsAction("318 The Rand", apiClient);
+          if (vm.suggestions.isNotEmpty) {
+            return ListView.builder(
+              itemBuilder: (context, index) => ListTile(
+                  title: Text((vm.suggestions[index]).description),
+                  onTap: () {
+                    final suggestion = vm.suggestions[index];
+                    vm.dispatchGetPlaceAction(suggestion, apiClient);
+                    close(context, suggestion);
+                  }),
+              itemCount: vm.suggestions.length,
+            );
+          } else {
+            return const Text("loading");
+          }
+        } else {
+          return Container(
+            padding: const EdgeInsets.all(16.0),
+            child: const Text('Please enter your street address'),
+          );
+        }
+      },
+    );
   }
 }
 
@@ -85,15 +87,22 @@ class _Factory extends VmFactory<AppState, LocationSearchPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+      suggestions: state.geoSearch!.suggestions,
       dispatchGetPlaceAction: (input, placeApi) =>
-          dispatch(GetPlaceAction(input, placeApi)));
+          dispatch(GetPlaceAction(input, placeApi)),
+      dispatchGetSuggestionsAction: (input, placeApi) =>
+          dispatch(GetSuggestionsAction(input, placeApi)));
 }
 
 // view model
 class _ViewModel extends Vm {
+  final List<Suggestion> suggestions;
   final void Function(Suggestion, PlaceApiService) dispatchGetPlaceAction;
+  final void Function(String, PlaceApiService)  dispatchGetSuggestionsAction;
 
   _ViewModel({
     required this.dispatchGetPlaceAction,
-  });
+    required this.dispatchGetSuggestionsAction,
+    required this.suggestions,
+  }): super(equals: [suggestions]);
 }

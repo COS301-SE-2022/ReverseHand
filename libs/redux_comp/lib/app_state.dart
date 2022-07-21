@@ -1,8 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
-import 'package:redux_comp/models/geolocation/address_model.dart';
 import 'package:redux_comp/models/geolocation/search_model.dart';
-import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
