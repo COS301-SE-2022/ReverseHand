@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/geolocation/get_place_action.dart';
 import 'package:redux_comp/actions/geolocation/get_suggestions_action.dart';
+import 'package:redux_comp/models/geolocation/search_model.dart';
 // import 'package:general/general.dart';
 import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 import 'package:geolocation/place_api_service.dart';
@@ -15,8 +16,9 @@ class LocationSearchPage extends SearchDelegate<Suggestion?> {
 
   LocationSearchPage(this.sessionToken, this.store)
       : apiClient = PlaceApiService(sessionToken) {
-        query = "";
-      }
+    query = "";
+    store.state.copy(geoSearch: const GeoSearch(suggestions: []));
+  }
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -50,27 +52,48 @@ class LocationSearchPage extends SearchDelegate<Suggestion?> {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.length > 2) {
-       store.dispatch(GetSuggestionsAction(query, apiClient));
+      store.dispatch(GetSuggestionsAction("318 The Rand", apiClient));
     }
-    if (store.state.suggestions.isEmpty && query.length < 3) {
+    if (store.state.geoSearch!.suggestions.isEmpty && query.length < 3) {
       return Container(
         padding: const EdgeInsets.all(16.0),
         child: const Text('Enter your address'),
       );
     } else {
-      return ListView.builder(
-        itemBuilder: (context, index) => ListTile(
-          title: Text((store.state.suggestions[index]).description),
-          onTap: () {
-            suggestion = store.state.suggestions[index];
-            store.dispatch(GetPlaceAction(suggestion!, apiClient));
-            close(context, suggestion);
-          },
+      return StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) => ListView.builder(
+          itemBuilder: (context, index) => ListTile(
+            title:
+                Text((store.state.geoSearch!.suggestions[index]).description),
+            onTap: () {
+              suggestion = store.state.geoSearch!.suggestions[index];
+              vm.dispatchGetPlaceAction(suggestion!, apiClient);
+              close(context, suggestion);
+            },
+          ),
+          itemCount: store.state.geoSearch!.suggestions.length,
         ),
-        itemCount: store.state.suggestions.length,
       );
     }
   }
 }
 
-//318 The Rand 
+// factory for view model
+class _Factory extends VmFactory<AppState, LocationSearchPage> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+      dispatchGetPlaceAction: (input, placeApi) =>
+          dispatch(GetPlaceAction(input, placeApi)));
+}
+
+// view model
+class _ViewModel extends Vm {
+  final void Function(Suggestion, PlaceApiService) dispatchGetPlaceAction;
+
+  _ViewModel({
+    required this.dispatchGetPlaceAction,
+  });
+}

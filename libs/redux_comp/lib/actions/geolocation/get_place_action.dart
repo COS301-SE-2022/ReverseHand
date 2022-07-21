@@ -19,9 +19,14 @@ class GetPlaceAction extends ReduxAction<AppState> {
 
       // Place result = Place(streetNumber: "318", street: "The Rand", city: "Pretoria", zipCode: "0102", location: Coordinates(lat: 22.23, long: 25.34));
 
-      return state.copy(userDetails: state.userDetails!.copy(location: result));
+      return state.copy(geoSearch: state.geoSearch!.copy(result: result));
     } catch (e) {
       return null;
     }
+  }
+
+  @override
+  void after() {
+    dispatch(NavigateAction.pushNamed('/tradesman/location_confirm'));
   }
 }

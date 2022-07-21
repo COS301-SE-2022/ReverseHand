@@ -1,3 +1,4 @@
+import 'package:redux_comp/models/geolocation/search_model.dart';
 import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 
 import '../../app_state.dart';
@@ -15,7 +16,7 @@ class GetSuggestionsAction extends ReduxAction<AppState> {
     try {
       List<Suggestion> suggestions = await placeApi.fetchSuggestions(input);
 
-      return state.copy(suggestions: suggestions);
+      return state.copy(geoSearch: GeoSearch(suggestions: suggestions));
     } catch (e) {
       return null;
     }

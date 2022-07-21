@@ -4,20 +4,36 @@ import 'package:general/general.dart';
 import 'package:general/widgets/blue_button_widget.dart';
 import 'package:general/widgets/profile_button_widget.dart';
 import 'package:general/widgets/textfield.dart';
+import 'package:geolocation/pages/location_search_page.dart';
+import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/floating_button.dart';
+import 'package:uuid/uuid.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
   final Store<AppState> store;
-  const EditProfilePage({Key? key, required this.store}) : super(key: key);
+  EditProfilePage({Key? key, required this.store}) : super(key: key);
+
+  @override
+  State<EditProfilePage> createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  final locationController = TextEditingController();
+
+  @override
+  void dispose() {
+    locationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
@@ -36,7 +52,6 @@ class EditProfilePage extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
-                      initialVal: "Luke Skywalker",
                       label: "name",
                       obscure: false,
                       min: 1,
@@ -49,7 +64,6 @@ class EditProfilePage extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
-                      initialVal: "012 345 6789",
                       label: "cellphone number",
                       obscure: false,
                       controller: null,
@@ -58,19 +72,48 @@ class EditProfilePage extends StatelessWidget {
                   ),
                   //**************************************************//
 
-                  /*******************Location Button ****************/
-
-                  ProfileButtonWidget(
-                    function: vm.pushLocationConfirmPage,
-                    height: 60,
-                    icon: null,
-                    text: 'Location',
-                    width: 365,
+                  //********************NUMBER**********************//
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+                    child: TextFieldWidget(
+                      label: "location",
+                      obscure: false,
+                      controller: locationController,
+                      onTap: () async {
+                        final sessionToken = const Uuid().v1();
+                        final result = await showSearch(
+                            context: context,
+                            delegate:
+                                LocationSearchPage(sessionToken, widget.store));
+                        if (result != null) {
+                          setState(() {
+                            locationController.text = result.description;
+                          });
+                        }
+                      },
+                      min: 1,
+                    ),
                   ),
+                  //**************************************************//
 
-                  const Padding(padding: EdgeInsets.only(bottom: 30)),
+                  // /*******************Location Button ****************/
 
-                  /**************************************************/
+                  // ProfileButtonWidget(
+                  //   function: () {
+                  //     final sessionToken = const Uuid().v1();
+                  //     showSearch(
+                  //         context: context,
+                  //         delegate: LocationSearchPage(sessionToken, store));
+                  //   },
+                  //   height: 60,
+                  //   icon: null,
+                  //   text: 'Location',
+                  //   width: 365,
+                  // ),
+
+                  // const Padding(padding: EdgeInsets.only(bottom: 30)),
+
+                  // /**************************************************/
 
                   if (vm.isRegistered) ...[
                     //*******************SAVE BUTTON********************//
@@ -83,19 +126,14 @@ class EditProfilePage extends StatelessWidget {
                         text: "Discard",
                         color: "dark",
                         function: vm.pushProfilePage),
-                  ] else 
-                  //*******************SAVE BUTTON********************//
-                  ButtonWidget(
-                      text: "Save Changes", function: vm.pushProfilePage),
+                  ] else
+                    //*******************SAVE BUTTON********************//
+                    ButtonWidget(
+                        text: "Save Changes", function: vm.pushProfilePage),
                 ],
               ),
             ),
           ),
-          //************************NAVBAR***********************/
-          bottomNavigationBar: NavBarWidget(
-            store: store,
-          ),
-          //*****************************************************/
         ),
       ),
     );
@@ -103,7 +141,7 @@ class EditProfilePage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, EditProfilePage> {
+class _Factory extends VmFactory<AppState, _EditProfilePageState> {
   _Factory(widget) : super(widget);
 
   @override
