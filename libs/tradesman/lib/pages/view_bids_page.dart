@@ -12,7 +12,6 @@ import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:tradesman/methods/populate_bids.dart';
 
 import '../widgets/navbar.dart';
 
