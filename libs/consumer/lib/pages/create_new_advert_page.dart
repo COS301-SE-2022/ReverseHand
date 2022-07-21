@@ -77,7 +77,8 @@ class CreateNewAdvertPage extends StatelessWidget {
                               vm.dispatchCreateAdvertActions(
                                   store.state.userDetails!.id,
                                   titleController.value.text,
-                                  store.state.userDetails!.location!.address.city,
+                                  store.state.userDetails!.location!.address
+                                      .city,
                                   descrController.value.text);
                             }
                           }),

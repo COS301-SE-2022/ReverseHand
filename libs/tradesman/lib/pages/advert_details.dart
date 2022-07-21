@@ -54,11 +54,9 @@ class TradesmanJobDetails extends StatelessWidget {
                     Positioned(
                         top: 35,
                         child: ButtonWidget(
-                            text: "Place Bid",
-                            function: () {
-                              DialogHelper.display(
-                                  context, PlaceBidPopupWidget(store: store));
-                            })),
+                            text: "Place Bid", function: vm.pushViewBidsPage)),
+                    //fix function call here
+                    //DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
 
                     //view bids
                     Positioned(
@@ -74,7 +72,7 @@ class TradesmanJobDetails extends StatelessWidget {
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
-                            whiteBorder: true,
+                            border: "white",
                             function: vm.popPage))
                   ]),
                   //*************BOTTOM BUTTONS**************//

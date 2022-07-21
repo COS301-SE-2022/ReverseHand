@@ -85,6 +85,8 @@ class Launch extends StatelessWidget {
               LocationConfirmPage(store: store),
           '/tradesman/domain_confirm': (context) =>
               DomainConfirmPage(store: store),
+          '/tradesman/view_bids': (context) =>
+              TradesmanViewBidsPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),

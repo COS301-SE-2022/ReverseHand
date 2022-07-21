@@ -40,13 +40,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  const AppBarWidget(title: "Edit Profile"),
+                  const AppBarWidget(title: "EDIT PROFILE"),
                   //***************************************************//
 
                   //**********************NAME************************//
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
+                      initialVal: (widget.store.state.userDetails!.name == null) ? null : widget.store.state.userDetails!.name,
                       label: "name",
                       obscure: false,
                       min: 1,
@@ -56,9 +57,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   //**************************************************//
 
                   //********************NUMBER**********************//
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 25),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
+                      initialVal: (widget.store.state.userDetails!.cellNo == null) ? null : widget.store.state.userDetails!.cellNo,
                       label: "cellphone number",
                       obscure: false,
                       controller: null,

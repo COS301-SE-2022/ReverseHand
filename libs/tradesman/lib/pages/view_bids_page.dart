@@ -58,19 +58,38 @@ class TradesmanViewBidsPage extends StatelessWidget {
                     child: Stack(children: [
                       BottomOverlayWidget(
                           height: MediaQuery.of(context).size.height / 2),
-                      //**************BID INFO********************//
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(children: [
-                          ...populateBids(vm.userId, vm.bids),
-                          ButtonWidget(
-                              text: "Back",
-                              color: "light",
-                              whiteBorder: true,
-                              function: vm.popPage)
-                        ]
-                            //all bids should be populated here
-                            ),
+                      TabBarView(
+                        children: [
+                          //**************TAB 1 INFO********************//
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(children: [
+                              ButtonWidget(
+                                  text: "Back",
+                                  color: "light",
+                                  border: "white",
+                                  function: vm.popPage)
+                            ]
+                                //all bids should be populated here
+                                ),
+                          ),
+                          //****************************************//
+
+                          //*****************TAB 2 INFO******************//
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(children: [
+                              ButtonWidget(
+                                  text: "Back",
+                                  color: "light",
+                                  border: "white",
+                                  function: vm.popPage)
+                            ]
+                                //active bids should be populated here
+                                ),
+                          ),
+                          //*****************TAB 2******************//
+                        ],
                       ),
                       //****************************************/
                     ]),
