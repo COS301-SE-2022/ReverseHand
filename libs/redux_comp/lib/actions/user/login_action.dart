@@ -94,11 +94,7 @@ class LoginAction extends ReduxAction<AppState> {
   @override
   void after() async {
     await dispatch(CheckUserExistsAction());
-    state.userDetails!.userType == "Consumer"
-        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
-        : await dispatch(ViewJobsAction());
-    dispatch(WaitAction.remove("flag"));
-    dispatch(NavigateAction.pushNamed(
-        "/${state.userDetails!.userType.toLowerCase()}"));
-  } // we know that state wont be null
+    // If you are perhaps looking for where "what happens after a user logs in?" moved to...
+    // please have a look at GetUserAction :))
+  } 
 }

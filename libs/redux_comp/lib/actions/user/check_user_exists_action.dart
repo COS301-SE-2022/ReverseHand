@@ -26,7 +26,7 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
           (await Amplify.API.mutate(request: request).response).data);
       final user = data["viewUser"];
 
-      if (user["id"] == "User not found") {
+      if (user["id"] == "User Not Found") {
         return state.copy(
             userDetails: state.userDetails!.copy(
           registered: false,
@@ -40,6 +40,13 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
       }
     } catch (e) {
       return null;
+    }
+  }
+
+  @override
+  void after() {
+    if (state.userDetails!.registered! == false) {
+      dispatch(NavigateAction.pushNamed('/tradesman/edit_profile_page'));
     }
   }
 }
