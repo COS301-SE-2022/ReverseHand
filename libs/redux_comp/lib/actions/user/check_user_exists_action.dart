@@ -46,7 +46,7 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
   @override
   void after() {
     if (state.userDetails!.registered! == false) {
-      dispatch(NavigateAction.pushNamed('/tradesman/edit_profile_page'));
+      dispatch(NavigateAction.pushNamed('/${state.userDetails!.userType.toLowerCase()}/edit_profile_page'));
     }
   }
 }
