@@ -62,14 +62,8 @@ void main() {
     // expect(find.text("Sign Up"), findsNWidgets(2));
 
     //store important widgets to be used
-    var name = find.widgetWithText(TextFieldWidget, "name");
-    expect(name, findsOneWidget);
     var email = find.widgetWithText(TextFieldWidget, "email");
     expect(email, findsOneWidget);
-    var cellphone = find.widgetWithText(TextFieldWidget, "cellphone");
-    expect(cellphone, findsOneWidget);
-    var location = find.widgetWithText(TextFieldWidget, "location");
-    expect(location, findsOneWidget);
     var password = find.widgetWithText(TextFieldWidget, "password");
     expect(password, findsOneWidget);
     var cPassword = find.widgetWithText(TextFieldWidget, "confirm password");
@@ -78,18 +72,9 @@ void main() {
     expect(sUp, findsOneWidget);
 
     // Now entering text into the various fields
-    await tester.enterText(name, "Alex");
-    await tester.pumpAndSettle();
-
     await tester.enterText(email, "alex@gmail.com");
     await tester.pumpAndSettle();
-
-    await tester.enterText(cellphone, "012345678");
-    await tester.pumpAndSettle();
-
-    await tester.enterText(location, "Hillcrest");
-    await tester.pumpAndSettle();
-
+    
     await tester.enterText(password, "password");
     await tester.pumpAndSettle();
 
