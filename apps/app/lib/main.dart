@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
-import 'package:authentication/pages/location_page.dart';
 import 'package:consumer/consumer.dart';
 import 'package:consumer/pages/advert_details_page.dart';
 import 'package:consumer/pages/bid_details_page.dart';
@@ -89,7 +88,6 @@ class Launch extends StatelessWidget {
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
-          '/location': (context) => LocationPage(store: store),
         },
       ),
     );
