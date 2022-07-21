@@ -61,10 +61,10 @@ class EditProfilePage extends StatelessWidget {
                   /*******************Location Button ****************/
 
                   ProfileButtonWidget(
-                    function: vm.pushLocationConfirmPage, 
-                    height: 60, 
-                    icon: null, 
-                    text: 'Location', 
+                    function: vm.pushLocationConfirmPage,
+                    height: 60,
+                    icon: null,
+                    text: 'Location',
                     width: 365,
                   ),
 
@@ -72,19 +72,21 @@ class EditProfilePage extends StatelessWidget {
 
                   /**************************************************/
 
+                  if (vm.isRegistered) ...[
+                    //*******************SAVE BUTTON********************//
+                    ButtonWidget(
+                        text: "Save Changes", function: vm.pushProfilePage),
+                    //**************************************************//
+
+                    const Padding(padding: EdgeInsets.all(8)),
+                    ButtonWidget(
+                        text: "Discard",
+                        color: "dark",
+                        function: vm.pushProfilePage),
+                  ] else 
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
                       text: "Save Changes", function: vm.pushProfilePage),
-                  //**************************************************//
-
-                  const Padding(padding: EdgeInsets.all(8)),
-
-                  //*******************DISCARD BUTTON*****************//
-                  ButtonWidget(
-                      text: "Discard",
-                      color: "dark",
-                      function: vm.pushProfilePage)
-                  //**********************NAME************************//
                 ],
               ),
             ),
@@ -106,20 +108,33 @@ class _Factory extends VmFactory<AppState, EditProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      pushProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/consumer/consumer_profile_page'),
-          ),
-      pushLocationConfirmPage: () => dispatch(
-            NavigateAction.pushNamed('/tradesman/location_confirm'),
-      ));
+        pushProfilePage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/consumer_profile_page'),
+        ),
+        pushLocationConfirmPage: () => dispatch(
+          NavigateAction.pushNamed('/tradesman/location_confirm'),
+        ),
+        isRegistered: state.userDetails!.registered!,
+      );
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
   final VoidCallback pushLocationConfirmPage;
+  final bool isRegistered;
 
   _ViewModel({
-    required this.pushProfilePage, required this.pushLocationConfirmPage,
+    required this.pushProfilePage,
+    required this.pushLocationConfirmPage,
+    required this.isRegistered,
   }); // implementinf hashcode
+}
+
+List<Widget> showButtons(bool isRegistered, Store<AppState> store) {
+  if (isRegistered) {
+    return [];
+  } else {
+    return [];
+  }
 }

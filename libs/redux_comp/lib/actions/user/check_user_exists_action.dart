@@ -31,13 +31,16 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
             userDetails: state.userDetails!.copy(
           registered: false,
         ));
-      } else {
+      } else if (user["id"] == id) {
         store.dispatch(GetUserAction());
         return state.copy(
             userDetails: state.userDetails!.copy(
           registered: true,
         ));
+      } else {
+        return null;
       }
+      ;
     } catch (e) {
       return null;
     }
@@ -46,7 +49,8 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
   @override
   void after() {
     if (state.userDetails!.registered! == false) {
-      dispatch(NavigateAction.pushNamed('/${state.userDetails!.userType.toLowerCase()}/edit_profile_page'));
+      dispatch(NavigateAction.pushNamed(
+          '/${state.userDetails!.userType.toLowerCase()}/edit_profile_page'));
     }
   }
 }
