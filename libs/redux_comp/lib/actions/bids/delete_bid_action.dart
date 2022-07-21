@@ -14,7 +14,9 @@ class DeleteBidAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = ''' mutation {
-      deleteBid(ad_id: "$advertId",bid_id:"$bidId")
+      deleteBid(ad_id: "$advertId",bid_id:"$bidId"){
+        name
+      }
     }''';
 
     final request = GraphQLRequest(document: graphQLDocument);
