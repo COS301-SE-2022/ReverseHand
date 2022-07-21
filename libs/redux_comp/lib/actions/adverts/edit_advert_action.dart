@@ -18,12 +18,12 @@ class EditAdvertAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation { 
-      editAdvert(ad_id: "$advertId"){
-        title: "$title",
-        description: "$description",
-        type: "$type",
-        location: "$location",
-        date_closed: "$dateClosed"
+      editAdvert(ad_id: "$advertId",title: "$title",description: "$description",type: "$type",location: "$location",date_closed: "$dateClosed"){
+        title
+        description
+        type
+        location
+        date_closed
       }
     } ''';
 
