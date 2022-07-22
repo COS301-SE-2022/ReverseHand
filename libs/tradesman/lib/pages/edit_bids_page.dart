@@ -112,17 +112,27 @@ class EditBidsPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 2,
                     ),
 
+                     Positioned(
+                      top: 20,
+                      right: 35,
+                      child: IconButton(
+                        onPressed: vm.popPage,//DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
+                        icon: const Icon(Icons.edit),
+                        color: Colors.white70,
+                      ),
+                    ),
+
                     //Delete
                     Positioned(
-                        top: 20,
+                        top: 40,
                         child: ButtonWidget(
                             text: "Delete",
-                            whiteBorder: true,
+                            border: "White",
                             function: vm.popPage)),
 
                     //Back
                     Positioned(
-                        top: 60,
+                        top: 80,
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
