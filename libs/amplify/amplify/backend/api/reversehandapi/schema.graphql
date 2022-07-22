@@ -56,30 +56,59 @@ type Mutation {
 }
 
 type User implements UniqueID {
-  id: String!,
-  email: String!,
-  cellNo: String!,
-  name: String!,
-  location: Location!,
-  domains: [String!],
+  id: String!
+  email: String!
+  cellNo: String!
+  name: String!
+  location: Location!
+  domains: [Domain!]
   tradetypes: [String!]
 }
 
 type Location {
-  address: Address!,
+  address: Address!
+  coordinates: Coordinates!
+}
+
+type Domain {
+  city: String!
   coordinates: Coordinates!
 }
 
 type Coordinates {
-  lat: String!,
-  lng: String!
+  lat: Float!
+  lng: Float!
 }
 
 type Address {
-  streetNumber: String!,
-  street: String!,
-  city: String!,
+  streetNumber: String!
+  street: String!
+  city: String!
+  province: String!
   zipCode: String!
+}
+
+input DomainInput {
+  city: String
+  coordinates: CoordinatesInput
+}
+
+input LocationInput {
+  address: AddressInput
+  coordinates: CoordinatesInput
+}
+
+input AddressInput {
+  streetNumber: String!
+  street: String!
+  city: String!
+  province: String!
+  zipCode: String!
+}
+
+input CoordinatesInput {
+  lat: Float!
+  lng: Float!
 }
 
 type Advert implements UniqueID {
