@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:geolocation/pages/location_search_page.dart';
+import 'package:redux_comp/actions/user/create_user_action.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
@@ -47,7 +49,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
-                      initialVal: (widget.store.state.userDetails!.name == null) ? null : widget.store.state.userDetails!.name,
+                      initialVal: (widget.store.state.userDetails!.name == null)
+                          ? null
+                          : widget.store.state.userDetails!.name,
                       label: "name",
                       obscure: false,
                       min: 1,
@@ -60,7 +64,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
-                      initialVal: (widget.store.state.userDetails!.cellNo == null) ? null : widget.store.state.userDetails!.cellNo,
+                      initialVal:
+                          (widget.store.state.userDetails!.cellNo == null)
+                              ? null
+                              : widget.store.state.userDetails!.cellNo,
                       label: "cellphone number",
                       obscure: false,
                       controller: null,
@@ -143,13 +150,16 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-    // dispatchCreateUserAction: () =>
-    //       dispatch(CreateUserAction()),
+        dispatchCreateConsumerAction:
+            (String name, String cellNo, Location location) => dispatch(
+          CreateUserAction(
+            name: name,
+            cellNo: cellNo,
+            location: location,
+          ),
+        ),
         pushProfilePage: () => dispatch(
           NavigateAction.pushNamed('/consumer/consumer_profile_page'),
-        ),
-        pushLocationConfirmPage: () => dispatch(
-          NavigateAction.pushNamed('/tradesman/location_confirm'),
         ),
         isRegistered: state.userDetails!.registered!,
       );
@@ -157,15 +167,13 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
 
 // view model
 class _ViewModel extends Vm {
-  // final void Function() dispatchCreateUserAction;
+  final void Function(String, String, Location) dispatchCreateConsumerAction;
   final VoidCallback pushProfilePage;
-  final VoidCallback pushLocationConfirmPage;
   final bool isRegistered;
 
   _ViewModel({
-    // required this.dispatchCreateUserAction,
+    required this.dispatchCreateConsumerAction,
     required this.pushProfilePage,
-    required this.pushLocationConfirmPage,
     required this.isRegistered,
   }); // implementinf hashcode
 }
