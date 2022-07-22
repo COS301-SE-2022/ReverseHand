@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/navbar.dart';
+import 'package:general/widgets/profile_button_widget.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/floating_button.dart';
+
+import '../widgets/navbar.dart';
 
 class EditTradesmanProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -27,7 +28,7 @@ class EditTradesmanProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  const AppBarWidget(title: "Edit Profile"),
+                  const AppBarWidget(title: "EDIT PROFILE"),
                   //***************************************************//
 
                   //**********************NAME************************//
@@ -35,7 +36,7 @@ class EditTradesmanProfilePage extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
                       initialVal: "Luke Skywalker",
-                      label: "name",
+                      label: "Name",
                       obscure: false,
                       min: 1,
                       controller: null,
@@ -45,10 +46,10 @@ class EditTradesmanProfilePage extends StatelessWidget {
 
                   //********************NUMBER**********************//
                   const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                    padding: EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
                       initialVal: "012 345 6789",
-                      label: "cellphone number",
+                      label: "Phone",
                       obscure: false,
                       controller: null,
                       min: 1,
@@ -56,17 +57,16 @@ class EditTradesmanProfilePage extends StatelessWidget {
                   ),
                   //**************************************************//
 
-                  //**********************EMAIL************************//
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 70),
-                    child: TextFieldWidget(
-                      initialVal: "info@gmail.com",
-                      label: "email",
-                      obscure: false,
-                      controller: null,
-                      min: 1,
-                    ),
+                  //**********************Domain************************//
+                  ProfileButtonWidget(
+                    function: vm.pushDomainConfirmPage, 
+                    height: 60, 
+                    icon: null, 
+                    text: 'Domain', 
+                    width: 365,
                   ),
+                  
+                  const Padding(padding: EdgeInsets.only(bottom: 30)),
                   //**************************************************//
 
                   //*******************SAVE BUTTON********************//
@@ -87,11 +87,7 @@ class EditTradesmanProfilePage extends StatelessWidget {
             ),
           ),
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
-          bottomNavigationBar: NavBarWidget(
+          bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
           //*****************************************************/
@@ -108,15 +104,18 @@ class _Factory extends VmFactory<AppState, EditTradesmanProfilePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
       pushProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/tradesman/tradesman_profile_page'),
+            NavigateAction.pushNamed('/tradesman/profile'),),
+      pushDomainConfirmPage: () => dispatch(
+            NavigateAction.pushNamed('/tradesman/domain_confirm'),
           ));
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
+  final VoidCallback pushDomainConfirmPage;
 
   _ViewModel({
-    required this.pushProfilePage,
+    required this.pushProfilePage, required this.pushDomainConfirmPage,
   }); // implementinf hashcode
 }

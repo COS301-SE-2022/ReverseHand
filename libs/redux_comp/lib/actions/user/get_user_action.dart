@@ -8,6 +8,9 @@ import 'package:redux_comp/models/geolocation/location_model.dart';
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
+import '../adverts/view_adverts_action.dart';
+import '../adverts/view_jobs_action.dart';
+
 /* GetUserAction */
 /* This action fetches a user of a specified group and populates the user model with the results */
 
@@ -139,5 +142,14 @@ class GetUserAction extends ReduxAction<AppState> {
         return null;
       }
     }
+  }
+
+  @override
+  void after() async {
+    state.userDetails!.userType == "Consumer"
+        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
+        : await dispatch(ViewJobsAction());
+    dispatch(NavigateAction.pushNamed(
+        "/${state.userDetails!.userType.toLowerCase()}"));
   }
 }

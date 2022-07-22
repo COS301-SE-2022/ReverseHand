@@ -6,14 +6,17 @@ class TextFieldWidget extends StatelessWidget {
   final int min;
   final TextEditingController? controller;
   final String? initialVal;
-  const TextFieldWidget({
-    Key? key,
-    required this.label,
-    required this.obscure,
-    required this.min,
-    required this.controller,
-    this.initialVal,
-  }) : super(key: key);
+  final Function()? onTap;
+
+  const TextFieldWidget(
+      {Key? key,
+      required this.label,
+      required this.obscure,
+      required this.min,
+      required this.controller,
+      this.initialVal,
+      this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,7 @@ class TextFieldWidget extends StatelessWidget {
       style: const TextStyle(color: Colors.white),
       obscureText: obscure,
       controller: controller,
+      onTap: onTap,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white),

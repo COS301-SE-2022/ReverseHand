@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class BlueButtonWidget extends StatelessWidget {
+class ProfileButtonWidget extends StatelessWidget {
   final String text;
   final void Function() function;
   final bool? waiting;
   final double width;
   final double height;
   final IconData? icon;
-  const BlueButtonWidget({Key? key, required this.text, required this.function, this.waiting, required this.width, required this.height, required this.icon})
+  const ProfileButtonWidget({Key? key, required this.text, required this.function, this.waiting, required this.width, required this.height, required this.icon})
       : super(key: key);
 
   @override
@@ -22,10 +22,10 @@ class BlueButtonWidget extends StatelessWidget {
         ), 
         label: Align(alignment: Alignment.centerLeft, child: Text(text, style: const TextStyle(fontSize: 17),)),
         style: ElevatedButton.styleFrom(
-          primary: Colors.black.withOpacity(0),
+          primary: const Color.fromRGBO(18, 26, 34, 1),
           onPrimary: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.circular(22),
             side: const BorderSide(color: Colors.grey, width: 1),
           )),
         onPressed: function,
