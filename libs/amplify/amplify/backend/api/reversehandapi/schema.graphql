@@ -53,6 +53,8 @@ type Mutation {
   editUserDetail(user_id: String!, name: String, domains: [String], city: String, street: String, streetNumber: String, zipCode: String, lat: String, lng: String) : User 
   @function(name: "editUserDetailResolver-${env}")
 
+  removeDomain(user_id: String!, domain_pos: Int!) : Int 
+  @function(name: "removeDomainResolver-${env}")
 }
 
 type User implements UniqueID {
