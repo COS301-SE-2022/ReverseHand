@@ -8,20 +8,49 @@ const UserTable = process.env.USER;
 
 exports.handler = async (event) => {
    try{
-    let item = {
+    
+    let args = [];
+    let expressionAttributeNames = [];
+
+
+    if(event.arguments.reviews !== undefined){
+        args.push('#reviews = :reviews');
+        expressionAttributeNames['#reviews'] = 'reviews';
+    }
+
+    let updateExpression = 'set ';
+
+    for (let i = 0; i < args.length - 1; i++)
+            updateExpression += args[i] + ', ';
+        updateExpression += args[args.length - 1];
+        
+    let expressionAttributeValues = {};
+
+    expressionAttributeValues[':reviews'] = event.arguments.reviews;
+
+    let params = {
         TableName: UserTable,
-        Item: {
+        Key: {
             user_id: event.arguments.user_id,
-            reviews: {
-                review: event.arguments.review,
-                reviewer: event.arguments.reviewer
-            }
+        },
+        UpdateExpression: updateExpression,
+        ExpressionAttributeValues: expressionAttributeValues,
+        ExpressionAttributeNames: expressionAttributeNames,
+    };
+
+    await docClient.update(params).promise();
+
+    params = {
+        TableName: UserTable,
+        Key: {
+            user_id: event.arguments.user_id,
         }
     };
 
-    await docClient.put(item).promise();
+    const data = await docClient.get(params).promise();
 
-    return item.Item["reviews"];//return the newly created review
+    return data['Item'];
+
    }catch (error){
 
     console.log(error);
