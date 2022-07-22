@@ -159,18 +159,15 @@ class TradesmanProfilePage extends StatelessWidget {
                     ),
 
                     //to be integrated by Richard
-                    Positioned(
-                        top: 380,
-                        left: 82,
-                        child: ListView(
-                          children: vm.tradeTypes.map((element) => 
-                          Text(
-                            element as String,
-                             style: const TextStyle(fontSize: 20, color: Colors.white))),
-                          ))
-                          
-                        )
-                    ),
+                    // Positioned(
+                    //     top: 380,
+                    //     left: 82,
+                    //     child: ListView(
+                    //       children: vm.tradeTypes.map((element) => 
+                    //       Text(
+                    //         element as String,
+                    //          style: const TextStyle(fontSize: 20, color: Colors.white))),
+                    //       ))
                      //********************************************************//
 
                     Positioned(
