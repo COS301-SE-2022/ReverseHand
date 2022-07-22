@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
@@ -61,16 +62,20 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      pop: () => dispatch(
-            NavigateAction.pop(),
-          ));
+        domains: state.userDetails!.domains!,
+        pop: () => dispatch(
+          NavigateAction.pop(),
+        ),
+      );
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pop;
+  final List<Domain> domains;
 
   _ViewModel({
+    required this.domains,
     required this.pop,
   });
 }
