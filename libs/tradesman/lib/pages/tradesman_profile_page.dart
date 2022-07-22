@@ -2,10 +2,8 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
-import 'package:general/widgets/floating_button.dart';
 
 import '../widgets/navbar.dart';
 
@@ -32,20 +30,18 @@ class TradesmanProfilePage extends StatelessWidget {
                   //ALL INFO IS CURRENTLY HARDCODED
 
                   //*******************CONSUMER NAME************************//
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.account_circle,
-                          color: Colors.white,
-                          size: 50.0,
-                        ),
-                        const Padding(padding: EdgeInsets.only(right: 10)),
-                        Text(
-                          store.state.userDetails!.name!,
-                          style: const TextStyle(fontSize: 30),
-                        ),
-                      ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    const Icon(
+                      Icons.account_circle,
+                      color: Colors.white,
+                      size: 50.0,
+                    ),
+                    const Padding(padding: EdgeInsets.only(right: 10)),
+                    Text(
+                      store.state.userDetails!.name!,
+                      style: const TextStyle(fontSize: 30),
+                    ),
+                  ]),
                   //********************************************************//
 
                   const Padding(padding: EdgeInsets.all(20)),
@@ -80,9 +76,10 @@ class TradesmanProfilePage extends StatelessWidget {
                     Positioned(
                         top: 80,
                         left: 82,
-                        child: Text(store.state.userDetails!.location!.address.city,
-                            style:
-                                const TextStyle(fontSize: 20, color: Colors.white))),
+                        child: Text(
+                            store.state.userDetails!.location!.address.city,
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white))),
                     //********************************************************//
 
                     //cellphone
@@ -108,9 +105,9 @@ class TradesmanProfilePage extends StatelessWidget {
                         top: 180,
                         left: 82,
                         child: Text(store.state.userDetails!.cellNo!,
-                            style:
-                                const TextStyle(fontSize: 20, color: Colors.white))),
-                     //********************************************************//
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white))),
+                    //********************************************************//
 
                     //email
                     Positioned(
@@ -135,11 +132,11 @@ class TradesmanProfilePage extends StatelessWidget {
                         top: 280,
                         left: 82,
                         child: Text(store.state.userDetails!.email!,
-                            style:
-                                const TextStyle(fontSize: 20, color: Colors.white))),
-                   //********************************************************//
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white))),
+                    //********************************************************//
 
-                  //Trade
+                    //Trade
                     Positioned(
                       top: 340,
                       left: 45,
@@ -158,17 +155,24 @@ class TradesmanProfilePage extends StatelessWidget {
                       ),
                     ),
 
-                    //to be integrated by Richard
-                    // Positioned(
-                    //     top: 380,
-                    //     left: 82,
-                    //     child: ListView(
-                    //       children: vm.tradeTypes.map((element) => 
-                    //       Text(
-                    //         element as String,
-                    //          style: const TextStyle(fontSize: 20, color: Colors.white))),
-                    //       ))
-                     //********************************************************//
+                    // //to be integrated by Richard
+                    Positioned(
+                      top: 380,
+                      left: 82,
+                      child: SizedBox(
+                        width: 200,
+                        height: 50,
+                        child: ListView(
+                          children: vm.tradeTypes
+                              .map((element) => Text(element as String,
+                                  style: const TextStyle(
+                                      fontSize: 20, color: Colors.white)))
+                              .toList(),
+                        ),
+                      ),
+                    ),
+
+                    //********************************************************//
 
                     Positioned(
                       top: 10,
@@ -215,6 +219,7 @@ class _ViewModel extends Vm {
   final VoidCallback pushEditProfilePage;
 
   _ViewModel({
-    required this.pushEditProfilePage,  required this.tradeTypes,
-  }): super(equals: [tradeTypes]); 
+    required this.pushEditProfilePage,
+    required this.tradeTypes,
+  }) : super(equals: [tradeTypes]);
 }

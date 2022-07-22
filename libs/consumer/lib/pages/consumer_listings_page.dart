@@ -1,6 +1,8 @@
 import 'package:async_redux/async_redux.dart';
+
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../methods/populate_adverts.dart';
@@ -31,13 +33,32 @@ class ConsumerListingsPage extends StatelessWidget {
 
                   // populating column with adverts
                   ...populateAdverts(vm.adverts, store),
+
+                  //************MESSAGE IF THERE ARE NO ADVERTS***********/
+                  if (vm.adverts.isEmpty)
+                    (Padding(
+                      padding: EdgeInsets.only(
+                          top: (MediaQuery.of(context).size.height) / 3),
+                      child: const Text(
+                        "There are no\n active jobs",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 25, color: Colors.white54),
+                      ),
+                    )),
+                  //*****************************************************/
                 ],
               ),
             ),
           ),
 
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
+          floatingActionButton: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) =>
+                FloatingButtonWidget(
+              function: vm.pushCreateAdvertPage,
+            ),
+          ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
 
@@ -73,4 +94,5 @@ class _ViewModel extends Vm {
     required this.adverts,
     required this.pushCreateAdvertPage,
   }); // implementinf hashcode
+
 }

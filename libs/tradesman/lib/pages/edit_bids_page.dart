@@ -126,7 +126,7 @@ class EditBidsPage extends StatelessWidget {
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
-                            whiteBorder: true,
+                            border: "White",
                             function: vm.popPage)),
                   ]),
                   //******************************************//

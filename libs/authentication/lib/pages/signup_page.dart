@@ -1,7 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
-import 'package:general/widgets/blue_button_widget.dart';
 import 'package:general/widgets/dialog_helper.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/user/register_user_action.dart';

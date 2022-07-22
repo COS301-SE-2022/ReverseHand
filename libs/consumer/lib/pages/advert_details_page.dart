@@ -5,7 +5,6 @@ import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/job_card.dart';
-import 'package:general/widgets/floating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -82,7 +81,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
-                            whiteBorder: true,
+                            border: "white",
                             function: vm.popPage))
                   ]),
                   //*************BOTTOM BUTTONS**************//
@@ -94,12 +93,6 @@ class AdvertDetailsPage extends StatelessWidget {
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),
-
-          resizeToAvoidBottomInset: false,
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
           //*************************************************//
         ),
       ),
@@ -135,10 +128,11 @@ class _ViewModel extends Vm {
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
 
-  _ViewModel(
-      {required this.advert,
-      required this.pushEditAdvert,
-      required this.pushViewBidsPage,
-      required this.pushConsumerListings,
-      required this.popPage}); // implementinf hashcode
+  _ViewModel({
+    required this.advert,
+    required this.pushEditAdvert,
+    required this.pushViewBidsPage,
+    required this.pushConsumerListings,
+    required this.popPage,
+  }); // implementinf hashcode
 }

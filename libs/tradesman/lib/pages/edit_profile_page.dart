@@ -104,7 +104,7 @@ class _Factory extends VmFactory<AppState, EditTradesmanProfilePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
       pushProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/tradesman/tradesman_profile_page'),),
+            NavigateAction.pushNamed('/tradesman/profile'),),
       pushDomainConfirmPage: () => dispatch(
             NavigateAction.pushNamed('/tradesman/domain_confirm'),
           ));

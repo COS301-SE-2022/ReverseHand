@@ -6,14 +6,15 @@ class ButtonWidget extends StatelessWidget {
       color; //blue or scaffold colour, depending on background - orange is default
   final void Function() function;
   final bool? waiting;
-  final bool? whiteBorder; //white border and lower opacity
+  // final bool? whiteBorder; //white border and lower opacity
+  final String? border;
   const ButtonWidget(
       {Key? key,
       required this.text,
       this.color,
       required this.function,
       this.waiting,
-      this.whiteBorder})
+      this.border})
       : super(key: key);
 
   @override
@@ -28,9 +29,11 @@ class ButtonWidget extends StatelessWidget {
           shape: RoundedRectangleBorder(
             side: BorderSide(
                 width: 1.2,
-                color: whiteBorder == true
+                color: border == "white"
                     ? Colors.white70
-                    : const Color.fromRGBO(255, 153, 0, 1)),
+                    : border == "lightBlue"
+                        ? Theme.of(context).primaryColorDark
+                        : const Color.fromRGBO(255, 153, 0, 1)),
             borderRadius: BorderRadius.circular(30.0),
           )),
       onPressed: function,
@@ -39,7 +42,7 @@ class ButtonWidget extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              color: whiteBorder == true ? Colors.white70 : Colors.white,
+              color: border == "white" ? Colors.white70 : Colors.white,
               fontSize: 20),
         ),
       ),

@@ -16,12 +16,12 @@ class AppBarWidget extends StatelessWidget {
           alignment: const Alignment(
               0, -.5), //might swap this out for an Align widget around text
           child: Padding(
-            padding: const EdgeInsets.only(top:10), //apply padding to some sides only
+            padding: const EdgeInsets.all(22.0),
             child: Text(
-                      title,
-                      style: const TextStyle(fontSize: 20, letterSpacing: 2),
-                    ),
-          ), 
+              title,
+              style: const TextStyle(fontSize: 20),
+            ),
+          ),
         ));
   }
 }

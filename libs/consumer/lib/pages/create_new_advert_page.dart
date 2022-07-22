@@ -7,7 +7,6 @@ import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/floating_button.dart';
 
 class CreateNewAdvertPage extends StatelessWidget {
   final Store<AppState> store;
@@ -78,7 +77,8 @@ class CreateNewAdvertPage extends StatelessWidget {
                               vm.dispatchCreateAdvertActions(
                                   store.state.userDetails!.id,
                                   titleController.value.text,
-                                  store.state.userDetails!.location!.address.city,
+                                  store.state.userDetails!.location!.address
+                                      .city,
                                   descrController.value.text);
                             }
                           }),
@@ -96,10 +96,6 @@ class CreateNewAdvertPage extends StatelessWidget {
             ),
           ),
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
           bottomNavigationBar: NavBarWidget(
             store: store,
           ),

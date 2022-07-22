@@ -12,7 +12,6 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
-import 'package:general/widgets/floating_button.dart';
 
 import '../methods/populate_bids.dart';
 
@@ -119,10 +118,23 @@ class ViewBidsPage extends StatelessWidget {
                               padding: const EdgeInsets.all(8),
                               child: Column(children: [
                                 ...populateBids(vm.bids, store),
+                                //********IF NO BIDS********************/
+                                if (vm.bids.isEmpty)
+                                  (const Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: Text(
+                                      "No bids have\n been made yet",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white54),
+                                    ),
+                                  )),
+                                //**************************************/
+
                                 ButtonWidget(
                                     text: "Back",
                                     color: "light",
-                                    whiteBorder: true,
+                                    border: "white",
                                     function: vm.popPage)
                               ]
                                   //all bids should be populated here
@@ -136,14 +148,23 @@ class ViewBidsPage extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               child: Column(children: [
+                                //********IF NO SHORTLISTED BIDS**********/
+                                // const Padding(
+                                //   padding: EdgeInsets.all(20.0),
+                                //   child: Text(
+                                //     "You have no\n shortlisted bids",
+                                //     textAlign: TextAlign.center,
+                                //     style: TextStyle(
+                                //         fontSize: 20, color: Colors.white54),
+                                //   ),
+                                // ),
+                                //****************************************/
                                 ButtonWidget(
                                     text: "Back",
                                     color: "light",
-                                    whiteBorder: true,
+                                    border: "white",
                                     function: vm.popPage)
-                              ]
-                                  //active bids should be populated here
-                                  ),
+                              ]),
                             ),
                           ),
                           //*****************TAB 2******************//
@@ -351,11 +372,6 @@ class ViewBidsPage extends StatelessWidget {
             bottomNavigationBar: NavBarWidget(
               store: store,
             ),
-
-            resizeToAvoidBottomInset: false,
-            floatingActionButton: const FloatingButtonWidget(),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
             //*************************************************//
           ),
         ),

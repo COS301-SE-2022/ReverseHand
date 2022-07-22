@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
-import 'package:authentication/pages/location_page.dart';
 import 'package:consumer/consumer.dart';
 import 'package:consumer/pages/advert_details_page.dart';
 import 'package:consumer/pages/bid_details_page.dart';
@@ -83,10 +82,11 @@ class Launch extends StatelessWidget {
               LocationConfirmPage(store: store),
           '/tradesman/domain_confirm': (context) =>
               DomainConfirmPage(store: store),
+          '/tradesman/view_bids': (context) =>
+              TradesmanViewBidsPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
-          '/location': (context) => LocationPage(store: store),
         },
       ),
     );
