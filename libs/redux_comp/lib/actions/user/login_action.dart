@@ -93,7 +93,6 @@ class LoginAction extends ReduxAction<AppState> {
   @override
   void after() async {
     await dispatch(CheckUserExistsAction());
-    dispatch(WaitAction.remove("flag"));
     // If you are perhaps looking for where "what happens after a user logs in?" moved to...
     // please have a look at GetUserAction :))
   } 
