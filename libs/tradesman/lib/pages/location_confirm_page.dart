@@ -108,7 +108,7 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
       popPage: () => dispatch(NavigateAction.pop()),
-      address: state.geoSearch!.result!.address);
+      address: state.userDetails!.location!.address);
 }
 
 // view model
