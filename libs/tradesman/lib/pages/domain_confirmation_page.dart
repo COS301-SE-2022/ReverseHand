@@ -5,6 +5,7 @@ import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
+import 'package:tradesman/methods/populate_domains.dart';
 import 'package:tradesman/widgets/card_widget.dart';
 
 import '../widgets/navbar.dart';
@@ -32,8 +33,9 @@ class DomainConfirmPage extends StatelessWidget {
                   //***************************************************//
 
                   //**************** Domain Location Cards*************//
-                  CardWidget(store: store, title: 'Pretoria'),
-                  CardWidget(store: store, title: 'Centurion'),
+                  // CardWidget(store: store, title: 'Pretoria'),
+                  // CardWidget(store: store, title: 'Centurion'),
+                  ...populateDomains(store, vm.domains),
                   //***************************************************//
 
                   const Padding(padding: EdgeInsets.all(8)),
