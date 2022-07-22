@@ -110,6 +110,10 @@
         "addReviewResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/addReviewResolver-634859324f567674456e-build.zip"
+        },
+        "removeDomainResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/removeDomainResolver-684a7733436a78426243-build.zip"
         }
       }
     }

@@ -10,7 +10,7 @@ class UserModel {
   final String? name;
   final String? cellNo;
   final Location? location;
-  final List<Domain>? domains;
+  final List<Domain> domains;
   final List<dynamic>? tradeTypes;
   final String userType;
   final bool? registered;
@@ -20,7 +20,7 @@ class UserModel {
     this.email,
     this.name,
     this.cellNo,
-    this.domains,
+    this.domains = const [],
     this.tradeTypes,
     required this.userType,
     this.location,
