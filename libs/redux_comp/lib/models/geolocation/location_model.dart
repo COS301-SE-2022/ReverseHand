@@ -10,7 +10,6 @@ class Location {
   const Location({
     required this.address,
     required this.coordinates,
-   
   });
 
   Location replace({
@@ -21,5 +20,23 @@ class Location {
       address: address ?? this.address,
       coordinates: coordinates ?? this.coordinates,
     );
+  }
+
+  @override
+  String toString() {
+    return 
+  """{
+      address : {
+        streetNumber : "${address.streetNumber}",
+        street : "${address.street}",
+        city : "${address.city}",
+        province : "${address.province}",
+        zipCode : "${address.zipCode}"
+      },
+      coordinates : {
+        lat : ${coordinates.lat},
+        lng : ${coordinates.lng}
+      }
+    }""";
   }
 }

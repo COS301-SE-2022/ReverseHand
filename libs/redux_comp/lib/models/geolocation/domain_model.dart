@@ -21,4 +21,16 @@ class Domain {
       coordinates: coordinates ?? this.coordinates,
     );
   }
+
+  @override
+  String toString() {
+    return
+    """{
+      city : "$city",
+      coordinates : {
+        lat: ${coordinates.lat},
+        lng: ${coordinates.lng},
+      }
+    }""";
+  }
 }

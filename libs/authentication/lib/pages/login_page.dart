@@ -7,6 +7,7 @@ import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:general/widgets/loader.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
+import 'package:redux_comp/actions/user/create_user_action.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/button.dart';
@@ -117,7 +118,7 @@ class LoginPage extends StatelessWidget {
                                         emailController.value.text.trim(),
                                         passwordController.value.text.trim(),
                                       );
-                                      // vm.dispatchGetAddressAction();
+                                      // vm.dispatchCreateUserAction();
                                     },
                                   ),
                                 ),
@@ -265,6 +266,9 @@ class _Factory extends VmFactory<AppState, LoginPage> {
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),
+        dispatchCreateUserAction: () => dispatch(
+          CreateUserAction(),
+        ),
         // dispatchGetAddressAction: () => dispatch(
         //   GetAddressAction(),
         // ),
@@ -274,13 +278,13 @@ class _Factory extends VmFactory<AppState, LoginPage> {
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
-  // final void Function() dispatchGetAddressAction;
+  final void Function() dispatchCreateUserAction;
   final VoidCallback pushSignUpPage;
   final bool loading;
 
   _ViewModel({
     required this.dispatchLoginAction,
-    // required this.dispatchGetAddressAction,
+    required this.dispatchCreateUserAction,
     required this.loading,
     required this.pushSignUpPage,
   }) : super(equals: [loading]); // implementing hashcode

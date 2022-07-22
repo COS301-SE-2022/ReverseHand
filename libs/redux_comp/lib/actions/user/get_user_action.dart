@@ -59,14 +59,14 @@ class GetUserAction extends ReduxAction<AppState> {
         String city = user["location"]["address"]["city"];
         String zipCode = user["location"]["address"]["zipCode"];
         double lat = user["location"]["coordinates"]["lat"];
-        double long = user["location"]["coordinates"]["lng"];
+        double lng = user["location"]["coordinates"]["lng"];
         Address address = Address(
             streetNumber: streetNumber,
             street: street,
             city: city,
             province: "",
             zipCode: zipCode);
-        Coordinates coords = Coordinates(lat: lat, long: long);
+        Coordinates coords = Coordinates(lat: lat, lng: lng);
 
         return state.copy(
           userDetails: state.userDetails!.copy(
@@ -120,14 +120,14 @@ class GetUserAction extends ReduxAction<AppState> {
         String city = user["location"]["address"]["city"];
         String zipCode = user["location"]["address"]["zipCode"];
         double lat = double.parse(user["location"]["coordinates"]["lat"]);
-        double long = double.parse(user["location"]["coordinates"]["lng"]);
+        double lng = double.parse(user["location"]["coordinates"]["lng"]);
         Address address = Address(
             streetNumber: streetNumber,
             street: street,
             city: city,
             province: "",
             zipCode: zipCode);
-        Coordinates coords = Coordinates(lat: lat, long: long);
+        Coordinates coords = Coordinates(lat: lat, lng: lng);
 
         return state.copy(
           userDetails: state.userDetails!.copy(
