@@ -1,7 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
-import 'package:general/widgets/blue_button_widget.dart';
 import 'package:general/widgets/dialog_helper.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/user/register_user_action.dart';
@@ -167,20 +166,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               key: _tradesmanFormKey,
                               child: Column(
                                 children: <Widget>[
-                                  //*****************name**********************
-                                  TextFieldWidget(
-                                    label: 'name',
-                                    obscure: false,
-                                    icon: Icons.account_circle_outlined,
-                                    controller: nameController,
-                                    // validator: _createValidator(
-                                    //     "name",
-                                    //     "must only be letters",
-                                    //     RegExp(
-                                    //         r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")),
-                                  ),
-                                  //********************************************
-                                  const TransparentDividerWidget(),
                                   //*****************email**********************
                                   TextFieldWidget(
                                     label: 'email',
@@ -192,73 +177,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                         'is invalid',
                                         RegExp(
                                             r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
-                                  ),
-                                  //**********************************************
-                                  const TransparentDividerWidget(),
-                                  //*****************cellphone**********************
-                                  TextFieldWidget(
-                                    label: 'cellphone',
-                                    obscure: false,
-                                    icon: Icons.call_end_outlined,
-                                    controller: cellController,
-                                    validator: _createValidator(
-                                        'cellphone',
-                                        'can only contain numbers',
-                                        RegExp(r'')),
-                                  ),
-                                  //**********************************************
-                                  const TransparentDividerWidget(),
-                                  //*****************location**********************
-                                  StoreConnector<AppState, _ViewModel>(
-                                    vm: () => _Factory(this),
-                                    builder:
-                                        (BuildContext context, _ViewModel vm) =>
-                                            TextFieldWidget(
-                                      label: 'location',
-                                      obscure: false,
-                                      icon: Icons.add_location_outlined,
-                                      controller: tradeController,
-                                      onTap: () => vm.pushLocationPage(),
-                                      // final sessionToken = const Uuid().v1();
-                                      // showSearch(
-                                      //   context: context,
-                                      //   delegate: LocationSearchPage(sessionToken, widget.store),
-                                      // );
-                                    ),
-                                  ),
-
-                                  //**********************************************
-                                  const TransparentDividerWidget(),
-                                  //*****************trade type**********************
-                                  BlueButtonWidget(
-                                    text: 'trade type',
-                                    function: () => showMultiSelect(),
-                                    width: 350,
-                                    height: 60,
-                                    icon: Icons.construction_outlined,
-                                  ),
-
-                                  // display selected items
-                                  Wrap(
-                                    spacing: 8.0,
-                                    runSpacing: 8.0,
-                                    children: selectedItems
-                                        .map((types) => Chip(
-                                              labelPadding:
-                                                  const EdgeInsets.all(2.0),
-                                              label: Text(
-                                                types,
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              backgroundColor:
-                                                  const Color.fromRGBO(
-                                                      35, 47, 62, 1),
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                            ))
-                                        .toList(),
                                   ),
                                   //**********************************************
                                   const TransparentDividerWidget(),
@@ -479,20 +397,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               key: _consumerFormKey,
                               child: Column(
                                 children: <Widget>[
-                                  //*****************name**********************
-                                  TextFieldWidget(
-                                    label: 'name',
-                                    obscure: false,
-                                    icon: Icons.account_circle_outlined,
-                                    controller: nameController,
-                                    // validator: _createValidator(
-                                    //     "name",
-                                    //     "must only be letters",
-                                    //     RegExp(
-                                    //         r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u")),
-                                  ),
-                                  //********************************************
-                                  const TransparentDividerWidget(),
                                   //*****************email**********************
                                   TextFieldWidget(
                                     label: 'email',
@@ -504,30 +408,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                         'is invalid',
                                         RegExp(
                                             r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
-                                  ),
-                                  //**********************************************
-                                  const TransparentDividerWidget(),
-                                  //*****************cellphone**********************
-                                  TextFieldWidget(
-                                    label: 'cellphone',
-                                    obscure: false,
-                                    icon: Icons.call_end_outlined,
-                                    controller: cellController,
-                                    validator: _createValidator(
-                                        'cellphone',
-                                        'can only contain numbers',
-                                        RegExp(r'')),
-                                  ),
-                                  //**********************************************
-                                  const TransparentDividerWidget(),
-                                  //*****************location**********************
-                                  BlueButtonWidget(
-                                    text: 'location',
-                                    function: () =>
-                                        showMultiSelect(), //change to location function
-                                    width: 350,
-                                    height: 60,
-                                    icon: Icons.add_location_outlined,
                                   ),
                                   //**********************************************
                                   const TransparentDividerWidget(),

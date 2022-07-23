@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/floating_button.dart';
+
+import '../widgets/navbar.dart';
 
 class EditBidPage extends StatelessWidget {
   final Store<AppState> store;
@@ -90,11 +90,8 @@ class EditBidPage extends StatelessWidget {
             ),
           ),
           //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
-          bottomNavigationBar: NavBarWidget(
+      
+          bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
           //*****************************************************/

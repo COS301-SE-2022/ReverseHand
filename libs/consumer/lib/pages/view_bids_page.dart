@@ -7,6 +7,7 @@ import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
+
 import 'package:general/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
@@ -14,7 +15,6 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
-import 'package:general/widgets/floating_button.dart';
 
 import '../methods/populate_bids.dart';
 
@@ -120,9 +120,7 @@ class ViewBidsPage extends StatelessWidget {
                             )),
                           ),
                         //**************************************/
-                      ]
-                          //all bids should be populated here
-                          ),
+                      ]),
                     ),
                   ]),
                 ],
@@ -136,7 +134,7 @@ class ViewBidsPage extends StatelessWidget {
           ),
 
           resizeToAvoidBottomInset: false,
-          floatingActionButton: const FloatingButtonWidget(),
+          // floatingActionButton: const FloatingButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           //*************************************************//
