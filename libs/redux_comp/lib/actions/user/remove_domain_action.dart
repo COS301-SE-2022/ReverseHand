@@ -1,10 +1,8 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/user/login_action.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import '../../models/error_type_model.dart';
 import '../../models/geolocation/domain_model.dart';
 
 /* Remove domain from a user */
@@ -31,7 +29,7 @@ class RemoveDomainAction extends ReduxAction<AppState> {
     try {
       await Amplify.API.mutate(request: requestUserGroup).response;
 
-      List<Domain> domains = state.userDetails!.domains!;
+      List<Domain> domains = state.userDetails!.domains;
       domains.removeWhere((element) => element.city == city);
 
       return state.copy(userDetails: state.userDetails!.copy(domains: domains));

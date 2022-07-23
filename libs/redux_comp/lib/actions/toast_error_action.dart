@@ -12,7 +12,6 @@ class ToastErrorAction extends ReduxAction<AppState> {
 
   @override
   AppState? reduce() {
-    print("wjhy");
     displayToastError(context, msg);
 
     return state.copy(error: ErrorType.none);
