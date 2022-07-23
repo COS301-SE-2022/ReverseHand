@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/widgets/dialog_helper.dart';
+import 'package:consumer/widgets/view_quote_pop_up.dart';
+import 'package:general/widgets/dialog_helper.dart';
 import 'package:consumer/widgets/shortlist_bid_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
@@ -70,20 +71,12 @@ class BidDetailsPage extends StatelessWidget {
                   ),
                   //****************************//
 
-                  //******************INFO***************//
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      //name
-                      // Text('${vm.bid.name}',
-                      //     style: const TextStyle(
-                      //         fontSize: 33, color: Colors.white)),
-
-                      //keep for now - still testing if appBar stack works on other screens
-
                       const Padding(padding: EdgeInsets.all(15)),
 
-                      //bid range
+                      //**************BID RANGE***************/
                       const Center(
                         child: Text(
                           'Quoted price',
@@ -100,7 +93,9 @@ class BidDetailsPage extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+                      //**************************************/
 
+                      //******CONTACT DETAILS - AVAILABLE IF SHORTLISTED******/
                       if (vm.bid.isShortlisted())
                         (Column(
                           children: [
@@ -122,10 +117,22 @@ class BidDetailsPage extends StatelessWidget {
                               ),
                             ),
                           ],
-                        ))
+                        )),
+                      //********************************************//
+
+                      //**************SEE QUOTE BUTTON***************/
+                      // Center(
+                      //   child: ButtonWidget(
+                      //       text: "See Quote",
+                      //       color: "dark",
+                      //       function: () {
+                      //         DialogHelper.display(
+                      //             context, const QuotePopUpWidget());
+                      //       }),
+                      // )
+                      //**************&*****************************/
                     ],
                   ),
-                  //*************************************//
 
                   //****************BOTTOM BUTTONS**************//
                   const Padding(padding: EdgeInsets.all(15)),
@@ -134,17 +141,6 @@ class BidDetailsPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 2,
                     ),
 
-                    //shortlist/accept
-                    // Positioned(
-                    //   top: 20,
-                    //   child: ShortlistAcceptButtonWidget(
-                    //     shortBid: vm.bid.isShortlisted(),
-                    //     onTap: () => vm.bid.isShortlisted()
-                    //         ? vm.dispatchAcceptBidAction()
-                    //         : vm.dispatchShortListBidAction(),
-
-                    //   ),
-                    // ),
                     Positioned(
                       top: 20,
                       child: ButtonWidget(
@@ -158,7 +154,7 @@ class BidDetailsPage extends StatelessWidget {
                                   store: store,
                                   shortlisted:
                                       vm.bid.isShortlisted() ? true : false,
-                                )); //trigger OTP popup
+                                ));
                           }),
                     ),
 
