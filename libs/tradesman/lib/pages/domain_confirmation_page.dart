@@ -6,8 +6,6 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:tradesman/methods/populate_domains.dart';
-import 'package:tradesman/widgets/card_widget.dart';
-
 import '../widgets/navbar.dart';
 
 class DomainConfirmPage extends StatelessWidget {
@@ -64,7 +62,7 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        domains: state.userDetails!.domains!,
+        domains: state.userDetails!.domains,
         pop: () => dispatch(
           NavigateAction.pop(),
         ),
