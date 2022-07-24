@@ -15,19 +15,20 @@ class FilterBidsAction extends ReduxAction<AppState> {
   AppState? reduce() {
     List<BidModel> bids = [];
 
+    // bids and shortlisted bids cannot be null
     if (filter.includeShortlisted) {
-      bids = state.bids +
-          state.shortlistBids; // bids and shortlisted bids cannot be null
-    } else {
-      bids = state.bids;
+      bids += state.shortlistBids;
+    }
+
+    if (filter.includeBids) {
+      bids += state.bids;
     }
 
     // filter by price
     if (filter.priceRange != null) {
       bids.removeWhere(
-        (bid) =>
-            bid.priceLower >= filter.priceRange!.low &&
-            bid.priceUpper >= filter.priceRange!.high,
+        (bid) => !(bid.priceLower >= filter.priceRange!.low &&
+            bid.priceUpper <= filter.priceRange!.high),
       );
     }
 
@@ -53,11 +54,14 @@ class FilterBidsAction extends ReduxAction<AppState> {
         case Kind.rating:
           // todo
           break;
+        case Kind.date:
+          // TODO: Handle this case.
+          break;
       }
     }
 
     return state.copy(
-      bids: bids,
+      viewBids: bids,
     );
   }
 }

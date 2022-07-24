@@ -7,12 +7,14 @@ class FilterBidsModel {
   final Sort? sort; // how to sort
   final int? ratingLower; // lower bound for rating
   final bool includeShortlisted; // whether shortlisted bids should be included
+  final bool includeBids; // whether normal bids should be included
 
   const FilterBidsModel({
     this.priceRange,
     this.ratingLower,
     this.sort,
     required this.includeShortlisted,
+    required this.includeBids,
   });
 }
 
