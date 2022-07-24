@@ -99,6 +99,7 @@ class ViewBidsPage extends StatelessWidget {
                           }),
                     ],
                   ),
+                  const Padding(padding: EdgeInsets.all(5)),
                   Stack(children: [
                     BottomOverlayWidget(
                         height: MediaQuery.of(context).size.height),

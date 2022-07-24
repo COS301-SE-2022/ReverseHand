@@ -25,7 +25,7 @@ class FilterPopUpWidget extends StatelessWidget {
           child: Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "Sort By",
+              "Sort By:",
               style: TextStyle(fontSize: 20),
             ),
           ),
@@ -43,7 +43,9 @@ class FilterPopUpWidget extends StatelessWidget {
             borderRadius:
                 BorderRadius.circular(20.0), //borderRadius for container
             border: Border.all(
-                color: Colors.white, style: BorderStyle.solid, width: 1),
+                color: Theme.of(context).scaffoldBackgroundColor,
+                style: BorderStyle.solid,
+                width: 1),
           ),
           child: DropdownButton(
               dropdownColor: Theme.of(context).scaffoldBackgroundColor,
@@ -75,7 +77,7 @@ class FilterPopUpWidget extends StatelessWidget {
           child: Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "Price Range",
+              "Price Range:",
               style: TextStyle(fontSize: 20),
             ),
           ),
@@ -106,8 +108,8 @@ class FilterPopUpWidget extends StatelessWidget {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: const BorderSide(
-                        color: Colors.white,
+                      borderSide: BorderSide(
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         width: 1.0,
                       ),
                     ),
@@ -148,8 +150,8 @@ class FilterPopUpWidget extends StatelessWidget {
                     floatingLabelBehavior: FloatingLabelBehavior.auto,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: const BorderSide(
-                        color: Colors.white,
+                      borderSide: BorderSide(
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         width: 1.0,
                       ),
                     ),
@@ -172,7 +174,7 @@ class FilterPopUpWidget extends StatelessWidget {
           child: Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "Display",
+              "Display:",
               style: TextStyle(fontSize: 20),
             ),
           ),
@@ -221,6 +223,7 @@ class FilterPopUpWidget extends StatelessWidget {
               Navigator.pop(context);
             } //need a different function
             ),
+
         //*******************************************/
         const Padding(padding: EdgeInsets.all(20))
       ]),
