@@ -16,12 +16,12 @@ class LoginAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    await store.waitCondition((state) => Amplify.isConfigured == true);
+    await store.waitCondition((_) => Amplify.isConfigured == true);
 
     try {
       await Amplify.Auth.signOut();
 
-      /*SignInResult res = */ await Amplify.Auth.signIn(
+      /* SignInResult res = */ await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -60,6 +60,11 @@ class LoginAction extends ReduxAction<AppState> {
           return state.copy(
             error: ErrorType.userNotFound,
           );
+        case "Username is required to signIn":
+          // print(e.message);
+          return state.copy(
+            error: ErrorType.noInput,
+          );
         case "User does not exist.":
           debugPrint(e.message);
           return state.copy(
@@ -92,9 +97,17 @@ class LoginAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    await dispatch(CheckUserExistsAction());
+    if (state.error == ErrorType.none) {
+      await dispatch(CheckUserExistsAction());
+      // state.userDetails!.userType == "Consumer"
+      //     ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
+      //     : await dispatch(ViewJobsAction());
+      // dispatch(NavigateAction.pushReplacementNamed(
+      //     "/${state.userDetails!.userType.toLowerCase()}"));
+    }
+
+    // wait until error has finished before stopping loading
+    await store.waitCondition((state) => state.error == ErrorType.none);
     dispatch(WaitAction.remove("flag"));
-    // If you are perhaps looking for where "what happens after a user logs in?" moved to...
-    // please have a look at GetUserAction :))
-  } 
+  } // we know that state wont be null
 }
