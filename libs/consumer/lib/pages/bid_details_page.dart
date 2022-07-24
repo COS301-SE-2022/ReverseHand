@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:general/widgets/dialog_helper.dart';
+import 'package:consumer/widgets/dialog_helper.dart';
 import 'package:consumer/widgets/shortlist_bid_popup.dart';
+import 'package:consumer/widgets/view_quote_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
@@ -115,20 +116,22 @@ class BidDetailsPage extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            const Padding(padding: EdgeInsets.all(10))
                           ],
                         )),
                       //********************************************//
 
                       //**************SEE QUOTE BUTTON***************/
-                      // Center(
-                      //   child: ButtonWidget(
-                      //       text: "See Quote",
-                      //       color: "dark",
-                      //       function: () {
-                      //         DialogHelper.display(
-                      //             context, const QuotePopUpWidget());
-                      //       }),
-                      // )
+                      if (vm.bid.isShortlisted())
+                        (Center(
+                          child: ButtonWidget(
+                              text: "See Quote",
+                              color: "dark",
+                              function: () {
+                                DialogHelper.display(
+                                    context, const QuotePopUpWidget());
+                              }),
+                        ))
                       //**************&*****************************/
                     ],
                   ),
