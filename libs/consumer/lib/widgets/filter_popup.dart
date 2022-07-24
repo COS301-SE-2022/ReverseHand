@@ -19,6 +19,7 @@ class FilterPopUpWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(children: [
+        //*********FIRST FILTER: HEADING***********/
         const Padding(
           padding: EdgeInsets.only(left: 45, top: 30),
           child: Align(
@@ -29,7 +30,10 @@ class FilterPopUpWidget extends StatelessWidget {
             ),
           ),
         ),
+        //*****************************************/
         const Padding(padding: EdgeInsets.only(bottom: 10)),
+
+        //*********FIRST FILTER: DROPDOWN***********/
         Container(
           padding: const EdgeInsets.all(10),
           height: 40,
@@ -63,6 +67,9 @@ class FilterPopUpWidget extends StatelessWidget {
                   .toList(),
               onChanged: ((_) {})),
         ),
+        //******************************************/
+
+        //*********SECOND FILTER: HEADING***********/
         const Padding(
           padding: EdgeInsets.only(left: 45, top: 20),
           child: Align(
@@ -74,7 +81,9 @@ class FilterPopUpWidget extends StatelessWidget {
           ),
         ),
         const Padding(padding: EdgeInsets.only(bottom: 10)),
+        //******************************************/
 
+        //*********SECOND FILTER: RANGES***********/
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -155,6 +164,9 @@ class FilterPopUpWidget extends StatelessWidget {
                 )),
           ],
         ),
+        //******************************************/
+
+        //*********THIRD FILTER: HEADING***********/
         const Padding(
           padding: EdgeInsets.only(left: 45, top: 20),
           child: Align(
@@ -165,11 +177,40 @@ class FilterPopUpWidget extends StatelessWidget {
             ),
           ),
         ),
-        //*******************************************//
+        //*****************************************/
+        const Padding(padding: EdgeInsets.only(bottom: 10)),
+
+        //*********THIRD FILTER: CHECKBOXES***********/
+        Container(
+          padding: const EdgeInsets.all(10),
+          width: MediaQuery.of(context).size.width / 1.5,
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius:
+                BorderRadius.circular(20.0), //borderRadius for container
+          ),
+          child: Column(
+            children: [
+              CheckboxListTile(
+                title: const Text('Shortlisted Bids'),
+                value: true,
+                activeColor: Theme.of(context).primaryColor,
+                onChanged: (value) {},
+              ),
+              CheckboxListTile(
+                title: const Text('Unshortlisted Bids'),
+                value: true,
+                activeColor: Theme.of(context).primaryColor,
+                onChanged: (value) {},
+              ),
+            ],
+          ),
+        ),
+        //*******************************************/
 
         const Padding(padding: EdgeInsets.all(10)),
 
-        // Buttons
+        //*****************BUTTONS*******************/
         ButtonWidget(text: "Apply", function: () {} //need a different function
             ),
         ButtonWidget(
@@ -180,7 +221,7 @@ class FilterPopUpWidget extends StatelessWidget {
               Navigator.pop(context);
             } //need a different function
             ),
-
+        //*******************************************/
         const Padding(padding: EdgeInsets.all(20))
       ]),
     );
