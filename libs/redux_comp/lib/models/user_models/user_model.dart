@@ -5,7 +5,7 @@ import 'package:redux_comp/models/geolocation/location_model.dart';
 @immutable
 class UserModel {
   final String id;
-  final String? email;
+  final String email;
   final String? name;
   final String? cellNo;
   final Location? location;
@@ -16,7 +16,7 @@ class UserModel {
 
   const UserModel({
     required this.id,
-    this.email,
+    required this.email,
     this.name,
     this.cellNo,
     this.domains,

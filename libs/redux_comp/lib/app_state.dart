@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
-import 'package:redux_comp/models/geolocation/search_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
@@ -42,7 +41,7 @@ class AppState {
   // this methods sets the starting state for the store
   factory AppState.initial() {
     return AppState(
-      userDetails: const UserModel(id: "", userType: ""),
+      userDetails: const UserModel(id: "", email: "", userType: ""),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
       bids: const [],

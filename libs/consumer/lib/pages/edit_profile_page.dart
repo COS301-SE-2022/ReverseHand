@@ -5,6 +5,7 @@ import 'package:general/widgets/textfield.dart';
 import 'package:geolocation/pages/location_search_page.dart';
 import 'package:redux_comp/actions/user/create_user_action.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
+import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
@@ -19,10 +20,14 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  final nameController = TextEditingController();
+  final cellController = TextEditingController();
   final locationController = TextEditingController();
 
   @override
   void dispose() {
+    nameController.dispose();
+    cellController.dispose();
     locationController.dispose();
     super.dispose();
   }
@@ -49,13 +54,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
-                      initialVal: (widget.store.state.userDetails!.name == null)
-                          ? null
-                          : widget.store.state.userDetails!.name,
+                      // apparently you cannot have both a controller and intial value for a textform field,
+                      // the workaround is to set the controllers value to the intial value
+                      // initialVal: (widget.store.state.userDetails!.name == null)
+                      //     ? "null"
+                      //     : widget.store.state.userDetails!.name,
                       label: "name",
                       obscure: false,
                       min: 1,
-                      controller: null,
+                      controller: nameController,
                     ),
                   ),
                   //**************************************************//
@@ -64,19 +71,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
-                      initialVal:
-                          (widget.store.state.userDetails!.cellNo == null)
-                              ? null
-                              : widget.store.state.userDetails!.cellNo,
+                      // initialVal:
+                      //     (widget.store.state.userDetails!.cellNo == null)
+                      //         ? "null"
+                      //         : widget.store.state.userDetails!.cellNo,
                       label: "cellphone number",
                       obscure: false,
-                      controller: null,
+                      controller: cellController,
                       min: 1,
                     ),
                   ),
                   //**************************************************//
 
-                  //********************NUMBER**********************//
+                  //*****************LOCATION BUTTON*******************//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
@@ -133,7 +140,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ] else
                     //*******************SAVE BUTTON********************//
                     ButtonWidget(
-                        text: "Save Changes", function: vm.pushProfilePage),
+                        text: "Save Changes",
+                        function: () {
+                          final name = nameController.value.text.trim();
+                          final cell = cellController.value.text.trim();
+                          final location = vm.userDetails!.location;
+                          if (location != null) {
+                            vm.dispatchCreateConsumerAction(
+                                name, cell, location);
+                          } else {
+                            // thinking maybe we can make a generic dispatch error action with an ErrorTpe parameter
+                            // something like:
+                            // vm.dispatchError(ErrorType.locationNotCaptured)
+                          }
+                        }),
                 ],
               ),
             ),
@@ -162,6 +182,7 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
           NavigateAction.pushNamed('/consumer/consumer_profile_page'),
         ),
         isRegistered: state.userDetails!.registered!,
+        userDetails: (state.userDetails == null) ? null : state.userDetails!,
       );
 }
 
@@ -170,18 +191,12 @@ class _ViewModel extends Vm {
   final void Function(String, String, Location) dispatchCreateConsumerAction;
   final VoidCallback pushProfilePage;
   final bool isRegistered;
+  final UserModel? userDetails;
 
   _ViewModel({
     required this.dispatchCreateConsumerAction,
     required this.pushProfilePage,
+    required this.userDetails,
     required this.isRegistered,
-  }); // implementinf hashcode
-}
-
-List<Widget> showButtons(bool isRegistered, Store<AppState> store) {
-  if (isRegistered) {
-    return [];
-  } else {
-    return [];
-  }
+  }) : super(equals: [userDetails]);
 }

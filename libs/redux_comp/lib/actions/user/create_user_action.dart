@@ -1,8 +1,6 @@
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import '../../app_state.dart';
@@ -17,109 +15,104 @@ class CreateUserAction extends ReduxAction<AppState> {
   final String cellNo;
   final Location? location;
   final List<Domain>? domains;
-  final List<Domain>? tradeTypes;
+  final List<String>? tradeTypes;
 
-  CreateUserAction({required this.name, required this.cellNo, this.location, this.domains, this.tradeTypes });
+  CreateUserAction(
+      {required this.name,
+      required this.cellNo,
+      this.location,
+      this.domains,
+      this.tradeTypes});
 
   @override
   Future<AppState?> reduce() async {
-    if (true) {
-      //pass user information into variables
-      const String id = "t#test";
-      const String email = "test@tester.com";
-      const String name = "Tester";
-      const String cellNo = "0123456789";
+    //pass user information into variables
+    final id = state.userDetails!.id;
+    final email = state.userDetails!.email;
+    // different queries for different users
+    // If tradesman, DO store domains and tradetypes
+    if (state.userDetails!.userType == "Tradesman") {
+      if (domains == null || domains!.isEmpty) {
+        return state.copy(
+            error:
+                ErrorType.domainsNotCaptured); //Don't create tradesman user if
+      }
+      if (tradeTypes == null || tradeTypes!.isEmpty) {
+        return state.copy(error: ErrorType.tradeTypesNotCaptured);
+      }
 
-      // different queries for different users
-      // If tradesman, DO store domains and tradetypes
-      if (state.partialUser!.group != "tradesman") {
-        // Location locationObj = const Location(
-        //   address: Address(
-        //       street: "123",
-        //       streetNumber: "Test",
-        //       city: "TestTown",
-        //       province: "TestCounty",
-        //       zipCode: "0000"),
-        //   coordinates: Coordinates(lat: 22, lng: -12),
-        // );
+      List<String> domainsQuery = [];
 
-        // String location = locationObj.toString();
-        List<Domain> domainObjs = [];
-        Domain d1 = const Domain(
-            city: "Pretoria", coordinates: Coordinates(lat: 1, lng: 2));
-        Domain d2 = const Domain(
-            city: "Joburg", coordinates: Coordinates(lat: 1, lng: 2));
-        domainObjs.add(d1);
-        domainObjs.add(d2);
+      for (var domain in domains!) {
+        domainsQuery.add(domain.toString());
+      }
 
-        var domains = [];
-
-        for (var domain in domainObjs) {
-          domains.add(domain.toString());
-        }
-
-        debugPrint(domains[0]);
-
-        String graphQLDoc = '''mutation  {
+      String graphQLDoc = '''mutation  {
           createUser(
             user_id: "$id", 
             email: "$email", 
             name: "$name", 
             cellNo: "$cellNo", 
-            domains: $domains,
+            domains: $domainsQuery,
+            tradeTypes: $tradeTypes,
           ) {
             id
           }
         }
         ''';
 
-        debugPrint(graphQLDoc);
-        final requestCreateUser = GraphQLRequest(
-          document: graphQLDoc,
-        );
+      debugPrint(graphQLDoc);
+      final requestCreateUser = GraphQLRequest(
+        document: graphQLDoc,
+      );
 
-        try {
-          final resp =
-              await Amplify.API.mutate(request: requestCreateUser).response;
-          debugPrint(resp.data);
-          return null;
-        } on ApiException catch (e) {
-          debugPrint(e.message);
-          return null;
-        }
-      } else {
-        // String graphQLDoc = '''mutation  {
-        //   createUser(
-        //     cellNo: "$cellNo",
-        //     city: "$city",
-        //     email: "$email",
-        //     lat: "$lat",
-        //     long: "$long",
-        //     name: "$name",
-        //     streetNumber: "$streetnumber",
-        //     user_id: "$id",
-        //     zipCode: "$zipCode",
-        //     street: "$street"
-        //   ) {
-        //     id
-        //   }
-        // }
-        // ''';
-
-        // final requestCreateUser = GraphQLRequest(
-        //   document: graphQLDoc,
-        // );
-
-        // try {
-        //   final resp =
-        //       await Amplify.API.mutate(request: requestCreateUser).response;
-        //   debugPrint(resp.data);
-        //   return null;
-        // } on ApiException catch (e) {
-        //   debugPrint(e.message);
-        //   return null;
-        // }
+      try {
+        final resp =
+            await Amplify.API.mutate(request: requestCreateUser).response;
+        debugPrint(resp.data);
         return null;
+      } on ApiException catch (e) {
+        debugPrint(e.message);
+        return state.copy(error: ErrorType.failedToCreateUser);
+      }
+    } else if (state.userDetails!.userType == "Consumer") {
+      if (location == null) {
+        return state.copy(error: ErrorType.locationNotCaptured);
+      }
+
+      String locationQuery = location.toString();
+
+      String graphQLDoc = '''mutation  {
+          createUser(
+            user_id: "$id", 
+            email: "$email", 
+            name: "$name", 
+            cellNo: "$cellNo", 
+            location: $locationQuery
+          ) {
+            id
+          }
+        }
+        ''';
+
+      final requestCreateUser = GraphQLRequest(
+        document: graphQLDoc,
+      );
+
+      try {
+        final resp =
+            await Amplify.API.mutate(request: requestCreateUser).response;
+        debugPrint(resp.data);
+        return state.copy(
+          userDetails: state.userDetails!.copy(
+            name: name,
+            cellNo: cellNo,
+            location: location
+          )
+        );
+      } on ApiException catch (e) {
+        debugPrint(e.message);
+        return state.copy(error: ErrorType.failedToAddUserToGroup);
       }
     } else {
       return state.copy(error: ErrorType.failedToCreateUser);
