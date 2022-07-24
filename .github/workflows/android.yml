@@ -260,7 +260,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with: 
           api-level: 29
-          script: echo 'Hello world' #will be changed once Secrets Manager is running
+          script: npx nx run-many --target=integrationTest --all --skip-nx-cache --parallel
      
 
 
