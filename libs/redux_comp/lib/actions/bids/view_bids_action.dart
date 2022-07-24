@@ -39,6 +39,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
       List<BidModel> bids = [];
       List<BidModel> shortlistedBids = [];
 
+      // since all bids are gotten we seperate them into two lists
       for (dynamic d in data['viewBids']) {
         String id = d['id'];
         if (id.contains('s')) {

@@ -38,6 +38,7 @@ class Sort {
 enum Kind {
   price,
   rating,
+  date,
 }
 
 // represents the direction in which to sort

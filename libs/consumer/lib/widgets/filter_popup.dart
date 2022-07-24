@@ -1,15 +1,32 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
+import 'package:redux_comp/actions/adverts/filter_bids_action.dart';
+import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/filter_bids_model.dart';
 
-class FilterPopUpWidget extends StatelessWidget {
+class FilterPopUpWidget extends StatefulWidget {
+  const FilterPopUpWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<FilterPopUpWidget> createState() => _FilterPopUpWidgetState();
+}
+
+class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
+  bool showBids = true;
+  bool showSBids = true;
+  Sort? sort;
+  String? dropDownListVal = "None";
+
+  // items in drop down list
   final List<String> _dropdownValues1 = [
+    "None",
     "Date added",
     "Price: Low to High",
     "Price: High to Low",
   ];
-  FilterPopUpWidget({
-    Key? key,
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,31 +56,52 @@ class FilterPopUpWidget extends StatelessWidget {
             borderRadius:
                 BorderRadius.circular(20.0), //borderRadius for container
             border: Border.all(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                style: BorderStyle.solid,
-                width: 1),
+              color: Theme.of(context).scaffoldBackgroundColor,
+              style: BorderStyle.solid,
+              width: 1,
+            ),
           ),
           child: DropdownButton(
-              dropdownColor: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius:
-                  BorderRadius.circular(20.0), //borderRadius for dropdownMenu
-              isExpanded: true,
-              underline: const SizedBox.shrink(),
-              value: _dropdownValues1.first,
-              icon: const Align(
-                alignment: Alignment.centerRight,
-                child: Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.white,
-                ),
+            dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius:
+                BorderRadius.circular(20.0), //borderRadius for dropdownMenu
+            isExpanded: true,
+            underline: const SizedBox.shrink(),
+            value: dropDownListVal,
+            icon: const Align(
+              alignment: Alignment.centerRight,
+              child: Icon(
+                Icons.arrow_drop_down,
+                color: Colors.white,
               ),
-              items: _dropdownValues1
-                  .map((value) => DropdownMenuItem(
-                        value: value,
-                        child: Text(value),
-                      ))
-                  .toList(),
-              onChanged: ((_) {})),
+            ),
+            items: _dropdownValues1
+                .map((value) => DropdownMenuItem(
+                      value: value,
+                      child: Text(value),
+                    ))
+                .toList(),
+            onChanged: (String? kind) {
+              switch (kind) {
+                case "None":
+                  sort = null;
+                  break;
+                case "Date added":
+                  sort = const Sort(Kind.date, Direction.descending);
+                  break;
+                case "Price: Low to High":
+                  sort = const Sort(Kind.price, Direction.descending);
+                  break;
+                case "Price: High to Low":
+                  sort = const Sort(Kind.price, Direction.ascending);
+                  break;
+              }
+
+              setState(() {
+                dropDownListVal = kind;
+              });
+            },
+          ),
         ),
         //******************************************/
 
@@ -191,15 +229,23 @@ class FilterPopUpWidget extends StatelessWidget {
             children: [
               CheckboxListTile(
                 title: const Text('Shortlisted Bids'),
-                value: true,
+                value: showSBids,
                 activeColor: Theme.of(context).primaryColor,
-                onChanged: (value) {},
+                onChanged: (bool? value) {
+                  setState(() {
+                    showSBids = value!;
+                  });
+                },
               ),
               CheckboxListTile(
                 title: const Text('Non-shortlisted Bids'),
-                value: true,
+                value: showBids,
                 activeColor: Theme.of(context).primaryColor,
-                onChanged: (value) {},
+                onChanged: (bool? value) {
+                  setState(() {
+                    showBids = value!;
+                  });
+                },
               ),
             ],
           ),
@@ -225,4 +271,24 @@ class FilterPopUpWidget extends StatelessWidget {
       ]),
     );
   }
+}
+
+// factory for view model
+class _Factory extends VmFactory<AppState, FilterPopUpWidget> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+        dispatchFilterBidsAction: (FilterBidsModel filter) =>
+            dispatch(FilterBidsAction(filter)),
+      );
+}
+
+// view model
+class _ViewModel extends Vm {
+  final void Function(FilterBidsModel) dispatchFilterBidsAction;
+
+  _ViewModel({
+    required this.dispatchFilterBidsAction,
+  }); // implementinf hashcode
 }
