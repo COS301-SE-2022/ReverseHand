@@ -1,9 +1,5 @@
-import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
-
-import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
-import 'package:redux_comp/app_state.dart';
 
 class FilterPopUpWidget extends StatelessWidget {
   final List<String> _dropdownValues1 = [
@@ -200,7 +196,7 @@ class FilterPopUpWidget extends StatelessWidget {
                 onChanged: (value) {},
               ),
               CheckboxListTile(
-                title: const Text('Unshortlisted Bids'),
+                title: const Text('Non-shortlisted Bids'),
                 value: true,
                 activeColor: Theme.of(context).primaryColor,
                 onChanged: (value) {},
@@ -229,23 +225,4 @@ class FilterPopUpWidget extends StatelessWidget {
       ]),
     );
   }
-}
-
-// factory for view model
-class _Factory extends VmFactory<AppState, FilterPopUpWidget> {
-  _Factory(widget) : super(widget);
-
-  @override
-  _ViewModel fromStore() => _ViewModel(
-        dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
-      );
-}
-
-// view model
-class _ViewModel extends Vm {
-  final VoidCallback dispatchShortListBidAction;
-
-  _ViewModel({
-    required this.dispatchShortListBidAction,
-  }); // implementinf hashcode
 }

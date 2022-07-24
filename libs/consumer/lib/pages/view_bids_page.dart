@@ -20,13 +20,8 @@ import '../methods/populate_bids.dart';
 
 class ViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
-  final List<String> _dropdownValues1 = [
-    "Any",
-    "Price: Low to High", //think about this wording
-    "Price: High to Low",
-  ];
 
-  ViewBidsPage({Key? key, required this.store}) : super(key: key);
+  const ViewBidsPage({Key? key, required this.store}) : super(key: key);
 
   @override
 
