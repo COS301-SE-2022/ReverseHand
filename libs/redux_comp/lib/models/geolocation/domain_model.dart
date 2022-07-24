@@ -9,7 +9,6 @@ class Domain {
   const Domain({
     required this.city,
     required this.coordinates,
-   
   });
 
   Domain copy({
@@ -24,13 +23,19 @@ class Domain {
 
   @override
   String toString() {
-    return
-    """{
+    return """{
       city : "$city",
       coordinates : {
         lat: ${coordinates.lat},
         lng: ${coordinates.lng},
       }
     }""";
+  }
+
+  factory Domain.fromJson(Map<String, dynamic> json) {
+    return Domain(
+      city: json['city'],
+      coordinates: Coordinates.fromJson(json['coordinates']),
+    );
   }
 }

@@ -180,6 +180,10 @@ type Notification implements UniqueID {
   seen: Boolean!
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 59e34f02f25803fd0c372ff99c2cf6a9db947f22
 type Review implements UniqueID {
   id: String!
   rating: Int

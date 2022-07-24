@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:redux_comp/models/error_type_model.dart';
+import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import '../../app_state.dart';

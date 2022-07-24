@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
+
+import '../geolocation/domain_model.dart';
 
 @immutable
 class UserModel {
@@ -9,7 +10,7 @@ class UserModel {
   final String? name;
   final String? cellNo;
   final Location? location;
-  final List<dynamic>? domains;
+  final List<Domain> domains;
   final List<dynamic>? tradeTypes;
   final String userType;
   final bool? registered;
@@ -19,7 +20,7 @@ class UserModel {
     required this.email,
     this.name,
     this.cellNo,
-    this.domains,
+    this.domains = const [],
     this.tradeTypes,
     required this.userType,
     this.location,
@@ -31,7 +32,7 @@ class UserModel {
     String? email,
     String? name,
     String? cellNo,
-    List<dynamic>? domains,
+    List<Domain>? domains,
     List<dynamic>? tradeTypes,
     String? userType,
     Location? location,
