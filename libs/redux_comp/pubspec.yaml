@@ -29,6 +29,9 @@ dependencies:
 
   amplify:
     path: '../amplify'
+  
+  general:
+    path: '../general'
 
 dev_dependencies:
   flutter_test:

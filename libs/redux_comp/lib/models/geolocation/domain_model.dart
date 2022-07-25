@@ -9,7 +9,6 @@ class Domain {
   const Domain({
     required this.city,
     required this.coordinates,
-   
   });
 
   Domain copy({
@@ -19,6 +18,13 @@ class Domain {
     return Domain(
       city: city ?? this.city,
       coordinates: coordinates ?? this.coordinates,
+    );
+  }
+
+  factory Domain.fromJson(Map<String, dynamic> json) {
+    return Domain(
+      city: json['city'],
+      coordinates: Coordinates.fromJson(json['coordinates']),
     );
   }
 }

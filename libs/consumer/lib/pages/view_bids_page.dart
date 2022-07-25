@@ -87,11 +87,17 @@ class ViewBidsPage extends StatelessWidget {
                           function: vm.popPage),
                       const Padding(padding: EdgeInsets.all(5)),
                       ButtonWidget(
-                          text: "Filter",
-                          color: "dark",
-                          function: () {
-                            DialogHelper.display(context, FilterPopUpWidget());
-                          }),
+                        text: "Filter",
+                        color: "dark",
+                        function: () {
+                          DialogHelper.display(
+                            context,
+                            FilterPopUpWidget(
+                              store: store,
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                   const Padding(padding: EdgeInsets.all(5)),
@@ -169,5 +175,5 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.bids,
     required this.advert,
-  }) : super(equals: [change]); // implementing hashcode
+  }) : super(equals: [change, bids]); // implementing hashcode
 }
