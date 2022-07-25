@@ -41,9 +41,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       //not working yet?
                       Text(advert.title,
                           style: const TextStyle(
-                              fontFamily: 'Futura',
-                              fontSize: 30,
-                              color: Colors.white)),
+                              fontSize: 30, color: Colors.white)),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
                         child: Text(advert.dateCreated,
@@ -58,10 +56,11 @@ class QuickViewJobCardWidget extends StatelessWidget {
                             color: Colors.white,
                             size: 30.0,
                           ),
-                          const Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
+                          const Padding(
+                              padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
                           Text(advert.location,
-                              style:
-                                  const TextStyle(fontSize: 20, color: Colors.white))
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.white))
                         ],
                       ),
                     ],

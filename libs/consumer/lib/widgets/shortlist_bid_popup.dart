@@ -36,7 +36,9 @@ class ShortlistPopUpWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ButtonWidget(
-                  text: "Shortlist",
+                  text: shortlisted == true
+                      ? "Accept"
+                      : "Shortlist", //if already shortlisted, accept should be the description
                   function: () {
                     vm.dispatchShortListBidAction();
                     Navigator.pop(context);
