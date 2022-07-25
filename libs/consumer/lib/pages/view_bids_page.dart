@@ -99,7 +99,7 @@ class ViewBidsPage extends StatelessWidget {
                     BottomOverlayWidget(
                         height: MediaQuery.of(context).size.height),
                     Container(
-                      padding: const EdgeInsets.all(50),
+                      padding: const EdgeInsets.all(10),
                       child: Column(children: [
                         ...populateBids(vm.bids, store),
                         //********IF NO BIDS********************/

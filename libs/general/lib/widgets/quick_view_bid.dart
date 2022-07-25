@@ -35,6 +35,7 @@ class QuickViewBidWidget extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       '${bid.name}',
