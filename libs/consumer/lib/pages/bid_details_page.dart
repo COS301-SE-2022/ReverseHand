@@ -1,7 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/dialog_helper.dart';
 import 'package:consumer/widgets/shortlist_bid_popup.dart';
-import 'package:consumer/widgets/view_quote_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
