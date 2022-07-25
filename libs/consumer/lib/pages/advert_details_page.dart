@@ -1,4 +1,6 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/delete_advert_popup.dart';
+import 'package:consumer/widgets/dialog_helper.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
@@ -69,11 +71,15 @@ class AdvertDetailsPage extends StatelessWidget {
 
                     //Delete - currently just takes you back to Consumer Listings page
                     Positioned(
-                        top: 75,
-                        child: ButtonWidget(
-                            text: "Delete",
-                            color: "light",
-                            function: vm.pushConsumerListings)),
+                      top: 75,
+                      child: ButtonWidget(
+                          text: "Delete",
+                          color: "light",
+                          function: () {
+                            DialogHelper.display(
+                                context, const DeletePopUpWidget());
+                          }),
+                    ),
 
                     //Back
                     Positioned(
