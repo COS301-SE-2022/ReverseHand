@@ -122,8 +122,10 @@ class BidDetailsPage extends StatelessWidget {
                       //********************************************//
 
                       //**************SEE QUOTE BUTTON***************/
-                      if (vm.bid.isShortlisted())
-                        (Center(
+                      // if (vm.bid.isShortlisted())
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Center(
                           child: ButtonWidget(
                               text: "See Quote",
                               color: "dark",
@@ -131,7 +133,8 @@ class BidDetailsPage extends StatelessWidget {
                                 DialogHelper.display(
                                     context, const QuotePopUpWidget());
                               }),
-                        ))
+                        ),
+                      )
                       //**************&*****************************/
                     ],
                   ),
