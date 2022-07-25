@@ -280,6 +280,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                             int.parse(minController.value.text),
                             int.parse(maxController.value.text),
                           ),
+                    sort: sort,
                   ),
                 );
 

@@ -43,11 +43,11 @@ class FilterBidsAction extends ReduxAction<AppState> {
       switch (filter.sort!.kind) {
         case Kind.price:
           switch (filter.sort!.direction) {
-            case Direction.ascending:
-              bids.sort(((a, b) => a.priceLower.compareTo(b.priceLower)));
-              break;
             case Direction.descending:
-              bids.sort(((a, b) => a.priceUpper.compareTo(b.priceUpper)));
+              bids.sort((a, b) => a.priceLower.compareTo(b.priceLower));
+              break;
+            case Direction.ascending:
+              bids.sort((a, b) => b.priceUpper.compareTo(a.priceUpper));
               break;
           }
           break;
