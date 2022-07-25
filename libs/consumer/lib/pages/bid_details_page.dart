@@ -59,15 +59,12 @@ class BidDetailsPage extends StatelessWidget {
                   ]),
 
                   //**********DIVIDER***********//
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Divider(
-                      height: 20,
-                      thickness: 0.5,
-                      indent: 15,
-                      endIndent: 15,
-                      color: Theme.of(context).primaryColorLight,
-                    ),
+                  Divider(
+                    height: 20,
+                    thickness: 0.5,
+                    indent: 15,
+                    endIndent: 15,
+                    color: Theme.of(context).primaryColorLight,
                   ),
                   //****************************//
 
@@ -83,7 +80,7 @@ class BidDetailsPage extends StatelessWidget {
                           style: TextStyle(fontSize: 20, color: Colors.white70),
                         ),
                       ),
-                      const Padding(padding: EdgeInsets.all(8)),
+                      const Padding(padding: EdgeInsets.all(3)),
                       Center(
                         child: Text(
                           'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
@@ -122,19 +119,32 @@ class BidDetailsPage extends StatelessWidget {
                       //********************************************//
 
                       //**************SEE QUOTE BUTTON***************/
-                      // if (vm.bid.isShortlisted())
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Center(
-                          child: ButtonWidget(
-                              text: "See Quote",
-                              color: "dark",
-                              function: () {
-                                DialogHelper.display(
-                                    context, const QuotePopUpWidget());
-                              }),
-                        ),
-                      )
+                      //if quote is not uploaded
+                      const Center(
+                        child: (Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text(
+                            "No quote has been\n uploaded yet.",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white54),
+                          ),
+                        )),
+                      ),
+
+                      //if quote is uploaded
+                      // Padding(
+                      //   padding: const EdgeInsets.all(20.0),
+                      //   child: Center(
+                      //     child: ButtonWidget(
+                      //         text: "See Quote",
+                      //         color: "dark",
+                      //         function: () {
+                      //           DialogHelper.display(
+                      //               context, const QuotePopUpWidget());
+                      //         }),
+                      //   ),
+                      // )
                       //**************&*****************************/
                     ],
                   ),
