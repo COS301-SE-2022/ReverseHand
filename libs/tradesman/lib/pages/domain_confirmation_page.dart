@@ -9,7 +9,6 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:tradesman/methods/populate_domains.dart';
 import 'package:uuid/uuid.dart';
-import '../widgets/navbar.dart';
 
 class DomainConfirmPage extends StatelessWidget {
   final Store<AppState> store;
@@ -56,6 +55,7 @@ class DomainConfirmPage extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) =>
                 FloatingButtonWidget(function: () async {
               final sessionToken = const Uuid().v1();
+              // ignore: unused_local_variable
               final result = await showSearch(
                   context: context,
                   delegate: LocationSearchPage(sessionToken, store));

@@ -9,8 +9,6 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 
-import '../widgets/navbar.dart';
-
 class EditTradesmanProfilePage extends StatefulWidget {
   final Store<AppState> store;
   const EditTradesmanProfilePage({Key? key, required this.store})

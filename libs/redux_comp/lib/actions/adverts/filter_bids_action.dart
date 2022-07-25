@@ -55,7 +55,7 @@ class FilterBidsAction extends ReduxAction<AppState> {
           // todo
           break;
         case Kind.date:
-          // TODO: Handle this case.
+          // todo: Handle this case.
           break;
       }
     }
