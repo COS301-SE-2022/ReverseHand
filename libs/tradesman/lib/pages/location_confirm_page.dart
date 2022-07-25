@@ -73,7 +73,7 @@ class LocationConfirmPage extends StatelessWidget {
 
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "Save Location",
+                      text: "Add Domain",
                       function: vm.popPage), //fix path
                   //**************************************************//
 
