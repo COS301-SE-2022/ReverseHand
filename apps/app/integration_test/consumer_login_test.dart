@@ -18,8 +18,10 @@ void main() {
     await tester.pumpAndSettle();
 
     //storing constants used to login as consumer
-    const email = "consumer.cachemoney@gmail.com";
-    const passowrd = "Consumer#01";
+    // const email = "consumer.cachemoney@gmail.com";
+    const email = "lastrucci61@gmail.com";
+    // const passowrd = "Consumer#01";
+    const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
     var email_ = find.widgetWithText(TextFormField, "email");
