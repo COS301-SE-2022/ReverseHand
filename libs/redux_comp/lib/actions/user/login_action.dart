@@ -49,6 +49,8 @@ class LoginAction extends ReduxAction<AppState> {
           id: (userType == "Consumer") ? "c#$id" : "t#$id",
           email: email,
           userType: userType,
+          domains: [],
+          tradeTypes: []
         ),
       );
       /* Cognito will throw an AuthException object that is not fun to interact with */

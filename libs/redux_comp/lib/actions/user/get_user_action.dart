@@ -3,8 +3,6 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-import 'package:redux_comp/models/geolocation/coordinates_model.dart';
-import 'package:redux_comp/models/geolocation/address_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
@@ -54,26 +52,14 @@ class GetUserAction extends ReduxAction<AppState> {
             (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
         // build place model from result
-        String streetNumber = user["location"]["address"]["streetNumber"];
-        String street = user["location"]["address"]["street"];
-        String city = user["location"]["address"]["city"];
-        String zipCode = user["location"]["address"]["zipCode"];
-        double lat = user["location"]["coordinates"]["lat"];
-        double lng = user["location"]["coordinates"]["lng"];
-        Address address = Address(
-            streetNumber: streetNumber,
-            street: street,
-            city: city,
-            province: "",
-            zipCode: zipCode);
-        Coordinates coords = Coordinates(lat: lat, lng: lng);
+        Location location = Location.fromJson(user["location"]);
 
         return state.copy(
           userDetails: state.userDetails!.copy(
             name: user["name"],
             cellNo: user["cellNo"],
             email: user["email"],
-            location: Location(address: address, coordinates: coords),
+            location: location,
           ),
         );
       } on ApiException catch (e) {
@@ -96,18 +82,6 @@ class GetUserAction extends ReduxAction<AppState> {
             }
           }
           tradetypes
-          location {
-            address {
-              streetNumber
-              street
-              city
-              zipCode
-            }
-            coordinates {
-              lat
-              lng
-            }
-          }
         }
       }
       ''';
@@ -121,20 +95,6 @@ class GetUserAction extends ReduxAction<AppState> {
             (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
 
-        String streetNumber = user["location"]["address"]["streetNumber"];
-        String street = user["location"]["address"]["street"];
-        String city = user["location"]["address"]["city"];
-        String zipCode = user["location"]["address"]["zipCode"];
-        double lat = double.parse(user["location"]["coordinates"]["lat"]);
-        double lng = double.parse(user["location"]["coordinates"]["lng"]);
-        Address address = Address(
-            streetNumber: streetNumber,
-            street: street,
-            city: city,
-            province: "",
-            zipCode: zipCode);
-        Coordinates coords = Coordinates(lat: lat, lng: lng);
-
         List<Domain> domains = [];
         for (dynamic domain in user["domains"]) {
           domains.add(Domain.fromJson(domain));
@@ -147,7 +107,6 @@ class GetUserAction extends ReduxAction<AppState> {
             cellNo: user["cellNo"],
             domains: domains,
             tradeTypes: user["tradetypes"],
-            location: Location(address: address, coordinates: coords),
           ),
         );
       } on ApiException catch (e) {
@@ -167,6 +126,5 @@ class GetUserAction extends ReduxAction<AppState> {
     // wait until error has finished before stopping loading
     await store.waitCondition((state) => state.error == ErrorType.none);
     dispatch(WaitAction.remove("flag"));
-    
   }
 }

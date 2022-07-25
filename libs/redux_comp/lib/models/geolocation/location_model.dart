@@ -24,8 +24,7 @@ class Location {
 
   @override
   String toString() {
-    return 
-  """{
+    return """{
       address : {
         streetNumber : "${address.streetNumber}",
         street : "${address.street}",
@@ -38,5 +37,18 @@ class Location {
         lng : ${coordinates.lng}
       }
     }""";
+  }
+
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
+      address: Address(
+        streetNumber: json['streetNumber'],
+        street: json['street'],
+        city: json['city'],
+        province: json['province'],
+        zipCode: json['zipCode'],
+      ),
+      coordinates: Coordinates.fromJson(json['coordinates']),
+    );
   }
 }

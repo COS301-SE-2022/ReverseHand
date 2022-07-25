@@ -2,9 +2,10 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
+import 'package:redux_comp/actions/user/create_user_action.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/profile_button_widget.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 
@@ -12,13 +13,25 @@ import '../widgets/navbar.dart';
 
 class EditTradesmanProfilePage extends StatefulWidget {
   final Store<AppState> store;
-  const EditTradesmanProfilePage({Key? key, required this.store}) : super(key: key);
+  const EditTradesmanProfilePage({Key? key, required this.store})
+      : super(key: key);
 
   @override
-  State<EditTradesmanProfilePage> createState() => _EditTradesmanProfilePageState();
+  State<EditTradesmanProfilePage> createState() =>
+      _EditTradesmanProfilePageState();
 }
 
 class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
+  final nameController = TextEditingController();
+  final cellController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    cellController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -38,24 +51,24 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                   //***************************************************//
 
                   //**********************NAME************************//
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 30),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
                       label: "Name",
                       obscure: false,
                       min: 1,
-                      controller: null,
+                      controller: nameController,
                     ),
                   ),
                   //**************************************************//
 
                   //********************NUMBER**********************//
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 25),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
                       label: "Phone",
                       obscure: false,
-                      controller: null,
+                      controller: cellController,
                       min: 1,
                     ),
                   ),
@@ -66,8 +79,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                       label: "Domains",
                       obscure: false,
                       controller: null,
-                      onTap:
-                        vm.pushDomainConfirmPage,
+                      onTap: vm.pushDomainConfirmPage,
                       min: 1,
                     ),
                   ),
@@ -75,13 +87,13 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
 
                   //**********************Domain************************//
                   // ProfileButtonWidget(
-                  //   function: vm.pushDomainConfirmPage, 
-                  //   height: 60, 
-                  //   icon: null, 
-                  //   text: 'Domain', 
+                  //   function: vm.pushDomainConfirmPage,
+                  //   height: 60,
+                  //   icon: null,
+                  //   text: 'Domain',
                   //   width: 365,
                   // ),
-                  
+
                   const Padding(padding: EdgeInsets.only(bottom: 30)),
                   //**************************************************//
 
@@ -102,27 +114,22 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                     ButtonWidget(
                         text: "Save Changes",
                         function: () {
-                          // final name = nameController.value.text.trim();
-                          // final cell = cellController.value.text.trim();
-                          // final location = vm.userDetails!.location;
-                          // if (location != null) {
-                          //   vm.dispatchCreateConsumerAction(
-                          //       name, cell, location);
-                          // } else {
-                          //   // thinking maybe we can make a generic dispatch error action with an ErrorTpe parameter
-                          //   // something like:
-                          //   // vm.dispatchError(ErrorType.locationNotCaptured)
-                          // }
+                          final name = nameController.value.text.trim();
+                          final cell = cellController.value.text.trim();
+                          final location = vm.userDetails!.location;
+                          if (location != null) {
+                            vm.dispatchCreateTradesmanAction(
+                                name, cell, ["Painting"], vm.userDetails!.domains);
+                          } else {
+                            // thinking maybe we can make a generic dispatch error action with an ErrorTpe parameter
+                            // something like:
+                            // vm.dispatchError(ErrorType.locationNotCaptured)
+                          }
                         }),
                 ],
               ),
             ),
           ),
-          //************************NAVBAR***********************/
-          bottomNavigationBar: TNavBarWidget(
-            store: widget.store,
-          ),
-          //*****************************************************/
         ),
       ),
     );
@@ -135,22 +142,35 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      pushProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/tradesman/profile'),),
-      pushDomainConfirmPage: () => dispatch(
-            NavigateAction.pushNamed('/tradesman/domain_confirm'),
-          ),
-      userDetails: (state.userDetails == null) ? null : state.userDetails!,
-          );
+        dispatchCreateTradesmanAction: (String name, String cell,
+                List<String> tradeTypes, List<Domain> domains) =>
+            dispatch(CreateUserAction(
+                name: name,
+                cellNo: cell,
+                tradeTypes: tradeTypes,
+                domains: domains)),
+        pushProfilePage: () => dispatch(
+          NavigateAction.pushNamed('/tradesman/profile'),
+        ),
+        pushDomainConfirmPage: () => dispatch(
+          NavigateAction.pushNamed('/tradesman/domain_confirm'),
+        ),
+        userDetails: (state.userDetails == null) ? null : state.userDetails!,
+      );
 }
 
 // view model
 class _ViewModel extends Vm {
+  final void Function(String, String, List<String>, List<Domain>)
+      dispatchCreateTradesmanAction;
   final VoidCallback pushProfilePage;
   final VoidCallback pushDomainConfirmPage;
   final UserModel? userDetails;
 
   _ViewModel({
-    required this.pushProfilePage, required this.pushDomainConfirmPage, required this.userDetails,
-  }):super(equals: []); 
+    required this.dispatchCreateTradesmanAction,
+    required this.pushProfilePage,
+    required this.pushDomainConfirmPage,
+    required this.userDetails,
+  }) : super(equals: []);
 }

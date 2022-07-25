@@ -1,13 +1,16 @@
 import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
+import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+
 
 /* CreateUserAction */
 /* This action creates a user of a specified group if they have been verified on signup */
@@ -56,7 +59,7 @@ class CreateUserAction extends ReduxAction<AppState> {
             name: "$name", 
             cellNo: "$cellNo", 
             domains: $domainsQuery,
-            tradeTypes: $tradeTypes,
+            tradetypes: ${jsonEncode(tradeTypes)},
           ) {
             id
           }
@@ -72,7 +75,9 @@ class CreateUserAction extends ReduxAction<AppState> {
         final resp =
             await Amplify.API.mutate(request: requestCreateUser).response;
         debugPrint(resp.data);
-        return null;
+        return state.copy(
+            userDetails: state.userDetails!
+                .copy(name: name, cellNo: cellNo, tradeTypes: tradeTypes, domains: domains, location: null));
       } on ApiException catch (e) {
         debugPrint(e.message);
         return state.copy(error: ErrorType.failedToCreateUser);
@@ -106,42 +111,24 @@ class CreateUserAction extends ReduxAction<AppState> {
             await Amplify.API.mutate(request: requestCreateUser).response;
         debugPrint(resp.data);
         return state.copy(
-          userDetails: state.userDetails!.copy(
-            name: name,
-            cellNo: cellNo,
-            location: location
-          )
-        );
+            userDetails: state.userDetails!
+                .copy(name: name, cellNo: cellNo, location: location));
       } on ApiException catch (e) {
         debugPrint(e.message);
-        return state.copy(error: ErrorType.failedToAddUserToGroup);
+        return state.copy(error: ErrorType.failedToCreateUser);
       }
     } else {
       return state.copy(error: ErrorType.failedToCreateUser);
     }
   }
-}
 
-// mutation  {
-//           createUser(
-//             user_id: "t#test",
-//             email: "test@tester.com",
-//             name: "Tester",
-//             cellNo: "0123456789",
-//             domains: [{
-//       city : Pretoria,
-//       coordinates : {
-//         lat: 1.0,
-//         lng: 2.0,
-//       }
-//     }, {
-//       city : Joburg,
-//       coordinates : {
-//         lat: 1.0,
-//         lng: 2.0,
-//       }
-//     }],
-//           ) {
-//             id
-//           }
-//         }
+  @override
+  Future<void> after() async {
+    state.userDetails!.userType == "Consumer"
+        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
+        : await dispatch(ViewJobsAction());
+    dispatch(NavigateAction.pushNamed(
+        "/${state.userDetails!.userType.toLowerCase()}"));
+    // wait until error has finished before stopping loading
+  }
+}

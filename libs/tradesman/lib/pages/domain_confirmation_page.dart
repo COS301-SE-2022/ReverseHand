@@ -39,6 +39,8 @@ class DomainConfirmPage extends StatelessWidget {
                   ...populateDomains(store, vm.domains),
                   //***************************************************//
 
+                  //dynamic save button
+                  if (vm.domains.isNotEmpty) 
                   const Padding(padding: EdgeInsets.all(8)),
 
                   //*******************DISCARD BUTTON*****************//
@@ -61,9 +63,9 @@ class DomainConfirmPage extends StatelessWidget {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: TNavBarWidget(
-            store: store,
-          ),
+          // bottomNavigationBar: TNavBarWidget(
+          //   store: store,
+          // ),
           //*****************************************************/
         ),
       ),
@@ -92,5 +94,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.domains,
     required this.pop,
-  });
+  }) :super(equals: [domains]);
 }
