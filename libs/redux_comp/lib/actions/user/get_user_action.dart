@@ -1,15 +1,14 @@
 import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/address_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
-
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
+import '../../models/geolocation/domain_model.dart';
 import '../adverts/view_adverts_action.dart';
 import '../adverts/view_jobs_action.dart';
 
@@ -49,17 +48,17 @@ class GetUserAction extends ReduxAction<AppState> {
       );
 
       try {
-        await Amplify.API.mutate(request: request).response;
+        await Amplify.API.query(request: request).response;
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response).data);
+            (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
         // build place model from result
         String streetNumber = user["location"]["address"]["streetNumber"];
         String street = user["location"]["address"]["street"];
         String city = user["location"]["address"]["city"];
         String zipCode = user["location"]["address"]["zipCode"];
-        double lat = double.parse(user["location"]["coordinates"]["lat"]);
-        double long = double.parse(user["location"]["coordinates"]["lng"]);
+        double lat = user["location"]["coordinates"]["lat"];
+        double long = user["location"]["coordinates"]["lng"];
         Address address = Address(
             streetNumber: streetNumber,
             street: street,
@@ -88,7 +87,13 @@ class GetUserAction extends ReduxAction<AppState> {
           email
           name
           cellNo
-          domains
+          domains {
+            city
+            coordinates {
+              lat
+              lng
+            }
+          }
           tradetypes
           location {
             address {
@@ -112,15 +117,15 @@ class GetUserAction extends ReduxAction<AppState> {
 
       try {
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response).data);
+            (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
 
         String streetNumber = user["location"]["address"]["streetNumber"];
         String street = user["location"]["address"]["street"];
         String city = user["location"]["address"]["city"];
         String zipCode = user["location"]["address"]["zipCode"];
-        double lat = double.parse(user["location"]["coordinates"]["lat"]);
-        double long = double.parse(user["location"]["coordinates"]["lng"]);
+        double lat = user["location"]["coordinates"]["lat"];
+        double long = user["location"]["coordinates"]["lng"];
         Address address = Address(
             streetNumber: streetNumber,
             street: street,
@@ -129,12 +134,17 @@ class GetUserAction extends ReduxAction<AppState> {
             zipCode: zipCode);
         Coordinates coords = Coordinates(lat: lat, long: long);
 
+        List<Domain> domains = [];
+        for (dynamic domain in user["domains"]) {
+          domains.add(Domain.fromJson(domain));
+        }
+
         return state.copy(
           userDetails: state.userDetails!.copy(
             name: user["name"],
             email: user["email"],
             cellNo: user["cellNo"],
-            domains: user["domains"],
+            domains: domains,
             tradeTypes: user["tradetypes"],
             location: Location(address: address, coordinates: coords),
           ),

@@ -56,18 +56,27 @@ class JobCardWidget extends StatelessWidget {
                     //   size: 30.0,
                     // ), //icon spacing is giving issues at the moment
                     Text(location,
-                        style: const TextStyle(fontSize: 20, color: Colors.white))
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white))
                   ],
                 ),
               ),
               //*****************************************//
 
               //****************DESCRIPTION*******************//
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 35, 0, 0),
-                child: Text(descText,
-                    style: const TextStyle(fontSize: 20, color: Colors.white)),
+              SizedBox(
+                height: 103,
+                width: MediaQuery.of(context).size.width / 1.3,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(descText,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          const TextStyle(fontSize: 20, color: Colors.white)),
+                ),
               ),
+
               //**********************************************/
             ],
           ),
