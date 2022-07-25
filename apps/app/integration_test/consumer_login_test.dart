@@ -13,15 +13,15 @@ void main() {
   //Note: When entering text into fields or tapping buttons
   //you have to use the .pumpAndSettel();
 
-  testWidgets("Login And Use App as consumer", (WidgetTester tester) async {
+  testWidgets("Login as a  Consumer", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
     //storing constants used to login as consumer
-    // const email = "consumer.cachemoney@gmail.com";
-    const email = "lastrucci61@gmail.com";
-    // const passowrd = "Consumer#01";
-    const passowrd = "@Aa12345";
+    const email = "consumer.cachemoney@gmail.com";
+    // const email = "lastrucci61@gmail.com";
+    const passowrd = "Consumer#01";
+    // const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
     var email_ = find.widgetWithText(TextFormField, "email");
@@ -54,7 +54,7 @@ void main() {
 
     await Future.delayed(const Duration(seconds: 6), () {});
 
-    //Now on page showing all the adverts.
+    /*//Now on page showing all the adverts.
     var advert = find.widgetWithText(QuickViewJobCardWidget, "Painting");
     expect(advert, findsOneWidget);
 
@@ -117,6 +117,6 @@ void main() {
     //go back to the last page
     await tester.pageBack();
     await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 2), () {});
+    await Future.delayed(const Duration(seconds: 2), () {});*/
   });
 }
