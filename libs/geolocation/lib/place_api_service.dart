@@ -91,7 +91,7 @@ class PlaceApiService {
             province = c['long_name'];
           }
         }
-        final coordinates = Coordinates(lat: coords['lat'],long: coords['lng']);
+        final coordinates = Coordinates(lat: coords['lat'],lng: coords['lng']);
         final address = Address(streetNumber: streetNumber, street: street, city: city, province: province, zipCode: zipCode);
         return Location(address: address, coordinates: coordinates);
       }

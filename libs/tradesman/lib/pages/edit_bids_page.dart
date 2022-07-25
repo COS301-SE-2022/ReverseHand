@@ -11,10 +11,10 @@ import 'package:general/widgets/button.dart';
 
 import '../widgets/navbar.dart';
 
-class TBidDetailsPage extends StatelessWidget {
+class EditBidsPage extends StatelessWidget {
   final Store<AppState> store;
 
-  const TBidDetailsPage({Key? key, required this.store}) : super(key: key);
+  const EditBidsPage({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -102,21 +102,6 @@ class TBidDetailsPage extends StatelessWidget {
                         ),
 
                         const Padding(padding: EdgeInsets.all(40)),
-
-                        //contact information
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(
-                              Icons.info_outline,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                            Padding(padding: EdgeInsets.all(3)),
-                          ],
-                        ),
-
-                        //need to get this info dynamically
                       ]),
                   //*************************************//
 
@@ -127,9 +112,27 @@ class TBidDetailsPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 2,
                     ),
 
+                     Positioned(
+                      top: 20,
+                      right: 35,
+                      child: IconButton(
+                        onPressed: vm.popPage,//DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
+                        icon: const Icon(Icons.edit),
+                        color: Colors.white70,
+                      ),
+                    ),
+
+                    //Delete
+                    Positioned(
+                        top: 40,
+                        child: ButtonWidget(
+                            text: "Delete",
+                            border: "White",
+                            function: vm.popPage)),
+
                     //Back
                     Positioned(
-                        top: 20,
+                        top: 80,
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
@@ -154,7 +157,7 @@ class TBidDetailsPage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, TBidDetailsPage> {
+class _Factory extends VmFactory<AppState, EditBidsPage> {
   _Factory(widget) : super(widget);
 
   @override

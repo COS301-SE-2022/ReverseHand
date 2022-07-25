@@ -49,6 +49,8 @@ class LoginAction extends ReduxAction<AppState> {
           id: (userType == "Consumer") ? "c#$id" : "t#$id",
           email: email,
           userType: userType,
+          domains: [],
+          tradeTypes: []
         ),
       );
       /* Cognito will throw an AuthException object that is not fun to interact with */
@@ -99,15 +101,6 @@ class LoginAction extends ReduxAction<AppState> {
   void after() async {
     if (state.error == ErrorType.none) {
       await dispatch(CheckUserExistsAction());
-      // state.userDetails!.userType == "Consumer"
-      //     ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
-      //     : await dispatch(ViewJobsAction());
-      // dispatch(NavigateAction.pushReplacementNamed(
-      //     "/${state.userDetails!.userType.toLowerCase()}"));
-    }
-
-    // wait until error has finished before stopping loading
-    await store.waitCondition((state) => state.error == ErrorType.none);
-    dispatch(WaitAction.remove("flag"));
-  } // we know that state wont be null
+    } 
+  }
 }

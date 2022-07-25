@@ -298,14 +298,14 @@ class _Factory extends VmFactory<AppState, LoginPage> {
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
-  // final void Function() dispatchGetAddressAction;
+  // final void Function() dispatchCreateUserAction;
   final VoidCallback pushSignUpPage;
   final bool loading;
   final ErrorType error;
 
   _ViewModel({
     required this.dispatchLoginAction,
-    // required this.dispatchGetAddressAction,
+    // required this.dispatchCreateUserAction,
     required this.loading,
     required this.pushSignUpPage,
     required this.error,

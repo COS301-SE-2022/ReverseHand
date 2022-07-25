@@ -12,6 +12,7 @@ import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
+import 'package:tradesman/methods/populate_bids.dart';
 
 import '../widgets/navbar.dart';
 
@@ -63,6 +64,19 @@ class TradesmanViewBidsPage extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: Column(children: [
+                               ...populateBids(vm.userId, vm.bids, store),
+                                //********IF NO BIDS********************/
+                                if (vm.bids.isEmpty)
+                                  (const Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: Text(
+                                      "No bids have\n been made yet",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white54),
+                                    ),
+                                  )),
+                                //**************************************/
                               ButtonWidget(
                                   text: "Back",
                                   color: "light",
@@ -70,7 +84,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                                   function: vm.popPage)
                             ]
                                 //all bids should be populated here
-                                ),
+                            ),
                           ),
                           //****************************************//
 

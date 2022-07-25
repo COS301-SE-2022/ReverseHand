@@ -105,7 +105,7 @@ class BidDetailsPage extends StatelessWidget {
                             ),
                             Center(
                               child: Text(
-                                store.state.userDetails!.email!,
+                                store.state.userDetails!.email,
                                 style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
