@@ -37,15 +37,37 @@ class QuickViewBidWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '${bid.name}',
-                      style: const TextStyle(fontSize: 22, color: Colors.white),
+                    Row(
+                      children: [
+                        //***********IF BID IS SHORTLISTED********/
+                        //then display a star
+                        if (bid.isShortlisted())
+                          Row(
+                            children: [
+                              (Icon(
+                                Icons.star_border,
+                                color: Theme.of(context).primaryColor,
+                              )),
+                              const Padding(padding: EdgeInsets.all(2))
+                            ],
+                          ),
+                        //***************************************/
+
+                        //***********CONTRACTOR NAME*************/
+                        Text(
+                          '${bid.name}',
+                          style: const TextStyle(
+                              fontSize: 22, color: Colors.white),
+                        ),
+                        //***************************************/
+                      ],
                     ),
-                    const Padding(padding: EdgeInsets.only(right: 20)),
+                    //**************BID RANGE********************/
                     Text(
                       'R${bid.priceLower}  -  R${bid.priceUpper}',
                       style: const TextStyle(fontSize: 22, color: Colors.white),
                     ),
+                    //***************************************/
                   ],
                 ),
               ),
