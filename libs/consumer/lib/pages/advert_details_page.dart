@@ -55,7 +55,7 @@ class AdvertDetailsPage extends StatelessWidget {
                   ),
                   //**********************************************/
 
-                  const Padding(padding: EdgeInsets.only(top: 50)),
+                  const Padding(padding: EdgeInsets.only(top: 20)),
 
                   //*************BOTTOM BUTTONS**************//
                   Stack(alignment: Alignment.center, children: <Widget>[
