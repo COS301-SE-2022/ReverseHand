@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 // import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
@@ -136,7 +137,7 @@ class TradesmanProfilePage extends StatelessWidget {
                         height: 50,
                         child: ListView(
                           children: vm.tradeTypes
-                              .map((element) => Text(element as String,
+                              .map((element) => Text(element,
                                   style: const TextStyle(
                                       fontSize: 20, color: Colors.white)))
                               .toList(),
@@ -173,7 +174,7 @@ class TradesmanProfilePage extends StatelessWidget {
                         height: 50,
                         child: ListView(
                           children: vm.domains
-                              .map((domain) => Text(domain!.city as String,
+                              .map((domain) => Text(domain.city,
                                   style: const TextStyle(
                                       fontSize: 20, color: Colors.white)))
                               .toList(),
@@ -223,8 +224,8 @@ class _Factory extends VmFactory<AppState, TradesmanProfilePage> {
 
 // view model
 class _ViewModel extends Vm {
-  final List<dynamic> tradeTypes;
-  final List<dynamic> domains;
+  final List<String> tradeTypes;
+  final List<Domain> domains;
   final VoidCallback pushEditProfilePage;
 
   _ViewModel({

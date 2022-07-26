@@ -66,7 +66,6 @@ class CreateUserAction extends ReduxAction<AppState> {
         }
         ''';
 
-      debugPrint(graphQLDoc);
       final requestCreateUser = GraphQLRequest(
         document: graphQLDoc,
       );
