@@ -46,12 +46,11 @@ class LoginAction extends ReduxAction<AppState> {
 
       return state.copy(
         userDetails: state.userDetails!.copy(
-          id: (userType == "Consumer") ? "c#$id" : "t#$id",
-          email: email,
-          userType: userType,
-          domains: [],
-          tradeTypes: []
-        ),
+            id: (userType == "Consumer") ? "c#$id" : "t#$id",
+            email: email,
+            userType: userType,
+            domains: [],
+            tradeTypes: []),
       );
       /* Cognito will throw an AuthException object that is not fun to interact with */
       /* The most useful part of the AuthException is the AuthException message */
@@ -101,6 +100,8 @@ class LoginAction extends ReduxAction<AppState> {
   void after() async {
     if (state.error == ErrorType.none) {
       await dispatch(CheckUserExistsAction());
-    } 
+    } else {
+      dispatch(WaitAction.remove("flag"));
+    }
   }
 }
