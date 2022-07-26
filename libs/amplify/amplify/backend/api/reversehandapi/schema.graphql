@@ -84,7 +84,7 @@ type Mutation {
   editUserDetail(
     user_id: String!
     name: String
-    location: [LocationInput]
+    location: LocationInput
     domains: [DomainInput]
   ): User @function(name: "editUserDetailResolver-${env}")
 
