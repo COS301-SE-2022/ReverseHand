@@ -125,7 +125,14 @@ class CreateUserAction extends ReduxAction<AppState> {
   Future<void> after() async {
     state.userDetails!.userType == "Consumer"
         ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
-        : await dispatch(ViewJobsAction());
+        : () async {
+          List<String> domains = [];
+          for(Domain d in state.userDetails!.domains) {
+            domains.add(d.city);
+          }
+          List<String> tradeTypes = state.userDetails!.tradeTypes;
+          await dispatch(ViewJobsAction(domains, tradeTypes));
+        };
     dispatch(NavigateAction.pushNamed(
         "/${state.userDetails!.userType.toLowerCase()}"));
     // wait until error has finished before stopping loading

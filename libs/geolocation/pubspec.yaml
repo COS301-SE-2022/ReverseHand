@@ -21,6 +21,11 @@ dependencies:
 
   tradesman: 
     path: '../tradesman'
+  
+  general: 
+    path: '../general'
+
+  uuid: ^3.0.6
 
   amplify_flutter: ^0.5.1
   amplify_api: ^0.5.1

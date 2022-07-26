@@ -7,10 +7,15 @@ import '../../app_state.dart';
 import '../../models/advert_model.dart';
 
 class ViewJobsAction extends ReduxAction<AppState> {
+  final List<String> locations;
+  final List<String> tradetypes;
+
+  ViewJobsAction(this.locations, this.tradetypes);
+
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      viewJobs(locations: "Pretoria", type: "Plumbing") {
+      viewJobs(locations: ${jsonEncode(locations)}, type: ${jsonEncode(tradetypes)}) {
         date_created
         date_closed
         description
