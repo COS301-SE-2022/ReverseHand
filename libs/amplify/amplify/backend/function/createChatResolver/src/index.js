@@ -14,7 +14,7 @@ exports.handler = async (event) => {
         Item: {
           part_key: event.arguments.c_id,
           sort_key: event.arguments.t_id,
-          messages: {}
+          messages: []
         },
     };
 
