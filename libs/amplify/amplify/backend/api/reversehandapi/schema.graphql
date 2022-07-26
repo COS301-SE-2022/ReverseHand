@@ -98,6 +98,14 @@ type Mutation {
   @function(name: "sendMessageResolver-${env}")
 }
 
+type Subscription {
+  getMessageUpdatesConsumer(consumer_id: String!): Message
+  @aws_subscribe(mutations: ["sendMessage"])
+
+  getMessageUpdatesTradesman(tradesman_id: String!): Message
+  @aws_subscribe(mutations: ["sendMessage"])
+}
+
 type User implements UniqueID {
   id: String!
   email: String!
@@ -115,6 +123,8 @@ type Chat {
 }
 
 type Message {
+  consumer_id: String! # only sent for subscription
+  tradesman_id: String! # only sent for subscription
   msg: String!
   sender: String!
   timestamp: Float!
