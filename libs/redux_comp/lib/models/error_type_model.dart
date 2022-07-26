@@ -14,6 +14,7 @@ enum ErrorType {
   // adding user to db errors
   failedToAddUserToGroup, // if the user is not verified, it will not add the user to a usergroup
   failedToCreateUser, // user created, but email not verified
+  failedToEditUser, // user created, but email not verified
   // generic errors
   noInput,
   //

@@ -1,3 +1,5 @@
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -29,8 +31,6 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
 
     List<String> domainsQuery = [];
 
-
-
     if (name != null) {
       isNameChanged = true;
     }
@@ -51,10 +51,22 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
     String graphQLDoc = '''mutation  {
           editUserDetail(
             user_id: "$userId", 
-            ${(isNameChanged && (isLocationChanged || isDomainsChanged || isCellChanged)) ? 'name: "$name",' : (isNameChanged && (!isLocationChanged || !isDomainsChanged || isCellChanged)) ? 'name: "$name"' : "" }
-            ${(isNameChanged && (isLocationChanged || isDomainsChanged)) ? 'cellNo: "$cellNo",' : (isCellChanged && (!isLocationChanged || !isDomainsChanged)) ? 'cellNo: "$cellNo"' : "" }
-            ${(isLocationChanged) ? "location: ${location.toString()}" : ""}
-            ${(isDomainsChanged) ? "domains: $domainsQuery" : ""}
+            ${(isNameChanged && (isLocationChanged || isDomainsChanged || isCellChanged)) 
+              ? 'name: "$name",' 
+              : (isNameChanged && (!isLocationChanged || !isDomainsChanged || !isCellChanged)) 
+              ? 'name: "$name"' 
+              : ""}
+            ${(isCellChanged && (isLocationChanged || isDomainsChanged)) 
+            ? 'cellNo: "$cellNo",' 
+            : (isCellChanged && (!isLocationChanged || !isDomainsChanged)) 
+            ? 'cellNo: "$cellNo"' 
+            : ""}
+            ${(isLocationChanged) 
+            ? "location: ${location.toString()}" 
+            : ""}
+            ${(isDomainsChanged) 
+            ? "domains: $domainsQuery" 
+            : ""}
           ) {
             id
           }
@@ -62,6 +74,33 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
         ''';
 
     debugPrint(graphQLDoc);
+
+    final requestEditUser = GraphQLRequest(
+      document: graphQLDoc,
+    );
+
+    try {
+      final resp = await Amplify.API.mutate(request: requestEditUser).response;
+      debugPrint(resp.data);
+      return state.copy(
+          userDetails: state.userDetails!.copy(
+              name: (name != null) ? name : state.userDetails!.name,
+              cellNo: (cellNo != null) ? cellNo : state.userDetails!.cellNo,
+              location:
+                  (location != null) ? location : state.userDetails!.location,
+              domains: (domains != null) ? domains : state.userDetails!.domains,
+              registered: true));
+    } on ApiException catch (e) {
+      debugPrint(e.message);
+      return state.copy(error: ErrorType.failedToEditUser);
+    }
+  }
+
+  @override
+  void after() {
+    if (state.userDetails!.registered == true) {
+      dispatch(NavigateAction.pop());
+    }
   }
 }
 

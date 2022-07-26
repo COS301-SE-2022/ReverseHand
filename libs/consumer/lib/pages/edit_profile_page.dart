@@ -128,14 +128,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   if (vm.isRegistered) ...[
                     //*******************SAVE BUTTON********************//
                     ButtonWidget(
-                        text: "Save Changes", function: vm.pushProfilePage),
+                        text: "Save Changes",
+                        function: () {
+                          String? name, cellNo;
+                          (vm.userDetails!.name != nameController.value.text)
+                              ? name = nameController.value.text
+                              : name = null;
+                          (vm.userDetails!.cellNo != cellController.value.text)
+                              ? cellNo = cellController.value.text
+                              : cellNo = null;
+                          if (name != null ||
+                              cellNo != null ||
+                              vm.locationResult != null) {
+                            vm.dispatchEditConsumerAction(
+                                name, cellNo, vm.locationResult);
+                          }
+                        }),
                     //**************************************************//
 
                     const Padding(padding: EdgeInsets.all(8)),
                     ButtonWidget(
-                        text: "Discard",
-                        color: "dark",
-                        function: vm.pushProfilePage),
+                        text: "Discard", color: "dark", function: vm.popPage),
                   ] else
                     //*******************SAVE BUTTON********************//
                     ButtonWidget(
@@ -143,7 +156,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         function: () {
                           final name = nameController.value.text.trim();
                           final cell = cellController.value.text.trim();
-                          final location = vm.userDetails!.location;
+                          final location = vm.locationResult;
                           if (location != null) {
                             vm.dispatchCreateConsumerAction(
                                 name, cell, location);
@@ -177,11 +190,19 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
             location: location,
           ),
         ),
-        dispatchEditConsumerAction: (String name, Location location) => dispatch(EditUserDetailsAction(userId: state.userDetails!.id)),
-        pushProfilePage: () => dispatch(
-          NavigateAction.pushNamed('/consumer/consumer_profile_page'),
+        dispatchEditConsumerAction:
+            (String? name, String? cellNo, Location? location) => dispatch(
+                EditUserDetailsAction(
+                    userId: state.userDetails!.id,
+                    name: name,
+                    cellNo: cellNo,
+                    location: location)),
+        popPage: () => dispatch(
+          NavigateAction.pop(),
         ),
         isRegistered: state.userDetails!.registered!,
+        locationResult:
+            (state.locationResult != null) ? state.locationResult! : null,
         userDetails: (state.userDetails == null) ? null : state.userDetails!,
       );
 }
@@ -189,16 +210,18 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String, Location) dispatchCreateConsumerAction;
-  final void Function(String, Location) dispatchEditConsumerAction;
-  final VoidCallback pushProfilePage;
+  final void Function(String?, String?, Location?) dispatchEditConsumerAction;
+  final VoidCallback popPage;
   final bool isRegistered;
+  final Location? locationResult;
   final UserModel? userDetails;
 
   _ViewModel({
     required this.dispatchCreateConsumerAction,
     required this.dispatchEditConsumerAction,
-    required this.pushProfilePage,
+    required this.popPage,
     required this.userDetails,
+    required this.locationResult,
     required this.isRegistered,
   }) : super(equals: [userDetails]);
 }
