@@ -48,7 +48,7 @@ class CreateUserAction extends ReduxAction<AppState> {
 
       List<String> domainsQuery = [];
 
-      for (var domain in domains!) {
+      for (Domain domain in domains!) {
         domainsQuery.add(domain.toString());
       }
 
