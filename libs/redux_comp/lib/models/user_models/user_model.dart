@@ -6,22 +6,22 @@ import '../geolocation/domain_model.dart';
 @immutable
 class UserModel {
   final String id;
-  final String? email;
+  final String email;
   final String? name;
   final String? cellNo;
   final Location? location;
   final List<Domain> domains;
-  final List<dynamic>? tradeTypes;
+  final List<String> tradeTypes;
   final String userType;
   final bool? registered;
 
   const UserModel({
     required this.id,
-    this.email,
+    required this.email,
     this.name,
     this.cellNo,
     this.domains = const [],
-    this.tradeTypes,
+    this.tradeTypes = const [],
     required this.userType,
     this.location,
     this.registered,
@@ -33,7 +33,7 @@ class UserModel {
     String? name,
     String? cellNo,
     List<Domain>? domains,
-    List<dynamic>? tradeTypes,
+    List<String>? tradeTypes,
     String? userType,
     Location? location,
     bool? registered,

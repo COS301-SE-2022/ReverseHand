@@ -1,9 +1,7 @@
 import 'package:geolocation/place_api_service.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
-
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
-
 import '../../models/geolocation/suggestion_model.dart';
 
 class GetPlaceAction extends ReduxAction<AppState> {
@@ -17,9 +15,7 @@ class GetPlaceAction extends ReduxAction<AppState> {
     try {
       Location result = await placeApi.getPlaceDetailFromId(input.placeId);
 
-      // Place result = Place(streetNumber: "318", street: "The Rand", city: "Pretoria", zipCode: "0102", location: Coordinates(lat: 22.23, long: 25.34));
-
-      return state.copy(geoSearch: state.geoSearch!.copy(result: result));
+      return state.copy(locationResult: result);
     } catch (e) {
       return null;
     }
@@ -27,6 +23,8 @@ class GetPlaceAction extends ReduxAction<AppState> {
 
   @override
   void after() {
-    dispatch(NavigateAction.pushNamed('/tradesman/location_confirm'));
+    (state.userDetails!.userType == "Tradesman")
+        ? dispatch(NavigateAction.pushNamed('/tradesman/location_confirm'))
+        : dispatch(NavigateAction.pushNamed('/consumer/location_confirm'));
   }
 }

@@ -1,12 +1,14 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/floating_button.dart';
+import 'package:geolocation/pages/location_search_page.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:tradesman/methods/populate_domains.dart';
-import '../widgets/navbar.dart';
+import 'package:uuid/uuid.dart';
 
 class DomainConfirmPage extends StatelessWidget {
   final Store<AppState> store;
@@ -36,7 +38,9 @@ class DomainConfirmPage extends StatelessWidget {
                   ...populateDomains(store, vm.domains),
                   //***************************************************//
 
-                  const Padding(padding: EdgeInsets.all(8)),
+                  //dynamic save button
+                  if (vm.domains.isNotEmpty)
+                    const Padding(padding: EdgeInsets.all(8)),
 
                   //*******************DISCARD BUTTON*****************//
                   ButtonWidget(text: "Back", color: "dark", function: vm.pop)
@@ -46,9 +50,25 @@ class DomainConfirmPage extends StatelessWidget {
             ),
           ),
           //************************NAVBAR***********************/
-          bottomNavigationBar: TNavBarWidget(
-            store: store,
+          floatingActionButton: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) =>
+                FloatingButtonWidget(
+              function: () async {
+                final sessionToken = const Uuid().v1();
+                // ignore: unused_local_variable
+                final result = await showSearch(
+                    context: context,
+                    delegate: LocationSearchPage(sessionToken, store));
+
+              },
+            ),
           ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          // bottomNavigationBar: TNavBarWidget(
+          //   store: store,
+          // ),
           //*****************************************************/
         ),
       ),
@@ -77,5 +97,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.domains,
     required this.pop,
-  });
+  }) : super(equals: [domains]);
 }

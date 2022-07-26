@@ -21,6 +21,17 @@ class Domain {
     );
   }
 
+  @override
+  String toString() {
+    return """{
+      city : "$city",
+      coordinates : {
+        lat: ${coordinates.lat},
+        lng: ${coordinates.lng},
+      }
+    }""";
+  }
+
   factory Domain.fromJson(Map<String, dynamic> json) {
     return Domain(
       city: json['city'],
