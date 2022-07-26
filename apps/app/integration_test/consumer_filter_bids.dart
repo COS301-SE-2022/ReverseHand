@@ -88,6 +88,32 @@ void main() {
     await tester.pumpAndSettle();
 
     //-------------------------------------------------------------------
-    //pop up when you press the filter button
+    //popup when you press the filter button
+
+    //Get the min and max fields
+    var min = find.widgetWithText(TextFormField, "min");
+    expect(min, findsOneWidget);
+
+    var max = find.widgetWithText(TextFormField, "max");
+    expect(max, findsOneWidget);
+
+    //Enter min value
+    await tester.enterText(min, "5");
+    await tester.pumpAndSettle();
+
+    //Enter max value
+    await tester.enterText(max, "100");
+    await tester.pumpAndSettle();
+
+    //find the Apply button
+    var apply = find.widgetWithText(ButtonWidget, "Apply");
+    expect(apply, findsOneWidget);
+
+    //Scroll until the Apply button is visible
+    await tester.dragUntilVisible(apply, find.byType(Scaffold),
+        const Offset(0.0, 300)); //might need to adjust that 300 value
+
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 2), () {});
   });
 }
