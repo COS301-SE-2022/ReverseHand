@@ -39,8 +39,8 @@ class DomainConfirmPage extends StatelessWidget {
                   //***************************************************//
 
                   //dynamic save button
-                  if (vm.domains.isNotEmpty) 
-                  const Padding(padding: EdgeInsets.all(8)),
+                  if (vm.domains.isNotEmpty)
+                    const Padding(padding: EdgeInsets.all(8)),
 
                   //*******************DISCARD BUTTON*****************//
                   ButtonWidget(text: "Back", color: "dark", function: vm.pop)
@@ -53,13 +53,16 @@ class DomainConfirmPage extends StatelessWidget {
           floatingActionButton: StoreConnector<AppState, _ViewModel>(
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) =>
-                FloatingButtonWidget(function: () async {
-              final sessionToken = const Uuid().v1();
-              // ignore: unused_local_variable
-              final result = await showSearch(
-                  context: context,
-                  delegate: LocationSearchPage(sessionToken, store));
-            }),
+                FloatingButtonWidget(
+              function: () async {
+                final sessionToken = const Uuid().v1();
+                // ignore: unused_local_variable
+                final result = await showSearch(
+                    context: context,
+                    delegate: LocationSearchPage(sessionToken, store));
+
+              },
+            ),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -94,5 +97,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.domains,
     required this.pop,
-  }) :super(equals: [domains]);
+  }) : super(equals: [domains]);
 }

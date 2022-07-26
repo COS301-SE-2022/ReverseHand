@@ -215,7 +215,7 @@ class _Factory extends VmFactory<AppState, TradesmanProfilePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
       domains: state.userDetails!.domains,
-      tradeTypes: state.userDetails!.tradeTypes!,
+      tradeTypes: state.userDetails!.tradeTypes,
       pushEditProfilePage: () => dispatch(
             NavigateAction.pushNamed('/tradesman/edit_profile_page'),
           ));
