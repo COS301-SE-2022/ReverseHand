@@ -96,24 +96,14 @@ type Mutation {
 
   sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!): Message!
   @function(name: "sendMessageResolver-${env}")
-
-  updateMessage(c_id: String!, t_id: String!, msg: String!, sender: String!): NotifyMessage!
-  @function(name: "notifyOfMessageResolver-${env}")
 }
 
 type Subscription {
-  getMessageUpdatesConsumer(customer_id: String!): NotifyMessage
-  @aws_subscribe(mutations: ["updateMessage"])
+  getMessageUpdatesConsumer(consumer_id: String!): Message
+  @aws_subscribe(mutations: ["sendMessage"])
 
-  getMessageUpdatesTradesman(tradesman_id: String!): NotifyMessage
-  @aws_subscribe(mutations: ["updateMessage"])
-}
-
-# used for notifying users of an update
-type NotifyMessage {
-  message: Message!
-  consumer_id: String!
-  tradesman_id: String!
+  getMessageUpdatesTradesman(tradesman_id: String!): Message
+  @aws_subscribe(mutations: ["sendMessage"])
 }
 
 type User implements UniqueID {
@@ -133,6 +123,8 @@ type Chat {
 }
 
 type Message {
+  consumer_id: String! # only sent for subscription
+  tradesman_id: String! # only sent for subscription
   msg: String!
   sender: String!
   timestamp: Float!
