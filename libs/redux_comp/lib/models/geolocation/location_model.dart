@@ -42,11 +42,11 @@ class Location {
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
       address: Address(
-        streetNumber: json['streetNumber'],
-        street: json['street'],
-        city: json['city'],
-        province: json['province'],
-        zipCode: json['zipCode'],
+        streetNumber: json['address']['streetNumber'],
+        street: json['address']['street'],
+        city: json['address']['city'],
+        province: json['address']['province'],
+        zipCode: json['address']['zipCode'],
       ),
       coordinates: Coordinates.fromJson(json['coordinates']),
     );
