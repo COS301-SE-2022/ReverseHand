@@ -2,8 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:geolocation/pages/location_search_page.dart';
-// import 'package:redux_comp/models/geolocation/coordinates_model.dart';
-// import 'package:redux_comp/models/geolocation/domain_model.dart';
+import 'package:redux_comp/actions/geolocation/set_place_action.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
@@ -38,22 +37,32 @@ class LocationConfirmPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: ButtonBarTitleWidget(
-                        title: "Street No.", value: vm.location!.address.streetNumber),
+                        title: "Street No.",
+                        value: (vm.location != null)
+                            ? vm.location!.address.streetNumber
+                            : "null"),
                   ),
                   //**************************************************//
 
                   //**********************Street************************//
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                      child: ButtonBarTitleWidget(
-                          title: "Street", value: vm.location!.address.street)),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
+                    child: ButtonBarTitleWidget(
+                        title: "Street",
+                        value: (vm.location != null)
+                            ? vm.location!.address.street
+                            : "null"),
+                  ),
                   //**************************************************//
 
                   //**********************City************************//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: ButtonBarTitleWidget(
-                        title: "City", value: vm.location!.address.city),
+                        title: "City",
+                        value: (vm.location != null)
+                            ? vm.location!.address.city
+                            : "null"),
                   ),
                   //**************************************************//
 
@@ -61,7 +70,10 @@ class LocationConfirmPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: ButtonBarTitleWidget(
-                        title: "Province", value: vm.location!.address.province),
+                        title: "Province",
+                        value: (vm.location != null)
+                            ? vm.location!.address.province
+                            : "null"),
                   ),
                   //**************************************************//
 
@@ -69,13 +81,18 @@ class LocationConfirmPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: ButtonBarTitleWidget(
-                        title: "Zip Code", value: vm.location!.address.zipCode),
+                        title: "Zip Code",
+                        value: (vm.location != null)
+                            ? vm.location!.address.zipCode
+                            : "null"),
                   ),
                   //**************************************************//
 
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "Add Domain", function: vm.popPage),
+                    text: "Add Domain",
+                    function: vm.dispatchSetPlaceAction, 
+                  ),
                   //**************************************************//
 
                   const Padding(padding: EdgeInsets.all(8)),
@@ -108,17 +125,20 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+        dispatchSetPlaceAction: () => dispatch(SetPlaceAction()),
         popPage: () => dispatch(NavigateAction.pop()),
-        location: (state.userDetails!.location == null) ? null : state.userDetails!.location,
+        location: (state.locationResult == null) ? null : state.locationResult,
       );
 }
 
 // view model
 class _ViewModel extends Vm {
+  final void Function() dispatchSetPlaceAction;
   final Location? location;
   final VoidCallback popPage;
 
   _ViewModel({
+    required this.dispatchSetPlaceAction,
     required this.popPage,
     required this.location,
   }) : super(equals: [location]);

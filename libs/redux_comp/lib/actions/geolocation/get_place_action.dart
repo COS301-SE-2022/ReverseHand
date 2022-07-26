@@ -1,6 +1,4 @@
 import 'package:geolocation/place_api_service.dart';
-import 'package:redux_comp/models/geolocation/coordinates_model.dart';
-import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 
 import '../../app_state.dart';
@@ -18,24 +16,8 @@ class GetPlaceAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     try {
       Location result = await placeApi.getPlaceDetailFromId(input.placeId);
-      switch (state.userDetails!.userType) {
-        case "Consumer":
-          return state.copy(
-            userDetails: state.userDetails!.copy(location: result),
-          );
-        case "Tradesman":
-          List<Domain> userDomains = state.userDetails!.domains;
-          userDomains.add(Domain(
-            city: result.address.city,
-            coordinates: Coordinates(
-                lat: result.coordinates.lat, lng: result.coordinates.lng),
-          ));
-          return state.copy(
-            userDetails: state.userDetails!.copy(domains: userDomains,location: result),
-          );
-        default:
-        return null;
-      }
+
+      return state.copy(locationResult: result);
     } catch (e) {
       return null;
     }
@@ -43,6 +25,8 @@ class GetPlaceAction extends ReduxAction<AppState> {
 
   @override
   void after() {
-    dispatch(NavigateAction.pushNamed('/tradesman/location_confirm'));
+    (state.userDetails!.userType == "Tradesman")
+        ? dispatch(NavigateAction.pushNamed('/tradesman/location_confirm'))
+        : dispatch(NavigateAction.pushNamed('/consumer/location_confirm'));
   }
 }

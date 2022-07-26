@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
+import 'models/geolocation/location_model.dart';
 import 'models/user_models/user_model.dart';
 import 'models/user_models/partial_user_model.dart';
 
@@ -18,6 +19,7 @@ class AppState {
   final BidModel?
       activeBid; // represents the current bid, used for viewing a bid
   final AdvertModel? activeAd; // used for representing the current ad
+  final Location? locationResult;
   // both will change throughout the app
   final ErrorType error;
   final bool change; // used to show that state changed and must rebuild
@@ -33,6 +35,7 @@ class AppState {
     required this.viewBids,
     required this.activeAd,
     required this.activeBid,
+    required this.locationResult,
     required this.error,
     required this.change,
     required this.wait,
@@ -56,6 +59,7 @@ class AppState {
         priceUpper: 0,
         dateCreated: "",
       ),
+      locationResult: null,
       error: ErrorType.none,
       change: false,
       wait: Wait(),
@@ -79,6 +83,7 @@ class AppState {
       viewBids: const [],
       activeAd: null,
       activeBid: null,
+      locationResult: null,
       error: ErrorType.none,
       change: false,
     );
@@ -93,6 +98,7 @@ class AppState {
     List<BidModel>? viewBids,
     BidModel? activeBid,
     AdvertModel? activeAd,
+    Location? locationResult,
     ErrorType? error,
     bool? loading,
     bool? change,
@@ -107,6 +113,7 @@ class AppState {
       viewBids: viewBids ?? this.viewBids,
       activeAd: activeAd ?? this.activeAd,
       activeBid: activeBid ?? this.activeBid,
+      locationResult: locationResult ?? this.locationResult,
       error: error ?? this.error,
       change: change ?? this.change,
       wait: wait ?? this.wait,
