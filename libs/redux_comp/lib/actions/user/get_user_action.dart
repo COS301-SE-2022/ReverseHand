@@ -31,6 +31,7 @@ class GetUserAction extends ReduxAction<AppState> {
               streetNumber
               street
               city
+              province
               zipCode
             }
             coordinates {
@@ -99,6 +100,10 @@ class GetUserAction extends ReduxAction<AppState> {
         for (dynamic domain in user["domains"]) {
           domains.add(Domain.fromJson(domain));
         }
+        List<String> tradeTypes = [];
+        for (dynamic trade in user["tradetypes"]) {
+          tradeTypes.add(trade);
+        }
 
         return state.copy(
           userDetails: state.userDetails!.copy(
@@ -106,7 +111,7 @@ class GetUserAction extends ReduxAction<AppState> {
             email: user["email"],
             cellNo: user["cellNo"],
             domains: domains,
-            tradeTypes: user["tradetypes"],
+            tradeTypes: tradeTypes,
           ),
         );
       } on ApiException catch (e) {
