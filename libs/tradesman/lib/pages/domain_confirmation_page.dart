@@ -5,7 +5,6 @@ import 'package:general/widgets/floating_button.dart';
 import 'package:geolocation/pages/location_search_page.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:redux_comp/actions/change_action.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:tradesman/methods/populate_domains.dart';
@@ -62,7 +61,6 @@ class DomainConfirmPage extends StatelessWidget {
                     context: context,
                     delegate: LocationSearchPage(sessionToken, store));
 
-                vm.dispatchChangeAction();
               },
             ),
           ),
@@ -84,7 +82,6 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchChangeAction: () => dispatch(ChangeAction()),
         domains: state.userDetails!.domains,
         pop: () => dispatch(
           NavigateAction.pop(),
@@ -96,10 +93,8 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
 class _ViewModel extends Vm {
   final VoidCallback pop;
   final List<Domain> domains;
-  final VoidCallback dispatchChangeAction;
 
   _ViewModel({
-    required this.dispatchChangeAction,
     required this.domains,
     required this.pop,
   }) : super(equals: [domains]);

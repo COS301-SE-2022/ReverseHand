@@ -115,7 +115,8 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                           final name = nameController.value.text.trim();
                           final cell = cellController.value.text.trim();
                           final location = vm.userDetails!.location;
-                          if (location != null) {
+                          final domains = vm.userDetails!.domains;
+                          if (location != null || domains.isNotEmpty) {
                             vm.dispatchCreateTradesmanAction(
                                 name, cell, ["Painting"], vm.userDetails!.domains);
                           } else {

@@ -24,7 +24,7 @@ class SetPlaceAction extends ReduxAction<AppState> {
           ));
           return state.copy(
             userDetails:
-                state.userDetails!.copy(domains: userDomains, location: null),
+                state.userDetails!.copy(domains: userDomains, location: state.locationResult),
           );
         default:
           return null;
