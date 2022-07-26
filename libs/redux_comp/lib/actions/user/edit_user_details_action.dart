@@ -8,12 +8,14 @@ import 'package:async_redux/async_redux.dart';
 class EditUserDetailsAction extends ReduxAction<AppState> {
   final String userId;
   final String? name;
+  final String? cellNo;
   final List<Domain>? domains; //for domains
   final Location? location;
 
   EditUserDetailsAction({
     required this.userId,
     this.name,
+    this.cellNo,
     this.domains,
     this.location,
   });
@@ -21,13 +23,22 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     bool isNameChanged = false,
+        isCellChanged = false,
         isDomainsChanged = false,
         isLocationChanged = false;
 
     List<String> domainsQuery = [];
 
+
+
     if (name != null) {
       isNameChanged = true;
+    }
+    if (cellNo != null) {
+      isCellChanged = true;
+    }
+    if (location != null) {
+      isLocationChanged = true;
     }
     if (domains != null) {
       isDomainsChanged = true;
@@ -36,14 +47,12 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
         domainsQuery.add(domain.toString());
       }
     }
-    if (location != null) {
-      isLocationChanged = true;
-    }
 
     String graphQLDoc = '''mutation  {
           editUserDetail(
             user_id: "$userId", 
-            ${(isNameChanged && (isLocationChanged || isDomainsChanged)) ? 'name: "$name",' : (!isLocationChanged || !isDomainsChanged) ? 'name: "$name"' : "" }
+            ${(isNameChanged && (isLocationChanged || isDomainsChanged || isCellChanged)) ? 'name: "$name",' : (isNameChanged && (!isLocationChanged || !isDomainsChanged || isCellChanged)) ? 'name: "$name"' : "" }
+            ${(isNameChanged && (isLocationChanged || isDomainsChanged)) ? 'cellNo: "$cellNo",' : (isCellChanged && (!isLocationChanged || !isDomainsChanged)) ? 'cellNo: "$cellNo"' : "" }
             ${(isLocationChanged) ? "location: ${location.toString()}" : ""}
             ${(isDomainsChanged) ? "domains: $domainsQuery" : ""}
           ) {

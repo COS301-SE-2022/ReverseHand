@@ -76,7 +76,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                     child: TextFieldWidget(
                       label: "Domains",
                       obscure: false,
-                      controller: null,
+                      controller: TextEditingController(),
                       onTap: vm.pushDomainConfirmPage,
                       min: 1,
                     ),

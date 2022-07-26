@@ -4,6 +4,7 @@ import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:geolocation/pages/location_search_page.dart';
 import 'package:redux_comp/actions/user/create_user_action.dart';
+import 'package:redux_comp/actions/user/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -54,11 +55,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
-                      // apparently you cannot have both a controller and intial value for a textform field,
-                      // the workaround is to set the controllers value to the intial value
-                      // initialVal: (widget.store.state.userDetails!.name == null)
-                      //     ? "null"
-                      //     : widget.store.state.userDetails!.name,
+                      initialVal: (widget.store.state.userDetails!.name == null)
+                          ? null
+                          : widget.store.state.userDetails!.name,
                       label: "name",
                       obscure: false,
                       min: 1,
@@ -71,10 +70,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
-                      // initialVal:
-                      //     (widget.store.state.userDetails!.cellNo == null)
-                      //         ? "null"
-                      //         : widget.store.state.userDetails!.cellNo,
+                      initialVal:
+                          (widget.store.state.userDetails!.cellNo == null)
+                              ? null
+                              : widget.store.state.userDetails!.cellNo,
                       label: "cellphone number",
                       obscure: false,
                       controller: cellController,
@@ -178,6 +177,7 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
             location: location,
           ),
         ),
+        dispatchEditConsumerAction: (String name, Location location) => dispatch(EditUserDetailsAction(userId: state.userDetails!.id)),
         pushProfilePage: () => dispatch(
           NavigateAction.pushNamed('/consumer/consumer_profile_page'),
         ),
@@ -189,12 +189,14 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String, Location) dispatchCreateConsumerAction;
+  final void Function(String, Location) dispatchEditConsumerAction;
   final VoidCallback pushProfilePage;
   final bool isRegistered;
   final UserModel? userDetails;
 
   _ViewModel({
     required this.dispatchCreateConsumerAction,
+    required this.dispatchEditConsumerAction,
     required this.pushProfilePage,
     required this.userDetails,
     required this.isRegistered,
