@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
+import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -43,68 +44,73 @@ class NavBarWidget extends StatelessWidget {
 
           //bottom nav functionality
           child: BottomAppBar(
-              color: Theme.of(context).primaryColorDark,
-              shape: const CircularNotchedRectangle(),
-              notchMargin: 5,
-              child: StoreConnector<AppState, _ViewModel>(
-                  vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) => Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          //icon 1 - Consumer Listings
-                          IconButton(
-                            icon: const Icon(
-                              Icons.work,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              vm.pushConsumerListings();
-                            },
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
-                          ),
+            color: Theme.of(context).primaryColorDark,
+            shape: const CircularNotchedRectangle(),
+            notchMargin: 5,
+            child: StoreConnector<AppState, _ViewModel>(
+              vm: () => _Factory(this),
+              builder: (BuildContext context, _ViewModel vm) => Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  //icon 1 - Consumer Listings
+                  IconButton(
+                    icon: const Icon(
+                      Icons.work,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      vm.pushConsumerListings();
+                    },
+                    splashRadius: 30,
+                    highlightColor: Colors.orange,
+                    splashColor: Colors.white,
+                  ),
 
-                          //icon 2 - chat
-                          IconButton(
-                            icon: const Icon(
-                              Icons.forum,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {},
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
-                          ),
+                  //icon 2 - chat
+                  IconButton(
+                    icon: const Icon(
+                      Icons.forum,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      vm.dispatchGetChatsAction();
+                      vm.pushChatPage();
+                    },
+                    splashRadius: 30,
+                    highlightColor: Colors.orange,
+                    splashColor: Colors.white,
+                  ),
 
-                          //icon 3 - profile
-                          IconButton(
-                            icon: const Icon(
-                              Icons.person,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              vm.pushProfilePage();
-                            },
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
-                          ),
+                  //icon 3 - profile
+                  IconButton(
+                    icon: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      vm.pushProfilePage();
+                    },
+                    splashRadius: 30,
+                    highlightColor: Colors.orange,
+                    splashColor: Colors.white,
+                  ),
 
-                          //icon 4 - log out ?
-                          IconButton(
-                            icon: const Icon(
-                              Icons.logout,
-                              color: Colors.white,
-                            ),
-                            onPressed: () => vm.dispatchLogoutAction(),
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
-                          ),
-                        ],
-                      ))),
+                  //icon 4 - log out ?
+                  IconButton(
+                    icon: const Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => vm.dispatchLogoutAction(),
+                    splashRadius: 30,
+                    highlightColor: Colors.orange,
+                    splashColor: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -123,7 +129,11 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/consumer'),
         ),
+        pushChatPage: () => dispatch(
+          NavigateAction.pushNamed('/chats'),
+        ),
         dispatchLogoutAction: () => dispatch(LogoutAction()),
+        dispatchGetChatsAction: () => dispatch(GetChatsAction()),
       );
 }
 
@@ -131,8 +141,15 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
 class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
   final VoidCallback pushConsumerListings;
+  final VoidCallback pushChatPage;
   final void Function() dispatchLogoutAction;
+  final void Function() dispatchGetChatsAction;
 
-  _ViewModel(
-      {required this.pushProfilePage, required this.pushConsumerListings,required this.dispatchLogoutAction,});
+  _ViewModel({
+    required this.pushProfilePage,
+    required this.pushChatPage,
+    required this.dispatchGetChatsAction,
+    required this.pushConsumerListings,
+    required this.dispatchLogoutAction,
+  });
 }

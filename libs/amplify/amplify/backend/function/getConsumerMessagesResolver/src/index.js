@@ -18,6 +18,11 @@ exports.handler = async (event) => {
     };
 
     const data = await docClient.query(params).promise();
+    
+    for (let d of data.Items) {
+        d['consumer_id'] = d['part_key'];
+        d['tradesman_id'] = d['sort_key'];
+    }
 
     return data.Items;
 };
