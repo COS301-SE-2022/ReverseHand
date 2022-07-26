@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
+import 'package:geolocation/pages/location_confirm_page.dart';
 import 'package:consumer/consumer.dart';
 import 'package:consumer/pages/advert_details_page.dart';
 import 'package:consumer/pages/bid_details_page.dart';
@@ -15,7 +16,6 @@ import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
-import 'package:tradesman/pages/location_confirm_page.dart';
 import 'package:tradesman/tradesman.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -78,7 +78,7 @@ class Launch extends StatelessWidget {
               EditBidsPage(store: store),
           '/tradesman/activity_stream': (context) =>
               ActivityStream(store: store),
-          '/tradesman/location_confirm': (context) =>
+          '/geolocation/location_confirm': (context) =>
               LocationConfirmPage(store: store),
           '/tradesman/domain_confirm': (context) =>
               DomainConfirmPage(store: store),

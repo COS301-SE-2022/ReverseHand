@@ -76,7 +76,7 @@ class CreateUserAction extends ReduxAction<AppState> {
         debugPrint(resp.data);
         return state.copy(
             userDetails: state.userDetails!
-                .copy(name: name, cellNo: cellNo, tradeTypes: tradeTypes, domains: domains, location: null));
+                .copy(name: name, cellNo: cellNo, tradeTypes: tradeTypes, domains: domains, location: null, registered: true));
       } on ApiException catch (e) {
         debugPrint(e.message);
         return state.copy(error: ErrorType.failedToCreateUser);
@@ -111,7 +111,7 @@ class CreateUserAction extends ReduxAction<AppState> {
         debugPrint(resp.data);
         return state.copy(
             userDetails: state.userDetails!
-                .copy(name: name, cellNo: cellNo, location: location));
+                .copy(name: name, cellNo: cellNo, location: location, registered: true));
       } on ApiException catch (e) {
         debugPrint(e.message);
         return state.copy(error: ErrorType.failedToCreateUser);

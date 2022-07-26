@@ -7,8 +7,8 @@ import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
+import 'package:tradesman/widgets/button_bar_widget.dart';
 import 'package:uuid/uuid.dart';
-import '../widgets/button_bar_widget.dart';
 
 class LocationConfirmPage extends StatelessWidget {
   final Store<AppState> store;
@@ -88,8 +88,9 @@ class LocationConfirmPage extends StatelessWidget {
                   //**************************************************//
 
                   //*******************SAVE BUTTON********************//
+                  
                   ButtonWidget(
-                    text: "Add Domain",
+                    text: (vm.userType == "Consumer") ? "Save Location" : "Add Domain",
                     function: vm.dispatchSetPlaceAction,
                   ),
                   //**************************************************//
@@ -127,6 +128,7 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
         dispatchSetPlaceAction: () => dispatch(SetPlaceAction()),
         popPage: () => dispatch(NavigateAction.pop()),
         location: (state.locationResult == null) ? null : state.locationResult,
+        userType: state.userDetails!.userType
       );
 }
 
@@ -135,10 +137,12 @@ class _ViewModel extends Vm {
   final void Function() dispatchSetPlaceAction;
   final Location? location;
   final VoidCallback popPage;
+  final String userType;
 
   _ViewModel({
     required this.dispatchSetPlaceAction,
     required this.popPage,
     required this.location,
+    required this.userType,
   }) : super(equals: [location]);
 }
