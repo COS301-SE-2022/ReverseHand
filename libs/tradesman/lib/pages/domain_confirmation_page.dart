@@ -5,6 +5,7 @@ import 'package:general/widgets/floating_button.dart';
 import 'package:geolocation/pages/location_search_page.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:redux_comp/actions/change_action.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:tradesman/methods/populate_domains.dart';
@@ -39,8 +40,8 @@ class DomainConfirmPage extends StatelessWidget {
                   //***************************************************//
 
                   //dynamic save button
-                  if (vm.domains.isNotEmpty) 
-                  const Padding(padding: EdgeInsets.all(8)),
+                  if (vm.domains.isNotEmpty)
+                    const Padding(padding: EdgeInsets.all(8)),
 
                   //*******************DISCARD BUTTON*****************//
                   ButtonWidget(text: "Back", color: "dark", function: vm.pop)
@@ -53,13 +54,17 @@ class DomainConfirmPage extends StatelessWidget {
           floatingActionButton: StoreConnector<AppState, _ViewModel>(
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) =>
-                FloatingButtonWidget(function: () async {
-              final sessionToken = const Uuid().v1();
-              // ignore: unused_local_variable
-              final result = await showSearch(
-                  context: context,
-                  delegate: LocationSearchPage(sessionToken, store));
-            }),
+                FloatingButtonWidget(
+              function: () async {
+                final sessionToken = const Uuid().v1();
+                // ignore: unused_local_variable
+                final result = await showSearch(
+                    context: context,
+                    delegate: LocationSearchPage(sessionToken, store));
+
+                vm.dispatchChangeAction();
+              },
+            ),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -79,6 +84,7 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+        dispatchChangeAction: () => dispatch(ChangeAction()),
         domains: state.userDetails!.domains,
         pop: () => dispatch(
           NavigateAction.pop(),
@@ -90,9 +96,11 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
 class _ViewModel extends Vm {
   final VoidCallback pop;
   final List<Domain> domains;
+  final VoidCallback dispatchChangeAction;
 
   _ViewModel({
+    required this.dispatchChangeAction,
     required this.domains,
     required this.pop,
-  }) :super(equals: [domains]);
+  }) : super(equals: [domains]);
 }
