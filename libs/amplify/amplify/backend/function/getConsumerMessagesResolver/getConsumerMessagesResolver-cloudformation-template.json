@@ -50,13 +50,13 @@
             "FunctionName": {
                 "Fn::If": [
                     "ShouldNotCreateEnvResources",
-                    "sendMessageResolver",
+                    "getConsumerMessagesResolver",
                     {
 
                         "Fn::Join": [
                             "",
                             [
-                                "sendMessageResolver",
+                                "getConsumerMessagesResolver",
                                 "-",
                                 {
                                     "Ref": "env"
@@ -67,7 +67,7 @@
                 ]
             },
             "Environment": {
-                "Variables" : {"ENV":{"Ref":"env"},"REGION":{"Ref":"AWS::Region"},"REVERSEHAND": "ReverseHand"}
+                "Variables" : {"ENV":{"Ref":"env"},"REGION":{"Ref":"AWS::Region"}, "REVERSEHAND": "ReverseHand"}
             },
             "Role": { "Fn::GetAtt": ["LambdaExecutionRole", "Arn"] },
             "Runtime": "nodejs14.x",
@@ -81,13 +81,13 @@
                 "RoleName": {
                     "Fn::If": [
                         "ShouldNotCreateEnvResources",
-                        "reversehandLambdaRoleddf873e2",
+                        "reversehandLambdaRolec447ca40",
                         {
 
                             "Fn::Join": [
                                 "",
                                 [
-                                    "reversehandLambdaRoleddf873e2",
+                                    "reversehandLambdaRolec447ca40",
                                     "-",
                                     {
                                         "Ref": "env"
