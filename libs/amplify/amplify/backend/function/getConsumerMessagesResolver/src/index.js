@@ -18,7 +18,6 @@ exports.handler = async (event) => {
     };
 
     const data = await docClient.query(params).promise();
-    console.log(null);
 
-    return null;
+    return data.Items;
 };

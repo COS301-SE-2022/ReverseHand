@@ -9,11 +9,11 @@ const ReverseHandTable = process.env.REVERSEHAND;
  */
 exports.handler = async (event) => {
     let expressionAttributeValues = {
-        ":msg": {
+        ":msg": [{
             msg: event.arguments.msg,
             timestamp: (new Date()).getTime(),
             sender: event.arguments.sender,
-        }
+        }]
     };
 
     let params = {
@@ -26,7 +26,7 @@ exports.handler = async (event) => {
         ExpressionAttributeValues: expressionAttributeValues,
     };
 
-    await docClient.update(item).promise();
+    await docClient.update(params).promise();
 
-    return expressionAttributeValues["msg"];
+    return expressionAttributeValues[":msg"][0];
 };
