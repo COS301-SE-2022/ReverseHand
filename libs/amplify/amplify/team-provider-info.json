@@ -114,6 +114,10 @@
         "removeDomainResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/removeDomainResolver-684a7733436a78426243-build.zip"
+        },
+        "createChatResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/createChatResolver-58493538675a2b485363-build.zip"
         }
       }
     }
