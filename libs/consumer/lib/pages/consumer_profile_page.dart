@@ -128,7 +128,7 @@ class ConsumerProfilePage extends StatelessWidget {
                     Positioned(
                         top: 280,
                         left: 82,
-                        child: Text(store.state.userDetails!.email!,
+                        child: Text(store.state.userDetails!.email,
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white))),
 

@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
-import 'package:redux_comp/models/geolocation/search_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
@@ -20,7 +19,6 @@ class AppState {
       activeBid; // represents the current bid, used for viewing a bid
   final AdvertModel? activeAd; // used for representing the current ad
   // both will change throughout the app
-  final GeoSearch? geoSearch;
   final ErrorType error;
   final bool change; // used to show that state changed and must rebuild
   final Wait wait; // for progress indicators
@@ -35,7 +33,6 @@ class AppState {
     required this.viewBids,
     required this.activeAd,
     required this.activeBid,
-    required this.geoSearch,
     required this.error,
     required this.change,
     required this.wait,
@@ -44,7 +41,7 @@ class AppState {
   // this methods sets the starting state for the store
   factory AppState.initial() {
     return AppState(
-      userDetails: const UserModel(id: "", userType: ""),
+      userDetails: const UserModel(id: "", email: "", userType: ""),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
       bids: const [],
@@ -59,7 +56,6 @@ class AppState {
         priceUpper: 0,
         dateCreated: "",
       ),
-      geoSearch: const GeoSearch(suggestions: []),
       error: ErrorType.none,
       change: false,
       wait: Wait(),
@@ -83,10 +79,6 @@ class AppState {
       viewBids: const [],
       activeAd: null,
       activeBid: null,
-      geoSearch: const GeoSearch(
-        result: null,
-        suggestions: [],
-      ),
       error: ErrorType.none,
       change: false,
     );
@@ -101,7 +93,6 @@ class AppState {
     List<BidModel>? viewBids,
     BidModel? activeBid,
     AdvertModel? activeAd,
-    GeoSearch? geoSearch,
     ErrorType? error,
     bool? loading,
     bool? change,
@@ -116,7 +107,6 @@ class AppState {
       viewBids: viewBids ?? this.viewBids,
       activeAd: activeAd ?? this.activeAd,
       activeBid: activeBid ?? this.activeBid,
-      geoSearch: geoSearch ?? this.geoSearch,
       error: error ?? this.error,
       change: change ?? this.change,
       wait: wait ?? this.wait,

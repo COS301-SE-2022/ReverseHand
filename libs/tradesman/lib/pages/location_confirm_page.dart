@@ -2,7 +2,9 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:geolocation/pages/location_search_page.dart';
-import 'package:redux_comp/models/geolocation/address_model.dart';
+// import 'package:redux_comp/models/geolocation/coordinates_model.dart';
+// import 'package:redux_comp/models/geolocation/domain_model.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
@@ -36,7 +38,7 @@ class LocationConfirmPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: ButtonBarTitleWidget(
-                        title: "Street No.", value: vm.address.streetNumber),
+                        title: "Street No.", value: vm.location!.address.streetNumber),
                   ),
                   //**************************************************//
 
@@ -44,14 +46,14 @@ class LocationConfirmPage extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                       child: ButtonBarTitleWidget(
-                          title: "Street", value: vm.address.street)),
+                          title: "Street", value: vm.location!.address.street)),
                   //**************************************************//
 
                   //**********************City************************//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: ButtonBarTitleWidget(
-                        title: "City", value: vm.address.city),
+                        title: "City", value: vm.location!.address.city),
                   ),
                   //**************************************************//
 
@@ -59,7 +61,7 @@ class LocationConfirmPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: ButtonBarTitleWidget(
-                        title: "Province", value: vm.address.province),
+                        title: "Province", value: vm.location!.address.province),
                   ),
                   //**************************************************//
 
@@ -67,14 +69,13 @@ class LocationConfirmPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: ButtonBarTitleWidget(
-                        title: "Zip Code", value: vm.address.zipCode),
+                        title: "Zip Code", value: vm.location!.address.zipCode),
                   ),
                   //**************************************************//
 
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "Save Location",
-                      function: vm.popPage), //fix path
+                      text: "Add Domain", function: vm.popPage),
                   //**************************************************//
 
                   const Padding(padding: EdgeInsets.all(8)),
@@ -107,17 +108,18 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      popPage: () => dispatch(NavigateAction.pop()),
-      address: state.geoSearch!.result!.address);
+        popPage: () => dispatch(NavigateAction.pop()),
+        location: (state.userDetails!.location == null) ? null : state.userDetails!.location,
+      );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final Address address;
+  final Location? location;
   final VoidCallback popPage;
 
   _ViewModel({
     required this.popPage,
-    required this.address,
-  });
+    required this.location,
+  }) : super(equals: [location]);
 }

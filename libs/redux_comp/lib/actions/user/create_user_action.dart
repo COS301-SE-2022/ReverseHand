@@ -1,13 +1,16 @@
 import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
+import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+
 
 /* CreateUserAction */
 /* This action creates a user of a specified group if they have been verified on signup */
@@ -17,108 +20,115 @@ class CreateUserAction extends ReduxAction<AppState> {
   final String cellNo;
   final Location? location;
   final List<Domain>? domains;
+  final List<String>? tradeTypes;
 
   CreateUserAction(
-      {required this.name, required this.cellNo, this.location, this.domains});
+      {required this.name,
+      required this.cellNo,
+      this.location,
+      this.domains,
+      this.tradeTypes});
 
   @override
   Future<AppState?> reduce() async {
-    if (state.partialUser!.verified == "DONE") {
-      //pass user information into variables
-      final String email = state.userDetails!.email!;
-      final String name = state.userDetails!.name!;
-      final String cellNo = state.userDetails!.cellNo!;
-      final String id = state.userDetails!.id;
-      final double lat = state.userDetails!.location!.coordinates.lat;
-      final double long = state.userDetails!.location!.coordinates.long;
-      final String streetnumber =
-          state.userDetails!.location!.address.streetNumber;
-      final String street = state.userDetails!.location!.address.street;
-      final String city = state.userDetails!.location!.address.city;
-      final String zipCode = state.userDetails!.location!.address.zipCode;
+    //pass user information into variables
+    final id = state.userDetails!.id;
+    final email = state.userDetails!.email;
+    // different queries for different users
+    // If tradesman, DO store domains and tradetypes
+    if (state.userDetails!.userType == "Tradesman") {
+      if (domains == null || domains!.isEmpty) {
+        return state.copy(
+            error:
+                ErrorType.domainsNotCaptured); //Don't create tradesman user if
+      }
+      if (tradeTypes == null || tradeTypes!.isEmpty) {
+        return state.copy(error: ErrorType.tradeTypesNotCaptured);
+      }
 
-      // different queries for different users
-      // If tradesman, DO store domains and tradetypes
-      if (state.partialUser!.group == "tradesman") {
-        final tradeTypes = jsonEncode(state.userDetails!.tradeTypes!);
-        final domains = jsonEncode(
-          [
-            Domain(
-              city: city,
-              coordinates: Coordinates(
-                lat: lat,
-                long: long,
-              ),
-            ),
-          ],
-        );
-        String graphQLDoc = '''mutation  {
+      List<String> domainsQuery = [];
+
+      for (var domain in domains!) {
+        domainsQuery.add(domain.toString());
+      }
+
+      String graphQLDoc = '''mutation  {
           createUser(
-            cellNo: "$cellNo", 
-            city: "$city", 
-            email: "$email", 
-            lat: "$lat", 
-            long: "$long", 
-            name: "$name", 
-            streetNumber: "$streetnumber", 
             user_id: "$id", 
-            zipCode: "$zipCode", 
-            domains: $domains, 
-            street: "$street", 
-            tradetypes: $tradeTypes
+            email: "$email", 
+            name: "$name", 
+            cellNo: "$cellNo", 
+            domains: $domainsQuery,
+            tradetypes: ${jsonEncode(tradeTypes)},
           ) {
             id
           }
         }
         ''';
 
-        debugPrint(graphQLDoc);
-        final requestCreateUser = GraphQLRequest(
-          document: graphQLDoc,
-        );
+      debugPrint(graphQLDoc);
+      final requestCreateUser = GraphQLRequest(
+        document: graphQLDoc,
+      );
 
-        try {
-          await Amplify.API.mutate(request: requestCreateUser).response;
-          return null;
-        } on ApiException catch (e) {
-          debugPrint(e.message);
-          return null;
-        }
-      } else {
-        String graphQLDoc = '''mutation  {
+      try {
+        final resp =
+            await Amplify.API.mutate(request: requestCreateUser).response;
+        debugPrint(resp.data);
+        return state.copy(
+            userDetails: state.userDetails!
+                .copy(name: name, cellNo: cellNo, tradeTypes: tradeTypes, domains: domains, location: null));
+      } on ApiException catch (e) {
+        debugPrint(e.message);
+        return state.copy(error: ErrorType.failedToCreateUser);
+      }
+    } else if (state.userDetails!.userType == "Consumer") {
+      if (location == null) {
+        return state.copy(error: ErrorType.locationNotCaptured);
+      }
+
+      String locationQuery = location.toString();
+
+      String graphQLDoc = '''mutation  {
           createUser(
-            cellNo: "$cellNo", 
-            city: "$city", 
-            email: "$email", 
-            lat: "$lat", 
-            long: "$long", 
-            name: "$name", 
-            streetNumber: "$streetnumber", 
             user_id: "$id", 
-            zipCode: "$zipCode", 
-            street: "$street"
+            email: "$email", 
+            name: "$name", 
+            cellNo: "$cellNo", 
+            location: $locationQuery
           ) {
             id
           }
         }
         ''';
 
-        final requestCreateUser = GraphQLRequest(
-          document: graphQLDoc,
-        );
+      final requestCreateUser = GraphQLRequest(
+        document: graphQLDoc,
+      );
 
-        try {
-          final resp =
-              await Amplify.API.mutate(request: requestCreateUser).response;
-          debugPrint(resp.data);
-          return null;
-        } on ApiException catch (e) {
-          debugPrint(e.message);
-          return null;
-        }
+      try {
+        final resp =
+            await Amplify.API.mutate(request: requestCreateUser).response;
+        debugPrint(resp.data);
+        return state.copy(
+            userDetails: state.userDetails!
+                .copy(name: name, cellNo: cellNo, location: location));
+      } on ApiException catch (e) {
+        debugPrint(e.message);
+        return state.copy(error: ErrorType.failedToCreateUser);
       }
     } else {
       return state.copy(error: ErrorType.failedToCreateUser);
     }
+  }
+
+  @override
+  Future<void> after() async {
+    state.userDetails!.userType == "Consumer"
+        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
+        : await dispatch(ViewJobsAction());
+    dispatch(NavigateAction.pushNamed(
+        "/${state.userDetails!.userType.toLowerCase()}"));
+    // wait until error has finished before stopping loading
   }
 }
