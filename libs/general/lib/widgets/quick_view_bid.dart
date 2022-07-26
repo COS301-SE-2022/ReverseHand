@@ -45,7 +45,7 @@ class QuickViewBidWidget extends StatelessWidget {
                           Row(
                             children: [
                               (Icon(
-                                Icons.star_border,
+                                Icons.bookmark,
                                 color: Theme.of(context).primaryColor,
                               )),
                               const Padding(padding: EdgeInsets.all(2))

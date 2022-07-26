@@ -2,6 +2,9 @@ import 'package:async_redux/async_redux.dart';
 
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/divider.dart';
+import 'package:general/widgets/skeleton_loader.dart';
+import 'package:general/widgets/test.dart';
 
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -30,6 +33,36 @@ class ConsumerListingsPage extends StatelessWidget {
                   //*******************APP BAR WIDGET*********************//
                   const AppBarWidget(title: "MY JOBS"),
                   //********************************************************//
+
+                  //if there are adverts, heading should be displayed
+                  if (vm.adverts.isNotEmpty)
+                    (Column(
+                      children: [
+                        //******************OPEN HEADING***********************//
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 18.0),
+                            child: Text(
+                              "OPEN",
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.white60),
+                            ),
+                          ),
+                        ),
+                        //******************************************************//
+
+                        //**************************DIVIDER**********************//
+                        Divider(
+                          height: 20,
+                          thickness: 0.5,
+                          indent: 15,
+                          endIndent: 15,
+                          color: Theme.of(context).primaryColorLight,
+                        ),
+                        //******************************************************//
+                      ],
+                    )),
 
                   // populating column with adverts
                   ...populateAdverts(vm.adverts, store),
