@@ -11,7 +11,7 @@ class UserModel {
   final String? cellNo;
   final Location? location;
   final List<Domain> domains;
-  final List<dynamic>? tradeTypes;
+  final List<String> tradeTypes;
   final String userType;
   final bool? registered;
 
@@ -21,7 +21,7 @@ class UserModel {
     this.name,
     this.cellNo,
     this.domains = const [],
-    this.tradeTypes,
+    this.tradeTypes = const [],
     required this.userType,
     this.location,
     this.registered,
@@ -33,7 +33,7 @@ class UserModel {
     String? name,
     String? cellNo,
     List<Domain>? domains,
-    List<dynamic>? tradeTypes,
+    List<String>? tradeTypes,
     String? userType,
     Location? location,
     bool? registered,
