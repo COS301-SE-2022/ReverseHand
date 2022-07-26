@@ -9,6 +9,8 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 
+import '../widgets/multiselect_widget.dart';
+
 class EditTradesmanProfilePage extends StatefulWidget {
   final Store<AppState> store;
   const EditTradesmanProfilePage({Key? key, required this.store})
@@ -22,6 +24,36 @@ class EditTradesmanProfilePage extends StatefulWidget {
 class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
   final nameController = TextEditingController();
   final cellController = TextEditingController();
+
+  //used for multiselect for trade type
+  List<String> selectedItems = [];
+
+  void showMultiSelect() async {
+    final List<String> items = [
+      "Painter",
+      "Tiler",
+      "Carpenter",
+      "Cleaner",
+      "Designer",
+      "Landscaper",
+      "Electrician",
+      "Plumber",
+    ];
+
+    final List<String>? results = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MultiSelectWidget(items: items);
+      },
+    );
+
+    // Update UI
+    if (results != null) {
+      setState(() {
+        selectedItems = results;
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -71,6 +103,20 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                     ),
                   ),
 
+                  //********************TRADE**********************//
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+                    child: TextFieldWidget(
+                      label: "Trade",
+                      obscure: false,
+                      controller: null,
+                      onTap: () => showMultiSelect(),
+                      min: 1,
+                    ),
+                  ),
+                  //**************************************************//
+
+                  //********************DOMAIN**********************//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
@@ -82,15 +128,6 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                     ),
                   ),
                   //**************************************************//
-
-                  //**********************Domain************************//
-                  // ProfileButtonWidget(
-                  //   function: vm.pushDomainConfirmPage,
-                  //   height: 60,
-                  //   icon: null,
-                  //   text: 'Domain',
-                  //   width: 365,
-                  // ),
 
                   const Padding(padding: EdgeInsets.only(bottom: 30)),
                   //**************************************************//
