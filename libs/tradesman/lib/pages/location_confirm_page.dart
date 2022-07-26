@@ -8,7 +8,6 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:uuid/uuid.dart';
-
 import '../widgets/button_bar_widget.dart';
 
 class LocationConfirmPage extends StatelessWidget {
@@ -91,7 +90,7 @@ class LocationConfirmPage extends StatelessWidget {
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
                     text: "Add Domain",
-                    function: vm.dispatchSetPlaceAction, 
+                    function: vm.dispatchSetPlaceAction,
                   ),
                   //**************************************************//
 
