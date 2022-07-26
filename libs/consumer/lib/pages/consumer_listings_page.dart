@@ -1,11 +1,6 @@
 import 'package:async_redux/async_redux.dart';
-
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:general/widgets/divider.dart';
-import 'package:general/widgets/skeleton_loader.dart';
-import 'package:general/widgets/test.dart';
-
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../methods/populate_adverts.dart';

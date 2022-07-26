@@ -68,7 +68,7 @@ type Mutation {
     type: String
     location: String
     date_closed: String
-  ): Advert @function(name: "editAdvertResolver-${env}")
+  ): Advert! @function(name: "editAdvertResolver-${env}")
 
   deleteBid(ad_id: String!, bid_id: String!): Bid
     @function(name: "deleteBidResolver-${env}")
@@ -84,13 +84,8 @@ type Mutation {
   editUserDetail(
     user_id: String!
     name: String
-    domains: [String]
-    city: String
-    street: String
-    streetNumber: String
-    zipCode: String
-    lat: String
-    lng: String
+    location: LocationInput
+    domains: [DomainInput]
   ): User @function(name: "editUserDetailResolver-${env}")
 
   removeDomain(user_id: String!, domain_pos: Int!): Int
@@ -101,6 +96,14 @@ type Mutation {
 
   sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!): Message!
   @function(name: "sendMessageResolver-${env}")
+}
+
+type Subscription {
+  getMessageUpdatesConsumer(consumer_id: String!): Message
+  @aws_subscribe(mutations: ["sendMessage"])
+
+  getMessageUpdatesTradesman(tradesman_id: String!): Message
+  @aws_subscribe(mutations: ["sendMessage"])
 }
 
 type User implements UniqueID {
@@ -120,6 +123,8 @@ type Chat {
 }
 
 type Message {
+  consumer_id: String! # only sent for subscription
+  tradesman_id: String! # only sent for subscription
   msg: String!
   sender: String!
   timestamp: Float!
