@@ -2,7 +2,6 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-
 import '../../app_state.dart';
 
 class CreateChatAction extends ReduxAction<AppState> {
@@ -20,11 +19,11 @@ class CreateChatAction extends ReduxAction<AppState> {
           msg
           sender
           timestamp
-          consumer_id // duplicate used for subscription
+          consumer_id
           tradesman_id
         }
       }
-    }''';
+    }'''; // duplicate used for subscription
 
     final request = GraphQLRequest(
       document: graphQLDocument,
@@ -32,7 +31,7 @@ class CreateChatAction extends ReduxAction<AppState> {
 
     try {
       // getting the bid which has beena accepted is just a graphql convention
-      await Amplify.API
+      dynamic response = await Amplify.API
           .mutate(request: request)
           .response; // in future may want to do something with accepted advert
 

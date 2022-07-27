@@ -66,7 +66,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    dispatch(ViewAdvertsAction(store.state.userDetails!.id));
+    dispatch(ViewAdvertsAction());
     dispatch(NavigateAction.pushNamed("/consumer"));
     dispatch(WaitAction.remove("create_advert"));
   }

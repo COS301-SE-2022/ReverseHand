@@ -11,19 +11,8 @@ class GetChatsAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     // if (state.chats.isNotEmpty) return null;
 
-    // String graphQLDocument = '''query {
-    //   getConsumerChats(c_id: "${state.userDetails!.id}") {
-    //     consumer_id
-    //     tradesman_id
-    //     messages {
-    //       msg
-    //       sender
-    //       timestamp
-    //     }
-    //   }
-    // }''';
     String graphQLDocument = '''query {
-      getConsumerChats(c_id: "c#001") {
+      getConsumerChats(c_id: "${state.userDetails!.id}") {
         consumer_id
         tradesman_id
         messages {
@@ -40,7 +29,8 @@ class GetChatsAction extends ReduxAction<AppState> {
       final response = await Amplify.API.query(request: request).response;
 
       List<ChatModel> chats = [];
-      dynamic data = jsonDecode(response.data)['getConsumerChats'];
+      dynamic data =
+          jsonDecode(response.data)['get${state.userDetails!.userType}Chats'];
 
       data.forEach((el) => chats.add(ChatModel.fromJson(el)));
 
