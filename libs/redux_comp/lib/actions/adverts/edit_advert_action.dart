@@ -2,9 +2,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-
 import '../../app_state.dart';
-
 import 'package:async_redux/async_redux.dart';
 
 class EditAdvertAction extends ReduxAction<AppState> {

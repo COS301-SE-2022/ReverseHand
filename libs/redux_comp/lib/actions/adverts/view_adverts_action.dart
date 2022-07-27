@@ -47,5 +47,6 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
   @override
   void before() => dispatch(WaitAction.add("view_adverts"));
 
+  @override
   void after() => dispatch(WaitAction.remove("view_adverts"));
 }

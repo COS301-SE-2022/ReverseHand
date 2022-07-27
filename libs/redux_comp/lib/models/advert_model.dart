@@ -36,16 +36,16 @@ class AdvertModel {
   }
 
   @override
-  operator ==(Object o) =>
-      o is AdvertModel &&
-      id == o.id &&
-      title == o.title &&
-      description == o.description &&
-      type == o.type &&
-      acceptedBid == o.acceptedBid &&
-      location == o.location &&
-      dateCreated == o.dateCreated &&
-      dateClosed == o.dateCreated;
+  operator ==(Object other) =>
+      other is AdvertModel &&
+      id == other.id &&
+      title == other.title &&
+      description == other.description &&
+      type == other.type &&
+      acceptedBid == other.acceptedBid &&
+      location == other.location &&
+      dateCreated == other.dateCreated &&
+      dateClosed == other.dateCreated;
 
   @override
   int get hashCode => hashValues(
