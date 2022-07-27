@@ -11,8 +11,8 @@ class LogoutAction extends ReduxAction<AppState> {
       /* Sign out the currently signed in user */
       await Amplify.Auth.signOut();
       /* Delete the store state */
-      await store.deletePersistedState();
-      return null;
+      // await store.deletePersistedState();
+      return AppState.initial();
     } on AuthException catch (e) {
       debugPrint(e.message);
       return null;

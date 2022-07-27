@@ -140,5 +140,5 @@ class _ViewModel extends Vm {
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
     required this.popPage,
-  }); // implementinf hashcode
+  }) : super(equals: [advert]); // implementinf hashcode
 }

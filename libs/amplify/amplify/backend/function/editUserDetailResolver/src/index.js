@@ -9,53 +9,27 @@ exports.handler = async (event) => {
     try {
         let args = [];
         let expressionAttributeNames = {};
+        
 
-        if(event.arguments.cellNo !== undefined){
-            args.push('#cellNo = :cellNo');
-            expressionAttributeNames['#cellNo'] = 'cellNo';
-        }
         if(event.arguments.domains !== undefined){
             args.push('#domains = :domains');
             expressionAttributeNames['#domains'] = 'domains';
         }
 
-        if(event.arguments.city !== undefined){
-            args.push('#location.address.city = :city');
+        if(event.arguments.location !== undefined){
+            args.push('#location = :location');
             expressionAttributeNames['#location'] = 'location';
         }
-
-        if(event.arguments.street !== undefined){
-            args.push('#location.address.street = :street');
-            expressionAttributeNames['#location'] = 'location';
-        }
-
-        if(event.arguments.streetNumber !== undefined)
-        {
-            args.push('#location.address.streetNumber = :streetNumber');
-            expressionAttributeNames['#location'] = 'location';
-        }
-
-        if(event.arguments.zipCode !== undefined)
-        {
-            args.push("#location.address.zipCode = :zipCode");
-            expressionAttributeNames['#location'] = 'location';
-        }
-
-        if(event.arguments.lat !== undefined)
-        {
-            args.push('#location.coordinates.lat = :lat');
-            expressionAttributeNames['#location'] = 'location';
-        }
-
-        if(event.arguments.lng !== undefined)
-        {
-            args.push("#location.coordinates.lng = :lng");
-            expressionAttributeNames['#location'] = 'location';
-        }
+        
 
         if(event.arguments.name !== undefined){
             args.push('#name = :name');
             expressionAttributeNames['#name'] = 'name';
+        }
+        
+        if(event.arguments.cellNo !== undefined){
+            args.push('#cellNo = :cellNo');
+            expressionAttributeNames['#cellNo'] = 'cellNo';
         }
 
         let updateExpression = 'set ';
@@ -68,12 +42,7 @@ exports.handler = async (event) => {
 
         expressionAttributeValues[':cellNo'] = event.arguments.cellNo;
         expressionAttributeValues[':domains'] = event.arguments.domains;
-        expressionAttributeValues[':city'] = event.arguments.city;
-        expressionAttributeValues[':street'] = event.arguments.street;
-        expressionAttributeValues[':streetNumber'] = event.arguments.streetNumber;
-        expressionAttributeValues[':zipCode'] = event.arguments.zipCode;
-        expressionAttributeValues[':lat'] = event.arguments.lat;
-        expressionAttributeValues[':lng'] = event.arguments.lng;
+        expressionAttributeValues[':location'] = event.arguments.location;
         expressionAttributeValues[':name'] = event.arguments.name;
 
         let params = {
@@ -97,8 +66,13 @@ exports.handler = async (event) => {
         };
 
         const data = await docClient.get(params).promise();
-
-        return data['Item'];
+        
+        let user = data['Item'];
+        //formatting for API User Model
+        user.id = user.user_id;
+        delete user.user_id;
+        
+        return user;
         
     } catch (error) {
         console.log(error);
