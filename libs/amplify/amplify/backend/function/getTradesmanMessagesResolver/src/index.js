@@ -1,5 +1,4 @@
-// resolver that gets all messages for a consumer
-// requires a consumer id
+// gets all chats for the tradesman, same as one for consumer
 
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
@@ -11,10 +10,9 @@ const ReverseHandTable = process.env.REVERSEHAND;
 exports.handler = async (event) => {
     let params = {
         TableName: ReverseHandTable,
-        IndexName: "swap_keys",
-        KeyConditionExpression: "sort_key = :t",
+        KeyConditionExpression: "part_key = :c",
         ExpressionAttributeValues: {
-            ":t": event.arguments.t_id, // should be a consumers id
+            ":c": event.arguments.c_id, // should be a consumers id
         }
     };
 

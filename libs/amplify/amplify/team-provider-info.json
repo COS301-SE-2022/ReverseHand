@@ -125,7 +125,11 @@
         },
         "getConsumerMessagesResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getConsumerMessagesResolver-75437167564b53665134-build.zip"
+          "s3Key": "amplify-builds/getConsumerMessagesResolver-2b4a7a6c6c4e4d415665-build.zip"
+        },
+        "getTradesmanMessagesResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getTradesmanMessagesResolver-7a68316d4b4233726954-build.zip"
         }
       }
     }
