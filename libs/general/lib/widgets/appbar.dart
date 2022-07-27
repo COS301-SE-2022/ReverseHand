@@ -12,15 +12,29 @@ class AppBarWidget extends StatelessWidget {
         elevation: 3.0,
         color: Theme.of(context).primaryColorDark,
         child: Container(
-          height: 155, //still deciding on a good height
-          alignment: const Alignment(
-              0, -.5), //might swap this out for an Align widget around text
-          child: Padding(
-            padding: const EdgeInsets.all(22.0),
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 20),
-            ),
+          height: 155,
+          alignment: const Alignment(0, -.5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(22),
+                child: Text(
+                  title,
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.notifications,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+                splashRadius: 1,
+                // highlightColor: Colors.orange,
+                // splashColor: Colors.white,
+              ),
+            ],
           ),
         ));
   }
