@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/floating_button.dart';
+import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_search_page.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -55,11 +56,12 @@ class DomainConfirmPage extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) =>
                 FloatingButtonWidget(
               function: () async {
-                final sessionToken = const Uuid().v1();
+                final sessionToken = const Uuid().v1();  
                 // ignore: unused_local_variable
-                final result = await showSearch(
-                    context: context,
-                    delegate: LocationSearchPage(sessionToken, store));
+                // final result = await showSearch(
+                //     context: context,
+                //     delegate: LocationSearchPage(sessionToken, store)
+                //     );
 
               },
             ),

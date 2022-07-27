@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
-import 'package:geolocation/pages/location_search_page.dart';
 import 'package:redux_comp/actions/user/create_user_action.dart';
 import 'package:redux_comp/actions/user/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
@@ -91,15 +90,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       controller: locationController,
                       onTap: () async {
                         final sessionToken = const Uuid().v1();
-                        final result = await showSearch(
-                            context: context,
-                            delegate:
-                                LocationSearchPage(sessionToken, widget.store));
-                        if (result != null) {
-                          setState(() {
-                            locationController.text = result.description;
-                          });
-                        }
+                        // final result = await showSearch(
+                        //     context: context,
+                        //     delegate:
+                        //         LocationSearchPage(sessionToken, widget.store));
+                        // if (result != null) {
+                        //   setState(() {
+                        //     locationController.text = result.description;
+                        //   });
+                        // }
                       },
                       min: 1,
                     ),
@@ -200,10 +199,12 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
         popPage: () => dispatch(
           NavigateAction.pop(),
         ),
+        pushCustomSearch: () => dispatch(
+          NavigateAction.pushNamed('/geolocation/custom_location_search', arguments: const Uuid().v1()),
+        ),
         isRegistered: state.userDetails!.registered!,
-        locationResult:
-            (state.locationResult != null) ? state.locationResult! : null,
-        userDetails: (state.userDetails == null) ? null : state.userDetails!,
+        locationResult: state.locationResult,
+        userDetails: state.userDetails,
       );
 }
 
@@ -211,6 +212,7 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
 class _ViewModel extends Vm {
   final void Function(String, String, Location) dispatchCreateConsumerAction;
   final void Function(String?, String?, Location?) dispatchEditConsumerAction;
+  final VoidCallback pushCustomSearch;
   final VoidCallback popPage;
   final bool isRegistered;
   final Location? locationResult;
@@ -220,6 +222,7 @@ class _ViewModel extends Vm {
     required this.dispatchCreateConsumerAction,
     required this.dispatchEditConsumerAction,
     required this.popPage,
+    required this.pushCustomSearch,
     required this.userDetails,
     required this.locationResult,
     required this.isRegistered,

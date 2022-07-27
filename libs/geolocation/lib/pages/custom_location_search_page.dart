@@ -7,17 +7,18 @@ import 'package:redux_comp/models/geolocation/suggestion_model.dart';
 
 class CustomLocationSearchPage extends StatefulWidget {
   final Store<AppState> store;
-  PlaceApiService apiClient;
-  final String sessionToken;
 
-  CustomLocationSearchPage({Key? key, required this.store, required this.sessionToken}) : apiClient = PlaceApiService(sessionToken),super(key: key);
+  const CustomLocationSearchPage({Key? key, required this.store})
+      : super(key: key);
 
   @override
-  State<CustomLocationSearchPage> createState() => _CustomLocationSearchPageState();
+  State<CustomLocationSearchPage> createState() =>
+      _CustomLocationSearchPageState();
 }
 
 class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
   final searchController = TextEditingController();
+
   Stream<List<Suggestion>>? _searchFuture;
 
   @override
@@ -27,13 +28,12 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _searchFuture = searchController.value.text.length < 8 ? null : widget.apiClient.fetchSuggestions(searchController.value.text) as Stream<List<Suggestion>>;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    String? sessionToken =
+        (ModalRoute.of(context)?.settings.arguments) as String?;
+    (sessionToken == null) ? sessionToken = "1234" : null;
+    final PlaceApiService apiClient = PlaceApiService(sessionToken);
+
     return Scaffold(
       appBar: AppBar(
           // The search area here
@@ -44,47 +44,55 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
             color: Colors.white, borderRadius: BorderRadius.circular(5)),
         child: Center(
           child: TextField(
-            decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    searchController.clear();
-                  },
-                ),
-                hintText: 'Search...',
-                border: InputBorder.none),
-            controller: searchController,
-            onChanged: (text) {setState(() {
-              _searchFuture = searchController.value.text.length < 8 ? null : (widget.apiClient.fetchSuggestions(searchController.value.text) as Stream<List<Suggestion>>);
-            });}
-          ),
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      searchController.clear();
+                    },
+                  ),
+                  hintText: 'Search...',
+                  border: InputBorder.none),
+              controller: searchController,
+              onChanged: (text) {
+                setState(() {
+                  _searchFuture = searchController.value.text.length < 8
+                      ? null
+                      : (apiClient
+                          .fetchSuggestions(searchController.value.text));
+                });
+              }),
         ),
       )),
-      body: StreamBuilder( 
-      stream: _searchFuture,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<Suggestion>> snapshot) =>
-              (searchController.value.text.isEmpty)
-                  ? Container(
-                      padding: const EdgeInsets.all(16.0),
-                      child: const Text('Please enter your full address'),
-                    )
-                  : snapshot.hasData
-                      ? StoreConnector<AppState, _ViewModel> (
+      body: StreamBuilder(
+        stream: _searchFuture,
+        builder: (BuildContext context,
+                AsyncSnapshot<List<Suggestion>> snapshot) =>
+            (searchController.value.text.isEmpty)
+                ? Container(
+                    padding: const EdgeInsets.all(16.0),
+                    child: const Text('Please enter your full address'),
+                  )
+                : snapshot.hasData
+                    ? StoreConnector<AppState, _ViewModel>(
                         vm: () => _Factory(this),
-                        builder: (BuildContext context, _ViewModel vm) => ListView.builder(
-                            itemBuilder: (context, index) => ListTile(
-                              title: Text((snapshot.data![index]).description),
-                              onTap: () {
-                                vm.dispatchGetPlaceAction(snapshot.data![index], widget.apiClient);
-                              },
-                            ),
-                            itemCount: snapshot.data!.length,
+                        builder: (BuildContext context, _ViewModel vm) =>
+                            ListView.builder(
+                          itemBuilder: (context, index) => ListTile(
+                            title: Text((snapshot.data![index]).description),
+                            onTap: () {
+                              vm.dispatchGetPlaceAction(
+                                  snapshot.data![index], apiClient);
+                            },
                           ),
+                          itemCount: snapshot.data!.length,
+                        ),
                       )
-                      : const Center(child: CircularProgressIndicator()),
-    ),
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+      ),
     );
   }
 }

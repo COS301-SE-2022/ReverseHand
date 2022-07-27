@@ -82,7 +82,7 @@ class Launch extends StatelessWidget {
           '/geolocation/location_confirm': (context) =>
               LocationConfirmPage(store: store),
           '/geolocation/custom_location_search': (context) =>
-              CustomLocationSearchPage(store: store, sessionToken: "1234"),
+              CustomLocationSearchPage(store: store),
           '/tradesman/domain_confirm': (context) =>
               DomainConfirmPage(store: store),
           '/tradesman/view_bids': (context) =>

@@ -98,17 +98,17 @@ class LocationConfirmPage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.all(8)),
 
                   //*******************DISCARD BUTTON*****************//
-                  ButtonWidget(
-                    text: "Search again",
-                    color: "dark",
-                    function: () {
-                      final sessionToken = const Uuid().v1();
-                      vm.popPage();
-                      showSearch(
-                          context: context,
-                          delegate: LocationSearchPage(sessionToken, store));
-                    },
-                  ),
+                  // ButtonWidget(
+                  //   text: "Search again",
+                  //   color: "dark",
+                  //   function: () {
+                  //     final sessionToken = const Uuid().v1();
+                  //     vm.popPage();
+                  //     showSearch(
+                  //         context: context,
+                  //         delegate: LocationSearchPage(sessionToken, store));
+                  //   },
+                  // ),
                 ],
               ),
             ),

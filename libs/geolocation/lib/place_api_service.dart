@@ -35,7 +35,7 @@ class PlaceApiService {
   }
 
   /* This function returns a list of suggestions from an input string*/
-  Future<List<Suggestion>> fetchSuggestions(String input) async {
+  Stream<List<Suggestion>> fetchSuggestions(String input) async* {
     final apiKey = await getApiKey();
     final request = //request involes input string, api key and session token. Response type, language and country are hardcoded as address, english & south africa 
         'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=address&language=en&components=country:za&key=$apiKey&sessiontoken=$sessionToken';
@@ -45,12 +45,12 @@ class PlaceApiService {
       final result = json.decode(response.body);
       if (result['status'] == 'OK') {
         // map suggestions to a list
-        return result['predictions'] 
+        yield result['predictions'] 
             .map<Suggestion>((p) => Suggestion(p['place_id'], p['description']))
-            .toList();
+            .toList() as List<Suggestion> ;
       }
       if (result['status'] == 'ZERO_RESULTS') {
-        return []; //if no results, return empty list
+        yield []; //if no results, return empty list
       }
       throw Exception(result['error_message']);
     } else {
