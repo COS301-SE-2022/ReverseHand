@@ -77,7 +77,8 @@ class ConsumerProfilePage extends StatelessWidget {
                         top: 80,
                         left: 82,
                         child: Text(
-                            "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}",
+                          (vm.userDetails.location != null) ?
+                            "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}" : "null",
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white))),
 
