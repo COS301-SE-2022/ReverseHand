@@ -1,9 +1,9 @@
 // the actual chat between 2 user
 
 import 'package:async_redux/async_redux.dart';
+import 'package:chat/widgets/chat_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
@@ -39,8 +39,8 @@ class ChatPage extends StatelessWidget {
 
                 return Column(
                   children: const [
-                  //*******************APP BAR WIDGET*********************//
-                    AppBarWidget(title: "Name Here"),
+                    //*******************APP BAR WIDGET*********************//
+                    ChatAppBarWidget(title: "Name"),
                     //********************************************************//
                     // messages,
                   ],
@@ -48,7 +48,7 @@ class ChatPage extends StatelessWidget {
               },
             ),
           ),
-           //************************NAVBAR***********************/
+          //************************NAVBAR***********************/
 
           bottomNavigationBar: NavBarWidget(
             store: store,

@@ -5,12 +5,9 @@ import 'package:chat/methods/populateChats.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/floating_button.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
-
-import '../widgets/QuickViewChatWidget.dart';
 
 class ChatSelectionPage extends StatelessWidget {
   final Store<AppState> store;
