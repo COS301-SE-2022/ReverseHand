@@ -48,27 +48,40 @@ class EditAdvertAction extends ReduxAction<AppState> {
       List<AdvertModel> adverts = state.adverts;
 
       //get the advert being edited
-      AdvertModel ad = adverts.firstWhere((element) => element.id == advertId);
+      int adPos = adverts.indexWhere((element) => element.id == advertId);
 
       // remove it from the current list of adverts then create a new one
       // with the updated details.
       // There could potentially be a better way to do this perhaps??
       // Problem is fields are final so cant change them in the original one
-      adverts.removeWhere((element) => element.id == advertId);
+      // adverts.removeWhere((element) => element.id == advertId);
 
-      //add the updated details as a new advert.
-      adverts.add(
-        AdvertModel(
-          id: ad.id,
-          title: ad.title,
-          dateCreated: ad.dateCreated,
-          description: description,
-          type: type,
-          location: ad.location,
-        ),
+      // //add the updated details as a new advert.
+      // adverts.add(
+      // AdvertModel(
+      //   id: ad.id,
+      //   title: ad.title,
+      //   dateCreated: ad.dateCreated,
+      //   description: description,
+      //   type: type,
+      //   location: ad.location,
+      // ),
+      // );
+
+      AdvertModel ad = adverts[adPos];
+      adverts[adPos] = AdvertModel(
+        id: ad.id,
+        title: title ?? ad.title,
+        dateCreated: ad.dateCreated,
+        description: description ?? ad.description,
+        type: type ?? ad.type,
+        location: location ?? ad.location,
       );
 
-      return state.copy(adverts: adverts);
+      return state.copy(
+        activeAd: ad,
+        adverts: adverts,
+      );
     } catch (e) {
       return null;
     }
