@@ -88,18 +88,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       label: "location",
                       obscure: false,
                       controller: locationController,
-                      onTap: () async {
-                        final sessionToken = const Uuid().v1();
-                        // final result = await showSearch(
-                        //     context: context,
-                        //     delegate:
-                        //         LocationSearchPage(sessionToken, widget.store));
-                        // if (result != null) {
-                        //   setState(() {
-                        //     locationController.text = result.description;
-                        //   });
-                        // }
-                      },
+                      onTap: vm.pushCustomSearch
+                      ,
                       min: 1,
                     ),
                   ),

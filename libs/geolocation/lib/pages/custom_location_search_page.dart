@@ -19,7 +19,7 @@ class CustomLocationSearchPage extends StatefulWidget {
 class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
   final searchController = TextEditingController();
 
-  Stream<List<Suggestion>>? _searchFuture;
+  Future<List<Suggestion>>? _searchFuture;
 
   @override
   void dispose() {
@@ -65,8 +65,8 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
               }),
         ),
       )),
-      body: StreamBuilder(
-        stream: _searchFuture,
+      body: FutureBuilder(
+        future: _searchFuture,
         builder: (BuildContext context,
                 AsyncSnapshot<List<Suggestion>> snapshot) =>
             (searchController.value.text.isEmpty)
@@ -89,6 +89,8 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                           itemCount: snapshot.data!.length,
                         ),
                       )
+                    : snapshot.hasError 
+                    ? Text(snapshot.error.toString()) 
                     : const Center(
                         child: CircularProgressIndicator(),
                       ),

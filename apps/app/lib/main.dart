@@ -44,7 +44,7 @@ class Launch extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
-        initialRoute: '/geolocation/custom_location_search',
+        initialRoute: '/', 
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
