@@ -27,7 +27,7 @@ class ChatPage extends StatelessWidget {
 
                 for (MessageModel msg in vm.chat.messages) {
                   messages.add(Text(
-                    msg.msg,
+                    msg.sender,
                     style: const TextStyle(
                       fontSize: 25,
                       color: Colors.red,
@@ -54,14 +54,17 @@ class _Factory extends VmFactory<AppState, ChatPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         chat: state.chat,
+        currentUser: state.userDetails!.userType.toLowerCase(),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final ChatModel chat;
+  final String currentUser;
 
   _ViewModel({
     required this.chat,
+    required this.currentUser,
   }); // implementinf hashcode
 }

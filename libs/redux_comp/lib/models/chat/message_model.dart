@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 class MessageModel {
   final String msg;
   final String sender;
-  final int timestamp;
+  final double timestamp;
 
   const MessageModel({
     required this.msg,

@@ -124,10 +124,15 @@ type Chat {
 
 type Message {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   consumer_id: String! # only sent for subscription
   tradesman_id: String! # only sent for subscription
 >>>>>>> b0683a6cbc80c93f3b6d5045d4f1e5aed3f9ffaf
+=======
+  consumer_id: String! # only sent for subscription
+  tradesman_id: String! # only sent for subscription
+>>>>>>> 92105018b3a578b76ef67462e04fc4f16aee3612
   msg: String!
   sender: String!
   timestamp: Float!
