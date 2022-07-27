@@ -35,10 +35,7 @@ class EditAdvertPage extends StatelessWidget {
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
-                titleController.text = vm.advert.title;
-                descriptionController.text =
-                    vm.advert.description != null ? vm.advert.description! : "";
-
+               
                 return Column(
                   children: <Widget>[
                     //*******************APP BAR WIDGET*********************//
@@ -49,6 +46,7 @@ class EditAdvertPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
                       child: TextFieldWidget(
+                        initialVal: vm.advert.title,
                         label: "Title",
                         obscure: false,
                         min: 2,
@@ -58,6 +56,7 @@ class EditAdvertPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
                       child: TextFieldWidget(
+                        initialVal: vm.advert.description,
                         label: "Description",
                         obscure: false,
                         min: 3,
