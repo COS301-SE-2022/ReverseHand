@@ -18,6 +18,7 @@ class CustomLocationSearchPage extends StatefulWidget {
 
 class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
   final searchController = TextEditingController();
+    String searchString = "";
 
   Future<List<Suggestion>>? _searchFuture;
 
@@ -57,10 +58,12 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
               controller: searchController,
               onChanged: (text) {
                 setState(() {
-                  _searchFuture = searchController.value.text.length < 8
-                      ? null
-                      : (apiClient
-                          .fetchSuggestions(searchController.value.text));
+                  searchString = text;
+                  (searchString.length % 3 == 0)
+                      ? _searchFuture = searchString.length < 8
+                          ? null
+                          : apiClient.fetchSuggestions(searchString)
+                      : null;
                 });
               }),
         ),
@@ -69,7 +72,7 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
         future: _searchFuture,
         builder: (BuildContext context,
                 AsyncSnapshot<List<Suggestion>> snapshot) =>
-            (searchController.value.text.isEmpty)
+            (searchString.isEmpty)
                 ? Container(
                     padding: const EdgeInsets.all(16.0),
                     child: const Text('Please enter your full address'),
@@ -89,11 +92,11 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                           itemCount: snapshot.data!.length,
                         ),
                       )
-                    : snapshot.hasError 
-                    ? Text(snapshot.error.toString()) 
-                    : const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                    : snapshot.hasError
+                        ? Text(snapshot.error.toString())
+                        : const Center(
+                            child: CircularProgressIndicator(),
+                          ),
       ),
     );
   }
