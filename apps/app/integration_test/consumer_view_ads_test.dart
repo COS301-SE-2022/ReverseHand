@@ -11,23 +11,18 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets("View some created ads", (WidgetTester tester) async {
-    //start the app from main.dart
-    app.main();
+    app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
-    //constants for login
-    const email = "lastrucci61@gmail.com";
-    //const email = "consumer.cachemoney@gmail.com";
-    //const passowrd = "Consumer#01";
+    //storing constants used to login as consumer
+    const email = "consumer.cachemoney@gmail.com";
     const passowrd = "@Aa12345";
 
-    //get the widgets to enter the text
+    //get the widgets to enter text and login button
     var email_ = find.widgetWithText(TextFormField, "email");
     expect(email_, findsOneWidget);
     var password_ = find.widgetWithText(TextFormField, "password");
     expect(password_, findsOneWidget);
-
-    //get the login button
     var login = find.widgetWithText(ElevatedButton, "Login");
     expect(login, findsOneWidget);
 
@@ -38,39 +33,38 @@ void main() {
     await tester.enterText(password_, passowrd);
     await tester.pumpAndSettle();
 
-    //scroll down a bit
+    //scrolling a bit
     await tester.dragUntilVisible(
         login, find.byType(Scaffold), const Offset(0.0, 300));
     await tester.pumpAndSettle();
 
-    //press the login button
+    //now clicking the login button
     await tester.tap(login);
     await tester.pumpAndSettle();
-    //await Future.delayed(const Duration(seconds: 20), () {});//reduce seconds if using ios device/laptop
-    await Future.delayed(const Duration(seconds: 6),
-        () {}); //reduce seconds if using ios device/laptop
-    await tester.tap(login, warnIfMissed: false);
-    await tester.pumpAndSettle();
 
-    //await Future.delayed(const Duration(seconds: 15), () {});
-    await Future.delayed(const Duration(seconds: 2), () {});
-
+    await Future.delayed(const Duration(seconds: 3), () {});
     //------------------------------------------------------------//
     //Now on page showing Adverts
 
-    //Get the painting Adverts
-    var painting = find.widgetWithText(QuickViewJobCardWidget, "Painting");
-    expect(painting, findsOneWidget);
+    //Get the "Integration Test Job"
+    var testJobOne =
+        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job");
+    expect(testJobOne, findsOneWidget);
+
+    //scrolling a bit
+    await tester.dragUntilVisible(
+        testJobOne, find.byType(Scaffold), const Offset(0.0, 300));
+    await tester.pumpAndSettle();
 
     //click on the advert
-    await tester.tap(painting);
+    await tester.tap(testJobOne);
     await tester.pumpAndSettle();
     await Future.delayed(const Duration(seconds: 5), () {});
 
-    await tester.tap(painting, warnIfMissed: false);
+    await tester.tap(testJobOne, warnIfMissed: false);
     await tester.pumpAndSettle();
 
-    await Future.delayed(const Duration(seconds: 5), () {});
+    await Future.delayed(const Duration(seconds: 3), () {});
 
     //Get the back button Widget
     var backBtn = find.widgetWithText(ButtonWidget, "Back");
@@ -79,8 +73,21 @@ void main() {
     //press the Back Button
     await tester.tap(backBtn);
     await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 5), () {});
+    await Future.delayed(const Duration(seconds: 3), () {});
 
     //To add: at least 2 more adverts to view
+
+    var testJobTwo =
+        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job v2");
+    expect(testJobTwo, findsOneWidget);
+
+    //scrolling a bit
+    await tester.dragUntilVisible(
+        testJobTwo, find.byType(Scaffold), const Offset(0.0, 300));
+    await tester.pumpAndSettle();
+
+    //click on a second advert
+    await tester.tap(testJobTwo);
+    await tester.pumpAndSettle();
   });
 }

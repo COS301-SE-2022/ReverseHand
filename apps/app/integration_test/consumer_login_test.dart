@@ -18,7 +18,6 @@ void main() {
 
     //storing constants used to login as consumer
     const email = "consumer.cachemoney@gmail.com";
-    // const email = "lastrucci61@gmail.com";
     const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
@@ -48,3 +47,11 @@ void main() {
     await Future.delayed(const Duration(seconds: 3), () {});
   });
 }
+
+//**  Do not delete this list **
+//1. Login
+//2. view ads
+//3. filter bids
+//4. view and bid and shortlist/accept it
+//5. edit an advert
+//6. create a job

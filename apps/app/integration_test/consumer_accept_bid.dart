@@ -5,27 +5,24 @@ import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
+//flutter test integration_test/consumer_accept_bid.dart
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets("View and accept bid", (WidgetTester tester) async {
-    //start the app from main.dart
-    app.main();
+    app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
-    //constants for login
-    const email = "lastrucci61@gmail.com";
-    //const email = "consumer.cachemoney@gmail.com";
-    //const passowrd = "Consumer#01";
+    //storing constants used to login as consumer
+    const email = "consumer.cachemoney@gmail.com";
     const passowrd = "@Aa12345";
 
-    //get the widgets to enter the text
+    //get the widgets to enter text and login button
     var email_ = find.widgetWithText(TextFormField, "email");
     expect(email_, findsOneWidget);
     var password_ = find.widgetWithText(TextFormField, "password");
     expect(password_, findsOneWidget);
-
-    //get the login button
     var login = find.widgetWithText(ElevatedButton, "Login");
     expect(login, findsOneWidget);
 
@@ -36,37 +33,35 @@ void main() {
     await tester.enterText(password_, passowrd);
     await tester.pumpAndSettle();
 
-    //scroll down a bit
+    //scrolling a bit
     await tester.dragUntilVisible(
         login, find.byType(Scaffold), const Offset(0.0, 300));
     await tester.pumpAndSettle();
 
-    //press the login button
+    //now clicking the login button
     await tester.tap(login);
     await tester.pumpAndSettle();
-    //await Future.delayed(const Duration(seconds: 20), () {});//reduce seconds if using ios device/laptop
-    await Future.delayed(const Duration(seconds: 6),
-        () {}); //reduce seconds if using ios device/laptop
-    await tester.tap(login, warnIfMissed: false);
-    await tester.pumpAndSettle();
 
-    //await Future.delayed(const Duration(seconds: 15), () {});
-    await Future.delayed(const Duration(seconds: 2), () {});
-
+    await Future.delayed(const Duration(seconds: 3), () {});
     //------------------------------------------------------------//
     //Now on page showing Adverts
-    var painting = find.widgetWithText(QuickViewJobCardWidget, "Painting");
-    expect(painting, findsOneWidget);
+    //Get the "Integration Test Job"
+    var testJobOne =
+        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job v2");
+    expect(testJobOne, findsOneWidget);
+
+    //scrolling a bit
+    await tester.dragUntilVisible(
+        testJobOne, find.byType(Scaffold), const Offset(0.0, 300));
+    await tester.pumpAndSettle();
 
     //click on the advert
-    await tester.tap(painting);
+    await tester.tap(testJobOne);
     await tester.pumpAndSettle();
     await Future.delayed(const Duration(seconds: 5), () {});
 
-    await tester.tap(painting, warnIfMissed: false);
+    await tester.tap(testJobOne, warnIfMissed: false);
     await tester.pumpAndSettle();
-
-    await Future.delayed(const Duration(seconds: 5), () {});
 
     //Get the View Bids Button
     var viewBids = find.widgetWithText(ButtonWidget, "View Bids");
@@ -79,9 +74,10 @@ void main() {
     //--------------------------------------------------------------------
     //View bids page
 
-    var bidName = "BidName"; //change this later. *****************************
+    var bidName =
+        "R300-R2700"; //change this later. *****************************
     //select one of the bids
-    var bid = find.widgetWithText(QuickViewJobCardWidget, bidName);
+    var bid = find.widgetWithText(SizedBox, bidName);
     expect(bid, findsOneWidget);
 
     //press the bid
@@ -92,7 +88,7 @@ void main() {
     //Bid details card/page where there is shortlist button or accept button
 
     //For now only shortlist a bid
-    var shortListBtn = find.widgetWithText(ElevatedButton, "ShortList Bid");
+    var shortListBtn = find.widgetWithText(ElevatedButton, "Shortlist Bid");
     expect(shortListBtn, findsOneWidget);
 
     //Press the button

@@ -6,27 +6,24 @@ import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
+//flutter test integration_test/consumer_edit_advert.dart
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets("Edit Advert", (WidgetTester tester) async {
-    //start the app from main.dart
-    app.main();
+    app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
-    //constants for login
-    const email = "lastrucci61@gmail.com";
-    //const email = "consumer.cachemoney@gmail.com";
-    //const passowrd = "Consumer#01";
+    //storing constants used to login as consumer
+    const email = "consumer.cachemoney@gmail.com";
     const passowrd = "@Aa12345";
 
-    //get the widgets to enter the text
+    //get the widgets to enter text and login button
     var email_ = find.widgetWithText(TextFormField, "email");
     expect(email_, findsOneWidget);
     var password_ = find.widgetWithText(TextFormField, "password");
     expect(password_, findsOneWidget);
-
-    //get the login button
     var login = find.widgetWithText(ElevatedButton, "Login");
     expect(login, findsOneWidget);
 
@@ -37,34 +34,34 @@ void main() {
     await tester.enterText(password_, passowrd);
     await tester.pumpAndSettle();
 
-    //scroll down a bit
+    //scrolling a bit
     await tester.dragUntilVisible(
         login, find.byType(Scaffold), const Offset(0.0, 300));
     await tester.pumpAndSettle();
 
-    //press the login button
+    //now clicking the login button
     await tester.tap(login);
     await tester.pumpAndSettle();
-    //await Future.delayed(const Duration(seconds: 20), () {});//reduce seconds if using ios device/laptop
-    await Future.delayed(const Duration(seconds: 6),
-        () {}); //reduce seconds if using ios device/laptop
-    await tester.tap(login, warnIfMissed: false);
-    await tester.pumpAndSettle();
 
-    //await Future.delayed(const Duration(seconds: 15), () {});
-    await Future.delayed(const Duration(seconds: 2), () {});
-
+    await Future.delayed(const Duration(seconds: 3), () {});
     //------------------------------------------------------------//
     //Now on page showing Adverts
-    var painting = find.widgetWithText(QuickViewJobCardWidget, "Painting");
-    expect(painting, findsOneWidget);
+    //Get the "Integration Test Job"
+    var testJobOne =
+        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job v2");
+    expect(testJobOne, findsOneWidget);
+
+    //scrolling a bit
+    await tester.dragUntilVisible(
+        testJobOne, find.byType(Scaffold), const Offset(0.0, 300));
+    await tester.pumpAndSettle();
 
     //click on the advert
-    await tester.tap(painting);
+    await tester.tap(testJobOne);
     await tester.pumpAndSettle();
     await Future.delayed(const Duration(seconds: 5), () {});
 
-    await tester.tap(painting, warnIfMissed: false);
+    await tester.tap(testJobOne, warnIfMissed: false);
     await tester.pumpAndSettle();
 
     await Future.delayed(const Duration(seconds: 5), () {});
@@ -81,20 +78,25 @@ void main() {
     //Edit job page
 
     //Get the title and description widgets
-    var txt = "some Title text"; //fix this afterwards
-    var title = find.widgetWithText(TextFieldWidget, txt);
+    // var txt = "Integration Test Job v2"; //fix this afterwards
+    var txt = "Title";
+    // var title = find.widgetWithText(TextFieldWidget, txt);
+    var title = find.bySemanticsLabel(txt);
     expect(title, findsOneWidget);
 
-    var desc = "some description";
-    var descr = find.widgetWithText(TextFieldWidget, desc);
+    // var desc = "This is a second job for testing purposes.";
+    var desc = "Description";
+    // var descr = find.widgetWithText(TextFieldWidget, desc);
+    var descr = find.bySemanticsLabel(desc);
+
     expect(descr, findsOneWidget);
 
     //Enter new text into the fields
 
-    await tester.enterText(title, "A NEW TITLE");
+    await tester.enterText(title, "Integration Test Job v2");
     await tester.pumpAndSettle();
 
-    await tester.enterText(descr, "A new descr");
+    await tester.enterText(descr, "This is a second job for testing purposes.");
     await tester.pumpAndSettle();
 
     //Get the Save Changes button
