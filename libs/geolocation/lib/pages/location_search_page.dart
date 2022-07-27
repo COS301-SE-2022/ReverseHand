@@ -50,13 +50,13 @@ class LocationSearchPage extends SearchDelegate<Suggestion?> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return FutureBuilder(
-      future: query == "" ? null : apiClient.fetchSuggestions(query),
+      future: query.length < 8 ? null : apiClient.fetchSuggestions(query),
       builder:
           (BuildContext context, AsyncSnapshot<List<Suggestion>> snapshot) =>
               query == ''
                   ? Container(
                       padding: const EdgeInsets.all(16.0),
-                      child: const Text('Enter your address'),
+                      child: const Text('Please enter your full address'),
                     )
                   : snapshot.hasData
                       ? StoreConnector<AppState, _ViewModel> (

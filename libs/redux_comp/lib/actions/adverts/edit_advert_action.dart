@@ -1,6 +1,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:redux_comp/models/advert_model.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 
 import '../../app_state.dart';
 
@@ -35,7 +36,14 @@ class EditAdvertAction extends ReduxAction<AppState> {
     final request = GraphQLRequest(document: graphQLDocument);
     try {
       //commented cause it was unused
-      await Amplify.API.mutate(request: request).response;
+      dynamic response = await Amplify.API.mutate(request: request).response;
+
+      if (response.errors.isNotEmpty) {
+        switch (response.errors[0].message) {
+          case "Advert contains bids":
+            return state.copy(error: ErrorType.advertContainsBids);
+        }
+      }
 
       List<AdvertModel> adverts = state.adverts;
 

@@ -14,6 +14,9 @@ type Query {
   viewUser(user_id: String!): User @function(name: "viewUserResolver-${env}")
 
   viewKey: String @function(name: "getGoogleApiKeyResolver-${env}")
+
+  getConsumerChats(c_id: String!): [Chat!]!
+  @function(name: "getConsumerMessagesResolver-${env}")
 }
 
 type Mutation {
@@ -65,7 +68,7 @@ type Mutation {
     type: String
     location: String
     date_closed: String
-  ): Advert @function(name: "editAdvertResolver-${env}")
+  ): Advert! @function(name: "editAdvertResolver-${env}")
 
   deleteBid(ad_id: String!, bid_id: String!): Bid
     @function(name: "deleteBidResolver-${env}")
@@ -81,17 +84,26 @@ type Mutation {
   editUserDetail(
     user_id: String!
     name: String
-    domains: [String]
-    city: String
-    street: String
-    streetNumber: String
-    zipCode: String
-    lat: String
-    lng: String
+    location: LocationInput
+    domains: [DomainInput]
   ): User @function(name: "editUserDetailResolver-${env}")
 
   removeDomain(user_id: String!, domain_pos: Int!): Int
     @function(name: "removeDomainResolver-${env}")
+
+  createChat(c_id: String!, t_id: String!): Chat!
+  @function(name: "createChatResolver-${env}")
+
+  sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!): Message!
+  @function(name: "sendMessageResolver-${env}")
+}
+
+type Subscription {
+  getMessageUpdatesConsumer(consumer_id: String!): Message
+  @aws_subscribe(mutations: ["sendMessage"])
+
+  getMessageUpdatesTradesman(tradesman_id: String!): Message
+  @aws_subscribe(mutations: ["sendMessage"])
 }
 
 type User implements UniqueID {
@@ -102,6 +114,20 @@ type User implements UniqueID {
   location: Location!
   domains: [Domain!]
   tradetypes: [String!]
+}
+
+type Chat {
+  consumer_id: String!
+  tradesman_id: String!
+  messages: [Message!]!
+}
+
+type Message {
+  consumer_id: String! # only sent for subscription
+  tradesman_id: String! # only sent for subscription
+  msg: String!
+  sender: String!
+  timestamp: Float!
 }
 
 type Location {
