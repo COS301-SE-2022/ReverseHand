@@ -1,3 +1,4 @@
+import 'package:chat/widgets/action_button.dart';
 import 'package:flutter/material.dart';
 
 class ActionBarWidget extends StatefulWidget {
@@ -8,42 +9,6 @@ class ActionBarWidget extends StatefulWidget {
 }
 
 class _ActionBarWidgetState extends State<ActionBarWidget> {
-  // final StreamMessageInputController controller =
-  //     StreamMessageInputController();
-
-  // Timer? _debounce;
-
-  // Future<void> _sendMessage() async {
-  //   if (controller.text.isNotEmpty) {
-  //     StreamChannel.of(context).channel.sendMessage(controller.message);
-  //     controller.clear();
-  //     FocusScope.of(context).unfocus();
-  //   }
-  // }
-
-  // void _onTextChange() {
-  //   if (_debounce?.isActive ?? false) _debounce?.cancel();
-  //   _debounce = Timer(const Duration(seconds: 1), () {
-  //     if (mounted) {
-  //       StreamChannel.of(context).channel.keyStroke();
-  //     }
-  //   });
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   controller.addListener(_onTextChange);
-  // }
-
-  // @override
-  // void dispose() {
-  //   controller.removeListener(_onTextChange);
-  //   controller.dispose();
-
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -89,11 +54,12 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
               left: 12,
               right: 24.0,
             ),
-            // child: GlowingActionButton(
-            //   color: AppColors.accent,
-            //   icon: Icons.send_rounded,
-            //   onPressed: _sendMessage,
-            // ),
+            child: ActionButton(
+              color: Color.fromRGBO(243, 157, 55, 1), 
+              icon: Icons.send_rounded, 
+              onPressed: null,
+              
+            ),
           ),
         ],
       ),
