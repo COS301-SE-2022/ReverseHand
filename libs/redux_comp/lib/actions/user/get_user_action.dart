@@ -122,16 +122,17 @@ class GetUserAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    state.userDetails!.userType == "Consumer"
-        ? dispatch(ViewAdvertsAction(state.userDetails!.id))
-        : () async {
-          List<String> domains = [];
-          for(Domain d in state.userDetails!.domains) {
-            domains.add(d.city);
-          }
-          List<String> tradeTypes = state.userDetails!.tradeTypes;
-          dispatch(ViewJobsAction(domains, tradeTypes));
-        };
+    if (state.userDetails!.userType == "Consumer") {
+      dispatch(ViewAdvertsAction(state.userDetails!.id));
+    } else if (state.userDetails!.userType == "Tradesman") {
+      List<String> domains = [];
+      for (Domain d in state.userDetails!.domains) {
+        domains.add(d.city);
+      }
+      List<String> tradeTypes = state.userDetails!.tradeTypes;
+      dispatch(ViewJobsAction(domains, tradeTypes));
+    }
+
     dispatch(NavigateAction.pushNamed(
         "/${state.userDetails!.userType.toLowerCase()}"));
     // wait until error has finished before stopping loading
