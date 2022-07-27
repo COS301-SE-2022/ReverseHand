@@ -71,11 +71,13 @@ class AdvertDetailsPage extends StatelessWidget {
                     //view bids
                     //should only be displayed if no bid is accepted yet
                     if (vm.advert.acceptedBid == null)
-                      (Positioned(
-                          top: 15,
-                          child: ButtonWidget(
-                              text: "View Bids",
-                              function: vm.pushViewBidsPage))),
+                      Positioned(
+                        top: 15,
+                        child: ButtonWidget(
+                          text: "View Bids",
+                          function: vm.pushViewBidsPage,
+                        ),
+                      ),
 
                     //should only be displayed if a bid has been accepted
                     if (vm.advert.acceptedBid != null)

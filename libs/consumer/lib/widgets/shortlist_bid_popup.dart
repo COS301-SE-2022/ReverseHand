@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
+import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 
@@ -40,7 +41,9 @@ class ShortlistPopUpWidget extends StatelessWidget {
                       ? "Accept"
                       : "Shortlist", //if already shortlisted, accept should be the description
                   function: () {
-                    vm.dispatchShortListBidAction();
+                    shortlisted
+                        ? vm.dispatchAcceptBidAction()
+                        : vm.dispatchShortListBidAction();
                     Navigator.pop(context);
                   },
                 ),
@@ -67,14 +70,17 @@ class _Factory extends VmFactory<AppState, ShortlistPopUpWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
+        dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback dispatchShortListBidAction;
+  final VoidCallback dispatchAcceptBidAction;
 
   _ViewModel({
     required this.dispatchShortListBidAction,
+    required this.dispatchAcceptBidAction,
   }); // implementinf hashcode
 }

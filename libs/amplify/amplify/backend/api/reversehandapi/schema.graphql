@@ -11,19 +11,22 @@ type Query {
   viewJobs(locations: [String]!, type: String!): [Advert]!
     @function(name: "viewJobsResolver-${env}")
 
-  viewUser(user_id: String!): User @function(name: "viewUserResolver-${env}")
+  viewUser(user_id: String!): User! @function(name: "viewUserResolver-${env}")
 
-  viewKey: String @function(name: "getGoogleApiKeyResolver-${env}")
+  viewKey: String! @function(name: "getGoogleApiKeyResolver-${env}")
 
   getConsumerChats(c_id: String!): [Chat!]!
   @function(name: "getConsumerMessagesResolver-${env}")
+
+  getTradesmanChats(c_id: String!): [Chat!]!
+  @function(name: "getTradesmanMessagesResolver-${env}")
 }
 
 type Mutation {
-  shortListBid(ad_id: String!, bid_id: String!): Bid
+  shortListBid(ad_id: String!, bid_id: String!): Bid!
     @function(name: "shortListBidResolver-${env}")
 
-  acceptBid(ad_id: String!, sbid_id: String!): Bid
+  acceptBid(ad_id: String!, sbid_id: String!): Bid!
     @function(name: "acceptBidResolver-${env}")
 
   createAdvert(
@@ -33,7 +36,7 @@ type Mutation {
     description: String
     location: String!
     type: String!
-  ): Advert @function(name: "createAdvertResolver-${env}")
+  ): Advert! @function(name: "createAdvertResolver-${env}")
 
   placeBid(
     ad_id: String!
@@ -43,12 +46,12 @@ type Mutation {
     price_lower: Int!
     price_upper: Int!
     quote: String
-  ): Bid @function(name: "placeBidResolver-${env}") # quote is optional and represents a name of a file in a S3 bucket
+  ): Bid! @function(name: "placeBidResolver-${env}") # quote is optional and represents a name of a file in a S3 bucket
 
-  closeAdvert(ad_id: String!): Advert
+  closeAdvert(ad_id: String!): Advert!
     @function(name: "closeAdvertResolver-${env}")
 
-  addUserToGroup(email: String!, group: String!): String
+  addUserToGroup(email: String!, group: String!): String!
     @function(name: "addUserToGroupResolver-${env}")
 
   createUser(
@@ -59,7 +62,7 @@ type Mutation {
     location: LocationInput
     domains: [DomainInput]
     tradetypes: [String]
-  ): User @function(name: "createUserResolver-${env}")
+  ): User! @function(name: "createUserResolver-${env}")
 
   editAdvert(
     ad_id: String!
@@ -82,22 +85,22 @@ type Mutation {
     quote: String
     price_lower: Int
     price_upper: Int
-  ): Bid @function(name: "editBidResolver-${env}")
+  ): Bid! @function(name: "editBidResolver-${env}")
 
   editUserDetail(
     user_id: String!
     name: String
     location: LocationInput
-    domains: [DomainInput]
+    domains: [DomainInput!]!
   ): User @function(name: "editUserDetailResolver-${env}")
 
-  removeDomain(user_id: String!, domain_pos: Int!): Int
+  removeDomain(user_id: String!, domain_pos: Int!): Int!
     @function(name: "removeDomainResolver-${env}")
 
   createChat(c_id: String!, t_id: String!): Chat!
   @function(name: "createChatResolver-${env}")
 
-  sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!): Message!
+  sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!, name: String!): Message!
   @function(name: "sendMessageResolver-${env}")
 }
 
@@ -126,11 +129,12 @@ type Chat {
 }
 
 type Message {
-  consumer_id: String! # only sent for subscription
-  tradesman_id: String! # only sent for subscription
+  consumer_id: String # only sent for subscription
+  tradesman_id: String # only sent for subscription
   msg: String!
   sender: String!
   timestamp: Float!
+  name: String!
 }
 
 type Location {
