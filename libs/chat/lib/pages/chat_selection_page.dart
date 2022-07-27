@@ -1,7 +1,7 @@
 // the page in which chats can be selected
 
 import 'package:async_redux/async_redux.dart';
-import 'package:chat/methods/populateChats.dart';
+import 'package:chat/methods/populate_chats.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
