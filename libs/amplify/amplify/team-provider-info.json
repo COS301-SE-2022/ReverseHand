@@ -65,7 +65,7 @@
         },
         "viewJobsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/viewJobsResolver-427556686f6b76663245-build.zip"
+          "s3Key": "amplify-builds/viewJobsResolver-5933714f315a54416c49-build.zip"
         },
         "addUserToGroupResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
