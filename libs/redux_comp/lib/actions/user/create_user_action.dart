@@ -11,7 +11,6 @@ import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
-
 /* CreateUserAction */
 /* This action creates a user of a specified group if they have been verified on signup */
 
@@ -76,8 +75,12 @@ class CreateUserAction extends ReduxAction<AppState> {
             await Amplify.API.mutate(request: requestCreateUser).response;
         debugPrint(resp.data);
         return state.copy(
-            userDetails: state.userDetails!
-                .copy(name: name, cellNo: cellNo, tradeTypes: tradeTypes, domains: domains, location: null));
+            userDetails: state.userDetails!.copy(
+                name: name,
+                cellNo: cellNo,
+                tradeTypes: tradeTypes,
+                domains: domains,
+                location: null));
       } on ApiException catch (e) {
         debugPrint(e.message);
         return state.copy(error: ErrorType.failedToCreateUser);
@@ -125,7 +128,7 @@ class CreateUserAction extends ReduxAction<AppState> {
   @override
   Future<void> after() async {
     state.userDetails!.userType == "Consumer"
-        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
+        ? await dispatch(ViewAdvertsAction())
         : await dispatch(ViewJobsAction());
     dispatch(NavigateAction.pushNamed(
         "/${state.userDetails!.userType.toLowerCase()}"));
