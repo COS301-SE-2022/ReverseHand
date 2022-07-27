@@ -13,6 +13,7 @@ exports.handler = async (event) => {
             msg: event.arguments.msg,
             timestamp: (new Date()).getTime(),
             sender: event.arguments.sender,
+            name: event.arguments.name,
         }]
     };
 

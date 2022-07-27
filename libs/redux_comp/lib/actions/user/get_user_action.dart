@@ -124,7 +124,7 @@ class GetUserAction extends ReduxAction<AppState> {
   @override
   void after() async {
     state.userDetails!.userType == "Consumer"
-        ? dispatch(ViewAdvertsAction(state.userDetails!.id))
+        ? dispatch(ViewAdvertsAction())
         : dispatch(ViewJobsAction());
     dispatch(NavigateAction.pushNamed(
         "/${state.userDetails!.userType.toLowerCase()}"));

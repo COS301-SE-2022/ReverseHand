@@ -1,5 +1,4 @@
-// resolver that gets all messages for a consumer
-// requires a consumer id
+// gets all chats for the tradesman, same as one for consumer
 
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
