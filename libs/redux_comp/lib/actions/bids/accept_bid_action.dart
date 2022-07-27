@@ -1,4 +1,5 @@
 import 'package:amplify_api/amplify_api.dart';
+import 'package:redux_comp/actions/chat/create_chat_action.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -39,6 +40,9 @@ class AcceptBidAction extends ReduxAction<AppState> {
       final List<BidModel> viewBids = state.viewBids;
       viewBids.removeWhere((element) => element.id == state.activeBid!.id);
 
+      // dispatching action to create chat
+      dispatch(CreateChatAction(state.activeBid!.userId));
+
       return state.copy(
         shortlistBids: shortBids,
         viewBids: viewBids,
@@ -49,6 +53,6 @@ class AcceptBidAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() => dispatch(NavigateAction
-      .pop()); // after bid has been accepted no more to do so leave page
+  void after() => dispatch(NavigateAction.pushReplacementNamed(
+      "/consumer")); // after bid has been accepted no more to do so leave page and got to main page
 }
