@@ -19,10 +19,16 @@ exports.handler = async (event) => {
             args.push('#location = :location');
             expressionAttributeNames['#location'] = 'location';
         }
+        
 
         if(event.arguments.name !== undefined){
             args.push('#name = :name');
             expressionAttributeNames['#name'] = 'name';
+        }
+        
+        if(event.arguments.cellNo !== undefined){
+            args.push('#cellNo = :cellNo');
+            expressionAttributeNames['#cellNo'] = 'cellNo';
         }
 
         let updateExpression = 'set ';
@@ -59,8 +65,13 @@ exports.handler = async (event) => {
         };
 
         const data = await docClient.get(params).promise();
-
-        return data['Item'];
+        
+        let user = data['Item'];
+        //formatting for API User Model
+        user.id = user.user_id;
+        delete user.user_id;
+        
+        return user;
         
     } catch (error) {
         console.log(error);

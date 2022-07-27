@@ -68,9 +68,12 @@ type Mutation {
     type: String
     location: String
     date_closed: String
-  ): Advert @function(name: "editAdvertResolver-${env}")
+  ): Advert! @function(name: "editAdvertResolver-${env}")
 
-  deleteBid(ad_id: String!, bid_id: String!): Bid
+  deleteAdvert(ad_id: String!): Advert!
+    @function(name: "deleteAdvertResolver-${env}")
+
+  deleteBid(ad_id: String!, bid_id: String!): Bid!
     @function(name: "deleteBidResolver-${env}")
 
   editBid(
@@ -84,7 +87,7 @@ type Mutation {
   editUserDetail(
     user_id: String!
     name: String
-    location: [LocationInput]
+    location: LocationInput
     domains: [DomainInput]
   ): User @function(name: "editUserDetailResolver-${env}")
 
@@ -125,6 +128,7 @@ type Chat {
 type Message {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   consumer_id: String! # only sent for subscription
   tradesman_id: String! # only sent for subscription
@@ -133,6 +137,10 @@ type Message {
   consumer_id: String! # only sent for subscription
   tradesman_id: String! # only sent for subscription
 >>>>>>> 92105018b3a578b76ef67462e04fc4f16aee3612
+=======
+  consumer_id: String! # only sent for subscription
+  tradesman_id: String! # only sent for subscription
+>>>>>>> 033fa6f10dadf557dfdf72f3923ba3fd1180da02
   msg: String!
   sender: String!
   timestamp: Float!

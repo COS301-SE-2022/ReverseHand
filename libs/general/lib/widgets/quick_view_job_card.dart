@@ -39,9 +39,14 @@ class QuickViewJobCardWidget extends StatelessWidget {
                     // mainAxisSize: MainAxisSize.min,
                     children: [
                       //not working yet?
-                      Text(advert.title,
-                          style: const TextStyle(
-                              fontSize: 30, color: Colors.white)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.3,
+                        child: Text(advert.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 30, color: Colors.white)),
+                      ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
                         child: Text(advert.dateCreated,
