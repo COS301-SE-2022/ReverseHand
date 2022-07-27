@@ -1,5 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
+import 'package:chat/pages/chat_page.dart';
+import 'package:chat/pages/chat_selection_page.dart';
 import 'package:consumer/consumer.dart';
 import 'package:consumer/pages/advert_details_page.dart';
 import 'package:consumer/pages/bid_details_page.dart';
@@ -69,8 +71,7 @@ class Launch extends StatelessWidget {
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
               TradesmanJobDetails(store: store),
-          '/tradesman/profile': (context) =>
-              TradesmanProfilePage(store: store),
+          '/tradesman/profile': (context) => TradesmanProfilePage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
           '/tradesman/view_bids_page': (context) => TradesmanViewBidsPage(store: store),
@@ -87,6 +88,8 @@ class Launch extends StatelessWidget {
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
+          '/chats': (context) => ChatSelectionPage(store: store),
+          '/chats/chat': (context) => ChatPage(store: store),
         },
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
+import 'package:redux_comp/models/chat/chat_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
@@ -25,6 +26,10 @@ class AppState {
   final bool change; // used to show that state changed and must rebuild
   final Wait wait; // for progress indicators
 
+  // chat functionality
+  final List<ChatModel> chats; // all chats
+  final ChatModel chat; // the current active chat
+
   // constructor must only take named parameters
   const AppState({
     required this.userDetails,
@@ -39,6 +44,8 @@ class AppState {
     required this.error,
     required this.change,
     required this.wait,
+    required this.chats,
+    required this.chat,
   });
 
   // this methods sets the starting state for the store
@@ -63,6 +70,12 @@ class AppState {
       error: ErrorType.none,
       change: false,
       wait: Wait(),
+      chats: const [],
+      chat: const ChatModel(
+        consumerId: "",
+        tradesmanId: "",
+        messages: [],
+      ),
     );
   }
 
@@ -86,6 +99,12 @@ class AppState {
       locationResult: null,
       error: ErrorType.none,
       change: false,
+      chats: const [],
+      chat: const ChatModel(
+        consumerId: "",
+        tradesmanId: "",
+        messages: [],
+      ),
     );
   }
   // easy way to replace store wihtout specifying all paramters
@@ -103,6 +122,8 @@ class AppState {
     bool? loading,
     bool? change,
     Wait? wait,
+    List<ChatModel>? chats,
+    ChatModel? chat,
   }) {
     return AppState(
       userDetails: userDetails ?? this.userDetails,
@@ -117,6 +138,8 @@ class AppState {
       error: error ?? this.error,
       change: change ?? this.change,
       wait: wait ?? this.wait,
+      chats: chats ?? this.chats,
+      chat: chat ?? this.chat,
     );
   }
 }
