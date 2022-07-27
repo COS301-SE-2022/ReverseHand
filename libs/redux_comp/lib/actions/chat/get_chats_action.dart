@@ -15,6 +15,8 @@ class GetChatsAction extends ReduxAction<AppState> {
       getConsumerChats(c_id: "${state.userDetails!.id}") {
         consumer_id
         tradesman_id
+        consumer_name
+        tradesman_name
         messages {
           msg
           sender

@@ -126,6 +126,8 @@ type User implements UniqueID {
 }
 
 type Chat {
+  consumer_name: String!
+  tradesman_name: String!
   consumer_id: String!
   tradesman_id: String!
   messages: [Message!]!

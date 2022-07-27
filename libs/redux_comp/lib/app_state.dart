@@ -72,6 +72,8 @@ class AppState {
       wait: Wait(),
       chats: const [],
       chat: const ChatModel(
+        consumerName: "",
+        tradesmanName: "",
         consumerId: "",
         tradesmanId: "",
         messages: [],
@@ -101,6 +103,8 @@ class AppState {
       change: false,
       chats: const [],
       chat: const ChatModel(
+        consumerName: "",
+        tradesmanName: "",
         consumerId: "",
         tradesmanId: "",
         messages: [],
