@@ -63,9 +63,15 @@ class QuickViewBidWidget extends StatelessWidget {
                       ],
                     ),
                     //**************BID RANGE********************/
-                    Text(
-                      'R${bid.priceLower}  -  R${bid.priceUpper}',
-                      style: const TextStyle(fontSize: 22, color: Colors.white),
+                    SizedBox(
+                      width: 130,
+                      child: Text(
+                        'R${bid.priceLower}-R${bid.priceUpper}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            const TextStyle(fontSize: 22, color: Colors.white),
+                      ),
                     ),
                     //***************************************/
                   ],
