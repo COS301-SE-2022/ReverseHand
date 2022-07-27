@@ -13,8 +13,6 @@ dependencies:
 
   tradesman:
     path: '../tradesman'
-
-  onesignal_flutter: ^3.0.0
   
 dev_dependencies:
   flutter_test:
