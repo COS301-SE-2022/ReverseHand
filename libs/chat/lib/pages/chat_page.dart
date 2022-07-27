@@ -26,36 +26,41 @@ class ChatPage extends StatelessWidget {
         theme: CustomTheme.darkTheme,
         home: Scaffold(
           body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
+          child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
-                List<Text> messages = [];
+                List<MessageOwnTileWidget> ownMessages = [];
+                List<MessageTileWidget> messages = [];
 
                 for (MessageModel msg in vm.chat.messages) {
-                  messages.add(Text(
-                    msg.sender,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      color: Colors.red,
-                    ),
-                  ));
+                  if(vm.currentUser == msg.sender) {
+                    ownMessages.add(
+                      MessageOwnTileWidget(
+                        message: msg.msg,
+                      ),
+                    );
+                  }
+                  else {
+                    messages.add(
+                      MessageTileWidget(
+                        message: msg.msg,
+                      ),
+                    );
+                  }
                 }
 
                 return Column(
-                  children: const [
-                    //*******************APP BAR WIDGET*********************//
-                    ChatAppBarWidget(title: "Name"),
-                    //********************************************************//
-                    // messages,
-                    DateLabelWidget(label: "Yesterday"),
-                    MessageTileWidget(
-                      message: "are you available tomorrow at 3pm",
-                    ),
-                    MessageOwnTileWidget(
-                        message: "Yes, I will send my address"),
+                      children: [
+                        //*******************APP BAR WIDGET*********************//
+                        const ChatAppBarWidget(title: "Name"),
+                        //********************************************************//
+                        // const DateLabelWidget(label: "Yesterday"), //todo michael
 
-                    ActionBarWidget(),
-                  ],
+                        //todo michael
+                        ...ownMessages,
+                        ...messages,
+
+                      ],
                 );
               },
             ),
@@ -63,9 +68,7 @@ class ChatPage extends StatelessWidget {
 
           //************************NAVBAR***********************/
 
-          bottomNavigationBar: NavBarWidget(
-            store: store,
-          ),
+          bottomNavigationBar: const ActionBarWidget(),
           //*****************************************************/
         ),
       ),
