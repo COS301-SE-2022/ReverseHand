@@ -25,7 +25,7 @@ class TQuickViewBidWidget extends StatelessWidget {
             elevation: 3,
             borderRadius: const BorderRadius.all(Radius.circular(15)),
             child: InkWell(
-              onTap: null, //will be changed in following PR
+              onTap: () {vm.pushEditBidsPage;}, 
               child: Container(
                 padding: const EdgeInsets.all(12),
                 alignment: Alignment.center,
@@ -62,7 +62,7 @@ class _Factory extends VmFactory<AppState, TQuickViewBidWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         pushEditBidsPage: () => dispatch(
-          NavigateAction.pushNamed('tradesman/advert_details/edit_bid'),
+          NavigateAction.pushNamed('tradesman/edit_bid'),
         ),
       );
 }

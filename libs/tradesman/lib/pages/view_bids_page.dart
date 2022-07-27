@@ -57,7 +57,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                   Expanded(
                     child: Stack(children: [
                       BottomOverlayWidget(
-                          height: MediaQuery.of(context).size.height / 2),
+                          height: MediaQuery.of(context).size.height),
                       TabBarView(
                         children: [
                           //**************TAB 1 INFO********************//
