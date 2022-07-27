@@ -9,6 +9,7 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 
+import '../widgets/action_bar_widget.dart';
 import '../widgets/message_tile.dart';
 import '../widgets/date_label_widget.dart';
 
@@ -50,11 +51,13 @@ class ChatPage extends StatelessWidget {
                     MessageTileWidget(),
 
                     MessageOwnTile(),
+                    ActionBarWidget(),
                   ],
                 );
               },
             ),
           ),
+          
           //************************NAVBAR***********************/
 
           bottomNavigationBar: NavBarWidget(
