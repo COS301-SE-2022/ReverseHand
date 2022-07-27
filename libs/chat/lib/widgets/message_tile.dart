@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-//THE RECEIVING MESSAGE
+//*****************THE RECEIVING MESSAGE****************/
 class MessageTileWidget extends StatelessWidget {
+  final String message;
   const MessageTileWidget({
+    required this.message,
     Key? key,
     // required this.message,
   }) : super(key: key);
@@ -28,10 +30,11 @@ class MessageTileWidget extends StatelessWidget {
                   bottomRight: Radius.circular(25),
                 ),
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
-                child: Text("I am the contractor",
-                    style: TextStyle(color: Colors.black)),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
+                child:
+                    Text(message, style: const TextStyle(color: Colors.black)),
               ),
             ),
             const Padding(
@@ -43,10 +46,13 @@ class MessageTileWidget extends StatelessWidget {
     );
   }
 }
+//*******************************************************/
 
-//THE SENDING MESSAGE
-class MessageOwnTile extends StatelessWidget {
-  const MessageOwnTile({
+//*****************THE SENDING MESSAGE******************/
+class MessageOwnTileWidget extends StatelessWidget {
+  final String message;
+  const MessageOwnTileWidget({
+    required this.message,
     Key? key,
   }) : super(key: key);
 
@@ -69,10 +75,11 @@ class MessageOwnTile extends StatelessWidget {
                   bottomLeft: Radius.circular(25),
                 ),
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
-                child: Text("I am the client",
-                    style: TextStyle(color: Colors.white)),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
+                child:
+                    Text(message, style: const TextStyle(color: Colors.white)),
               ),
             ),
             const Padding(
@@ -85,3 +92,4 @@ class MessageOwnTile extends StatelessWidget {
     );
   }
 }
+//*******************************************************/

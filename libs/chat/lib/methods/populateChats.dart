@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:chat/widgets/QuickViewChatWidget.dart';
+import 'package:chat/widgets/quick_view_chat_widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';

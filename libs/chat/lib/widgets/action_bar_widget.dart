@@ -5,10 +5,10 @@ class ActionBarWidget extends StatefulWidget {
   const ActionBarWidget({Key? key}) : super(key: key);
 
   @override
-  _ActionBarWidgetState createState() => _ActionBarWidgetState();
+  ActionBarWidgetState createState() => ActionBarWidgetState();
 }
 
-class _ActionBarWidgetState extends State<ActionBarWidget> {
+class ActionBarWidgetState extends State<ActionBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -55,10 +55,9 @@ class _ActionBarWidgetState extends State<ActionBarWidget> {
               right: 24.0,
             ),
             child: ActionButton(
-              color: Color.fromRGBO(243, 157, 55, 1), 
-              icon: Icons.send_rounded, 
+              color: Color.fromRGBO(243, 157, 55, 1),
+              icon: Icons.send_rounded,
               onPressed: null,
-              
             ),
           ),
         ],
