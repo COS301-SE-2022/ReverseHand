@@ -19,6 +19,12 @@ dependencies:
   redux_comp: 
     path: '../redux_comp'
 
+  general: 
+    path: '../general'
+
+  tradesman: 
+    path: '../tradesman'
+
   amplify_flutter: ^0.5.1
   amplify_api: ^0.5.1
 

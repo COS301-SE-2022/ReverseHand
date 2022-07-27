@@ -27,7 +27,7 @@ class ChatSelectionPage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "MY CHATS"),
+                  AppBarWidget(title: "MY CHATS", store: store),
                   //********************************************************//
 
                   if (vm.chats.isEmpty)

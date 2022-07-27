@@ -61,5 +61,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.adverts,
     required this.dispatchLogoutAction,
-  });
+  }) : super(equals: [adverts]);
 }
