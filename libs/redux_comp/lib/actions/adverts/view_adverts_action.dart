@@ -43,4 +43,10 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
       return null; /* On Error do not modify state */
     }
   }
+
+  @override
+  void before() => dispatch(WaitAction.add("view_adverts"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("view_adverts"));
 }

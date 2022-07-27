@@ -28,5 +28,8 @@ exports.handler = async (event) => {
 
     await docClient.update(params).promise();
 
+    expressionAttributeValues[":msg"][0]["consumer_id"] = event.arguments.c_id;
+    expressionAttributeValues[":msg"][0]["tradesman_id"] = event.arguments.t_id;
+
     return expressionAttributeValues[":msg"][0];
 };
