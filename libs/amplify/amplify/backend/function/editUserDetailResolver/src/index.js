@@ -10,6 +10,7 @@ exports.handler = async (event) => {
         let args = [];
         let expressionAttributeNames = {};
         
+
         if(event.arguments.domains !== undefined){
             args.push('#domains = :domains');
             expressionAttributeNames['#domains'] = 'domains';

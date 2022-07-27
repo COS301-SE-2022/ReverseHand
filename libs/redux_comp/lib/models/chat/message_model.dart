@@ -17,6 +17,6 @@ class MessageModel {
   factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
         msg: json['msg'],
         sender: json['sender'],
-        timestamp: json['timestamp'],
+        timestamp: json['timestamp'].toDouble(),
       );
 }
