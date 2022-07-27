@@ -48,7 +48,6 @@ class GetUserAction extends ReduxAction<AppState> {
       );
 
       try {
-        await Amplify.API.query(request: request).response;
         final data = jsonDecode(
             (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
