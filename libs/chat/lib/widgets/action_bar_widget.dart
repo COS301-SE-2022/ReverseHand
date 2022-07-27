@@ -14,48 +14,60 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
     return SafeArea(
       bottom: true,
       top: false,
-      child: Row(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                right: BorderSide(
-                  width: 2,
+      child: Container(
+        decoration: BoxDecoration(color: Theme.of(context).primaryColorDark),
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  right: BorderSide(
+                    width: 2,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.only(left: 30, right: 10),
+                child: Icon(
+                  Icons.camera_alt,
                   color: Colors.white,
                 ),
               ),
             ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Icon(
-                Icons.camera_alt,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(left: 16.0),
-              child: TextField(
-                style: TextStyle(fontSize: 14, color: Colors.white),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: TextField(
+                  style: const TextStyle(fontSize: 17, color: Colors.white),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:  BorderSide(color: Theme.of(context).primaryColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:  BorderSide(color: Theme.of(context).primaryColor),
+                    ),
+                  
+                  ),
                 ),
               ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(
-              left: 12,
-              right: 24.0,
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 22,
+                right: 5.0,
+              ),
+              child: ActionButton(
+                color: Color.fromRGBO(243, 157, 55, 1),
+                icon: Icons.send_rounded,
+                onPressed: null,
+              ),
             ),
-            child: ActionButton(
-              color: Color.fromRGBO(243, 157, 55, 1),
-              icon: Icons.send_rounded,
-              onPressed: null,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
