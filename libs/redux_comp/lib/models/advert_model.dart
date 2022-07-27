@@ -34,4 +34,28 @@ class AdvertModel {
       dateClosed: obj['date_closed'],
     );
   }
+
+  @override
+  operator ==(Object o) =>
+      o is AdvertModel &&
+      id == o.id &&
+      title == o.title &&
+      description == o.description &&
+      type == o.type &&
+      acceptedBid == o.acceptedBid &&
+      location == o.location &&
+      dateCreated == o.dateCreated &&
+      dateClosed == o.dateCreated;
+
+  @override
+  int get hashCode => hashValues(
+        id,
+        title,
+        description,
+        type,
+        acceptedBid,
+        location,
+        dateCreated,
+        dateClosed,
+      );
 }

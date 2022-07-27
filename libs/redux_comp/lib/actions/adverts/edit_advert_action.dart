@@ -26,10 +26,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation { 
       editAdvert(ad_id: "$advertId",title: "$title",description: "$description",type: "$type",location: "$location"){
-        title
-        description
-        type
-        location
+        id
       }
     } ''';
 
@@ -79,7 +76,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
       );
 
       return state.copy(
-        activeAd: ad,
+        activeAd: adverts[adPos],
         adverts: adverts,
       );
     } catch (e) {
