@@ -36,7 +36,7 @@ class ConsumerListingsPage extends StatelessWidget {
 
                   //************MESSAGE IF THERE ARE NO ADVERTS***********/
                   if (vm.adverts.isEmpty)
-                    (Padding(
+                    Padding(
                       padding: EdgeInsets.only(
                           top: (MediaQuery.of(context).size.height) / 3),
                       child: const Text(
@@ -44,7 +44,7 @@ class ConsumerListingsPage extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 25, color: Colors.white54),
                       ),
-                    )),
+                    ),
                   //*****************************************************/
                 ],
               ),
@@ -94,5 +94,4 @@ class _ViewModel extends Vm {
     required this.adverts,
     required this.pushCreateAdvertPage,
   }); // implementinf hashcode
-
 }
