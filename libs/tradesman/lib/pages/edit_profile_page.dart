@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/user/create_user_action.dart';
+import 'package:redux_comp/actions/user/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -52,6 +53,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
+                      initialVal: vm.userDetails!.name,
                       label: "Name",
                       obscure: false,
                       min: 1,
@@ -64,6 +66,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
+                      initialVal: vm.userDetails!.cellNo,
                       label: "Phone",
                       obscure: false,
                       controller: cellController,
@@ -76,21 +79,12 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                     child: TextFieldWidget(
                       label: "Domains",
                       obscure: false,
-                      controller: null,
+                      controller: TextEditingController(),
                       onTap: vm.pushDomainConfirmPage,
                       min: 1,
                     ),
                   ),
                   //**************************************************//
-
-                  //**********************Domain************************//
-                  // ProfileButtonWidget(
-                  //   function: vm.pushDomainConfirmPage,
-                  //   height: 60,
-                  //   icon: null,
-                  //   text: 'Domain',
-                  //   width: 365,
-                  // ),
 
                   const Padding(padding: EdgeInsets.only(bottom: 30)),
                   //**************************************************//
@@ -99,14 +93,19 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                   if (vm.userDetails!.registered == true) ...[
                     //*******************SAVE BUTTON********************//
                     ButtonWidget(
-                        text: "Save Changes", function: vm.pushProfilePage),
+                        text: "Save Changes", function: () {
+                          String? name, cellNo;
+                          (vm.userDetails!.name != nameController.value.text) ? name = nameController.value.text : null;
+                          (vm.userDetails!.cellNo != cellController.value.text) ? cellNo = cellController.value.text : null;
+                          vm.dispatchEditTradesmanAction(name, cellNo, vm.userDetails!.domains);
+                        }),
                     //**************************************************//
 
                     const Padding(padding: EdgeInsets.all(8)),
                     ButtonWidget(
                         text: "Discard",
                         color: "dark",
-                        function: vm.pushProfilePage),
+                        function: vm.popPage),
                   ] else
                     //*******************SAVE BUTTON********************//
                     ButtonWidget(
@@ -117,8 +116,8 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                           final location = vm.userDetails!.location;
                           final domains = vm.userDetails!.domains;
                           if (location != null || domains.isNotEmpty) {
-                            vm.dispatchCreateTradesmanAction(
-                                name, cell, ["Painting"], vm.userDetails!.domains);
+                            vm.dispatchCreateTradesmanAction(name, cell,
+                                ["Painting"], vm.userDetails!.domains);
                           } else {
                             // thinking maybe we can make a generic dispatch error action with an ErrorTpe parameter
                             // something like:
@@ -144,12 +143,21 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
         dispatchCreateTradesmanAction: (String name, String cell,
                 List<String> tradeTypes, List<Domain> domains) =>
             dispatch(CreateUserAction(
-                name: name,
-                cellNo: cell,
-                tradeTypes: tradeTypes,
-                domains: domains)),
-        pushProfilePage: () => dispatch(
-          NavigateAction.pushNamed('/tradesman/profile'),
+          name: name,
+          cellNo: cell,
+          tradeTypes: tradeTypes,
+          domains: domains,
+        )),
+        dispatchEditTradesmanAction:
+            (String? name, String? cell, List<Domain>? domains) =>
+                dispatch(EditUserDetailsAction(
+          userId: state.userDetails!.id,
+          name: name,
+          cellNo: cell,
+          domains: domains,
+        )),
+        popPage: () => dispatch(
+          NavigateAction.pop(),
         ),
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
@@ -162,14 +170,17 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
 class _ViewModel extends Vm {
   final void Function(String, String, List<String>, List<Domain>)
       dispatchCreateTradesmanAction;
-  final VoidCallback pushProfilePage;
+  final void Function(String?, String?, List<Domain>?)
+      dispatchEditTradesmanAction;
+  final VoidCallback popPage;
   final VoidCallback pushDomainConfirmPage;
   final UserModel? userDetails;
 
   _ViewModel({
     required this.dispatchCreateTradesmanAction,
-    required this.pushProfilePage,
+    required this.dispatchEditTradesmanAction,
+    required this.popPage,
     required this.pushDomainConfirmPage,
     required this.userDetails,
-  }) : super(equals: []);
+  }) : super(equals: [userDetails]);
 }

@@ -8,8 +8,10 @@ import 'package:general/widgets/divider.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
+import 'package:redux_comp/actions/user/edit_user_details_action.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/button.dart';
 import '../widgets/link.dart';
@@ -140,8 +142,8 @@ class LoginPage extends StatelessWidget {
                                           emailController.value.text.trim(),
                                           passwordController.value.text.trim(),
                                         );
-
-                                        // vm.dispatchGetAddressAction();
+                                        // Location l = const Location(address: Address(streetNumber: "1",street: "2", city: "3", province: "4", zipCode: "6"), coordinates: Coordinates(lat: 1, lng: 1));
+                                        // vm.dispatchEditUserAction("Richard", l);
                                       },
                                     ),
                         ),
@@ -288,23 +290,23 @@ class _Factory extends VmFactory<AppState, LoginPage> {
           LoginAction(email, password),
         ),
         error: state.error,
-        // dispatchGetAddressAction: () => dispatch(
-        //   GetAddressAction(),
-        // ),
+        dispatchEditUserAction: (String? name, Location? location) => dispatch(
+          EditUserDetailsAction(userId: "c#010", name: name, location: location),
+        ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
-  // final void Function() dispatchCreateUserAction;
+  final void Function(String?, Location?) dispatchEditUserAction;
   final VoidCallback pushSignUpPage;
   final bool loading;
   final ErrorType error;
 
   _ViewModel({
     required this.dispatchLoginAction,
-    // required this.dispatchCreateUserAction,
+    required this.dispatchEditUserAction,
     required this.loading,
     required this.pushSignUpPage,
     required this.error,

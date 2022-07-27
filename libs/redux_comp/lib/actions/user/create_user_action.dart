@@ -47,7 +47,7 @@ class CreateUserAction extends ReduxAction<AppState> {
 
       List<String> domainsQuery = [];
 
-      for (var domain in domains!) {
+      for (Domain domain in domains!) {
         domainsQuery.add(domain.toString());
       }
 
@@ -65,7 +65,6 @@ class CreateUserAction extends ReduxAction<AppState> {
         }
         ''';
 
-      debugPrint(graphQLDoc);
       final requestCreateUser = GraphQLRequest(
         document: graphQLDoc,
       );
@@ -115,7 +114,7 @@ class CreateUserAction extends ReduxAction<AppState> {
         debugPrint(resp.data);
         return state.copy(
             userDetails: state.userDetails!
-                .copy(name: name, cellNo: cellNo, location: location));
+                .copy(name: name, cellNo: cellNo, location: location, registered: true));
       } on ApiException catch (e) {
         debugPrint(e.message);
         return state.copy(error: ErrorType.failedToCreateUser);
@@ -127,9 +126,16 @@ class CreateUserAction extends ReduxAction<AppState> {
 
   @override
   Future<void> after() async {
-    state.userDetails!.userType == "Consumer"
-        ? await dispatch(ViewAdvertsAction())
-        : await dispatch(ViewJobsAction());
+   if (state.userDetails!.userType == "Consumer") {
+      dispatch(ViewAdvertsAction());
+    } else if (state.userDetails!.userType == "Tradesman") {
+      List<String> domains = [];
+      for (Domain d in state.userDetails!.domains) {
+        domains.add(d.city);
+      }
+      List<String> tradeTypes = state.userDetails!.tradeTypes;
+      dispatch(ViewJobsAction(domains, tradeTypes));
+    }
     dispatch(NavigateAction.pushNamed(
         "/${state.userDetails!.userType.toLowerCase()}"));
     // wait until error has finished before stopping loading

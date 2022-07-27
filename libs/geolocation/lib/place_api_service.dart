@@ -47,7 +47,7 @@ class PlaceApiService {
         // map suggestions to a list
         return result['predictions'] 
             .map<Suggestion>((p) => Suggestion(p['place_id'], p['description']))
-            .toList();
+            .toList() as List<Suggestion> ;
       }
       if (result['status'] == 'ZERO_RESULTS') {
         return []; //if no results, return empty list
