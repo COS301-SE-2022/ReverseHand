@@ -10,6 +10,7 @@ import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 
 import '../widgets/message_tile.dart';
+import '../widgets/date_label_widget.dart';
 
 class ChatPage extends StatelessWidget {
   final Store<AppState> store;
@@ -45,10 +46,10 @@ class ChatPage extends StatelessWidget {
                     ChatAppBarWidget(title: "Name"),
                     //********************************************************//
                     // messages,
-
+                    DateLabelWidget(label: "Yesterday"),
                     MessageTileWidget(),
 
-                    MessageOwnTile()
+                    MessageOwnTile(),
                   ],
                 );
               },
