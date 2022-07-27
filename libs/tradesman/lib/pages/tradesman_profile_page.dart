@@ -25,7 +25,7 @@ class TradesmanProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "PROFILE"),
+                  AppBarWidget(title: "PROFILE", store: store),
                   //********************************************************//
 
                   //ALL INFO IS CURRENTLY HARDCODED

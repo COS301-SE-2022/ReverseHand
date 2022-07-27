@@ -124,8 +124,8 @@ class GetUserAction extends ReduxAction<AppState> {
   @override
   void after() async {
     state.userDetails!.userType == "Consumer"
-        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
-        : await dispatch(ViewJobsAction());
+        ? dispatch(ViewAdvertsAction())
+        : dispatch(ViewJobsAction());
     dispatch(NavigateAction.pushNamed(
         "/${state.userDetails!.userType.toLowerCase()}"));
     // wait until error has finished before stopping loading

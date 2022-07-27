@@ -162,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
+  chat:
+    dependency: "direct main"
+    description:
+      path: "../../libs/chat"
+      relative: true
+    source: path
+    version: "0.0.1"
   clock:
     dependency: transitive
     description:
@@ -348,6 +355,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  notifications:
+    dependency: transitive
+    description:
+      path: "../../libs/notifications"
+      relative: true
+    source: path
+    version: "0.0.1"
+  onesignal_flutter:
+    dependency: transitive
+    description:
+      name: onesignal_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.3.2"
   path:
     dependency: transitive
     description:
@@ -550,5 +571,5 @@ packages:
     source: hosted
     version: "0.2.0+1"
 sdks:
-  dart: ">=2.17.1 <3.0.0"
+  dart: ">=2.17.6 <3.0.0"
   flutter: ">=3.0.0"

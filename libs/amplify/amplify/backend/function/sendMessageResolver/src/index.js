@@ -13,6 +13,7 @@ exports.handler = async (event) => {
             msg: event.arguments.msg,
             timestamp: (new Date()).getTime(),
             sender: event.arguments.sender,
+            name: event.arguments.name,
         }]
     };
 
@@ -27,6 +28,9 @@ exports.handler = async (event) => {
     };
 
     await docClient.update(params).promise();
+
+    expressionAttributeValues[":msg"][0]["consumer_id"] = event.arguments.c_id;
+    expressionAttributeValues[":msg"][0]["tradesman_id"] = event.arguments.t_id;
 
     return expressionAttributeValues[":msg"][0];
 };

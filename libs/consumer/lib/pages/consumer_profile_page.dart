@@ -23,7 +23,7 @@ class ConsumerProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "PROFILE"),
+                  AppBarWidget(title: "PROFILE", store: store),
                   //********************************************************//
 
                   //ALL INFO IS CURRENTLY HARDCODED
@@ -133,7 +133,7 @@ class ConsumerProfilePage extends StatelessWidget {
                                 fontSize: 20, color: Colors.white))),
 
                     Positioned(
-                      top: 280,
+                      top: 300,
                       right: 35,
                       child: IconButton(
                         onPressed: vm.pushEditProfilePage,

@@ -8,14 +8,12 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class ViewAdvertsAction extends ReduxAction<AppState> {
-  final String consId; // consumer id whos adverts you wish to retrieve
-
-  ViewAdvertsAction(this.consId);
+  ViewAdvertsAction();
 
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      viewAdverts(user_id: "$consId") {
+      viewAdverts(user_id: "${state.userDetails!.id}") {
         date_created
         date_closed
         description
@@ -43,4 +41,10 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
       return null; /* On Error do not modify state */
     }
   }
+
+  @override
+  void before() => dispatch(WaitAction.add("view_adverts"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("view_adverts"));
 }

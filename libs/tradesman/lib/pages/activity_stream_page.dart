@@ -24,7 +24,7 @@ class ActivityStream extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "ACTIVITY STREAM"),
+                  AppBarWidget(title: "ACTIVITY STREAM", store: store),
                   //********************************************************//
 
                   //*******************MOCK NOTIFICATIONS CARDS*********************//

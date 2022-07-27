@@ -29,7 +29,7 @@ class LocationConfirmPage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  const AppBarWidget(title: "LOCATION CONFIRM"),
+                  AppBarWidget(title: "LOCATION CONFIRM", store: store),
                   //***************************************************//
 
                   //**********************StreetNo**********************//

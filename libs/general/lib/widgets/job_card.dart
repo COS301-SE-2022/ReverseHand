@@ -25,8 +25,13 @@ class JobCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               //****************TITLE********************//
-              Text(titleText,
-                  style: const TextStyle(fontSize: 35, color: Colors.white)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.25,
+                child: Text(titleText,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 35, color: Colors.white)),
+              ),
               //*****************************************//
 
               //****************DATE*******************//
@@ -65,7 +70,6 @@ class JobCardWidget extends StatelessWidget {
 
               //****************DESCRIPTION*******************//
               SizedBox(
-                height: 103,
                 width: MediaQuery.of(context).size.width / 1.3,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),

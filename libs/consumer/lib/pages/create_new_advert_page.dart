@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
@@ -33,7 +34,7 @@ class CreateNewAdvertPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 //*******************APP BAR WIDGET*********************//
-                const AppBarWidget(title: "Create a Job"),
+                AppBarWidget(title: "Create a Job", store: store),
                 //********************************************************//
 
                 //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER***//
@@ -70,18 +71,20 @@ class CreateNewAdvertPage extends StatelessWidget {
                       const Padding(padding: EdgeInsets.all(50)),
 
                       //*********CREATE JOB BUTTON******************//
-                      ButtonWidget(
-                          text: "Create Job",
-                          function: () {
-                            if (titleController.value.text != "") {
-                              vm.dispatchCreateAdvertActions(
-                                  store.state.userDetails!.id,
-                                  titleController.value.text,
-                                  store.state.userDetails!.location!.address
-                                      .city,
-                                  descrController.value.text);
-                            }
-                          }),
+                      vm.loading
+                          ? const LoadingWidget()
+                          : ButtonWidget(
+                              text: "Create Job",
+                              function: () {
+                                if (titleController.value.text != "") {
+                                  vm.dispatchCreateAdvertActions(
+                                      store.state.userDetails!.id,
+                                      titleController.value.text,
+                                      store.state.userDetails!.location!.address
+                                          .city,
+                                      descrController.value.text);
+                                }
+                              }),
                       //********************************************//
                       const Padding(padding: EdgeInsets.all(5)),
 
@@ -116,9 +119,15 @@ class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
         dispatchCreateAdvertActions: (String customerId, String title,
                 String location, String? description) =>
             dispatch(
-          CreateAdvertAction(customerId, title, location, "Plumbing",
-              description: description),
+          CreateAdvertAction(
+            customerId,
+            title,
+            location,
+            "Plumbing",
+            description: description,
+          ),
         ),
+        loading: state.wait.isWaiting,
       );
 }
 
@@ -127,9 +136,11 @@ class _ViewModel extends Vm {
   final void Function(String, String, String, String?)
       dispatchCreateAdvertActions;
   final VoidCallback popPage;
+  final bool loading;
 
   _ViewModel({
+    required this.loading,
     required this.dispatchCreateAdvertActions,
     required this.popPage,
-  }); // implementinf hashcode
+  }) : super(equals: [loading]); // implementinf hashcode
 }
