@@ -48,15 +48,19 @@ class ChatPage extends StatelessWidget {
                     //********************************************************//
                     // messages,
                     DateLabelWidget(label: "Yesterday"),
-                    MessageTileWidget(),
-                    MessageOwnTile(),
+                    MessageTileWidget(
+                      message: "are you available tomorrow at 3pm",
+                    ),
+                    MessageOwnTileWidget(
+                        message: "Yes, I will send my address"),
+
                     ActionBarWidget(),
                   ],
                 );
               },
             ),
           ),
-          
+
           //************************NAVBAR***********************/
 
           bottomNavigationBar: NavBarWidget(
