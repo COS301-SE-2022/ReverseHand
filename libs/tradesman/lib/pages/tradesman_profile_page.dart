@@ -1,9 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
-// import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
@@ -29,8 +27,6 @@ class TradesmanProfilePage extends StatelessWidget {
                   //*******************APP BAR WIDGET*********************//
                   const AppBarWidget(title: "PROFILE"),
                   //********************************************************//
-
-                  //ALL INFO IS CURRENTLY HARDCODED
 
                   //*******************CONSUMER NAME************************//
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [

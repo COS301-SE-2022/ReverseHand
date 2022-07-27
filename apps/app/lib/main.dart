@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
+import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
 import 'package:consumer/consumer.dart';
 import 'package:consumer/pages/advert_details_page.dart';
@@ -43,7 +44,7 @@ class Launch extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
-        initialRoute: '/',
+        initialRoute: '/geolocation/custom_location_search',
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
@@ -80,6 +81,8 @@ class Launch extends StatelessWidget {
               ActivityStream(store: store),
           '/geolocation/location_confirm': (context) =>
               LocationConfirmPage(store: store),
+          '/geolocation/custom_location_search': (context) =>
+              CustomLocationSearchPage(store: store, sessionToken: "1234"),
           '/tradesman/domain_confirm': (context) =>
               DomainConfirmPage(store: store),
           '/tradesman/view_bids': (context) =>
