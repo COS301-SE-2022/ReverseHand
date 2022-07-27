@@ -30,10 +30,11 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    //theoritically this code should be in the constructor, but the passed in sessionToken is only available in the build method
     String? sessionToken =
-        (ModalRoute.of(context)?.settings.arguments) as String?;
+        (ModalRoute.of(context)?.settings.arguments) as String?; //fetch the session token passed in
     (sessionToken == null) ? sessionToken = "1234" : null;
-    final PlaceApiService apiClient = PlaceApiService(sessionToken);
+    final PlaceApiService apiClient = PlaceApiService(sessionToken);  //instantiate the api service
 
     return Scaffold(
       appBar: AppBar(
@@ -56,13 +57,13 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                   hintText: 'Search...',
                   border: InputBorder.none),
               controller: searchController,
-              onChanged: (text) {
+              onChanged: (text) { //when the input text has changed
                 setState(() {
-                  searchString = text;
-                  (searchString.length % 3 == 0)
-                      ? _searchFuture = searchString.length < 8
-                          ? null
-                          : apiClient.fetchSuggestions(searchString)
+                  searchString = text;  //assign to searchString
+                  (searchString.length % 3 == 0)    //only make a request every 3 character input
+                      ? _searchFuture = searchString.length > 8 //dont make a request before 8 chars
+                          ? apiClient.fetchSuggestions(searchString) // ^^^ this is for cost optimisation
+                          : null
                       : null;
                 });
               }),
@@ -72,30 +73,30 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
         future: _searchFuture,
         builder: (BuildContext context,
                 AsyncSnapshot<List<Suggestion>> snapshot) =>
-            (searchString.isEmpty)
+            (searchString.isEmpty) // if the search string is empty
                 ? Container(
                     padding: const EdgeInsets.all(16.0),
-                    child: const Text('Please enter your full address'),
+                    child: const Text('Please enter your full address'), // ask for address
                   )
-                : snapshot.hasData
+                : snapshot.hasData  // if we have data do display, build a list of suggestions
                     ? StoreConnector<AppState, _ViewModel>(
                         vm: () => _Factory(this),
                         builder: (BuildContext context, _ViewModel vm) =>
                             ListView.builder(
                           itemBuilder: (context, index) => ListTile(
                             title: Text((snapshot.data![index]).description),
-                            onTap: () {
+                            onTap: () { // when a user taps on a suggestions
                               vm.dispatchGetPlaceAction(
-                                  snapshot.data![index], apiClient);
+                                  snapshot.data![index], apiClient);    //get the details of the suggestion
                             },
                           ),
                           itemCount: snapshot.data!.length,
                         ),
                       )
-                    : snapshot.hasError
-                        ? Text(snapshot.error.toString())
+                    : snapshot.hasError //if there is an error
+                        ? Text(snapshot.error.toString()) //display for now
                         : const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(), // else show loading indicator
                           ),
       ),
     );

@@ -23,6 +23,6 @@ class GetPlaceAction extends ReduxAction<AppState> {
 
   @override
   void after() {
-    dispatch(NavigateAction.pushNamed('/geolocation/location_confirm'));
+    dispatch(NavigateAction.pushReplacementNamed('/geolocation/location_confirm'));
   }
 }
