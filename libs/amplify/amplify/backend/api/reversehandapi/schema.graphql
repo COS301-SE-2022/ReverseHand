@@ -68,9 +68,12 @@ type Mutation {
     type: String
     location: String
     date_closed: String
-  ): Advert @function(name: "editAdvertResolver-${env}")
+  ): Advert! @function(name: "editAdvertResolver-${env}")
 
-  deleteBid(ad_id: String!, bid_id: String!): Bid
+  deleteAdvert(ad_id: String!): Advert!
+    @function(name: "deleteAdvertResolver-${env}")
+
+  deleteBid(ad_id: String!, bid_id: String!): Bid!
     @function(name: "deleteBidResolver-${env}")
 
   editBid(

@@ -134,7 +134,7 @@ class ConsumerProfilePage extends StatelessWidget {
                                 fontSize: 20, color: Colors.white))),
 
                     Positioned(
-                      top: 280,
+                      top: 300,
                       right: 35,
                       child: IconButton(
                         onPressed: vm.pushEditProfilePage,

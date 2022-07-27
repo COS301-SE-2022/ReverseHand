@@ -5,6 +5,7 @@ import 'package:authentication/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/edit_user_details_action.dart';
@@ -133,9 +134,7 @@ class LoginPage extends StatelessWidget {
                           },
                           builder: (BuildContext context, _ViewModel vm) =>
                               vm.loading
-                                  ? const CircularProgressIndicator(
-                                      color: Colors.orange,
-                                    )
+                                  ? const LoadingWidget()
                                   : LongButtonWidget(
                                       text: "Login",
                                       function: () {
