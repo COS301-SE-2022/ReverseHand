@@ -129,8 +129,8 @@ type Chat {
 }
 
 type Message {
-  consumer_id: String! # only sent for subscription
-  tradesman_id: String! # only sent for subscription
+  consumer_id: String # only sent for subscription
+  tradesman_id: String # only sent for subscription
   msg: String!
   sender: String!
   timestamp: Float!
