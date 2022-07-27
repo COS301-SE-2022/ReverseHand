@@ -49,7 +49,6 @@ class ChatPage extends StatelessWidget {
                     // messages,
                     DateLabelWidget(label: "Yesterday"),
                     MessageTileWidget(),
-
                     MessageOwnTile(),
                     ActionBarWidget(),
                   ],
