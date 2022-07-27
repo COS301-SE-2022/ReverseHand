@@ -54,17 +54,7 @@ class DomainConfirmPage extends StatelessWidget {
           floatingActionButton: StoreConnector<AppState, _ViewModel>(
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) =>
-                FloatingButtonWidget(
-              function: () async {
-                final sessionToken = const Uuid().v1();  
-                // ignore: unused_local_variable
-                // final result = await showSearch(
-                //     context: context,
-                //     delegate: LocationSearchPage(sessionToken, store)
-                //     );
-
-              },
-            ),
+                FloatingButtonWidget(function: vm.pushCustomSearch),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -84,6 +74,10 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+        pushCustomSearch: () => dispatch(
+          NavigateAction.pushNamed('/geolocation/custom_location_search',
+              arguments: const Uuid().v1()),
+        ),
         domains: state.userDetails!.domains,
         pop: () => dispatch(
           NavigateAction.pop(),
@@ -93,10 +87,12 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
 
 // view model
 class _ViewModel extends Vm {
+  final VoidCallback pushCustomSearch;
   final VoidCallback pop;
   final List<Domain> domains;
 
   _ViewModel({
+    required this.pushCustomSearch,
     required this.domains,
     required this.pop,
   }) : super(equals: [domains]);

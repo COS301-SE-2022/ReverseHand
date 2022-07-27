@@ -88,9 +88,11 @@ class LocationConfirmPage extends StatelessWidget {
                   //**************************************************//
 
                   //*******************SAVE BUTTON********************//
-                  
+
                   ButtonWidget(
-                    text: (vm.userType == "Consumer") ? "Save Location" : "Add Domain",
+                    text: (vm.userType == "Consumer")
+                        ? "Save Location"
+                        : "Add Domain",
                     function: vm.dispatchSetPlaceAction,
                   ),
                   //**************************************************//
@@ -98,17 +100,11 @@ class LocationConfirmPage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.all(8)),
 
                   //*******************DISCARD BUTTON*****************//
-                  // ButtonWidget(
-                  //   text: "Search again",
-                  //   color: "dark",
-                  //   function: () {
-                  //     final sessionToken = const Uuid().v1();
-                  //     vm.popPage();
-                  //     showSearch(
-                  //         context: context,
-                  //         delegate: LocationSearchPage(sessionToken, store));
-                  //   },
-                  // ),
+                  ButtonWidget(
+                    text: "Search again",
+                    color: "dark",
+                    function: vm.pushCustomSearch,
+                  ),
                 ],
               ),
             ),
@@ -125,22 +121,26 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchSetPlaceAction: () => dispatch(SetPlaceAction()),
-        popPage: () => dispatch(NavigateAction.pop()),
-        location: (state.locationResult == null) ? null : state.locationResult,
-        userType: state.userDetails!.userType
-      );
+      dispatchSetPlaceAction: () => dispatch(SetPlaceAction()),
+      pushCustomSearch: () => dispatch(
+          NavigateAction.pushReplacementNamed('/geolocation/custom_location_search', arguments: const Uuid().v1()),
+        ),
+      popPage: () => dispatch(NavigateAction.pop()),
+      location: (state.locationResult == null) ? null : state.locationResult,
+      userType: state.userDetails!.userType);
 }
 
 // view model
 class _ViewModel extends Vm {
   final void Function() dispatchSetPlaceAction;
   final Location? location;
+  final VoidCallback pushCustomSearch;
   final VoidCallback popPage;
   final String userType;
 
   _ViewModel({
     required this.dispatchSetPlaceAction,
+    required this.pushCustomSearch,
     required this.popPage,
     required this.location,
     required this.userType,

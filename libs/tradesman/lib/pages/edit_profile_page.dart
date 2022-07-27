@@ -182,5 +182,5 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.pushDomainConfirmPage,
     required this.userDetails,
-  }) : super(equals: []);
+  }) : super(equals: [userDetails]);
 }

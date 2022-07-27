@@ -94,7 +94,7 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                         ),
                       )
                     : snapshot.hasError //if there is an error
-                        ? Text(snapshot.error.toString()) //display for now
+                        ? const Text("Error") //display for now
                         : const Center(
                             child: CircularProgressIndicator(), // else show loading indicator
                           ),

@@ -124,25 +124,3 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
 //              id
 //            }
 //          }
-// mutation {
-//   editUserDetail(
-//      user_id: "t#239f49c4-f9ce-4822-8195-8f6b6f6790f2", 
-//      domains: [
-//        {
-//          city: "Pretoria", 
-//          coordinates :{
-//            lat: 25, 
-//            lng: 24
-//          }
-//         }, {
-//          city: "joburg", 
-//          coordinates: {
-//            lat: 24, 
-//            lng: 27
-//         }
-//        }
-//      ]
-//      ) {
-//     id
-//   }
-// }
