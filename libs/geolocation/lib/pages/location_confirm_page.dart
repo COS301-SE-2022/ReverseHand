@@ -1,7 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:geolocation/pages/location_search_page.dart';
 import 'package:redux_comp/actions/geolocation/set_place_action.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';

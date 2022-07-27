@@ -20,7 +20,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
     debugPrint(jsonEncode(tradetypes));
 
     String graphQLDocument = '''query {
-      viewJobs(locations: ${jsonEncode(locations)}, type: ${jsonEncode(tradetypes)}) {
+      viewJobs(locations: ${jsonEncode(locations)}, types: ${jsonEncode(tradetypes)}) {
         date_created
         date_closed
         description
