@@ -10,25 +10,13 @@ class ActionButton extends StatelessWidget {
     Key? key,
     required this.color,
     required this.icon,
-    this.size = 54,
+    this.size = 50,
     required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.3),
-            spreadRadius: 8,
-            blurRadius: 24,
-          ),
-        ],
-      ),
-      child: ClipOval(
+    return ClipOval(
         child: Material(
           color: color,
           child: InkWell(
@@ -45,7 +33,6 @@ class ActionButton extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

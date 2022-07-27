@@ -67,8 +67,7 @@ class ChatPage extends StatelessWidget {
           ),
 
           //************************NAVBAR***********************/
-
-          bottomNavigationBar: const ActionBarWidget(),
+          floatingActionButton: const ActionBarWidget(),
           //*****************************************************/
         ),
       ),

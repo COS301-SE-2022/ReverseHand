@@ -37,15 +37,10 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
             child: Padding(
               padding: EdgeInsets.only(left: 16.0),
               child: TextField(
-                // controller: controller.textEditingController,
-                // onChanged: (val) {
-                //   controller.text = val;
-                // },
                 style: TextStyle(fontSize: 14, color: Colors.white),
                 decoration: InputDecoration(
                   border: InputBorder.none,
                 ),
-                // onSubmitted: (_) => _sendMessage(),
               ),
             ),
           ),
