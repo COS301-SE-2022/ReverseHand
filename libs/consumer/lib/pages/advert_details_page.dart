@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/delete_advert_popup.dart';
 import 'package:consumer/widgets/dialog_helper.dart';
+import 'package:consumer/widgets/rating_popup.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
@@ -45,15 +46,19 @@ class AdvertDetailsPage extends StatelessWidget {
                   //*******************************************//
 
                   //******************EDIT ICON****************//
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: IconButton(
-                      onPressed: vm.pushEditAdvert,
-                      icon: const Icon(Icons.edit),
-                      color: Colors.white70,
-                    ),
-                  ),
+                  //should only be displayed if no bid has been accepted
+                  if (vm.advert.acceptedBid == null)
+                    (Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: IconButton(
+                        onPressed: vm.pushEditAdvert,
+                        icon: const Icon(Icons.edit),
+                        color: Colors.white70,
+                      ),
+                    )),
                   //**********************************************/
+
+                  // DialogHelper.display(context, const RatingPopUpWidget()),
 
                   const Padding(padding: EdgeInsets.only(top: 20)),
 
@@ -64,10 +69,24 @@ class AdvertDetailsPage extends StatelessWidget {
                     ),
 
                     //view bids
-                    Positioned(
-                        top: 15,
-                        child: ButtonWidget(
-                            text: "View Bids", function: vm.pushViewBidsPage)),
+                    //should only be displayed if no bid is accepted yet
+                    if (vm.advert.acceptedBid == null)
+                      (Positioned(
+                          top: 15,
+                          child: ButtonWidget(
+                              text: "View Bids",
+                              function: vm.pushViewBidsPage))),
+
+                    //should only be displayed if a bid has been accepted
+                    if (vm.advert.acceptedBid != null)
+                      ((Positioned(
+                          top: 15,
+                          child: ButtonWidget(
+                              text: "Close job",
+                              function: () {
+                                DialogHelper.display(
+                                    context, const RatingPopUpWidget());
+                              })))),
 
                     //Delete - currently just takes you back to Consumer Listings page
                     Positioned(
