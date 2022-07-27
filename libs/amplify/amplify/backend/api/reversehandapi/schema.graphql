@@ -20,10 +20,10 @@ type Query {
 }
 
 type Mutation {
-  shortListBid(ad_id: String!, bid_id: String!): Bid
+  shortListBid(ad_id: String!, bid_id: String!): Bid!
     @function(name: "shortListBidResolver-${env}")
 
-  acceptBid(ad_id: String!, sbid_id: String!): Bid
+  acceptBid(ad_id: String!, sbid_id: String!): Bid!
     @function(name: "acceptBidResolver-${env}")
 
   createAdvert(
@@ -97,7 +97,7 @@ type Mutation {
   createChat(c_id: String!, t_id: String!): Chat!
   @function(name: "createChatResolver-${env}")
 
-  sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!): Message!
+  sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!, name: String!): Message!
   @function(name: "sendMessageResolver-${env}")
 }
 
@@ -131,6 +131,7 @@ type Message {
   msg: String!
   sender: String!
   timestamp: Float!
+  name: String!
 }
 
 type Location {
