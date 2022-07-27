@@ -123,7 +123,7 @@ class GetUserAction extends ReduxAction<AppState> {
   @override
   void after() async {
     if (state.userDetails!.userType == "Consumer") {
-      dispatch(ViewAdvertsAction(state.userDetails!.id));
+      dispatch(ViewAdvertsAction());
     } else if (state.userDetails!.userType == "Tradesman") {
       List<String> domains = [];
       for (Domain d in state.userDetails!.domains) {
