@@ -2,9 +2,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-
 import '../../app_state.dart';
-
 import 'package:async_redux/async_redux.dart';
 
 class EditAdvertAction extends ReduxAction<AppState> {
@@ -26,10 +24,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation { 
       editAdvert(ad_id: "$advertId",title: "$title",description: "$description",type: "$type",location: "$location"){
-        title
-        description
-        type
-        location
+        id
       }
     } ''';
 
@@ -79,11 +74,20 @@ class EditAdvertAction extends ReduxAction<AppState> {
       );
 
       return state.copy(
-        activeAd: ad,
+        activeAd: adverts[adPos],
         adverts: adverts,
       );
     } catch (e) {
       return null;
     }
+  }
+
+  @override
+  void before() => dispatch(WaitAction.add("edit_advert"));
+
+  @override
+  void after() async {
+    dispatch(NavigateAction.pop());
+    dispatch(WaitAction.remove("edit_advert"));
   }
 }

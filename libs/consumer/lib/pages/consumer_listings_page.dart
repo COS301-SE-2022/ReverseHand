@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/loading_widget.dart';
 
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -32,7 +33,7 @@ class ConsumerListingsPage extends StatelessWidget {
 
                   //if there are adverts, heading should be displayed
                   if (vm.adverts.isNotEmpty)
-                    (Column(
+                    Column(
                       children: [
                         //******************OPEN HEADING***********************//
                         const Align(
@@ -58,14 +59,16 @@ class ConsumerListingsPage extends StatelessWidget {
                         ),
                         //******************************************************//
                       ],
-                    )),
+                    ),
 
                   // populating column with adverts
+                  if (vm.loading) const LoadingWidget(),
+
                   ...populateAdverts(vm.adverts, store),
 
                   //************MESSAGE IF THERE ARE NO ADVERTS***********/
                   if (vm.adverts.isEmpty)
-                    (Padding(
+                    Padding(
                       padding: EdgeInsets.only(
                           top: (MediaQuery.of(context).size.height) / 3),
                       child: const Text(
@@ -73,7 +76,7 @@ class ConsumerListingsPage extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 25, color: Colors.white54),
                       ),
-                    )),
+                    ),
                   //*****************************************************/
                   if (vm.adverts.isNotEmpty)
                     (Column(
@@ -135,6 +138,7 @@ class _Factory extends VmFactory<AppState, ConsumerListingsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+        loading: state.wait.isWaiting,
         adverts: state.adverts,
         pushCreateAdvertPage: () => dispatch(
           NavigateAction.pushNamed('/consumer/create_advert'),
@@ -146,10 +150,12 @@ class _Factory extends VmFactory<AppState, ConsumerListingsPage> {
 class _ViewModel extends Vm {
   final VoidCallback pushCreateAdvertPage;
   final List<AdvertModel> adverts;
+  final bool loading;
 
   _ViewModel({
+    required this.loading,
     required this.adverts,
     required this.pushCreateAdvertPage,
-  }) : super(equals: adverts); // implementinf hashcode
+  }) : super(equals: [adverts, loading]); // implementinf hashcode
 
 }

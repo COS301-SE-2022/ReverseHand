@@ -22,11 +22,14 @@ exports.handler = async (event) => {
 
         // getting advert
         const data = await docClient.get(params).promise();
+        
+        console.log(data);
 
         // deleting advert
         await docClient.delete(params).promise();
-
-        return data['advert_details'];
+        
+        data['Item']['advert_details']['id'] = event.arguments.ad_id;
+        return data['Item']['advert_details'];
     } catch(e) {
         console.log(e);
     }
