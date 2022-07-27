@@ -21,6 +21,7 @@ class CreateChatAction extends ReduxAction<AppState> {
           timestamp
           consumer_id
           tradesman_id
+          name
         }
       }
     }'''; // duplicate used for subscription

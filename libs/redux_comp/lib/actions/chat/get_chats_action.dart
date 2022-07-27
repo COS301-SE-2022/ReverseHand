@@ -19,6 +19,7 @@ class GetChatsAction extends ReduxAction<AppState> {
           msg
           sender
           timestamp
+          name
         }
       }
     }''';

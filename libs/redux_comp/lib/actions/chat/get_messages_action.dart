@@ -1,6 +1,5 @@
 import 'package:redux_comp/models/chat/chat_model.dart';
 import '../../app_state.dart';
-
 import 'package:async_redux/async_redux.dart';
 
 class GetMessagesAction extends ReduxAction<AppState> {
