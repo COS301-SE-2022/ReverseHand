@@ -71,22 +71,28 @@ class AdvertDetailsPage extends StatelessWidget {
                     //view bids
                     //should only be displayed if no bid is accepted yet
                     if (vm.advert.acceptedBid == null)
-                      (Positioned(
-                          top: 15,
-                          child: ButtonWidget(
-                              text: "View Bids",
-                              function: vm.pushViewBidsPage))),
+                      Positioned(
+                        top: 15,
+                        child: ButtonWidget(
+                          text: "View Bids",
+                          function: vm.pushViewBidsPage,
+                        ),
+                      ),
 
                     //should only be displayed if a bid has been accepted
                     if (vm.advert.acceptedBid != null)
-                      ((Positioned(
-                          top: 15,
-                          child: ButtonWidget(
-                              text: "Close job",
-                              function: () {
-                                DialogHelper.display(
-                                    context, const RatingPopUpWidget());
-                              })))),
+                      Positioned(
+                        top: 15,
+                        child: ButtonWidget(
+                          text: "Close job",
+                          function: () {
+                            DialogHelper.display(
+                              context,
+                              const RatingPopUpWidget(),
+                            );
+                          },
+                        ),
+                      ),
 
                     //Delete - currently just takes you back to Consumer Listings page
                     Positioned(
