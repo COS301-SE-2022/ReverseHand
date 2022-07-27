@@ -1,11 +1,8 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/chat/create_chat_action.dart';
-import 'package:redux_comp/models/bid_model.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-
-import '../../models/bid_model.dart';
 import '../../app_state.dart';
 
 class AcceptBidAction extends ReduxAction<AppState> {
@@ -32,15 +29,9 @@ class AcceptBidAction extends ReduxAction<AppState> {
 
     try {
       // getting the bid which has beena accepted is just a graphql convention
-      dynamic response = await Amplify.API
+      /* dynamic response = */ await Amplify.API
           .mutate(request: request)
           .response; // in future may want to do something with accepted advert
-
-      // final List<BidModel> shortBids = state.shortlistBids;
-      // shortBids.removeWhere((element) => element.id == state.activeBid!.id);
-
-      // final List<BidModel> viewBids = state.viewBids;
-      // viewBids.removeWhere((element) => element.id == state.activeBid!.id);
 
       // dispatching action to create chat
       dispatch(CreateChatAction(state.activeBid!.userId));

@@ -32,7 +32,7 @@ class CreateChatAction extends ReduxAction<AppState> {
 
     try {
       // getting the bid which has beena accepted is just a graphql convention
-      dynamic response = await Amplify.API
+      /* dynamic response = */ await Amplify.API
           .mutate(request: request)
           .response; // in future may want to do something with accepted advert
 

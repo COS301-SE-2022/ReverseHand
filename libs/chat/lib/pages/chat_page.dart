@@ -8,10 +8,8 @@ import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
-
 import '../widgets/action_bar_widget.dart';
 import '../widgets/message_tile.dart';
-import '../widgets/date_label_widget.dart';
 
 class ChatPage extends StatelessWidget {
   final Store<AppState> store;
@@ -26,21 +24,20 @@ class ChatPage extends StatelessWidget {
         theme: CustomTheme.darkTheme,
         home: Scaffold(
           body: SingleChildScrollView(
-          child: StoreConnector<AppState, _ViewModel>(
+            child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
                 List<MessageOwnTileWidget> ownMessages = [];
                 List<MessageTileWidget> messages = [];
 
                 for (MessageModel msg in vm.chat.messages) {
-                  if(vm.currentUser == msg.sender) {
+                  if (vm.currentUser == msg.sender) {
                     ownMessages.add(
                       MessageOwnTileWidget(
                         message: msg.msg,
                       ),
                     );
-                  }
-                  else {
+                  } else {
                     messages.add(
                       MessageTileWidget(
                         message: msg.msg,
@@ -50,17 +47,16 @@ class ChatPage extends StatelessWidget {
                 }
 
                 return Column(
-                      children: [
-                        //*******************APP BAR WIDGET*********************//
-                        const ChatAppBarWidget(title: "Name"),
-                        //********************************************************//
-                        // const DateLabelWidget(label: "Yesterday"), //todo michael
+                  children: [
+                    //*******************APP BAR WIDGET*********************//
+                    const ChatAppBarWidget(title: "Name"),
+                    //********************************************************//
+                    // const DateLabelWidget(label: "Yesterday"), //todo michael
 
-                        //todo michael
-                        ...ownMessages,
-                        ...messages,
-
-                      ],
+                    //todo michael
+                    ...ownMessages,
+                    ...messages,
+                  ],
                 );
               },
             ),
@@ -68,7 +64,7 @@ class ChatPage extends StatelessWidget {
 
           //************************NAVBAR***********************/
           bottomSheet: const ActionBarWidget(),
-           bottomNavigationBar: NavBarWidget(
+          bottomNavigationBar: NavBarWidget(
             store: store,
           ),
           //*****************************************************/
