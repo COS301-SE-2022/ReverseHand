@@ -28,7 +28,7 @@ class ConsumerListingsPage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "MY JOBS"),
+                  AppBarWidget(title: "MY JOBS", store: store),
                   //********************************************************//
 
                   //if there are adverts, heading should be displayed

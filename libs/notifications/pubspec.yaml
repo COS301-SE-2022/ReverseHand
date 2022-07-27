@@ -2,6 +2,7 @@ name: notifications
 description: The service library for the notifications fetaure
 version: 0.0.1
 homepage:
+publish_to: none
 
 environment:
   sdk: ">=2.17.1 <3.0.0"

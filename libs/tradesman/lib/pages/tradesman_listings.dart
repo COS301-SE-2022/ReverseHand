@@ -26,7 +26,7 @@ class TradesmanJobListings extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                    const AppBarWidget(title: "JOB LISTINGS"),
+                    AppBarWidget(title: "JOB LISTINGS", store: store),
                     //********************************************************//
                   ...populateAdverts(vm.adverts, store),
                 ],

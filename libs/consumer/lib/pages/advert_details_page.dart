@@ -30,7 +30,7 @@ class AdvertDetailsPage extends StatelessWidget {
               child: Column(
                 children: [
                   //**********APPBAR***********//
-                  const AppBarWidget(title: "JOB INFO"),
+                  AppBarWidget(title: "JOB INFO", store: store),
                   //*******************************************//
 
                   //**********DETAILED JOB INFORMATION***********//

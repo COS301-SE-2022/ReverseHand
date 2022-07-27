@@ -40,7 +40,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: <Widget>[
                   //**********APPBAR*************//
-                  const AppBarWidget(title: "JOB INFO"),
+                  AppBarWidget(title: "JOB INFO", store: store),
                   //******************************//
 
                   //**********DETAILED JOB INFORMATION***********//

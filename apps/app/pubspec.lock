@@ -348,6 +348,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  notifications:
+    dependency: transitive
+    description:
+      path: "../../libs/notifications"
+      relative: true
+    source: path
+    version: "0.0.1"
+  onesignal_flutter:
+    dependency: transitive
+    description:
+      name: onesignal_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.3.2"
   path:
     dependency: transitive
     description:
