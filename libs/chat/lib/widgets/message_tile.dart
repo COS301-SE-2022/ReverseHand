@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/models/chat/message_model.dart';
 
 //*****************THE RECEIVING MESSAGE****************/
 class MessageTileWidget extends StatelessWidget {
-  final String message;
+  final MessageModel message;
   const MessageTileWidget({
     required this.message,
     Key? key,
@@ -33,13 +34,15 @@ class MessageTileWidget extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
-                child:
-                    Text(message, style: const TextStyle(color: Colors.black)),
+                child: Text(message.msg,
+                    style: const TextStyle(color: Colors.black)),
               ),
             ),
-            const Padding(
-                padding: EdgeInsets.only(left: 8, top: 8.0),
-                child: Text("12:03"))
+            Padding(
+                padding: const EdgeInsets.only(left: 8, top: 8.0),
+                child: Text(
+                  getTime(message.timestamp.toInt()),
+                ))
           ],
         ),
       ),
@@ -50,7 +53,7 @@ class MessageTileWidget extends StatelessWidget {
 
 //*****************THE SENDING MESSAGE******************/
 class MessageOwnTileWidget extends StatelessWidget {
-  final String message;
+  final MessageModel message;
   const MessageOwnTileWidget({
     required this.message,
     Key? key,
@@ -78,13 +81,15 @@ class MessageOwnTileWidget extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
-                child:
-                    Text(message, style: const TextStyle(color: Colors.white)),
+                child: Text(message.msg,
+                    style: const TextStyle(color: Colors.white)),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(right: 8, top: 8.0),
-              child: Text("12:03"),
+            Padding(
+              padding: const EdgeInsets.only(right: 8, top: 8.0),
+              child: Text(
+                getTime(message.timestamp.toInt()),
+              ),
             )
           ],
         ),
@@ -93,3 +98,8 @@ class MessageOwnTileWidget extends StatelessWidget {
   }
 }
 //*******************************************************/
+
+String getTime(int timestamp) {
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp.toInt());
+  return "${date.hour}:${date.minute}";
+}

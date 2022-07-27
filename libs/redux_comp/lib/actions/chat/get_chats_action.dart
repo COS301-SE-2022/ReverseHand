@@ -33,10 +33,19 @@ class GetChatsAction extends ReduxAction<AppState> {
       dynamic data =
           jsonDecode(response.data)['get${state.userDetails!.userType}Chats'];
 
-      data.forEach((el) => chats.add(ChatModel.fromJson(el)));
+      ChatModel chat = state.chat;
+
+      data.forEach((el) {
+        ChatModel c = ChatModel.fromJson(el);
+        if (c.consumerId == state.chat.consumerId &&
+            c.tradesmanId == state.chat.tradesmanId) chat = c;
+
+        return chats.add(c);
+      });
 
       return state.copy(
         chats: chats,
+        chat: chat,
       );
     } catch (e) {
       return null; /* On Error do not modify state */

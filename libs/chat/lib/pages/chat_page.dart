@@ -27,20 +27,19 @@ class ChatPage extends StatelessWidget {
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
-                List<MessageOwnTileWidget> ownMessages = [];
-                List<MessageTileWidget> messages = [];
+                List<Widget> messages = [];
 
                 for (MessageModel msg in vm.chat.messages) {
                   if (vm.currentUser == msg.sender) {
-                    ownMessages.add(
+                    messages.add(
                       MessageOwnTileWidget(
-                        message: msg.msg,
+                        message: msg,
                       ),
                     );
                   } else {
                     messages.add(
                       MessageTileWidget(
-                        message: msg.msg,
+                        message: msg,
                       ),
                     );
                   }
@@ -54,7 +53,6 @@ class ChatPage extends StatelessWidget {
                     // const DateLabelWidget(label: "Yesterday"), //todo michael
 
                     //todo michael
-                    ...ownMessages,
                     ...messages,
                   ],
                 );
@@ -93,5 +91,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.chat,
     required this.currentUser,
-  }); // implementinf hashcode
+  }) : super(equals: [chat]); // implementinf hashcode
 }
