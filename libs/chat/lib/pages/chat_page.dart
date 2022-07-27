@@ -61,6 +61,7 @@ class ChatPage extends StatelessWidget {
           ),
 
           //************************NAVBAR***********************/
+
           bottomSheet: const ActionBarWidget(),
           bottomNavigationBar: NavBarWidget(
             store: store,
