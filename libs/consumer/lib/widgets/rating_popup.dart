@@ -43,7 +43,7 @@ class RatingPopUpState extends State<RatingPopUp> {
           children: [
             const Padding(padding: EdgeInsets.only(top: 15)),
             const Text(
-              "Please rate the service\n you received:",
+              "Please rate the service\n you received",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 24, color: Colors.black),
             ),

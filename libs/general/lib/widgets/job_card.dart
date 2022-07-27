@@ -37,11 +37,6 @@ class JobCardWidget extends StatelessWidget {
               //****************DATE*******************//
               Row(
                 children: [
-                  // const Text(
-                  //   "Posted: ",
-                  //   style: TextStyle(fontSize: 20, color: Colors.white70),
-                  // ),
-                  //still deciding if this should be here
                   Text(
                     date,
                     style: const TextStyle(fontSize: 18, color: Colors.white70),
@@ -55,11 +50,12 @@ class JobCardWidget extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Row(
                   children: [
-                    // Icon(
-                    //   Icons.location_on,
-                    //   color: Colors.white,
-                    //   size: 30.0,
-                    // ), //icon spacing is giving issues at the moment
+                    const Icon(
+                      Icons.location_on,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                    const Padding(padding: EdgeInsets.only(right: 2)),
                     Text(location,
                         style:
                             const TextStyle(fontSize: 20, color: Colors.white))

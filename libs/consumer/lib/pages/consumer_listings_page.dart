@@ -75,6 +75,34 @@ class ConsumerListingsPage extends StatelessWidget {
                       ),
                     )),
                   //*****************************************************/
+                  if (vm.adverts.isNotEmpty)
+                    (Column(
+                      children: [
+                        //******************OPEN HEADING***********************//
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10, left: 18.0),
+                            child: Text(
+                              "IN PROGRESS",
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.white60),
+                            ),
+                          ),
+                        ),
+                        //******************************************************//
+
+                        //**************************DIVIDER**********************//
+                        Divider(
+                          height: 20,
+                          thickness: 0.5,
+                          indent: 15,
+                          endIndent: 15,
+                          color: Theme.of(context).primaryColorLight,
+                        ),
+                        //******************************************************//
+                      ],
+                    )),
                 ],
               ),
             ),
