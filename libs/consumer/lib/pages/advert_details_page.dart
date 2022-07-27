@@ -80,7 +80,7 @@ class AdvertDetailsPage extends StatelessWidget {
                     //should only be displayed if a bid has been accepted
                     if (vm.advert.acceptedBid != null)
                       ((Positioned(
-                          top: 15,
+                          top: 50,
                           child: ButtonWidget(
                               text: "Close job",
                               function: () {
@@ -89,16 +89,17 @@ class AdvertDetailsPage extends StatelessWidget {
                               })))),
 
                     //Delete - currently just takes you back to Consumer Listings page
-                    Positioned(
-                      top: 75,
-                      child: ButtonWidget(
-                          text: "Delete",
-                          color: "light",
-                          function: () {
-                            DialogHelper.display(
-                                context, const DeletePopUpWidget());
-                          }),
-                    ),
+                    if (vm.advert.acceptedBid == null)
+                      (Positioned(
+                        top: 75,
+                        child: ButtonWidget(
+                            text: "Delete",
+                            color: "light",
+                            function: () {
+                              DialogHelper.display(
+                                  context, const DeletePopUpWidget());
+                            }),
+                      )),
 
                     //Back
                     Positioned(
