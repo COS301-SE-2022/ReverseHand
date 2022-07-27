@@ -83,4 +83,13 @@ class EditAdvertAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  @override
+  void before() => dispatch(WaitAction.add("edit_advert"));
+
+  @override
+  void after() async {
+    dispatch(NavigateAction.pop());
+    dispatch(WaitAction.remove("edit_advert"));
+  }
 }
