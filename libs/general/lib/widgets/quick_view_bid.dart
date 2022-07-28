@@ -64,7 +64,7 @@ class QuickViewBidWidget extends StatelessWidget {
                     ),
                     //**************BID RANGE********************/
                     SizedBox(
-                      width: 130,
+                      width: 120,
                       child: Text(
                         'R${bid.priceLower}-R${bid.priceUpper}',
                         maxLines: 1,

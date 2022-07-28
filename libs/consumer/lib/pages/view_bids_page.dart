@@ -24,31 +24,6 @@ class ViewBidsPage extends StatelessWidget {
   const ViewBidsPage({Key? key, required this.store}) : super(key: key);
 
   @override
-
-  //**********TABS TO FILTER ACTIVE/SHORTLISTED BIDS***********//
-  // Row(
-  //   mainAxisAlignment: MainAxisAlignment.center,
-  //   children: [
-  //     TabWidget(
-  //       text: "ACTIVE",
-  //       onPressed: (activate) =>
-  //           vm.dispatchToggleViewBidsAction(false, activate),
-  //     ),
-  //     const Padding(padding: EdgeInsets.all(5)),
-  //     TabWidget(
-  //       text: "SHORTLIST",
-  //       onPressed: (activate) =>
-  //           vm.dispatchToggleViewBidsAction(true, activate),
-  //     ),
-  //   ],
-  // ),
-  //***********************************************************//
-
-  //^^^keep this to integrate toggle
-
-  // creating bid widgets
-  // ...populateBids(vm.bids, store)
-
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
@@ -75,8 +50,7 @@ class ViewBidsPage extends StatelessWidget {
                   //*******************************************//
 
                   const Padding(padding: EdgeInsets.all(10)),
-
-                  // ...populateBids(vm.bids, store),
+                  //********************BUTTONS*****************//
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -100,6 +74,7 @@ class ViewBidsPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  //*******************************************//
                   const Padding(padding: EdgeInsets.all(5)),
                   Stack(children: [
                     BottomOverlayWidget(
