@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/bids/set_active_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 
@@ -25,7 +26,7 @@ class TQuickViewBidWidget extends StatelessWidget {
             elevation: 3,
             borderRadius: const BorderRadius.all(Radius.circular(15)),
             child: InkWell(
-              onTap: vm.pushBidDetailsPage, 
+              onTap: () => vm.dispatchSetActiveBid(bid),
               child: Container(
                 padding: const EdgeInsets.all(12),
                 alignment: Alignment.center,
@@ -61,17 +62,15 @@ class _Factory extends VmFactory<AppState, TQuickViewBidWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushBidDetailsPage: () => dispatch(
-          NavigateAction.pushNamed('/tradesman/bid_details'),
-        ),
+        dispatchSetActiveBid: (bid) => dispatch(SetActiveBidAction(bid)),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function() pushBidDetailsPage;
+  final void Function(BidModel) dispatchSetActiveBid;
 
   _ViewModel({
-    required this.pushBidDetailsPage,
-  }); 
+    required this.dispatchSetActiveBid,
+  }); // implementinf hashcode
 }

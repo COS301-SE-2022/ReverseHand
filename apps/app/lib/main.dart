@@ -77,7 +77,7 @@ class Launch extends StatelessWidget {
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
           '/tradesman/view_bids_page': (context) => TradesmanViewBidsPage(store: store),
-          '/tradesman/bid_details': (context) =>
+          '/tradesman/advert_details/bid_details': (context) =>
               TBidDetailsPage(store: store),
           '/tradesman/edit_bid': (context) =>
               TEditBidPage(store: store),
