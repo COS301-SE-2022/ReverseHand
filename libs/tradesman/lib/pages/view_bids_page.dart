@@ -137,7 +137,7 @@ class _ViewModel extends Vm {
     required this.bids,
     required this.userId,
     required this.advert,
-  }) : super(equals: [change]);
+  }) : super(equals: [change, bids]);
 }
 
 /*
