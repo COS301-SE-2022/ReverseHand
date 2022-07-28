@@ -101,5 +101,8 @@ class MessageOwnTileWidget extends StatelessWidget {
 
 String getTime(int timestamp) {
   DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp.toInt());
-  return "${date.hour}:${date.minute}";
+  String minute = date.minute.toString();
+  minute = minute.length == 1 ? "0$minute" : minute;
+
+  return "${date.hour}:$minute";
 }
