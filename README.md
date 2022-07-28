@@ -5,7 +5,7 @@
 <img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/COS301-SE-2022/ReverseHand">
 [![codecov](https://codecov.io/gh/COS301-SE-2022/ReverseHand/branch/develop/graph/badge.svg?token=FP6940JI0D)](https://codecov.io/gh/COS301-SE-2022/ReverseHand)
 
-# Cache Money - ReverseHand
+# Cache Money - ReverseHand V0.3.0 Build 115
 ![logo-readme](https://user-images.githubusercontent.com/83949715/168036007-b6e2d8b3-f17b-4f3d-b664-e024118fdf36.png)
 
   <p align="center">
