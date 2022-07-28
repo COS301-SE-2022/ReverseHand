@@ -8,6 +8,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
+import 'package:tradesman/widgets/navbar.dart';
 
 class ChatSelectionPage extends StatelessWidget {
   final Store<AppState> store;
@@ -46,8 +47,14 @@ class ChatSelectionPage extends StatelessWidget {
               ),
             ),
           ),
-          bottomNavigationBar: NavBarWidget(
-            store: store,
+          
+          bottomNavigationBar:  StoreConnector<AppState, _ViewModel>(
+              vm: () => _Factory(this),
+              builder: (BuildContext context, _ViewModel vm) => 
+              (vm.userType == "consumer") ? 
+              NavBarWidget(
+                store: store,
+              ): TNavBarWidget(store: store),
           ),
         ),
       ),
@@ -62,14 +69,16 @@ class _Factory extends VmFactory<AppState, ChatSelectionPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         chats: state.chats,
+        userType: state.userDetails!.userType.toLowerCase(),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final List<ChatModel> chats;
+  final String userType;
 
   _ViewModel({
-    required this.chats,
-  }) : super(equals: [chats]); // implementinf hashcode
+    required this.chats, required this.userType,
+  }) : super(equals: [chats, userType]); // implementinf hashcode
 }

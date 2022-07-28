@@ -73,7 +73,7 @@ class TradesmanProfilePage extends StatelessWidget {
 
                     Positioned(
                         top: 80,
-                        left: 82,
+                        left: 52,
                         child: Text(vm.userDetails.email,
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white))),
@@ -100,7 +100,7 @@ class TradesmanProfilePage extends StatelessWidget {
 
                     Positioned(
                         top: 180,
-                        left: 82,
+                        left: 52,
                         child: Text((vm.userDetails.cellNo != null) ? vm.userDetails.cellNo! : "null",
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white))),
@@ -128,8 +128,8 @@ class TradesmanProfilePage extends StatelessWidget {
                     // to be integrated by Richard,
                     // ...more like badly integrated by Richard
                     Positioned(
-                      top: 255,
-                      left: 82,
+                      top: 265,
+                      left: 52,
                       child: SizedBox(
                         width: 200,
                         height: 50,
@@ -165,8 +165,8 @@ class TradesmanProfilePage extends StatelessWidget {
                     ),
 
                     Positioned(
-                        top: 360,
-                        left: 82,
+                        top: 370,
+                        left: 52,
                         child: SizedBox(
                           width: 200,
                         height: 50,

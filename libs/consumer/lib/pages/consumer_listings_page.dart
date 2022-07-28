@@ -86,14 +86,14 @@ class ConsumerListingsPage extends StatelessWidget {
                         ],
                       ),
 
-                    // populating column with adverts
-                    if (vm.loading) const LoadingWidget(),
-
                     // ...populateAdverts(vm.adverts, store),
                     ...open,
 
+                    // populating column with adverts
+                    if (vm.loading) const LoadingWidget()
+
                     //************MESSAGE IF THERE ARE NO ADVERTS***********/
-                    if (vm.adverts.isEmpty)
+                    else if (vm.adverts.isEmpty)
                       Padding(
                         padding: EdgeInsets.only(
                             top: (MediaQuery.of(context).size.height) / 3),
