@@ -41,7 +41,7 @@ exports.handler = async (event) => {
 
     data = await docClient.get(params).promise();
 
-    // await docClient.delete(params).promise();
+    await docClient.delete(params).promise();
     
     params = {
             TableName: ReverseHandTable,

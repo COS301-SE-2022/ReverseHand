@@ -133,7 +133,7 @@
         },
         "deleteChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/deleteChatResolver-6c4e4b786e32636a5047-build.zip"
+          "s3Key": "amplify-builds/deleteChatResolver-47444a786c622b473530-build.zip"
         }
       }
     }
