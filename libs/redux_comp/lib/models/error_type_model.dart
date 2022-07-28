@@ -15,6 +15,7 @@ enum ErrorType {
   failedToAddUserToGroup, // if the user is not verified, it will not add the user to a usergroup
   failedToCreateUser, // user created, but email not verified
   // modifying errors
+  failedToEditUser, // user created, but email not verified
   advertContainsBids, // cannot modify and add with bids
   // generic errors
   noInput,

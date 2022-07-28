@@ -10,8 +10,12 @@ exports.handler = async (event) => {
    try {
       let keys = [];
       event.arguments.locations.forEach(function(location) {
-            keys.push({part_key: location, sort_key: event.arguments.type});
+          event.arguments.types.forEach(function(type) {
+            keys.push({part_key: location, sort_key: type});
+          });
       });
+      
+      console.log(keys);
             
       let params = {
         RequestItems: {},

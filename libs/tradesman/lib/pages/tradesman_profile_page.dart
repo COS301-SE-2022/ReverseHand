@@ -1,7 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-// import 'package:redux_comp/models/geolocation/domain_model.dart';
+import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
@@ -28,8 +28,6 @@ class TradesmanProfilePage extends StatelessWidget {
                   AppBarWidget(title: "PROFILE", store: store),
                   //********************************************************//
 
-                  //ALL INFO IS CURRENTLY HARDCODED
-
                   //*******************CONSUMER NAME************************//
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     const Icon(
@@ -39,7 +37,7 @@ class TradesmanProfilePage extends StatelessWidget {
                     ),
                     const Padding(padding: EdgeInsets.only(right: 10)),
                     Text(
-                      store.state.userDetails!.name!,
+                        (vm.userDetails.name != null) ? vm.userDetails.name! : "null",
                       style: const TextStyle(fontSize: 30),
                     ),
                   ]),
@@ -76,7 +74,7 @@ class TradesmanProfilePage extends StatelessWidget {
                     Positioned(
                         top: 80,
                         left: 82,
-                        child: Text(store.state.userDetails!.email,
+                        child: Text(vm.userDetails.email,
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white))),
                     //********************************************************//
@@ -103,7 +101,7 @@ class TradesmanProfilePage extends StatelessWidget {
                     Positioned(
                         top: 180,
                         left: 82,
-                        child: Text(store.state.userDetails!.cellNo!,
+                        child: Text((vm.userDetails.cellNo != null) ? vm.userDetails.cellNo! : "null",
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white))),
                     //********************************************************//
@@ -127,7 +125,8 @@ class TradesmanProfilePage extends StatelessWidget {
                       ),
                     ),
 
-                    // //to be integrated by Richard
+                    // to be integrated by Richard,
+                    // ...more like badly integrated by Richard
                     Positioned(
                       top: 255,
                       left: 82,
@@ -135,8 +134,8 @@ class TradesmanProfilePage extends StatelessWidget {
                         width: 200,
                         height: 50,
                         child: ListView(
-                          children: vm.tradeTypes
-                              .map((element) => Text(element as String,
+                          children: vm.userDetails.tradeTypes
+                              .map((element) => Text(element,
                                   style: const TextStyle(
                                       fontSize: 20, color: Colors.white)))
                               .toList(),
@@ -172,8 +171,8 @@ class TradesmanProfilePage extends StatelessWidget {
                           width: 200,
                         height: 50,
                         child: ListView(
-                          children: vm.domains
-                              .map((domain) => Text(domain!.city as String,
+                          children: vm.userDetails.domains
+                              .map((domain) => Text(domain.city,
                                   style: const TextStyle(
                                       fontSize: 20, color: Colors.white)))
                               .toList(),
@@ -214,8 +213,7 @@ class _Factory extends VmFactory<AppState, TradesmanProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      domains: state.userDetails!.domains,
-      tradeTypes: state.userDetails!.tradeTypes,
+      userDetails: state.userDetails!,
       pushEditProfilePage: () => dispatch(
             NavigateAction.pushNamed('/tradesman/edit_profile_page'),
           ));
@@ -223,13 +221,11 @@ class _Factory extends VmFactory<AppState, TradesmanProfilePage> {
 
 // view model
 class _ViewModel extends Vm {
-  final List<dynamic> tradeTypes;
-  final List<dynamic> domains;
+ final UserModel userDetails;
   final VoidCallback pushEditProfilePage;
 
   _ViewModel({
     required this.pushEditProfilePage,
-    required this.tradeTypes,
-    required this.domains,
-  }) : super(equals: [tradeTypes, domains]);
+    required this.userDetails,
+  }) : super(equals: [userDetails]);
 }
