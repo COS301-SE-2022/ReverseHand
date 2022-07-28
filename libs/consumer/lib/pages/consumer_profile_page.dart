@@ -27,8 +27,6 @@ class ConsumerProfilePage extends StatelessWidget {
                   AppBarWidget(title: "PROFILE", store: store),
                   //********************************************************//
 
-                  //ALL INFO IS CURRENTLY HARDCODED
-
                   //*******************CONSUMER NAME************************//
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     const Icon(
@@ -75,7 +73,7 @@ class ConsumerProfilePage extends StatelessWidget {
 
                     Positioned(
                         top: 80,
-                        left: 82,
+                        left: 52,
                         child: Text(
                           (vm.userDetails.location != null) ?
                             "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}" : "null",
@@ -103,7 +101,7 @@ class ConsumerProfilePage extends StatelessWidget {
 
                     Positioned(
                         top: 180,
-                        left: 82,
+                        left: 52,
                         child: Text((vm.userDetails.cellNo != null) ? vm.userDetails.cellNo! : "null",
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white))),
@@ -129,7 +127,7 @@ class ConsumerProfilePage extends StatelessWidget {
 
                     Positioned(
                         top: 280,
-                        left: 82,
+                        left: 52,
                         child: Text(vm.userDetails.email,
                             style: const TextStyle(
                                 fontSize: 20, color: Colors.white))),

@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/theme.dart';
 import 'package:geolocation/place_api_service.dart';
 import 'package:redux_comp/actions/geolocation/get_place_action.dart';
 import 'package:redux_comp/app_state.dart';
