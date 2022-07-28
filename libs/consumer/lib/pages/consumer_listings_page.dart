@@ -29,6 +29,10 @@ class ConsumerListingsPage extends StatelessWidget {
                 List<Widget> inProgress = [];
 
                 for (AdvertModel advert in vm.adverts) {
+                  if (advert.dateClosed != null) {
+                    continue;
+                  }
+
                   if (advert.acceptedBid == null) {
                     open.add(
                       QuickViewJobCardWidget(

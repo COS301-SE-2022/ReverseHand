@@ -27,7 +27,7 @@ class AdvertModel {
       id: obj['id'],
       title: obj['title'],
       description: obj['description'],
-      type: null,
+      type: obj['type'],
       acceptedBid: obj['accepted_bid'],
       location: obj['location'],
       dateCreated: obj['date_created'],

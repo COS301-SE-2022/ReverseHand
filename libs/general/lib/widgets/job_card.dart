@@ -4,12 +4,14 @@ class JobCardWidget extends StatelessWidget {
   final String titleText;
   final String descText;
   final String location;
+  final String type;
   final String date;
   const JobCardWidget(
       {Key? key,
       required this.titleText,
       required this.descText,
       required this.location,
+      required this.type,
       required this.date})
       : super(key: key);
 
@@ -57,6 +59,25 @@ class JobCardWidget extends StatelessWidget {
                     ),
                     const Padding(padding: EdgeInsets.only(right: 2)),
                     Text(location,
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white))
+                  ],
+                ),
+              ),
+              //*****************************************//
+
+              //****************TRADE********************//
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.construction_outlined,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                    const Padding(padding: EdgeInsets.only(right: 2)),
+                    Text(type,
                         style:
                             const TextStyle(fontSize: 20, color: Colors.white))
                   ],

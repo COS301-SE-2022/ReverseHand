@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:amplify_api/amplify_api.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -37,5 +38,8 @@ class DeleteChatAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() => dispatch(GetChatsAction());
+  void after() {
+    dispatch(ViewAdvertsAction());
+    dispatch(GetChatsAction());
+  }
 }

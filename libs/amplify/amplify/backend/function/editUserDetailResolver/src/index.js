@@ -31,6 +31,11 @@ exports.handler = async (event) => {
             args.push('#cellNo = :cellNo');
             expressionAttributeNames['#cellNo'] = 'cellNo';
         }
+        
+               if(event.arguments.tradetypes !== undefined){
+            args.push('#tradetypes = :tradetypes');
+            expressionAttributeNames['#tradetypes'] = 'tradetypes';
+        }
 
         let updateExpression = 'set ';
 
@@ -44,6 +49,7 @@ exports.handler = async (event) => {
         expressionAttributeValues[':domains'] = event.arguments.domains;
         expressionAttributeValues[':location'] = event.arguments.location;
         expressionAttributeValues[':name'] = event.arguments.name;
+        expressionAttributeValues[':tradetypes'] = event.arguments.tradetypes;
 
         let params = {
             TableName: UserTable,
