@@ -114,7 +114,7 @@ class ViewBidsPage extends StatelessWidget {
                             child: (Padding(
                               padding: EdgeInsets.all(20.0),
                               child: Text(
-                                "No bids have\n been made yet",
+                                "No bids to\n display",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.white54),

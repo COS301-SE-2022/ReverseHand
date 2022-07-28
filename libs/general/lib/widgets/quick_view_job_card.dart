@@ -59,7 +59,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                           const Icon(
                             Icons.location_on,
                             color: Colors.white,
-                            size: 30.0,
+                            size: 25.0,
                           ),
                           const Padding(
                               padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
