@@ -82,6 +82,7 @@ class EditAdvertPage extends StatelessWidget {
                                     title: titleController.value.text,
                                     description:
                                         descriptionController.value.text,
+                                    location: vm.advert.location
                                   ), //need to dispatch save job action?
                                 ),
                           //********************************************//

@@ -79,7 +79,8 @@ class CreateUserAction extends ReduxAction<AppState> {
                 cellNo: cellNo,
                 tradeTypes: tradeTypes,
                 domains: domains,
-                location: null));
+                location: null,
+                registered: true));
       } on ApiException catch (e) {
         debugPrint(e.message);
         return state.copy(error: ErrorType.failedToCreateUser);
