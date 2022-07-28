@@ -40,7 +40,7 @@ class AdvertDetailsPage extends StatelessWidget {
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
                     location: vm.advert.location,
-                    type: vm.advert.type!,
+                    type: vm.advert.type ?? "",
                     date: vm.advert.dateCreated,
                     // location: advert.location ?? "",
                   ),
