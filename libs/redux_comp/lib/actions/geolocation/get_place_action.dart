@@ -23,8 +23,6 @@ class GetPlaceAction extends ReduxAction<AppState> {
 
   @override
   void after() {
-    (state.userDetails!.userType == "Tradesman")
-        ? dispatch(NavigateAction.pushNamed('/tradesman/location_confirm'))
-        : dispatch(NavigateAction.pushNamed('/consumer/location_confirm'));
+    dispatch(NavigateAction.pushReplacementNamed('/geolocation/location_confirm'));
   }
 }

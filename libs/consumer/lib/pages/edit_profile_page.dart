@@ -2,8 +2,8 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
-import 'package:geolocation/pages/location_search_page.dart';
 import 'package:redux_comp/actions/user/create_user_action.dart';
+import 'package:redux_comp/actions/user/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -54,11 +54,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
                     child: TextFieldWidget(
-                      // apparently you cannot have both a controller and intial value for a textform field,
-                      // the workaround is to set the controllers value to the intial value
-                      // initialVal: (widget.store.state.userDetails!.name == null)
-                      //     ? "null"
-                      //     : widget.store.state.userDetails!.name,
+                      initialVal: (widget.store.state.userDetails!.name == null)
+                          ? null
+                          : widget.store.state.userDetails!.name,
                       label: "name",
                       obscure: false,
                       min: 1,
@@ -71,10 +69,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
-                      // initialVal:
-                      //     (widget.store.state.userDetails!.cellNo == null)
-                      //         ? "null"
-                      //         : widget.store.state.userDetails!.cellNo,
+                      initialVal:
+                          (widget.store.state.userDetails!.cellNo == null)
+                              ? null
+                              : widget.store.state.userDetails!.cellNo,
                       label: "cellphone number",
                       obscure: false,
                       controller: cellController,
@@ -90,18 +88,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       label: "location",
                       obscure: false,
                       controller: locationController,
-                      onTap: () async {
-                        final sessionToken = const Uuid().v1();
-                        final result = await showSearch(
-                            context: context,
-                            delegate:
-                                LocationSearchPage(sessionToken, widget.store));
-                        if (result != null) {
-                          setState(() {
-                            locationController.text = result.description;
-                          });
-                        }
-                      },
+                      onTap: vm.pushCustomSearch
+                      ,
                       min: 1,
                     ),
                   ),
@@ -129,14 +117,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   if (vm.isRegistered) ...[
                     //*******************SAVE BUTTON********************//
                     ButtonWidget(
-                        text: "Save Changes", function: vm.pushProfilePage),
+                        text: "Save Changes",
+                        function: () {
+                          String? name, cellNo;
+                          (vm.userDetails!.name != nameController.value.text)
+                              ? name = nameController.value.text
+                              : name = null;
+                          (vm.userDetails!.cellNo != cellController.value.text)
+                              ? cellNo = cellController.value.text
+                              : cellNo = null;
+                          if (name != null ||
+                              cellNo != null ||
+                              vm.locationResult != null) {
+                            vm.dispatchEditConsumerAction(
+                                name, cellNo, vm.locationResult);
+                          }
+                        }),
                     //**************************************************//
 
                     const Padding(padding: EdgeInsets.all(8)),
                     ButtonWidget(
-                        text: "Discard",
-                        color: "dark",
-                        function: vm.pushProfilePage),
+                        text: "Discard", color: "dark", function: vm.popPage),
                   ] else
                     //*******************SAVE BUTTON********************//
                     ButtonWidget(
@@ -144,7 +145,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         function: () {
                           final name = nameController.value.text.trim();
                           final cell = cellController.value.text.trim();
-                          final location = vm.userDetails!.location;
+                          final location = vm.locationResult;
                           if (location != null) {
                             vm.dispatchCreateConsumerAction(
                                 name, cell, location);
@@ -178,25 +179,42 @@ class _Factory extends VmFactory<AppState, _EditProfilePageState> {
             location: location,
           ),
         ),
-        pushProfilePage: () => dispatch(
-          NavigateAction.pushNamed('/consumer/consumer_profile_page'),
+        dispatchEditConsumerAction:
+            (String? name, String? cellNo, Location? location) => dispatch(
+                EditUserDetailsAction(
+                    userId: state.userDetails!.id,
+                    name: name,
+                    cellNo: cellNo,
+                    location: location)),
+        popPage: () => dispatch(
+          NavigateAction.pop(),
+        ),
+        pushCustomSearch: () => dispatch(
+          NavigateAction.pushNamed('/geolocation/custom_location_search', arguments: const Uuid().v1()),
         ),
         isRegistered: state.userDetails!.registered!,
-        userDetails: (state.userDetails == null) ? null : state.userDetails!,
+        locationResult: state.locationResult,
+        userDetails: state.userDetails,
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String, Location) dispatchCreateConsumerAction;
-  final VoidCallback pushProfilePage;
+  final void Function(String?, String?, Location?) dispatchEditConsumerAction;
+  final VoidCallback pushCustomSearch;
+  final VoidCallback popPage;
   final bool isRegistered;
+  final Location? locationResult;
   final UserModel? userDetails;
 
   _ViewModel({
     required this.dispatchCreateConsumerAction,
-    required this.pushProfilePage,
+    required this.dispatchEditConsumerAction,
+    required this.popPage,
+    required this.pushCustomSearch,
     required this.userDetails,
+    required this.locationResult,
     required this.isRegistered,
   }) : super(equals: [userDetails]);
 }
