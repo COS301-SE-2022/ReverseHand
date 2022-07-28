@@ -6,7 +6,6 @@ import 'package:general/widgets/button.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/pages/activity_stream_page.dart';
 import 'package:tradesman/pages/domain_confirmation_page.dart';
-import 'package:tradesman/pages/edit_bids_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/tradesman.dart';
 import 'package:tradesman/widgets/notification_card_widget.dart';
