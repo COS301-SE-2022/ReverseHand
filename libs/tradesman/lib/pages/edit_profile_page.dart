@@ -10,6 +10,8 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 
+import '../widgets/multiselect_widget.dart';
+
 class EditTradesmanProfilePage extends StatefulWidget {
   final Store<AppState> store;
   const EditTradesmanProfilePage({Key? key, required this.store})
@@ -23,11 +25,43 @@ class EditTradesmanProfilePage extends StatefulWidget {
 class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
   final nameController = TextEditingController();
   final cellController = TextEditingController();
+  final tradeController = TextEditingController();
+
+  //used for multiselect for trade type
+  List<String> selectedItems = [];
+
+  void showMultiSelect(List<String> selected) async {
+    final List<String> items = [
+      "Painting",
+      "Tiler",
+      "Carpenter",
+      "Cleaner",
+      "Designer",
+      "Landscaper",
+      "Electrician",
+      "Plumbing",
+    ];
+
+    final List<String>? results = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MultiSelectWidget(items: items, selectedItems: selected);
+      },
+    );
+
+    // Update UI
+    if (results != null) {
+      setState(() {
+        selectedItems = results;
+      });
+    }
+  }
 
   @override
   void dispose() {
     nameController.dispose();
     cellController.dispose();
+    tradeController.dispose();
     super.dispose();
   }
 
@@ -46,7 +80,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  const AppBarWidget(title: "EDIT PROFILE"),
+                  AppBarWidget(title: "EDIT PROFILE", store: widget.store),
                   //***************************************************//
 
                   //**********************NAME************************//
@@ -74,6 +108,20 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                     ),
                   ),
 
+                  //********************TRADE**********************//
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+                    child: TextFieldWidget(
+                      label: "Trade",
+                      obscure: false,
+                      controller: tradeController,
+                      onTap: () => showMultiSelect(vm.userDetails!.tradeTypes),
+                      min: 1,
+                    ),
+                  ),
+                  //**************************************************//
+
+                  //********************DOMAIN**********************//
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
                     child: TextFieldWidget(
@@ -97,7 +145,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                           String? name, cellNo;
                           (vm.userDetails!.name != nameController.value.text) ? name = nameController.value.text : null;
                           (vm.userDetails!.cellNo != cellController.value.text) ? cellNo = cellController.value.text : null;
-                          vm.dispatchEditTradesmanAction(name, cellNo, vm.userDetails!.domains);
+                          vm.dispatchEditTradesmanAction(name, cellNo, selectedItems, vm.userDetails!.domains);
                         }),
                     //**************************************************//
 
@@ -113,11 +161,10 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                         function: () {
                           final name = nameController.value.text.trim();
                           final cell = cellController.value.text.trim();
-                          final location = vm.userDetails!.location;
                           final domains = vm.userDetails!.domains;
-                          if (location != null || domains.isNotEmpty) {
+                          if (domains.isNotEmpty && selectedItems.isNotEmpty) {
                             vm.dispatchCreateTradesmanAction(name, cell,
-                                ["Painting"], vm.userDetails!.domains);
+                                selectedItems, vm.userDetails!.domains);
                           } else {
                             // thinking maybe we can make a generic dispatch error action with an ErrorTpe parameter
                             // something like:
@@ -149,11 +196,12 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
           domains: domains,
         )),
         dispatchEditTradesmanAction:
-            (String? name, String? cell, List<Domain>? domains) =>
+            (String? name, String? cell, List<String>? tradeTypes, List<Domain>? domains) =>
                 dispatch(EditUserDetailsAction(
           userId: state.userDetails!.id,
           name: name,
           cellNo: cell,
+          tradeTypes: tradeTypes,
           domains: domains,
         )),
         popPage: () => dispatch(
@@ -170,7 +218,7 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
 class _ViewModel extends Vm {
   final void Function(String, String, List<String>, List<Domain>)
       dispatchCreateTradesmanAction;
-  final void Function(String?, String?, List<Domain>?)
+  final void Function(String?, String?, List<String>?, List<Domain>?)
       dispatchEditTradesmanAction;
   final VoidCallback popPage;
   final VoidCallback pushDomainConfirmPage;

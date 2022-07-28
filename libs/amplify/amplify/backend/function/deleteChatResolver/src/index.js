@@ -15,17 +15,27 @@ exports.handler = async (event) => {
         TableName: ReverseHandTable,
         Key: {
             part_key: event.arguments.ad_id,
-            sort_key: event.arguments.sbid_id
+            sort_key: event.arguments.ad_id
         },
     };
 
     let data = await docClient.get(params).promise();
+    
+    params = {
+        TableName: ReverseHandTable,
+        Key: {
+            part_key: event.arguments.ad_id,
+            sort_key: data['Item']['advert_details']['accepted_bid'],
+        },
+    };
+    
+    data = await docClient.get(params).promise();
 
     params = {
         TableName: ReverseHandTable,
         Key: {
             part_key: event.arguments.c_id,
-            sort_key: data['Item']['bide_details']['tradesman_id'],
+            sort_key: data['Item']['bid_details']['tradesman_id'],
         },
     }
 

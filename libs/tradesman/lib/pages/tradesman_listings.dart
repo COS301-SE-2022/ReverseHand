@@ -26,7 +26,7 @@ class TradesmanJobListings extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                    const AppBarWidget(title: "JOB LISTINGS"),
+                    AppBarWidget(title: "JOB LISTINGS", store: store),
                     //********************************************************//
                   ...populateAdverts(vm.adverts, store),
                 ],
@@ -61,5 +61,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.adverts,
     required this.dispatchLogoutAction,
-  }) : super(equals: adverts);
+  }) : super(equals: [adverts]);
 }

@@ -4,7 +4,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:chat/widgets/chat_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
-import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
@@ -27,20 +26,19 @@ class ChatPage extends StatelessWidget {
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
-                List<MessageOwnTileWidget> ownMessages = [];
-                List<MessageTileWidget> messages = [];
+                List<Widget> messages = [];
 
                 for (MessageModel msg in vm.chat.messages) {
                   if (vm.currentUser == msg.sender) {
-                    ownMessages.add(
+                    messages.add(
                       MessageOwnTileWidget(
-                        message: msg.msg,
+                        message: msg,
                       ),
                     );
                   } else {
                     messages.add(
                       MessageTileWidget(
-                        message: msg.msg,
+                        message: msg,
                       ),
                     );
                   }
@@ -54,7 +52,6 @@ class ChatPage extends StatelessWidget {
                     // const DateLabelWidget(label: "Yesterday"), //todo michael
 
                     //todo michael
-                    ...ownMessages,
                     ...messages,
                   ],
                 );
@@ -63,10 +60,9 @@ class ChatPage extends StatelessWidget {
           ),
 
           //************************NAVBAR***********************/
+
           bottomSheet: const ActionBarWidget(),
-          bottomNavigationBar: NavBarWidget(
-            store: store,
-          ),
+
           //*****************************************************/
         ),
       ),
@@ -93,5 +89,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.chat,
     required this.currentUser,
-  }); // implementinf hashcode
+  }) : super(equals: [chat]); // implementinf hashcode
 }
