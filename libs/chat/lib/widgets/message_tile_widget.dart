@@ -103,6 +103,8 @@ String getTime(int timestamp) {
   DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp.toInt());
   String minute = date.minute.toString();
   minute = minute.length == 1 ? "0$minute" : minute;
+  String hour = date.minute.toString();
+  hour = hour.length == 1 ? "0$hour" : hour;
 
-  return "${date.hour}:$minute";
+  return "$hour:$minute";
 }
