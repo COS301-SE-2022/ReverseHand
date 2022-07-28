@@ -36,7 +36,7 @@
     | 📔
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/InstallationManual.pdf">Installation Manual</a>
     | 💻
-    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">User Manual</a>
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
   </p> 
   
   <br />   <br />
