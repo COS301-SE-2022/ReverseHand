@@ -117,8 +117,6 @@ class ConsumerListingsPage extends StatelessWidget {
                           ),
                           //******************************************************//
 
-                          ...inProgress,
-
                           //**************************DIVIDER**********************//
                           Divider(
                             height: 20,
@@ -128,6 +126,7 @@ class ConsumerListingsPage extends StatelessWidget {
                             color: Theme.of(context).primaryColorLight,
                           ),
                           //******************************************************//
+                          ...inProgress,
                         ],
                       ),
                   ],
