@@ -38,7 +38,9 @@ class QuickViewChatWidget extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                 child: Text(
-                  chat.consumerId,
+                  vm.userType == "Consumer"
+                      ? chat.tradesmanName
+                      : chat.consumerName,
                   style: const TextStyle(
                     fontSize: 30,
                     color: Colors.white,
@@ -64,6 +66,7 @@ class _Factory extends VmFactory<AppState, QuickViewChatWidget> {
         pushChatPage: () => dispatch(
           NavigateAction.pushNamed('/chats/chat'),
         ),
+        userType: state.userDetails!.userType,
       );
 }
 
@@ -71,8 +74,10 @@ class _Factory extends VmFactory<AppState, QuickViewChatWidget> {
 class _ViewModel extends Vm {
   final void Function(ChatModel) dispatchGetMessagesAction;
   final VoidCallback pushChatPage;
+  final String userType;
 
   _ViewModel({
+    required this.userType,
     required this.pushChatPage,
     required this.dispatchGetMessagesAction,
   }); // implementinf hashcode
