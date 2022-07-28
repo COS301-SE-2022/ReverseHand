@@ -12,6 +12,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
   final String? name;
   final String? cellNo;
   final List<Domain>? domains; //for domains
+  final List<String>? tradeTypes; //for domains
   final Location? location;
 
   EditUserDetailsAction({
@@ -19,6 +20,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
     this.name,
     this.cellNo,
     this.domains,
+    this.tradeTypes,
     this.location,
   });
 
@@ -27,6 +29,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
     bool isNameChanged = false,
         isCellChanged = false,
         isDomainsChanged = false,
+        isTradeChanged = false,
         isLocationChanged = false;
 
     List<String> domainsQuery = [];
@@ -47,25 +50,30 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
         domainsQuery.add(domain.toString());
       }
     }
+    if (tradeTypes != null) {
+      isTradeChanged = true;
+    }
 
     String graphQLDoc = '''mutation  {
           editUserDetail(
             user_id: "$userId", 
-            ${(isNameChanged && (isLocationChanged || isDomainsChanged || isCellChanged)) 
+            ${(isNameChanged && (isLocationChanged || isDomainsChanged || isTradeChanged || isCellChanged)) 
               ? 'name: "$name",' 
-              : (isNameChanged && (!isLocationChanged || !isDomainsChanged || !isCellChanged)) 
+              : (isNameChanged && (!isLocationChanged || !isDomainsChanged || !isTradeChanged || !isCellChanged)) 
               ? 'name: "$name"' 
               : ""}
-            ${(isCellChanged && (isLocationChanged || isDomainsChanged)) 
+            ${(isCellChanged && (isLocationChanged || isDomainsChanged || isTradeChanged)) 
             ? 'cellNo: "$cellNo",' 
-            : (isCellChanged && (!isLocationChanged || !isDomainsChanged)) 
+            : (isCellChanged && (!isLocationChanged || !isDomainsChanged || !isTradeChanged)) 
             ? 'cellNo: "$cellNo"' 
+            : ""}
+            ${(isDomainsChanged && (isTradeChanged)) 
+            ? "domains: $domainsQuery,"
+            : (isDomainsChanged && (!isTradeChanged))
+            ? "domains: $domainsQuery"
             : ""}
             ${(isLocationChanged) 
             ? "location: ${location.toString()}" 
-            : ""}
-            ${(isDomainsChanged) 
-            ? "domains: $domainsQuery" 
             : ""}
           ) {
             id
