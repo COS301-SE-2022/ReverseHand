@@ -3,31 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/floating_button.dart';
-import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
+
+//flutter test integration_test/consumer_create_advert.dart
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets("Create Advert Integration Test", (WidgetTester tester) async {
-    //start the app from main.dart
-    app.main();
+    app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
-    //constants for login
-    const email = "lastrucci61@gmail.com";
-    //const email = "consumer.cachemoney@gmail.com";
-    //const passowrd = "Consumer#01";
+    //storing constants used to login as consumer
+    const email = "consumer.cachemoney@gmail.com";
     const passowrd = "@Aa12345";
 
-    //get the widgets to enter the text
+    //get the widgets to enter text and login button
     var email_ = find.widgetWithText(TextFormField, "email");
     expect(email_, findsOneWidget);
     var password_ = find.widgetWithText(TextFormField, "password");
     expect(password_, findsOneWidget);
-
-    //get the login button
     var login = find.widgetWithText(ElevatedButton, "Login");
     expect(login, findsOneWidget);
 
@@ -38,22 +34,16 @@ void main() {
     await tester.enterText(password_, passowrd);
     await tester.pumpAndSettle();
 
-    //scroll down a bit
+    //scrolling a bit
     await tester.dragUntilVisible(
         login, find.byType(Scaffold), const Offset(0.0, 300));
     await tester.pumpAndSettle();
 
-    //press the login button
+    //now clicking the login button
     await tester.tap(login);
     await tester.pumpAndSettle();
-    //await Future.delayed(const Duration(seconds: 20), () {});//reduce seconds if using ios device/laptop
-    await Future.delayed(const Duration(seconds: 6),
-        () {}); //reduce seconds if using ios device/laptop
-    await tester.tap(login, warnIfMissed: false);
-    await tester.pumpAndSettle();
 
-    //await Future.delayed(const Duration(seconds: 15), () {});
-    await Future.delayed(const Duration(seconds: 2), () {});
+    await Future.delayed(const Duration(seconds: 3), () {});
 
     //------------------------------------------------------------//
     //Now on page showing Adverts
@@ -70,10 +60,12 @@ void main() {
     //Create a Job page.
 
     //Get the title and description widgets
-    var tTitle = find.widgetWithText(TextFieldWidget, "Title");
+    // var tTitle = find.widgetWithText(TextFieldWidget, "Title");
+    var tTitle = find.bySemanticsLabel("Title");
     expect(tTitle, findsOneWidget);
 
-    var dDescription = find.widgetWithText(TextFieldWidget, "Description");
+    // var dDescription = find.widgetWithText(TextFieldWidget, "Description");
+    var dDescription = find.bySemanticsLabel("Description");
     expect(dDescription, findsOneWidget);
 
     //Enter some text into the title
