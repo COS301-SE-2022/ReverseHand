@@ -1,14 +1,24 @@
-import 'package:chat/widgets/action_button.dart';
+import 'package:chat/widgets/action_button_widget.dart';
 import 'package:flutter/material.dart';
 
 class ActionBarWidget extends StatefulWidget {
-  const ActionBarWidget({Key? key}) : super(key: key);
+  final void Function(String msg) onPressed;
+
+  const ActionBarWidget({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   ActionBarWidgetState createState() => ActionBarWidgetState();
 }
 
 class ActionBarWidgetState extends State<ActionBarWidget> {
+  final TextEditingController msgController = TextEditingController();
+
+  @override
+  void dispose() {
+    msgController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,6 +36,7 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
             child: Padding(
               padding: const EdgeInsets.only(left: 16.0),
               child: TextField(
+                controller: msgController,
                 style: const TextStyle(fontSize: 17, color: Colors.white),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -42,15 +53,15 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(
+          Padding(
+            padding: const EdgeInsets.only(
               left: 22,
               right: 5.0,
             ),
-            child: ActionButton(
-              color: Color.fromRGBO(243, 157, 55, 1),
+            child: ActionButtonWidget(
+              color: const Color.fromRGBO(243, 157, 55, 1),
               icon: Icons.send_rounded,
-              onPressed: null,
+              onPressed: () => widget.onPressed(msgController.value.text),
             ),
           ),
         ],
