@@ -29,7 +29,7 @@ class _MultiSelectWidgetState extends State<MultiSelectWidget> {
   }
 
   void _submit() {
-    Navigator.pop(context);
+    Navigator.pop(context, widget.selectedItems);
   }
   //******************************************* */
 

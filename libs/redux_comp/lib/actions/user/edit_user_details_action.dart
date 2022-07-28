@@ -12,7 +12,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
   final String? name;
   final String? cellNo;
   final List<Domain>? domains; //for domains
-  final List<String>? tradeTypes; //for domains
+  final List<String>? tradeTypes; 
   final Location? location;
 
   EditUserDetailsAction({
@@ -96,6 +96,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
               location:
                   (location != null) ? location : state.userDetails!.location,
               domains: (domains != null) ? domains : state.userDetails!.domains,
+              tradeTypes: (tradeTypes != null) ? tradeTypes : state.userDetails!.tradeTypes,
               registered: true));
     } on ApiException catch (e) {
       debugPrint(e.message);

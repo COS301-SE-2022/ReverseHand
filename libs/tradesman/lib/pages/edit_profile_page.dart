@@ -30,7 +30,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
   //used for multiselect for trade type
   List<String> selectedItems = [];
 
-  void showMultiSelect(List<String> selectedItems) async {
+  void showMultiSelect(List<String> selected) async {
     final List<String> items = [
       "Painting",
       "Tiler",
@@ -45,7 +45,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
     final List<String>? results = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MultiSelectWidget(items: items, selectedItems: selectedItems,);
+        return MultiSelectWidget(items: items, selectedItems: selected);
       },
     );
 
@@ -161,11 +161,10 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                         function: () {
                           final name = nameController.value.text.trim();
                           final cell = cellController.value.text.trim();
-                          final location = vm.userDetails!.location;
                           final domains = vm.userDetails!.domains;
-                          if (location != null || domains.isNotEmpty) {
+                          if (domains.isNotEmpty && selectedItems.isNotEmpty) {
                             vm.dispatchCreateTradesmanAction(name, cell,
-                                ["Painting"], vm.userDetails!.domains);
+                                selectedItems, vm.userDetails!.domains);
                           } else {
                             // thinking maybe we can make a generic dispatch error action with an ErrorTpe parameter
                             // something like:
@@ -202,6 +201,7 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
           userId: state.userDetails!.id,
           name: name,
           cellNo: cell,
+          tradeTypes: tradeTypes,
           domains: domains,
         )),
         popPage: () => dispatch(

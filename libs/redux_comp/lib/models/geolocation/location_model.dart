@@ -45,7 +45,7 @@ class Location {
         streetNumber: json['address']['streetNumber'],
         street: json['address']['street'],
         city: json['address']['city'],
-        province: "json['address']['province']",
+        province: json['address']['province'],
         zipCode: json['address']['zipCode'],
       ),
       coordinates: Coordinates.fromJson(json['coordinates']),
