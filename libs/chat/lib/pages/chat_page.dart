@@ -1,14 +1,15 @@
 // the actual chat between 2 user
 
 import 'package:async_redux/async_redux.dart';
-import 'package:chat/widgets/chat_appbar.dart';
+import 'package:chat/widgets/chat_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
+import 'package:redux_comp/actions/chat/send_message_action.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 import '../widgets/action_bar_widget.dart';
-import '../widgets/message_tile.dart';
+import '../widgets/message_tile_widget.dart';
 
 class ChatPage extends StatelessWidget {
   final Store<AppState> store;
@@ -21,30 +22,30 @@ class ChatPage extends StatelessWidget {
       store: store,
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) {
-                List<Widget> messages = [];
+        home: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) {
+            List<Widget> messages = [];
 
-                for (MessageModel msg in vm.chat.messages) {
-                  if (vm.currentUser == msg.sender) {
-                    messages.add(
-                      MessageOwnTileWidget(
-                        message: msg,
-                      ),
-                    );
-                  } else {
-                    messages.add(
-                      MessageTileWidget(
-                        message: msg,
-                      ),
-                    );
-                  }
-                }
+            for (MessageModel msg in vm.chat.messages) {
+              if (vm.currentUser == msg.sender) {
+                messages.add(
+                  MessageOwnTileWidget(
+                    message: msg,
+                  ),
+                );
+              } else {
+                messages.add(
+                  MessageTileWidget(
+                    message: msg,
+                  ),
+                );
+              }
+            }
 
-                return Column(
+            return Scaffold(
+              body: SingleChildScrollView(
+                child: Column(
                   children: [
                     //*******************APP BAR WIDGET*********************//
                     const ChatAppBarWidget(title: "Name"),
@@ -54,16 +55,17 @@ class ChatPage extends StatelessWidget {
                     //todo michael
                     ...messages,
                   ],
-                );
-              },
-            ),
-          ),
+                ),
+              ),
+              //************************NAVBAR***********************/
 
-          //************************NAVBAR***********************/
+              bottomSheet: ActionBarWidget(
+                onPressed: vm.dispatchSendMsgAction,
+              ),
 
-          bottomSheet: const ActionBarWidget(),
-
-          //*****************************************************/
+              //*****************************************************/
+            );
+          },
         ),
       ),
     );
@@ -76,6 +78,7 @@ class _Factory extends VmFactory<AppState, ChatPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+        dispatchSendMsgAction: (String msg) => dispatch(SendMessageAction(msg)),
         chat: state.chat,
         currentUser: state.userDetails!.userType.toLowerCase(),
       );
@@ -85,8 +88,10 @@ class _Factory extends VmFactory<AppState, ChatPage> {
 class _ViewModel extends Vm {
   final ChatModel chat;
   final String currentUser;
+  final void Function(String msg) dispatchSendMsgAction;
 
   _ViewModel({
+    required this.dispatchSendMsgAction,
     required this.chat,
     required this.currentUser,
   }) : super(equals: [chat]); // implementinf hashcode

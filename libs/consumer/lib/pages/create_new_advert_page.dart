@@ -23,6 +23,7 @@ class CreateNewAdvertPage extends StatefulWidget {
 class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
   final titleController = TextEditingController();
   final descrController = TextEditingController();
+  final tradeController = TextEditingController();
 
   String? trade;
 
@@ -45,6 +46,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
   @override
   void dispose() {
     titleController.dispose();
+    tradeController.dispose();
     descrController.dispose();
     super.dispose();
   }
@@ -85,16 +87,16 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 ),
 
                 //radio
-                 Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
-                    child: TextFieldWidget(
-                      label: "Trade",
-                      obscure: false,
-                      controller: descrController,
-                      onTap: () => showRadioSelect(),
-                      min: 3,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
+                  child: TextFieldWidget(
+                    label: "Trade",
+                    obscure: false,
+                    controller: tradeController,
+                    onTap: () => showRadioSelect(),
+                    min: 3,
                   ),
+                ),
 
                 //description
                 Padding(
@@ -121,12 +123,13 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                           : ButtonWidget(
                               text: "Create Job",
                               function: () {
-                                if (titleController.value.text != "" && trade != null) {
+                                if (titleController.value.text != "" &&
+                                    trade != null) {
                                   vm.dispatchCreateAdvertActions(
                                       widget.store.state.userDetails!.id,
                                       titleController.value.text,
-                                      widget.store.state.userDetails!.location!.address
-                                          .city,
+                                      widget.store.state.userDetails!.location!
+                                          .address.city,
                                       trade!,
                                       descrController.value.text);
                                 }
@@ -179,7 +182,8 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String id, String title, String location, String trade, String? descr)
+  final void Function(
+          String id, String title, String location, String trade, String? descr)
       dispatchCreateAdvertActions;
   final VoidCallback popPage;
   final bool loading;

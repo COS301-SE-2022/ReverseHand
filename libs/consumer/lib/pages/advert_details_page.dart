@@ -92,8 +92,11 @@ class AdvertDetailsPage extends StatelessWidget {
                             function: () {
                               DialogHelper.display(
                                 context,
-                                RatingPopUp(
-                                  onPressed: vm.dispatchDeleteChatAction,
+                                RatingPopUpWidget(
+                                  onPressed: () {
+                                    vm.dispatchDeleteChatAction();
+                                    vm.pushConsumerListings();
+                                  },
                                 ),
                               );
                             },
