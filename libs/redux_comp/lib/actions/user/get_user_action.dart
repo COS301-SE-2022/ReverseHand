@@ -48,7 +48,6 @@ class GetUserAction extends ReduxAction<AppState> {
       );
 
       try {
-        await Amplify.API.query(request: request).response;
         final data = jsonDecode(
             (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
@@ -123,13 +122,21 @@ class GetUserAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    state.userDetails!.userType == "Consumer"
-        ? dispatch(ViewAdvertsAction(state.userDetails!.id))
-        : dispatch(ViewJobsAction());
+    if (state.userDetails!.userType == "Consumer") {
+      dispatch(ViewAdvertsAction());
+    } else if (state.userDetails!.userType == "Tradesman") {
+      List<String> domains = [];
+      for (Domain d in state.userDetails!.domains) {
+        domains.add(d.city);
+      }
+      List<String> tradeTypes = state.userDetails!.tradeTypes;
+      dispatch(ViewJobsAction(domains, tradeTypes));
+    }
+
     dispatch(NavigateAction.pushNamed(
         "/${state.userDetails!.userType.toLowerCase()}"));
     // wait until error has finished before stopping loading
-    await store.waitCondition((state) => state.error == ErrorType.none);
+    store.waitCondition((state) => state.error == ErrorType.none);
     dispatch(WaitAction.remove("flag"));
   }
 }
