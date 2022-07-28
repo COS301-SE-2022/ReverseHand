@@ -11,10 +11,10 @@ import 'package:general/widgets/button.dart';
 
 import '../widgets/navbar.dart';
 
-class EditBidsPage extends StatelessWidget {
+class TBidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
 
-  const EditBidsPage({Key? key, required this.store}) : super(key: key);
+  const TBidDetailsPage({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class EditBidsPage extends StatelessWidget {
                       top: 20,
                       right: 35,
                       child: IconButton(
-                        onPressed: vm.popPage,//DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
+                        onPressed: vm.pushEditBidsPage,
                         icon: const Icon(Icons.edit),
                         color: Colors.white70,
                       ),
@@ -132,7 +132,7 @@ class EditBidsPage extends StatelessWidget {
 
                     //Back
                     Positioned(
-                        top: 80,
+                        top: 95,
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
@@ -157,7 +157,7 @@ class EditBidsPage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, EditBidsPage> {
+class _Factory extends VmFactory<AppState, TBidDetailsPage> {
   _Factory(widget) : super(widget);
 
   @override
@@ -167,6 +167,9 @@ class _Factory extends VmFactory<AppState, EditBidsPage> {
         bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
+        pushEditBidsPage: () => dispatch(
+          NavigateAction.pushNamed('/tradesman/edit_bid'),
+        ),
       );
 }
 
@@ -177,6 +180,7 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchShortListBidAction;
   final VoidCallback dispatchAcceptBidAction;
   final bool change;
+  final void Function() pushEditBidsPage;
 
   _ViewModel({
     required this.dispatchAcceptBidAction,
@@ -184,5 +188,6 @@ class _ViewModel extends Vm {
     required this.bid,
     required this.popPage,
     required this.change,
+    required this.pushEditBidsPage,
   }) : super(equals: [change]); // implementinf hashcode
 }
