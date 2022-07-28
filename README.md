@@ -28,9 +28,9 @@
   </p> 
   <p align="center">
     🎥
-    <a href="https://drive.google.com/file/d/1wp2UNChPoqvsdd8Z8mk8xaT5QPulFo6p/view?usp=sharing">CacheMoney-Demo2</a>
+    <a href="https://drive.google.com/file/d/1wp2UNChPoqvsdd8Z8mk8xaT5QPulFo6p/view?usp=sharing">CacheMoney-Demo3</a>
     | 📝
-    <a href="https://drive.google.com/file/d/1BlUn4xhV2aT2wHjxxFXrEgVvRQu-_CTw/view?usp=sharing">SRS Documentation-V2</a>
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V3.pdf">SRS Documentation-V3</a>
     | 📋
     <a href="https://drive.google.com/file/d/1qt9nwzzKl4dw6GhQM0cZwAHEaprfs-uy/view?usp=sharing">User Manual</a>
     | 📔
