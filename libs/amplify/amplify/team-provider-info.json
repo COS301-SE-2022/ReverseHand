@@ -65,7 +65,7 @@
         },
         "viewJobsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/viewJobsResolver-5933714f315a54416c49-build.zip"
+          "s3Key": "amplify-builds/viewJobsResolver-73337644644e30413543-build.zip"
         },
         "addUserToGroupResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -105,7 +105,7 @@
         },
         "editUserDetailResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/editUserDetailResolver-6a414f4c43396c565468-build.zip"
+          "s3Key": "amplify-builds/editUserDetailResolver-6137483676397a2b592f-build.zip"
         },
         "addReviewResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
