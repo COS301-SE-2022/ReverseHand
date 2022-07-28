@@ -32,7 +32,7 @@
     | 📝
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V3.pdf">SRS Documentation-V3</a>
     | 📋
-    <a href="https://drive.google.com/file/d/1qt9nwzzKl4dw6GhQM0cZwAHEaprfs-uy/view?usp=sharing">User Manual</a>
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/UserManual_v2-ReverseHand.pdf">User Manual</a>
     | 📔
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/InstallationManual.pdf">Installation Manual</a>
     | 💻
