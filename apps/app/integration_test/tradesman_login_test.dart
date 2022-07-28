@@ -42,81 +42,10 @@ void main() {
     await tester.pumpAndSettle();
 
     await Future.delayed(const Duration(seconds: 3), () {});
-
-    /*app.main(); //start the app from the main function
-    await tester.pumpAndSettle();
-
-    //storing constants used to login as consumer
-    const emaiL = "tradesman.cachemoney@gmail.com";
-    const passworD = "Tradesman#01";
-
-    //get the widgets to enter text and login button
-    var email_ = find.widgetWithText(TextFormField, "email");
-    expect(email_, findsOneWidget);
-    var password_ = find.widgetWithText(TextFormField, "password");
-    expect(password_, findsOneWidget);
-    var login = find.widgetWithText(ElevatedButton, "Login");
-    expect(login, findsOneWidget);
-
-    //login as a tradesman
-    await tester.enterText(email_, emaiL);
-    await tester.pumpAndSettle();
-
-    await tester.enterText(password_, passworD);
-    await tester.pumpAndSettle();
-
-    //scrolling a bit
-    await tester.dragUntilVisible(
-        login, find.byType(Scaffold), const Offset(0.0, 300));
-    await tester.pumpAndSettle();
-
-    //login now
-    await tester.tap(login);
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 20), () {});
-    await tester.tapAt(const Offset(0, 0));
-    await Future.delayed(const Duration(seconds: 10), () {});
-
-    //click on the Plumbing advert
-    var plumbing = find.widgetWithText(QuickViewJobCardWidget, "Plumbing");
-    expect(plumbing, findsOneWidget);
-
-    await tester.tap(plumbing);
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 10), () {});
-    await tester.tapAt(const Offset(0, 0));
-    await Future.delayed(const Duration(seconds: 10), () {});
-
-    //get that place bid button
-    var placeBidBtn = find.widgetWithText(ButtonWidget, "Place Bid");
-    expect(placeBidBtn, findsOneWidget);
-
-    await tester.tap(placeBidBtn);
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 15), () {});
-    await tester.tapAt(const Offset(0, 0));
-
-    //try and adjust that slider for the price
-    await tester.tapAt(const Offset(0, 0));
-    await tester.drag(find.byType(RangeSlider), const Offset(50, 0));
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 5), () {});
-
-    //close the pop up
-    await tester.pageBack();
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 5), () {});
-
-    //try and filter by location based on a certain radius to tradesman
-    var filter = find.widgetWithText(ElevatedButton, "Filter");
-    expect(filter, findsOneWidget);
-    await tester.tap(filter);
-    await tester.pumpAndSettle();
-
-    //log out
-    var logout = find.widgetWithText(ElevatedButton, "Log Out");
-    await tester.tap(logout);
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 10), () {});*/
   });
 }
+
+//** Don't delete below list **//
+//1. login
+//2. view jobs
+//3. place bids

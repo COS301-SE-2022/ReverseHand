@@ -47,7 +47,7 @@ void main() {
     //Now on page showing Adverts
     //Get the "Integration Test Job"
     var testJobOne =
-        find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Painting");
+        find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Tester");
     expect(testJobOne, findsOneWidget);
 
     //scrolling a bit
@@ -92,10 +92,10 @@ void main() {
 
     //Enter new text into the fields
 
-    await tester.enterText(title, "Umhlanga/Painting");
+    await tester.enterText(title, "Umhlanga/Tester");
     await tester.pumpAndSettle();
 
-    await tester.enterText(descr, "A test job for painting");
+    await tester.enterText(descr, "Tester Required");
     await tester.pumpAndSettle();
 
     //Get the Save Changes button

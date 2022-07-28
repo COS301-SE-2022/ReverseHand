@@ -47,7 +47,7 @@ void main() {
     //Now on page showing Adverts
     //Get the "Integration Test Job"
     var testJobOne =
-        find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Painting");
+        find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Tester");
     expect(testJobOne, findsOneWidget);
 
     //scrolling a bit
@@ -93,11 +93,11 @@ void main() {
     expect(max, findsOneWidget);
 
     //Enter min value
-    await tester.enterText(min, "600");
+    await tester.enterText(min, "300");
     await tester.pumpAndSettle();
 
     //Enter max value
-    await tester.enterText(max, "2100");
+    await tester.enterText(max, "2700");
     await tester.pumpAndSettle();
 
     //find the Apply button
