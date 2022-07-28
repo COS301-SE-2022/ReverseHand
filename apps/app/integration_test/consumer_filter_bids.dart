@@ -47,7 +47,7 @@ void main() {
     //Now on page showing Adverts
     //Get the "Integration Test Job"
     var testJobOne =
-        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job v2");
+        find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Painting");
     expect(testJobOne, findsOneWidget);
 
     //scrolling a bit
@@ -108,6 +108,7 @@ void main() {
     await tester.dragUntilVisible(apply, find.byType(Scaffold),
         const Offset(0.0, 300)); //might need to adjust that 300 value
 
+    await tester.tap(apply);
     await tester.pumpAndSettle();
     await Future.delayed(const Duration(seconds: 2), () {});
 

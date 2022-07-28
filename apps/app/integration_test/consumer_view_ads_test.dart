@@ -48,7 +48,7 @@ void main() {
 
     //Get the "Integration Test Job"
     var testJobOne =
-        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job");
+        find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Painting");
     expect(testJobOne, findsOneWidget);
 
     //scrolling a bit
@@ -78,7 +78,7 @@ void main() {
     //To add: at least 2 more adverts to view
 
     var testJobTwo =
-        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job v2");
+        find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Plumbing");
     expect(testJobTwo, findsOneWidget);
 
     //scrolling a bit

@@ -1,4 +1,3 @@
-import 'package:authentication/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:general/widgets/button.dart';
@@ -48,7 +47,7 @@ void main() {
     //Now on page showing Adverts
     //Get the "Integration Test Job"
     var testJobOne =
-        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job v2");
+        find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Painting");
     expect(testJobOne, findsOneWidget);
 
     //scrolling a bit
@@ -93,10 +92,10 @@ void main() {
 
     //Enter new text into the fields
 
-    await tester.enterText(title, "Integration Test Job v2");
+    await tester.enterText(title, "Umhlanga/Painting");
     await tester.pumpAndSettle();
 
-    await tester.enterText(descr, "This is a second job for testing purposes.");
+    await tester.enterText(descr, "A test job for painting");
     await tester.pumpAndSettle();
 
     //Get the Save Changes button
