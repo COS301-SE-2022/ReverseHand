@@ -119,6 +119,29 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                       min: 1,
                     ),
                   ),
+
+                   // display selected items
+                  Wrap(
+                    spacing: 8.0,
+                    runSpacing: 8.0,
+                    children: selectedItems
+                        .map((types) => Chip(
+                              labelPadding:
+                                  const EdgeInsets.all(2.0),
+                              label: Text(
+                                types,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              backgroundColor:
+                                  const Color.fromRGBO(
+                                      35, 47, 62, 1),
+                              padding:
+                                  const EdgeInsets.all(8.0),
+                            ))
+                        .toList(),
+                  ),
                   //**************************************************//
 
                   //********************DOMAIN**********************//
