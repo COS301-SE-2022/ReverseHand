@@ -91,7 +91,8 @@ type Mutation {
     user_id: String!
     name: String
     location: LocationInput
-    domains: [DomainInput!]!
+    tradetypes: [String]
+    domains: [DomainInput]
   ): User @function(name: "editUserDetailResolver-${env}")
 
   removeDomain(user_id: String!, domain_pos: Int!): Int!
