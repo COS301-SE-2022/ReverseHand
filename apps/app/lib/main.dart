@@ -1,5 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
+import 'package:geolocation/pages/custom_location_search_page.dart';
+import 'package:geolocation/pages/location_confirm_page.dart';
+import 'package:chat/pages/chat_page.dart';
+import 'package:chat/pages/chat_selection_page.dart';
 import 'package:consumer/consumer.dart';
 import 'package:consumer/pages/advert_details_page.dart';
 import 'package:consumer/pages/bid_details_page.dart';
@@ -15,7 +19,6 @@ import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
-import 'package:tradesman/pages/location_confirm_page.dart';
 import 'package:tradesman/tradesman.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -43,7 +46,7 @@ class Launch extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
-        initialRoute: '/',
+        initialRoute: '/', 
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
@@ -69,17 +72,18 @@ class Launch extends StatelessWidget {
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
               TradesmanJobDetails(store: store),
-          '/tradesman/profile': (context) =>
-              TradesmanProfilePage(store: store),
+          '/tradesman/profile': (context) => TradesmanProfilePage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
           '/tradesman/view_bids_page': (context) => TradesmanViewBidsPage(store: store),
-          '/tradesman/advert_details/edit_bid': (context) =>
+          '/tradesman/edit_bid': (context) =>
               EditBidsPage(store: store),
           '/tradesman/activity_stream': (context) =>
               ActivityStream(store: store),
-          '/tradesman/location_confirm': (context) =>
+          '/geolocation/location_confirm': (context) =>
               LocationConfirmPage(store: store),
+          '/geolocation/custom_location_search': (context) =>
+              CustomLocationSearchPage(store: store),
           '/tradesman/domain_confirm': (context) =>
               DomainConfirmPage(store: store),
           '/tradesman/view_bids': (context) =>
@@ -87,6 +91,8 @@ class Launch extends StatelessWidget {
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
+          '/chats': (context) => ChatSelectionPage(store: store),
+          '/chats/chat': (context) => ChatPage(store: store),
         },
       ),
     );

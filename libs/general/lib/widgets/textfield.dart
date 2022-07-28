@@ -4,7 +4,7 @@ class TextFieldWidget extends StatelessWidget {
   final String label;
   final bool obscure;
   final int min;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final String? initialVal;
   final Function()? onTap;
 
@@ -20,8 +20,10 @@ class TextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (initialVal != null) {
+      controller.text = initialVal!;
+    }
     return TextFormField(
-      initialValue: initialVal,
       minLines: min,
       maxLines: 5,
       style: const TextStyle(color: Colors.white),

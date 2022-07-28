@@ -66,10 +66,10 @@ class TNavBarWidget extends StatelessWidget {
                             splashColor: Colors.white,
                           ),
 
-                          //icon 2 - activity stream
+                          //icon 2 - chat
                           IconButton(
                             icon: const Icon(
-                              Icons.notifications,
+                              Icons.forum,
                               color: Colors.white,
                             ),
                              onPressed: () {

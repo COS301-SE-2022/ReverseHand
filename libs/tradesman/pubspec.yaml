@@ -28,6 +28,10 @@ dependencies:
   authentication:
     path: '../authentication'
 
+  notifications:
+    path: '../notifications'
+    
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
