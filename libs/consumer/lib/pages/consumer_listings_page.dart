@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
-
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import '../methods/populate_adverts.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/floating_button.dart';
