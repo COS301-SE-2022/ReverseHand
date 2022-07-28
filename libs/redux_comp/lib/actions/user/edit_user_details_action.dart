@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
+import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
@@ -12,7 +16,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
   final String? name;
   final String? cellNo;
   final List<Domain>? domains; //for domains
-  final List<String>? tradeTypes; 
+  final List<String>? tradeTypes;
   final Location? location;
 
   EditUserDetailsAction({
@@ -57,30 +61,18 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
     String graphQLDoc = '''mutation  {
           editUserDetail(
             user_id: "$userId", 
-            ${(isNameChanged && (isLocationChanged || isDomainsChanged || isTradeChanged || isCellChanged)) 
-              ? 'name: "$name",' 
-              : (isNameChanged && (!isLocationChanged || !isDomainsChanged || !isTradeChanged || !isCellChanged)) 
-              ? 'name: "$name"' 
-              : ""}
-            ${(isCellChanged && (isLocationChanged || isDomainsChanged || isTradeChanged)) 
-            ? 'cellNo: "$cellNo",' 
-            : (isCellChanged && (!isLocationChanged || !isDomainsChanged || !isTradeChanged)) 
-            ? 'cellNo: "$cellNo"' 
-            : ""}
-            ${(isDomainsChanged && (isTradeChanged)) 
-            ? "domains: $domainsQuery,"
-            : (isDomainsChanged && (!isTradeChanged))
-            ? "domains: $domainsQuery"
-            : ""}
-            ${(isLocationChanged) 
-            ? "location: ${location.toString()}" 
-            : ""}
+            ${(isNameChanged && (isLocationChanged || isDomainsChanged)) ? 'name: "$name",' : (isNameChanged && (!isLocationChanged || !isDomainsChanged)) ? 'name: "$name"' : ""}
+            ${(isCellChanged && (isLocationChanged || isDomainsChanged)) ? 'cellNo: "$cellNo",' : (isCellChanged && (!isLocationChanged || !isDomainsChanged)) ? 'cellNo: "$cellNo"' : ""}
+            ${(isTradeChanged) ? "domains: $domainsQuery," : (!isTradeChanged) ? "domains: $domainsQuery" : ""}
+            ${(isTradeChanged) ? "tradetypes: ${jsonEncode(tradeTypes)}" : ""}
+            ${(isLocationChanged) ? "location: ${location.toString()}" : ""}
           ) {
             id
           }
         }
         ''';
 
+    debugPrint(graphQLDoc);
 
     final requestEditUser = GraphQLRequest(
       document: graphQLDoc,
@@ -96,7 +88,9 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
               location:
                   (location != null) ? location : state.userDetails!.location,
               domains: (domains != null) ? domains : state.userDetails!.domains,
-              tradeTypes: (tradeTypes != null) ? tradeTypes : state.userDetails!.tradeTypes,
+              tradeTypes: (tradeTypes != null)
+                  ? tradeTypes
+                  : state.userDetails!.tradeTypes,
               registered: true));
     } on ApiException catch (e) {
       debugPrint(e.message);
@@ -106,29 +100,14 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
 
   @override
   void after() {
-    if (state.userDetails!.registered == true) {
-      dispatch(NavigateAction.pop());
+    dispatch(NavigateAction.pop());
+    if (state.userDetails!.userType == "Tradesman") {
+      List<String> domains = [];
+      for (Domain d in state.userDetails!.domains) {
+        domains.add(d.city);
+      }
+      List<String> tradeTypes = state.userDetails!.tradeTypes;
+      dispatch(ViewJobsAction(domains, tradeTypes));
     }
   }
 }
-
-//  mutation  {
-//            editUserDetail(
-//              user_id: "t#239f49c4-f9ce-4822-8195-8f6b6f6790f2",
-//              domains: [{
-//        city : "Pretoria",
-//        coordinates : {
-//          lat: -25.7670289,
-//          lng: 28.2625799,
-//        }
-//      }, {
-//        city : "Umhlanga",
-//        coordinates : {
-//          lat: -29.7183126,
-//          lng: 31.0708514,
-//        }
-//      }]
-//            ) {
-//              id
-//            }
-//          }
