@@ -73,7 +73,6 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
         }
         ''';
 
-    debugPrint(graphQLDoc);
 
     final requestEditUser = GraphQLRequest(
       document: graphQLDoc,

@@ -25,6 +25,7 @@ class EditTradesmanProfilePage extends StatefulWidget {
 class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
   final nameController = TextEditingController();
   final cellController = TextEditingController();
+  final tradeController = TextEditingController();
 
   //used for multiselect for trade type
   List<String> selectedItems = [];
@@ -60,6 +61,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
   void dispose() {
     nameController.dispose();
     cellController.dispose();
+    tradeController.dispose();
     super.dispose();
   }
 
@@ -112,7 +114,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                     child: TextFieldWidget(
                       label: "Trade",
                       obscure: false,
-                      controller: null,
+                      controller: tradeController,
                       onTap: () => showMultiSelect(),
                       min: 1,
                     ),
