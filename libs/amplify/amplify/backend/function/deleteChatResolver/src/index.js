@@ -42,6 +42,23 @@ exports.handler = async (event) => {
     data = await docClient.get(params).promise();
 
     await docClient.delete(params).promise();
+    
+    params = {
+            TableName: ReverseHandTable,
+            Key: {
+                part_key: event.arguments.ad_id,
+                sort_key: event.arguments.ad_id
+            },
+            UpdateExpression: 'set advert_details.#date_closed = :d',
+            ExpressionAttributeValues: {
+                ':d': 'closed',
+            },
+            ExpressionAttributeNames: {
+                '#date_closed': 'date_closed',
+            },
+        };
+
+        await docClient.update(params).promise();
 
     return data['Item'];
 };

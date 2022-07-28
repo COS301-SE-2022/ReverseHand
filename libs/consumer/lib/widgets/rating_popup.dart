@@ -4,19 +4,19 @@ import 'package:general/widgets/button.dart';
 
 typedef RatingChangeCallback = void Function(double rating);
 
-class RatingPopUp extends StatefulWidget {
+class RatingPopUpWidget extends StatefulWidget {
   final VoidCallback onPressed;
 
-  const RatingPopUp({
+  const RatingPopUpWidget({
     Key? key,
     required this.onPressed,
   }) : super(key: key);
 
   @override
-  State<RatingPopUp> createState() => RatingPopUpState();
+  State<RatingPopUpWidget> createState() => RatingPopUpWidgetState();
 }
 
-class RatingPopUpState extends State<RatingPopUp> {
+class RatingPopUpWidgetState extends State<RatingPopUpWidget> {
   double rating = 0;
 
   @override
@@ -52,7 +52,7 @@ class RatingPopUpState extends State<RatingPopUp> {
               children: [
                 ButtonWidget(
                   text: "Submit",
-                  function: widget.onPressed,
+                  function: widget.onPressed, // fix later should pass in store
                 ),
                 const Padding(padding: EdgeInsets.all(5)),
                 ButtonWidget(
