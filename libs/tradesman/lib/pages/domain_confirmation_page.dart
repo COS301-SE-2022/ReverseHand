@@ -28,7 +28,7 @@ class DomainConfirmPage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  const AppBarWidget(title: "DOMAINS DISPLAY"),
+                  AppBarWidget(title: "DOMAINS DISPLAY", store: store),
                   //***************************************************//
 
                   //**************** Domain Location Cards*************//

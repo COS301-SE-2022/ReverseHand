@@ -39,7 +39,7 @@ class EditAdvertPage extends StatelessWidget {
                 return Column(
                   children: <Widget>[
                     //*******************APP BAR WIDGET*********************//
-                    const AppBarWidget(title: "EDIT JOB"),
+                    AppBarWidget(title: "EDIT JOB", store: store),
                     //********************************************************//
 
                     //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
@@ -82,6 +82,7 @@ class EditAdvertPage extends StatelessWidget {
                                     title: titleController.value.text,
                                     description:
                                         descriptionController.value.text,
+                                    location: vm.advert.location
                                   ), //need to dispatch save job action?
                                 ),
                           //********************************************//

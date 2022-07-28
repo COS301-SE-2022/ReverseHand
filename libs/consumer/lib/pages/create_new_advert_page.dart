@@ -34,7 +34,7 @@ class CreateNewAdvertPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 //*******************APP BAR WIDGET*********************//
-                const AppBarWidget(title: "Create a Job"),
+                AppBarWidget(title: "Create a Job", store: store),
                 //********************************************************//
 
                 //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER***//

@@ -25,7 +25,7 @@ class TradesmanProfilePage extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "PROFILE"),
+                  AppBarWidget(title: "PROFILE", store: store),
                   //********************************************************//
 
                   //*******************CONSUMER NAME************************//
@@ -128,7 +128,7 @@ class TradesmanProfilePage extends StatelessWidget {
                     // to be integrated by Richard,
                     // ...more like badly integrated by Richard
                     Positioned(
-                      top: 280,
+                      top: 255,
                       left: 82,
                       child: SizedBox(
                         width: 200,
@@ -165,7 +165,7 @@ class TradesmanProfilePage extends StatelessWidget {
                     ),
 
                     Positioned(
-                        top: 380,
+                        top: 360,
                         left: 82,
                         child: SizedBox(
                           width: 200,

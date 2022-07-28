@@ -33,7 +33,7 @@ class BidDetailsPage extends StatelessWidget {
                 children: <Widget>[
                   Stack(children: [
                     //**********APPBAR***********//
-                    const AppBarWidget(title: "BID DETAILS"),
+                    AppBarWidget(title: "BID DETAILS", store: store),
                     //***************************//
 
                     //************DATE***********//

@@ -62,7 +62,7 @@ class ViewBidsPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   //**********APPBAR*************//
-                  const AppBarWidget(title: "JOB INFO"),
+                  AppBarWidget(title: "JOB INFO", store: store),
                   //******************************//
 
                   //**********DETAILED JOB INFORMATION***********//

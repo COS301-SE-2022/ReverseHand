@@ -9,7 +9,7 @@ import '../widgets/button.dart';
 import '../widgets/circle_blur_widget.dart';
 import '../widgets/divider.dart';
 import '../widgets/link.dart';
-import '../widgets/multiselect_widget.dart';
+import 'package:authentication/widgets/multiselect_widget.dart';
 import '../widgets/otp_pop_up.dart';
 import '../widgets/textfield.dart';
 

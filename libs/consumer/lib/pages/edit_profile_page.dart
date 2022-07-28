@@ -47,7 +47,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  const AppBarWidget(title: "EDIT PROFILE"),
+                  AppBarWidget(title: "EDIT PROFILE", store: widget.store),
                   //***************************************************//
 
                   //**********************NAME************************//
