@@ -18,7 +18,7 @@ class CustomLocationSearchPage extends StatefulWidget {
 
 class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
   final searchController = TextEditingController();
-    String searchString = "";
+  String searchString = "";
 
   Future<List<Suggestion>>? _searchFuture;
 
@@ -31,15 +31,18 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
   @override
   Widget build(BuildContext context) {
     //theoritically this code should be in the constructor, but the passed in sessionToken is only available in the build method
-    String? sessionToken =
-        (ModalRoute.of(context)?.settings.arguments) as String?; //fetch the session token passed in
-    (sessionToken == null) ? sessionToken = "1234" : null;
-    final PlaceApiService apiClient = PlaceApiService(sessionToken);  //instantiate the api service
+    String? sessionToken = (ModalRoute.of(context)?.settings.arguments)
+        as String?; //fetch the session token passed in
+    (sessionToken == null) ? sessionToken = "help" : null;
+    final PlaceApiService apiClient =
+        PlaceApiService(sessionToken); //instantiate the api service
 
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
       appBar: AppBar(
+          backgroundColor: const Color.fromRGBO(243, 157, 55, 1),
           // The search area here
-          title: Container(
+        title: Container(
         width: double.infinity,
         height: 40,
         decoration: BoxDecoration(
@@ -52,17 +55,29 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                     icon: const Icon(Icons.clear),
                     onPressed: () {
                       searchController.clear();
+                      setState(() {
+                        if (searchString.isEmpty) {
+                          _searchFuture = null;
+                        }
+                      });
                     },
                   ),
                   hintText: 'Search...',
                   border: InputBorder.none),
               controller: searchController,
-              onChanged: (text) { //when the input text has changed
+              onChanged: (text) {
+                //when the input text has changed
                 setState(() {
-                  searchString = text;  //assign to searchString
-                  (searchString.length % 3 == 0)    //only make a request every 3 character input
-                      ? _searchFuture = searchString.length > 8 //dont make a request before 8 chars
-                          ? apiClient.fetchSuggestions(searchString) // ^^^ this is for cost optimisation
+                  if (searchString.isEmpty) {
+                    _searchFuture = null;
+                  }
+                  searchString = text; //assign to searchString
+                  (searchString.length % 3 ==
+                          0) //only make a request every 3 character input
+                      ? _searchFuture = searchString.length >
+                              8 //dont make a request before 8 chars
+                          ? apiClient.fetchSuggestions(
+                              searchString) // ^^^ this is for cost optimisation
                           : null
                       : null;
                 });
@@ -76,18 +91,29 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
             (searchString.isEmpty) // if the search string is empty
                 ? Container(
                     padding: const EdgeInsets.all(16.0),
-                    child: const Text('Please enter your full address'), // ask for address
+                    child: const Text(
+                      'Please enter your full address',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17.5,
+                      ),
+                    ), // ask for address
                   )
-                : snapshot.hasData  // if we have data do display, build a list of suggestions
+                : snapshot
+                        .hasData // if we have data do display, build a list of suggestions
                     ? StoreConnector<AppState, _ViewModel>(
                         vm: () => _Factory(this),
                         builder: (BuildContext context, _ViewModel vm) =>
                             ListView.builder(
                           itemBuilder: (context, index) => ListTile(
-                            title: Text((snapshot.data![index]).description),
-                            onTap: () { // when a user taps on a suggestions
-                              vm.dispatchGetPlaceAction(
-                                  snapshot.data![index], apiClient);    //get the details of the suggestion
+                            title: Text(
+                              (snapshot.data![index]).description,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            onTap: () {
+                              // when a user taps on a suggestions
+                              vm.dispatchGetPlaceAction(snapshot.data![index],
+                                  apiClient); //get the details of the suggestion
                             },
                           ),
                           itemCount: snapshot.data!.length,
@@ -96,7 +122,9 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                     : snapshot.hasError //if there is an error
                         ? const Text("Error") //display for now
                         : const Center(
-                            child: CircularProgressIndicator(), // else show loading indicator
+                            child: CircularProgressIndicator(
+                                color: Color.fromRGBO(243, 157, 55,
+                                    1)), // else show loading indicator
                           ),
       ),
     );
