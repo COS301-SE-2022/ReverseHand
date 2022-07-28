@@ -38,7 +38,9 @@ class QuickViewChatWidget extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                 child: Text(
-                  chat.consumerId,
+                  vm.userType == "Consumer"
+                      ? chat.tradesmanName
+                      : chat.consumerName,
                   style: const TextStyle(
                     fontSize: 30,
                     color: Colors.white,
