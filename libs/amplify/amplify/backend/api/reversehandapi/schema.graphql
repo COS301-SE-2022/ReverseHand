@@ -102,18 +102,9 @@ type Mutation {
 
   sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!, name: String!): Message!
   @function(name: "sendMessageResolver-${env}")
-<<<<<<< HEAD
 
   deleteChat(c_id: String!, ad_id: String!): Chat!
   @function(name: "deleteChatResolver-${env}")
-=======
-<<<<<<< HEAD
-
-  deleteChat(c_id: String!, ad_id: String!, sbid_id: String!): Chat!
-  @function(name: "deleteChatResolver-${env}")
-=======
->>>>>>> 656c516c60bbaec6616f2687075a41071f0fa4cd
->>>>>>> bf9951e1c42b542ad464716f59711d19d272e2c8
 }
 
 type Subscription {
