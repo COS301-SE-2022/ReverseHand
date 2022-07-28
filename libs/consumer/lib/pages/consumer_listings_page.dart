@@ -49,7 +49,7 @@ class ConsumerListingsPage extends StatelessWidget {
                 return Column(
                   children: [
                     //*******************APP BAR WIDGET*********************//
-                    const AppBarWidget(title: "MY JOBS"),
+                    AppBarWidget(title: "MY JOBS", store: store),
                     //********************************************************//
 
                     //if there are adverts, heading should be displayed

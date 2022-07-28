@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/material.dart';
 import '../../app_state.dart';
 import '../../models/advert_model.dart';
 
