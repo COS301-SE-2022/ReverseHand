@@ -19,6 +19,9 @@ dependencies:
 
   general:
     path: '../general'
+    
+  tradesman:
+    path: '../tradesman'
 
 dev_dependencies:
   flutter_test:

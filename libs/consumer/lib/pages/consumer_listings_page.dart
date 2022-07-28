@@ -29,6 +29,10 @@ class ConsumerListingsPage extends StatelessWidget {
                 List<Widget> inProgress = [];
 
                 for (AdvertModel advert in vm.adverts) {
+                  if (advert.dateClosed != null) {
+                    continue;
+                  }
+
                   if (advert.acceptedBid == null) {
                     open.add(
                       QuickViewJobCardWidget(
@@ -82,14 +86,14 @@ class ConsumerListingsPage extends StatelessWidget {
                         ],
                       ),
 
-                    // populating column with adverts
-                    if (vm.loading) const LoadingWidget(),
-
                     // ...populateAdverts(vm.adverts, store),
                     ...open,
 
+                    // populating column with adverts
+                    if (vm.loading) const LoadingWidget()
+
                     //************MESSAGE IF THERE ARE NO ADVERTS***********/
-                    if (vm.adverts.isEmpty)
+                    else if (vm.adverts.isEmpty)
                       Padding(
                         padding: EdgeInsets.only(
                             top: (MediaQuery.of(context).size.height) / 3),
