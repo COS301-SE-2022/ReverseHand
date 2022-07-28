@@ -28,7 +28,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
 
     // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
-      createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", location: "$location", type: "Plumbing") {
+      createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", location: "$location", type: "$type") {
         id
         date_created
         location

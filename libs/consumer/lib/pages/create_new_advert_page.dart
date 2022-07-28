@@ -9,13 +9,46 @@ import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class CreateNewAdvertPage extends StatelessWidget {
+import '../widgets/radio_select_widget.dart';
+
+class CreateNewAdvertPage extends StatefulWidget {
   final Store<AppState> store;
 
-  CreateNewAdvertPage({Key? key, required this.store}) : super(key: key);
+  const CreateNewAdvertPage({Key? key, required this.store}) : super(key: key);
 
+  @override
+  State<CreateNewAdvertPage> createState() => _CreateNewAdvertPageState();
+}
+
+class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
   final titleController = TextEditingController();
   final descrController = TextEditingController();
+
+  String? trade;
+
+  void showRadioSelect() async {
+    final String? result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const RadioSelectWidget();
+      },
+    );
+
+    // Update UI
+    if (result != null) {
+      setState(() {
+        trade = result;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    descrController.dispose();
+    super.dispose();
+  }
+
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
 
@@ -23,7 +56,7 @@ class CreateNewAdvertPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
         home: Scaffold(
@@ -34,7 +67,7 @@ class CreateNewAdvertPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 //*******************APP BAR WIDGET*********************//
-                AppBarWidget(title: "Create a Job", store: store),
+                AppBarWidget(title: "Create a Job", store: widget.store),
                 //********************************************************//
 
                 //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER***//
@@ -50,6 +83,18 @@ class CreateNewAdvertPage extends StatelessWidget {
                     initialVal: null,
                   ),
                 ),
+
+                //radio
+                 Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
+                    child: TextFieldWidget(
+                      label: "Trade",
+                      obscure: false,
+                      controller: descrController,
+                      onTap: () => showRadioSelect(),
+                      min: 3,
+                    ),
+                  ),
 
                 //description
                 Padding(
@@ -76,12 +121,13 @@ class CreateNewAdvertPage extends StatelessWidget {
                           : ButtonWidget(
                               text: "Create Job",
                               function: () {
-                                if (titleController.value.text != "") {
+                                if (titleController.value.text != "" && trade != null) {
                                   vm.dispatchCreateAdvertActions(
-                                      store.state.userDetails!.id,
+                                      widget.store.state.userDetails!.id,
                                       titleController.value.text,
-                                      store.state.userDetails!.location!.address
+                                      widget.store.state.userDetails!.location!.address
                                           .city,
+                                      trade!,
                                       descrController.value.text);
                                 }
                               }),
@@ -100,7 +146,7 @@ class CreateNewAdvertPage extends StatelessWidget {
           ),
           //************************NAVBAR***********************/
           bottomNavigationBar: NavBarWidget(
-            store: store,
+            store: widget.store,
           ),
           //*****************************************************/
         ),
@@ -110,20 +156,20 @@ class CreateNewAdvertPage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
+class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
   _Factory(widget) : super(widget);
 
   @override
   _ViewModel fromStore() => _ViewModel(
         popPage: () => dispatch(NavigateAction.pop()),
         dispatchCreateAdvertActions: (String customerId, String title,
-                String location, String? description) =>
+                String location, String trade, String? description) =>
             dispatch(
           CreateAdvertAction(
             customerId,
             title,
             location,
-            "Plumbing",
+            trade,
             description: description,
           ),
         ),
@@ -133,7 +179,7 @@ class _Factory extends VmFactory<AppState, CreateNewAdvertPage> {
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String, String, String, String?)
+  final void Function(String id, String title, String location, String trade, String? descr)
       dispatchCreateAdvertActions;
   final VoidCallback popPage;
   final bool loading;

@@ -2,16 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
-
-//stateless?
-
-// class NavBarWidget extends StatefulWidget {
-//   final Store<AppState> store;
-//   const NavBarWidget({Key? key, required this.store}) : super(key: key);
-
-//   @override
-//   State<NavBarWidget> createState() => _NavBarWidgetState();
-// }
+import 'package:redux_comp/actions/chat/get_chats_action.dart';
 
 class TNavBarWidget extends StatelessWidget {
   final Store<AppState> store;
@@ -72,8 +63,9 @@ class TNavBarWidget extends StatelessWidget {
                               Icons.forum,
                               color: Colors.white,
                             ),
-                             onPressed: () {
-                              vm.pushActivityStreamPage();
+                            onPressed: () {
+                              vm.dispatchGetChatsAction();
+                              vm.pushChatPage();
                             },
                             splashRadius: 30,
                             highlightColor: Colors.orange,
@@ -129,6 +121,10 @@ class _Factory extends VmFactory<AppState, TNavBarWidget> {
           NavigateAction.pushNamed('/tradesman'),
         ),
         dispatchLogoutAction: () => dispatch(LogoutAction()),
+        pushChatPage: () => dispatch(
+          NavigateAction.pushNamed('/chats'),
+        ),
+        dispatchGetChatsAction: () => dispatch(GetChatsAction()),
       );
 }
 
@@ -138,7 +134,15 @@ class _ViewModel extends Vm {
   final VoidCallback pushActivityStreamPage;
   final VoidCallback pushTradesmanListings;
   final void Function() dispatchLogoutAction;
+  final VoidCallback pushChatPage;
+  final void Function() dispatchGetChatsAction;
 
   _ViewModel(
-      {required this.pushProfilePage, required this.pushActivityStreamPage, required this.pushTradesmanListings,required this.dispatchLogoutAction,});
+      {required this.pushProfilePage, 
+      required this.pushActivityStreamPage, 
+      required this.pushTradesmanListings,
+      required this.dispatchLogoutAction,
+      required this.pushChatPage,
+      required this.dispatchGetChatsAction,
+      });
 }
