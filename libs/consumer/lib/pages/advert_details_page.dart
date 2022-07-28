@@ -11,6 +11,7 @@ import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
+import 'package:redux_comp/actions/chat/delete_chat_action.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -63,55 +64,69 @@ class AdvertDetailsPage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 20)),
 
                   //*************BOTTOM BUTTONS**************//
-                  Stack(alignment: Alignment.center, children: <Widget>[
-                    BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 2,
-                    ),
-
-                    //view bids
-                    //should only be displayed if no bid is accepted yet
-                    if (vm.advert.acceptedBid == null)
-                      Positioned(
-                        top: 15,
-                        child: ButtonWidget(
-                          text: "View Bids",
-                          function: vm.pushViewBidsPage,
-                        ),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      BottomOverlayWidget(
+                        height: MediaQuery.of(context).size.height / 2,
                       ),
 
-                    //should only be displayed if a bid has been accepted
-                    if (vm.advert.acceptedBid != null)
-                      ((Positioned(
+                      //view bids
+                      //should only be displayed if no bid is accepted yet
+                      if (vm.advert.acceptedBid == null)
+                        Positioned(
+                          top: 15,
+                          child: ButtonWidget(
+                            text: "View Bids",
+                            function: vm.pushViewBidsPage,
+                          ),
+                        ),
+
+                      //should only be displayed if a bid has been accepted
+                      if (vm.advert.acceptedBid != null)
+                        Positioned(
                           top: 50,
                           child: ButtonWidget(
-                              text: "Close job",
-                              function: () {
-                                DialogHelper.display(
-                                    context, const RatingPopUpWidget());
-                              })))),
+                            text: "Close job",
+                            function: () {
+                              DialogHelper.display(
+                                context,
+                                RatingPopUp(
+                                  onPressed: vm.dispatchDeleteChatAction,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
 
-                    //Delete - currently just takes you back to Consumer Listings page
-                    if (vm.advert.acceptedBid == null)
-                      (Positioned(
-                        top: 75,
-                        child: ButtonWidget(
+                      //Delete - currently just takes you back to Consumer Listings page
+                      if (vm.advert.acceptedBid == null)
+                        Positioned(
+                          top: 75,
+                          child: ButtonWidget(
                             text: "Delete",
                             color: "light",
                             function: () {
                               DialogHelper.display(
-                                  context, const DeletePopUpWidget());
-                            }),
-                      )),
+                                context,
+                                const DeletePopUpWidget(),
+                              );
+                            },
+                          ),
+                        ),
 
-                    //Back
-                    Positioned(
+                      //Back
+                      Positioned(
                         top: 135,
                         child: ButtonWidget(
-                            text: "Back",
-                            color: "light",
-                            border: "white",
-                            function: vm.popPage))
-                  ]),
+                          text: "Back",
+                          color: "light",
+                          border: "white",
+                          function: vm.popPage,
+                        ),
+                      )
+                    ],
+                  ),
                   //*************BOTTOM BUTTONS**************//
                 ],
               ),
@@ -145,6 +160,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         ),
         popPage: () => dispatch(NavigateAction.pop()),
         advert: state.activeAd!,
+        dispatchDeleteChatAction: () => dispatch(DeleteChatAction()),
       );
 }
 
@@ -155,8 +171,10 @@ class _ViewModel extends Vm {
   final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
+  final VoidCallback dispatchDeleteChatAction;
 
   _ViewModel({
+    required this.dispatchDeleteChatAction,
     required this.advert,
     required this.pushEditAdvert,
     required this.pushViewBidsPage,

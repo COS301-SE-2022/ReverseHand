@@ -103,7 +103,7 @@ type Mutation {
   sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!, name: String!): Message!
   @function(name: "sendMessageResolver-${env}")
 
-  deleteChat(c_id: String!, ad_id: String!, sbid_id: String!): Chat!
+  deleteChat(c_id: String!, ad_id: String!): Chat!
   @function(name: "deleteChatResolver-${env}")
 }
 
