@@ -1,9 +1,13 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
+import 'package:general/widgets/loading_widget.dart';
+import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import '../methods/populate_adverts.dart';
+import 'package:general/widgets/navbar.dart';
+import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/floating_button.dart';
 
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -12,8 +16,6 @@ class ConsumerListingsPage extends StatelessWidget {
   //*****Calls method display all active jobs made by a consumer*****//
   @override
   Widget build(BuildContext context) {
-    double height = (MediaQuery.of(context).size.height) / 3;
-
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
@@ -22,39 +24,136 @@ class ConsumerListingsPage extends StatelessWidget {
           body: SingleChildScrollView(
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
-                children: [
-                  const Padding(padding: EdgeInsets.only(top: 20)),
+              builder: (BuildContext context, _ViewModel vm) {
+                List<Widget> open = [];
+                List<Widget> inProgress = [];
 
-                  // populating column with adverts
-                  ...populateAdverts(vm.adverts, store),
+                for (AdvertModel advert in vm.adverts) {
+                  if (advert.dateClosed != null) {
+                    continue;
+                  }
 
-                  // button to create a new advert
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.all(height / 3),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.orange,
-                          onPrimary: Colors.white,
-                          shadowColor: Colors.black,
-                          elevation: 9,
-                          textStyle: const TextStyle(fontSize: 30),
-                          minimumSize: const Size(60, 60),
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30.0))),
-                        ),
-                        onPressed: () => vm.pushCreateAdvertPage(),
-                        child: const Text("+"), //Look into an icon for demo 3
+                  if (advert.acceptedBid == null) {
+                    open.add(
+                      QuickViewJobCardWidget(
+                        advert: advert,
+                        store: store,
                       ),
-                    ),
-                  ),
-                ],
-              ),
+                    );
+                  } else {
+                    inProgress.add(
+                      QuickViewJobCardWidget(
+                        advert: advert,
+                        store: store,
+                      ),
+                    );
+                  }
+                }
+
+                return Column(
+                  children: [
+                    //*******************APP BAR WIDGET*********************//
+                    AppBarWidget(title: "MY JOBS", store: store),
+                    //********************************************************//
+
+                    //if there are adverts, heading should be displayed
+                    if (vm.adverts.isNotEmpty)
+                      Column(
+                        children: [
+                          //******************OPEN HEADING***********************//
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 18.0),
+                              child: Text(
+                                "OPEN",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white60),
+                              ),
+                            ),
+                          ),
+                          //******************************************************//
+
+                          //**************************DIVIDER**********************//
+                          Divider(
+                            height: 20,
+                            thickness: 0.5,
+                            indent: 15,
+                            endIndent: 15,
+                            color: Theme.of(context).primaryColorLight,
+                          ),
+                          //******************************************************//
+                        ],
+                      ),
+
+                    // ...populateAdverts(vm.adverts, store),
+                    ...open,
+
+                    // populating column with adverts
+                    if (vm.loading) const LoadingWidget()
+
+                    //************MESSAGE IF THERE ARE NO ADVERTS***********/
+                    else if (vm.adverts.isEmpty)
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: (MediaQuery.of(context).size.height) / 3),
+                        child: const Text(
+                          "There are no\n active jobs",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 25, color: Colors.white54),
+                        ),
+                      ),
+                    //*****************************************************/
+                    if (vm.adverts.isNotEmpty)
+                      Column(
+                        children: [
+                          //******************OPEN HEADING***********************//
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10, left: 18.0),
+                              child: Text(
+                                "IN PROGRESS",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white60),
+                              ),
+                            ),
+                          ),
+                          //******************************************************//
+
+                          //**************************DIVIDER**********************//
+                          Divider(
+                            height: 20,
+                            thickness: 0.5,
+                            indent: 15,
+                            endIndent: 15,
+                            color: Theme.of(context).primaryColorLight,
+                          ),
+                          //******************************************************//
+                          ...inProgress,
+                        ],
+                      ),
+                  ],
+                );
+              },
             ),
           ),
+
+          //************************NAVBAR***********************/
+          floatingActionButton: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) =>
+                FloatingButtonWidget(
+              function: vm.pushCreateAdvertPage,
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+
+          bottomNavigationBar: NavBarWidget(
+            store: store,
+          ),
+          //*****************************************************/
         ),
       ),
     );
@@ -67,7 +166,8 @@ class _Factory extends VmFactory<AppState, ConsumerListingsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        adverts: state.user!.adverts,
+        loading: state.wait.isWaiting,
+        adverts: state.adverts,
         pushCreateAdvertPage: () => dispatch(
           NavigateAction.pushNamed('/consumer/create_advert'),
         ),
@@ -78,9 +178,12 @@ class _Factory extends VmFactory<AppState, ConsumerListingsPage> {
 class _ViewModel extends Vm {
   final VoidCallback pushCreateAdvertPage;
   final List<AdvertModel> adverts;
+  final bool loading;
 
   _ViewModel({
+    required this.loading,
     required this.adverts,
     required this.pushCreateAdvertPage,
-  }); // implementinf hashcode
+  }) : super(equals: [adverts, loading]); // implementinf hashcode
+
 }

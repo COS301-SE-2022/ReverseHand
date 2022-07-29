@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 class JobCardWidget extends StatelessWidget {
   final String titleText;
   final String descText;
+  final String location;
+  final String type;
   final String date;
   const JobCardWidget(
       {Key? key,
       required this.titleText,
       required this.descText,
+      required this.location,
+      required this.type,
       required this.date})
       : super(key: key);
 
@@ -15,45 +19,89 @@ class JobCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      // margin: const EdgeInsets.all(10),
-      margin: EdgeInsets.all(deviceWidth(context) / 50),
-      color: const Color.fromRGBO(35, 47, 62, 1),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-        child: Row(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              // mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(titleText,
-                    style: const TextStyle(fontSize: 30, color: Colors.white)),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(descText,
-                    style: const TextStyle(fontSize: 20, color: Colors.white)),
-                const Padding(padding: EdgeInsets.all(5)),
-                Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 35),
+      child: Row(
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              //****************TITLE********************//
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.25,
+                child: Text(titleText,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 35, color: Colors.white)),
+              ),
+              //*****************************************//
+
+              //****************DATE*******************//
+              Row(
+                children: [
+                  Text(
+                    date,
+                    style: const TextStyle(fontSize: 18, color: Colors.white70),
+                  ),
+                ],
+              ),
+              //****************************************//
+
+              //****************LOCATION********************//
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Row(
                   children: [
-                    const Text(
-                      "Posted: ",
-                      style: TextStyle(fontSize: 20, color: Colors.white70),
+                    const Icon(
+                      Icons.location_on,
+                      color: Colors.white,
+                      size: 22,
                     ),
-                    Text(
-                      date,
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
-                    )
+                    const Padding(padding: EdgeInsets.only(right: 2)),
+                    Text(location,
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white))
                   ],
                 ),
-                const Padding(padding: EdgeInsets.all(2)),
-              ],
-            ),
-          ],
-        ),
+              ),
+              //*****************************************//
+
+              //****************TRADE********************//
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.construction_outlined,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                    const Padding(padding: EdgeInsets.only(right: 2)),
+                    Text(type,
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white))
+                  ],
+                ),
+              ),
+              //*****************************************//
+
+              //****************DESCRIPTION*******************//
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.3,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(descText,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          const TextStyle(fontSize: 20, color: Colors.white)),
+                ),
+              ),
+
+              //**********************************************/
+            ],
+          ),
+        ],
       ),
     );
   }

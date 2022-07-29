@@ -10,6 +10,13 @@
         "cwd": "apps/app"
       }
     },
+    "integrationTest" :{
+      "executor": "@nrwl/workspace:run-commands",
+      "options" :{
+        "command" : "flutter test integration_test",
+        "cwd": "apps/app"
+      }
+    },
     "clean": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
@@ -119,6 +126,13 @@
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter build ipa",
+        "cwd": "apps/app"
+      }
+    },
+    "get": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter pub get",
         "cwd": "apps/app"
       }
     }

@@ -1,41 +1,62 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+
+
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
-exports.handler = async () => {
-    
-    try {
-       let params = {
-           TableName: ReverseHandTable,
-           FilterExpression: 'contains(sort_key, :ad)',
-           ExpressionAttributeValues: {
-                ':ad' : 'a#' ,
-           }
-       }
-       
-       const data = await docClient.scan(params).promise()
-       
-       let adverts = [];
-            for (let item of data.Items)
-                adverts.push({
-                    id: item['sort_key'],
-                    user_id: item['user_id'],
-                    title: item.advert_details['title'],
-                    description: item.advert_details['description'],
-                    type: item.advert_details['type'],
-                    bids: item.advert_details['bids'],
-                    shortlisted_bids: item.advert_details['shortlisted_bids'],
-                    accepted_bid: item.advert_details['accepted_bid'],
-                    location: item.advert_details['location'],
-                    date_created: item.advert_details['date_created'],
-                    date_closed: item.advert_details['date_closed'],
-                });
-    
-            return adverts;
+exports.handler = async (event) => {
+   try {
+      let keys = [];
+      event.arguments.locations.forEach(function(location) {
+          event.arguments.types.forEach(function(type) {
+            keys.push({part_key: location, sort_key: type});
+          });
+      });
+
             
-    } catch (e) {
-        return e
-    }
+      let params = {
+        RequestItems: {},
+      };
+      
+      params.RequestItems[ReverseHandTable] = {Keys: keys};
+      
+      let data = await docClient.batchGet(params).promise();
+      if (data.Responses.ReverseHand.length == 0) {
+          return {"response" : "No adverts found"};
+      } 
+      
+      let adverts = [];
+      
+      data.Responses.ReverseHand.forEach(function(response) {
+        response.advert_list.forEach(function(advert) {
+          adverts.push(advert);
+        });
+      });
+           
+      console.log(adverts);
+      let advert_keys = [];
+      adverts.forEach(function(ad_id) {
+          advert_keys.push({part_key: ad_id, sort_key: ad_id});
+      });
+    
+      
+      params = {
+        RequestItems: {},
+      };
+      
+      params.RequestItems[ReverseHandTable] = {Keys: advert_keys};
+      
+      data = await docClient.batchGet(params).promise();
+      let response = [];
+      data.Responses.ReverseHand.forEach(function(ad) {
+        ad.advert_details["id"] = ad.part_key;
+        response.push(
+            ad.advert_details
+        );
+      });
+      
+      return response;
+   } catch(e) {console.log(e);}
 };

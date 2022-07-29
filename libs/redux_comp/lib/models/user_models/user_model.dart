@@ -1,58 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/advert_model.dart';
-import '../bid_model.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
+
+import '../geolocation/domain_model.dart';
 
 @immutable
 class UserModel {
   final String id;
   final String email;
-  final String name;
+  final String? name;
+  final String? cellNo;
+  final Location? location;
+  final List<Domain> domains;
+  final List<String> tradeTypes;
   final String userType;
-  final List<BidModel> bids;
-  final List<BidModel> shortlistBids;
-  final List<BidModel> viewBids; // holds the list of bids to view
-  final List<AdvertModel> adverts;
-  final BidModel?
-      activeBid; // represents the current bid, used for viewing a bid
-  final AdvertModel? activeAd; // used for representing the current ad
-  // both will change throughout the app
+  final bool? registered;
 
   const UserModel({
     required this.id,
     required this.email,
-    required this.name,
+    this.name,
+    this.cellNo,
+    this.domains = const [],
+    this.tradeTypes = const [],
     required this.userType,
-    required this.bids,
-    required this.shortlistBids,
-    required this.viewBids,
-    required this.adverts,
-    this.activeBid,
-    this.activeAd,
+    this.location,
+    this.registered,
   });
 
-  UserModel replace({
+  UserModel copy({
     String? id,
     String? email,
     String? name,
+    String? cellNo,
+    List<Domain>? domains,
+    List<String>? tradeTypes,
     String? userType,
-    List<BidModel>? bids,
-    List<BidModel>? shortlistBids,
-    List<BidModel>? viewBids,
-    List<AdvertModel>? adverts,
-    BidModel? activeBid,
-    AdvertModel? activeAd,
+    Location? location,
+    bool? registered,
   }) {
     return UserModel(
       id: id ?? this.id,
       email: email ?? this.email,
       name: name ?? this.name,
+      cellNo: cellNo ?? this.cellNo,
+      domains: domains ?? this.domains,
+      tradeTypes: tradeTypes ?? this.tradeTypes,
       userType: userType ?? this.userType,
-      bids: bids ?? this.bids,
-      shortlistBids: shortlistBids ?? this.shortlistBids,
-      viewBids: viewBids ?? this.viewBids,
-      adverts: adverts ?? this.adverts,
-      activeBid: activeBid ?? this.activeBid,
-      activeAd: activeAd ?? this.activeAd,
+      location: location ?? this.location,
+      registered: registered ?? this.registered,
     );
   }
 }

@@ -20,10 +20,10 @@ exports.handler = async (event) => {
         let item = {
             TableName: ReverseHandTable,
             Key: {
-                user_id: event.arguments.user_id,
+                part_key: event.arguments.ad_id,
                 sort_key: event.arguments.ad_id
             },
-            UpdateExpression: 'set date_closed = :dc',
+            UpdateExpression: 'set advert_details.date_closed = :dc',
             ExpressionAttributeValues: {
                 ':dc': currentDate,
             },
@@ -37,17 +37,18 @@ exports.handler = async (event) => {
         // getting closed advert
         let params = {
             TableName: ReverseHandTable,
-            KeyConditionExpression: "user_id = :u and sort_key = :s",
+            KeyConditionExpression: "part_key = :p and sort_key = :s",
             ExpressionAttributeValues: {
-                ":u": event.arguments.user_id,
+                ":p": event.arguments.ad_id,
                 ":s": event.arguments.ad_id
             }
         };
 
-        console.log(params);
         
         const data = await docClient.query(params).promise();
-        console.log(data);
+        let resp = data.Items[0].advert_details;
+        resp["ad_id"] = event.arguments.ad_id;
+        return resp;
     
     } catch(e) {
         console.log(e)

@@ -1,15 +1,29 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
+import 'package:tradesman/widgets/quick_view_bid.dart';
 
 // function to create list of bids
-List<Widget> populateBids(List<BidModel> bids) {
+List<Widget> populateBids(String userId, List<BidModel> bids, Store<AppState> store) {
   List<Widget> quickViewBidWidgets = [];
 
-  //**********QUICK VIEW BID WIDGETS - TAKES YOU TO DETAILED BID VIEW ON CLICK***********//
   for (BidModel bid in bids) {
-    quickViewBidWidgets.add(QuickViewBidWidget(
-      bid: bid,
-    ));
+    // checking when to append to front
+    if (bid.userId == userId) {
+      quickViewBidWidgets.insert(
+        0,
+        TQuickViewBidWidget(
+          bid: bid, store: store,
+        ),
+      );
+    } else {
+      quickViewBidWidgets.add(
+        QuickViewBidWidget(
+          bid: bid,
+        ),
+      );
+    }
   }
 
   return quickViewBidWidgets;

@@ -11,6 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  uuid: ^3.0.6
+
+  geolocation:
+    path: ../geolocation
     
   async_redux: ^15.0.0
 
@@ -22,6 +27,10 @@ dependencies:
 
   authentication:
     path: '../authentication'
+
+  notifications:
+    path: '../notifications'
+    
 
 dev_dependencies:
   flutter_test:

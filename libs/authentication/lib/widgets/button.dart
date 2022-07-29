@@ -2,14 +2,23 @@ import 'package:flutter/material.dart';
 
 class LongButtonWidget extends StatelessWidget {
   final String text;
-  final void Function() login;
-  const LongButtonWidget({Key? key, required this.text, required this.login}) : super(key: key);
+  final void Function() function;
+  final double width;
+  final double height;
+
+  const LongButtonWidget(
+      {Key? key,
+      required this.text,
+      required this.function,
+      this.width = 290,
+      this.height = 70})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-      return SizedBox(
-      width: 290,
-      height: 70,
+    return SizedBox(
+      width: width,
+      height: height,
       child: Column(
         children: <Widget>[
           ElevatedButton(
@@ -23,7 +32,7 @@ class LongButtonWidget extends StatelessWidget {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0))),
             ),
-            onPressed: login,
+            onPressed: function,
             child: Text(text),
           ),
         ],

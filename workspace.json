@@ -8,6 +8,9 @@
     "amplify": "libs/amplify",
     "tradesman": "libs/tradesman",
     "consumer": "libs/consumer",
-    "authentication": "libs/authentication"
+    "authentication": "libs/authentication",
+    "geolocation": "libs/geolocation",
+    "notifications": "libs/notifications",
+    "chat": "libs/chat"
   }
 }

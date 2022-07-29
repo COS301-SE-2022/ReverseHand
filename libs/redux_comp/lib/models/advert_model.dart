@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'job_type.dart';
 
 @immutable
 class AdvertModel {
   final String id;
   final String title;
   final String? description;
-  final JobType? type;
+  final String? type;
   final String? acceptedBid;
-  final String? location;
+  final String location;
   final String dateCreated;
   final String? dateClosed;
 
@@ -18,7 +17,7 @@ class AdvertModel {
     this.description,
     this.type,
     this.acceptedBid,
-    this.location,
+    required this.location,
     required this.dateCreated,
     this.dateClosed,
   });
@@ -28,11 +27,35 @@ class AdvertModel {
       id: obj['id'],
       title: obj['title'],
       description: obj['description'],
-      type: null,
+      type: obj['type'],
       acceptedBid: obj['accepted_bid'],
       location: obj['location'],
       dateCreated: obj['date_created'],
       dateClosed: obj['date_closed'],
     );
   }
+
+  @override
+  operator ==(Object other) =>
+      other is AdvertModel &&
+      id == other.id &&
+      title == other.title &&
+      description == other.description &&
+      type == other.type &&
+      acceptedBid == other.acceptedBid &&
+      location == other.location &&
+      dateCreated == other.dateCreated &&
+      dateClosed == other.dateCreated;
+
+  @override
+  int get hashCode => hashValues(
+        id,
+        title,
+        description,
+        type,
+        acceptedBid,
+        location,
+        dateCreated,
+        dateClosed,
+      );
 }

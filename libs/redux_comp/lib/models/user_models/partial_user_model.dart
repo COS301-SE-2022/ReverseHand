@@ -5,20 +5,27 @@ import 'package:flutter/material.dart';
 @immutable
 class PartialUser {
   final String email;
-  final String password;
+  final String? password;
+  final String group;
   final String verified;
 
-  const PartialUser(this.email, this.password, this.verified);
+  const PartialUser(
+      {required this.email,
+      this.password,
+      required this.group,
+      required this.verified});
 
-  PartialUser replace({
+  PartialUser copy({
     String? email,
     String? password,
+    String? group,
     String? verified,
   }) {
     return PartialUser(
-      email ?? this.email,
-      password ?? this.password,
-      verified ?? this.verified,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      group: group ?? this.group,
+      verified: verified ?? this.verified,
     );
   }
 }

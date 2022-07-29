@@ -1,9 +1,9 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/divider.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/place_bid_action.dart';
+import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
+import 'package:general/widgets/textfield.dart';
 
 
 class PlaceBidPopupWidget extends StatefulWidget {
@@ -20,6 +20,7 @@ class PlaceBidPopupWidget extends StatefulWidget {
 
 class _PlaceBidPopupWidgetState extends State<PlaceBidPopupWidget> {
   RangeValues _currentRangeValues = const RangeValues(10, 3000);
+    final descrController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,45 +30,37 @@ class _PlaceBidPopupWidgetState extends State<PlaceBidPopupWidget> {
         child: StoreConnector<AppState, _ViewModel>(
           vm:() => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) => Container(
-            height: 350,
+            height: 370,
             decoration: const BoxDecoration(
-              color: Colors.black87,
+              color: Color.fromRGBO(35, 47, 62, 0.97),
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
             ),
             child: Center(
-              child: Column(
+             child: SingleChildScrollView(
+                child: Column(
                 children: <Widget>[
-                  const SizedBox(height: 30),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 20)), 
-                      onPressed: () {
-                        vm.dispatchPlaceBidAction(vm.advert.id,vm.id,_currentRangeValues.start.round(),_currentRangeValues.end.round());
-                        Navigator.pop(context);
-                        },
-                      child: const Text('X'),
-                    ),
-        
-                  ),
                   Container(
                     margin: const EdgeInsets.all(30.0),
                     padding: const EdgeInsets.all(8.0),
                     alignment: Alignment.topCenter,
                   child: const Text(
                       "Place Bid",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 30),
                     ),
                   ),
-                  const TransparentDividerWidget(),
         
                   //*****************Tradesman rates slider**********************
+                  const Text(
+                      "Choose bid price range:",
+                      style: TextStyle(fontSize: 15),
+                    ),
                   RangeSlider(
                     values: _currentRangeValues,
                     max: 3000,
                     divisions: 10,
+                    activeColor: Colors.orange,
+                    inactiveColor: Colors.black,
                     labels: RangeLabels(
                       _currentRangeValues.start.round().toString(),
                       _currentRangeValues.end.round().toString(),
@@ -78,10 +71,45 @@ class _PlaceBidPopupWidgetState extends State<PlaceBidPopupWidget> {
                       });
                     },
                   ),
-                  const TransparentDividerWidget(),
+                
                   //*****************************************************//
+
+                  //*****************Quote Description Box**********************
+                  TextFieldWidget(
+                    label: "Description",
+                    obscure: false,
+                    min: 3,
+                    controller: descrController,
+                    initialVal: null,
+                  ),
+
+                //*************************************************//
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.orange,
+                    ),
+                    child: const Text('Cancel'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      vm.dispatchPlaceBidAction(vm.advert.id,vm.id,_currentRangeValues.start.round(),_currentRangeValues.end.round());
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent, // Background color
+                      onPrimary: Colors.white, // Text Color (Foreground color)
+                      shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      side: const BorderSide(color: Colors.orange, width: 1),
+                    )),
+                    child: const Text('Submit'),
+                  ),
                 ],
               ),
+            ),
             ),
           ),
         ),
@@ -95,8 +123,8 @@ class _Factory extends VmFactory<AppState, _PlaceBidPopupWidgetState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        advert: state.user!.activeAd!,
-        id: state.user!.id,
+        advert: state.activeAd!,
+        id: state.userDetails!.id,
         dispatchPlaceBidAction:
             (String adId, String userId, int priceLower, int priceUpper) => dispatch(
               PlaceBidAction(adId, userId, priceLower, priceUpper)

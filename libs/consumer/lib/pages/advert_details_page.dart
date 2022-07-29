@@ -1,14 +1,17 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/delete_advert_popup.dart';
+import 'package:consumer/widgets/dialog_helper.dart';
+import 'package:consumer/widgets/rating_popup.dart';
 import 'package:general/theme.dart';
-import 'package:general/widgets/tab.dart';
-import 'package:flutter/material.dart';
+import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/bottom_overlay.dart';
+import 'package:general/widgets/button.dart';
+import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/job_card.dart';
+import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/models/advert_model.dart';
-import 'package:redux_comp/models/bid_model.dart';
-import 'package:redux_comp/actions/toggle_view_bids_action.dart';
-import '../methods/populate_bids.dart';
+import 'package:redux_comp/actions/chat/delete_chat_action.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -28,66 +31,116 @@ class AdvertDetailsPage extends StatelessWidget {
                 SingleChildScrollView(
               child: Column(
                 children: [
-                  //**********PADDING FROM TOP*****************//
-                  const Padding(padding: EdgeInsets.fromLTRB(10, 15, 10, 0)),
+                  //**********APPBAR***********//
+                  AppBarWidget(title: "JOB INFO", store: store),
                   //*******************************************//
 
                   //**********DETAILED JOB INFORMATION***********//
                   JobCardWidget(
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
+                    location: vm.advert.location,
+                    type: vm.advert.type ?? "",
                     date: vm.advert.dateCreated,
                     // location: advert.location ?? "",
                   ),
+
                   //*******************************************//
 
-                  //**********BACK BUTTON*********************//
-                  BackButton(
-                    color: Colors.white,
-                    onPressed: () => vm.popPage(),
-                  ),
-                  //*******************************************//
-
-                  //**********DIVIDER**************************//
-                  const DividerWidget(),
-                  //*******************************************//
-
-                  //**********HEADING**************************//
-                  const Text(
-                    "BIDS",
-                    style: TextStyle(fontSize: 25.0, color: Colors.white),
-                  ),
-                  //*******************************************//
-
-                  //**********PADDING**************************//
-                  const Padding(padding: EdgeInsets.all(15)),
-                  //*******************************************//
-
-                  //**********TABS TO FILTER ACTIVE/SHORTLISTED BIDS***********//
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TabWidget(
-                        text: "ACTIVE",
-                        onPressed: (activate) =>
-                            vm.dispatchToggleViewBidsAction(false, activate),
+                  //******************EDIT ICON****************//
+                  //should only be displayed if no bid has been accepted
+                  if (vm.advert.acceptedBid == null)
+                    (Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: IconButton(
+                        onPressed: vm.pushEditAdvert,
+                        icon: const Icon(Icons.edit),
+                        color: Colors.white70,
                       ),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      TabWidget(
-                        text: "SHORTLIST",
-                        onPressed: (activate) =>
-                            vm.dispatchToggleViewBidsAction(true, activate),
+                    )),
+                  //**********************************************/
+
+                  // DialogHelper.display(context, const RatingPopUpWidget()),
+
+                  const Padding(padding: EdgeInsets.only(top: 20)),
+
+                  //*************BOTTOM BUTTONS**************//
+                  Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      BottomOverlayWidget(
+                        height: MediaQuery.of(context).size.height / 2,
                       ),
+
+                      //view bids
+                      //should only be displayed if no bid is accepted yet
+                      if (vm.advert.acceptedBid == null)
+                        Positioned(
+                          top: 15,
+                          child: ButtonWidget(
+                            text: "View Bids",
+                            function: vm.pushViewBidsPage,
+                          ),
+                        ),
+
+                      //should only be displayed if a bid has been accepted
+                      if (vm.advert.acceptedBid != null)
+                        Positioned(
+                          top: 50,
+                          child: ButtonWidget(
+                            text: "Close job",
+                            function: () {
+                              DialogHelper.display(
+                                context,
+                                RatingPopUpWidget(
+                                  onPressed: () {
+                                    vm.dispatchDeleteChatAction();
+                                    vm.pushConsumerListings();
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+
+                      //Delete - currently just takes you back to Consumer Listings page
+                      if (vm.advert.acceptedBid == null)
+                        Positioned(
+                          top: 75,
+                          child: ButtonWidget(
+                            text: "Delete",
+                            color: "light",
+                            function: () {
+                              DialogHelper.display(
+                                context,
+                                const DeletePopUpWidget(),
+                              );
+                            },
+                          ),
+                        ),
+
+                      //Back
+                      Positioned(
+                        top: 135,
+                        child: ButtonWidget(
+                          text: "Back",
+                          color: "light",
+                          border: "white",
+                          function: vm.popPage,
+                        ),
+                      )
                     ],
                   ),
-                  //***********************************************************//
-
-                  // creating bid widgets
-                  ...populateBids(vm.bids, store)
+                  //*************BOTTOM BUTTONS**************//
                 ],
               ),
             ),
           ),
+          //************************NAVBAR***********************/
+          bottomNavigationBar: NavBarWidget(
+            store: store,
+          ),
+          //*************************************************//
         ),
       ),
     );
@@ -100,28 +153,36 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        change: state.change,
-        dispatchToggleViewBidsAction: (toggleShort, activate) =>
-            dispatch(ToggleViewBidsAction(toggleShort, activate)),
+        pushViewBidsPage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/view_bids'),
+        ),
+        pushEditAdvert: () => dispatch(
+          NavigateAction.pushNamed('/consumer/edit_advert_page'),
+        ),
+        pushConsumerListings: () => dispatch(
+          NavigateAction.pushNamed('/consumer'),
+        ),
         popPage: () => dispatch(NavigateAction.pop()),
-        bids: state.user!.viewBids,
-        advert: state.user!.activeAd!,
+        advert: state.activeAd!,
+        dispatchDeleteChatAction: () => dispatch(DeleteChatAction()),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final AdvertModel advert;
-  final List<BidModel> bids;
+  final VoidCallback pushViewBidsPage;
+  final VoidCallback pushEditAdvert;
+  final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
-  final bool change;
-  final void Function(bool, bool) dispatchToggleViewBidsAction;
+  final VoidCallback dispatchDeleteChatAction;
 
   _ViewModel({
-    required this.dispatchToggleViewBidsAction,
-    required this.change,
-    required this.popPage,
-    required this.bids,
+    required this.dispatchDeleteChatAction,
     required this.advert,
-  }) : super(equals: [change]); // implementing hashcode
+    required this.pushEditAdvert,
+    required this.pushViewBidsPage,
+    required this.pushConsumerListings,
+    required this.popPage,
+  }) : super(equals: [advert]); // implementinf hashcode
 }
