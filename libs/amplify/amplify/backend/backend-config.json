@@ -35,7 +35,10 @@
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
-        "socialProviders": [],
+        "socialProviders": [
+          "FACEBOOK",
+          "GOOGLE"
+        ],
         "usernameAttributes": [
           "EMAIL"
         ],
