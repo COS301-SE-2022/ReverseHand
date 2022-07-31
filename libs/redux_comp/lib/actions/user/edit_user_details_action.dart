@@ -53,7 +53,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
         domainsQuery.add(domain.toString());
       }
     }
-    if (tradeTypes != null || tradeTypes!.isNotEmpty) {
+    if (tradeTypes != null && tradeTypes!.isNotEmpty) {
       isTradeChanged = true;
     }
 
