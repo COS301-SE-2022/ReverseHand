@@ -18,6 +18,7 @@ class ChatAppBarWidget extends StatelessWidget {
           alignment: const Alignment(
               0, -.5), //might swap this out for an Align widget around text
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               StoreConnector<AppState, _ViewModel>(
                 vm: () => _Factory(this),
@@ -35,7 +36,6 @@ class ChatAppBarWidget extends StatelessWidget {
                   style: const TextStyle(fontSize: 20),
                 ),
               ),
-              const Padding(padding: EdgeInsets.only(right: 180)),
               IconButton(
                   onPressed: () {},
                   icon: const Icon(

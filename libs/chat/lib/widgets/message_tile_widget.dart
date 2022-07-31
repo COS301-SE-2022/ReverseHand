@@ -7,10 +7,7 @@ class MessageTileWidget extends StatelessWidget {
   const MessageTileWidget({
     required this.message,
     Key? key,
-    // required this.message,
   }) : super(key: key);
-
-  // final Message message;
 
   @override
   Widget build(BuildContext context) {

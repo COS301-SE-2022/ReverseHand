@@ -48,7 +48,11 @@ class ChatPage extends StatelessWidget {
                 child: Column(
                   children: [
                     //*******************APP BAR WIDGET*********************//
-                    const ChatAppBarWidget(title: "Name"),
+                    ChatAppBarWidget(
+                      title: vm.currentUser == "consumer"
+                          ? vm.chat.tradesmanName
+                          : vm.chat.consumerName,
+                    ),
                     //********************************************************//
                     // const DateLabelWidget(label: "Yesterday"), //todo michael
 

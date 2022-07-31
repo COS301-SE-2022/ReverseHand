@@ -27,13 +27,14 @@ class QuickViewChatWidget extends StatelessWidget {
           },
           child: SizedBox(
             width: 800,
+            height: 80,
             child: Card(
               margin: const EdgeInsets.all(10),
               color: Theme.of(context).primaryColorLight,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
+                borderRadius: BorderRadius.circular(25.0),
               ),
-              elevation: 2,
+              elevation: 8,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
