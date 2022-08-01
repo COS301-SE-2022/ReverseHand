@@ -9,7 +9,6 @@ import '../widgets/auth_button.dart';
 import '../widgets/circle_blur_widget.dart';
 import '../widgets/transparent_divider.dart';
 import '../widgets/link_widget.dart';
-import 'package:authentication/widgets/multiselect_widget.dart';
 import '../widgets/otp_pop_up.dart';
 import '../widgets/auth_textfield.dart';
 
@@ -48,36 +47,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
       return null;
     };
-  }
-
-  //used for multiselect for trade type
-  List<String> selectedItems = [];
-
-  void showMultiSelect() async {
-    final List<String> items = [
-      "Painter",
-      "Tiler",
-      "Carpenter",
-      "Cleaner",
-      "Designer",
-      "Landscaper",
-      "Electrician",
-      "Plumber",
-    ];
-
-    final List<String>? results = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return MultiSelectWidget(items: items);
-      },
-    );
-
-    // Update UI
-    if (results != null) {
-      setState(() {
-        selectedItems = results;
-      });
-    }
   }
 
   @override
@@ -230,7 +199,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                     emailController.value.text.trim(),
                                     nameController.value.text.trim(),
                                     cellController.value.text.trim(),
-                                    selectedItems,
                                     passwordController.value.text.trim(),
                                     false, // comment true for Consumer
                                   );
@@ -460,7 +428,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                     emailController.value.text.trim(),
                                     nameController.value.text.trim(),
                                     cellController.value.text.trim(),
-                                    selectedItems,
                                     passwordController.value.text.trim(),
                                     true, // comment true for Consumer
                                   );
@@ -619,7 +586,7 @@ class _Factory extends VmFactory<AppState, _SignUpPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchSignUpAction:
-            (email, name, cell, tradeTypes, password, isConsumer) =>
+            (email, name, cell, password, isConsumer) =>
                 dispatch(RegisterUserAction(email, password, isConsumer)),
         pushLoginPage: () => dispatch(NavigateAction.pushNamed('/login')),
         pushLocationPage: () => dispatch(NavigateAction.pushNamed('/location')),
@@ -630,7 +597,7 @@ class _Factory extends VmFactory<AppState, _SignUpPageState> {
 class _ViewModel extends Vm {
   final VoidCallback pushLoginPage;
   final VoidCallback pushLocationPage;
-  final void Function(String, String, String, List<String>, String, bool)
+  final void Function(String, String, String, String, bool)
       dispatchSignUpAction;
 
   _ViewModel({
