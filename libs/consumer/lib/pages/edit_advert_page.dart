@@ -4,7 +4,7 @@ import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:general/widgets/navbar.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/adverts/edit_advert_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -35,7 +35,6 @@ class EditAdvertPage extends StatelessWidget {
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
-               
                 return Column(
                   children: <Widget>[
                     //*******************APP BAR WIDGET*********************//
@@ -78,12 +77,12 @@ class EditAdvertPage extends StatelessWidget {
                                   text: "Save Changes",
                                   // check to make sure input is good
                                   function: () => vm.dispatchEditAdvertAction(
-                                    advertId: vm.advert.id,
-                                    title: titleController.value.text,
-                                    description:
-                                        descriptionController.value.text,
-                                    location: vm.advert.location
-                                  ), //need to dispatch save job action?
+                                      advertId: vm.advert.id,
+                                      title: titleController.value.text,
+                                      description:
+                                          descriptionController.value.text,
+                                      location: vm.advert
+                                          .location), //need to dispatch save job action?
                                 ),
                           //********************************************//
                           const Padding(padding: EdgeInsets.all(5)),

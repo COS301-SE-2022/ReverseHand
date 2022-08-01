@@ -1,11 +1,11 @@
-import 'package:authentication/widgets/button.dart';
-import 'package:authentication/widgets/textfield.dart';
+import 'package:authentication/widgets/auth_button.dart';
+import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
-//This Integration test goes the Sign Up route to using the app
+//Flutter test integration_test/signup_test.dart
 void main() {
   //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -25,44 +25,24 @@ void main() {
 
     //Landed on the signup page
     //Now getting the necessary widgets as variables
-    var name = find.widgetWithText(TextFieldWidget, "name");
-    expect(name, findsOneWidget);
 
-    var email = find.widgetWithText(TextFieldWidget, "email");
+    var email = find.widgetWithText(AuthTextFieldWidget, "email");
     expect(email, findsOneWidget);
 
-    var cellphone = find.widgetWithText(TextFieldWidget, "cellphone");
-    expect(cellphone, findsOneWidget);
-
-    var location = find.widgetWithText(TextFieldWidget, "location");
-    expect(location, findsOneWidget);
-
-    var password = find.widgetWithText(TextFieldWidget, "password");
+    var password = find.widgetWithText(AuthTextFieldWidget, "password");
     expect(password, findsOneWidget);
 
     var confirmPassword =
-        find.widgetWithText(TextFieldWidget, "confirm password");
+        find.widgetWithText(AuthTextFieldWidget, "confirm password");
     expect(confirmPassword, findsOneWidget);
 
     var signUpBtn =
-        find.widgetWithText(LongButtonWidget, "Sign Up"); //press action
+        find.widgetWithText(AuthButtonWidget, "Sign Up"); //press action
     expect(signUpBtn, findsOneWidget);
-
-    //Entering a name in the name field
-    await tester.enterText(name, "Johnny Bravo");
-    await tester.pumpAndSettle();
 
     //Entering an email in the emeail field
     await tester.enterText(email,
-        "johnny_Bravo@gmail.com"); //might have to change this to a valid email most probably
-    await tester.pumpAndSettle();
-
-    //entering a location
-    await tester.enterText(location, "Block C, Hatfield");
-    await tester.pumpAndSettle();
-
-    //entering cellphone number
-    await tester.enterText(cellphone, "0777888993");
+        "johnny.Bravo@gmail.com"); //might have to change this to a valid email most probably
     await tester.pumpAndSettle();
 
     //entering a password
@@ -71,10 +51,6 @@ void main() {
 
     //entering confirm password
     await tester.enterText(confirmPassword, "password123");
-    await tester.pumpAndSettle();
-
-    //press the signup button
-    await tester.press(signUpBtn);
     await tester.pumpAndSettle();
   });
 }

@@ -5,7 +5,7 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/navbar.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/floating_button.dart';
 
@@ -90,7 +90,8 @@ class ConsumerListingsPage extends StatelessWidget {
                     ...open,
 
                     // populating column with adverts
-                    if (vm.loading) const LoadingWidget()
+                    if (vm.loading)
+                      const LoadingWidget()
 
                     //************MESSAGE IF THERE ARE NO ADVERTS***********/
                     else if (vm.adverts.isEmpty)

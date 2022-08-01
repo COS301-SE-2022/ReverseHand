@@ -1,12 +1,12 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/delete_advert_popup.dart';
-import 'package:consumer/widgets/dialog_helper.dart';
+import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:consumer/widgets/rating_popup.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/navbar.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
@@ -90,7 +90,7 @@ class AdvertDetailsPage extends StatelessWidget {
                           child: ButtonWidget(
                             text: "Close job",
                             function: () {
-                              DialogHelper.display(
+                              LightDialogHelper.display(
                                 context,
                                 RatingPopUpWidget(
                                   onPressed: () {
@@ -111,7 +111,7 @@ class AdvertDetailsPage extends StatelessWidget {
                             text: "Delete",
                             color: "light",
                             function: () {
-                              DialogHelper.display(
+                              LightDialogHelper.display(
                                 context,
                                 const DeletePopUpWidget(),
                               );

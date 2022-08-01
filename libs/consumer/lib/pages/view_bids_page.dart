@@ -1,14 +1,14 @@
 // import 'dart:html';
 
 import 'package:async_redux/async_redux.dart';
-import 'package:general/widgets/dialog_helper.dart';
+import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
 
-import 'package:general/widgets/navbar.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
@@ -65,7 +65,7 @@ class ViewBidsPage extends StatelessWidget {
                         text: "Filter",
                         color: "dark",
                         function: () {
-                          DialogHelper.display(
+                          DarkDialogHelper.display(
                             context,
                             FilterPopUpWidget(
                               store: store,

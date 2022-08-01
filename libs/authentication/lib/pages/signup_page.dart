@@ -1,17 +1,17 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:authentication/widgets/divider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
-import 'package:general/widgets/dialog_helper.dart';
-import 'package:general/widgets/divider.dart';
+import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:redux_comp/actions/user/register_user_action.dart';
 import 'package:redux_comp/redux_comp.dart';
-import '../widgets/button.dart';
+import '../widgets/auth_button.dart';
 import '../widgets/circle_blur_widget.dart';
-import '../widgets/divider.dart';
-import '../widgets/link.dart';
+import '../widgets/transparent_divider.dart';
+import '../widgets/link_widget.dart';
 import 'package:authentication/widgets/multiselect_widget.dart';
 import '../widgets/otp_pop_up.dart';
-import '../widgets/textfield.dart';
+import '../widgets/auth_textfield.dart';
 
 class SignUpPage extends StatefulWidget {
   final Store<AppState> store;
@@ -167,7 +167,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               child: Column(
                                 children: <Widget>[
                                   //*****************email**********************
-                                  TextFieldWidget(
+                                  AuthTextFieldWidget(
                                     label: 'email',
                                     obscure: false,
                                     icon: Icons.alternate_email_outlined,
@@ -181,7 +181,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   //**********************************************
                                   const TransparentDividerWidget(),
                                   //*****************password**********************
-                                  TextFieldWidget(
+                                  AuthTextFieldWidget(
                                     label: 'password',
                                     obscure: true,
                                     icon: Icons.lock_open_outlined,
@@ -197,7 +197,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   //**********************************************
                                   const TransparentDividerWidget(),
                                   //*****************confirm password**********************
-                                  TextFieldWidget(
+                                  AuthTextFieldWidget(
                                     label: 'confirm password',
                                     obscure: true,
                                     icon: Icons.lock_outline_rounded,
@@ -221,7 +221,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           StoreConnector<AppState, _ViewModel>(
                             vm: () => _Factory(this),
                             builder: (BuildContext context, _ViewModel vm) =>
-                                LongButtonWidget(
+                                AuthButtonWidget(
                               text: "Sign Up",
                               function: () {
                                 if (_tradesmanFormKey.currentState!
@@ -235,7 +235,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     false, // comment true for Consumer
                                   );
 
-                                  DialogHelper.display(
+                                  DarkDialogHelper.display(
                                     context,
                                     PopupWidget(
                                       store: widget.store,
@@ -398,7 +398,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               child: Column(
                                 children: <Widget>[
                                   //*****************email**********************
-                                  TextFieldWidget(
+                                  AuthTextFieldWidget(
                                     label: 'email',
                                     obscure: false,
                                     icon: Icons.alternate_email_outlined,
@@ -412,7 +412,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   //**********************************************
                                   const TransparentDividerWidget(),
                                   //*****************password**********************
-                                  TextFieldWidget(
+                                  AuthTextFieldWidget(
                                     label: 'password',
                                     obscure: true,
                                     icon: Icons.lock_open_outlined,
@@ -428,7 +428,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   //**********************************************
                                   const TransparentDividerWidget(),
                                   //*****************confirm password**********************
-                                  TextFieldWidget(
+                                  AuthTextFieldWidget(
                                     label: 'confirm password',
                                     obscure: true,
                                     icon: Icons.lock_outline_rounded,
@@ -452,7 +452,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           StoreConnector<AppState, _ViewModel>(
                             vm: () => _Factory(this),
                             builder: (BuildContext context, _ViewModel vm) =>
-                                LongButtonWidget(
+                                AuthButtonWidget(
                               text: "Sign Up",
                               function: () {
                                 if (_consumerFormKey.currentState!.validate()) {
@@ -465,7 +465,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     true, // comment true for Consumer
                                   );
 
-                                  DialogHelper.display(
+                                  DarkDialogHelper.display(
                                     context,
                                     PopupWidget(
                                       store: widget.store,
@@ -619,9 +619,8 @@ class _Factory extends VmFactory<AppState, _SignUpPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchSignUpAction:
-            (email, name, cell, tradeTypes, password, isConsumer) => dispatch(
-                RegisterUserAction(
-                    email, password, isConsumer)),
+            (email, name, cell, tradeTypes, password, isConsumer) =>
+                dispatch(RegisterUserAction(email, password, isConsumer)),
         pushLoginPage: () => dispatch(NavigateAction.pushNamed('/login')),
         pushLocationPage: () => dispatch(NavigateAction.pushNamed('/location')),
       );

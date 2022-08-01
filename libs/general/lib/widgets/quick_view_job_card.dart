@@ -4,6 +4,8 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
+//still deciding
+
 class QuickViewJobCardWidget extends StatelessWidget {
   final AdvertModel advert; // Current advert
   final Store<AppState> store;
