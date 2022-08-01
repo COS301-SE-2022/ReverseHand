@@ -39,7 +39,7 @@ class TradesmanJobDetails extends StatelessWidget {
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
                     date: vm.advert.dateCreated,
-                    type: vm.advert.type!,
+                    type: vm.advert.type ?? "",
                     location: vm.advert.location,
                   ),
 
