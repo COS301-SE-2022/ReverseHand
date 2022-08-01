@@ -4,7 +4,7 @@ import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/redux_comp.dart';
-import '../widgets/navbar.dart';
+import '../widgets/tradesman_navbar_widget.dart';
 import '../widgets/notification_card_widget.dart';
 
 class ActivityStream extends StatelessWidget {

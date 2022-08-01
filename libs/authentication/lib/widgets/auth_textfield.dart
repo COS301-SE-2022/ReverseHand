@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+//******************************** */
+//  login and signup textfields
+//******************************** */
+
 class AuthTextFieldWidget extends StatelessWidget {
   final String label;
   final bool obscure;

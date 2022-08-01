@@ -4,6 +4,10 @@ import 'package:redux_comp/actions/user/remove_domain_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
+//******************************** */
+//  domain list card widget
+//******************************** */
+
 class CardWidget extends StatelessWidget {
   final String title;
   final Store<AppState> store;

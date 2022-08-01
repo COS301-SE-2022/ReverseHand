@@ -8,7 +8,7 @@ import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/loading_widget.dart';
 
-import '../widgets/navbar.dart';
+import '../widgets/tradesman_navbar_widget.dart';
 
 class TradesmanJobListings extends StatelessWidget {
   final Store<AppState> store;

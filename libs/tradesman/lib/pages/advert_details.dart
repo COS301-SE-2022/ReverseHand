@@ -9,8 +9,8 @@ import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import '../widgets/navbar.dart';
-import '../widgets/place_bid_popup.dart';
+import '../widgets/tradesman_navbar_widget.dart';
+import '../widgets/place_bid_popup_widget.dart';
 // import '../widgets/place_bid_popup.dart';
 
 class TradesmanJobDetails extends StatelessWidget {

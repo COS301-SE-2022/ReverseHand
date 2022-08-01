@@ -8,7 +8,7 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
-import '../widgets/navbar.dart';
+import '../widgets/tradesman_navbar_widget.dart';
 
 class TBidDetailsPage extends StatelessWidget {
   final Store<AppState> store;

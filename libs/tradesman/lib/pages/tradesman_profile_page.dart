@@ -6,7 +6,7 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 
-import '../widgets/navbar.dart';
+import '../widgets/tradesman_navbar_widget.dart';
 
 class TradesmanProfilePage extends StatelessWidget {
   final Store<AppState> store;
