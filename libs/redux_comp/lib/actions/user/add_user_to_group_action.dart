@@ -10,13 +10,17 @@ import '../../models/error_type_model.dart';
 /* This action adds a user to a specified group if they have been verified on signup */
 
 class AddUserToGroupAction extends ReduxAction<AppState> {
+
+  final String username;
+  final String group;
+
+  AddUserToGroupAction(this.username, this.group);
   @override
   Future<AppState?> reduce() async {
     final String username = state.partialUser!.email;
     final String group = state.partialUser!.group;
 
     if (state.partialUser!.verified == "DONE") {
-      /* If the user is verified then the signUpStep is DONE, so we just update the partial user model and add the user to the correct group*/
       String graphQLDoc = '''mutation  {
           addUserToGroup(email: "$username", group: "$group")
         }
