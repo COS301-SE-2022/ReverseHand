@@ -12,6 +12,7 @@ import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
+import 'package:tradesman/methods/populate_bids.dart';
 
 import '../widgets/navbar.dart';
 
@@ -29,17 +30,17 @@ class TradesmanViewBidsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: DefaultTabController(
-        length: 2,
-        child: MaterialApp(
-          theme: CustomTheme.darkTheme,
-          home: Scaffold(
-            body: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
+      child: MaterialApp(
+        theme: CustomTheme.darkTheme,
+        home: Scaffold(
+          body: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) =>
+                SingleChildScrollView(
+              child: Column(
                 children: <Widget>[
                   //**********APPBAR*************//
-                  const AppBarWidget(title: "JOB INFO"),
+                  AppBarWidget(title: "JOB INFO", store: store),
                   //******************************//
 
                   //**********DETAILED JOB INFORMATION***********//
@@ -47,63 +48,57 @@ class TradesmanViewBidsPage extends StatelessWidget {
                     titleText: vm.advert.title,
                     descText: vm.advert.description ?? "",
                     date: vm.advert.dateCreated,
+                    type: vm.advert.type!,
                     location: vm.advert.location,
                   ),
                   //*******************************************//
 
                   const Padding(padding: EdgeInsets.all(10)),
 
-                  Expanded(
-                    child: Stack(children: [
-                      BottomOverlayWidget(
-                          height: MediaQuery.of(context).size.height / 2),
-                      TabBarView(
-                        children: [
-                          //**************TAB 1 INFO********************//
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(children: [
-                              ButtonWidget(
-                                  text: "Back",
-                                  color: "light",
-                                  border: "white",
-                                  function: vm.popPage)
-                            ]
-                                //all bids should be populated here
-                                ),
+                  Stack(children: [
+                    BottomOverlayWidget(
+                        height: MediaQuery.of(context).size.height),
+                    //**************TAB 1 INFO********************//
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      child: Column(children: [
+                        ...populateBids(vm.userId, vm.bids, store),
+                        //********IF NO BIDS********************/
+                        if (vm.bids.isEmpty)
+                          (const Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              "No bids have\n been made yet",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.white54),
+                            ),
+                          )),
+                        //**************************************/
+                        ButtonWidget(
+                            text: "Back",
+                            color: "light",
+                            border: "white",
+                            function: vm.popPage)
+                      ]
+                          //all bids should be populated here
                           ),
-                          //****************************************//
+                    ),
+                    //****************************************//
 
-                          //*****************TAB 2 INFO******************//
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(children: [
-                              ButtonWidget(
-                                  text: "Back",
-                                  color: "light",
-                                  border: "white",
-                                  function: vm.popPage)
-                            ]
-                                //active bids should be populated here
-                                ),
-                          ),
-                          //*****************TAB 2******************//
-                        ],
-                      ),
-                      //****************************************/
-                    ]),
-                  ),
+                    //****************************************/
+                  ]),
                 ],
               ),
             ),
-
-            //************************NAVBAR***********************/
-            bottomNavigationBar: TNavBarWidget(
-              store: store,
-            ),
-
-            //*************************************************//
           ),
+
+          //************************NAVBAR***********************/
+          bottomNavigationBar: TNavBarWidget(
+            store: store,
+          ),
+
+          //*************************************************//
         ),
       ),
     );
@@ -142,7 +137,7 @@ class _ViewModel extends Vm {
     required this.bids,
     required this.userId,
     required this.advert,
-  }) : super(equals: [change]);
+  }) : super(equals: [change, bids]);
 }
 
 /*

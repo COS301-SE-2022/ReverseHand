@@ -7,10 +7,16 @@ import '../../app_state.dart';
 import '../../models/advert_model.dart';
 
 class ViewJobsAction extends ReduxAction<AppState> {
+  final List<String> locations;
+  final List<String> tradetypes;
+
+  ViewJobsAction(this.locations, this.tradetypes);
+
   @override
   Future<AppState?> reduce() async {
+
     String graphQLDocument = '''query {
-      viewJobs(locations: "Pretoria", type: "Plumbing") {
+      viewJobs(locations: ${jsonEncode(locations)}, types: ${jsonEncode(tradetypes)}) {
         date_created
         date_closed
         description
@@ -38,4 +44,9 @@ class ViewJobsAction extends ReduxAction<AppState> {
       return null; /* On Error do not modify state */
     }
   }
+  @override
+  void before() => dispatch(WaitAction.add("view_jobs"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("view_jobs"));
 }

@@ -1,15 +1,13 @@
 import 'dart:convert';
-
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/geolocation/coordinates_model.dart';
-import 'package:redux_comp/models/geolocation/address_model.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
-
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
+import '../../models/geolocation/domain_model.dart';
 import '../adverts/view_adverts_action.dart';
 import '../adverts/view_jobs_action.dart';
 
@@ -33,6 +31,7 @@ class GetUserAction extends ReduxAction<AppState> {
               streetNumber
               street
               city
+              province
               zipCode
             }
             coordinates {
@@ -49,31 +48,18 @@ class GetUserAction extends ReduxAction<AppState> {
       );
 
       try {
-        await Amplify.API.mutate(request: request).response;
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response).data);
+            (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
         // build place model from result
-        String streetNumber = user["location"]["address"]["streetNumber"];
-        String street = user["location"]["address"]["street"];
-        String city = user["location"]["address"]["city"];
-        String zipCode = user["location"]["address"]["zipCode"];
-        double lat = double.parse(user["location"]["coordinates"]["lat"]);
-        double long = double.parse(user["location"]["coordinates"]["lng"]);
-        Address address = Address(
-            streetNumber: streetNumber,
-            street: street,
-            city: city,
-            province: "",
-            zipCode: zipCode);
-        Coordinates coords = Coordinates(lat: lat, long: long);
+        Location location = Location.fromJson(user["location"]);
 
         return state.copy(
           userDetails: state.userDetails!.copy(
             name: user["name"],
             cellNo: user["cellNo"],
             email: user["email"],
-            location: Location(address: address, coordinates: coords),
+            location: location,
           ),
         );
       } on ApiException catch (e) {
@@ -88,20 +74,14 @@ class GetUserAction extends ReduxAction<AppState> {
           email
           name
           cellNo
-          domains
-          tradetypes
-          location {
-            address {
-              streetNumber
-              street
-              city
-              zipCode
-            }
+          domains {
+            city
             coordinates {
               lat
               lng
             }
           }
+          tradetypes
         }
       }
       ''';
@@ -112,31 +92,25 @@ class GetUserAction extends ReduxAction<AppState> {
 
       try {
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response).data);
+            (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
 
-        String streetNumber = user["location"]["address"]["streetNumber"];
-        String street = user["location"]["address"]["street"];
-        String city = user["location"]["address"]["city"];
-        String zipCode = user["location"]["address"]["zipCode"];
-        double lat = double.parse(user["location"]["coordinates"]["lat"]);
-        double long = double.parse(user["location"]["coordinates"]["lng"]);
-        Address address = Address(
-            streetNumber: streetNumber,
-            street: street,
-            city: city,
-            province: "",
-            zipCode: zipCode);
-        Coordinates coords = Coordinates(lat: lat, long: long);
+        List<Domain> domains = [];
+        for (dynamic domain in user["domains"]) {
+          domains.add(Domain.fromJson(domain));
+        }
+        List<String> tradeTypes = [];
+        for (dynamic trade in user["tradetypes"]) {
+          tradeTypes.add(trade);
+        }
 
         return state.copy(
           userDetails: state.userDetails!.copy(
             name: user["name"],
             email: user["email"],
             cellNo: user["cellNo"],
-            domains: user["domains"],
-            tradeTypes: user["tradetypes"],
-            location: Location(address: address, coordinates: coords),
+            domains: domains,
+            tradeTypes: tradeTypes,
           ),
         );
       } on ApiException catch (e) {
@@ -148,10 +122,21 @@ class GetUserAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    state.userDetails!.userType == "Consumer"
-        ? await dispatch(ViewAdvertsAction(state.userDetails!.id))
-        : await dispatch(ViewJobsAction());
+    if (state.userDetails!.userType == "Consumer") {
+      dispatch(ViewAdvertsAction());
+    } else if (state.userDetails!.userType == "Tradesman") {
+      List<String> domains = [];
+      for (Domain d in state.userDetails!.domains) {
+        domains.add(d.city);
+      }
+      List<String> tradeTypes = state.userDetails!.tradeTypes;
+      dispatch(ViewJobsAction(domains, tradeTypes));
+    }
+
     dispatch(NavigateAction.pushNamed(
         "/${state.userDetails!.userType.toLowerCase()}"));
+    // wait until error has finished before stopping loading
+    store.waitCondition((state) => state.error == ErrorType.none);
+    dispatch(WaitAction.remove("flag"));
   }
 }

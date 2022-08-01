@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/adverts/edit_advert_action.dart';
@@ -34,20 +35,18 @@ class EditAdvertPage extends StatelessWidget {
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
-                titleController.text = vm.advert.title;
-                descriptionController.text =
-                    vm.advert.description != null ? vm.advert.description! : "";
-
+               
                 return Column(
                   children: <Widget>[
                     //*******************APP BAR WIDGET*********************//
-                    const AppBarWidget(title: "EDIT JOB"),
+                    AppBarWidget(title: "EDIT JOB", store: store),
                     //********************************************************//
 
                     //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
                       child: TextFieldWidget(
+                        initialVal: vm.advert.title,
                         label: "Title",
                         obscure: false,
                         min: 2,
@@ -57,6 +56,7 @@ class EditAdvertPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
                       child: TextFieldWidget(
+                        initialVal: vm.advert.description,
                         label: "Description",
                         obscure: false,
                         min: 3,
@@ -72,15 +72,19 @@ class EditAdvertPage extends StatelessWidget {
                           const Padding(padding: EdgeInsets.all(50)),
 
                           //*********CREATE JOB BUTTON******************//
-                          ButtonWidget(
-                            text: "Save Changes",
-                            // check to make sure input is good
-                            function: () => vm.dispatchEditAdvertAction(
-                              advertId: vm.advert.id,
-                              title: titleController.value.text,
-                              description: descriptionController.value.text,
-                            ), //need to dispatch save job action?
-                          ),
+                          vm.loading
+                              ? const LoadingWidget()
+                              : ButtonWidget(
+                                  text: "Save Changes",
+                                  // check to make sure input is good
+                                  function: () => vm.dispatchEditAdvertAction(
+                                    advertId: vm.advert.id,
+                                    title: titleController.value.text,
+                                    description:
+                                        descriptionController.value.text,
+                                    location: vm.advert.location
+                                  ), //need to dispatch save job action?
+                                ),
                           //********************************************//
                           const Padding(padding: EdgeInsets.all(5)),
 
@@ -118,6 +122,7 @@ class _Factory extends VmFactory<AppState, EditAdvertPage> {
   _ViewModel fromStore() => _ViewModel(
         popPage: () => dispatch(NavigateAction.pop()),
         advert: state.activeAd!,
+        loading: state.wait.isWaiting,
         dispatchEditAdvertAction: ({
           required String advertId,
           String? title,
@@ -148,10 +153,12 @@ class _ViewModel extends Vm {
     String? description,
     String? type,
   }) dispatchEditAdvertAction;
+  final bool loading;
 
   _ViewModel({
+    required this.loading,
     required this.popPage,
     required this.advert,
     required this.dispatchEditAdvertAction,
-  }); // implementinf hashcode
+  }) : super(equals: [loading]); // implementinf hashcode
 }

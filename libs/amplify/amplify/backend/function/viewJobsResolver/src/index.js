@@ -10,8 +10,11 @@ exports.handler = async (event) => {
    try {
       let keys = [];
       event.arguments.locations.forEach(function(location) {
-            keys.push({part_key: location, sort_key: event.arguments.type});
+          event.arguments.types.forEach(function(type) {
+            keys.push({part_key: location, sort_key: type});
+          });
       });
+
             
       let params = {
         RequestItems: {},
@@ -23,8 +26,16 @@ exports.handler = async (event) => {
       if (data.Responses.ReverseHand.length == 0) {
           return {"response" : "No adverts found"};
       } 
-      let adverts = data.Responses.ReverseHand[0].advert_list;
+      
+      let adverts = [];
+      
+      data.Responses.ReverseHand.forEach(function(response) {
+        response.advert_list.forEach(function(advert) {
+          adverts.push(advert);
+        });
+      });
            
+      console.log(adverts);
       let advert_keys = [];
       adverts.forEach(function(ad_id) {
           advert_keys.push({part_key: ad_id, sort_key: ad_id});
@@ -43,7 +54,7 @@ exports.handler = async (event) => {
         ad.advert_details["id"] = ad.part_key;
         response.push(
             ad.advert_details
-        )
+        );
       });
       
       return response;

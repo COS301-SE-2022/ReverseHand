@@ -33,7 +33,7 @@ class BidDetailsPage extends StatelessWidget {
                 children: <Widget>[
                   Stack(children: [
                     //**********APPBAR***********//
-                    const AppBarWidget(title: "BID DETAILS"),
+                    AppBarWidget(title: "BID DETAILS", store: store),
                     //***************************//
 
                     //************DATE***********//
@@ -58,39 +58,28 @@ class BidDetailsPage extends StatelessWidget {
                   ]),
 
                   //**********DIVIDER***********//
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Divider(
-                      height: 20,
-                      thickness: 0.5,
-                      indent: 15,
-                      endIndent: 15,
-                      color: Theme.of(context).primaryColorLight,
-                    ),
+                  Divider(
+                    height: 20,
+                    thickness: 0.5,
+                    indent: 15,
+                    endIndent: 15,
+                    color: Theme.of(context).primaryColorLight,
                   ),
                   //****************************//
 
-                  //******************INFO***************//
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      //name
-                      // Text('${vm.bid.name}',
-                      //     style: const TextStyle(
-                      //         fontSize: 33, color: Colors.white)),
-
-                      //keep for now - still testing if appBar stack works on other screens
-
                       const Padding(padding: EdgeInsets.all(15)),
 
-                      //bid range
+                      //**************BID RANGE***************/
                       const Center(
                         child: Text(
                           'Quoted price',
                           style: TextStyle(fontSize: 20, color: Colors.white70),
                         ),
                       ),
-                      const Padding(padding: EdgeInsets.all(8)),
+                      const Padding(padding: EdgeInsets.all(3)),
                       Center(
                         child: Text(
                           'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
@@ -100,32 +89,38 @@ class BidDetailsPage extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+                      //**************************************/
 
-                      if (vm.bid.isShortlisted())
-                        (Column(
-                          children: [
-                            const Padding(padding: EdgeInsets.all(20)),
-                            const Center(
-                              child: Text(
-                                'Contact Details',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white70),
-                              ),
-                            ),
-                            Center(
-                              child: Text(
-                                store.state.userDetails!.email!,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ))
+                      //**************SEE QUOTE BUTTON***************/
+                      //if quote is not uploaded
+                      const Center(
+                        child: (Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text(
+                            "No quote has been\n uploaded yet.",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white54),
+                          ),
+                        )),
+                      ),
+
+                      //if quote is uploaded
+                      // Padding(
+                      //   padding: const EdgeInsets.all(20.0),
+                      //   child: Center(
+                      //     child: ButtonWidget(
+                      //         text: "See Quote",
+                      //         color: "dark",
+                      //         function: () {
+                      //           DialogHelper.display(
+                      //               context, const QuotePopUpWidget());
+                      //         }),
+                      //   ),
+                      // )
+                      //**************&*****************************/
                     ],
                   ),
-                  //*************************************//
 
                   //****************BOTTOM BUTTONS**************//
                   const Padding(padding: EdgeInsets.all(15)),
@@ -134,17 +129,6 @@ class BidDetailsPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 2,
                     ),
 
-                    //shortlist/accept
-                    // Positioned(
-                    //   top: 20,
-                    //   child: ShortlistAcceptButtonWidget(
-                    //     shortBid: vm.bid.isShortlisted(),
-                    //     onTap: () => vm.bid.isShortlisted()
-                    //         ? vm.dispatchAcceptBidAction()
-                    //         : vm.dispatchShortListBidAction(),
-
-                    //   ),
-                    // ),
                     Positioned(
                       top: 20,
                       child: ButtonWidget(
@@ -158,7 +142,7 @@ class BidDetailsPage extends StatelessWidget {
                                   store: store,
                                   shortlisted:
                                       vm.bid.isShortlisted() ? true : false,
-                                )); //trigger OTP popup
+                                ));
                           }),
                     ),
 

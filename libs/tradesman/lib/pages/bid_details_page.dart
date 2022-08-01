@@ -8,7 +8,6 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
-
 import '../widgets/navbar.dart';
 
 class TBidDetailsPage extends StatelessWidget {
@@ -32,7 +31,7 @@ class TBidDetailsPage extends StatelessWidget {
                 children: <Widget>[
                   Stack(children: [
                     //**********APPBAR***********//
-                    const AppBarWidget(title: "BID DETAILS"),
+                    AppBarWidget(title: "BID DETAILS", store: store),
                     //***************************//
 
                     //************DATE***********//
@@ -102,21 +101,6 @@ class TBidDetailsPage extends StatelessWidget {
                         ),
 
                         const Padding(padding: EdgeInsets.all(40)),
-
-                        //contact information
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(
-                              Icons.info_outline,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                            Padding(padding: EdgeInsets.all(3)),
-                          ],
-                        ),
-
-                        //need to get this info dynamically
                       ]),
                   //*************************************//
 
@@ -127,9 +111,27 @@ class TBidDetailsPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 2,
                     ),
 
+                     Positioned(
+                      top: 20,
+                      right: 35,
+                      child: IconButton(
+                        onPressed: vm.pushEditBidsPage,
+                        icon: const Icon(Icons.edit),
+                        color: Colors.white70,
+                      ),
+                    ),
+
+                    //Delete
+                    Positioned(
+                        top: 40,
+                        child: ButtonWidget(
+                            text: "Delete",
+                            border: "White",
+                            function: vm.popPage)),
+
                     //Back
                     Positioned(
-                        top: 20,
+                        top: 95,
                         child: ButtonWidget(
                             text: "Back",
                             color: "light",
@@ -164,6 +166,9 @@ class _Factory extends VmFactory<AppState, TBidDetailsPage> {
         bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
+        pushEditBidsPage: () => dispatch(
+          NavigateAction.pushNamed('/tradesman/edit_bid'),
+        ),
       );
 }
 
@@ -174,6 +179,7 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchShortListBidAction;
   final VoidCallback dispatchAcceptBidAction;
   final bool change;
+  final void Function() pushEditBidsPage;
 
   _ViewModel({
     required this.dispatchAcceptBidAction,
@@ -181,5 +187,6 @@ class _ViewModel extends Vm {
     required this.bid,
     required this.popPage,
     required this.change,
+    required this.pushEditBidsPage,
   }) : super(equals: [change]); // implementinf hashcode
 }

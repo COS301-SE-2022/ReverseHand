@@ -47,7 +47,7 @@ class PlaceApiService {
         // map suggestions to a list
         return result['predictions'] 
             .map<Suggestion>((p) => Suggestion(p['place_id'], p['description']))
-            .toList();
+            .toList() as List<Suggestion> ;
       }
       if (result['status'] == 'ZERO_RESULTS') {
         return []; //if no results, return empty list
@@ -91,7 +91,7 @@ class PlaceApiService {
             province = c['long_name'];
           }
         }
-        final coordinates = Coordinates(lat: coords['lat'],long: coords['lng']);
+        final coordinates = Coordinates(lat: coords['lat'],lng: coords['lng']);
         final address = Address(streetNumber: streetNumber, street: street, city: city, province: province, zipCode: zipCode);
         return Location(address: address, coordinates: coordinates);
       }

@@ -74,7 +74,7 @@ void main() {
     // Now entering text into the various fields
     await tester.enterText(email, "alex@gmail.com");
     await tester.pumpAndSettle();
-    
+
     await tester.enterText(password, "password");
     await tester.pumpAndSettle();
 
@@ -83,6 +83,18 @@ void main() {
 
     //tap the sigup button and a pop with verify should show up
     await tester.tap(sUp);
+    await tester.pumpAndSettle();
+
+    //Icons on Tradesman page
+    expect(find.byIcon(Icons.lock_outline_rounded), findsNWidgets(1));
+    expect(find.byIcon(Icons.lock_open_outlined), findsNWidgets(1));
+    expect(find.byIcon(Icons.alternate_email_outlined), findsNWidgets(1));
+
+    //go to the client page
+    var client = find.widgetWithText(Tab, "Client");
+    expect(client, findsOneWidget);
+
+    await tester.tap(client);
     await tester.pumpAndSettle();
   });
 }

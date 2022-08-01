@@ -4,8 +4,8 @@ import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/redux_comp.dart';
-
 import '../widgets/navbar.dart';
+import '../widgets/notification_card_widget.dart';
 
 class ActivityStream extends StatelessWidget {
   final Store<AppState> store;
@@ -22,19 +22,39 @@ class ActivityStream extends StatelessWidget {
             child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) => Column(
-                children: const [
+                children: [
                   //*******************APP BAR WIDGET*********************//
-                    AppBarWidget(title: "ACTIVITY STREAM"),
-                    //********************************************************//
+                  AppBarWidget(title: "ACTIVITY STREAM", store: store),
+                  //********************************************************//
+
+                  //*******************MOCK NOTIFICATIONS CARDS*********************//
+                  NotificationCardWidget(
+                    titleText: "Accepted!", 
+                    descText: "Your bid was accepted!", 
+                    date: "3 min ago",
+                    store: store,
+                  ),
+
+                  NotificationCardWidget(
+                    titleText: "Shortlisted!", 
+                    descText: "Your bid was shortlisted!", 
+                    date: "3 min ago",
+                    store: store,
+                  ),
+
+                  NotificationCardWidget(
+                    titleText: "Bid Submitted!", 
+                    descText: "Your bid was submitted!", 
+                    date: "3 min ago",
+                    store: store,
+                  ),
+                   //********************************************************//
                 ],
               ),
             ),
           ),
-           //************************NAVBAR***********************/
-          // floatingActionButton: const FloatingButtonWidget(),
-          // floatingActionButtonLocation:
-          //     FloatingActionButtonLocation.centerDocked,
 
+           //************************NAVBAR***********************
           bottomNavigationBar: TNavBarWidget(
             store: store,
           ),

@@ -4,30 +4,19 @@ import 'package:general/widgets/button.dart';
 
 typedef RatingChangeCallback = void Function(double rating);
 
-class RatingPopUpWidget extends StatelessWidget {
+class RatingPopUpWidget extends StatefulWidget {
+  final VoidCallback onPressed;
+
   const RatingPopUpWidget({
     Key? key,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return RatingPopUp();
-  }
+  State<RatingPopUpWidget> createState() => RatingPopUpWidgetState();
 }
 
-class RatingPopUp extends StatefulWidget {
-  RatingPopUp({Key? key}) : super(key: key);
-  final otpController = TextEditingController();
-
-  void dispose() {
-    otpController.dispose();
-  }
-
-  @override
-  State<RatingPopUp> createState() => RatingPopUpState();
-}
-
-class RatingPopUpState extends State<RatingPopUp> {
+class RatingPopUpWidgetState extends State<RatingPopUpWidget> {
   double rating = 0;
 
   @override
@@ -43,11 +32,11 @@ class RatingPopUpState extends State<RatingPopUp> {
           children: [
             const Padding(padding: EdgeInsets.only(top: 15)),
             const Text(
-              "Please rate the service\n you received:",
+              "Please rate the Contractor services\n you received.",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 24, color: Colors.black),
             ),
-            const Padding(padding: EdgeInsets.all(20)),
+            const Padding(padding: EdgeInsets.all(15)),
             //*****************rating stars**********************
             StarRating(
               rating: rating,
@@ -55,11 +44,26 @@ class RatingPopUpState extends State<RatingPopUp> {
               color: Colors.orange,
             ),
             //*****************************************************
-            const Padding(padding: EdgeInsets.all(25)),
+            const Padding(padding: EdgeInsets.all(20)),
 
             //********************BUTTONS*******************//
-            ButtonWidget(text: "Submit", function: () {}),
-            const Padding(padding: EdgeInsets.only(top: 5)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ButtonWidget(
+                  text: "Submit",
+                  function: widget.onPressed, // fix later should pass in store
+                ),
+                const Padding(padding: EdgeInsets.all(5)),
+                ButtonWidget(
+                  text: "Cancel",
+                  color: "light",
+                  border: "lightBlue",
+                  function: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+
             //**********************************************//
           ],
         ),

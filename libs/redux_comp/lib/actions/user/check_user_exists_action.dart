@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:redux_comp/actions/user/get_user_action.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -22,8 +23,8 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
     );
 
     try {
-      final data = jsonDecode(
-          (await Amplify.API.mutate(request: request).response).data);
+      final data =
+          jsonDecode((await Amplify.API.query(request: request).response).data);
       final user = data["viewUser"];
 
       if (user["id"] == "User Not Found") {
@@ -46,10 +47,13 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() {
+  void after() async {
     if (state.userDetails!.registered! == false) {
       dispatch(NavigateAction.pushNamed(
           '/${state.userDetails!.userType.toLowerCase()}/edit_profile_page'));
+      // wait until error has finished before stopping loading
+      await store.waitCondition((state) => state.error == ErrorType.none);
+      dispatch(WaitAction.remove("flag"));
     }
   }
 }

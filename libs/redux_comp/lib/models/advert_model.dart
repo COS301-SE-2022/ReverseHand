@@ -27,11 +27,35 @@ class AdvertModel {
       id: obj['id'],
       title: obj['title'],
       description: obj['description'],
-      type: null,
+      type: obj['type'],
       acceptedBid: obj['accepted_bid'],
       location: obj['location'],
       dateCreated: obj['date_created'],
       dateClosed: obj['date_closed'],
     );
   }
+
+  @override
+  operator ==(Object other) =>
+      other is AdvertModel &&
+      id == other.id &&
+      title == other.title &&
+      description == other.description &&
+      type == other.type &&
+      acceptedBid == other.acceptedBid &&
+      location == other.location &&
+      dateCreated == other.dateCreated &&
+      dateClosed == other.dateCreated;
+
+  @override
+  int get hashCode => hashValues(
+        id,
+        title,
+        description,
+        type,
+        acceptedBid,
+        location,
+        dateCreated,
+        dateClosed,
+      );
 }
