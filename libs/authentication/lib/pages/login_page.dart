@@ -7,6 +7,7 @@ import 'package:general/theme.dart';
 import 'package:general/widgets/divider.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
+import 'package:redux_comp/actions/user/signin_facebook_action.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/edit_user_details_action.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
@@ -206,62 +207,66 @@ class LoginPage extends StatelessWidget {
                         //**********************************************************************/
 
                         //*******************sign in with image elements************************** */
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              children: [
-                                //Facebook
-                                GestureDetector(
-                                  onTap: () {}, // Image tapped
-                                  child: Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Image.asset(
-                                      'assets/images/facebook.png',
-                                      height: 100,
-                                      width: 100,
-                                      package: 'authentication',
+                        StoreConnector<AppState, _ViewModel>(
+                          vm: () => _Factory(this),
+                          builder: (BuildContext context, _ViewModel vm) => Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                children: [
+                                  //Facebook
+                                  GestureDetector(
+                                    onTap: () {}, // Image tapped
+                                    child: Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Image.asset(
+                                        'assets/images/facebook.png',
+                                        height: 100,
+                                        width: 100,
+                                        package: 'authentication',
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                //Google
-                                GestureDetector(
-                                  onTap: () {}, // Image tapped
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Image.asset(
-                                      'assets/images/google.png',
-                                      height: 100,
-                                      width: 100,
-                                      package: 'authentication',
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  //Google
+                                  GestureDetector(
+                                    onTap: vm
+                                        .dispatchSignInFacebook, // Image tapped
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Image.asset(
+                                        'assets/images/google.png',
+                                        height: 100,
+                                        width: 100,
+                                        package: 'authentication',
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                //Apple
-                                //Shouldn't always display, figure out device being used: todo
-                                GestureDetector(
-                                  onTap: () {}, // Image tapped
-                                  child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Image.asset(
-                                      'assets/images/apple.png',
-                                      height: 100,
-                                      width: 100,
-                                      package: 'authentication',
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  //Apple
+                                  //Shouldn't always display, figure out device being used: todo
+                                  GestureDetector(
+                                    onTap: () {}, // Image tapped
+                                    child: Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Image.asset(
+                                        'assets/images/apple.png',
+                                        height: 100,
+                                        width: 100,
+                                        package: 'authentication',
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         //******************************************************* */
                       ],
@@ -290,8 +295,8 @@ class _Factory extends VmFactory<AppState, LoginPage> {
           LoginAction(email, password),
         ),
         error: state.error,
-        dispatchEditUserAction: (String? name, Location? location) => dispatch(
-          EditUserDetailsAction(userId: "c#010", name: name, location: location),
+        dispatchSignInFacebook: () => dispatch(
+          SigninFacebookAction(),
         ),
       );
 }
@@ -299,14 +304,14 @@ class _Factory extends VmFactory<AppState, LoginPage> {
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
-  final void Function(String?, Location?) dispatchEditUserAction;
+  final void Function() dispatchSignInFacebook;
   final VoidCallback pushSignUpPage;
   final bool loading;
   final ErrorType error;
 
   _ViewModel({
     required this.dispatchLoginAction,
-    required this.dispatchEditUserAction,
+    required this.dispatchSignInFacebook,
     required this.loading,
     required this.pushSignUpPage,
     required this.error,
