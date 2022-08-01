@@ -4,6 +4,10 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
 
+//******************************** */
+//  navbar for tradesman
+//******************************** */
+
 class TNavBarWidget extends StatelessWidget {
   final Store<AppState> store;
   const TNavBarWidget({Key? key, required this.store}) : super(key: key);

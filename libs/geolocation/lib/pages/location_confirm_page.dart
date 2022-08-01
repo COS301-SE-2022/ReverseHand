@@ -6,7 +6,7 @@ import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-import 'package:tradesman/widgets/button_bar_widget.dart';
+import 'package:general/widgets/button_bar_widget.dart';
 import 'package:uuid/uuid.dart';
 
 class LocationConfirmPage extends StatelessWidget {

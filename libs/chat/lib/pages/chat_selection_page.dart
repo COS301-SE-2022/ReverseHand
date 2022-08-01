@@ -8,7 +8,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
-import 'package:tradesman/widgets/navbar.dart';
+import 'package:tradesman/widgets/tradesman_navbar_widget.dart';
 
 class ChatSelectionPage extends StatelessWidget {
   final Store<AppState> store;

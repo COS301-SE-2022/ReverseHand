@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+//******************************** */
+//  multiselect widget (trade type)
+//******************************** */
+
 class MultiSelectWidget extends StatefulWidget {
   final List<String> items; //list of types
   final List<String> selectedItems; //list of types
