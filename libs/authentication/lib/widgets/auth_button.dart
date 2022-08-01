@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+
+//******************************** */
+//  login and signup long button
+//******************************** */
+
 class AuthButtonWidget extends StatelessWidget {
   final String text;
   final void Function() function;
