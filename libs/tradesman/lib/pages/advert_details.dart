@@ -4,7 +4,7 @@ import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/dialog_helper.dart';
+import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -55,7 +55,7 @@ class TradesmanJobDetails extends StatelessWidget {
                     Positioned(
                         top: 35,
                         child: ButtonWidget(
-                            text: "Place Bid", function: () {DialogHelper.display(context,PlaceBidPopupWidget(store: store));})),
+                            text: "Place Bid", function: () {DarkDialogHelper.display(context,PlaceBidPopupWidget(store: store));})),
                     //fix function call here
                     //DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
 

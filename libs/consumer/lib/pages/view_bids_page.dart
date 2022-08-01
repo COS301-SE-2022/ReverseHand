@@ -1,7 +1,7 @@
 // import 'dart:html';
 
 import 'package:async_redux/async_redux.dart';
-import 'package:general/widgets/dialog_helper.dart';
+import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
@@ -65,7 +65,7 @@ class ViewBidsPage extends StatelessWidget {
                         text: "Filter",
                         color: "dark",
                         function: () {
-                          DialogHelper.display(
+                          DarkDialogHelper.display(
                             context,
                             FilterPopUpWidget(
                               store: store,

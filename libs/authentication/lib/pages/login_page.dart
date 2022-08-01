@@ -2,17 +2,15 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/widgets/circle_blur_widget.dart';
 import 'package:authentication/widgets/divider.dart';
-import 'package:authentication/widgets/textfield.dart';
+import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/user/signin_facebook_action.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
-import 'package:redux_comp/actions/user/edit_user_details_action.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/button.dart';
 import '../widgets/link.dart';
@@ -74,7 +72,7 @@ class LoginPage extends StatelessWidget {
                           child: Column(
                             children: <Widget>[
                               //*****************email**********************
-                              TextFieldWidget(
+                              AuthTextFieldWidget(
                                 label: 'email',
                                 obscure: false,
                                 icon: Icons.alternate_email_outlined,
@@ -89,7 +87,7 @@ class LoginPage extends StatelessWidget {
                                 color: Colors.transparent,
                               ),
                               //*****************password**********************
-                              TextFieldWidget(
+                              AuthTextFieldWidget(
                                 label: 'password',
                                 obscure: true,
                                 icon: Icons.lock_outline_rounded,

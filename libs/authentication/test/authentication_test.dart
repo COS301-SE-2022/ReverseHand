@@ -11,9 +11,9 @@ void main() {
     await tester.pumpWidget(LoginPage(store: store));
 
     //store important widgets for testing in variables
-    final email = find.widgetWithText(TextFieldWidget, "email");
+    final email = find.widgetWithText(AuthTextFieldWidget, "email");
     expect(email, findsOneWidget);
-    final password = find.widgetWithText(TextFieldWidget, "password");
+    final password = find.widgetWithText(AuthTextFieldWidget, "password");
     expect(password, findsOneWidget);
     final login = find.widgetWithText(LongButtonWidget, "Login");
     expect(login, findsOneWidget);
@@ -62,11 +62,11 @@ void main() {
     // expect(find.text("Sign Up"), findsNWidgets(2));
 
     //store important widgets to be used
-    var email = find.widgetWithText(TextFieldWidget, "email");
+    var email = find.widgetWithText(AuthTextFieldWidget, "email");
     expect(email, findsOneWidget);
-    var password = find.widgetWithText(TextFieldWidget, "password");
+    var password = find.widgetWithText(AuthTextFieldWidget, "password");
     expect(password, findsOneWidget);
-    var cPassword = find.widgetWithText(TextFieldWidget, "confirm password");
+    var cPassword = find.widgetWithText(AuthTextFieldWidget, "confirm password");
     expect(cPassword, findsOneWidget);
     var sUp = find.widgetWithText(LongButtonWidget, "Sign Up");
     expect(sUp, findsOneWidget);

@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/widgets/transparent_divider.dart';
-import 'package:authentication/widgets/textfield.dart';
+import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/blue_button_widget.dart';
 import 'package:redux_comp/actions/user/verify_user_action.dart';
@@ -44,7 +44,7 @@ class PopupWidget extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(left: 25, right: 25),
               padding: const EdgeInsets.all(8.0),
-              child: TextFieldWidget(
+              child: AuthTextFieldWidget(
                 label: 'otp',
                 obscure: false,
                 icon: Icons.domain_verification_outlined,

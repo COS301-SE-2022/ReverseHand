@@ -3,7 +3,7 @@ import 'package:general/widgets/pop_up.dart';
 
 //change to dark
 
-class DialogHelper {
+class DarkDialogHelper {
   static display(context, widget) {
     return showDialog(
       context: context,
