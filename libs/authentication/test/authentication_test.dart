@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
-import 'package:authentication/widgets/button.dart';
+import 'package:authentication/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:redux_comp/app_state.dart';
@@ -15,7 +15,7 @@ void main() {
     expect(email, findsOneWidget);
     final password = find.widgetWithText(AuthTextFieldWidget, "password");
     expect(password, findsOneWidget);
-    final login = find.widgetWithText(LongButtonWidget, "Login");
+    final login = find.widgetWithText(AuthButtonWidget, "Login");
     expect(login, findsOneWidget);
 
     expect(find.text("or"), findsOneWidget);
@@ -68,7 +68,7 @@ void main() {
     expect(password, findsOneWidget);
     var cPassword = find.widgetWithText(AuthTextFieldWidget, "confirm password");
     expect(cPassword, findsOneWidget);
-    var sUp = find.widgetWithText(LongButtonWidget, "Sign Up");
+    var sUp = find.widgetWithText(AuthButtonWidget, "Sign Up");
     expect(sUp, findsOneWidget);
 
     // Now entering text into the various fields

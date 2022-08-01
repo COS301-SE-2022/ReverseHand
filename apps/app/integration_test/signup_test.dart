@@ -1,4 +1,4 @@
-import 'package:authentication/widgets/button.dart';
+import 'package:authentication/widgets/auth_button.dart';
 import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,7 +37,7 @@ void main() {
     expect(confirmPassword, findsOneWidget);
 
     var signUpBtn =
-        find.widgetWithText(LongButtonWidget, "Sign Up"); //press action
+        find.widgetWithText(AuthButtonWidget, "Sign Up"); //press action
     expect(signUpBtn, findsOneWidget);
 
     //Entering an email in the emeail field
