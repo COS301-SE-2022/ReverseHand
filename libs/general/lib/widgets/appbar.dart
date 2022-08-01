@@ -2,17 +2,20 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 
+//used in consumer and tradesman
+
 class AppBarWidget extends StatelessWidget {
   final String title;
   final Store<AppState> store;
-  const AppBarWidget({Key? key, required this.title, required this.store}) : super(key: key);
+  const AppBarWidget({Key? key, required this.title, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     //ClipPath is alternative - keep this comment for now to remember
     return StoreProvider<AppState>(
-      store: store,
-      child: StoreConnector<AppState, _ViewModel>(
+        store: store,
+        child: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) => PhysicalShape(
             clipper: AppBarClipper(),
@@ -36,7 +39,9 @@ class AppBarWidget extends StatelessWidget {
                       Icons.notifications,
                       color: Colors.white,
                     ),
-                    onPressed: () {vm.pushActivityStreamPage();},
+                    onPressed: () {
+                      vm.pushActivityStreamPage();
+                    },
                     splashRadius: 1,
                     // highlightColor: Colors.orange,
                     // splashColor: Colors.white,
@@ -45,8 +50,7 @@ class AppBarWidget extends StatelessWidget {
               ),
             ),
           ),
-      )
-    );
+        ));
   }
 }
 
@@ -84,6 +88,5 @@ class _Factory extends VmFactory<AppState, AppBarWidget> {
 class _ViewModel extends Vm {
   final VoidCallback pushActivityStreamPage;
 
-  _ViewModel(
-      {required this.pushActivityStreamPage});
+  _ViewModel({required this.pushActivityStreamPage});
 }

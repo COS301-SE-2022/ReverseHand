@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/widgets/dialog_helper.dart';
+import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:consumer/widgets/shortlist_bid_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
@@ -136,7 +136,7 @@ class BidDetailsPage extends StatelessWidget {
                               ? "Accept Bid"
                               : "Shortlist Bid",
                           function: () {
-                            DialogHelper.display(
+                            LightDialogHelper.display(
                                 context,
                                 ShortlistPopUpWidget(
                                   store: store,

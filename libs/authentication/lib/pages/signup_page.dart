@@ -1,13 +1,13 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:authentication/widgets/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/dialog_helper.dart';
-import 'package:general/widgets/divider.dart';
 import 'package:redux_comp/actions/user/register_user_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/button.dart';
 import '../widgets/circle_blur_widget.dart';
-import '../widgets/divider.dart';
+import '../widgets/transparent_divider.dart';
 import '../widgets/link.dart';
 import 'package:authentication/widgets/multiselect_widget.dart';
 import '../widgets/otp_pop_up.dart';
@@ -619,9 +619,8 @@ class _Factory extends VmFactory<AppState, _SignUpPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchSignUpAction:
-            (email, name, cell, tradeTypes, password, isConsumer) => dispatch(
-                RegisterUserAction(
-                    email, password, isConsumer)),
+            (email, name, cell, tradeTypes, password, isConsumer) =>
+                dispatch(RegisterUserAction(email, password, isConsumer)),
         pushLoginPage: () => dispatch(NavigateAction.pushNamed('/login')),
         pushLocationPage: () => dispatch(NavigateAction.pushNamed('/location')),
       );

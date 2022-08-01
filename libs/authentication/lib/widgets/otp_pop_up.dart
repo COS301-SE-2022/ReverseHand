@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/divider.dart';
+import 'package:authentication/widgets/transparent_divider.dart';
 import 'package:authentication/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/blue_button_widget.dart';
@@ -69,8 +69,8 @@ class PopupWidget extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) =>
                   BlueButtonWidget(
                 text: "Verify OTP",
-                function: () => vm.dispatchVerifyUserAction(
-                    otpController.value.text.trim()),
+                function: () => vm
+                    .dispatchVerifyUserAction(otpController.value.text.trim()),
                 width: 150,
                 height: 50,
                 icon: Icons.domain_verification_outlined,

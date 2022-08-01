@@ -1,10 +1,10 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/widgets/circle_blur_widget.dart';
+import 'package:authentication/widgets/divider.dart';
 import 'package:authentication/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
-import 'package:general/widgets/divider.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/user/signin_facebook_action.dart';
