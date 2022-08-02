@@ -13,6 +13,7 @@ import 'package:async_redux/async_redux.dart';
 class IntiateAuthAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
+    // Amplify.Auth.signOut();
     final authSession = await Amplify.Auth.fetchAuthSession();
     if (authSession.isSignedIn == true) {
       final authSessionWithCredentials = (await Amplify.Auth.fetchAuthSession(
@@ -41,6 +42,8 @@ class IntiateAuthAction extends ReduxAction<AppState> {
       } else if (groups.contains("tradesman")) {
         userType = "Tradesman";
         id = "t#$id";
+      } else {
+        return state.copy(error: ErrorType.userNotInGroup);
       }
 
       return state.copy(
@@ -55,6 +58,8 @@ class IntiateAuthAction extends ReduxAction<AppState> {
   void after() {
     if (state.error == ErrorType.none) {
       dispatch(CheckUserExistsAction());
+    } else if (state.error == ErrorType.userNotInGroup) {
+      // dispatch(NavigateAction.pushNamed('/'));
     }
   }
 }
