@@ -2,7 +2,6 @@
 
 import 'package:async_redux/async_redux.dart';
 // ignore: depend_on_referenced_packages
-import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';

@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/user/create_user_action.dart';
 import 'package:redux_comp/actions/user/edit_user_details_action.dart';
