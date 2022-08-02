@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
+import 'package:redux_comp/actions/intiate_auth_action.dart';
 import 'package:redux_comp/actions/user/signin_facebook_action.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
@@ -294,7 +295,7 @@ class _Factory extends VmFactory<AppState, LoginPage> {
         ),
         error: state.error,
         dispatchSignInFacebook: () => dispatch(
-          SigninFacebookAction(),
+          IntiateAuthAction(),
         ),
       );
 }
