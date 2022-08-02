@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/dialog_helper.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -30,15 +29,20 @@ class TradesmanJobListings extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  Stack(alignment: Alignment.center, children: [
+                  Stack(children: [
                     AppBarWidget(title: "JOB LISTINGS", store: store),
                     //********************************************************//
                     Positioned(
-                      top: 95,
-                      child: ButtonWidget(
-                        text: "Filter",
-                        color: "dark",
-                        function: () {
+                      top: 110,
+                      right: 20,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).scaffoldBackgroundColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(
+                                    color: Theme.of(context).primaryColor))),
+                        onPressed: () {
                           DialogHelper.display(
                             context,
                             FilterPopUpWidget(
@@ -46,6 +50,15 @@ class TradesmanJobListings extends StatelessWidget {
                             ),
                           );
                         },
+                        icon: const Icon(
+                          Icons.filter_alt,
+                          size: 25,
+                        ),
+                        label: const Text(
+                          "Filter",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w300),
+                        ),
                       ),
                     ),
                   ]),
