@@ -22,6 +22,8 @@ class AddToBucketAction extends ReduxAction<AppState> {
       accessLevel: StorageAccessLevel.protected,
     );
 
+    // AuthUser temp = await Amplify.Auth.getCurrentUser();
+
     // Upload the file to S3 with protected access
     try {
       final UploadFileResult result = await Amplify.Storage.uploadFile(
