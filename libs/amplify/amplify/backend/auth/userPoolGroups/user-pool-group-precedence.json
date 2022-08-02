@@ -6,5 +6,9 @@
   {
     "groupName": "tradesman",
     "precedence": 2
+  },
+  {
+    "groupName": "admin",
+    "precedence": 3
   }
 ]

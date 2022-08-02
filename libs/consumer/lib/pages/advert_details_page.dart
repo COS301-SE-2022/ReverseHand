@@ -42,9 +42,7 @@ class AdvertDetailsPage extends StatelessWidget {
                     location: vm.advert.location,
                     type: vm.advert.type ?? "",
                     date: vm.advert.dateCreated,
-                    // location: advert.location ?? "",
                   ),
-
                   //*******************************************//
 
                   //******************EDIT ICON****************//
@@ -59,8 +57,6 @@ class AdvertDetailsPage extends StatelessWidget {
                       ),
                     )),
                   //**********************************************/
-
-                  // DialogHelper.display(context, const RatingPopUpWidget()),
 
                   const Padding(padding: EdgeInsets.only(top: 20)),
 

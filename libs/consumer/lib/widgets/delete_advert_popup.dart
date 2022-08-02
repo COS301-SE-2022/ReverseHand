@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
 
+//popup info for deleting an advert
+
 class DeletePopUpWidget extends StatelessWidget {
   const DeletePopUpWidget({Key? key}) : super(key: key);
 

@@ -1,13 +1,28 @@
 export type AmplifyDependentResourcesAttributes = {
+    "storage": {
+        "S3ReverseHand": {
+            "BucketName": "string",
+            "Region": "string"
+        }
+    },
     "auth": {
         "reversehandc4d19aa6c4d19aa6": {
+            "IdentityPoolId": "string",
+            "IdentityPoolName": "string",
             "HostedUIDomain": "string",
             "OAuthMetadata": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string"
+            "AppClientID": "string",
+            "GoogleWebClient": "string",
+            "FacebookWebClient": "string"
+        },
+        "userPoolGroups": {
+            "customerGroupRole": "string",
+            "tradesmanGroupRole": "string",
+            "adminGroupRole": "string"
         }
     },
     "api": {

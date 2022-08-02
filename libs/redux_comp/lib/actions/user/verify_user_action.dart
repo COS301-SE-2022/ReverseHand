@@ -40,6 +40,6 @@ class VerifyUserAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    await dispatch(AddUserToGroupAction());
+    await dispatch(AddUserToGroupAction(state.partialUser!.email, state.partialUser!.group));
   }
 }

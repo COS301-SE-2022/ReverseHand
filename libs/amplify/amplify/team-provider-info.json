@@ -14,7 +14,10 @@
     "categories": {
       "auth": {
         "userPoolGroups": {},
-        "reversehandc4d19aa6c4d19aa6": {}
+        "reversehandc4d19aa6c4d19aa6": {
+          "facebookAppId": "1269894613781517",
+          "googleClientId": "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com"
+        }
       },
       "storage": {
         "ReverseHand": {

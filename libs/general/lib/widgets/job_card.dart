@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//used in consumer and tradesman - check again?
+//used in consumer and tradesman
 
 class JobCardWidget extends StatelessWidget {
   final String titleText;

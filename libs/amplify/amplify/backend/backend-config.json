@@ -11,24 +11,43 @@
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": []
-    }
-  },
-  "auth": {
-    "userPoolGroups": {
-      "service": "Cognito-UserPool-Groups",
+    },
+    "S3ReverseHand": {
+      "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "auth",
           "resourceName": "reversehandc4d19aa6c4d19aa6",
           "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID"
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "customerGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "tradesmanGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "adminGroupRole"
           ]
         }
       ]
-    },
+    }
+  },
+  "auth": {
     "reversehandc4d19aa6c4d19aa6": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
@@ -57,6 +76,22 @@
           "EMAIL"
         ]
       }
+    },
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "reversehandc4d19aa6c4d19aa6",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ]
     }
   },
   "api": {
