@@ -3,7 +3,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
-import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
@@ -27,96 +26,92 @@ class ViewBidsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) =>
-                SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  //**********APPBAR*************//
-                  AppBarWidget(title: "JOB INFO", store: store),
-                  //******************************//
+      child: Scaffold(
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) =>
+              SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                //**********APPBAR*************//
+                AppBarWidget(title: "JOB INFO", store: store),
+                //******************************//
 
-                  //**********DETAILED JOB INFORMATION***********//
-                  JobCardWidget(
-                    titleText: vm.advert.title,
-                    descText: vm.advert.description ?? "",
-                    date: vm.advert.dateCreated,
-                    type: vm.advert.type!,
-                    location: vm.advert.location,
-                  ),
-                  //*******************************************//
+                //**********DETAILED JOB INFORMATION***********//
+                JobCardWidget(
+                  titleText: vm.advert.title,
+                  descText: vm.advert.description ?? "",
+                  date: vm.advert.dateCreated,
+                  type: vm.advert.type!,
+                  location: vm.advert.location,
+                ),
+                //*******************************************//
 
-                  const Padding(padding: EdgeInsets.all(10)),
-                  //********************BUTTONS*****************//
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ButtonWidget(
-                          text: "Back",
-                          color: "dark",
-                          border: "white",
-                          function: vm.popPage),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      ButtonWidget(
-                        text: "Filter",
+                const Padding(padding: EdgeInsets.all(10)),
+                //********************BUTTONS*****************//
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ButtonWidget(
+                        text: "Back",
                         color: "dark",
-                        function: () {
-                          DarkDialogHelper.display(
-                            context,
-                            FilterPopUpWidget(
-                              store: store,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  //*******************************************//
-                  const Padding(padding: EdgeInsets.all(5)),
-                  Stack(children: [
-                    BottomOverlayWidget(
-                        height: MediaQuery.of(context).size.height),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(children: [
-                        ...populateBids(vm.bids, store),
-                        //********IF NO BIDS********************/
-                        if (vm.bids.isEmpty)
-                          const Center(
-                            child: (Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "No bids to\n display",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white54),
-                              ),
-                            )),
+                        border: "white",
+                        function: vm.popPage),
+                    const Padding(padding: EdgeInsets.all(5)),
+                    ButtonWidget(
+                      text: "Filter",
+                      color: "dark",
+                      function: () {
+                        DarkDialogHelper.display(
+                          context,
+                          FilterPopUpWidget(
+                            store: store,
                           ),
-                        //**************************************/
-                      ]),
+                        );
+                      },
                     ),
-                  ]),
-                ],
-              ),
+                  ],
+                ),
+                //*******************************************//
+                const Padding(padding: EdgeInsets.all(5)),
+                Stack(children: [
+                  BottomOverlayWidget(
+                      height: MediaQuery.of(context).size.height),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(children: [
+                      ...populateBids(vm.bids, store),
+                      //********IF NO BIDS********************/
+                      if (vm.bids.isEmpty)
+                        const Center(
+                          child: (Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              "No bids to\n display",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.white54),
+                            ),
+                          )),
+                        ),
+                      //**************************************/
+                    ]),
+                  ),
+                ]),
+              ],
             ),
           ),
-
-          //************************NAVBAR***********************/
-          bottomNavigationBar: NavBarWidget(
-            store: store,
-          ),
-
-          resizeToAvoidBottomInset: false,
-          // floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          //*************************************************//
         ),
+
+        //************************NAVBAR***********************/
+        bottomNavigationBar: NavBarWidget(
+          store: store,
+        ),
+
+        resizeToAvoidBottomInset: false,
+        // floatingActionButton: const FloatingButtonWidget(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        //*************************************************//
       ),
     );
   }

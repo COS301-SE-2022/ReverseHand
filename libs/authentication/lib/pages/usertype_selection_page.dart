@@ -79,6 +79,7 @@ class UserTypeSelectionPage extends StatelessWidget {
                                     text: "Contractor",
                                     function: () {
                                       //tradesman function
+                                      vm.pushSignUpPage();
                                     },
                                   ),
                                 ),
@@ -97,6 +98,7 @@ class UserTypeSelectionPage extends StatelessWidget {
                                     text: "Client",
                                     function: () => {
                                       //consumer function
+                                      vm.pushSignUpPage(),
                                     },
                                   ),
                                ),
@@ -129,6 +131,8 @@ class _Factory extends VmFactory<AppState, UserTypeSelectionPage> {
         dispatchSignInFacebook: () => dispatch(
           SigninFacebookAction(),
         ),
+        pushSignUpPage: () =>
+            dispatch(NavigateAction.pushNamed('/signup')),
       );
 }
 
@@ -137,10 +141,12 @@ class _ViewModel extends Vm {
   final void Function() dispatchSignInFacebook;
   final bool loading;
   final ErrorType error;
+  final VoidCallback pushSignUpPage;
 
   _ViewModel({
     required this.dispatchSignInFacebook,
     required this.loading,
     required this.error,
+    required this.pushSignUpPage,
   }) : super(equals: [loading, error]); // implementing hashcode
 }

@@ -30,76 +30,73 @@ class TradesmanViewBidsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) =>
-                SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  //**********APPBAR*************//
-                  AppBarWidget(title: "JOB INFO", store: store),
-                  //******************************//
+      child: Scaffold(
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) =>
+              SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                //**********APPBAR*************//
+                AppBarWidget(title: "JOB INFO", store: store),
+                //******************************//
 
-                  //**********DETAILED JOB INFORMATION***********//
-                  JobCardWidget(
-                    titleText: vm.advert.title,
-                    descText: vm.advert.description ?? "",
-                    date: vm.advert.dateCreated,
-                    type: vm.advert.type ?? "",
-                    location: vm.advert.location,
-                  ),
-                  //*******************************************//
+                //**********DETAILED JOB INFORMATION***********//
+                JobCardWidget(
+                  titleText: vm.advert.title,
+                  descText: vm.advert.description ?? "",
+                  date: vm.advert.dateCreated,
+                  type: vm.advert.type ?? "",
+                  location: vm.advert.location,
+                ),
+                //*******************************************//
 
-                  const Padding(padding: EdgeInsets.all(10)),
+                const Padding(padding: EdgeInsets.all(10)),
 
-                  Stack(children: [
-                    BottomOverlayWidget(
-                        height: MediaQuery.of(context).size.height),
-                    //**************TAB 1 INFO********************//
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      child: Column(children: [
-                        ...populateBids(vm.userId, vm.bids, store),
-                        //********IF NO BIDS********************/
-                        if (vm.bids.isEmpty)
-                          (const Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "No bids have\n been made yet",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white54),
-                            ),
-                          )),
-                        //**************************************/
-                        ButtonWidget(
-                            text: "Back",
-                            color: "light",
-                            border: "white",
-                            function: vm.popPage)
-                      ]
-                          //all bids should be populated here
+                Stack(children: [
+                  BottomOverlayWidget(
+                      height: MediaQuery.of(context).size.height),
+                  //**************TAB 1 INFO********************//
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(children: [
+                      ...populateBids(vm.userId, vm.bids, store),
+                      //********IF NO BIDS********************/
+                      if (vm.bids.isEmpty)
+                        (const Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text(
+                            "No bids have\n been made yet",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white54),
                           ),
-                    ),
-                    //****************************************//
+                        )),
+                      //**************************************/
+                      ButtonWidget(
+                          text: "Back",
+                          color: "light",
+                          border: "white",
+                          function: vm.popPage)
+                    ]
+                        //all bids should be populated here
+                        ),
+                  ),
+                  //****************************************//
 
-                    //****************************************/
-                  ]),
-                ],
-              ),
+                  //****************************************/
+                ]),
+              ],
             ),
           ),
-
-          //************************NAVBAR***********************/
-          bottomNavigationBar: TNavBarWidget(
-            store: store,
-          ),
-
-          //*************************************************//
         ),
+
+        //************************NAVBAR***********************/
+        bottomNavigationBar: TNavBarWidget(
+          store: store,
+        ),
+
+        //*************************************************//
       ),
     );
   }
