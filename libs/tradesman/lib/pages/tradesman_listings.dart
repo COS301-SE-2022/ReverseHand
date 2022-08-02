@@ -2,6 +2,8 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/button.dart';
+import 'package:general/widgets/dialog_helper.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
@@ -9,6 +11,7 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/loading_widget.dart';
 
 import '../widgets/navbar.dart';
+import '../widgets/tradesman_filter_popup.dart';
 
 class TradesmanJobListings extends StatelessWidget {
   final Store<AppState> store;
@@ -27,28 +30,47 @@ class TradesmanJobListings extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
+                  Stack(alignment: Alignment.center, children: [
                     AppBarWidget(title: "JOB LISTINGS", store: store),
                     //********************************************************//
-                  ...populateAdverts(vm.adverts, store),
-                    if (vm.loading) const LoadingWidget()
-
-                    //************MESSAGE IF THERE ARE NO ADVERTS***********/
-                    else if (vm.adverts.isEmpty)
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: (MediaQuery.of(context).size.height) / 3),
-                        child: const Text(
-                          "There are no\n active jobs",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 25, color: Colors.white54),
-                        ),
+                    Positioned(
+                      top: 95,
+                      child: ButtonWidget(
+                        text: "Filter",
+                        color: "dark",
+                        function: () {
+                          DialogHelper.display(
+                            context,
+                            FilterPopUpWidget(
+                              store: store,
+                            ),
+                          );
+                        },
                       ),
-                    //*****************************************************/
+                    ),
+                  ]),
+                  ...populateAdverts(vm.adverts, store),
+
+                  if (vm.loading)
+                    const LoadingWidget()
+
+                  //************MESSAGE IF THERE ARE NO ADVERTS***********/
+                  else if (vm.adverts.isEmpty)
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: (MediaQuery.of(context).size.height) / 3),
+                      child: const Text(
+                        "There are no\n active jobs",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 25, color: Colors.white54),
+                      ),
+                    ),
+                  //*****************************************************/
                 ],
               ),
             ),
           ),
-           //************************NAVBAR***********************/
+          //************************NAVBAR***********************/
 
           bottomNavigationBar: TNavBarWidget(
             store: store,
