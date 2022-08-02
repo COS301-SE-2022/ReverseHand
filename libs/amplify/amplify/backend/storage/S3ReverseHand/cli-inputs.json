@@ -1,0 +1,12 @@
+{
+  "resourceName": "S3ReverseHand",
+  "policyUUID": "e797b8e8",
+  "bucketName": "reversehandbucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

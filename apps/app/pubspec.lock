@@ -8,111 +8,104 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  amplify_analytics_plugin_interface:
-    dependency: transitive
-    description:
-      name: amplify_analytics_plugin_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
   amplify_api:
     dependency: transitive
     description:
       name: amplify_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_api_android:
     dependency: transitive
     description:
       name: amplify_api_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_api_ios:
     dependency: transitive
     description:
       name: amplify_api_ios
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
-  amplify_api_plugin_interface:
-    dependency: transitive
-    description:
-      name: amplify_api_plugin_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_auth_cognito:
     dependency: transitive
     description:
       name: amplify_auth_cognito
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_auth_cognito_android:
     dependency: transitive
     description:
       name: amplify_auth_cognito_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_auth_cognito_ios:
     dependency: transitive
     description:
       name: amplify_auth_cognito_ios
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
-  amplify_auth_plugin_interface:
-    dependency: transitive
-    description:
-      name: amplify_auth_plugin_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_core:
     dependency: transitive
     description:
       name: amplify_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_datastore_plugin_interface:
     dependency: transitive
     description:
       name: amplify_datastore_plugin_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_flutter:
     dependency: transitive
     description:
       name: amplify_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_flutter_android:
     dependency: transitive
     description:
       name: amplify_flutter_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
   amplify_flutter_ios:
     dependency: transitive
     description:
       name: amplify_flutter_ios
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
-  amplify_storage_plugin_interface:
+    version: "0.6.5"
+  amplify_storage_s3:
     dependency: transitive
     description:
-      name: amplify_storage_plugin_interface
+      name: amplify_storage_s3
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.5"
+  amplify_storage_s3_android:
+    dependency: transitive
+    description:
+      name: amplify_storage_s3_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.5"
+  amplify_storage_s3_ios:
+    dependency: transitive
+    description:
+      name: amplify_storage_s3_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.5"
   archive:
     dependency: transitive
     description:
@@ -141,6 +134,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  aws_common:
+    dependency: transitive
+    description:
+      name: aws_common
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -204,13 +204,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  date_time_format:
-    dependency: transitive
-    description:
-      name: date_time_format
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   example:
     dependency: "direct main"
     description:
@@ -306,6 +299,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   json_annotation:
     dependency: transitive
     description:
@@ -375,7 +375,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.10"
+    version: "2.0.11"
   path_provider_android:
     dependency: transitive
     description:
@@ -472,6 +472,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  stream_transform:
+    dependency: transitive
+    description:
+      name: stream_transform
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   string_scanner:
     dependency: transitive
     description:
