@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
+import 'package:authentication/pages/consumer_signup_page.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';

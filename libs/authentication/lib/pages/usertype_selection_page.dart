@@ -72,11 +72,15 @@ class UserTypeSelectionPage extends StatelessWidget {
                               //*****************TRADESMAN signup button**********************
                               Align(
                                 alignment: Alignment.center,
-                                child: AuthButtonWidget(
-                                  text: "Tradesman",
-                                  function: () {
-                                    //tradesman function
-                                  },
+                                child:  StoreConnector<AppState, _ViewModel>(
+                                vm: () => _Factory(this),
+                                builder: (BuildContext context, _ViewModel vm) =>
+                                  AuthButtonWidget(
+                                    text: "Contractor",
+                                    function: () {
+                                      //tradesman function
+                                    },
+                                  ),
                                 ),
                               ),
                               //***************************************************/
@@ -86,12 +90,16 @@ class UserTypeSelectionPage extends StatelessWidget {
                               ),
 
                               //*****************CONSUMER signup button**********************
-                              AuthButtonWidget(
-                                text: "Consumer",
-                                function: () {
-                                  //consumer function
-                                },
-                              ),
+                               StoreConnector<AppState, _ViewModel>(
+                                vm: () => _Factory(this),
+                                builder: (BuildContext context, _ViewModel vm) =>
+                                    AuthButtonWidget(
+                                    text: "Client",
+                                    function: () => {
+                                      //consumer function
+                                    },
+                                  ),
+                               ),
                               //***************************************************/
                             ],
                           ),

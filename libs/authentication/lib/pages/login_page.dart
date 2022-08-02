@@ -245,24 +245,6 @@ class LoginPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Column(
-                                children: [
-                                  //Apple
-                                  //Shouldn't always display, figure out device being used: todo
-                                  GestureDetector(
-                                    onTap: () {}, // Image tapped
-                                    child: Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Image.asset(
-                                        'assets/images/apple.png',
-                                        height: 100,
-                                        width: 100,
-                                        package: 'authentication',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ],
                           ),
                         ),
@@ -288,7 +270,7 @@ class _Factory extends VmFactory<AppState, LoginPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
-        pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/usertype_selection')),
+        pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/signup')),
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),
@@ -313,5 +295,5 @@ class _ViewModel extends Vm {
     required this.loading,
     required this.pushSignUpPage,
     required this.error,
-  }) : super(equals: [loading, error]); // implementing hashcode
+  }) : super(equals: [loading, error]); 
 }

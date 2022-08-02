@@ -12,6 +12,10 @@ import '../widgets/link_widget.dart';
 import '../widgets/otp_pop_up.dart';
 import '../widgets/auth_textfield.dart';
 
+//************************************** */
+//Consumer sign up page
+//************************************** */
+
 class SignUpPage extends StatefulWidget {
   final Store<AppState> store;
 
@@ -32,7 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   // used for validation
   final _consumerFormKey = GlobalKey<FormState>();
-  final _tradesmanFormKey = GlobalKey<FormState>();
 
   String? Function(String?) _createValidator(
       String kind, String invalidMsg, RegExp regex) {
@@ -55,60 +58,10 @@ class _SignUpPageState extends State<SignUpPage> {
       store: widget.store,
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
-        //*****************Tab View**********************
-        home: DefaultTabController(
-          length: 2,
-          child: Scaffold(
-              body: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                const SliverAppBar(
-                  backgroundColor: Color.fromRGBO(18, 26, 34, 1),
-                  centerTitle: true,
-                  title: Text(
-                    'SIGN UP',
-                    style: TextStyle(
-                      fontSize: 25,
-                      letterSpacing: 5,
-                    ),
-                  ),
-                  pinned: true,
-                  floating: true,
-                  bottom: TabBar(
-                    isScrollable: true,
-                    indicatorColor: Color.fromRGBO(243, 157, 55, 1),
-                    indicatorWeight: 5,
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.grey,
-                    labelPadding: EdgeInsets.only(left: 50, right: 50),
-                    tabs: [
-                      //*****************Tabs**********************
-                      Tab(
-                          child: Text(
-                        'Contractor',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )),
-                      Tab(
-                          child: Text(
-                        'Client',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      )),
-                      //*******************************************
-                    ],
-                  ),
-                ),
-              ];
-            },
-            body: TabBarView(
+        home: Scaffold(
+            body: Stack(
               children: <Widget>[
-                //*****************Tab Pages**********************
-
-                //*****************Tradesman SignUp**********************
+                //*****************SignUp**********************
                 Stack(
                   children: <Widget>[
                     //*****************Top circle blur**********************
@@ -127,242 +80,22 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                        //*****************LOGO*****************************
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              height: 250,
+                              width: 250,
+                              package: 'authentication',
+                            ),
+                          ),
+                          //*************************************************
                           //*****************form****************************
                           Container(
                             margin: const EdgeInsets.only(top: 10.0),
                             padding: const EdgeInsets.all(20),
                             child: Form(
-                              key: _tradesmanFormKey,
-                              child: Column(
-                                children: <Widget>[
-                                  //*****************email**********************
-                                  AuthTextFieldWidget(
-                                    label: 'email',
-                                    obscure: false,
-                                    icon: Icons.alternate_email_outlined,
-                                    controller: emailController,
-                                    validator: _createValidator(
-                                        'email',
-                                        'is invalid',
-                                        RegExp(
-                                            r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
-                                  ),
-                                  //**********************************************
-                                  const TransparentDividerWidget(),
-                                  //*****************password**********************
-                                  AuthTextFieldWidget(
-                                    label: 'password',
-                                    obscure: true,
-                                    icon: Icons.lock_open_outlined,
-                                    controller: passwordController,
-                                    validator: _createValidator(
-                                      'password',
-                                      'must be at least 8 characters with upper and lowercase, atleast one number and special character',
-                                      RegExp(
-                                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                                      ),
-                                    ),
-                                  ),
-                                  //**********************************************
-                                  const TransparentDividerWidget(),
-                                  //*****************confirm password**********************
-                                  AuthTextFieldWidget(
-                                    label: 'confirm password',
-                                    obscure: true,
-                                    icon: Icons.lock_outline_rounded,
-                                    controller: confirmController,
-                                    validator: _createValidator(
-                                      'password',
-                                      'must be at least 8 characters with upper and lowercase, atleast one number and special character',
-                                      RegExp(
-                                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                                      ),
-                                    ),
-                                  ),
-                                  //**********************************************
-                                ],
-                              ),
-                            ),
-                          ),
-                          //****************************************************
-
-                          //*****************signup button**********************
-                          StoreConnector<AppState, _ViewModel>(
-                            vm: () => _Factory(this),
-                            builder: (BuildContext context, _ViewModel vm) =>
-                                AuthButtonWidget(
-                              text: "Sign Up",
-                              function: () {
-                                if (_tradesmanFormKey.currentState!
-                                    .validate()) {
-                                  vm.dispatchSignUpAction(
-                                    emailController.value.text.trim(),
-                                    nameController.value.text.trim(),
-                                    cellController.value.text.trim(),
-                                    passwordController.value.text.trim(),
-                                    false, // comment true for Consumer
-                                  );
-
-                                  DarkDialogHelper.display(
-                                    context,
-                                    PopupWidget(
-                                      store: widget.store,
-                                    ),
-                                  ); //trigger OTP popup
-                                }
-                              },
-                            ),
-                          ),
-                          //***************************************************
-
-                          //*****************"OR" divider"**********************
-                          SizedBox(
-                            height: 30,
-                            child: Row(
-                              children: const [
-                                Expanded(
-                                  child: DividerWidget(),
-                                ),
-                                Text("or"),
-                                Expanded(
-                                  child: DividerWidget(),
-                                ),
-                              ],
-                            ),
-                          ),
-                          //****************************************************** */
-
-                          //*****************Sign in Link**********************
-                          StoreConnector<AppState, _ViewModel>(
-                            vm: () => _Factory(this),
-                            builder: (BuildContext context, _ViewModel vm) =>
-                                LinkWidget(
-                              text1: "Already have an account? ",
-                              text2: "Sign In",
-                              navigate: () => vm.pushLoginPage(),
-                            ),
-                          ),
-
-                          //******************************************************* */
-                          const Divider(
-                            height: 20,
-                            thickness: 0.5,
-                            indent: 15,
-                            endIndent: 10,
-                            color: Colors.transparent,
-                          ),
-                          //*******************sign in with text************************** */
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              SizedBox(
-                                height: 20,
-                                child: Text(
-                                  'or sign up with:',
-                                  style: TextStyle(
-                                    fontFamily: 'Segoe UI',
-                                    fontSize: 12,
-                                    color: Color(0x7df5fffa),
-                                  ),
-                                  softWrap: false,
-                                ),
-                              ),
-                            ],
-                          ),
-                          //**********************************************************************/
-
-                          //*******************sign in with image elements************************** */
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                children: [
-                                  //Facebook
-                                  GestureDetector(
-                                    onTap: () {}, // Image tapped
-                                    child: Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Image.asset(
-                                        'assets/images/facebook.png',
-                                        height: 100,
-                                        width: 100,
-                                        package: 'authentication',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  //Google
-                                  GestureDetector(
-                                    onTap: () {}, // Image tapped
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Image.asset(
-                                        'assets/images/google.png',
-                                        height: 100,
-                                        width: 100,
-                                        package: 'authentication',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  //Apple
-                                  //Shouldn't always display, figure out device being used: todo
-                                  GestureDetector(
-                                    onTap: () {}, // Image tapped
-                                    child: Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Image.asset(
-                                        'assets/images/apple.png',
-                                        height: 100,
-                                        width: 100,
-                                        package: 'authentication',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          //******************************************************* */
-                        ],
-                      ),
-                    ),
-                    //******************************************************* */
-                  ],
-                ),
-                //******************************************************
-
-                //*****************Consumer SignUp**********************
-                Stack(
-                  children: <Widget>[
-                    //*****************Top circle blur**********************
-                    const CircleBlurWidget(),
-                    //*******************************************************
-
-                    //*****************Bottom circle blur**********************
-                    const Align(
-                      alignment: Alignment.bottomRight,
-                      child: CircleBlurWidget(),
-                    ),
-                    //******************************************************* */
-
-                    //*****************signup page****************************
-                    SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          //*****************form****************************
-                          Container(
-                            margin: const EdgeInsets.only(top: 10.0),
-                            padding: const EdgeInsets.all(20),
-                            child: Form(
-                              key: _consumerFormKey,
                               child: Column(
                                 children: <Widget>[
                                   //*****************email**********************
@@ -446,7 +179,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                           //*****************"OR" divider"**********************
                           SizedBox(
-                            height: 30,
+                            height: 50,
                             child: Row(
                               children: const [
                                 Expanded(
@@ -481,84 +214,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: Colors.transparent,
                           ),
                           //*******************sign in with text************************** */
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              SizedBox(
-                                height: 20,
-                                child: Text(
-                                  'or sign up with:',
-                                  style: TextStyle(
-                                    fontFamily: 'Segoe UI',
-                                    fontSize: 12,
-                                    color: Color(0x7df5fffa),
-                                  ),
-                                  softWrap: false,
-                                ),
-                              ),
-                            ],
-                          ),
-                          //**********************************************************************/
-
-                          //*******************sign in with image elements************************** */
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                children: [
-                                  //Facebook
-                                  GestureDetector(
-                                    onTap: () {}, // Image tapped
-                                    child: Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Image.asset(
-                                        'assets/images/facebook.png',
-                                        height: 100,
-                                        width: 100,
-                                        package: 'authentication',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  //Google
-                                  GestureDetector(
-                                    onTap: () {}, // Image tapped
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Image.asset(
-                                        'assets/images/google.png',
-                                        height: 100,
-                                        width: 100,
-                                        package: 'authentication',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  //Apple
-                                  //Shouldn't always display, figure out device being used: todo
-                                  GestureDetector(
-                                    onTap: () {}, // Image tapped
-                                    child: Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Image.asset(
-                                        'assets/images/apple.png',
-                                        height: 100,
-                                        width: 100,
-                                        package: 'authentication',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          //******************************************************* */
                         ],
                       ),
                     ),
@@ -571,10 +226,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 //*******************************************************
               ],
             ),
-          )),
+          ),
         ),
         //*******************************************************
-      ),
     );
   }
 }
