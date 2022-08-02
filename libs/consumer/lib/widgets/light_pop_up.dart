@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class WhitePopUpCardWidget extends StatelessWidget {
+class LightPopUpCardWidget extends StatelessWidget {
   final Widget popUpWidget;
-  const WhitePopUpCardWidget({
+  const LightPopUpCardWidget({
     Key? key,
     required this.popUpWidget,
   }) : super(key: key);

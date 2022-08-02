@@ -13,7 +13,7 @@ class SigninFacebookAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     try {
-      await Amplify.Auth.signOut();
+      // Amplify.Auth.signOut();
       final result =
           await Amplify.Auth.signInWithWebUI(provider: AuthProvider.google);
 
