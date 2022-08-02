@@ -15,51 +15,48 @@ class ActivityStream extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
-                children: [
-                  //*******************APP BAR WIDGET*********************//
-                  AppBarWidget(title: "ACTIVITY STREAM", store: store),
-                  //********************************************************//
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) => Column(
+              children: [
+                //*******************APP BAR WIDGET*********************//
+                AppBarWidget(title: "ACTIVITY STREAM", store: store),
+                //********************************************************//
 
-                  //*******************MOCK NOTIFICATIONS CARDS*********************//
-                  NotificationCardWidget(
-                    titleText: "Accepted!", 
-                    descText: "Your bid was accepted!", 
-                    date: "3 min ago",
-                    store: store,
-                  ),
+                //*******************MOCK NOTIFICATIONS CARDS*********************//
+                NotificationCardWidget(
+                  titleText: "Accepted!",
+                  descText: "Your bid was accepted!",
+                  date: "3 min ago",
+                  store: store,
+                ),
 
-                  NotificationCardWidget(
-                    titleText: "Shortlisted!", 
-                    descText: "Your bid was shortlisted!", 
-                    date: "3 min ago",
-                    store: store,
-                  ),
+                NotificationCardWidget(
+                  titleText: "Shortlisted!",
+                  descText: "Your bid was shortlisted!",
+                  date: "3 min ago",
+                  store: store,
+                ),
 
-                  NotificationCardWidget(
-                    titleText: "Bid Submitted!", 
-                    descText: "Your bid was submitted!", 
-                    date: "3 min ago",
-                    store: store,
-                  ),
-                   //********************************************************//
-                ],
-              ),
+                NotificationCardWidget(
+                  titleText: "Bid Submitted!",
+                  descText: "Your bid was submitted!",
+                  date: "3 min ago",
+                  store: store,
+                ),
+                //********************************************************//
+              ],
             ),
           ),
-
-           //************************NAVBAR***********************
-          bottomNavigationBar: TNavBarWidget(
-            store: store,
-          ),
-          //*****************************************************/
         ),
+
+        //************************NAVBAR***********************
+        bottomNavigationBar: TNavBarWidget(
+          store: store,
+        ),
+        //*****************************************************/
       ),
     );
   }

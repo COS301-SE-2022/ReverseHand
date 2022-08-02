@@ -19,43 +19,40 @@ class ChatSelectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
-                children: [
-                  //*******************APP BAR WIDGET*********************//
-                  AppBarWidget(title: "MY CHATS", store: store),
-                  //********************************************************//
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) => Column(
+              children: [
+                //*******************APP BAR WIDGET*********************//
+                AppBarWidget(title: "MY CHATS", store: store),
+                //********************************************************//
 
-                  if (vm.chats.isEmpty)
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: (MediaQuery.of(context).size.height) / 3),
-                      child: const Text(
-                        "There are no\n active chats",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 25, color: Colors.white54),
-                      ),
-                    )
-                  else
-                    ...populateChats(vm.chats, store)
-                ],
-              ),
+                if (vm.chats.isEmpty)
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: (MediaQuery.of(context).size.height) / 3),
+                    child: const Text(
+                      "There are no\n active chats",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 25, color: Colors.white54),
+                    ),
+                  )
+                else
+                  ...populateChats(vm.chats, store)
+              ],
             ),
           ),
-          bottomNavigationBar: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) =>
-                (vm.userType == "consumer")
-                    ? NavBarWidget(
-                        store: store,
-                      )
-                    : TNavBarWidget(store: store),
-          ),
+        ),
+        bottomNavigationBar: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) =>
+              (vm.userType == "consumer")
+                  ? NavBarWidget(
+                      store: store,
+                    )
+                  : TNavBarWidget(store: store),
         ),
       ),
     );

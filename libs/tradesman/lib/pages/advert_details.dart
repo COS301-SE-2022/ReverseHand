@@ -21,74 +21,75 @@ class TradesmanJobDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) =>
-                SingleChildScrollView(
-              child: Column(
-                children: [
-                  //**********APPBAR***********//
-                  AppBarWidget(title: "JOB INFO", store: store),
-                  //*******************************************//
+      child: Scaffold(
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) =>
+              SingleChildScrollView(
+            child: Column(
+              children: [
+                //**********APPBAR***********//
+                AppBarWidget(title: "JOB INFO", store: store),
+                //*******************************************//
 
-                  //**********DETAILED JOB INFORMATION***********//
-                  JobCardWidget(
-                    titleText: vm.advert.title,
-                    descText: vm.advert.description ?? "",
-                    date: vm.advert.dateCreated,
-                    type: vm.advert.type ?? "",
-                    location: vm.advert.location,
+                //**********DETAILED JOB INFORMATION***********//
+                JobCardWidget(
+                  titleText: vm.advert.title,
+                  descText: vm.advert.description ?? "",
+                  date: vm.advert.dateCreated,
+                  type: vm.advert.type ?? "",
+                  location: vm.advert.location,
+                ),
+
+                const Padding(padding: EdgeInsets.only(top: 50)),
+
+                //*************BOTTOM BUTTONS**************//
+                Stack(alignment: Alignment.center, children: <Widget>[
+                  BottomOverlayWidget(
+                    height: MediaQuery.of(context).size.height / 2,
                   ),
 
-                  const Padding(padding: EdgeInsets.only(top: 50)),
+                  //place bid
+                  Positioned(
+                      top: 35,
+                      child: ButtonWidget(
+                          text: "Place Bid",
+                          function: () {
+                            DarkDialogHelper.display(
+                                context, PlaceBidPopupWidget(store: store));
+                          })),
+                  //fix function call here
+                  //DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
 
-                  //*************BOTTOM BUTTONS**************//
-                  Stack(alignment: Alignment.center, children: <Widget>[
-                    BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 2,
-                    ),
+                  //view bids
+                  Positioned(
+                      top: 95,
+                      child: ButtonWidget(
+                          text: "View Bids",
+                          color: "light",
+                          function: vm.pushViewBidsPage)),
 
-                    //place bid
-                    Positioned(
-                        top: 35,
-                        child: ButtonWidget(
-                            text: "Place Bid", function: () {DarkDialogHelper.display(context,PlaceBidPopupWidget(store: store));})),
-                    //fix function call here
-                    //DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
-
-                    //view bids
-                    Positioned(
-                        top: 95,
-                        child: ButtonWidget(
-                            text: "View Bids",
-                            color: "light",
-                            function: vm.pushViewBidsPage)),
-
-                    //Back
-                    Positioned(
-                        top: 155,
-                        child: ButtonWidget(
-                            text: "Back",
-                            color: "light",
-                            border: "white",
-                            function: vm.popPage))
-                  ]),
-                  //*************BOTTOM BUTTONS**************//
-                  // ...populateBids(vm.us vm.bids)
-                ],
-              ),
+                  //Back
+                  Positioned(
+                      top: 155,
+                      child: ButtonWidget(
+                          text: "Back",
+                          color: "light",
+                          border: "white",
+                          function: vm.popPage))
+                ]),
+                //*************BOTTOM BUTTONS**************//
+                // ...populateBids(vm.us vm.bids)
+              ],
             ),
           ),
-          //************************NAVBAR***********************/
-          bottomNavigationBar: TNavBarWidget(
-            store: store,
-          ),
-        
-          //*************************************************//
         ),
+        //************************NAVBAR***********************/
+        bottomNavigationBar: TNavBarWidget(
+          store: store,
+        ),
+
+        //*************************************************//
       ),
     );
   }

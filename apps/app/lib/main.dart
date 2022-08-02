@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
+import 'package:general/general.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
 import 'package:chat/pages/chat_page.dart';
@@ -48,7 +49,8 @@ class Launch extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
-        initialRoute: '/', 
+        theme: CustomTheme.darkTheme,
+        initialRoute: '/',
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
@@ -77,11 +79,11 @@ class Launch extends StatelessWidget {
           '/tradesman/profile': (context) => TradesmanProfilePage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
-          '/tradesman/view_bids_page': (context) => TradesmanViewBidsPage(store: store),
+          '/tradesman/view_bids_page': (context) =>
+              TradesmanViewBidsPage(store: store),
           '/tradesman/advert_details/bid_details': (context) =>
               TBidDetailsPage(store: store),
-          '/tradesman/edit_bid': (context) =>
-              TEditBidPage(store: store),
+          '/tradesman/edit_bid': (context) => TEditBidPage(store: store),
           '/tradesman/activity_stream': (context) =>
               ActivityStream(store: store),
           '/geolocation/location_confirm': (context) =>
@@ -94,7 +96,8 @@ class Launch extends StatelessWidget {
               TradesmanViewBidsPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
-          '/usertype_selection': (context) => UserTypeSelectionPage(store: store),
+          '/usertype_selection': (context) =>
+              UserTypeSelectionPage(store: store),
           '/login': (context) => LoginPage(store: store),
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),

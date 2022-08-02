@@ -21,152 +21,148 @@ class BidDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) => Scaffold(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Stack(children: [
-                    //**********APPBAR***********//
-                    AppBarWidget(title: "BID DETAILS", store: store),
-                    //***************************//
+      child: StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) => Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Stack(children: [
+                  //**********APPBAR***********//
+                  AppBarWidget(title: "BID DETAILS", store: store),
+                  //***************************//
 
-                    //************DATE***********//
-                    Positioned(
-                      top: 90,
-                      left: 35,
-                      child: Text('${vm.bid.name}',
-                          style: const TextStyle(
-                              fontSize: 33, color: Colors.white)),
-                    ),
-                    //***************************//
-
-                    //**********NAME***********//
-                    Positioned(
-                      top: 95,
-                      right: 35,
-                      child: Text(vm.bid.dateCreated,
-                          style: const TextStyle(
-                              fontSize: 17, color: Colors.white70)),
-                    ),
-                    //***************************//
-                  ]),
-
-                  //**********DIVIDER***********//
-                  Divider(
-                    height: 20,
-                    thickness: 0.5,
-                    indent: 15,
-                    endIndent: 15,
-                    color: Theme.of(context).primaryColorLight,
+                  //************DATE***********//
+                  Positioned(
+                    top: 90,
+                    left: 35,
+                    child: Text('${vm.bid.name}',
+                        style:
+                            const TextStyle(fontSize: 33, color: Colors.white)),
                   ),
-                  //****************************//
+                  //***************************//
 
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Padding(padding: EdgeInsets.all(15)),
+                  //**********NAME***********//
+                  Positioned(
+                    top: 95,
+                    right: 35,
+                    child: Text(vm.bid.dateCreated,
+                        style: const TextStyle(
+                            fontSize: 17, color: Colors.white70)),
+                  ),
+                  //***************************//
+                ]),
 
-                      //**************BID RANGE***************/
-                      const Center(
+                //**********DIVIDER***********//
+                Divider(
+                  height: 20,
+                  thickness: 0.5,
+                  indent: 15,
+                  endIndent: 15,
+                  color: Theme.of(context).primaryColorLight,
+                ),
+                //****************************//
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Padding(padding: EdgeInsets.all(15)),
+
+                    //**************BID RANGE***************/
+                    const Center(
+                      child: Text(
+                        'Quoted price',
+                        style: TextStyle(fontSize: 20, color: Colors.white70),
+                      ),
+                    ),
+                    const Padding(padding: EdgeInsets.all(3)),
+                    Center(
+                      child: Text(
+                        'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
+                        style: const TextStyle(
+                            fontSize: 40,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    //**************************************/
+
+                    //**************SEE QUOTE BUTTON***************/
+                    //if quote is not uploaded
+                    const Center(
+                      child: (Padding(
+                        padding: EdgeInsets.all(20.0),
                         child: Text(
-                          'Quoted price',
-                          style: TextStyle(fontSize: 20, color: Colors.white70),
+                          "No quote has been\n uploaded yet.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20, color: Colors.white54),
                         ),
-                      ),
-                      const Padding(padding: EdgeInsets.all(3)),
-                      Center(
-                        child: Text(
-                          'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
-                          style: const TextStyle(
-                              fontSize: 40,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      //**************************************/
+                      )),
+                    ),
 
-                      //**************SEE QUOTE BUTTON***************/
-                      //if quote is not uploaded
-                      const Center(
-                        child: (Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Text(
-                            "No quote has been\n uploaded yet.",
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white54),
-                          ),
-                        )),
-                      ),
+                    //if quote is uploaded
+                    // Padding(
+                    //   padding: const EdgeInsets.all(20.0),
+                    //   child: Center(
+                    //     child: ButtonWidget(
+                    //         text: "See Quote",
+                    //         color: "dark",
+                    //         function: () {
+                    //           DialogHelper.display(
+                    //               context, const QuotePopUpWidget());
+                    //         }),
+                    //   ),
+                    // )
+                    //**************&*****************************/
+                  ],
+                ),
 
-                      //if quote is uploaded
-                      // Padding(
-                      //   padding: const EdgeInsets.all(20.0),
-                      //   child: Center(
-                      //     child: ButtonWidget(
-                      //         text: "See Quote",
-                      //         color: "dark",
-                      //         function: () {
-                      //           DialogHelper.display(
-                      //               context, const QuotePopUpWidget());
-                      //         }),
-                      //   ),
-                      // )
-                      //**************&*****************************/
-                    ],
+                //****************BOTTOM BUTTONS**************//
+                const Padding(padding: EdgeInsets.all(15)),
+                Stack(alignment: Alignment.center, children: <Widget>[
+                  BottomOverlayWidget(
+                    height: MediaQuery.of(context).size.height / 2,
                   ),
 
-                  //****************BOTTOM BUTTONS**************//
-                  const Padding(padding: EdgeInsets.all(15)),
-                  Stack(alignment: Alignment.center, children: <Widget>[
-                    BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 2,
-                    ),
+                  Positioned(
+                    top: 20,
+                    child: ButtonWidget(
+                        text: vm.bid.isShortlisted()
+                            ? "Accept Bid"
+                            : "Shortlist Bid",
+                        function: () {
+                          LightDialogHelper.display(
+                              context,
+                              ShortlistPopUpWidget(
+                                store: store,
+                                shortlisted:
+                                    vm.bid.isShortlisted() ? true : false,
+                              ));
+                        }),
+                  ),
 
-                    Positioned(
-                      top: 20,
-                      child: ButtonWidget(
-                          text: vm.bid.isShortlisted()
-                              ? "Accept Bid"
-                              : "Shortlist Bid",
-                          function: () {
-                            LightDialogHelper.display(
-                                context,
-                                ShortlistPopUpWidget(
-                                  store: store,
-                                  shortlisted:
-                                      vm.bid.isShortlisted() ? true : false,
-                                ));
-                          }),
+                  //Back
+                  Positioned(
+                    top: 80,
+                    child: ButtonWidget(
+                      text: "Back",
+                      color: "light",
+                      border: "white",
+                      function: vm.popPage,
                     ),
-
-                    //Back
-                    Positioned(
-                      top: 80,
-                      child: ButtonWidget(
-                        text: "Back",
-                        color: "light",
-                        border: "white",
-                        function: vm.popPage,
-                      ),
-                    ),
-                  ]),
-                  //******************************************//
-                ],
-              ),
+                  ),
+                ]),
+                //******************************************//
+              ],
             ),
-            //************************NAVBAR***********************/
-            bottomNavigationBar: NavBarWidget(
-              store: store,
-            ),
-            //*****************************************************/
           ),
+          //************************NAVBAR***********************/
+          bottomNavigationBar: NavBarWidget(
+            store: store,
+          ),
+          //*****************************************************/
         ),
       ),
     );

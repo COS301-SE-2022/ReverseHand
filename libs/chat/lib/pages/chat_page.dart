@@ -20,53 +20,50 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) {
-            List<Widget> messages = [];
+      child: StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) {
+          List<Widget> messages = [];
 
-            for (MessageModel msg in vm.chat.messages) {
-              if (vm.currentUser == msg.sender) {
-                messages.add(
-                  MessageOwnTileWidget(
-                    message: msg,
-                  ),
-                );
-              } else {
-                messages.add(
-                  MessageTileWidget(
-                    message: msg,
-                  ),
-                );
-              }
-            }
-
-            return Scaffold(
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //*******************APP BAR WIDGET*********************//
-                    const ChatAppBarWidget(title: "Name"),
-                    //********************************************************//
-                    // const DateLabelWidget(label: "Yesterday"), //todo michael
-
-                    //todo michael
-                    ...messages,
-                  ],
+          for (MessageModel msg in vm.chat.messages) {
+            if (vm.currentUser == msg.sender) {
+              messages.add(
+                MessageOwnTileWidget(
+                  message: msg,
                 ),
-              ),
-              //************************NAVBAR***********************/
+              );
+            } else {
+              messages.add(
+                MessageTileWidget(
+                  message: msg,
+                ),
+              );
+            }
+          }
 
-              bottomSheet: ActionBarWidget(
-                onPressed: vm.dispatchSendMsgAction,
-              ),
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  //*******************APP BAR WIDGET*********************//
+                  const ChatAppBarWidget(title: "Name"),
+                  //********************************************************//
+                  // const DateLabelWidget(label: "Yesterday"), //todo michael
 
-              //*****************************************************/
-            );
-          },
-        ),
+                  //todo michael
+                  ...messages,
+                ],
+              ),
+            ),
+            //************************NAVBAR***********************/
+
+            bottomSheet: ActionBarWidget(
+              onPressed: vm.dispatchSendMsgAction,
+            ),
+
+            //*****************************************************/
+          );
+        },
       ),
     );
   }
