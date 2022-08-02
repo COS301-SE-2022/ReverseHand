@@ -3,6 +3,7 @@ enum ErrorType {
   // no error
   none,
   // login errors
+  userNotAuthorised, // avoid using and rather give more descriptive error
   userNotFound, // avoid using and rather give more descriptive error
   userNotVerified, // user created, but email not verified
   passwordAttemptsExceeded, // user entered the wrong password too many times

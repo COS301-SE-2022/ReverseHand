@@ -4,10 +4,22 @@
   "bucketName": "reversehandbucket",
   "storageAccess": "auth",
   "guestAccess": [],
-  "authAccess": [
-    "CREATE_AND_UPDATE",
-    "READ",
-    "DELETE"
-  ],
-  "triggerFunction": "NONE"
+  "authAccess": [],
+  "groupAccess": {
+    "customer": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ],
+    "tradesman": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ],
+    "admin": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ]
+  }
 }
