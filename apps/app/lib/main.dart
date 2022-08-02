@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
+import 'package:authentication/pages/usertype_selection_page.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
 import 'package:chat/pages/chat_page.dart';
@@ -93,6 +94,7 @@ class Launch extends StatelessWidget {
               TradesmanViewBidsPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
+          '/usertype_selection': (context) => UserTypeSelectionPage(store: store),
           '/login': (context) => LoginPage(store: store),
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),
