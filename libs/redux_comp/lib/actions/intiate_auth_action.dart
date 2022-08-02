@@ -13,7 +13,7 @@ class IntiateAuthAction extends ReduxAction<AppState> {
     } else {
       return state.copy(
         error: ErrorType.userNotAuthorised
-      )
+      );
     }
   }
 }
