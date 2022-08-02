@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//used in tradesman and consumer
+
 class PopupCardWidget extends StatelessWidget {
   final Widget popUpWidget;
   const PopupCardWidget({

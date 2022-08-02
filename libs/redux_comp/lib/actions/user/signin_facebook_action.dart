@@ -10,7 +10,7 @@ class SigninFacebookAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     try {
-      Amplify.Auth.signOut();
+      // Amplify.Auth.signOut();
       final result =
           await Amplify.Auth.signInWithWebUI(provider: AuthProvider.google);
       final info = await Amplify.Auth.fetchUserAttributes();
@@ -20,7 +20,6 @@ class SigninFacebookAction extends ReduxAction<AppState> {
 
       Map<String, dynamic> payload =
           Jwt.parseJwt(authSession.userPoolTokens!.accessToken);
-
 
       debugPrint(info.toString());
       return null;

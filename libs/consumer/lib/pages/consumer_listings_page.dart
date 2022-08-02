@@ -86,7 +86,6 @@ class ConsumerListingsPage extends StatelessWidget {
                         ],
                       ),
 
-                    // ...populateAdverts(vm.adverts, store),
                     ...open,
 
                     // populating column with adverts

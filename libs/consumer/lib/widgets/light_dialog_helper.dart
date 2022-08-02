@@ -1,4 +1,4 @@
-import 'package:consumer/widgets/white_pop_up.dart';
+import 'package:consumer/widgets/light_pop_up.dart';
 import 'package:flutter/material.dart';
 
 class LightDialogHelper {
@@ -6,7 +6,7 @@ class LightDialogHelper {
     return showDialog(
       context: context,
       builder: (context) {
-        return WhitePopUpCardWidget(popUpWidget: widget);
+        return LightPopUpCardWidget(popUpWidget: widget);
       },
     );
   }
