@@ -12,6 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  amplify_api: ^0.6.0
+  amplify_flutter: ^0.6.0
+
   http: ^0.13.4
 
   async_redux: ^15.0.0
@@ -19,17 +22,13 @@ dependencies:
   redux_comp: 
     path: '../redux_comp'
 
-  tradesman: 
-    path: '../tradesman'
-  
   general: 
     path: '../general'
 
+  tradesman: 
+    path: '../tradesman'
+    
   uuid: ^3.0.6
-
-  amplify_flutter: ^0.5.1
-  amplify_api: ^0.5.1
-
 
 dev_dependencies:
   flutter_test:

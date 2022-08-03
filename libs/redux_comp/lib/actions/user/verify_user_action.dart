@@ -1,4 +1,3 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
 import 'package:redux_comp/actions/user/add_user_to_group_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';

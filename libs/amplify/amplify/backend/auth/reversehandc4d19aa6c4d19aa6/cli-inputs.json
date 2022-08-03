@@ -1,6 +1,8 @@
 {
   "version": "1",
   "cognitoConfig": {
+    "identityPoolName": "reversehand421d8881_identitypool_421d8881",
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "reversc4d19aa6",
     "userPoolName": "reversehandc4d19aa6_userpool_c4d19aa6",
     "autoVerifiedAttributes": [
@@ -33,7 +35,7 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "c4d19aa6",
     "resourceName": "reversehandc4d19aa6c4d19aa6",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "usernameAttributes": [
       "email"
@@ -41,13 +43,50 @@
     "userPoolGroups": true,
     "adminQueries": true,
     "triggers": {},
-    "hostedUI": false,
+    "hostedUI": true,
     "userPoolGroupList": [
       "customer",
-      "tradesman"
+      "tradesman",
+      "admin"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": [],
+    "authProviders": [
+      "graph.facebook.com",
+      "accounts.google.com"
+    ],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "thirdPartyAuth": true,
+    "audiences": [
+      "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com"
+    ],
+    "hostedUIDomainName": "reversehandd8eb6d1c-d8eb6d1c",
+    "authProvidersUserPool": [
+      "Facebook",
+      "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"1269894613781517\",\"client_secret\":\"f3fbae03dade808caf61dae649653dbe\"},{\"ProviderName\":\"Google\",\"client_id\":\"70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com\",\"client_secret\":\"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\"}]",
+    "facebookAppId": "1269894613781517",
+    "googleClientId": "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"reversehand://\"],\"LogoutURLs\":[\"reversehand://\"]}"
   }
 }
