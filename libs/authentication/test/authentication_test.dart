@@ -1,12 +1,12 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/authentication.dart';
+/* import 'package:authentication/authentication.dart';
 import 'package:authentication/widgets/button.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; */
 import 'package:flutter_test/flutter_test.dart';
-import 'package:redux_comp/app_state.dart';
+// import 'package:redux_comp/app_state.dart';
 
 void main() {
-  final store = Store<AppState>(initialState: AppState.mock());
+  // final store = Store<AppState>(initialState: AppState.mock());
   testWidgets("Testing LoginPage page", (WidgetTester tester) async {
     expect(true, true);
     /*
