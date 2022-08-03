@@ -7,6 +7,7 @@ import 'package:redux_comp/actions/intiate_auth_action.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 
 class InitAmplifyAction extends ReduxAction<AppState> {
   @override
@@ -30,17 +31,19 @@ Future<void> _configureAmplify() async {
   try {
     final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
     final AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
+    final AmplifyStorageS3 storage = AmplifyStorageS3();
 
     // add Amplify plugins
     await Amplify.addPlugins([
       api,
       authPlugin,
+      storage,
     ]);
 
     // configure Amplify
     // note that Amplify cannot be configured more than once!
     await Amplify.configure(
-      amplifyconfig); // uncomment this line and add your amplify config package
+        amplifyconfig); // uncomment this line and add your amplify config package
 
     debugPrint('Amplify Successfully Configured 🎉');
   } catch (e) {

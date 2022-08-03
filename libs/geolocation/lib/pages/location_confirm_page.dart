@@ -122,8 +122,10 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
   _ViewModel fromStore() => _ViewModel(
       dispatchSetPlaceAction: () => dispatch(SetPlaceAction()),
       pushCustomSearch: () => dispatch(
-          NavigateAction.pushReplacementNamed('/geolocation/custom_location_search', arguments: const Uuid().v1()),
-        ),
+            NavigateAction.pushReplacementNamed(
+                '/geolocation/custom_location_search',
+                arguments: const Uuid().v1()),
+          ),
       popPage: () => dispatch(NavigateAction.pop()),
       location: (state.locationResult == null) ? null : state.locationResult,
       userType: state.userDetails!.userType);

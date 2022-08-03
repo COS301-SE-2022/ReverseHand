@@ -48,13 +48,11 @@ class Launch extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
-        initialRoute: '/', 
+        initialRoute: '/',
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
-          '/': (context) => LoginPage(
-                store: store,
-              ),
+          '/': (context) => LoginPage(store: store),
           // consumer routes
           '/consumer': (context) => ConsumerListingsPage(store: store),
           '/consumer/create_advert': (context) =>
@@ -77,11 +75,11 @@ class Launch extends StatelessWidget {
           '/tradesman/profile': (context) => TradesmanProfilePage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
-          '/tradesman/view_bids_page': (context) => TradesmanViewBidsPage(store: store),
+          '/tradesman/view_bids_page': (context) =>
+              TradesmanViewBidsPage(store: store),
           '/tradesman/advert_details/bid_details': (context) =>
               TBidDetailsPage(store: store),
-          '/tradesman/edit_bid': (context) =>
-              TEditBidPage(store: store),
+          '/tradesman/edit_bid': (context) => TEditBidPage(store: store),
           '/tradesman/activity_stream': (context) =>
               ActivityStream(store: store),
           '/geolocation/location_confirm': (context) =>

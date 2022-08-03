@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
-
-import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/bid_model.dart';
-
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';

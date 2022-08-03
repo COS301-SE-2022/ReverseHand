@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
@@ -114,8 +112,11 @@ class CreateUserAction extends ReduxAction<AppState> {
             await Amplify.API.mutate(request: requestCreateUser).response;
         debugPrint(resp.data);
         return state.copy(
-            userDetails: state.userDetails!
-                .copy(name: name, cellNo: cellNo, location: location, registered: true));
+            userDetails: state.userDetails!.copy(
+                name: name,
+                cellNo: cellNo,
+                location: location,
+                registered: true));
       } on ApiException catch (e) {
         debugPrint(e.message);
         return state.copy(error: ErrorType.failedToCreateUser);
@@ -127,7 +128,7 @@ class CreateUserAction extends ReduxAction<AppState> {
 
   @override
   Future<void> after() async {
-   if (state.userDetails!.userType == "Consumer") {
+    if (state.userDetails!.userType == "Consumer") {
       dispatch(ViewAdvertsAction());
     } else if (state.userDetails!.userType == "Tradesman") {
       List<String> domains = [];

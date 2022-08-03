@@ -1,4 +1,3 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/intiate_auth_action.dart';
 import 'package:redux_comp/actions/user/check_user_exists_action.dart';
