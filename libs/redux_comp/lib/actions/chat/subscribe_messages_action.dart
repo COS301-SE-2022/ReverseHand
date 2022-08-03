@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/foundation.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';

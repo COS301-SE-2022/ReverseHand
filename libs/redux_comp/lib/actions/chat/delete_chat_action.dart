@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import '../../app_state.dart';

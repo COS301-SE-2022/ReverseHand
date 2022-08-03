@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/widgets.dart';
 import 'package:uuid/uuid.dart';
 import '../app_state.dart';
 import 'package:async_redux/async_redux.dart';
@@ -64,11 +64,12 @@ class AddToBucketAction extends ReduxAction<AppState> {
           key: key,
           options: uploadOptions,
           onProgress: (progress) {
-            print('Fraction completed: ${progress.getFractionCompleted()}');
+            debugPrint(
+                'Fraction completed: ${progress.getFractionCompleted()}');
           });
-      print('Successfully uploaded file: ${result.key}');
+      debugPrint('Successfully uploaded file: ${result.key}');
     } on StorageException catch (e) {
-      print('Error uploading protected file: $e');
+      debugPrint('Error uploading protected file: $e');
     }
 
     return null;

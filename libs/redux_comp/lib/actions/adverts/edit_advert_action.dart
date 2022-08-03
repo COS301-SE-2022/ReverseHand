@@ -1,4 +1,3 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/error_type_model.dart';

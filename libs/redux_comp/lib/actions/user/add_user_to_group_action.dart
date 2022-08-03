@@ -1,4 +1,3 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
 import '../../app_state.dart';
