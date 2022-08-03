@@ -14,7 +14,65 @@ const ReverseHandTable = process.env.REVERSEHAND;
     // paramters must have same name as attributes in table for ease of use
 */
 exports.handler = async (event) => {
-    try {
+        // checking if there are existing bids
+        let params = {
+            TableName: ReverseHandTable,
+            KeyConditionExpression: "part_key = :p and begins_with(sort_key, :b)",
+            ExpressionAttributeValues: {
+                ":p": event.arguments.ad_id,
+                ":b": "b#",
+            }
+        };
+        let data = await docClient.query(params).promise();
+        let items = data["Items"];
+        
+        let bids = [];
+        for (let item of items) {
+            bids.push({
+                id: item['sort_key'],
+                advert_id: event.arguments.ad_id, // since this is the advert we searched for
+                tradesman_id: item['bid_details']['tradesman_id'],
+                name: item['bid_details']['name'],
+                price_lower: item['bid_details']['price_lower'],
+                price_upper: item['bid_details']['price_upper'],
+                quote: item['bid_details']['quote'],
+                date_created: item['bid_details']['date_created'],
+                date_closed: item['bid_details']['date_closed']
+            });
+        }
+
+        params = {
+            TableName: ReverseHandTable,
+            KeyConditionExpression: "part_key = :p and begins_with(sort_key, :b)",
+            ExpressionAttributeValues: {
+                ":p": event.arguments.ad_id,
+                ":b": "sb#",
+            }
+        };
+        data = await docClient.query(params).promise();
+        // console.log(data);
+        items = data["Items"];
+        
+        let sbids = [];
+        for (let item of items) {
+            bids.push({
+                id: item['sort_key'],
+                advert_id: event.arguments.ad_id, // since this is the advert we searched for
+                tradesman_id: item['bid_details']['tradesman_id'],
+                name: item['bid_details']['name'],
+                price_lower: item['bid_details']['price_lower'],
+                price_upper: item['bid_details']['price_upper'],
+                quote: item['bid_details']['quote'],
+                date_created: item['bid_details']['date_created'],
+                date_closed: item['bid_details']['date_closed']
+            });
+        }
+
+        bids.concat(sbids);
+
+        if (bids.length !== 0)
+            throw "Advert contains bids";
+
         // updating item
         let args = [];
         let expressionAttributeNames = {};
@@ -53,11 +111,11 @@ exports.handler = async (event) => {
         expressionAttributeValues[':location'] = event.arguments.location;
         expressionAttributeValues[':date_closed'] = event.arguments.date_closed;
 
-        let params = {
+        params = {
             TableName: ReverseHandTable,
             Key: {
-                part_key: event.arguments.advert_id,
-                sort_key: event.arguments.advert_id
+                part_key: event.arguments.ad_id,
+                sort_key: event.arguments.ad_id
             },
             UpdateExpression: updateExpression,
             ExpressionAttributeValues: expressionAttributeValues,
@@ -75,10 +133,7 @@ exports.handler = async (event) => {
             }
         };
 
-        const data = await docClient.get(params).promise();
+        data = await docClient.get(params).promise();
 
         return data['advert_details'];
-    } catch(e) {
-        console.log(e);
-    }
 };

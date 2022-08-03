@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
-
-import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/bid_model.dart';
-
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -24,11 +21,11 @@ class EditBidAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    String graphQLDocument = ''' mutation {
-      editBid(ad_id: "$advertId", bid_id: "$bidId" ){
-        quote: "$quote",
-        price_lower: "$priceLower",
-        price_upper: "$priceUpper"
+    String graphQLDocument = '''mutation {
+      editBid(ad_id: "$advertId", bid_id: "$bidId",quote: "$quote",price_lower: "$priceLower",price_upper: "$priceUpper" ){
+        quote
+        price_lower
+        price_upper
       }
     }''';
 
@@ -37,7 +34,7 @@ class EditBidAction extends ReduxAction<AppState> {
       final data = jsonDecode(
           (await Amplify.API.mutate(request: request).response).data);
 
-      List<BidModel> bids = state.user!.bids;
+      List<BidModel> bids = state.bids;
 
       //get the bid being edited
       BidModel bd = bids.firstWhere((element) => element.id == bidId);
@@ -53,7 +50,7 @@ class EditBidAction extends ReduxAction<AppState> {
           quote: data["quote"],
           name: bd.name));
 
-      return state.replace(user: state.user!.replace(bids: bids));
+      return state.copy(bids: bids);
     } catch (e) {
       return null;
     }

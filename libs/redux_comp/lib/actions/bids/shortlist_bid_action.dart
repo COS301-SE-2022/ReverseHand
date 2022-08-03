@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../models/bid_model.dart';
@@ -11,10 +10,10 @@ class ShortlistBidAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      shortListBid(ad_id: "${state.user!.activeAd!.id}", bid_id: "${state.user!.activeBid!.id}") {
+      shortListBid(ad_id: "${state.activeAd!.id}", bid_id: "${state.activeBid!.id}") {
         id
         name
-        user_id
+        tradesman_id
         price_lower
         price_upper
         quote
@@ -30,23 +29,20 @@ class ShortlistBidAction extends ReduxAction<AppState> {
     try {
       final response = await Amplify.API.mutate(request: request).response;
 
-      List<BidModel> shortListBids = state.user!.shortlistBids;
+      List<BidModel> shortListBids = state.shortlistBids;
       final BidModel shortListedBid =
           BidModel.fromJson(jsonDecode(response.data)['shortListBid']);
       shortListBids.add(shortListedBid);
 
-      List<BidModel> bids = store.state.user!.bids;
-      bids.removeWhere(
-          (element) => element.id == store.state.user!.activeBid!.id);
+      List<BidModel> bids = store.state.bids;
+      bids.removeWhere((element) => element.id == store.state.activeBid!.id);
 
-      return state.replace(
+      return state.copy(
         change: !state.change,
-        user: state.user!.replace(
-          bids: bids,
-          shortlistBids: shortListBids,
-          activeBid: shortListedBid,
-          viewBids: bids + shortListBids,
-        ),
+        bids: bids,
+        shortlistBids: shortListBids,
+        activeBid: shortListedBid,
+        viewBids: bids + shortListBids,
       );
     } catch (e) {
       return null;

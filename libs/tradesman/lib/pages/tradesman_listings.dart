@@ -2,12 +2,13 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/floating_button.dart';
-import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:general/widgets/loading_widget.dart';
+
+import '../widgets/navbar.dart';
 
 class TradesmanJobListings extends StatelessWidget {
   final Store<AppState> store;
@@ -26,19 +27,30 @@ class TradesmanJobListings extends StatelessWidget {
               builder: (BuildContext context, _ViewModel vm) => Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                    const AppBarWidget(title: "JOB LISTINGS"),
+                    AppBarWidget(title: "JOB LISTINGS", store: store),
                     //********************************************************//
                   ...populateAdverts(vm.adverts, store),
+                    if (vm.loading) const LoadingWidget()
+
+                    //************MESSAGE IF THERE ARE NO ADVERTS***********/
+                    else if (vm.adverts.isEmpty)
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: (MediaQuery.of(context).size.height) / 3),
+                        child: const Text(
+                          "There are no\n active jobs",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 25, color: Colors.white54),
+                        ),
+                      ),
+                    //*****************************************************/
                 ],
               ),
             ),
           ),
            //************************NAVBAR***********************/
-          floatingActionButton: const FloatingButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
 
-          bottomNavigationBar: NavBarWidget(
+          bottomNavigationBar: TNavBarWidget(
             store: store,
           ),
           //*****************************************************/
@@ -52,7 +64,8 @@ class _Factory extends VmFactory<AppState, TradesmanJobListings> {
   _Factory(widget) : super(widget);
   @override
   _ViewModel fromStore() => _ViewModel(
-        adverts: state.user!.adverts,
+        adverts: state.adverts,
+        loading: state.wait.isWaiting,
         dispatchLogoutAction: () => dispatch(LogoutAction()),
       );
 }
@@ -61,8 +74,10 @@ class _Factory extends VmFactory<AppState, TradesmanJobListings> {
 class _ViewModel extends Vm {
   final List<AdvertModel> adverts;
   final void Function() dispatchLogoutAction;
+  final bool loading;
   _ViewModel({
     required this.adverts,
     required this.dispatchLogoutAction,
-  });
+    required this.loading,
+  }) : super(equals: [adverts, loading]);
 }

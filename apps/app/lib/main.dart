@@ -1,5 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
+import 'package:geolocation/pages/custom_location_search_page.dart';
+import 'package:geolocation/pages/location_confirm_page.dart';
+import 'package:chat/pages/chat_page.dart';
+import 'package:chat/pages/chat_selection_page.dart';
 import 'package:consumer/consumer.dart';
 import 'package:consumer/pages/advert_details_page.dart';
 import 'package:consumer/pages/bid_details_page.dart';
@@ -9,6 +13,9 @@ import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:consumer/pages/view_bids_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:tradesman/pages/activity_stream_page.dart';
+import 'package:tradesman/pages/bid_details_page.dart';
+import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_bid_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
@@ -44,9 +51,7 @@ class Launch extends StatelessWidget {
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
-          '/': (context) => LoginPage(
-                store: store,
-              ),
+          '/': (context) => LoginPage(store: store),
           // consumer routes
           '/consumer': (context) => ConsumerListingsPage(store: store),
           '/consumer/create_advert': (context) =>
@@ -66,16 +71,29 @@ class Launch extends StatelessWidget {
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
               TradesmanJobDetails(store: store),
-          '/tradesman/tradesman': (context) =>
-              TradesmanProfilePage(store: store),
+          '/tradesman/profile': (context) => TradesmanProfilePage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
-          '/tradesman/view_bids': (context) => TradesmanViewBidsPage(store: store),
-          '/tradesman/edit_bid_page': (context) =>
-              EditBidPage(store: store),
+          '/tradesman/view_bids_page': (context) =>
+              TradesmanViewBidsPage(store: store),
+          '/tradesman/advert_details/bid_details': (context) =>
+              TBidDetailsPage(store: store),
+          '/tradesman/edit_bid': (context) => TEditBidPage(store: store),
+          '/tradesman/activity_stream': (context) =>
+              ActivityStream(store: store),
+          '/geolocation/location_confirm': (context) =>
+              LocationConfirmPage(store: store),
+          '/geolocation/custom_location_search': (context) =>
+              CustomLocationSearchPage(store: store),
+          '/tradesman/domain_confirm': (context) =>
+              DomainConfirmPage(store: store),
+          '/tradesman/view_bids': (context) =>
+              TradesmanViewBidsPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/login': (context) => LoginPage(store: store),
+          '/chats': (context) => ChatSelectionPage(store: store),
+          '/chats/chat': (context) => ChatPage(store: store),
         },
       ),
     );

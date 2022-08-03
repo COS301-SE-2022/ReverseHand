@@ -1,16 +1,19 @@
 import 'dart:convert';
-
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../app_state.dart';
 import '../../models/advert_model.dart';
 
 class ViewJobsAction extends ReduxAction<AppState> {
-	@override
-	Future<AppState?> reduce() async {
+  final List<String> locations;
+  final List<String> tradetypes;
+
+  ViewJobsAction(this.locations, this.tradetypes);
+
+  @override
+  Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      viewJobs(locations: "Pretoria", type: "Plumbing") {
+      viewJobs(locations: ${jsonEncode(locations)}, types: ${jsonEncode(tradetypes)}) {
         date_created
         date_closed
         description
@@ -31,13 +34,17 @@ class ViewJobsAction extends ReduxAction<AppState> {
       dynamic data = jsonDecode(response.data)['viewJobs'];
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
-      return state.replace(
-        user: state.user!.replace(
-          adverts: adverts,
-        ),
+      return state.copy(
+        adverts: adverts,
       );
     } catch (e) {
       return null; /* On Error do not modify state */
     }
   }
+
+  @override
+  void before() => dispatch(WaitAction.add("view_jobs"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("view_jobs"));
 }

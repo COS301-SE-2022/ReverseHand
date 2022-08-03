@@ -34,12 +34,47 @@ class QuickViewBidWidget extends StatelessWidget {
                   color: Theme.of(context).primaryColorLight,
                   borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                 ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    '${bid.name}',
-                    style: const TextStyle(fontSize: 25, color: Colors.white),
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        //***********IF BID IS SHORTLISTED********/
+                        //then display a star
+                        if (bid.isShortlisted())
+                          Row(
+                            children: [
+                              (Icon(
+                                Icons.bookmark,
+                                color: Theme.of(context).primaryColor,
+                              )),
+                              const Padding(padding: EdgeInsets.all(2))
+                            ],
+                          ),
+                        //***************************************/
+
+                        //***********CONTRACTOR NAME*************/
+                        Text(
+                          '${bid.name}',
+                          style: const TextStyle(
+                              fontSize: 22, color: Colors.white),
+                        ),
+                        //***************************************/
+                      ],
+                    ),
+                    //**************BID RANGE********************/
+                    SizedBox(
+                      width: 120,
+                      child: Text(
+                        'R${bid.priceLower}-R${bid.priceUpper}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            const TextStyle(fontSize: 22, color: Colors.white),
+                      ),
+                    ),
+                    //***************************************/
+                  ],
                 ),
               ),
             ),

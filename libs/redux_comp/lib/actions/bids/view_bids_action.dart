@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -39,6 +38,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
       List<BidModel> bids = [];
       List<BidModel> shortlistedBids = [];
 
+      // since all bids are gotten we seperate them into two lists
       for (dynamic d in data['viewBids']) {
         String id = d['id'];
         if (id.contains('s')) {
@@ -49,23 +49,20 @@ class ViewBidsAction extends ReduxAction<AppState> {
       }
 
       final AdvertModel ad =
-          state.user!.adverts.firstWhere((element) => element.id == adId);
+          state.adverts.firstWhere((element) => element.id == adId);
 
-      return state.replace(
-        user: state.user!.replace(
-          bids: bids,
-          shortlistBids: shortlistedBids,
-          viewBids: bids + shortlistedBids,
-          activeAd: ad, // setting the active ad
-        ),
+      return state.copy(
+        bids: bids,
+        shortlistBids: shortlistedBids,
+        viewBids: bids + shortlistedBids,
+        activeAd: ad, // setting the active ad
       );
     } catch (e) {
       return null; /* On Error do not modify state */
-
     }
   }
 
   @override
   void after() => dispatch(NavigateAction.pushNamed(
-      "/${state.user!.userType.toLowerCase()}/advert_details")); // move to page after action completes
+      "/${state.userDetails!.userType.toLowerCase()}/advert_details")); // move to page after action completes
 }

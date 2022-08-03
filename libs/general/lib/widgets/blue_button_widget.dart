@@ -20,7 +20,7 @@ class BlueButtonWidget extends StatelessWidget {
           icon,
           color: Colors.blueGrey,
         ), 
-        label: Align(alignment: Alignment.centerLeft, child: Text(text)),
+        label: Align(alignment: Alignment.centerLeft, child: Text(text, style: const TextStyle(fontSize: 17),)),
         style: ElevatedButton.styleFrom(
           primary: Colors.black.withOpacity(0),
           onPrimary: Colors.white,

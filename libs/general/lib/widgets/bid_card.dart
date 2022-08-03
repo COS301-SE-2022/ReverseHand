@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/widgets/quote.dart';
 import 'package:redux_comp/app_state.dart';
 
 class CardWidget extends StatelessWidget {
@@ -45,11 +44,6 @@ class CardWidget extends StatelessWidget {
                     style: TextStyle(fontSize: 20, color: Colors.white70)),
                 Text("R$price1 - R$price2",
                     style: const TextStyle(fontSize: 20, color: Colors.white)),
-                Column(
-                  children: [
-                    if (quote) ...[const QuoteWidget()]
-                  ],
-                )
               ],
             ),
           ],

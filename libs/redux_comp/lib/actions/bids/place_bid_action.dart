@@ -1,5 +1,5 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/foundation.dart';
+import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:uuid/uuid.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -26,7 +26,7 @@ class PlaceBidAction extends ReduxAction<AppState> {
 
     // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
-      placeBid(ad_id: "$adId", bid_id: "$bidId", tradesman_id: "$userId", name: "${state.user!.name}", price_lower: $priceLower, price_upper: $priceUpper, quote: "$quote") {
+      placeBid(ad_id: "$adId", bid_id: "$bidId", tradesman_id: "$userId", name: "${state.userDetails!.name}", price_lower: $priceLower, price_upper: $priceUpper, quote: "$quote") {
         id
       }
     }''';
@@ -45,4 +45,7 @@ class PlaceBidAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  @override
+  void after() => dispatch(ViewBidsAction(adId));
 }

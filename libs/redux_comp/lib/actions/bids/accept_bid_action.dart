@@ -1,9 +1,7 @@
-import 'package:amplify_api/amplify_api.dart';
-import 'package:redux_comp/models/bid_model.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
+import 'package:redux_comp/actions/chat/create_chat_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-
-import '../../models/bid_model.dart';
 import '../../app_state.dart';
 
 class AcceptBidAction extends ReduxAction<AppState> {
@@ -12,9 +10,10 @@ class AcceptBidAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      acceptBid(user_id: "${state.user!.id}", ad_id: "${state.user!.activeAd!.id}", sbid_id: "${state.user!.activeBid!.id}") {
+      acceptBid(ad_id: "${state.activeAd!.id}", sbid_id: "${state.activeBid!.id}") {
         id
-        user_id
+        tradesman_id
+        name
         price_lower
         price_upper
         quote
@@ -29,30 +28,22 @@ class AcceptBidAction extends ReduxAction<AppState> {
 
     try {
       // getting the bid which has beena accepted is just a graphql convention
-      await Amplify.API
+      /* dynamic response = */ await Amplify.API
           .mutate(request: request)
-          .response; // in futre may want to do something with accepted advert
+          .response; // in future may want to do something with accepted advert
 
-      final List<BidModel> shortBids = state.user!.shortlistBids;
-      shortBids
-          .removeWhere((element) => element.id == state.user!.activeBid!.id);
+      // dispatching action to create chat
+      dispatch(CreateChatAction(state.activeBid!.userId));
 
-      final List<BidModel> viewBids = state.user!.viewBids;
-      viewBids
-          .removeWhere((element) => element.id == state.user!.activeBid!.id);
-
-      return state.replace(
-        user: state.user!.replace(
-          shortlistBids: shortBids,
-          viewBids: viewBids,
-        ),
-      );
+      return null;
     } catch (e) {
       return null;
     }
   }
 
   @override
-  void after() => dispatch(NavigateAction
-      .pop()); // after bid has been accepted no more to do so leave page
+  void after() {
+    dispatch(ViewAdvertsAction());
+    dispatch(NavigateAction.pushReplacementNamed("/consumer"));
+  } // after bid has been accepted no more to do so leave page and got to main page
 }

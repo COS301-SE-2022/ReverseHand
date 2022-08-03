@@ -1,13 +1,13 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/dialog_helper.dart';
+import 'package:consumer/widgets/shortlist_bid_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/floating_button.dart';
 import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:general/widgets/shortlist_accept_button.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
@@ -33,7 +33,7 @@ class BidDetailsPage extends StatelessWidget {
                 children: <Widget>[
                   Stack(children: [
                     //**********APPBAR***********//
-                    const AppBarWidget(title: "BID DETAILS"),
+                    AppBarWidget(title: "BID DETAILS", store: store),
                     //***************************//
 
                     //************DATE***********//
@@ -58,86 +58,69 @@ class BidDetailsPage extends StatelessWidget {
                   ]),
 
                   //**********DIVIDER***********//
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Divider(
-                      height: 20,
-                      thickness: 0.5,
-                      indent: 15,
-                      endIndent: 15,
-                      color: Theme.of(context).primaryColorLight,
-                    ),
+                  Divider(
+                    height: 20,
+                    thickness: 0.5,
+                    indent: 15,
+                    endIndent: 15,
+                    color: Theme.of(context).primaryColorLight,
                   ),
                   //****************************//
 
-                  //******************INFO***************//
                   Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        //name
-                        // Text('${vm.bid.name}',
-                        //     style: const TextStyle(
-                        //         fontSize: 33, color: Colors.white)),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Padding(padding: EdgeInsets.all(15)),
 
-                        //keep for now - still testing if appBar stack works on other screens
-
-                        const Padding(padding: EdgeInsets.all(15)),
-
-                        //bid range
-                        const Center(
-                          child: Text(
-                            'Quoted price',
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white70),
-                          ),
+                      //**************BID RANGE***************/
+                      const Center(
+                        child: Text(
+                          'Quoted price',
+                          style: TextStyle(fontSize: 20, color: Colors.white70),
                         ),
-                        const Padding(padding: EdgeInsets.all(8)),
-                        Center(
-                          child: Text(
-                            'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
-                            style: const TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-
-                        const Padding(padding: EdgeInsets.all(40)),
-
-                        //contact information
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.info_outline,
+                      ),
+                      const Padding(padding: EdgeInsets.all(3)),
+                      Center(
+                        child: Text(
+                          'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
+                          style: const TextStyle(
+                              fontSize: 40,
                               color: Colors.white,
-                              size: 30,
-                            ),
-                            const Padding(padding: EdgeInsets.all(3)),
-                            Column(
-                              children: const [
-                                Center(
-                                  child: Text(
-                                    'Contact Details',
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.white70),
-                                  ),
-                                ),
-                                Center(
-                                  child: Text(
-                                    'info@gmail.com',
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                              fontWeight: FontWeight.bold),
                         ),
+                      ),
+                      //**************************************/
 
-                        //need to get this info dynamically
-                      ]),
-                  //*************************************//
+                      //**************SEE QUOTE BUTTON***************/
+                      //if quote is not uploaded
+                      const Center(
+                        child: (Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text(
+                            "No quote has been\n uploaded yet.",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white54),
+                          ),
+                        )),
+                      ),
+
+                      //if quote is uploaded
+                      // Padding(
+                      //   padding: const EdgeInsets.all(20.0),
+                      //   child: Center(
+                      //     child: ButtonWidget(
+                      //         text: "See Quote",
+                      //         color: "dark",
+                      //         function: () {
+                      //           DialogHelper.display(
+                      //               context, const QuotePopUpWidget());
+                      //         }),
+                      //   ),
+                      // )
+                      //**************&*****************************/
+                    ],
+                  ),
 
                   //****************BOTTOM BUTTONS**************//
                   const Padding(padding: EdgeInsets.all(15)),
@@ -146,35 +129,39 @@ class BidDetailsPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 2,
                     ),
 
-                    //shortlist/accept
                     Positioned(
                       top: 20,
-                      child: ShortlistAcceptButtonWidget(
-                        shortBid: vm.bid.isShortlisted(),
-                        onTap: () => vm.bid.isShortlisted()
-                            ? vm.dispatchAcceptBidAction()
-                            : vm.dispatchShortListBidAction(),
-                      ),
+                      child: ButtonWidget(
+                          text: vm.bid.isShortlisted()
+                              ? "Accept Bid"
+                              : "Shortlist Bid",
+                          function: () {
+                            DialogHelper.display(
+                                context,
+                                ShortlistPopUpWidget(
+                                  store: store,
+                                  shortlisted:
+                                      vm.bid.isShortlisted() ? true : false,
+                                ));
+                          }),
                     ),
 
                     //Back
                     Positioned(
-                        top: 80,
-                        child: ButtonWidget(
-                            text: "Back",
-                            color: "light",
-                            whiteBorder: true,
-                            function: vm.popPage)),
+                      top: 80,
+                      child: ButtonWidget(
+                        text: "Back",
+                        color: "light",
+                        border: "white",
+                        function: vm.popPage,
+                      ),
+                    ),
                   ]),
                   //******************************************//
                 ],
               ),
             ),
             //************************NAVBAR***********************/
-            floatingActionButton: const FloatingButtonWidget(),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-
             bottomNavigationBar: NavBarWidget(
               store: store,
             ),
@@ -194,7 +181,7 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
   _ViewModel fromStore() => _ViewModel(
         dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
-        bid: state.user!.activeBid!,
+        bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
       );
@@ -204,8 +191,8 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final BidModel bid;
-  final VoidCallback dispatchShortListBidAction;
   final VoidCallback dispatchAcceptBidAction;
+  final VoidCallback dispatchShortListBidAction;
   final bool change;
 
   _ViewModel({
@@ -214,5 +201,5 @@ class _ViewModel extends Vm {
     required this.bid,
     required this.popPage,
     required this.change,
-  }) : super(equals: [change]); // implementinf hashcode
+  }) : super(equals: [change, bid]); // implementinf hashcode
 }

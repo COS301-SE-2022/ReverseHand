@@ -1,19 +1,24 @@
 import 'dart:convert';
-
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/geolocation/coordinates_model.dart';
-import 'package:redux_comp/models/geolocation/place_model.dart';
-
+import 'package:redux_comp/models/error_type_model.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
+
+import '../../models/geolocation/domain_model.dart';
+import '../adverts/view_adverts_action.dart';
+import '../adverts/view_jobs_action.dart';
+
+/* GetUserAction */
+/* This action fetches a user of a specified group and populates the user model with the results */
 
 class GetUserAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    if (state.user!.userType != "Tradesman") {
-      final String id = state.user!.id;
+    // request different info for different user type
+    if (state.userDetails!.userType != "Tradesman") {
+      final String id = state.userDetails!.id;
       String graphQLDoc = '''query  {
         viewUser(user_id: "$id") {
           id
@@ -25,11 +30,12 @@ class GetUserAction extends ReduxAction<AppState> {
               streetNumber
               street
               city
+              province
               zipCode
             }
             coordinates {
               lat
-              long
+              lng
             }
           }
         }
@@ -42,30 +48,17 @@ class GetUserAction extends ReduxAction<AppState> {
 
       try {
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response)
-                .data);
+            (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
+        // build place model from result
+        Location location = Location.fromJson(user["location"]);
 
-        Place p = Place();
-        Coordinates c = Coordinates();
-        p.streetNumber = user["location"]["address"]["streetNumber"];
-        p.street = user["location"]["address"]["street"];
-        p.city = user["location"]["address"]["city"];
-        p.zipCode = user["location"]["address"]["zipCode"];
-        c.lat = double.parse(user["location"]["coordinates"]["lat"]) ;
-        c.long = double.parse(user["location"]["coordinates"]["long"]);
-        p.location = c;
-
-        return state.replace(
-          user: state.user!.replace(
+        return state.copy(
+          userDetails: state.userDetails!.copy(
             name: user["name"],
             cellNo: user["cellNo"],
             email: user["email"],
-            place: p,
-            bids: const [],
-            shortlistBids: const [],
-            viewBids: const [],
-            adverts: const [],
+            location: location,
           ),
         );
       } on ApiException catch (e) {
@@ -73,27 +66,21 @@ class GetUserAction extends ReduxAction<AppState> {
         return null;
       }
     } else {
-      final String id = state.user!.id;
+      final String id = state.userDetails!.id;
       String graphQLDoc = '''query {
         viewUser(user_id: "$id") {
           id
           email
           name
           cellNo
-          domains
-          tradetypes
-          location {
-            address {
-              streetNumber
-              street
-              city
-              zipCode
-            }
+          domains {
+            city
             coordinates {
               lat
-              long
+              lng
             }
           }
+          tradetypes
         }
       }
       ''';
@@ -104,32 +91,25 @@ class GetUserAction extends ReduxAction<AppState> {
 
       try {
         final data = jsonDecode(
-            (await Amplify.API.mutate(request: request).response)
-                .data);
+            (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
 
-        Place place = Place();
-        Coordinates coords = Coordinates();
-        place.streetNumber = user["location"]["address"]["streetNumber"];
-        place.street = user["location"]["address"]["street"];
-        place.city = user["location"]["address"]["city"];
-        place.zipCode = user["location"]["address"]["zipCode"];
-        coords.lat = double.parse(user["location"]["coordinates"]["lat"]);
-        coords.long = double.parse(user["location"]["coordinates"]["long"]);
-        place.location = coords;
+        List<Domain> domains = [];
+        for (dynamic domain in user["domains"]) {
+          domains.add(Domain.fromJson(domain));
+        }
+        List<String> tradeTypes = [];
+        for (dynamic trade in user["tradetypes"]) {
+          tradeTypes.add(trade);
+        }
 
-        return state.replace(
-          user: state.user!.replace(
+        return state.copy(
+          userDetails: state.userDetails!.copy(
             name: user["name"],
             email: user["email"],
             cellNo: user["cellNo"],
-            domains: user["domains"],
-            tradeTypes: user["tradetypes"],
-            place: place,
-            bids: const [],
-            shortlistBids: const [],
-            viewBids: const [],
-            adverts: const [],
+            domains: domains,
+            tradeTypes: tradeTypes,
           ),
         );
       } on ApiException catch (e) {
@@ -137,5 +117,25 @@ class GetUserAction extends ReduxAction<AppState> {
         return null;
       }
     }
+  }
+
+  @override
+  void after() async {
+    if (state.userDetails!.userType == "Consumer") {
+      dispatch(ViewAdvertsAction());
+    } else if (state.userDetails!.userType == "Tradesman") {
+      List<String> domains = [];
+      for (Domain d in state.userDetails!.domains) {
+        domains.add(d.city);
+      }
+      List<String> tradeTypes = state.userDetails!.tradeTypes;
+      dispatch(ViewJobsAction(domains, tradeTypes));
+    }
+
+    dispatch(NavigateAction.pushNamed(
+        "/${state.userDetails!.userType.toLowerCase()}"));
+    // wait until error has finished before stopping loading
+    store.waitCondition((state) => state.error == ErrorType.none);
+    dispatch(WaitAction.remove("flag"));
   }
 }

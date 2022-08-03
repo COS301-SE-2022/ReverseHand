@@ -12,15 +12,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-  amplify_flutter: ^0.5.1
+  amplify_flutter: ^0.6.0
 
   async_redux: ^15.0.0
 
   redux_comp:
     path: '../redux_comp'
-
-  geolocation:
-    path: ../geolocation
   
   consumer:
     path: '../consumer'

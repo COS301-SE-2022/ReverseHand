@@ -39,11 +39,14 @@ class QuickViewJobCardWidget extends StatelessWidget {
                     // mainAxisSize: MainAxisSize.min,
                     children: [
                       //not working yet?
-                      Text(advert.title,
-                          style: const TextStyle(
-                              fontFamily: 'Futura',
-                              fontSize: 30,
-                              color: Colors.white)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.3,
+                        child: Text(advert.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 30, color: Colors.white)),
+                      ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
                         child: Text(advert.dateCreated,
@@ -52,16 +55,17 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
+                        children: [
+                          const Icon(
                             Icons.location_on,
                             color: Colors.white,
-                            size: 30.0,
+                            size: 25.0,
                           ),
-                          Padding(padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
-                          Text("location",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white))
+                          const Padding(
+                              padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
+                          Text(advert.location,
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.white))
                         ],
                       ),
                     ],

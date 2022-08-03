@@ -14,10 +14,10 @@ class SetActiveBidAction extends ReduxAction<AppState> {
     //     orElse: () => state.user!.shortlistBids
     //         .firstWhere((element) => element.id == bidId));
 
-    return store.state.replace(user: store.state.user!.replace(activeBid: bid));
+    return store.state.copy(activeBid: bid);
   }
 
   @override
   void after() => dispatch(NavigateAction.pushNamed(
-      "/consumer/advert_details/bid_details")); // move to page after action completes
+      "/${state.userDetails!.userType.toLowerCase()}/advert_details/bid_details")); // move to page after action completes
 }

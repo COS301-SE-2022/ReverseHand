@@ -13,12 +13,12 @@ class ToggleViewBidsAction extends ReduxAction<AppState> {
   AppState? reduce() {
     final List<BidModel> bids;
     if (toggleShort) {
-      bids = state.user!.shortlistBids;
+      bids = state.shortlistBids;
     } else {
-      bids = state.user!.bids;
+      bids = state.bids;
     }
 
-    List<BidModel> viewBids = state.user!.viewBids;
+    List<BidModel> viewBids = state.viewBids;
 
     if (activate) {
       viewBids.addAll(bids);
@@ -28,10 +28,8 @@ class ToggleViewBidsAction extends ReduxAction<AppState> {
       }
     }
 
-    return state.replace(
-      user: state.user!.replace(
-        viewBids: viewBids,
-      ),
+    return state.copy(
+      viewBids: viewBids,
       change: !state.change, // to show that state has changed
     );
   }
