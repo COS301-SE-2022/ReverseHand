@@ -289,7 +289,7 @@ class _Factory extends VmFactory<AppState, LoginPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
-        pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/usertype_selection')),
+        pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/signup')),
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),

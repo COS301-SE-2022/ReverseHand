@@ -77,7 +77,6 @@ class LoginAction extends ReduxAction<AppState> {
   void after() async {
     if (state.error == ErrorType.none) {
       await dispatch(IntiateAuthAction());
-      dispatch(SubscribMessagesAction());
     } else {
       dispatch(WaitAction.remove("flag"));
     }

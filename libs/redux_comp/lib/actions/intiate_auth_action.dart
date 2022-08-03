@@ -1,9 +1,8 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
 import 'package:redux_comp/actions/user/check_user_exists_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-import 'package:redux_comp/models/user_models/cognito_auth_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 
 import '../app_state.dart';
@@ -30,12 +29,18 @@ class IntiateAuthAction extends ReduxAction<AppState> {
       Map<String, dynamic> payload =
           Jwt.parseJwt(authSessionWithCredentials.userPoolTokens!.accessToken);
 
+      List<String>? groups;
       String id = payload["sub"];
-      //the await does not seem necessary but this line causes an ad hoc registration error
-
-      List<String> groups = List<String>.from(payload["cognito:groups"]);
+      if (payload.containsKey("cognito:groups")) {
+        groups = List<String>.from(payload["cognito:groups"]);
+      }
 
       String userType = "";
+      if (groups == null) {
+        return state.copy(
+            userDetails: state.userDetails!.copy(id: id, email: email),
+            error: ErrorType.userNotInGroup);
+      }
       if (groups.contains("customer")) {
         userType = "Consumer";
         id = "c#$id";
@@ -49,8 +54,8 @@ class IntiateAuthAction extends ReduxAction<AppState> {
       return state.copy(
           userDetails: UserModel(id: id, email: email, userType: userType));
     } else {
-      dispatch(NavigateAction.pushNamed("/"));
-      return null;
+      // dispatch(NavigateAction.pushNamed("/"));
+      return state.copy(error: ErrorType.userNotAuthorised);
     }
   }
 
@@ -58,8 +63,10 @@ class IntiateAuthAction extends ReduxAction<AppState> {
   void after() {
     if (state.error == ErrorType.none) {
       dispatch(CheckUserExistsAction());
+      // dispatch(SubscribMessagesAction());
     } else if (state.error == ErrorType.userNotInGroup) {
-      // dispatch(NavigateAction.pushNamed('/'));
+      dispatch(NavigateAction.pushNamed('/usertype_selection'));
     }
+    state.copy(error: ErrorType.none);
   }
 }

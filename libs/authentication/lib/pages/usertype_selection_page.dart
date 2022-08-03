@@ -4,6 +4,7 @@ import 'package:authentication/widgets/circle_blur_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
+import 'package:redux_comp/actions/user/add_user_to_group_action.dart';
 import 'package:redux_comp/actions/user/signin_facebook_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -11,8 +12,7 @@ import '../widgets/auth_button.dart';
 import '../widgets/transparent_divider.dart';
 
 //************************************** */
-//User not in group page for Google or 
-//Facebook login
+//User not in group page
 //************************************** */
 
 class UserTypeSelectionPage extends StatelessWidget {
@@ -43,63 +43,62 @@ class UserTypeSelectionPage extends StatelessWidget {
                 child: CircleBlurWidget(),
               ),
               //******************************************************* */
-              SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        //*****************form****************************
-                        Container(
-                          margin: const EdgeInsets.only(top: 10.0),
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: <Widget>[
-                              const Padding(
-                                padding: EdgeInsets.only(top: 250),
-                              ),
-
-                              const Text(
-                                "Continue as:",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  letterSpacing: 5,
-                                  ),
-                              ),
-
-                              const TransparentDividerWidget(),
-                              //*****************TRADESMAN signup button**********************
-                              Align(
-                                alignment: Alignment.center,
-                                child: AuthButtonWidget(
-                                  text: "Tradesman",
-                                  function: () {
-                                    //tradesman function
-                                  },
+              StoreConnector<AppState, _ViewModel>(
+                vm: () => _Factory(this),
+                builder: (BuildContext context, _ViewModel vm) => SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //*****************form****************************
+                          Container(
+                            margin: const EdgeInsets.only(top: 10.0),
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: <Widget>[
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 250),
                                 ),
-                              ),
-                              //***************************************************/
-
-                              const Padding(
-                                padding: EdgeInsets.fromLTRB(0, 20, 0, 5),
-                              ),
-
-                              //*****************CONSUMER signup button**********************
-                              AuthButtonWidget(
-                                text: "Consumer",
-                                function: () {
-                                  //consumer function
-                                },
-                              ),
-                              //***************************************************/
-                            ],
+              
+                                const Text(
+                                  "Continue as:",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    letterSpacing: 5,
+                                    ),
+                                ),
+              
+                                const TransparentDividerWidget(),
+                                //*****************TRADESMAN signup button**********************
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: AuthButtonWidget(
+                                    text: "Contractor",
+                                   function: () => vm.dispatchSignInFacebookAddUserToGroup("tradesman")
+                                  ),
+                                ),
+                                //***************************************************/
+              
+                                const Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 20, 0, 5),
+                                ),
+              
+                                //*****************CONSUMER signup button**********************
+                                AuthButtonWidget(
+                                  text: "Client",
+                                  function: () => vm.dispatchSignInFacebookAddUserToGroup("customer"),
+                                ),
+                                //***************************************************/
+                              ],
+                            ),
                           ),
-                        ),
-                        //******************************************************* */
-                      ],
-                    ),
-                  ],
+                          //******************************************************* */
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -118,20 +117,20 @@ class _Factory extends VmFactory<AppState, UserTypeSelectionPage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         error: state.error,
-        dispatchSignInFacebook: () => dispatch(
-          SigninFacebookAction(),
+        dispatchSignInFacebookAddUserToGroup: (String group) => dispatch(
+          AddUserToGroupAction(state.userDetails!.email, group),
         ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function() dispatchSignInFacebook;
+  final void Function(String) dispatchSignInFacebookAddUserToGroup;
   final bool loading;
   final ErrorType error;
 
   _ViewModel({
-    required this.dispatchSignInFacebook,
+    required this.dispatchSignInFacebookAddUserToGroup,
     required this.loading,
     required this.error,
   }) : super(equals: [loading, error]); // implementing hashcode

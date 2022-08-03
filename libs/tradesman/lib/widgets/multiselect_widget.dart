@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 
-//******************************** */
-//  multiselect widget (trade type)
-//******************************** */
-
 class MultiSelectWidget extends StatefulWidget {
   final List<String> items; //list of types
-  final List<String> selectedItems; //list of types
-  const MultiSelectWidget({Key? key, required this.items, required this.selectedItems}) : super(key: key);
+  const MultiSelectWidget({Key? key, required this.items}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MultiSelectWidgetState();
 }
 
 class _MultiSelectWidgetState extends State<MultiSelectWidget> {
-
+  final List<String> _selectedItems = []; //sleected items
 
   //triggered when a checkbox is checked or unchecked
   void _itemChange(String itemValue, bool isSelected) {
     setState(() {
       if (isSelected) {
-        widget.selectedItems.add(itemValue);
+        _selectedItems.add(itemValue);
       } else {
-        widget.selectedItems.remove(itemValue);
+        _selectedItems.remove(itemValue);
       }
     });
   }
@@ -33,7 +28,7 @@ class _MultiSelectWidgetState extends State<MultiSelectWidget> {
   }
 
   void _submit() {
-    Navigator.pop(context, widget.selectedItems);
+    Navigator.pop(context, _selectedItems);
   }
   //******************************************* */
 
@@ -57,9 +52,8 @@ class _MultiSelectWidgetState extends State<MultiSelectWidget> {
           children: widget.items
           //**********************select options *************** */
               .map((item) => CheckboxListTile(
-                    value: widget.selectedItems.contains(item),
+                    value: _selectedItems.contains(item),
                     activeColor: Colors.orange,
-                    selected: (widget.selectedItems.contains(item)) ? true : false,
                     title: Text(
                       item,  
                       style: const TextStyle(
