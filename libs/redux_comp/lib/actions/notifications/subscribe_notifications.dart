@@ -3,21 +3,16 @@ import 'package:flutter/foundation.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import 'get_chats_action.dart';
 
-class SubscribMessagesAction extends ReduxAction<AppState> {
+class SubscribNotificationsAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    final String userType = state.userDetails!.userType;
-
     String graphQLDocument = '''subscription {
-      getMessageUpdates$userType(${userType.toLowerCase()}_id: "${state.userDetails!.id}") {
-        consumer_id
-        tradesman_id
+      getNotificatoinUpdates(user_id: "${state.userDetails!.id}") {
+        title
         msg
-        sender
+        type
         timestamp
-        name
       }
     }''';
 
@@ -31,7 +26,7 @@ class SubscribMessagesAction extends ReduxAction<AppState> {
 
       /* StreamSubscription<GraphQLResponse<dynamic>> subscription = */
       operation.listen(
-        (event) => dispatch(GetChatsAction()),
+        (event) => print("todo"),
         onError: (Object e) => debugPrint('Error in subscription stream: $e'),
       );
 
