@@ -1,11 +1,14 @@
 // import 'package:consumer/consumer.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 // import 'package:redux_comp/app_state.dart';
 // import 'package:async_redux/async_redux.dart';
 // import 'package:redux_comp/redux_comp.dart';
 
 void main() {
+  test('mock test', () {
+    expect(true, true);
+  });
   // final store = Store<AppState>(initialState: AppState.mock());
 
   // testWidgets("Testing Create New Advert", (WidgetTester tester) async {

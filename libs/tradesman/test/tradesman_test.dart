@@ -1,6 +1,6 @@
 // import 'package:async_redux/async_redux.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 // import 'package:general/widgets/appbar.dart';
 // import 'package:general/widgets/button.dart';
 // import 'package:redux_comp/redux_comp.dart';
@@ -10,6 +10,9 @@
 // import 'package:tradesman/widgets/notification_card_widget.dart';
 
 void main() {
+  test('mock test', () {
+    expect(true, true);
+  });
   // testWidgets("Test Tradesnan  Listings", (WidgetTester tester) async {
   //   final store = Store<AppState>(initialState: AppState.mock());
   //   //spin up the widget

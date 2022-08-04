@@ -2,10 +2,13 @@
 // import 'package:chat/pages/chat_page.dart';
 // import 'package:chat/widgets/chat_appbar_widget.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 // import 'package:redux_comp/redux_comp.dart';
 
 void main() {
+  test('mock test', () {
+    expect(true, true);
+  });
 //   final store = Store<AppState>(initialState: AppState.mock());
 
   // testWidgets("Chat Test", (WidgetTester tester) async {
