@@ -6,7 +6,6 @@ import 'package:general/widgets/button.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/pages/activity_stream_page.dart';
 import 'package:tradesman/pages/domain_confirmation_page.dart';
-import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/tradesman.dart';
 import 'package:tradesman/widgets/notification_card_widget.dart';
 
@@ -24,57 +23,57 @@ void main() {
     expect(icon, findsOneWidget);
   });
 
-  testWidgets("Tradesman Profile", (WidgetTester tester) async {
-    final store = Store<AppState>(initialState: AppState.mock());
-    await tester.pumpWidget(TradesmanProfilePage(store: store));
+  // testWidgets("Tradesman Profile", (WidgetTester tester) async {
+  //   final store = Store<AppState>(initialState: AppState.mock());
+  //   await tester.pumpWidget(TradesmanProfilePage(store: store));
 
-    //App bar stuff
-    // var profile = find.widgetWithText(AppBarWidget, "PROFILE");
-    // expect(profile, findsOneWidget);
+  //App bar stuff
+  // var profile = find.widgetWithText(AppBarWidget, "PROFILE");
+  // expect(profile, findsOneWidget);
 
-    // var accountCircle = find.byIcon(Icons.account_circle);
-    // expect(accountCircle, findsOneWidget);
+  // var accountCircle = find.byIcon(Icons.account_circle);
+  // expect(accountCircle, findsOneWidget);
 
-    // var mail = find.byIcon(Icons.email);
-    // expect(mail, findsOneWidget);
+  // var mail = find.byIcon(Icons.email);
+  // expect(mail, findsOneWidget);
 
-    // var mailText = find.text("Email");
-    // expect(mailText, findsOneWidget);
+  // var mailText = find.text("Email");
+  // expect(mailText, findsOneWidget);
 
-    // var phoneIcon = find.byIcon(Icons.phone);
-    // expect(phoneIcon, findsOneWidget);
+  // var phoneIcon = find.byIcon(Icons.phone);
+  // expect(phoneIcon, findsOneWidget);
 
-    // var phoneText = find.text("Phone");
-    // expect(phoneText, findsOneWidget);
+  // var phoneText = find.text("Phone");
+  // expect(phoneText, findsOneWidget);
 
-    // var constructionIcon = find.byIcon(Icons.construction_outlined);
-    // expect(constructionIcon, findsOneWidget);
+  // var constructionIcon = find.byIcon(Icons.construction_outlined);
+  // expect(constructionIcon, findsOneWidget);
 
-    // var tradeText = find.text("Trade");
-    // expect(tradeText, findsOneWidget);
+  // var tradeText = find.text("Trade");
+  // expect(tradeText, findsOneWidget);
 
-    // var domainText = find.text("Domains");
-    // expect(domainText, findsOneWidget);
+  // var domainText = find.text("Domains");
+  // expect(domainText, findsOneWidget);
 
-    // var locationIcon = find.byIcon(Icons.location_on);
-    // expect(locationIcon, findsOneWidget);
+  // var locationIcon = find.byIcon(Icons.location_on);
+  // expect(locationIcon, findsOneWidget);
 
-    // var editButton = find.byIcon(Icons.edit);
-    // expect(editButton, findsOneWidget);
+  // var editButton = find.byIcon(Icons.edit);
+  // expect(editButton, findsOneWidget);
 
-    //Nav bar
-    var workIcon = find.byIcon(Icons.work);
-    expect(workIcon, findsOneWidget);
+  //Nav bar
+  //   var workIcon = find.byIcon(Icons.work);
+  //   expect(workIcon, findsOneWidget);
 
-    var forumIcon = find.byIcon(Icons.forum);
-    expect(forumIcon, findsOneWidget);
+  //   var forumIcon = find.byIcon(Icons.forum);
+  //   expect(forumIcon, findsOneWidget);
 
-    var personIcon = find.byIcon(Icons.person);
-    expect(personIcon, findsOneWidget);
+  //   var personIcon = find.byIcon(Icons.person);
+  //   expect(personIcon, findsOneWidget);
 
-    var logoutIcon = find.byIcon(Icons.logout);
-    expect(logoutIcon, findsOneWidget);
-  });
+  //   var logoutIcon = find.byIcon(Icons.logout);
+  //   expect(logoutIcon, findsOneWidget);
+  // });
 
   testWidgets("activity stream page", (WidgetTester tester) async {
     final store = Store<AppState>(initialState: AppState.mock());
