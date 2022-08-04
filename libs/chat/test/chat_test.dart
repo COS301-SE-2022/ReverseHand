@@ -5,7 +5,7 @@
 // import 'package:flutter_test/flutter_test.dart';
 // import 'package:redux_comp/redux_comp.dart';
 
-// void main() {
+void main() {
 //   final store = Store<AppState>(initialState: AppState.mock());
 
   // testWidgets("Chat Test", (WidgetTester tester) async {
@@ -17,4 +17,4 @@
 
   //   expect(find.byIcon(Icons.phone), findsOneWidget);
   // });
-// }
+}
