@@ -106,6 +106,9 @@ type Mutation {
 
   deleteChat(c_id: String!, ad_id: String!): Chat!
   @function(name: "deleteChatResolver-${env}")
+
+  addReview(user_id: String!, reviews: Review!) : Review!
+  @function(name: "addReviewResolver-${env}")
 }
 
 type Subscription {
