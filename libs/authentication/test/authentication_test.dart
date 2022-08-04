@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-import 'package:async_redux/async_redux.dart';
-import 'package:authentication/authentication.dart';
-import 'package:authentication/widgets/auth_button.dart';
-import 'package:flutter/material.dart';
-=======
 // import 'package:async_redux/async_redux.dart';
 /* import 'package:authentication/authentication.dart';
 import 'package:authentication/widgets/button.dart';
 import 'package:flutter/material.dart'; */
->>>>>>> da6214d479156c9f9a52496bd2dcaf4956f43a58
 import 'package:flutter_test/flutter_test.dart';
 // import 'package:redux_comp/app_state.dart';
 
