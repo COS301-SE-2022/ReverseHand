@@ -49,14 +49,15 @@ class Launch extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
+<<<<<<< HEAD
         theme: CustomTheme.darkTheme,
+=======
+>>>>>>> da6214d479156c9f9a52496bd2dcaf4956f43a58
         initialRoute: '/',
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
-          '/': (context) => LoginPage(
-                store: store,
-              ),
+          '/': (context) => LoginPage(store: store),
           // consumer routes
           '/consumer': (context) => ConsumerListingsPage(store: store),
           '/consumer/create_advert': (context) =>

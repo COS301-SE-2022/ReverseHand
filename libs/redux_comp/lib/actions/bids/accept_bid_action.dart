@@ -1,4 +1,3 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/chat/create_chat_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
