@@ -1,7 +1,7 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "y": "reversehand421d8881_identitypool_421d8881",
+    "identityPoolName": "reversehand421d8881_identitypool_421d8881",
     "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "reversc4d19aa6",
     "userPoolName": "reversehandc4d19aa6_userpool_c4d19aa6",
