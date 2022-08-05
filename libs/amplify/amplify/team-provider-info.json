@@ -13,19 +13,11 @@
     },
     "categories": {
       "auth": {
-<<<<<<< HEAD
         "userPoolGroups": {},
         "reversehandc4d19aa6c4d19aa6": {
           "facebookAppId": "1269894613781517",
           "googleClientId": "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com"
         }
-=======
-        "reversehandc4d19aa6c4d19aa6": {
-          "facebookAppId": "1269894613781517",
-          "googleClientId": "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com"
-        },
-        "true": {}
->>>>>>> da6214d479156c9f9a52496bd2dcaf4956f43a58
       },
       "storage": {
         "ReverseHand": {
@@ -120,7 +112,7 @@
         },
         "addReviewResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/addReviewResolver-54454e367a302f557856-build.zip"
+          "s3Key": "amplify-builds/addReviewResolver-34374c34495962577672-build.zip"
         },
         "removeDomainResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",

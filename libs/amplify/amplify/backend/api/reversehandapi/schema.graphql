@@ -106,6 +106,9 @@ type Mutation {
 
   deleteChat(c_id: String!, ad_id: String!): Chat!
   @function(name: "deleteChatResolver-${env}")
+
+  addReview(user_id: String!, reviews: ReviewInput) : Review 
+  @function(name: "addReviewResolver-${env}")
 }
 
 type Subscription {
@@ -220,6 +223,15 @@ type Notification implements UniqueID {
 }
 
 type Review implements UniqueID {
+  id: String!
+  rating: Int
+  comment: String
+  user_id: String!
+  advert_id: String!
+  date_created: String!
+}
+
+input ReviewInput{
   id: String!
   rating: Int
   comment: String
