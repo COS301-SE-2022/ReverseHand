@@ -54,10 +54,7 @@
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
-        "socialProviders": [
-          "FACEBOOK",
-          "GOOGLE"
-        ],
+        "socialProviders": [],
         "usernameAttributes": [
           "EMAIL"
         ],
@@ -237,11 +234,6 @@
       "service": "Lambda"
     },
     "deleteChatResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "refreshUserTokenResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
