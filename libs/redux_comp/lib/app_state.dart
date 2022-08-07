@@ -92,7 +92,7 @@ class AppState {
         email: "some@email.com",
         name: "Someone",
         cellNo: "0821234567",
-        userType: "confirmed",
+        userType: "customer",
       ),
       wait: Wait(),
       authModel: null,

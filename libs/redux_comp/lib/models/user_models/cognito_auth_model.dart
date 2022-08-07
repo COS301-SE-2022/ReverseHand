@@ -4,24 +4,21 @@ import 'package:flutter/material.dart';
 
 @immutable
 class CognitoAuthModel {
-  final String id;
-  final List<String> groups;
-  final bool isSignedIn;
+  final String accessToken;
+  final String refreshToken;
 
-  const CognitoAuthModel(
-      {required this.id,
-      required this.groups,
-      required this.isSignedIn});
+  const CognitoAuthModel({
+    required this.accessToken,
+    required this.refreshToken,
+  });
 
   CognitoAuthModel copy({
-    String? id,
-    List<String>? groups,
-    bool? isSignedIn,
+    String? accessToken,
+    String? refreshToken,
   }) {
     return CognitoAuthModel(
-      id: id ?? this.id,
-      groups: groups ?? this.groups,
-      isSignedIn: isSignedIn ?? this.isSignedIn,
+      accessToken: accessToken ?? this.accessToken,
+      refreshToken: refreshToken ?? this.refreshToken,
     );
   }
 }

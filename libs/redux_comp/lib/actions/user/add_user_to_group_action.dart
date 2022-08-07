@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/intiate_auth_action.dart';
+import 'package:redux_comp/actions/refresh_user_token_action.dart';
 import 'package:redux_comp/actions/user/check_user_exists_action.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
 import '../../app_state.dart';
@@ -29,7 +30,9 @@ class AddUserToGroupAction extends ReduxAction<AppState> {
       final result =
           await Amplify.API.mutate(request: requestUserGroup).response;
       debugPrint(result.data);
-      return state.copy(userDetails: state.userDetails!.copy(userType: group));
+      return state.copy(
+        error: ErrorType.none,
+      );
     } on ApiException catch (e) {
       debugPrint(e.message);
       return state.copy(error: ErrorType.failedToAddUserToGroup);
@@ -38,6 +41,6 @@ class AddUserToGroupAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    await dispatch(CheckUserExistsAction());
+    await dispatch(RefreshUserTokenAction(state.authModel!.refreshToken));
   }
 }
