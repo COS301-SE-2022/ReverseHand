@@ -8,11 +8,13 @@ class FilterAdvertsModel {
   final Sort? sort;
   final HashSet<Domain>? domains;
   final HashSet<String>? jobTypes;
+  final Range? distance;
 
   const FilterAdvertsModel({
     this.sort,
     this.domains,
     this.jobTypes,
+    this.distance,
   });
 }
 

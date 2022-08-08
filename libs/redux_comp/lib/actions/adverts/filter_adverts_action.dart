@@ -1,4 +1,4 @@
-// code to filter and sort bids for a specific advert
+// code to filter and sort adverts
 // user cannot be null
 
 import 'package:redux_comp/models/advert_model.dart';
@@ -15,8 +15,32 @@ class FilterAdvertsAction extends ReduxAction<AppState> {
   AppState? reduce() {
     List<AdvertModel> adverts = [];
 
-    if (filter.domains != null) {}
+    // if (filter.domains != null) {
+    // for (AdvertModel advert in state.adverts) {
+    //   if (filter.domains!.contains(advert)) {
+    //     adverts.add(advert);
+    //   }
+    // }
+    // }
 
-    return null;
+    if (filter.jobTypes != null) {
+      for (AdvertModel advert in state.adverts) {
+        if (filter.jobTypes!.contains(advert.type)) {
+          adverts.add(advert);
+        }
+      }
+    }
+
+    // filter by distance
+    // if (filter.distance != null) {
+    //   adverts.removeWhere(
+    //     (advert) => !(advert.priceLower >= filter.priceRange!.low &&
+    //         advert.priceUpper <= filter.priceRange!.high),
+    //   );
+    // }
+
+    return state.copy(
+      viewAdverts: adverts,
+    );
   }
 }
