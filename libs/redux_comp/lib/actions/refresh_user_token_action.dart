@@ -75,6 +75,8 @@ class RefreshUserTokenAction extends ReduxAction<AppState> {
         debugPrint("Error in Cognito API call in actions/user/refresh_token");
         return state.copy(error: ErrorType.failedToRefreshToken);
       }
+    } else {
+      return state.copy(error: ErrorType.failedToRefreshToken);
     }
   }
 

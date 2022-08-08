@@ -12,7 +12,6 @@ import 'package:async_redux/async_redux.dart';
 class IntiateAuthAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-<<<<<<< HEAD
     // Amplify.Auth.signOut();
     final authSession = await Amplify.Auth.fetchAuthSession();
     if (authSession.isSignedIn == true) {

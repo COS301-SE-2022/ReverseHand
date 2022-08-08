@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
 import 'package:redux_comp/actions/user/get_user_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import '../../app_state.dart';

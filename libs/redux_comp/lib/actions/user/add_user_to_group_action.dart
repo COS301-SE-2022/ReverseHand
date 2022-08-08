@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/intiate_auth_action.dart';
 import 'package:redux_comp/actions/refresh_user_token_action.dart';
-import 'package:redux_comp/actions/user/check_user_exists_action.dart';
-import 'package:redux_comp/actions/user/login_action.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';

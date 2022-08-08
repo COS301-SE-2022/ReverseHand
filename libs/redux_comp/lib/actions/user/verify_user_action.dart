@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:redux_comp/actions/user/add_user_to_group_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
