@@ -70,6 +70,19 @@
       "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "authProviders": []
+    "thirdPartyAuth": true,
+    "audiences": [
+      "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com"
+    ],
+    "hostedUIDomainName": "reversehandd8eb6d1c-d8eb6d1c",
+    "authProvidersUserPool": [
+      "Facebook",
+      "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"1269894613781517\",\"client_secret\":\"f3fbae03dade808caf61dae649653dbe\"},{\"ProviderName\":\"Google\",\"client_id\":\"70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com\",\"client_secret\":\"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\"}]",
+    "facebookAppId": "1269894613781517",
+    "googleClientId": "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"reversehand://\"],\"LogoutURLs\":[\"reversehand://\"]}"
   }
 }

@@ -44,7 +44,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
     final List<String>? results = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MultiSelectWidget(items: items, selectedItems: selected);
+        return MultiSelectWidget(items: items);
       },
     );
 

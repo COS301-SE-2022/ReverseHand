@@ -3,6 +3,7 @@ import 'package:amplify/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
+import 'package:redux_comp/actions/intiate_auth_action.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -14,6 +15,13 @@ class InitAmplifyAction extends ReduxAction<AppState> {
     await _configureAmplify();
 
     return null;
+  }
+
+@override
+  void after() {
+    if (Amplify.isConfigured) {
+      dispatch(IntiateAuthAction());
+    }
   }
 }
 

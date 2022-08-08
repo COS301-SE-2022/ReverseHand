@@ -6,7 +6,7 @@ import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
-import 'package:redux_comp/actions/user/signin_facebook_action.dart';
+import 'package:redux_comp/actions/intiate_auth_action.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/login_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
@@ -283,14 +283,13 @@ class _Factory extends VmFactory<AppState, LoginPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
-        pushSignUpPage: () =>
-            dispatch(NavigateAction.pushNamed('/usertype_selection')),
+        pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/signup')),
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),
         error: state.error,
         dispatchSignInFacebook: () => dispatch(
-          SigninFacebookAction(),
+          IntiateAuthAction(),
         ),
       );
 }
