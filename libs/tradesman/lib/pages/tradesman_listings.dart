@@ -54,7 +54,9 @@ class TradesmanJobListings extends StatelessWidget {
                       label: const Text(
                         "Filter",
                         style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.w300),
+                          fontSize: 22,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
                   ),
