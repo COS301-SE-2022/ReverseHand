@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/profile_divider.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/tradesman_navbar_widget.dart';
@@ -25,26 +26,21 @@ class ActivityStream extends StatelessWidget {
                 //********************************************************//
 
                 //*******************MOCK NOTIFICATIONS CARDS*********************//
-                NotificationCardWidget(
+                const NotificationCardWidget(
+                  titleText: "New Bid!",
+                  date: "3 min ago",
+                ),
+
+                const NotificationCardWidget(
                   titleText: "Accepted!",
-                  descText: "Your bid was accepted!",
                   date: "3 min ago",
-                  store: store,
                 ),
 
-                NotificationCardWidget(
-                  titleText: "Shortlisted!",
-                  descText: "Your bid was shortlisted!",
+                const NotificationCardWidget(
+                  titleText: "Submitted!",
                   date: "3 min ago",
-                  store: store,
                 ),
 
-                NotificationCardWidget(
-                  titleText: "Bid Submitted!",
-                  descText: "Your bid was submitted!",
-                  date: "3 min ago",
-                  store: store,
-                ),
                 //********************************************************//
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
@@ -19,16 +20,15 @@ class TradesmanProfilePage extends StatelessWidget {
           child: StoreConnector<AppState, _ViewModel>(
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) => Column(children: [
+              //**************APPBAR***************/
+              AppBarWidget(store: store, title: "PROFILE"),
+              //***********************************/
+
               //**************HEADING***************/
-              Padding(
-                padding: const EdgeInsets.only(top: 80),
-                child: Center(
-                  child: Text(
-                    (vm.userDetails.name != null)
-                        ? vm.userDetails.name!
-                        : "null",
-                    style: const TextStyle(fontSize: 35),
-                  ),
+              Center(
+                child: Text(
+                  (vm.userDetails.name != null) ? vm.userDetails.name! : "null",
+                  style: const TextStyle(fontSize: 35),
                 ),
               ),
               //************************************/
