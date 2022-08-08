@@ -4,6 +4,8 @@ import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
+//the consumer navbar
+
 class NavBarWidget extends StatelessWidget {
   final Store<AppState> store;
   const NavBarWidget({Key? key, required this.store}) : super(key: key);

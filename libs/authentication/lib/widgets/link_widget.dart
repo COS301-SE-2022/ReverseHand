@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-// import '../methods/populate_login.dart';
+
+//******************************** */
+//link text with onTap for navigation
+//******************************** */
 
 class LinkWidget extends StatelessWidget {
   final String text1; 

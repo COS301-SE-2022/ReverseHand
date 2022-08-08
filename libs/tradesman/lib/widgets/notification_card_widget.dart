@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/app_state.dart';
 
+//******************************** */
+//  card widget for notifications
+//******************************** */
+
 class NotificationCardWidget extends StatelessWidget {
   final String titleText;
   final String descText;

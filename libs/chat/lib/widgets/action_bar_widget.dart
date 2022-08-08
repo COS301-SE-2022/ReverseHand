@@ -61,7 +61,10 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
             child: ActionButtonWidget(
               color: const Color.fromRGBO(243, 157, 55, 1),
               icon: Icons.send_rounded,
-              onPressed: () => widget.onPressed(msgController.value.text),
+              onPressed: () {
+                widget.onPressed(msgController.value.text);
+                msgController.clear();
+              },
             ),
           ),
         ],

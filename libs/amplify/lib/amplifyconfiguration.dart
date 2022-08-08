@@ -71,10 +71,7 @@ const amplifyconfig = ''' {
                             ]
                         },
                         "authenticationFlowType": "USER_SRP_AUTH",
-                        "socialProviders": [
-                            "FACEBOOK",
-                            "GOOGLE"
-                        ],
+                        "socialProviders": [],
                         "usernameAttributes": [
                             "EMAIL"
                         ],

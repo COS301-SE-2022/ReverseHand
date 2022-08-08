@@ -5,6 +5,9 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:general/widgets/textfield.dart';
 
+//******************************** */
+//  place bid popup widget
+//******************************** */
 
 class PlaceBidPopupWidget extends StatefulWidget {
   final Store<AppState> store;

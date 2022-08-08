@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-class TextFieldWidget extends StatelessWidget {
+//******************************** */
+//  login and signup textfields
+//******************************** */
+
+class AuthTextFieldWidget extends StatelessWidget {
   final String label;
   final bool obscure;
   final IconData? icon;
@@ -8,7 +12,7 @@ class TextFieldWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final Function()? onTap;
 
-  const TextFieldWidget({
+  const AuthTextFieldWidget({
     Key? key,
     required this.label,
     required this.obscure,

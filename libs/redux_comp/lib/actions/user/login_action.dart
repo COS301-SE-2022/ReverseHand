@@ -37,7 +37,8 @@ class LoginAction extends ReduxAction<AppState> {
       Map<String, dynamic> payload =
           Jwt.parseJwt(authSession.userPoolTokens!.accessToken);
 
-      List groups = payload["cognito:groups"];
+      //the await does not seem necessary but this line causes an ad hoc registration error
+      List groups = await payload["cognito:groups"];
 
       if (groups.contains("tradesman")) {
         userType = "Tradesman";

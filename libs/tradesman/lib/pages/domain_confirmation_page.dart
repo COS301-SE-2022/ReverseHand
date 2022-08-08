@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:general/widgets/floating_button.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -17,50 +16,46 @@ class DomainConfirmPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          resizeToAvoidBottomInset:
-              false, //prevents floatingActionButton appearing above keyboard
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
-                children: [
-                  //*******************APP BAR WIDGET******************//
-                  AppBarWidget(title: "DOMAINS DISPLAY", store: store),
-                  //***************************************************//
+      child: Scaffold(
+        resizeToAvoidBottomInset:
+            false, //prevents floatingActionButton appearing above keyboard
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) => Column(
+              children: [
+                //*******************APP BAR WIDGET******************//
+                AppBarWidget(title: "DOMAINS DISPLAY", store: store),
+                //***************************************************//
 
-                  //**************** Domain Location Cards*************//
-                  // CardWidget(store: store, title: 'Pretoria'),
-                  // CardWidget(store: store, title: 'Centurion'),
-                  ...populateDomains(store, vm.domains),
-                  //***************************************************//
+                //**************** Domain Location Cards*************//
+                // CardWidget(store: store, title: 'Pretoria'),
+                // CardWidget(store: store, title: 'Centurion'),
+                ...populateDomains(store, vm.domains),
+                //***************************************************//
 
-                  //dynamic save button
-                  if (vm.domains.isNotEmpty)
-                    const Padding(padding: EdgeInsets.all(8)),
+                //dynamic save button
+                if (vm.domains.isNotEmpty)
+                  const Padding(padding: EdgeInsets.all(8)),
 
-                  //*******************DISCARD BUTTON*****************//
-                  ButtonWidget(text: "Back", color: "dark", function: vm.pop)
-                  //**********************NAME************************//
-                ],
-              ),
+                //*******************DISCARD BUTTON*****************//
+                ButtonWidget(text: "Back", color: "dark", function: vm.pop)
+                //**********************NAME************************//
+              ],
             ),
           ),
-          //************************NAVBAR***********************/
-          floatingActionButton: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) =>
-                FloatingButtonWidget(function: vm.pushCustomSearch),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          // bottomNavigationBar: TNavBarWidget(
-          //   store: store,
-          // ),
-          //*****************************************************/
         ),
+        //************************NAVBAR***********************/
+        floatingActionButton: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) =>
+              FloatingButtonWidget(function: vm.pushCustomSearch),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // bottomNavigationBar: TNavBarWidget(
+        //   store: store,
+        // ),
+        //*****************************************************/
       ),
     );
   }
