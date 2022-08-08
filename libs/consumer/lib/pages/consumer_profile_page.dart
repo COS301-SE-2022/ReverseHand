@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -15,150 +14,147 @@ class ConsumerProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
-                children: [
-                  //*******************APP BAR WIDGET*********************//
-                  AppBarWidget(title: "PROFILE", store: store),
-                  //********************************************************//
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) => Column(
+              children: [
+                //*******************APP BAR WIDGET*********************//
+                AppBarWidget(title: "PROFILE", store: store),
+                //********************************************************//
 
-                  //*******************CONSUMER NAME************************//
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    const Icon(
-                      Icons.account_circle,
-                      color: Colors.white,
-                      size: 50.0,
+                //*******************CONSUMER NAME************************//
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  const Icon(
+                    Icons.account_circle,
+                    color: Colors.white,
+                    size: 50.0,
+                  ),
+                  const Padding(padding: EdgeInsets.only(right: 10)),
+                  Text(
+                    (vm.userDetails.name != null)
+                        ? vm.userDetails.name!
+                        : "null",
+                    style: const TextStyle(fontSize: 30),
+                  ),
+                ]),
+                //********************************************************//
+
+                const Padding(padding: EdgeInsets.all(20)),
+
+                //*******************CONSUMER DETAILS************************//
+
+                Stack(alignment: Alignment.center, children: <Widget>[
+                  //overlay
+                  BottomOverlayWidget(
+                    height: MediaQuery.of(context).size.height / 1.5,
+                  ),
+
+                  //location
+                  Positioned(
+                    top: 40,
+                    left: 45,
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.white70,
+                          size: 26.0,
+                        ),
+                        Padding(padding: EdgeInsets.only(left: 8)),
+                        Text("Location",
+                            style:
+                                TextStyle(fontSize: 26, color: Colors.white70)),
+                      ],
                     ),
-                    const Padding(padding: EdgeInsets.only(right: 10)),
-                    Text(
-                      (vm.userDetails.name != null)
-                          ? vm.userDetails.name!
-                          : "null",
-                      style: const TextStyle(fontSize: 30),
+                  ),
+
+                  Positioned(
+                      top: 80,
+                      left: 52,
+                      child: Text(
+                          (vm.userDetails.location != null)
+                              ? "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}"
+                              : "null",
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white))),
+
+                  //cellphone
+                  Positioned(
+                    top: 140,
+                    left: 45,
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.phone,
+                          color: Colors.white70,
+                          size: 26.0,
+                        ),
+                        Padding(padding: EdgeInsets.only(left: 8)),
+                        Text("Cellphone",
+                            style:
+                                TextStyle(fontSize: 26, color: Colors.white70)),
+                      ],
                     ),
-                  ]),
-                  //********************************************************//
+                  ),
 
-                  const Padding(padding: EdgeInsets.all(20)),
+                  Positioned(
+                      top: 180,
+                      left: 52,
+                      child: Text(
+                          (vm.userDetails.cellNo != null)
+                              ? vm.userDetails.cellNo!
+                              : "null",
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white))),
 
-                  //*******************CONSUMER DETAILS************************//
-
-                  Stack(alignment: Alignment.center, children: <Widget>[
-                    //overlay
-                    BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 1.5,
+                  //email
+                  Positioned(
+                    top: 240,
+                    left: 45,
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.email,
+                          color: Colors.white70,
+                          size: 26.0,
+                        ),
+                        Padding(padding: EdgeInsets.only(left: 8)),
+                        Text("Email",
+                            style:
+                                TextStyle(fontSize: 26, color: Colors.white70)),
+                      ],
                     ),
+                  ),
 
-                    //location
-                    Positioned(
-                      top: 40,
-                      left: 45,
-                      child: Row(
-                        children: const [
-                          Icon(
-                            Icons.location_on,
-                            color: Colors.white70,
-                            size: 26.0,
-                          ),
-                          Padding(padding: EdgeInsets.only(left: 8)),
-                          Text("Location",
-                              style: TextStyle(
-                                  fontSize: 26, color: Colors.white70)),
-                        ],
-                      ),
+                  Positioned(
+                      top: 280,
+                      left: 52,
+                      child: Text(vm.userDetails.email,
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white))),
+
+                  Positioned(
+                    top: 300,
+                    right: 35,
+                    child: IconButton(
+                      onPressed: vm.pushEditProfilePage,
+                      icon: const Icon(Icons.edit),
+                      color: Colors.white70,
                     ),
-
-                    Positioned(
-                        top: 80,
-                        left: 52,
-                        child: Text(
-                            (vm.userDetails.location != null)
-                                ? "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}"
-                                : "null",
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.white))),
-
-                    //cellphone
-                    Positioned(
-                      top: 140,
-                      left: 45,
-                      child: Row(
-                        children: const [
-                          Icon(
-                            Icons.phone,
-                            color: Colors.white70,
-                            size: 26.0,
-                          ),
-                          Padding(padding: EdgeInsets.only(left: 8)),
-                          Text("Cellphone",
-                              style: TextStyle(
-                                  fontSize: 26, color: Colors.white70)),
-                        ],
-                      ),
-                    ),
-
-                    Positioned(
-                        top: 180,
-                        left: 52,
-                        child: Text(
-                            (vm.userDetails.cellNo != null)
-                                ? vm.userDetails.cellNo!
-                                : "null",
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.white))),
-
-                    //email
-                    Positioned(
-                      top: 240,
-                      left: 45,
-                      child: Row(
-                        children: const [
-                          Icon(
-                            Icons.email,
-                            color: Colors.white70,
-                            size: 26.0,
-                          ),
-                          Padding(padding: EdgeInsets.only(left: 8)),
-                          Text("Email",
-                              style: TextStyle(
-                                  fontSize: 26, color: Colors.white70)),
-                        ],
-                      ),
-                    ),
-
-                    Positioned(
-                        top: 280,
-                        left: 52,
-                        child: Text(vm.userDetails.email,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.white))),
-
-                    Positioned(
-                      top: 300,
-                      right: 35,
-                      child: IconButton(
-                        onPressed: vm.pushEditProfilePage,
-                        icon: const Icon(Icons.edit),
-                        color: Colors.white70,
-                      ),
-                    ),
-                  ]),
-                ],
-              ),
+                  ),
+                ]),
+              ],
             ),
           ),
-
-          //************************NAVBAR***********************/
-          bottomNavigationBar: NavBarWidget(
-            store: store,
-          ),
-          //*************************************************//
         ),
+
+        //************************NAVBAR***********************/
+        bottomNavigationBar: NavBarWidget(
+          store: store,
+        ),
+        //*************************************************//
       ),
     );
   }

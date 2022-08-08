@@ -120,6 +120,8 @@ class _Factory extends VmFactory<AppState, UserTypeSelectionPage> {
         dispatchSignInFacebookAddUserToGroup: (String group) => dispatch(
           AddUserToGroupAction(state.userDetails!.email, group),
         ),
+        pushSignUpPage: () =>
+            dispatch(NavigateAction.pushNamed('/signup')),
       );
 }
 
@@ -128,10 +130,12 @@ class _ViewModel extends Vm {
   final void Function(String) dispatchSignInFacebookAddUserToGroup;
   final bool loading;
   final ErrorType error;
+  final VoidCallback pushSignUpPage;
 
   _ViewModel({
     required this.dispatchSignInFacebookAddUserToGroup,
     required this.loading,
     required this.error,
+    required this.pushSignUpPage,
   }) : super(equals: [loading, error]); // implementing hashcode
 }

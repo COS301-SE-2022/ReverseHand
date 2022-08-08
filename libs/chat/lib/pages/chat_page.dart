@@ -3,7 +3,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:chat/widgets/chat_appbar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/actions/chat/send_message_action.dart';
@@ -20,53 +19,50 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) {
-            List<Widget> messages = [];
+      child: StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) {
+          List<Widget> messages = [];
 
-            for (MessageModel msg in vm.chat.messages) {
-              if (vm.currentUser == msg.sender) {
-                messages.add(
-                  MessageOwnTileWidget(
-                    message: msg,
-                  ),
-                );
-              } else {
-                messages.add(
-                  MessageTileWidget(
-                    message: msg,
-                  ),
-                );
-              }
-            }
-
-            return Scaffold(
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //*******************APP BAR WIDGET*********************//
-                    const ChatAppBarWidget(title: "Name"),
-                    //********************************************************//
-                    // const DateLabelWidget(label: "Yesterday"), //todo michael
-
-                    //todo michael
-                    ...messages,
-                  ],
+          for (MessageModel msg in vm.chat.messages) {
+            if (vm.currentUser == msg.sender) {
+              messages.add(
+                MessageOwnTileWidget(
+                  message: msg,
                 ),
-              ),
-              //************************NAVBAR***********************/
+              );
+            } else {
+              messages.add(
+                MessageTileWidget(
+                  message: msg,
+                ),
+              );
+            }
+          }
 
-              bottomSheet: ActionBarWidget(
-                onPressed: vm.dispatchSendMsgAction,
-              ),
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  //*******************APP BAR WIDGET*********************//
+                  const ChatAppBarWidget(title: "Name"),
+                  //********************************************************//
+                  // const DateLabelWidget(label: "Yesterday"), //todo michael
 
-              //*****************************************************/
-            );
-          },
-        ),
+                  //todo michael
+                  ...messages,
+                ],
+              ),
+            ),
+            //************************NAVBAR***********************/
+
+            bottomSheet: ActionBarWidget(
+              onPressed: vm.dispatchSendMsgAction,
+            ),
+
+            //*****************************************************/
+          );
+        },
       ),
     );
   }

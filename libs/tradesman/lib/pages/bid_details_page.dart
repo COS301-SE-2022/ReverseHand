@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
@@ -19,136 +18,132 @@ class TBidDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) => Scaffold(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Stack(children: [
-                    //**********APPBAR***********//
-                    AppBarWidget(title: "BID DETAILS", store: store),
-                    //***************************//
+      child: StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) => Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Stack(children: [
+                  //**********APPBAR***********//
+                  AppBarWidget(title: "BID DETAILS", store: store),
+                  //***************************//
 
-                    //************DATE***********//
-                    Positioned(
-                      top: 90,
-                      left: 35,
-                      child: Text('${vm.bid.name}',
+                  //************DATE***********//
+                  Positioned(
+                    top: 90,
+                    left: 35,
+                    child: Text('${vm.bid.name}',
+                        style:
+                            const TextStyle(fontSize: 33, color: Colors.white)),
+                  ),
+                  //***************************//
+
+                  //**********NAME***********//
+                  Positioned(
+                    top: 95,
+                    right: 35,
+                    child: Text(vm.bid.dateCreated,
+                        style: const TextStyle(
+                            fontSize: 17, color: Colors.white70)),
+                  ),
+                  //***************************//
+                ]),
+
+                //**********DIVIDER***********//
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Divider(
+                    height: 20,
+                    thickness: 0.5,
+                    indent: 15,
+                    endIndent: 15,
+                    color: Theme.of(context).primaryColorLight,
+                  ),
+                ),
+                //****************************//
+
+                //******************INFO***************//
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      //name
+                      // Text('${vm.bid.name}',
+                      //     style: const TextStyle(
+                      //         fontSize: 33, color: Colors.white)),
+
+                      //keep for now - still testing if appBar stack works on other screens
+
+                      const Padding(padding: EdgeInsets.all(15)),
+
+                      //bid range
+                      const Center(
+                        child: Text(
+                          'Quoted price',
+                          style: TextStyle(fontSize: 20, color: Colors.white70),
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.all(8)),
+                      Center(
+                        child: Text(
+                          'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
                           style: const TextStyle(
-                              fontSize: 33, color: Colors.white)),
-                    ),
-                    //***************************//
+                              fontSize: 40,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
 
-                    //**********NAME***********//
-                    Positioned(
-                      top: 95,
-                      right: 35,
-                      child: Text(vm.bid.dateCreated,
-                          style: const TextStyle(
-                              fontSize: 17, color: Colors.white70)),
-                    ),
-                    //***************************//
-                  ]),
+                      const Padding(padding: EdgeInsets.all(40)),
+                    ]),
+                //*************************************//
 
-                  //**********DIVIDER***********//
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Divider(
-                      height: 20,
-                      thickness: 0.5,
-                      indent: 15,
-                      endIndent: 15,
-                      color: Theme.of(context).primaryColorLight,
+                //****************BOTTOM BUTTONS**************//
+                const Padding(padding: EdgeInsets.all(15)),
+                Stack(alignment: Alignment.center, children: <Widget>[
+                  BottomOverlayWidget(
+                    height: MediaQuery.of(context).size.height / 2,
+                  ),
+
+                  Positioned(
+                    top: 20,
+                    right: 35,
+                    child: IconButton(
+                      onPressed: vm.pushEditBidsPage,
+                      icon: const Icon(Icons.edit),
+                      color: Colors.white70,
                     ),
                   ),
-                  //****************************//
 
-                  //******************INFO***************//
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        //name
-                        // Text('${vm.bid.name}',
-                        //     style: const TextStyle(
-                        //         fontSize: 33, color: Colors.white)),
+                  //Delete
+                  Positioned(
+                      top: 40,
+                      child: ButtonWidget(
+                          text: "Delete",
+                          border: "White",
+                          function: vm.popPage)),
 
-                        //keep for now - still testing if appBar stack works on other screens
-
-                        const Padding(padding: EdgeInsets.all(15)),
-
-                        //bid range
-                        const Center(
-                          child: Text(
-                            'Quoted price',
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white70),
-                          ),
-                        ),
-                        const Padding(padding: EdgeInsets.all(8)),
-                        Center(
-                          child: Text(
-                            'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
-                            style: const TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-
-                        const Padding(padding: EdgeInsets.all(40)),
-                      ]),
-                  //*************************************//
-
-                  //****************BOTTOM BUTTONS**************//
-                  const Padding(padding: EdgeInsets.all(15)),
-                  Stack(alignment: Alignment.center, children: <Widget>[
-                    BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 2,
-                    ),
-
-                     Positioned(
-                      top: 20,
-                      right: 35,
-                      child: IconButton(
-                        onPressed: vm.pushEditBidsPage,
-                        icon: const Icon(Icons.edit),
-                        color: Colors.white70,
-                      ),
-                    ),
-
-                    //Delete
-                    Positioned(
-                        top: 40,
-                        child: ButtonWidget(
-                            text: "Delete",
-                            border: "White",
-                            function: vm.popPage)),
-
-                    //Back
-                    Positioned(
-                        top: 95,
-                        child: ButtonWidget(
-                            text: "Back",
-                            color: "light",
-                            border: "White",
-                            function: vm.popPage)),
-                  ]),
-                  //******************************************//
-                ],
-              ),
+                  //Back
+                  Positioned(
+                      top: 95,
+                      child: ButtonWidget(
+                          text: "Back",
+                          color: "light",
+                          border: "White",
+                          function: vm.popPage)),
+                ]),
+                //******************************************//
+              ],
             ),
-            //************************NAVBAR***********************/
-
-            bottomNavigationBar: TNavBarWidget(
-              store: store,
-            ),
-            //*****************************************************/
           ),
+          //************************NAVBAR***********************/
+
+          bottomNavigationBar: TNavBarWidget(
+            store: store,
+          ),
+          //*****************************************************/
         ),
       ),
     );
