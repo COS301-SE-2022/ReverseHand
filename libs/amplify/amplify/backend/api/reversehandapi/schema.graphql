@@ -20,6 +20,9 @@ type Query {
 
   getTradesmanChats(c_id: String!): [Chat!]!
   @function(name: "getTradesmanMessagesResolver-${env}")
+
+  getNotifications(user_id: String!): [Notification!]!
+  @function(name: "getNotificationsResolver-${env}")
 }
 
 type Mutation {
@@ -106,6 +109,9 @@ type Mutation {
 
   deleteChat(c_id: String!, ad_id: String!): Chat!
   @function(name: "deleteChatResolver-${env}")
+
+  addReview(user_id: String!, reviews: ReviewInput!) : [Review!]!
+  @function(name: "addReviewResolver-${env}")
 }
 
 type Subscription {
@@ -124,6 +130,8 @@ type User implements UniqueID {
   location: Location!
   domains: [Domain!]
   tradetypes: [String!]
+  reviews: [Review!]
+  sum: Int #For the time being nullable but will be changed once things like create user initialize this to zero
 }
 
 type Chat {
@@ -211,18 +219,25 @@ type Bid implements UniqueID {
   date_closed: String
 }
 
-type Notification implements UniqueID {
-  id: String!
-  user_id: String!
-  notification: String # temporary
-  date_created: String # temporary
-  seen: Boolean!
+type Notification  {
+  title: String!
+  msg: String!
+  type: String!
+  timestamp: Float!
 }
 
 type Review implements UniqueID {
   id: String!
   rating: Int
-  comment: String
+  description: String
+  user_id: String!
+  advert_id: String!
+}
+
+input ReviewInput {
+  id: String!
+  rating: Int
+  description: String
   user_id: String!
   advert_id: String!
   date_created: String!

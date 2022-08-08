@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "removeDomainResolver",
+            "getNotificationsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "removeDomainResolver",
+                  "getNotificationsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -93,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRoleb0269f24",
+            "reversehandLambdaRole891a8ac8",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRoleb0269f24",
+                  "reversehandLambdaRole891a8ac8",
                   "-",
                   {
                     "Ref": "env"
@@ -187,6 +187,7 @@
             {
               "Effect": "Allow",
               "Action": [
+                "dynamodb:GetItem",
                 "dynamodb:PutItem",
                 "dynamodb:List*",
                 "dynamodb:Query",

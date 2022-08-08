@@ -17,7 +17,8 @@
           "facebookAppId": "1269894613781517",
           "googleClientId": "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com"
         },
-        "true": {}
+        "true": {},
+        "userPoolGroups": {}
       },
       "storage": {
         "ReverseHand": {
@@ -112,7 +113,7 @@
         },
         "addReviewResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/addReviewResolver-54454e367a302f557856-build.zip"
+          "s3Key": "amplify-builds/addReviewResolver-434e366d594e4f326649-build.zip"
         },
         "removeDomainResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -137,6 +138,14 @@
         "deleteChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/deleteChatResolver-47444a786c622b473530-build.zip"
+        },
+        "refreshUserTokenResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/refreshUserTokenResolver-48615943794f3736346a-build.zip"
+        },
+        "getNotificationsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getNotificationsResolver-77767849543449656c76-build.zip"
         }
       }
     }
