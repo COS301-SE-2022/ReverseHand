@@ -1,11 +1,13 @@
+import 'dart:collection';
+
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 
 @immutable
 class FilterAdvertsModel {
   final Sort? sort;
-  final List<Domain>? domains;
-  final List<String>? jobTypes;
+  final HashSet<Domain>? domains;
+  final HashSet<String>? jobTypes;
 
   const FilterAdvertsModel({
     this.sort,

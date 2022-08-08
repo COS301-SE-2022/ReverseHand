@@ -35,6 +35,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
       return state.copy(
+        viewAdverts: List.from(adverts),
         adverts: adverts,
       );
     } catch (e) {
