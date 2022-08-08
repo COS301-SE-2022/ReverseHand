@@ -1,8 +1,7 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
-import 'package:redux_comp/actions/user/add_user_to_group_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:redux_comp/actions/user/login_action.dart';
 import '../../app_state.dart';
 
 class VerifyUserAction extends ReduxAction<AppState> {
@@ -15,14 +14,6 @@ class VerifyUserAction extends ReduxAction<AppState> {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
           username: state.partialUser!.email,
           confirmationCode: confirmationCode);
-
-      // await Amplify.Auth.signOut();
-      // await Amplify.Auth.signIn(
-      //   username: state.partialUser!.email,
-      //   password: state.partialUser!.password!,
-      // );
-
-      // AuthUser user = await Amplify.Auth.getCurrentUser();
 
       return state.copy(
         partialUser: state.partialUser!.copy(
@@ -40,6 +31,6 @@ class VerifyUserAction extends ReduxAction<AppState> {
 
   @override
   void after() async {
-    await dispatch(AddUserToGroupAction());
+    await dispatch(LoginAction(state.partialUser!.email, state.partialUser!.password!));
   }
 }

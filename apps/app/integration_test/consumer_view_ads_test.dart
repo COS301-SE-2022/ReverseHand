@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:app/main.dart' as app;
+import 'package:app/main.dart' as app;*/
 
 //command to run test: flutter test integration_test/consumer_view_ads_test.dart
 
 void main() {
+  /*
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets("View some created ads", (WidgetTester tester) async {
@@ -90,4 +91,5 @@ void main() {
     await tester.tap(testJobTwo);
     await tester.pumpAndSettle();
   });
+  */
 }

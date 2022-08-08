@@ -2,9 +2,12 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 
+//used in consumer and tradesman
+
 class FloatingButtonWidget extends StatelessWidget {
   final void Function() function;
-  const FloatingButtonWidget({Key? key, required this.function}) : super(key: key);
+  const FloatingButtonWidget({Key? key, required this.function})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+//******************************************** */
+//  button bar for left/right spacing in cards
+//********************************************* */
+
 class ButtonBarTitleWidget extends StatelessWidget {
   final String title;
   final String value;

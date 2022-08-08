@@ -5,12 +5,14 @@ import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
 import 'models/geolocation/location_model.dart';
+import 'models/user_models/cognito_auth_model.dart';
 import 'models/user_models/user_model.dart';
 import 'models/user_models/partial_user_model.dart';
 
 @immutable
 class AppState {
   // put all app state requiered here
+  final CognitoAuthModel? authModel;
   final UserModel? userDetails;
   final PartialUser? partialUser;
   final List<BidModel> bids; // holds all of the bids i.e viewBids ⊆ bids
@@ -32,6 +34,7 @@ class AppState {
 
   // constructor must only take named parameters
   const AppState({
+    required this.authModel,
     required this.userDetails,
     required this.partialUser,
     required this.adverts,
@@ -51,6 +54,7 @@ class AppState {
   // this methods sets the starting state for the store
   factory AppState.initial() {
     return AppState(
+      authModel: null,
       userDetails: const UserModel(id: "", email: "", userType: ""),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
@@ -88,9 +92,10 @@ class AppState {
         email: "some@email.com",
         name: "Someone",
         cellNo: "0821234567",
-        userType: "confirmed",
+        userType: "customer",
       ),
       wait: Wait(),
+      authModel: null,
       partialUser: null,
       adverts: const [],
       bids: const [],
@@ -113,6 +118,7 @@ class AppState {
   }
   // easy way to replace store wihtout specifying all paramters
   AppState copy({
+    CognitoAuthModel? authModel,
     UserModel? userDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
@@ -130,6 +136,7 @@ class AppState {
     ChatModel? chat,
   }) {
     return AppState(
+      authModel: authModel ?? this.authModel,
       userDetails: userDetails ?? this.userDetails,
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,

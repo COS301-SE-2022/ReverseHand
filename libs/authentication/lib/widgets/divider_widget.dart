@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+
+//******************************** */
+// 'OR' divider for login and signup
+//******************************** */
+
 class DividerWidget extends StatelessWidget {
   const DividerWidget({Key? key}) : super(key: key);
 

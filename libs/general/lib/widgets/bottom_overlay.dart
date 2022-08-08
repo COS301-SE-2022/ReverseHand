@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//used in consumer and tradesman
+
 class BottomOverlayWidget extends StatelessWidget {
   final double height;
   const BottomOverlayWidget({Key? key, required this.height}) : super(key: key);

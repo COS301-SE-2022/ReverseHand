@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:redux_comp/actions/user/get_user_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
