@@ -102,15 +102,15 @@ class PlaceApiSingleton {
 
   // Members
   static PlaceApiService? _placeApi;
-  final _initDBMemoizer = AsyncMemoizer<PlaceApiService>();
-  
+  final _initPlaceApiMemoizer = AsyncMemoizer<PlaceApiService>();
+
   Future<PlaceApiService?> get placeApi async {
     if (_placeApi != null) {
       return _placeApi;
     }
 
     // if _placeApi is null we instantiate it
-    _placeApi = await _initDBMemoizer.runOnce(() async {
+    _placeApi = await _initPlaceApiMemoizer.runOnce(() async {
       return await _initPlaceApiService();
     });
 
