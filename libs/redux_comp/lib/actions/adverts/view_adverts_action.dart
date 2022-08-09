@@ -15,7 +15,9 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
         date_created
         date_closed
         description
-        location
+        domain {
+          city
+        }
         title
         type
         accepted_bid
