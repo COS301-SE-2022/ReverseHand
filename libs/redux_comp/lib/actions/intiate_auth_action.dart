@@ -43,8 +43,9 @@ class IntiateAuthAction extends ReduxAction<AppState> {
       if (state.userDetails!.userType == "" && groups.isEmpty) {
         return state.copy(
             authModel: CognitoAuthModel(
-                accessToken: tokens!.accessToken,
-                refreshToken: tokens.refreshToken),
+              accessToken: tokens!.accessToken,
+              refreshToken: tokens.refreshToken,
+            ),
             userDetails: state.userDetails!.copy(id: id, email: email),
             error: ErrorType.userNotInGroup);
       }
@@ -62,16 +63,20 @@ class IntiateAuthAction extends ReduxAction<AppState> {
         }
 
         return state.copy(
-          error: ErrorType.none,
-          userDetails: UserModel(id: id, email: email, userType: userType));
+            error: ErrorType.none,
+            userDetails: UserModel(id: id, email: email, userType: userType));
       } else {
         return state.copy(
-            error: ErrorType.none,
-            userDetails: state.userDetails!.copy(
-                id: (state.userDetails!.userType == "Tradesman") ? "t#$id" : "c#$id", email: email, userType: state.userDetails!.userType));
+          error: ErrorType.none,
+          userDetails: state.userDetails!.copy(
+            id: (state.userDetails!.userType == "Tradesman")
+                ? "t#$id"
+                : "c#$id",
+            email: email,
+            userType: state.userDetails!.userType,
+          ),
+        );
       }
-
-      
     } else {
       // dispatch(NavigateAction.pushNamed("/"));
       return state.copy(error: ErrorType.userNotAuthorised);

@@ -8,6 +8,8 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/loading_widget.dart';
 
 import '../widgets/tradesman_navbar_widget.dart';
+import '../widgets/tradesman_filter_popup.dart';
+import 'package:general/widgets/dark_dialog_helper.dart';
 
 class TradesmanJobListings extends StatelessWidget {
   final Store<AppState> store;
@@ -24,9 +26,43 @@ class TradesmanJobListings extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) => Column(
               children: [
                 //*******************APP BAR WIDGET*********************//
-                AppBarWidget(title: "JOB LISTINGS", store: store),
-                //********************************************************//
+                Stack(children: [
+                  AppBarWidget(title: "JOB LISTINGS", store: store),
+                  //********************************************************//
+                  Positioned(
+                    top: 110,
+                    right: 20,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          primary: Theme.of(context).scaffoldBackgroundColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(
+                                  color: Theme.of(context).primaryColor))),
+                      onPressed: () {
+                        DarkDialogHelper.display(
+                          context,
+                          FilterPopUpWidget(
+                            store: store,
+                          ),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.filter_alt,
+                        size: 25,
+                      ),
+                      label: const Text(
+                        "Filter",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
                 ...populateAdverts(vm.adverts, store),
+
                 if (vm.loading)
                   const LoadingWidget()
 
@@ -61,7 +97,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobListings> {
   _Factory(widget) : super(widget);
   @override
   _ViewModel fromStore() => _ViewModel(
-        adverts: state.adverts,
+        adverts: state.viewAdverts,
         loading: state.wait.isWaiting,
         dispatchLogoutAction: () => dispatch(LogoutAction()),
       );
