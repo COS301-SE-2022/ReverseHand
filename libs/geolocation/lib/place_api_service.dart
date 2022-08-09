@@ -16,10 +16,8 @@ class PlaceApiService {
   final String sessionToken;
   final String apiKey;
 
-  PlaceApiService(
-      this.sessionToken, this.apiKey); // The session token is to bundle the requests for cost optimisation
-
-  
+  PlaceApiService(this.sessionToken,
+      this.apiKey); // The session token is to bundle the requests for cost optimisation
 
   /* This function returns a list of suggestions from an input string*/
   Future<List<Suggestion>> fetchSuggestions(String input) async {
@@ -96,7 +94,6 @@ class PlaceApiService {
   }
 }
 
-
 class PlaceApiSingleton {
   // Singleton pattern
   static final PlaceApiSingleton _instance = PlaceApiSingleton._internal();
@@ -124,7 +121,7 @@ class PlaceApiSingleton {
     // .. get the api key
     String apiKey = await getApiKey();
 
-    return PlaceApiService(const Uuid().v1() , apiKey);
+    return PlaceApiService(const Uuid().v1(), apiKey);
   }
 
   Future<String> getApiKey() async {
@@ -144,5 +141,4 @@ class PlaceApiSingleton {
       return "APIKeyFailed";
     }
   }
-
 }
