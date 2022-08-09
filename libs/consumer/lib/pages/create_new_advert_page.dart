@@ -6,6 +6,7 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 import '../widgets/radio_select_widget.dart';
@@ -125,8 +126,15 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                 vm.dispatchCreateAdvertActions(
                                     widget.store.state.userDetails!.id,
                                     titleController.value.text,
-                                    widget.store.state.userDetails!.location!
-                                        .address.city,
+                                    Domain(
+                                        city: widget.store.state.userDetails!
+                                            .location!.address.city,
+                                        coordinates: widget
+                                            .store
+                                            .state
+                                            .userDetails!
+                                            .location!
+                                            .coordinates),
                                     trade!,
                                     descrController.value.text);
                               }
@@ -162,12 +170,12 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
   _ViewModel fromStore() => _ViewModel(
         popPage: () => dispatch(NavigateAction.pop()),
         dispatchCreateAdvertActions: (String customerId, String title,
-                String location, String trade, String? description) =>
+                Domain domain, String trade, String? description) =>
             dispatch(
           CreateAdvertAction(
             customerId,
             title,
-            location,
+            domain,
             trade,
             description: description,
           ),
@@ -179,7 +187,7 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
 // view model
 class _ViewModel extends Vm {
   final void Function(
-          String id, String title, String location, String trade, String? descr)
+          String id, String title, Domain domanin, String trade, String? descr)
       dispatchCreateAdvertActions;
   final VoidCallback popPage;
   final bool loading;

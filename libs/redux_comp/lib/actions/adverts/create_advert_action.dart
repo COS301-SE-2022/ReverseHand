@@ -1,4 +1,5 @@
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:uuid/uuid.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -11,7 +12,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   final String title;
   final String? description;
   final String type;
-  final String location;
+  final Domain location;
 
   CreateAdvertAction(
     this.customerId,
