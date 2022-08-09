@@ -21,6 +21,7 @@ class AppState {
   final List<BidModel> shortlistBids;
   final List<BidModel> viewBids; // holds the list of bids to view
   final List<AdvertModel> adverts;
+  final List<AdvertModel> viewAdverts;
   final BidModel?
       activeBid; // represents the current bid, used for viewing a bid
   final AdvertModel? activeAd; // used for representing the current ad
@@ -40,6 +41,7 @@ class AppState {
     required this.userDetails,
     required this.partialUser,
     required this.adverts,
+    required this.viewAdverts,
     required this.bids,
     required this.shortlistBids,
     required this.viewBids,
@@ -60,6 +62,7 @@ class AppState {
       userDetails: const UserModel(id: "", email: "", userType: ""),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
+      viewAdverts: const [],
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
@@ -100,6 +103,7 @@ class AppState {
       authModel: null,
       partialUser: null,
       adverts: const [],
+      viewAdverts: const [],
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
@@ -124,6 +128,7 @@ class AppState {
     UserModel? userDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
+    List<AdvertModel>? viewAdverts,
     List<BidModel>? bids,
     List<BidModel>? shortlistBids,
     List<BidModel>? viewBids,
@@ -142,6 +147,7 @@ class AppState {
       userDetails: userDetails ?? this.userDetails,
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,
+      viewAdverts: viewAdverts ?? this.viewAdverts,
       bids: bids ?? this.bids,
       shortlistBids: shortlistBids ?? this.shortlistBids,
       viewBids: viewBids ?? this.viewBids,
