@@ -103,7 +103,7 @@ class PlaceApiSingleton {
   // Members
   static PlaceApiService? _placeApi;
   final _initDBMemoizer = AsyncMemoizer<PlaceApiService>();
-
+  
   Future<PlaceApiService?> get placeApi async {
     if (_placeApi != null) {
       return _placeApi;

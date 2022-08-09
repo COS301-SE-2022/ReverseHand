@@ -62,7 +62,7 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
               onChanged: (text) {
                 //when the input text has changed
                 setState(() {
-                  PlaceApiSingleton.instance.placeApi.then((placeApiService) {
+                  
                   if (searchString.isEmpty) {
                     _searchFuture = null;
                   }
@@ -71,13 +71,11 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                           0) //only make a request every 3 character input
                       ? _searchFuture = searchString.length >
                               8 //dont make a request before 8 chars
-                          ? placeApiService!.fetchSuggestions(
-                              searchString) // ^^^ this is for cost optimisation
+                          ? PlaceApiSingleton.instance.placeApi.then((placeApiService) => placeApiService!.fetchSuggestions(
+                              searchString)) // ^^^ this is for cost optimisation
                           : null
                       : null;
-
                   });
-                });
               }),
         ),
       )),
