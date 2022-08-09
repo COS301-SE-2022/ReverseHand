@@ -30,12 +30,6 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    //theoritically this code should be in the constructor, but the passed in sessionToken is only available in the build method
-    String? sessionToken = (ModalRoute.of(context)?.settings.arguments)
-        as String?; //fetch the session token passed in
-    (sessionToken == null) ? sessionToken = "help" : null;
-    final PlaceApiService apiClient =
-        PlaceApiService(sessionToken); //instantiate the api service
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
@@ -68,6 +62,7 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
               onChanged: (text) {
                 //when the input text has changed
                 setState(() {
+                  PlaceApiSingleton.instance.placeApi.then((placeApiService) {
                   if (searchString.isEmpty) {
                     _searchFuture = null;
                   }
@@ -76,10 +71,12 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                           0) //only make a request every 3 character input
                       ? _searchFuture = searchString.length >
                               8 //dont make a request before 8 chars
-                          ? apiClient.fetchSuggestions(
+                          ? placeApiService!.fetchSuggestions(
                               searchString) // ^^^ this is for cost optimisation
                           : null
                       : null;
+
+                  });
                 });
               }),
         ),
@@ -111,9 +108,12 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                               style: const TextStyle(color: Colors.white),
                             ),
                             onTap: () {
-                              // when a user taps on a suggestions
+                              PlaceApiSingleton.instance.placeApi.then((placeApiService) {
                               vm.dispatchGetPlaceAction(snapshot.data![index],
-                                  apiClient); //get the details of the suggestion
+                                  placeApiService!); //get the details of the suggestion
+
+                              });
+                              // when a user taps on a suggestions
                             },
                           ),
                           itemCount: snapshot.data!.length,
