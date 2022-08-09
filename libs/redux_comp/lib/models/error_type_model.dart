@@ -22,6 +22,7 @@ enum ErrorType {
   // modifying errors
   failedToEditUser, // user created, but email not verified
   advertContainsBids, // cannot modify and add with bids
+  failedToAddReview, //when adding a review fails
   // generic errors
   noInput,
   //

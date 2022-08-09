@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
 @immutable
-class Review {
+class ReviewModel {
   final String id;
   final int rating;
   final String description;
   final String userId;
   final String advertId;
 
-  const Review(
+  const ReviewModel(
       {required this.id,
       required this.rating,
       required this.description,
       required this.userId,
       required this.advertId});
 
-  factory Review.fromJson(obj) {
-    return Review(
+  factory ReviewModel.fromJson(obj) {
+    return ReviewModel(
         id: obj['id'],
         rating: obj['rating'],
         description: obj['description'],
