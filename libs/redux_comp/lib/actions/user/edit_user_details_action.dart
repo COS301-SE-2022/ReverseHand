@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
@@ -53,7 +51,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
         domainsQuery.add(domain.toString());
       }
     }
-    if (tradeTypes != null) {
+    if (tradeTypes != null && tradeTypes!.isNotEmpty) {
       isTradeChanged = true;
     }
 
@@ -87,7 +85,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
               location:
                   (location != null) ? location : state.userDetails!.location,
               domains: (domains != null) ? domains : state.userDetails!.domains,
-              tradeTypes: (tradeTypes != null)
+              tradeTypes: (tradeTypes != null || tradeTypes!.isNotEmpty)
                   ? tradeTypes
                   : state.userDetails!.tradeTypes,
               registered: true));
@@ -110,3 +108,19 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
     }
   }
 }
+
+// mutation  {
+//  editUserDetail(
+//  user_id: "t#0bffe7a9-b767-4578-b60a-270b94d4a9d8",
+//  domains: [{
+//  city : "Umhlanga",
+//  coordinates : {
+//  lat: -29.7183126,
+//  lng: 31.0708514,
+//  }
+//  }],
+//  tradetypes: ["Painting","Plumbing"]
+//  ) {
+//  id
+//  }
+//  }

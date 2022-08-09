@@ -58,8 +58,7 @@ void main() {
     await Future.delayed(const Duration(seconds: 3), () {});
 
     //get the job widget
-    var jobOne =
-        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job v2");
+    var jobOne = find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Tester");
     expect(jobOne, findsOneWidget);
 
     //scrolling a bit
@@ -88,5 +87,26 @@ void main() {
     await Future.delayed(const Duration(seconds: 3), () {});
 
     //To add: Some more adverts to click on
+    var jobTwo =
+        find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Tester2");
+    expect(jobTwo, findsOneWidget);
+
+    //press the advert/job
+    await tester.tap(jobTwo);
+    await tester.pumpAndSettle();
+
+    await Future.delayed(const Duration(seconds: 5), () {});
+    await tester.tap(jobTwo, warnIfMissed: false);
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 5), () {});
+
+    //Get the back button Widget
+    backBtn = find.widgetWithText(ButtonWidget, "Back");
+    expect(backBtn, findsOneWidget);
+
+    //press the Back Button
+    await tester.tap(backBtn);
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 3), () {});
   });
 }

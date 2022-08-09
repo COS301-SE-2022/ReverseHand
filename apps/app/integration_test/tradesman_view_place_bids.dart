@@ -5,6 +5,7 @@ import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
+//flutter test integration_test/tradesman_view_place_bids.dart
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -55,8 +56,7 @@ void main() {
     await Future.delayed(const Duration(seconds: 3), () {});
 
     //get the job widget
-    var jobOne =
-        find.widgetWithText(QuickViewJobCardWidget, "Integration Test Job v2");
+    var jobOne = find.widgetWithText(QuickViewJobCardWidget, "Umhlanga/Tester");
     expect(jobOne, findsOneWidget);
 
     //scrolling a bit

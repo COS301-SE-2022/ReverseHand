@@ -178,7 +178,7 @@ jobs:
 
   Integration_test:
     name: Integration test
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         api-level: [29]
@@ -231,10 +231,10 @@ jobs:
 
     #Including the Flutter action
       - name: Setup flutter
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2
         with: 
           channel: stable
-          flutter-version: ${{ env.flutter_version }}
+          flutter-version: '3.0.4' #have to manually put version else error
 
     #cache the AVD to speed  up workflow
       - name: AVD cache
@@ -256,11 +256,12 @@ jobs:
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
       - name: Execute integration tests
-        if: inputs.test == 'all'
+        if: inputs.test == 'all' && inputs.test == 'affected' #remove inputs.test == 'affected' later
         uses: reactivecircus/android-emulator-runner@v2
         with: 
           api-level: 29
-          script: echo 'Hello world' #will be changed once Secrets Manager is running
+          profile: Nexus 6
+          script: npx nx run-many --target=integrationTest --all --skip-nx-cache --parallel
      
 
 

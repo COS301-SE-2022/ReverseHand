@@ -1,4 +1,3 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/error_type_model.dart';
@@ -23,7 +22,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation { 
-      editAdvert(ad_id: "$advertId",title: "$title",description: "$description",type: "$type",location: "$location"){
+      editAdvert(ad_id: "$advertId",title: "$title",description: "$description", location: "$location"){
         id
       }
     } ''';

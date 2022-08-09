@@ -9,14 +9,38 @@ const UserTable = process.env.USER;
 exports.handler = async (event) => {
    try{
     
+    //get the data in the database
+    let params = {
+        TableName: UserTable,
+        Key: {
+            user_id: event.arguments.user_id,
+        }
+    }
+
+    let data = await docClient.get(params).promise();
+
+    //Update values in the database.
     let args = [];
     let expressionAttributeNames = [];
 
+    let mergedList = [...data['Item']['reviews'],...event.arguments.reviews];
+
+    //get the sum of the ratings/
+    let sum = 0;
+    mergedList.forEach(review =>{
+        sum += parseInt(review['rating']);
+    })
+    //convert the numeric sum to a string
+    sum = sum.toString();
 
     if(event.arguments.reviews !== undefined){
         args.push('#reviews = :reviews');
         expressionAttributeNames['#reviews'] = 'reviews';
     }
+
+    //Not using an if for "sum" attribute as its only calculated in resolver and returned 
+        args.push('#sum = :sum');
+        expressionAttributeNames['#sum'] = 'sum';
 
     let updateExpression = 'set ';
 
@@ -26,9 +50,10 @@ exports.handler = async (event) => {
         
     let expressionAttributeValues = {};
 
-    expressionAttributeValues[':reviews'] = event.arguments.reviews;
+    expressionAttributeValues[':reviews'] = mergedList;
+    expressionAttributeValues[':sum'] = sum;
 
-    let params = {
+    params = {
         TableName: UserTable,
         Key: {
             user_id: event.arguments.user_id,
@@ -47,7 +72,7 @@ exports.handler = async (event) => {
         }
     };
 
-    const data = await docClient.get(params).promise();
+    data = await docClient.get(params).promise();
 
     return data['Item'];
 

@@ -1,11 +1,10 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/navbar.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/floating_button.dart';
 
@@ -18,143 +17,139 @@ class ConsumerListingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) {
-                List<Widget> open = [];
-                List<Widget> inProgress = [];
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) {
+              List<Widget> open = [];
+              List<Widget> inProgress = [];
 
-                for (AdvertModel advert in vm.adverts) {
-                  if (advert.dateClosed != null) {
-                    continue;
-                  }
-
-                  if (advert.acceptedBid == null) {
-                    open.add(
-                      QuickViewJobCardWidget(
-                        advert: advert,
-                        store: store,
-                      ),
-                    );
-                  } else {
-                    inProgress.add(
-                      QuickViewJobCardWidget(
-                        advert: advert,
-                        store: store,
-                      ),
-                    );
-                  }
+              for (AdvertModel advert in vm.adverts) {
+                if (advert.dateClosed != null) {
+                  continue;
                 }
 
-                return Column(
-                  children: [
-                    //*******************APP BAR WIDGET*********************//
-                    AppBarWidget(title: "MY JOBS", store: store),
-                    //********************************************************//
+                if (advert.acceptedBid == null) {
+                  open.add(
+                    QuickViewJobCardWidget(
+                      advert: advert,
+                      store: store,
+                    ),
+                  );
+                } else {
+                  inProgress.add(
+                    QuickViewJobCardWidget(
+                      advert: advert,
+                      store: store,
+                    ),
+                  );
+                }
+              }
 
-                    //if there are adverts, heading should be displayed
-                    if (vm.adverts.isNotEmpty)
-                      Column(
-                        children: [
-                          //******************OPEN HEADING***********************//
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 18.0),
-                              child: Text(
-                                "OPEN",
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white60),
-                              ),
+              return Column(
+                children: [
+                  //*******************APP BAR WIDGET*********************//
+                  AppBarWidget(title: "MY JOBS", store: store),
+                  //********************************************************//
+
+                  //if there are adverts, heading should be displayed
+                  if (vm.adverts.isNotEmpty)
+                    Column(
+                      children: [
+                        //******************OPEN HEADING***********************//
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 18.0),
+                            child: Text(
+                              "OPEN",
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.white60),
                             ),
                           ),
-                          //******************************************************//
-
-                          //**************************DIVIDER**********************//
-                          Divider(
-                            height: 20,
-                            thickness: 0.5,
-                            indent: 15,
-                            endIndent: 15,
-                            color: Theme.of(context).primaryColorLight,
-                          ),
-                          //******************************************************//
-                        ],
-                      ),
-
-                    // ...populateAdverts(vm.adverts, store),
-                    ...open,
-
-                    // populating column with adverts
-                    if (vm.loading) const LoadingWidget()
-
-                    //************MESSAGE IF THERE ARE NO ADVERTS***********/
-                    else if (vm.adverts.isEmpty)
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: (MediaQuery.of(context).size.height) / 3),
-                        child: const Text(
-                          "There are no\n active jobs",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 25, color: Colors.white54),
                         ),
+                        //******************************************************//
+
+                        //**************************DIVIDER**********************//
+                        Divider(
+                          height: 20,
+                          thickness: 0.5,
+                          indent: 15,
+                          endIndent: 15,
+                          color: Theme.of(context).primaryColorLight,
+                        ),
+                        //******************************************************//
+                      ],
+                    ),
+
+                  ...open,
+
+                  // populating column with adverts
+                  if (vm.loading)
+                    const LoadingWidget()
+
+                  //************MESSAGE IF THERE ARE NO ADVERTS***********/
+                  else if (vm.adverts.isEmpty)
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: (MediaQuery.of(context).size.height) / 3),
+                      child: const Text(
+                        "There are no\n active jobs",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 25, color: Colors.white54),
                       ),
-                    //*****************************************************/
-                    if (vm.adverts.isNotEmpty)
-                      Column(
-                        children: [
-                          //******************OPEN HEADING***********************//
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 10, left: 18.0),
-                              child: Text(
-                                "IN PROGRESS",
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white60),
-                              ),
+                    ),
+                  //*****************************************************/
+                  if (vm.adverts.isNotEmpty)
+                    Column(
+                      children: [
+                        //******************OPEN HEADING***********************//
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10, left: 18.0),
+                            child: Text(
+                              "IN PROGRESS",
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.white60),
                             ),
                           ),
-                          //******************************************************//
+                        ),
+                        //******************************************************//
 
-                          //**************************DIVIDER**********************//
-                          Divider(
-                            height: 20,
-                            thickness: 0.5,
-                            indent: 15,
-                            endIndent: 15,
-                            color: Theme.of(context).primaryColorLight,
-                          ),
-                          //******************************************************//
-                          ...inProgress,
-                        ],
-                      ),
-                  ],
-                );
-              },
-            ),
+                        //**************************DIVIDER**********************//
+                        Divider(
+                          height: 20,
+                          thickness: 0.5,
+                          indent: 15,
+                          endIndent: 15,
+                          color: Theme.of(context).primaryColorLight,
+                        ),
+                        //******************************************************//
+                        ...inProgress,
+                      ],
+                    ),
+                ],
+              );
+            },
           ),
-
-          //************************NAVBAR***********************/
-          floatingActionButton: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) =>
-                FloatingButtonWidget(
-              function: vm.pushCreateAdvertPage,
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
-          bottomNavigationBar: NavBarWidget(
-            store: store,
-          ),
-          //*****************************************************/
         ),
+
+        //************************NAVBAR***********************/
+        floatingActionButton: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) =>
+              FloatingButtonWidget(
+            function: vm.pushCreateAdvertPage,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+        bottomNavigationBar: NavBarWidget(
+          store: store,
+        ),
+        //*****************************************************/
       ),
     );
   }

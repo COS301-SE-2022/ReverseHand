@@ -1,5 +1,5 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/foundation.dart';
+import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:uuid/uuid.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -45,4 +45,7 @@ class PlaceBidAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  @override
+  void after() => dispatch(ViewBidsAction(adId));
 }

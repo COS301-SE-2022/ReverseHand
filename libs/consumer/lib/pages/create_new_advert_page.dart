@@ -1,10 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:general/widgets/navbar.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -59,100 +58,97 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: widget.store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          resizeToAvoidBottomInset:
-              false, //prevents floatingActionButton appearing above keyboard
-          backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                //*******************APP BAR WIDGET*********************//
-                AppBarWidget(title: "Create a Job", store: widget.store),
-                //********************************************************//
+      child: Scaffold(
+        resizeToAvoidBottomInset:
+            false, //prevents floatingActionButton appearing above keyboard
+        backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              //*******************APP BAR WIDGET*********************//
+              AppBarWidget(title: "Create a Job", store: widget.store),
+              //********************************************************//
 
-                //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER***//
+              //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER***//
 
-                //title
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
-                  child: TextFieldWidget(
-                    label: "Title",
-                    obscure: false,
-                    min: 2,
-                    controller: titleController,
-                    initialVal: null,
-                  ),
+              //title
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
+                child: TextFieldWidget(
+                  label: "Title",
+                  obscure: false,
+                  min: 2,
+                  controller: titleController,
+                  initialVal: null,
                 ),
+              ),
 
-                //radio
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
-                  child: TextFieldWidget(
-                    label: "Trade",
-                    obscure: false,
-                    controller: tradeController,
-                    onTap: () => showRadioSelect(),
-                    min: 3,
-                  ),
+              //radio
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
+                child: TextFieldWidget(
+                  label: "Trade",
+                  obscure: false,
+                  controller: tradeController,
+                  onTap: () => showRadioSelect(),
+                  min: 3,
                 ),
+              ),
 
-                //description
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
-                  child: TextFieldWidget(
-                    label: "Description",
-                    obscure: false,
-                    min: 3,
-                    controller: descrController,
-                    initialVal: null,
-                  ),
+              //description
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
+                child: TextFieldWidget(
+                  label: "Description",
+                  obscure: false,
+                  min: 3,
+                  controller: descrController,
+                  initialVal: null,
                 ),
-                //*************************************************//
+              ),
+              //*************************************************//
 
-                StoreConnector<AppState, _ViewModel>(
-                  vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) => Column(
-                    children: [
-                      const Padding(padding: EdgeInsets.all(50)),
+              StoreConnector<AppState, _ViewModel>(
+                vm: () => _Factory(this),
+                builder: (BuildContext context, _ViewModel vm) => Column(
+                  children: [
+                    const Padding(padding: EdgeInsets.all(50)),
 
-                      //*********CREATE JOB BUTTON******************//
-                      vm.loading
-                          ? const LoadingWidget()
-                          : ButtonWidget(
-                              text: "Create Job",
-                              function: () {
-                                if (titleController.value.text != "" &&
-                                    trade != null) {
-                                  vm.dispatchCreateAdvertActions(
-                                      widget.store.state.userDetails!.id,
-                                      titleController.value.text,
-                                      widget.store.state.userDetails!.location!
-                                          .address.city,
-                                      trade!,
-                                      descrController.value.text);
-                                }
-                              }),
-                      //********************************************//
-                      const Padding(padding: EdgeInsets.all(5)),
+                    //*********CREATE JOB BUTTON******************//
+                    vm.loading
+                        ? const LoadingWidget()
+                        : ButtonWidget(
+                            text: "Create Job",
+                            function: () {
+                              if (titleController.value.text != "" &&
+                                  trade != null) {
+                                vm.dispatchCreateAdvertActions(
+                                    widget.store.state.userDetails!.id,
+                                    titleController.value.text,
+                                    widget.store.state.userDetails!.location!
+                                        .address.city,
+                                    trade!,
+                                    descrController.value.text);
+                              }
+                            }),
+                    //********************************************//
+                    const Padding(padding: EdgeInsets.all(5)),
 
-                      //************DISCARD BUTTON*****************//
-                      ButtonWidget(
-                          text: "Discard", color: "dark", function: vm.popPage)
-                      //********************************************//
-                    ],
-                  ),
+                    //************DISCARD BUTTON*****************//
+                    ButtonWidget(
+                        text: "Discard", color: "dark", function: vm.popPage)
+                    //********************************************//
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          //************************NAVBAR***********************/
-          bottomNavigationBar: NavBarWidget(
-            store: widget.store,
-          ),
-          //*****************************************************/
         ),
+        //************************NAVBAR***********************/
+        bottomNavigationBar: NavBarWidget(
+          store: widget.store,
+        ),
+        //*****************************************************/
       ),
     );
   }
