@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -17,6 +18,10 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
         description
         domain {
           city
+          coordinates {
+            lat 
+            lng
+          }
         }
         title
         type

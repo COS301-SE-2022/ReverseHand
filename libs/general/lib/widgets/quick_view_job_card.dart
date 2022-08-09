@@ -65,7 +65,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                           ),
                           const Padding(
                               padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
-                          Text(advert.location,
+                          Text(advert.domain.city,
                               style: const TextStyle(
                                   fontSize: 20, color: Colors.white))
                         ],
