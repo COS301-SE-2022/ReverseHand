@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
+import 'package:redux_comp/models/review_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
@@ -27,29 +28,30 @@ class AppState {
   final ErrorType error;
   final bool change; // used to show that state changed and must rebuild
   final Wait wait; // for progress indicators
+  final List<ReviewModel> reviews; //holds the list of a users reviews.
 
   // chat functionality
   final List<ChatModel> chats; // all chats
   final ChatModel chat; // the current active chat
 
   // constructor must only take named parameters
-  const AppState({
-    required this.authModel,
-    required this.userDetails,
-    required this.partialUser,
-    required this.adverts,
-    required this.bids,
-    required this.shortlistBids,
-    required this.viewBids,
-    required this.activeAd,
-    required this.activeBid,
-    required this.locationResult,
-    required this.error,
-    required this.change,
-    required this.wait,
-    required this.chats,
-    required this.chat,
-  });
+  const AppState(
+      {required this.authModel,
+      required this.userDetails,
+      required this.partialUser,
+      required this.adverts,
+      required this.bids,
+      required this.shortlistBids,
+      required this.viewBids,
+      required this.activeAd,
+      required this.activeBid,
+      required this.locationResult,
+      required this.error,
+      required this.change,
+      required this.wait,
+      required this.chats,
+      required this.chat,
+      required this.reviews});
 
   // this methods sets the starting state for the store
   factory AppState.initial() {
@@ -61,6 +63,7 @@ class AppState {
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
+      reviews: const [],
       activeAd:
           const AdvertModel(id: "", title: "", location: "", dateCreated: ""),
       activeBid: const BidModel(
@@ -101,6 +104,7 @@ class AppState {
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
+      reviews: const [],
       activeAd: null,
       activeBid: null,
       locationResult: null,
@@ -125,6 +129,7 @@ class AppState {
     List<BidModel>? bids,
     List<BidModel>? shortlistBids,
     List<BidModel>? viewBids,
+    List<ReviewModel>? reviews,
     BidModel? activeBid,
     AdvertModel? activeAd,
     Location? locationResult,
@@ -141,6 +146,7 @@ class AppState {
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,
       bids: bids ?? this.bids,
+      reviews: reviews ?? this.reviews,
       shortlistBids: shortlistBids ?? this.shortlistBids,
       viewBids: viewBids ?? this.viewBids,
       activeAd: activeAd ?? this.activeAd,
