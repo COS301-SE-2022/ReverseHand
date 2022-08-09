@@ -12,12 +12,12 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   final String title;
   final String? description;
   final String type;
-  final Domain location;
+  final Domain domain;
 
   CreateAdvertAction(
     this.customerId,
     this.title,
-    this.location,
+    this.domain,
     this.type, {
     this.description,
   }); // Create...(id, title, description: desc)
@@ -27,8 +27,9 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     String adId = "a#${const Uuid().v1()}";
 
     // type is not used currently but will be implemented in the future
+    String domainInput = domain.toString();
     String graphQLDocument = '''mutation {
-      createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", location: "$location", type: "$type") {
+      createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", domain: "$domainInput", type: "$type") {
         id
         date_created
         location
