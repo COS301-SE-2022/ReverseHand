@@ -1,11 +1,11 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:redux_comp/actions/user/check_user_exists_action.dart';
+import 'package:redux_comp/actions/user/user_table/check_user_exists_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/user_models/cognito_auth_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 
-import '../app_state.dart';
+import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 

@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/app_state.dart';
 
 //******************************** */
@@ -93,16 +92,11 @@ class _Factory extends VmFactory<AppState, NotificationCardWidget> {
   _Factory(widget) : super(widget);
 
   @override
-  _ViewModel fromStore() => _ViewModel(
-        dispatchLogoutAction: () => dispatch(LogoutAction()),
-      );
+  _ViewModel fromStore() => _ViewModel();
 }
 
 // view model
 class _ViewModel extends Vm {
-   final void Function() dispatchLogoutAction;
 
-  _ViewModel({
-    required this.dispatchLogoutAction,
-  }); // implementinf hashcode
+  _ViewModel(); 
 }

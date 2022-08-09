@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
+import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
-import '../../app_state.dart';
+import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
-import '../../models/geolocation/domain_model.dart';
-import '../adverts/view_adverts_action.dart';
-import '../adverts/view_jobs_action.dart';
 
 /* GetUserAction */
 /* This action fetches a user of a specified group and populates the user model with the results */
