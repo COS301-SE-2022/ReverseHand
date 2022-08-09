@@ -57,6 +57,19 @@ const amplifyconfig = ''' {
                 },
                 "Auth": {
                     "Default": {
+                        "OAuth": {
+                            "WebDomain": "reversehandd8eb6d1c-d8eb6d1c-staging.auth.eu-west-1.amazoncognito.com",
+                            "AppClientId": "5sjgir76gfiuar2iu2t6v4ml5a",
+                            "SignInRedirectURI": "reversehand://",
+                            "SignOutRedirectURI": "reversehand://",
+                            "Scopes": [
+                                "phone",
+                                "email",
+                                "openid",
+                                "profile",
+                                "aws.cognito.signin.user.admin"
+                            ]
+                        },
                         "authenticationFlowType": "USER_SRP_AUTH",
                         "socialProviders": [],
                         "usernameAttributes": [
