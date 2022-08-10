@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
-import 'package:redux_comp/actions/intiate_auth_action.dart';
+import 'package:redux_comp/actions/user/cognito/intiate_auth_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 

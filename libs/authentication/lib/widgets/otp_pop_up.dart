@@ -3,7 +3,7 @@ import 'package:authentication/widgets/transparent_divider.dart';
 import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/blue_button_widget.dart';
-import 'package:redux_comp/actions/user/verify_user_action.dart';
+import 'package:redux_comp/actions/user/amplify_auth/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 
 import '../pages/login_page.dart';

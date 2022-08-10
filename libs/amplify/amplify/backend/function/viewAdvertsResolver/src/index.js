@@ -32,7 +32,7 @@ exports.handler = async (event) => {
                 shortlisted_bids: item['advert_details']['shortlisted_bids'],
                 accepted_bid: item['advert_details']['accepted_bid'],
                 customer_id: item['customer_id'],
-                location: item['advert_details']['location'],
+                domain: item['advert_details']['domain'],
                 date_created: item['advert_details']['date_created'],
                 date_closed: item['advert_details']['date_closed'],
             });
