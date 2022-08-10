@@ -20,6 +20,9 @@ type Query {
 
   getTradesmanChats(c_id: String!): [Chat!]!
   @function(name: "getTradesmanMessagesResolver-${env}")
+
+  getNotifications(user_id: String!): [Notification!]!
+  @function(name: "getNotificationsResolver-${env}")
 }
 
 type Mutation {
@@ -216,12 +219,11 @@ type Bid implements UniqueID {
   date_closed: String
 }
 
-type Notification implements UniqueID {
-  id: String!
-  user_id: String!
-  notification: String # temporary
-  date_created: String # temporary
-  seen: Boolean!
+type Notification  {
+  title: String!
+  msg: String!
+  type: NotificationType!
+  timestamp: Float!
 }
 
 type Review implements UniqueID {
@@ -232,19 +234,23 @@ type Review implements UniqueID {
   advert_id: String!
 }
 
-input ReviewInput{
+input ReviewInput {
   id: String!
   rating: Int
   description: String
   user_id: String!
   advert_id: String!
-  date_created: String!
+  date_created: String
 }
 
 # add more jobs here as we think of them
 enum JobType {
   Plumbing
   Painting
+}
+
+enum NotificationType {
+  bidShortlisted
 }
 
 interface UniqueID {

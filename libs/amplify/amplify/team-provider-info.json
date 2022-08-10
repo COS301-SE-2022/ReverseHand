@@ -142,6 +142,10 @@
         "refreshUserTokenResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/refreshUserTokenResolver-48615943794f3736346a-build.zip"
+        },
+        "getNotificationsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getNotificationsResolver-77767849543449656c76-build.zip"
         }
       }
     }
