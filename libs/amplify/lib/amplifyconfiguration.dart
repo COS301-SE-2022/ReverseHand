@@ -49,19 +49,19 @@ const amplifyconfig = ''' {
                 },
                 "GoogleSignIn": {
                     "Permissions": "email,profile,openid",
-                    "ClientId-WebApp": "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com"
+                    "ClientId-WebApp": "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
                 },
                 "FacebookSignIn": {
-                    "AppId": "1269894613781517",
+                    "AppId": "459283716090620",
                     "Permissions": "public_profile"
                 },
                 "Auth": {
                     "Default": {
                         "OAuth": {
-                            "WebDomain": "reversehandd8eb6d1c-d8eb6d1c-staging.auth.eu-west-1.amazoncognito.com",
+                            "WebDomain": "reversehand2ce3b132-2ce3b132-staging.auth.eu-west-1.amazoncognito.com",
                             "AppClientId": "5sjgir76gfiuar2iu2t6v4ml5a",
-                            "SignInRedirectURI": "reversehand://",
-                            "SignOutRedirectURI": "reversehand://",
+                            "SignInRedirectURI": "reversehandapp://",
+                            "SignOutRedirectURI": "reversehandapp://",
                             "Scopes": [
                                 "phone",
                                 "email",
@@ -71,7 +71,10 @@ const amplifyconfig = ''' {
                             ]
                         },
                         "authenticationFlowType": "USER_SRP_AUTH",
-                        "socialProviders": [],
+                        "socialProviders": [
+                            "FACEBOOK",
+                            "GOOGLE"
+                        ],
                         "usernameAttributes": [
                             "EMAIL"
                         ],

@@ -43,7 +43,7 @@
     "userPoolGroups": true,
     "adminQueries": true,
     "triggers": {},
-    "hostedUI": false,
+    "hostedUI": true,
     "userPoolGroupList": [
       "customer",
       "tradesman",
@@ -70,7 +70,20 @@
       "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "authProviders": [],
-    "thirdPartyAuth": false
+    "authProviders": [
+      "graph.facebook.com",
+      "accounts.google.com"
+    ],
+    "thirdPartyAuth": true,
+    "hostedUIDomainName": "reversehand2ce3b132-2ce3b132",
+    "authProvidersUserPool": [
+      "Facebook",
+      "Google"
+    ],
+    "audiences": [
+      "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"reversehandapp://\"],\"LogoutURLs\":[\"reversehandapp://\"]}"
   }
 }
