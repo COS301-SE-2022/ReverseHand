@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
@@ -30,10 +32,11 @@ class AddReviewAction extends ReduxAction<AppState> {
 
     try {
       final response = await Amplify.API.mutate(request: request).response;
+      final data = jsonDecode(response.data);
 
       //response is a list of reviews so just replace all the
       //current reviews with updated list from lambda
-      return state.copy(reviews: response.data.addReview);
+      return state.copy(reviews: data["addReview"]);
     } on ApiException catch (e) {
       debugPrint(e.message);
       return state.copy(error: ErrorType.failedToAddReview);
