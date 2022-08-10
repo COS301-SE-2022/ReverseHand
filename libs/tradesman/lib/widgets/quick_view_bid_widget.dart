@@ -4,6 +4,10 @@ import 'package:redux_comp/actions/bids/set_active_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 
+//******************************** */
+//  bid view wdiegt (clickable)
+//******************************** */
+
 class TQuickViewBidWidget extends StatelessWidget {
   final BidModel bid;
   final Store<AppState> store;

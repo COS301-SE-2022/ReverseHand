@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
-class LongButtonWidget extends StatelessWidget {
+
+//******************************** */
+//  login and signup long button
+//******************************** */
+
+class AuthButtonWidget extends StatelessWidget {
   final String text;
   final void Function() function;
   final double width;
   final double height;
 
-  const LongButtonWidget(
+  const AuthButtonWidget(
       {Key? key,
       required this.text,
       required this.function,

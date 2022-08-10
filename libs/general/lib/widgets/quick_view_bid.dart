@@ -4,6 +4,8 @@ import 'package:redux_comp/actions/bids/set_active_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 
+//used in consumer and tradesman
+
 class QuickViewBidWidget extends StatelessWidget {
   final BidModel bid;
   final Store<AppState> store;

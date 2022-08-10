@@ -3,6 +3,8 @@ enum ErrorType {
   // no error
   none,
   // login errors
+  userNotAuthorised, // the user is not signed in
+  userNotInGroup, // the user does not have a relevant group
   userNotFound, // avoid using and rather give more descriptive error
   userNotVerified, // user created, but email not verified
   passwordAttemptsExceeded, // user entered the wrong password too many times
@@ -14,6 +16,9 @@ enum ErrorType {
   // adding user to db errors
   failedToAddUserToGroup, // if the user is not verified, it will not add the user to a usergroup
   failedToCreateUser, // user created, but email not verified
+  // cognito errors
+  failedToRefreshToken,
+  failedToReadGroup,
   // modifying errors
   failedToEditUser, // user created, but email not verified
   advertContainsBids, // cannot modify and add with bids

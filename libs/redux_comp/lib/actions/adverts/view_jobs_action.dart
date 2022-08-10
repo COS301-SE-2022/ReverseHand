@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../app_state.dart';
@@ -14,7 +12,6 @@ class ViewJobsAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-
     String graphQLDocument = '''query {
       viewJobs(locations: ${jsonEncode(locations)}, types: ${jsonEncode(tradetypes)}) {
         date_created
@@ -38,12 +35,14 @@ class ViewJobsAction extends ReduxAction<AppState> {
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
       return state.copy(
+        viewAdverts: List.from(adverts),
         adverts: adverts,
       );
     } catch (e) {
       return null; /* On Error do not modify state */
     }
   }
+
   @override
   void before() => dispatch(WaitAction.add("view_jobs"));
 
