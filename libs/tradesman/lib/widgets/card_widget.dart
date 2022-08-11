@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
-import 'package:redux_comp/actions/user/remove_domain_action.dart';
+import 'package:redux_comp/actions/user/user_table/remove_domain_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 

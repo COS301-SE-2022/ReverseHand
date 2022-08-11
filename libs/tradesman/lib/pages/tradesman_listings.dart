@@ -1,7 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:redux_comp/actions/user/logout_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -98,19 +97,16 @@ class _Factory extends VmFactory<AppState, TradesmanJobListings> {
   _ViewModel fromStore() => _ViewModel(
         adverts: state.viewAdverts,
         loading: state.wait.isWaiting,
-        dispatchLogoutAction: () => dispatch(LogoutAction()),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final List<AdvertModel> adverts;
-  final void Function() dispatchLogoutAction;
   final bool loading;
 
   _ViewModel({
     required this.adverts,
-    required this.dispatchLogoutAction,
     required this.loading,
   }) : super(equals: [adverts, loading]);
 }

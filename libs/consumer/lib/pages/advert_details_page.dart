@@ -36,7 +36,7 @@ class AdvertDetailsPage extends StatelessWidget {
                 JobCardWidget(
                   titleText: vm.advert.title,
                   descText: vm.advert.description ?? "",
-                  location: vm.advert.location,
+                  location: vm.advert.domain.city,
                   type: vm.advert.type ?? "",
                   date: vm.advert.dateCreated,
                 ),

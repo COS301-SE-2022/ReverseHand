@@ -30,7 +30,7 @@ exports.handler = async (event) => {
         let params = {
             TableName: ReverseHandTable,
             Key: {
-              part_key: event.arguments.location,
+              part_key: event.arguments.domain.city,
               sort_key: event.arguments.type
             },
             UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad)`,
@@ -51,7 +51,7 @@ exports.handler = async (event) => {
                 advert_details: {
                     title: event.arguments.title,
                     description: event.arguments.description,
-                    location: event.arguments.location,
+                    domain: event.arguments.domain,
                     type: event.arguments.type,
                     date_created: currentDate // automatically generating the date
                 }

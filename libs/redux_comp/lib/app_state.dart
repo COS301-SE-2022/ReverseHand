@@ -1,6 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
+import 'package:redux_comp/models/geolocation/coordinates_model.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
@@ -65,7 +67,7 @@ class AppState {
       shortlistBids: const [],
       viewBids: const [],
       activeAd:
-          const AdvertModel(id: "", title: "", location: "", dateCreated: ""),
+          const AdvertModel(id: "", title: "", domain: Domain(city: "city", coordinates: Coordinates(lat: 22, lng: 21)), dateCreated: ""),
       activeBid: const BidModel(
         id: "",
         userId: "",

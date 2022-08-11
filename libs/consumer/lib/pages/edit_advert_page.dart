@@ -7,6 +7,7 @@ import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/adverts/edit_advert_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class EditAdvertPage extends StatelessWidget {
@@ -78,8 +79,8 @@ class EditAdvertPage extends StatelessWidget {
                                     title: titleController.value.text,
                                     description:
                                         descriptionController.value.text,
-                                    location: vm.advert
-                                        .location), //need to dispatch save job action?
+                                    domain: vm.advert
+                                        .domain), //need to dispatch save job action?
                               ),
                         //********************************************//
                         const Padding(padding: EdgeInsets.all(5)),
@@ -121,7 +122,7 @@ class _Factory extends VmFactory<AppState, EditAdvertPage> {
         dispatchEditAdvertAction: ({
           required String advertId,
           String? title,
-          String? location,
+          Domain? domain,
           String? description,
           String? type,
         }) =>
@@ -130,7 +131,7 @@ class _Factory extends VmFactory<AppState, EditAdvertPage> {
             advertId: advertId,
             description: description,
             type: type,
-            location: location,
+            domain: domain,
             title: title,
           ),
         ),
@@ -144,7 +145,7 @@ class _ViewModel extends Vm {
   final void Function({
     required String advertId,
     String? title,
-    String? location,
+    Domain? domain,
     String? description,
     String? type,
   }) dispatchEditAdvertAction;

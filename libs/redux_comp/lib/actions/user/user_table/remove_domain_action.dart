@@ -1,6 +1,6 @@
-import '../../app_state.dart';
+import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
-import '../../models/geolocation/domain_model.dart';
+import '../../../models/geolocation/domain_model.dart';
 
 /* Remove domain from a user */
 /* requires the city as well as the suer ID */

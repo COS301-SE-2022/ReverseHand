@@ -1,8 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/textfield.dart';
-import 'package:redux_comp/actions/user/create_user_action.dart';
-import 'package:redux_comp/actions/user/edit_user_details_action.dart';
+import 'package:redux_comp/actions/user/user_table/create_user_action.dart';
+import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';

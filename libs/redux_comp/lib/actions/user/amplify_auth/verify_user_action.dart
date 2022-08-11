@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:redux_comp/actions/user/login_action.dart';
-import '../../app_state.dart';
+import 'package:redux_comp/actions/user/amplify_auth/login_action.dart';
+import '../../../app_state.dart';
 
 class VerifyUserAction extends ReduxAction<AppState> {
   final String confirmationCode;

@@ -8,6 +8,13 @@ const UserTable = process.env.USER;
 
 exports.handler = async (event) => {
    try{
+
+    //creating a data to add to the review
+    const date = new Date();
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = date.getFullYear();
+    const currentDate = mm + '-' + dd + '-' + yyyy;
     
     //get the data in the database
     let params = {
@@ -23,7 +30,11 @@ exports.handler = async (event) => {
     let args = [];
     let expressionAttributeNames = [];
 
-    let mergedList = [...data['Item']['reviews'],...event.arguments.reviews];
+    event.arguments.reviews.date_created = currentDate;
+
+    let inputReview = [];
+    inputReview.push(event.arguments.reviews);
+    let mergedList = [...data['Item']['reviews'],...inputReview];
 
     //get the sum of the ratings/
     let sum = 0;
@@ -74,7 +85,8 @@ exports.handler = async (event) => {
 
     data = await docClient.get(params).promise();
 
-    return data['Item'];
+
+    return data['Item']['reviews'];
 
    }catch (error){
 

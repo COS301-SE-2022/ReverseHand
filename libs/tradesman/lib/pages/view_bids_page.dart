@@ -46,7 +46,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                   descText: vm.advert.description ?? "",
                   date: vm.advert.dateCreated,
                   type: vm.advert.type ?? "",
-                  location: vm.advert.location,
+                  location: vm.advert.domain.city,
                 ),
                 //*******************************************//
 
