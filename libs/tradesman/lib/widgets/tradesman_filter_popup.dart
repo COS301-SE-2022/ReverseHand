@@ -285,15 +285,15 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                 text: "Apply",
                 function: () {
                   vm.dispatchFilterAdvertsAction(
-                    FilterAdvertsModel(
-                      distance: minDistanceController.value.text.isEmpty ||
-                              maxDistanceController.value.text.isEmpty
-                          ? null
-                          : Range(
-                              int.parse(minDistanceController.value.text),
-                              int.parse(maxDistanceController.value.text),
-                            ),
-                    ),
+                    const FilterAdvertsModel(
+                        // distance: minDistanceController.value.text.isEmpty ||
+                        //         maxDistanceController.value.text.isEmpty
+                        //     ? null
+                        //     : Range(
+                        //         int.parse(minDistanceController.value.text),
+                        //         int.parse(maxDistanceController.value.text),
+                        //       ),
+                        ),
                   );
                   Navigator.pop(context);
                 },
