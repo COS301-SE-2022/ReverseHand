@@ -150,6 +150,10 @@
         "deleteReviewResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/deleteReviewResolver-4c523354637a5868437a-build.zip"
+        },
+        "getUserStatisticsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getUserStatisticsResolver-6f614f6b6d534c792f67-build.zip"
         }
       }
     }
