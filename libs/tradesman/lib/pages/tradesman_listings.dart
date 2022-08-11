@@ -6,7 +6,6 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/loading_widget.dart';
-
 import '../widgets/tradesman_navbar_widget.dart';
 import '../widgets/tradesman_filter_popup.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
@@ -108,6 +107,7 @@ class _ViewModel extends Vm {
   final List<AdvertModel> adverts;
   final void Function() dispatchLogoutAction;
   final bool loading;
+
   _ViewModel({
     required this.adverts,
     required this.dispatchLogoutAction,

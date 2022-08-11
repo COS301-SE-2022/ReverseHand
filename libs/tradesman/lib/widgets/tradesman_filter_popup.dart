@@ -1,7 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
+import 'package:redux_comp/actions/adverts/filter_adverts_action.dart';
 import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/filter_adverts_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 
 class FilterPopUpWidget extends StatefulWidget {
@@ -281,7 +283,20 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
 
               ButtonWidget(
                 text: "Apply",
-                function: () {},
+                function: () {
+                  vm.dispatchFilterAdvertsAction(
+                    FilterAdvertsModel(
+                      distance: minDistanceController.value.text.isEmpty ||
+                              maxDistanceController.value.text.isEmpty
+                          ? null
+                          : Range(
+                              int.parse(minDistanceController.value.text),
+                              int.parse(maxDistanceController.value.text),
+                            ),
+                    ),
+                  );
+                  Navigator.pop(context);
+                },
               ),
               ButtonWidget(
                   text: "Cancel",
@@ -307,14 +322,18 @@ class _Factory extends VmFactory<AppState, FilterPopUpWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         userDetails: state.userDetails!,
+        dispatchFilterAdvertsAction: (FilterAdvertsModel filter) =>
+            dispatch(FilterAdvertsAction(filter)),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final UserModel userDetails;
+  final void Function(FilterAdvertsModel) dispatchFilterAdvertsAction;
 
   _ViewModel({
     required this.userDetails,
+    required this.dispatchFilterAdvertsAction,
   }) : super(equals: [userDetails]);
 }
