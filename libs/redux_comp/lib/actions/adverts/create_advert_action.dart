@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:uuid/uuid.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -11,12 +13,12 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   final String title;
   final String? description;
   final String type;
-  final String location;
+  final Domain domain;
 
   CreateAdvertAction(
     this.customerId,
     this.title,
-    this.location,
+    this.domain,
     this.type, {
     this.description,
   }); // Create...(id, title, description: desc)
@@ -25,12 +27,13 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     String adId = "a#${const Uuid().v1()}";
 
-    // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
-      createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", location: "$location", type: "$type") {
+      createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", domain: ${domain.toString()}, type: "$type") {
         id
         date_created
-        location
+        domain {
+          city
+        }
         title
         type
         description
@@ -41,8 +44,10 @@ class CreateAdvertAction extends ReduxAction<AppState> {
       document: graphQLDocument,
     );
 
+    debugPrint(graphQLDocument);
+
     try {
-      /* final response = */ await Amplify.API
+      /*final response =*/ await Amplify.API
           .mutate(request: request)
           .response;
 

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:redux_comp/actions/intiate_auth_action.dart';
+import 'package:redux_comp/actions/user/cognito/intiate_auth_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 
-import '../app_state.dart';
+import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:http/http.dart' as http;
 

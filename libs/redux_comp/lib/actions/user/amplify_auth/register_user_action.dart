@@ -1,7 +1,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
-import '../../app_state.dart';
+import '../../../app_state.dart';
 
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;

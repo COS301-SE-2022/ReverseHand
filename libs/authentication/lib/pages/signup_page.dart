@@ -3,7 +3,7 @@ import 'package:authentication/widgets/divider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
-import 'package:redux_comp/actions/user/register_user_action.dart';
+import 'package:redux_comp/actions/user/amplify_auth/register_user_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/circle_blur_widget.dart';

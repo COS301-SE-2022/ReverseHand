@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/refresh_user_token_action.dart';
-import '../../app_state.dart';
+import 'package:redux_comp/actions/user/cognito/refresh_user_token_action.dart';
+import '../../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import '../../models/error_type_model.dart';
+import '../../../models/error_type_model.dart';
 
 /* AddUserToGroupAction */
 /* This action adds a user to a specified group if they have been verified on signup */
