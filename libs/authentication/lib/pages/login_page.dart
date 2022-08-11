@@ -241,24 +241,6 @@ class LoginPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Column(
-                              children: [
-                                //Apple
-                                //Shouldn't always display, figure out device being used: todo
-                                GestureDetector(
-                                  onTap: () {}, // Image tapped
-                                  child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Image.asset(
-                                      'assets/images/apple.png',
-                                      height: 100,
-                                      width: 100,
-                                      package: 'authentication',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),
