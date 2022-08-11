@@ -54,7 +54,10 @@
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
-        "socialProviders": [],
+        "socialProviders": [
+          "FACEBOOK",
+          "GOOGLE"
+        ],
         "usernameAttributes": [
           "EMAIL"
         ],
@@ -244,6 +247,11 @@
       "service": "Lambda"
     },
     "deleteReviewResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getUserStatisticsResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
