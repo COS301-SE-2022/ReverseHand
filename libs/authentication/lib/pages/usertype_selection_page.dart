@@ -75,7 +75,7 @@ class UserTypeSelectionPage extends StatelessWidget {
                                   alignment: Alignment.center,
                                   child: AuthButtonWidget(
                                     text: "Contractor",
-                                   function: () => vm.dispatchSignInFacebookAddUserToGroup("tradesman")
+                                   function: () => vm.dispatchAddUserToGroup("tradesman")
                                   ),
                                 ),
                                 //***************************************************/
@@ -87,7 +87,7 @@ class UserTypeSelectionPage extends StatelessWidget {
                                 //*****************CONSUMER signup button**********************
                                 AuthButtonWidget(
                                   text: "Client",
-                                  function: () => vm.dispatchSignInFacebookAddUserToGroup("customer"),
+                                  function: () => vm.dispatchAddUserToGroup("customer"),
                                 ),
                                 //***************************************************/
                               ],
@@ -116,8 +116,8 @@ class _Factory extends VmFactory<AppState, UserTypeSelectionPage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         error: state.error,
-        dispatchSignInFacebookAddUserToGroup: (String group) => dispatch(
-          AddUserToGroupAction(state.userDetails!.email, group),
+        dispatchAddUserToGroup: (String group) => dispatch(
+          AddUserToGroupAction((state.userDetails!.externalProvider == false) ? state.userDetails!.email : state.userDetails!.externalUsername! , group),
         ),
         pushSignUpPage: () =>
             dispatch(NavigateAction.pushNamed('/signup')),
@@ -126,13 +126,13 @@ class _Factory extends VmFactory<AppState, UserTypeSelectionPage> {
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String) dispatchSignInFacebookAddUserToGroup;
+  final void Function(String) dispatchAddUserToGroup;
   final bool loading;
   final ErrorType error;
   final VoidCallback pushSignUpPage;
 
   _ViewModel({
-    required this.dispatchSignInFacebookAddUserToGroup,
+    required this.dispatchAddUserToGroup,
     required this.loading,
     required this.error,
     required this.pushSignUpPage,

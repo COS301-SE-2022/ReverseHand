@@ -21,6 +21,7 @@ class IntiateAuthAction extends ReduxAction<AppState> {
 
       final userAttr = await Amplify.Auth.fetchUserAttributes();
       String email = "", id = "";
+      bool externalProvider = false;
       for (AuthUserAttribute attr in userAttr) {
         switch (attr.userAttributeKey.key) {
           case "email":
@@ -29,10 +30,17 @@ class IntiateAuthAction extends ReduxAction<AppState> {
           case "sub":
             id = attr.value;
             break;
+          case "identities":
+            externalProvider = true;
         }
       }
       Map<String, dynamic> payload =
           Jwt.parseJwt(authSessionWithCredentials.userPoolTokens!.accessToken);
+      
+      String? externalName;
+      if (externalProvider == true) {
+        externalName = payload["username"];
+      }
       final AWSCognitoUserPoolTokens? tokens =
           authSessionWithCredentials.userPoolTokens;
 
@@ -46,7 +54,8 @@ class IntiateAuthAction extends ReduxAction<AppState> {
               accessToken: tokens!.accessToken,
               refreshToken: tokens.refreshToken,
             ),
-            userDetails: state.userDetails!.copy(id: id, email: email),
+            userDetails: state.userDetails!
+                .copy(id: id, email: email, externalProvider: externalProvider, externalUsername: externalName),
             error: ErrorType.userNotInGroup);
       }
 
@@ -59,12 +68,23 @@ class IntiateAuthAction extends ReduxAction<AppState> {
           userType = "Tradesman";
           id = "t#$id";
         } else {
-          return state.copy(error: ErrorType.userNotInGroup);
+          return state.copy(
+             authModel: CognitoAuthModel(
+              accessToken: tokens!.accessToken,
+              refreshToken: tokens.refreshToken,
+            ),
+            userDetails: state.userDetails!.copy(id: id, email: email, externalProvider: externalProvider, externalUsername: externalName),
+            error: ErrorType.userNotInGroup,
+          );
         }
 
         return state.copy(
             error: ErrorType.none,
-            userDetails: UserModel(id: id, email: email, userType: userType));
+            userDetails: UserModel(
+                id: id,
+                email: email,
+                userType: userType,
+                externalProvider: externalProvider));
       } else {
         return state.copy(
           error: ErrorType.none,

@@ -8,7 +8,7 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/login_action.dart';
-import 'package:redux_comp/actions/user/cognito/intiate_auth_action.dart';
+import 'package:redux_comp/actions/user/signin_facebook_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/auth_button.dart';
@@ -271,7 +271,7 @@ class _Factory extends VmFactory<AppState, LoginPage> {
         ),
         error: state.error,
         dispatchSignInFacebook: () => dispatch(
-          IntiateAuthAction(),
+          SigninFacebookAction(),
         ),
       );
 }

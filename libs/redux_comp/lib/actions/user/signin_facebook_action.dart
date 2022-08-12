@@ -1,5 +1,6 @@
 // import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/user/cognito/intiate_auth_action.dart';
 // import 'package:jwt_decode/jwt_decode.dart';
 
 import '../../app_state.dart';
@@ -17,23 +18,11 @@ class SigninFacebookAction extends ReduxAction<AppState> {
       await Amplify.Auth.signInWithWebUI(provider: AuthProvider.google);
 
       // String id="", userType="", email ="";
-      final info = await Amplify.Auth.fetchUserAttributes();
-      // final authSession = (await Amplify.Auth.fetchAuthSession(
-      // options: CognitoSessionOptions(getAWSCredentials: true),
-      // )) as CognitoAuthSession;
+      final authSession =  await Amplify.Auth.fetchAuthSession();
+      if (authSession.isSignedIn) {
+        dispatch(IntiateAuthAction());
+      }
 
-      // Map<String, dynamic> payload =
-      //     Jwt.parseJwt(authSession.userPoolTokens!.accessToken);
-
-      // List groups = await payload["cognito:groups"];
-
-      // if (groups.contains("tradesman")) {
-      //   userType = "Tradesman";
-      // } else if (groups.contains("customer")) {
-      //   userType = "Consumer";
-      // }
-
-      debugPrint(info.toString());
       return null;
     } on AmplifyException catch (e) {
       debugPrint(e.message);
