@@ -8,14 +8,15 @@ class JobCardWidget extends StatelessWidget {
   final String location;
   final String type;
   final String date;
+
   const JobCardWidget(
-      {Key? key,
-      required this.titleText,
-      required this.descText,
-      required this.location,
-      required this.type,
-      required this.date})
-      : super(key: key);
+  {Key? key,
+  required this.titleText,
+  required this.descText,
+  required this.location,
+  required this.type,
+  required this.date})
+  : super(key: key);
 
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
@@ -93,13 +94,11 @@ class JobCardWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(descText,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.white)),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 20, color: Colors.white)),
                 ),
               ),
-
               //**********************************************/
             ],
           ),

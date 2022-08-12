@@ -22,9 +22,9 @@ exports.handler = async (event) => {
         Item: {
             part_key: event.arguments.ad_id,
             sort_key: event.arguments.bid_id, // prefixing but keeping same suffix
+            tradesman_id: event.arguments.tradesman_id,
             bid_details: {
                 name: event.arguments.name,
-                tradesman_id: event.arguments.tradesman_id,
                 price_lower: event.arguments.price_lower,
                 price_upper:event.arguments.price_upper,
                 quote: event.arguments.quote, //optional parameter

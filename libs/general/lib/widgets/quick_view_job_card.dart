@@ -4,7 +4,9 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
-//still deciding
+//*********************************************** */
+// Job Listings card layout widget
+//*********************************************** */
 
 class QuickViewJobCardWidget extends StatelessWidget {
   final AdvertModel advert; // Current advert
@@ -26,7 +28,8 @@ class QuickViewJobCardWidget extends StatelessWidget {
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
             margin: const EdgeInsets.all(10),
-            color: Theme.of(context).primaryColorLight,
+            // color: Theme.of(context).primaryColorLight,
+            color: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
             ),
@@ -38,9 +41,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisSize: MainAxisSize.min,
                     children: [
-                      //not working yet?
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 1.3,
                         child: Text(advert.title,
@@ -66,8 +67,8 @@ class QuickViewJobCardWidget extends StatelessWidget {
                           const Padding(
                               padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
                           Text(advert.domain.city,
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.white))
+                            style: const TextStyle(
+                              fontSize: 20, color: Colors.white))
                         ],
                       ),
                     ],
@@ -100,5 +101,5 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.dispatchViewBidsAction,
-  }); // implementinf hashcode
+  });
 }
