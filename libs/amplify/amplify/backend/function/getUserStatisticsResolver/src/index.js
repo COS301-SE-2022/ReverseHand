@@ -73,7 +73,13 @@ exports.handler = async (event) => {
             };
 
             data = await docClient.query(params).promise();
-            console.log(data);
+
+            numBidsCreated = data['Count'];
+            console.log(numBidsCreated);
+
+            (data['Items']).forEach(bid => {
+                console.log(bid);
+            });
         }
 
         let result = {

@@ -53,7 +53,7 @@
         },
         "placeBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/placeBidResolver-514846316a68724d6344-build.zip"
+          "s3Key": "amplify-builds/placeBidResolver-65664c33616c58543633-build.zip"
         },
         "shortListBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -153,7 +153,7 @@
         },
         "getUserStatisticsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getUserStatisticsResolver-6656524c633750536b2b-build.zip"
+          "s3Key": "amplify-builds/getUserStatisticsResolver-6a46382f2f4e542b7642-build.zip"
         }
       }
     }
