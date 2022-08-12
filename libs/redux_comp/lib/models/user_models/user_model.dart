@@ -14,6 +14,7 @@ class UserModel {
   final List<String> tradeTypes;
   final String userType;
   final bool? registered;
+  final bool externalProvider;
 
   const UserModel({
     required this.id,
@@ -25,6 +26,7 @@ class UserModel {
     required this.userType,
     this.location,
     this.registered,
+    required this.externalProvider,
   });
 
   UserModel copy({
@@ -37,6 +39,7 @@ class UserModel {
     String? userType,
     Location? location,
     bool? registered,
+    bool? externalProvider,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -48,6 +51,7 @@ class UserModel {
       userType: userType ?? this.userType,
       location: location ?? this.location,
       registered: registered ?? this.registered,
+      externalProvider: externalProvider ?? this.externalProvider,
     );
   }
 }

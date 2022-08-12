@@ -20,7 +20,7 @@ class IntiateAuthAction extends ReduxAction<AppState> {
       )) as CognitoAuthSession;
 
       final userAttr = await Amplify.Auth.fetchUserAttributes();
-      String email = "", id = "";
+      String email = "", id = ""; bool externalProvider = false;
       for (AuthUserAttribute attr in userAttr) {
         switch (attr.userAttributeKey.key) {
           case "email":
@@ -29,6 +29,9 @@ class IntiateAuthAction extends ReduxAction<AppState> {
           case "sub":
             id = attr.value;
             break;
+          case "identites":
+            externalProvider = true;
+
         }
       }
       Map<String, dynamic> payload =
@@ -46,7 +49,7 @@ class IntiateAuthAction extends ReduxAction<AppState> {
               accessToken: tokens!.accessToken,
               refreshToken: tokens.refreshToken,
             ),
-            userDetails: state.userDetails!.copy(id: id, email: email),
+            userDetails: state.userDetails!.copy(id: id, email: email, externalProvider: externalProvider),
             error: ErrorType.userNotInGroup);
       }
 
@@ -64,7 +67,7 @@ class IntiateAuthAction extends ReduxAction<AppState> {
 
         return state.copy(
             error: ErrorType.none,
-            userDetails: UserModel(id: id, email: email, userType: userType));
+            userDetails: UserModel(id: id, email: email, userType: userType, externalProvider: externalProvider));
       } else {
         return state.copy(
           error: ErrorType.none,

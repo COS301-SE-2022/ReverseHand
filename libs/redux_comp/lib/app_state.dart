@@ -59,7 +59,7 @@ class AppState {
   factory AppState.initial() {
     return AppState(
       authModel: null,
-      userDetails: const UserModel(id: "", email: "", userType: ""),
+      userDetails: const UserModel(id: "", email: "", userType: "", externalProvider: false),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
       viewAdverts: const [],
@@ -98,6 +98,7 @@ class AppState {
         name: "Someone",
         cellNo: "0821234567",
         userType: "customer",
+        externalProvider: false,
       ),
       wait: Wait(),
       authModel: null,
