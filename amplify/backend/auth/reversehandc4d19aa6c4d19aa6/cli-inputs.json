@@ -84,9 +84,6 @@
       "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\"},{\"ProviderName\":\"Google\"}]",
-    "facebookAppId": "459283716090620",
-    "googleClientId": "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"reversehandapp://\"],\"LogoutURLs\":[\"reversehandapp://\"]}"
   }
 }

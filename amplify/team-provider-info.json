@@ -13,11 +13,7 @@
     },
     "categories": {
       "auth": {
-        "reversehandc4d19aa6c4d19aa6": {
-          "facebookAppId": "459283716090620",
-          "googleClientId": "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
-        },
-        "true": {},
+        "reversehandc4d19aa6c4d19aa6": {},
         "userPoolGroups": {}
       },
       "storage": {
@@ -103,10 +99,6 @@
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/editBidResolver-706341485443764a7449-build.zip"
         },
-        "EditUserDetailsResolver": {
-          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/EditUserDetailsResolver-6c7575526c4e566d5930-build.zip"
-        },
         "editUserDetailResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/editUserDetailResolver-6137483676397a2b592f-build.zip"
@@ -138,10 +130,6 @@
         "deleteChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/deleteChatResolver-47444a786c622b473530-build.zip"
-        },
-        "refreshUserTokenResolver": {
-          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/refreshUserTokenResolver-48615943794f3736346a-build.zip"
         },
         "getNotificationsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
