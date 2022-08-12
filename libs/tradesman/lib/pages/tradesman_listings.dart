@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/floating_button.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -24,41 +25,9 @@ class TradesmanJobListings extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) => Column(
               children: [
                 //*******************APP BAR WIDGET*********************//
-                Stack(children: [
-                  AppBarWidget(title: "JOB LISTINGS", store: store),
-                  //********************************************************//
-                  Positioned(
-                    top: 110,
-                    right: 20,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                          primary: Theme.of(context).scaffoldBackgroundColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(
-                                  color: Theme.of(context).primaryColor))),
-                      onPressed: () {
-                        DarkDialogHelper.display(
-                          context,
-                          FilterPopUpWidget(
-                            store: store,
-                          ),
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.filter_alt,
-                        size: 25,
-                      ),
-                      label: const Text(
-                        "Filter",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                  ),
-                ]),
+                AppBarWidget(title: "JOB LISTINGS", store: store),
+                //********************************************************//
+
                 ...populateAdverts(vm.adverts, store),
 
                 if (vm.loading)
@@ -81,7 +50,16 @@ class TradesmanJobListings extends StatelessWidget {
           ),
         ),
         //************************NAVBAR***********************/
+        floatingActionButton: FloatingButtonWidget(function: () {
+          DarkDialogHelper.display(
+            context,
+            FilterPopUpWidget(
+              store: store,
+            ),
+          );
+        }),
 
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: TNavBarWidget(
           store: store,
         ),
