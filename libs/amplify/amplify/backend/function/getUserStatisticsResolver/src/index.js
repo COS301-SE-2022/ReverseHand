@@ -27,19 +27,53 @@ exports.handler = async (event) => {
 
         //consumer variables
         let numAdvertsCreated = "";//number of adverts that a consumer created
-        let numAdvertsWon = ""; //adverts which got completed by a tradesman
+        let numAdvertsWon = 0; //adverts which got completed by a tradesman
 
         //tradesman variables
+        let numBidsCreated = "";
+        let numJobsWon = 0;
         
         
         if((event.arguments.user_id).charAt(0) == 'c') //data which is specific to a consumer
         {
+            //get the adverts for the Consumer
+            params = {
+                TableName: ReverseHandTable,
+                IndexName: "customer_view",
+                KeyConditionExpression: "customer_id = :p",
+                ExpressionAttributeValues: {
+                    ":p": event.arguments.user_id, // should be a consumers id
+                }
+            };
+    
+            data = await docClient.query(params).promise();
 
+            numAdvertsCreated = data['Count'];
+
+            (data['Items']).forEach(advert => {
+                if(advert['advert_details']['date_closed'] != null)//find the number of closed advaerts
+                    numAdvertsWon += 1;
+            });
+
+            numAdvertsWon = numAdvertsWon.toString();//convert the int to a string
         }
         else //data which is specific to a tradesman
         {
-            
+            //get all bids made by the tradesman
+            //get all information related to the tradesman
 
+
+            params = {
+                TableName: ReverseHandTable,
+                IndexName: "tradesman_view",
+                KeyConditionExpression: "tradesman_id = :p",
+                ExpressionAttributeValues: {
+                    ":p": event.arguments.user_id, // should be a tradesman id
+                }
+            };
+
+            data = await docClient.query(params).promise();
+            console.log(data);
         }
 
         let result = {
