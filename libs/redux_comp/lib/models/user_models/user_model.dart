@@ -15,6 +15,7 @@ class UserModel {
   final String userType;
   final bool? registered;
   final bool externalProvider;
+  final String? externalUsername;
 
   const UserModel({
     required this.id,
@@ -27,6 +28,7 @@ class UserModel {
     this.location,
     this.registered,
     required this.externalProvider,
+    this.externalUsername,
   });
 
   UserModel copy({
@@ -40,6 +42,7 @@ class UserModel {
     Location? location,
     bool? registered,
     bool? externalProvider,
+    String? externalUsername,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -52,6 +55,7 @@ class UserModel {
       location: location ?? this.location,
       registered: registered ?? this.registered,
       externalProvider: externalProvider ?? this.externalProvider,
+      externalUsername: externalUsername ?? this.externalUsername,
     );
   }
 }
