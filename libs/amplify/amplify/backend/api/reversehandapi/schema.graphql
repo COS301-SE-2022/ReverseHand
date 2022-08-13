@@ -112,6 +112,9 @@ type Mutation {
 
   addReview(user_id: String!, reviews: ReviewInput!) : [Review!]!
   @function(name: "addReviewResolver-${env}")
+
+  deleteReview(user_id: String!, id: String!) : [Review!]! #id is the review id
+  @function(name: "deleteReviewResolver-${env}")
 }
 
 type Subscription {
