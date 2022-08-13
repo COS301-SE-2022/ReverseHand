@@ -22,6 +22,7 @@ class AdvertDetailsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
+        // backgroundColor: Theme.of(context).primaryColorLight,
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) =>
@@ -55,14 +56,14 @@ class AdvertDetailsPage extends StatelessWidget {
                   )),
                 //**********************************************/
 
-                const Padding(padding: EdgeInsets.only(top: 20)),
+                const Padding(padding: EdgeInsets.only(top: 15)),
 
                 //*************BOTTOM BUTTONS**************//
                 Stack(
                   alignment: Alignment.center,
                   children: <Widget>[
                     BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: MediaQuery.of(context).size.height,
                     ),
 
                     //view bids

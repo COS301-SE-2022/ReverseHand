@@ -29,6 +29,9 @@ class JobCardWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.only(top: 30),
+              ),
               //****************TITLE********************//
               SizedBox(
                 width: MediaQuery.of(context).size.width / 1.25,
@@ -42,51 +45,58 @@ class JobCardWidget extends StatelessWidget {
               //****************DATE*******************//
               Row(
                 children: [
-                  Text(
-                    date,
-                    style: const TextStyle(fontSize: 18, color: Colors.white70),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 5, 0, 0),
+                    child: Text(
+                      date,
+                      style: const TextStyle(fontSize: 18, color: Color.fromARGB(255, 186, 186, 186)),
+                    ),
                   ),
                 ],
               ),
               //****************************************//
 
-              //****************LOCATION********************//
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: Colors.white,
-                      size: 22,
+              Row(
+                children: [
+                  //****************LOCATION********************//
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: Colors.white,
+                          size: 22,
+                        ),
+                        const Padding(padding: EdgeInsets.only(right: 2)),
+                        Text(location,
+                            style:
+                                const TextStyle(fontSize: 20, color: Colors.white))
+                      ],
                     ),
-                    const Padding(padding: EdgeInsets.only(right: 2)),
-                    Text(location,
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.white))
-                  ],
-                ),
+                  ),
+                  //*****************************************//
+                  //****************TRADE********************//
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 10, 0, 0),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.construction_outlined,
+                          color: Colors.white,
+                          size: 22,
+                        ),
+                        const Padding(padding: EdgeInsets.only(right: 2)),
+                        Text(type,
+                            style:
+                                const TextStyle(fontSize: 20, color: Colors.white))
+                      ],
+                    ),
+                  ),
+                  //*****************************************//
+                ],
               ),
-              //*****************************************//
 
-              //****************TRADE********************//
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.construction_outlined,
-                      color: Colors.white,
-                      size: 22,
-                    ),
-                    const Padding(padding: EdgeInsets.only(right: 2)),
-                    Text(type,
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.white))
-                  ],
-                ),
-              ),
-              //*****************************************//
 
               //****************DESCRIPTION*******************//
               SizedBox(
