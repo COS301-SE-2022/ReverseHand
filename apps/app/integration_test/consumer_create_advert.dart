@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/floating_button.dart';
+import 'package:consumer/widgets/consumer_floating_button.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
@@ -48,7 +48,8 @@ void main() {
     //Now on page showing Adverts
 
     //get that orange add button on the screen.
-    var addAdvert = find.widgetWithIcon(FloatingButtonWidget, Icons.add);
+    var addAdvert =
+        find.widgetWithIcon(ConsumerFloatingButtonWidget, Icons.add);
     expect(addAdvert, findsOneWidget);
 
     //press that button add button

@@ -66,8 +66,12 @@ class AppState {
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
-      activeAd:
-          const AdvertModel(id: "", title: "", domain: Domain(city: "city", coordinates: Coordinates(lat: 22, lng: 21)), dateCreated: ""),
+      activeAd: const AdvertModel(
+          id: "",
+          title: "",
+          domain:
+              Domain(city: "city", coordinates: Coordinates(lat: 22, lng: 21)),
+          dateCreated: ""),
       activeBid: const BidModel(
         id: "",
         userId: "",
