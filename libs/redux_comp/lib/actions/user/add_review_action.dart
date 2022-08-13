@@ -25,6 +25,7 @@ class AddReviewAction extends ReduxAction<AppState> {
         user_id
         description
         advert_id
+        date_created
       }
     }''';
 

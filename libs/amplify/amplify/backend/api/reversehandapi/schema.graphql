@@ -231,19 +231,20 @@ type Notification  {
 
 type Review implements UniqueID {
   id: String!
-  rating: Int
-  description: String
+  rating: Int!
+  description: String!
   user_id: String!
   advert_id: String!
+  date_created: Int
 }
 
 input ReviewInput {
   id: String!
-  rating: Int
-  description: String
+  rating: Int!
+  description: String!
   user_id: String!
   advert_id: String!
-  date_created: String
+  date_created: Int
 }
 
 # add more jobs here as we think of them
