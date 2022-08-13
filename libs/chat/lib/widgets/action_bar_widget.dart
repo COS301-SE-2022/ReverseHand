@@ -35,19 +35,23 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 16.0),
-              child: TextField(
-                controller: msgController,
-                style: const TextStyle(fontSize: 17, color: Colors.white),
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide:
-                        BorderSide(color: Theme.of(context).primaryColor),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide:
-                        BorderSide(color: Theme.of(context).primaryColor),
+              child: SizedBox(
+                height: 40,
+                child: TextField(
+                  controller: msgController,
+                  // maxLines: 50,
+                  style: const TextStyle(fontSize: 17, color: Colors.white),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).primaryColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).primaryColor),
+                    ),
                   ),
                 ),
               ),
