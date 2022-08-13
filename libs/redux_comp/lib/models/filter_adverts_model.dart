@@ -8,7 +8,7 @@ class FilterAdvertsModel {
   final Sort? sort;
   final HashSet<Domain>? domains;
   final HashSet<String>? jobTypes;
-  final Range? distance;
+  final double? distance;
 
   const FilterAdvertsModel({
     this.sort,
@@ -25,15 +25,6 @@ class Sort {
   final Direction direction;
 
   const Sort(this.kind, this.direction);
-}
-
-// represents the range for filtering distance
-@immutable
-class Range {
-  final int low;
-  final int high;
-
-  const Range(this.low, this.high);
 }
 
 // the thing we are sorting
