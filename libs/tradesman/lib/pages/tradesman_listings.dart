@@ -1,7 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/floating_button.dart';
+import 'package:tradesman/widgets/tradesman_floating_button.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -50,7 +50,7 @@ class TradesmanJobListings extends StatelessWidget {
           ),
         ),
         //************************NAVBAR***********************/
-        floatingActionButton: FloatingButtonWidget(function: () {
+        floatingActionButton: TradesmanFloatingButtonWidget(function: () {
           DarkDialogHelper.display(
             context,
             FilterPopUpWidget(

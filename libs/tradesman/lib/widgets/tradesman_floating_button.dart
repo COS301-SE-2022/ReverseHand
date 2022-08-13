@@ -4,9 +4,9 @@ import 'package:redux_comp/app_state.dart';
 
 //used in consumer and tradesman
 
-class FloatingButtonWidget extends StatelessWidget {
+class TradesmanFloatingButtonWidget extends StatelessWidget {
   final void Function() function;
-  const FloatingButtonWidget({Key? key, required this.function})
+  const TradesmanFloatingButtonWidget({Key? key, required this.function})
       : super(key: key);
 
   @override
@@ -22,7 +22,7 @@ class FloatingButtonWidget extends StatelessWidget {
   }
 }
 
-class _Factory extends VmFactory<AppState, FloatingButtonWidget> {
+class _Factory extends VmFactory<AppState, TradesmanFloatingButtonWidget> {
   _Factory(widget) : super(widget);
 
   @override
