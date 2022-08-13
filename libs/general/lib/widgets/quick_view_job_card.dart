@@ -1,4 +1,4 @@
-import 'package:async_redux/async_redux.dart';
+ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -29,14 +29,14 @@ class QuickViewJobCardWidget extends StatelessWidget {
           child: Card(
             margin: const EdgeInsets.all(10),
             // color: Theme.of(context).primaryColorLight,
-            color: Colors.white,
+            color: const Color.fromARGB(255, 220, 224, 230),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(7),
             ),
             elevation: 2,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 25),
               child: Row(
                 children: <Widget>[
                   Column(
@@ -48,28 +48,28 @@ class QuickViewJobCardWidget extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                fontSize: 30, color: Colors.white)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
-                        child: Text(advert.dateCreated,
-                            style: const TextStyle(
-                                fontSize: 18, color: Colors.white70)),
+                                fontSize: 30, color: Color.fromRGBO(7, 10, 13, 1))),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(
                             Icons.location_on,
-                            color: Colors.white,
+                            color: Colors.black,
                             size: 25.0,
                           ),
                           const Padding(
-                              padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 0)),
                           Text(advert.domain.city,
                             style: const TextStyle(
-                              fontSize: 20, color: Colors.white))
+                              fontSize: 20, color: Colors.black))
                         ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(150, 4, 5, 2),
+                        child: Text("Posted: ${advert.dateCreated}",
+                            style: const TextStyle(
+                                fontSize: 18, color: Color.fromARGB(255, 70, 70, 70))),
                       ),
                     ],
                   ),

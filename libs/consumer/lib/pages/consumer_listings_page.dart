@@ -61,11 +61,11 @@ class ConsumerListingsPage extends StatelessWidget {
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 18.0),
+                            padding: EdgeInsets.only(left: 18.0, top: 25),
                             child: Text(
                               "OPEN",
                               style: TextStyle(
-                                  fontSize: 20, color: Colors.white60),
+                                  fontSize: 20, color: Colors.white),
                             ),
                           ),
                         ),
@@ -104,7 +104,7 @@ class ConsumerListingsPage extends StatelessWidget {
                   if (vm.adverts.isNotEmpty)
                     Column(
                       children: [
-                        //******************OPEN HEADING***********************//
+                        //******************IN PROGRESS HEADING***********************//
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -112,7 +112,7 @@ class ConsumerListingsPage extends StatelessWidget {
                             child: Text(
                               "IN PROGRESS",
                               style: TextStyle(
-                                  fontSize: 20, color: Colors.white60),
+                                  fontSize: 20, color: Colors.white),
                             ),
                           ),
                         ),
