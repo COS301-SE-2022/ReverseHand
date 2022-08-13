@@ -24,6 +24,8 @@ enum ErrorType {
   advertContainsBids, // cannot modify and add with bids
   failedToAddReview, //when adding a review fails
   failedToDeleteReview,
+  // location permissions
+  localPermissionDenied,
   // generic errors
   noInput,
   //
