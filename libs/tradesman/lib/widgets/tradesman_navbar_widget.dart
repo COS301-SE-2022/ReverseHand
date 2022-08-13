@@ -19,7 +19,7 @@ class TNavBarWidget extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+              topRight: Radius.circular(20), topLeft: Radius.circular(15)),
           boxShadow: [
             BoxShadow(
               color: Colors.black,
@@ -32,8 +32,8 @@ class TNavBarWidget extends StatelessWidget {
         //extra clipping off edges
         child: ClipRRect(
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10.0),
-            topRight: Radius.circular(10.0),
+            topLeft: Radius.circular(7.0),
+            topRight: Radius.circular(7.0),
           ),
 
           //bottom nav functionality

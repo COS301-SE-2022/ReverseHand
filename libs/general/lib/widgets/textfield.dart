@@ -35,7 +35,7 @@ class TextFieldWidget extends StatelessWidget {
         labelStyle: const TextStyle(color: Colors.white),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(7),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
             color: Colors.grey,
             width: 1.0,
