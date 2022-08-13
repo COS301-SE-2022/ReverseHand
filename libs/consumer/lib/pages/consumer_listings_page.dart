@@ -121,7 +121,7 @@ class ConsumerListingsPage extends StatelessWidget {
                         //**************************DIVIDER**********************//
                         Divider(
                           height: 20,
-                          thickness: 0.5,
+                          thickness: 1,
                           indent: 15,
                           endIndent: 15,
                           color: Theme.of(context).primaryColorLight,

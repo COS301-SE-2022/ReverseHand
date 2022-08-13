@@ -74,7 +74,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //title
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
+                padding: const EdgeInsets.fromLTRB(15, 50, 15, 5),
                 child: TextFieldWidget(
                   label: "Title",
                   obscure: false,
@@ -84,15 +84,15 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 ),
               ),
 
-              //radio
+              //trade
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
                 child: TextFieldWidget(
-                  label: "Trade",
+                  label: "Trade Category",
                   obscure: false,
                   controller: tradeController,
                   onTap: () => showRadioSelect(),
-                  min: 3,
+                  min: 1,
                 ),
               ),
 
@@ -113,7 +113,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 vm: () => _Factory(this),
                 builder: (BuildContext context, _ViewModel vm) => Column(
                   children: [
-                    const Padding(padding: EdgeInsets.all(50)),
+                    const Padding(padding: EdgeInsets.fromLTRB(10 ,20, 20, 10)),
 
                     //*********CREATE JOB BUTTON******************//
                     vm.loading

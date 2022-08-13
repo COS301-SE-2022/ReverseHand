@@ -20,27 +20,33 @@ class AppBarWidget extends StatelessWidget {
           AppBar(
             title: Text(title),
             backgroundColor: Theme.of(context).primaryColorDark,
-            leading: IconButton(
-              icon: const Icon(
-                Icons.notifications,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                vm.pushActivityStreamPage();
-              },
-              splashRadius: 1,
-              highlightColor: Colors.orange,
-              splashColor: Colors.white,
-            ),
-            actions: [
-              Container(
-                width: 50,
-                child: Image.asset( 
-                   'assets/images/logo.png',
-                    package: 'authentication',
+            leading: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Container(
+                  width: 50,
+                  height: 80,
+                  child: Image.asset( 
+                    'assets/images/logo.png',
+                      package: 'authentication',
+                  ),
                 ),
               ),
-              const Padding(padding: EdgeInsets.only(right: 10)),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.notifications,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    vm.pushActivityStreamPage();
+                  },
+                  splashRadius: 1,
+                  highlightColor: Colors.orange,
+                  splashColor: Colors.white,
+                ),
+              ),
             ],
           ),
         ));
