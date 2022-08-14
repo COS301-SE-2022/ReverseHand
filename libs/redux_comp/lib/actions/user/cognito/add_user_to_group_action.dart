@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/cognito/assign_groups_action.dart';
-import 'package:redux_comp/actions/user/cognito/refresh_user_token_action.dart';
 import '../../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
