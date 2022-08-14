@@ -76,7 +76,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 child: TextFieldWidget(
                   label: "Title",
                   obscure: false,
-                  min: 2,
+                  min: 1,
                   controller: titleController,
                   initialVal: null,
                 ),
@@ -96,7 +96,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                           child: Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
-                                trade == null ? "None Selected" : trade!,
+                                trade == null ? "Trade Type" : trade!,
                                 style: const TextStyle(fontSize: 18),
                               ))),
                     ),

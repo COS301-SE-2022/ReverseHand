@@ -25,25 +25,19 @@ class ActivityStream extends StatelessWidget {
                 //********************************************************//
 
                 //*******************MOCK NOTIFICATIONS CARDS*********************//
-                NotificationCardWidget(
+                const NotificationCardWidget(
                   titleText: "New Bid!",
-                  descText: "kms",
                   date: "3 min ago",
-                  store: store
                 ),
 
-                NotificationCardWidget(
+                const NotificationCardWidget(
                   titleText: "Accepted!",
-                  descText: "kms",
                   date: "3 min ago",
-                  store: store
                 ),
 
-                NotificationCardWidget(
+                const NotificationCardWidget(
                   titleText: "Submitted!",
-                  descText: "kms",
                   date: "3 min ago",
-                  store: store
                 ),
 
                 //********************************************************//
