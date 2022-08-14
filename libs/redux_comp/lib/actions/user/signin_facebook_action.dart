@@ -1,6 +1,6 @@
 // import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/check_signed_in_action.dart';
+import 'package:redux_comp/actions/user/amplify_auth/check_signed_in_action.dart';
 // import 'package:jwt_decode/jwt_decode.dart';
 
 import '../../app_state.dart';

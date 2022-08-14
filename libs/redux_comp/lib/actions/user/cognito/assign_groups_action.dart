@@ -1,9 +1,9 @@
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:redux_comp/actions/get_cognito_user_action.dart';
+import 'package:redux_comp/actions/user/cognito/get_cognito_user_action.dart';
 import 'package:redux_comp/actions/user/cognito/refresh_user_token_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 
-import '../app_state.dart';
+import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
