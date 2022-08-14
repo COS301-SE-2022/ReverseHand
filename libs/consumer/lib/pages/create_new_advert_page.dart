@@ -60,8 +60,6 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
     return StoreProvider<AppState>(
       store: widget.store,
       child: Scaffold(
-        resizeToAvoidBottomInset:
-            false, //prevents floatingActionButton appearing above keyboard
         backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
         body: SingleChildScrollView(
           child: Column(
@@ -84,17 +82,25 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 ),
               ),
 
-              //radio
+              //trade type
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
-                child: TextFieldWidget(
-                  label: "Trade",
-                  obscure: false,
-                  controller: tradeController,
-                  onTap: () => showRadioSelect(),
-                  min: 3,
-                ),
-              ),
+                  padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
+                  child: InkWell(
+                    onTap: () => showRadioSelect(),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.grey, width: 1)),
+                          child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text(
+                                trade == null ? "None Selected" : trade!,
+                                style: const TextStyle(fontSize: 18),
+                              ))),
+                    ),
+                  )),
 
               //description
               Padding(
@@ -113,7 +119,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 vm: () => _Factory(this),
                 builder: (BuildContext context, _ViewModel vm) => Column(
                   children: [
-                    const Padding(padding: EdgeInsets.all(50)),
+                    const Padding(padding: EdgeInsets.all(25)),
 
                     //*********CREATE JOB BUTTON******************//
                     vm.loading

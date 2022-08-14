@@ -26,7 +26,7 @@ class TextFieldWidget extends StatelessWidget {
     return TextFormField(
       minLines: min,
       maxLines: 5,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white, fontSize: 18),
       obscureText: obscure,
       controller: controller,
       onTap: onTap,

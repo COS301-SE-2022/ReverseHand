@@ -40,14 +40,18 @@ class ChatPage extends StatelessWidget {
             }
           }
 
-          return Scaffold(
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  //*******************APP BAR WIDGET*********************//
-                  const ChatAppBarWidget(title: "Name"),
-                  //********************************************************//
-                  // const DateLabelWidget(label: "Yesterday"), //todo michael
+            return Scaffold(
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    //*******************APP BAR WIDGET*********************//
+                    ChatAppBarWidget(
+                      title: vm.currentUser == "consumer"
+                          ? vm.chat.tradesmanName
+                          : vm.chat.consumerName,
+                    ),
+                    //********************************************************//
+                    // const DateLabelWidget(label: "Yesterday"), //todo michael
 
                   //todo michael
                   ...messages,

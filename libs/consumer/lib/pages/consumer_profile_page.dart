@@ -4,7 +4,7 @@ import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/bottom_overlay.dart';
+import 'package:general/widgets/profile_divider.dart';
 
 class ConsumerProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -24,127 +24,187 @@ class ConsumerProfilePage extends StatelessWidget {
                 AppBarWidget(title: "PROFILE", store: store),
                 //********************************************************//
 
-                //*******************CONSUMER NAME************************//
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  const Icon(
-                    Icons.account_circle,
-                    color: Colors.white,
-                    size: 50.0,
-                  ),
-                  const Padding(padding: EdgeInsets.only(right: 10)),
-                  Text(
+                //**************HEADING***************/
+                Center(
+                  child: Text(
                     (vm.userDetails.name != null)
                         ? vm.userDetails.name!
                         : "null",
-                    style: const TextStyle(fontSize: 30),
+                    style: const TextStyle(fontSize: 35),
                   ),
-                ]),
-                //********************************************************//
+                ),
+                //************************************/
 
-                const Padding(padding: EdgeInsets.all(20)),
+                //****************ICON****************/
+                const Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                  size: 80.0,
+                ),
+                //************************************/
 
-                //*******************CONSUMER DETAILS************************//
-
-                Stack(alignment: Alignment.center, children: <Widget>[
-                  //overlay
-                  BottomOverlayWidget(
-                    height: MediaQuery.of(context).size.height / 1.5,
-                  ),
-
-                  //location
-                  Positioned(
-                    top: 40,
-                    left: 45,
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.location_on,
-                          color: Colors.white70,
-                          size: 26.0,
+                //************STATS*******************/
+                //CHANGE ICONS
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 100,
+                    width: 300,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColorDark,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(
+                                    Icons.check_circle_outline,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  const Text(
+                                    "Stat 1",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8, left: 10, right: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(
+                                    Icons.front_hand_outlined,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  const Text(
+                                    "Stat 2",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        Padding(padding: EdgeInsets.only(left: 8)),
-                        Text("Location",
-                            style:
-                                TextStyle(fontSize: 26, color: Colors.white70)),
-                      ],
+                      ),
                     ),
                   ),
+                ),
+                //***********************************/
 
-                  Positioned(
-                      top: 80,
-                      left: 52,
-                      child: Text(
-                          (vm.userDetails.location != null)
-                              ? "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}"
-                              : "null",
-                          style: const TextStyle(
-                              fontSize: 20, color: Colors.white))),
-
-                  //cellphone
-                  Positioned(
-                    top: 140,
-                    left: 45,
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.phone,
-                          color: Colors.white70,
-                          size: 26.0,
-                        ),
-                        Padding(padding: EdgeInsets.only(left: 8)),
-                        Text("Cellphone",
-                            style:
-                                TextStyle(fontSize: 26, color: Colors.white70)),
-                      ],
-                    ),
+                //************NAME*******************/
+                Padding(
+                  padding: const EdgeInsets.only(left: 100, top: 20),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.person,
+                        color: Colors.white70,
+                        size: 26.0,
+                      ),
+                      const Padding(padding: EdgeInsets.only(right: 8)),
+                      Text(
+                        (vm.userDetails.name != null)
+                            ? vm.userDetails.name!
+                            : "null",
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                    ],
                   ),
+                ),
+                //************************************/
 
-                  Positioned(
-                      top: 180,
-                      left: 52,
-                      child: Text(
+                const ProfileDividerWidget(),
+
+                //************CELL*******************/
+                Padding(
+                  padding: const EdgeInsets.only(left: 100, top: 5),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.phone,
+                        color: Colors.white70,
+                        size: 26.0,
+                      ),
+                      const Padding(padding: EdgeInsets.only(right: 8)),
+                      Text(
                           (vm.userDetails.cellNo != null)
                               ? vm.userDetails.cellNo!
                               : "null",
                           style: const TextStyle(
-                              fontSize: 20, color: Colors.white))),
-
-                  //email
-                  Positioned(
-                    top: 240,
-                    left: 45,
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.email,
-                          color: Colors.white70,
-                          size: 26.0,
-                        ),
-                        Padding(padding: EdgeInsets.only(left: 8)),
-                        Text("Email",
-                            style:
-                                TextStyle(fontSize: 26, color: Colors.white70)),
-                      ],
-                    ),
+                              fontSize: 20, color: Colors.white)),
+                    ],
                   ),
+                ),
+                //************************************/
 
-                  Positioned(
-                      top: 280,
-                      left: 52,
-                      child: Text(vm.userDetails.email,
+                const ProfileDividerWidget(),
+
+                //************EMAIL*******************/
+                Padding(
+                  padding: const EdgeInsets.only(left: 100, top: 5),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.email,
+                        color: Colors.white70,
+                        size: 26.0,
+                      ),
+                      const Padding(padding: EdgeInsets.only(right: 8)),
+                      Text(vm.userDetails.email,
                           style: const TextStyle(
-                              fontSize: 20, color: Colors.white))),
-
-                  Positioned(
-                    top: 300,
-                    right: 35,
-                    child: IconButton(
-                      onPressed: vm.pushEditProfilePage,
-                      icon: const Icon(Icons.edit),
-                      color: Colors.white70,
-                    ),
+                              fontSize: 20, color: Colors.white)),
+                    ],
                   ),
-                ]),
+                ),
+                //************************************/
+
+                const ProfileDividerWidget(),
+
+                //************LOCATION*****************/
+                Padding(
+                  padding: const EdgeInsets.only(left: 100, top: 5),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: Colors.white70,
+                        size: 26.0,
+                      ),
+                      const Padding(padding: EdgeInsets.only(right: 8)),
+                      Text(
+                          (vm.userDetails.location != null)
+                              ? "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}"
+                              : "null",
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white)),
+                    ],
+                  ),
+                ),
+                //************************************/
+
+                const ProfileDividerWidget(),
+
+                //*****************EDIT***************/
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: IconButton(
+                    onPressed: vm.pushEditProfilePage,
+                    icon: const Icon(Icons.edit),
+                    color: Colors.white70,
+                  ),
+                ),
+                //************************************/
               ],
             ),
           ),
