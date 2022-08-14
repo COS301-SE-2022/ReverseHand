@@ -7,15 +7,15 @@ import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
-class SigninFacebookAction extends ReduxAction<AppState> {
-  SigninFacebookAction();
+class SignInGoogleAction extends ReduxAction<AppState> {
+  SignInGoogleAction();
 
   @override
   Future<AppState?> reduce() async {
     try {
       // Amplify.Auth.signOut();
       // final result =
-      await Amplify.Auth.signInWithWebUI(provider: AuthProvider.facebook);
+      await Amplify.Auth.signInWithWebUI(provider: AuthProvider.google);
 
       // String id="", userType="", email ="";
       final authSession =  await Amplify.Auth.fetchAuthSession();
