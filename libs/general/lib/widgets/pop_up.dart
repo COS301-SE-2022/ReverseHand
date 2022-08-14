@@ -24,7 +24,7 @@ class PopupCardWidget extends StatelessWidget {
   _buildPopUp(BuildContext context, Widget widget) {
     return Center(
       child: Container(
-        height: 500,
+        height: MediaQuery.of(context).size.height,
         width: 900,
         margin: const EdgeInsets.only(left: 0, right: 0),
         decoration: const BoxDecoration(
@@ -38,7 +38,7 @@ class PopupCardWidget extends StatelessWidget {
         ),
         child: Center(
           child: SizedBox(
-            height: 500,
+            // height: 500,
             width: 1200,
             child: widget, //call external popup widget
           ),

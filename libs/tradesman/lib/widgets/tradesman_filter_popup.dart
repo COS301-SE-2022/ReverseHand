@@ -1,7 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
+import 'package:redux_comp/actions/adverts/filter_adverts_action.dart';
 import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/filter_adverts_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 
 class FilterPopUpWidget extends StatefulWidget {
@@ -16,9 +18,9 @@ class FilterPopUpWidget extends StatefulWidget {
 class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
   final String? dropDownListVal = "None";
 
-  final TextEditingController minDistanceController = TextEditingController();
+  final TextEditingController distanceController = TextEditingController();
 
-  final TextEditingController maxDistanceController = TextEditingController();
+  double _currentSliderValue = 20;
 
   final List<String> _dropdownValues1 = [
     "None",
@@ -103,86 +105,31 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
               const Padding(padding: EdgeInsets.only(bottom: 10)),
               //******************************************/
 
-              //*********SECOND FILTER: RANGES***********/
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //MINIMUM TEXTFIELD
-                  Container(
-                      height: 40,
-                      width: (MediaQuery.of(context).size.width / 1.7) / 2,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: BorderRadius.circular(
-                            20.0), //borderRadius for container
-                      ),
-                      child: TextFormField(
-                        // initialValue: "0",
-                        style: const TextStyle(color: Colors.white),
-                        controller: minDistanceController,
-                        decoration: InputDecoration(
-                          labelText: "min",
-                          labelStyle: const TextStyle(color: Colors.white),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              width: 1.0,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(
-                              color: Colors.orange,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      )),
-
-                  //PADDING AND "-"
-                  const Padding(padding: EdgeInsets.all(5)),
-
-                  const Text(
-                    "-",
-                    style: TextStyle(color: Colors.white, fontSize: 30),
-                  ),
-                  const Padding(padding: EdgeInsets.all(5)),
-
-                  //MAXIMUM TEXTFIELD
-                  Container(
-                      height: 40,
-                      width: (MediaQuery.of(context).size.width / 1.7) / 2,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: BorderRadius.circular(
-                            20.0), //borderRadius for container
-                      ),
-                      child: TextFormField(
-                        style: const TextStyle(color: Colors.white),
-                        controller: maxDistanceController,
-                        decoration: InputDecoration(
-                          labelText: "max",
-                          labelStyle: const TextStyle(color: Colors.white),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              width: 1.0,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(
-                              color: Colors.orange,
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      )),
-                ],
+              //*********SECOND FILTER: SLIDER***********/
+              SizedBox(
+                width: (MediaQuery.of(context).size.width / 1.35),
+                //colors
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: Theme.of(context).primaryColor,
+                      inactiveTrackColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      thumbColor: Theme.of(context).primaryColor,
+                      valueIndicatorColor: Theme.of(context).primaryColorLight,
+                      inactiveTickMarkColor:
+                          Theme.of(context).primaryColorLight),
+                  //actual slider
+                  child: Slider(
+                      value: _currentSliderValue,
+                      max: 100,
+                      divisions: 10,
+                      label: "${_currentSliderValue.round()} km",
+                      onChanged: (double value) {
+                        setState(() {
+                          _currentSliderValue = value;
+                        });
+                      }),
+                ),
               ),
               //******************************************/
 
@@ -215,14 +162,20 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                   children: [
                     SizedBox(
                       width: 200,
-                      height: 120,
+                      //the height of the box should increase and be scrollable
+                      //only if more than 1 item is present
+                      height: (vm.userDetails.tradeTypes.toList().length) > 1
+                          ? 120
+                          : 60,
                       child: ListView(
                         children: vm.userDetails.tradeTypes
-                            .map((element) => CheckboxListTile(
-                                  title: Text(element),
-                                  value: true,
-                                  activeColor: Theme.of(context).primaryColor,
-                                  onChanged: (bool? value) {},
+                            .map((element) => SizedBox(
+                                  child: CheckboxListTile(
+                                    title: Text(element),
+                                    value: true,
+                                    activeColor: Theme.of(context).primaryColor,
+                                    onChanged: (bool? value) {},
+                                  ),
                                 ))
                             .toList(),
                       ),
@@ -258,17 +211,20 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                   children: [
                     SizedBox(
                       width: 200,
-                      height: 120,
+                      //the height of the box should increase and be scrollable
+                      //only if more than 1 item is present
+                      height: (vm.userDetails.domains.toList().length) > 1
+                          ? 120
+                          : 60,
                       child: ListView(
-                        children: vm.userDetails.domains
-                            .map((domain) => CheckboxListTile(
-                                  title: Text(domain.city),
-                                  value: true,
-                                  activeColor: Theme.of(context).primaryColor,
-                                  onChanged: (bool? value) {},
-                                ))
-                            .toList(),
-                      ),
+                          children: vm.userDetails.domains
+                              .map((domain) => CheckboxListTile(
+                                    title: Text(domain.city),
+                                    value: true,
+                                    activeColor: Theme.of(context).primaryColor,
+                                    onChanged: (bool? value) {},
+                                  ))
+                              .toList()),
                     ),
                   ],
                 ),
@@ -281,7 +237,20 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
 
               ButtonWidget(
                 text: "Apply",
-                function: () {},
+                function: () {
+                  vm.dispatchFilterAdvertsAction(
+                    const FilterAdvertsModel(
+                        // distance: minDistanceController.value.text.isEmpty ||
+                        //         maxDistanceController.value.text.isEmpty
+                        //     ? null
+                        //     : Range(
+                        //         int.parse(minDistanceController.value.text),
+                        //         int.parse(maxDistanceController.value.text),
+                        //       ),
+                        ),
+                  );
+                  Navigator.pop(context);
+                },
               ),
               ButtonWidget(
                   text: "Cancel",
@@ -307,14 +276,18 @@ class _Factory extends VmFactory<AppState, FilterPopUpWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         userDetails: state.userDetails!,
+        dispatchFilterAdvertsAction: (FilterAdvertsModel filter) =>
+            dispatch(FilterAdvertsAction(filter)),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final UserModel userDetails;
+  final void Function(FilterAdvertsModel) dispatchFilterAdvertsAction;
 
   _ViewModel({
     required this.userDetails,
+    required this.dispatchFilterAdvertsAction,
   }) : super(equals: [userDetails]);
 }
