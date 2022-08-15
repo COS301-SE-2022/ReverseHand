@@ -56,6 +56,10 @@ class AdvertDetailsPage extends StatelessWidget {
                   )),
                 //**********************************************/
 
+                //extra padding if there is an accepted bid
+                if (vm.advert.acceptedBid != null)
+                  (const Padding(padding: EdgeInsets.all(40))),
+
                 const Padding(padding: EdgeInsets.only(top: 20)),
 
                 //*************BOTTOM BUTTONS**************//
@@ -113,16 +117,29 @@ class AdvertDetailsPage extends StatelessWidget {
                         ),
                       ),
 
-                    //Back
-                    Positioned(
-                      top: 135,
-                      child: ButtonWidget(
-                        text: "Back",
-                        color: "light",
-                        border: "white",
-                        function: vm.popPage,
-                      ),
-                    )
+                    //Back - if no bid accepted yet
+                    if (vm.advert.acceptedBid == null)
+                      (Positioned(
+                        top: 135,
+                        child: ButtonWidget(
+                          text: "Back",
+                          color: "light",
+                          border: "white",
+                          function: vm.popPage,
+                        ),
+                      )),
+
+                    //Back - if bid accepted
+                    if (vm.advert.acceptedBid != null)
+                      (Positioned(
+                        top: 115,
+                        child: ButtonWidget(
+                          text: "Back",
+                          color: "light",
+                          border: "white",
+                          function: vm.popPage,
+                        ),
+                      ))
                   ],
                 ),
                 //*************BOTTOM BUTTONS**************//

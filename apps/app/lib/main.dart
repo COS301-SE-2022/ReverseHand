@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
+import 'package:consumer/pages/activity_stream_page.dart';
 import 'package:general/general.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
@@ -70,6 +71,8 @@ class Launch extends StatelessWidget {
           '/consumer/view_bids': (context) => ViewBidsPage(store: store),
           '/consumer/edit_advert_page': (context) =>
               EditAdvertPage(store: store),
+          '/consumer/activity_stream': (context) =>
+              ConsumerActivityStream(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
@@ -83,7 +86,7 @@ class Launch extends StatelessWidget {
               TBidDetailsPage(store: store),
           '/tradesman/edit_bid': (context) => TEditBidPage(store: store),
           '/tradesman/activity_stream': (context) =>
-              ActivityStream(store: store),
+              TradesmanActivityStream(store: store),
           '/geolocation/location_confirm': (context) =>
               LocationConfirmPage(store: store),
           '/geolocation/custom_location_search': (context) =>
