@@ -47,7 +47,9 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     debugPrint(graphQLDocument);
 
     try {
-      final response = await Amplify.API.mutate(request: request).response;
+      /* final response = */ await Amplify.API
+          .mutate(request: request)
+          .response;
 
       // List<AdvertModel> adverts = state.adverts;
       // final data = jsonDecode(response.data);
