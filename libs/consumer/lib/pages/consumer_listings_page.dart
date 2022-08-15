@@ -1,12 +1,13 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:consumer/widgets/consumer_floating_button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/floating_button.dart';
+
 
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -140,7 +141,7 @@ class ConsumerListingsPage extends StatelessWidget {
         floatingActionButton: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) =>
-              FloatingButtonWidget(
+              ConsumerFloatingButtonWidget(
             function: vm.pushCreateAdvertPage,
           ),
         ),
