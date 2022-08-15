@@ -36,7 +36,7 @@ class ActivityStream extends StatelessWidget {
                 ),
 
                 const NotificationCardWidget(
-                  titleText: "Submitted!",
+                  titleText: "Job Closed.",
                   date: "3 min ago",
                 ),
 
