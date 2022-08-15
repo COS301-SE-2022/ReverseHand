@@ -26,7 +26,7 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
     return state.copy(
         error: ErrorType.none,
         userDetails: state.userDetails!.copy(
-            id: (state.userDetails!.userType == "customer") ? "c#$id" : "t#$id",
+            id: (state.userDetails!.userType == "Consumer") ? "c#$id" : "t#$id",
             email: email));
   }
 

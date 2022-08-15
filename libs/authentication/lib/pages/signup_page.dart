@@ -35,7 +35,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final confirmController = TextEditingController();
 
   // used for validation
-  final _consumerFormKey = GlobalKey<FormState>();
 
   String? Function(String?) _createValidator(
       String kind, String invalidMsg, RegExp regex) {
