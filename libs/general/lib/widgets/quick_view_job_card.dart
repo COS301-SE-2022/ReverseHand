@@ -4,6 +4,8 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
+import '../methods/time.dart';
+
 //still deciding
 
 class QuickViewJobCardWidget extends StatelessWidget {
@@ -51,9 +53,13 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
-                        child: Text(advert.dateCreated,
-                            style: const TextStyle(
-                                fontSize: 18, color: Colors.white70)),
+                        child: Text(
+                          timestampToDate(advert.dateCreated),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.white70,
+                          ),
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
