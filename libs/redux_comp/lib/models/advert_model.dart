@@ -9,8 +9,8 @@ class AdvertModel {
   final String? type;
   final String? acceptedBid;
   final Domain domain;
-  final String dateCreated;
-  final String? dateClosed;
+  final double dateCreated;
+  final double? dateClosed;
 
   const AdvertModel({
     required this.id,
@@ -31,8 +31,8 @@ class AdvertModel {
       type: obj['type'],
       acceptedBid: obj['accepted_bid'],
       domain: Domain.fromJson(obj['domain']),
-      dateCreated: obj['date_created'],
-      dateClosed: obj['date_closed'],
+      dateCreated: obj['date_created'].toDouble(),
+      dateClosed: obj['date_closed'].toDouble(),
     );
   }
 

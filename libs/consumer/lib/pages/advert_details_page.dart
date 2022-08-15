@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/delete_advert_popup.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:consumer/widgets/rating_popup.dart';
+import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
@@ -38,7 +39,7 @@ class AdvertDetailsPage extends StatelessWidget {
                   descText: vm.advert.description ?? "",
                   location: vm.advert.domain.city,
                   type: vm.advert.type ?? "",
-                  date: vm.advert.dateCreated,
+                  date: timestampToDate(vm.advert.dateCreated),
                 ),
                 //*******************************************//
 

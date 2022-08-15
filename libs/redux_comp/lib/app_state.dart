@@ -70,11 +70,12 @@ class AppState {
       viewBids: const [],
       reviews: const [],
       activeAd: const AdvertModel(
-          id: "",
-          title: "",
-          domain:
-              Domain(city: "city", coordinates: Coordinates(lat: 22, lng: 21)),
-          dateCreated: ""),
+        id: "",
+        title: "",
+        domain:
+            Domain(city: "city", coordinates: Coordinates(lat: 22, lng: 21)),
+        dateCreated: 0,
+      ),
       activeBid: const BidModel(
         id: "",
         userId: "",
