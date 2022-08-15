@@ -153,27 +153,28 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                               if (titleController.value.text != "" &&
                                   trade != null) {
                                 vm.dispatchCreateAdvertActions(
-                                    widget.store.state.userDetails!.id,
-                                    titleController.value.text,
-                                    Domain(
-                                        city: widget.store.state.userDetails!
-                                            .location!.address.city,
-                                        coordinates: widget
-                                            .store
-                                            .state
-                                            .userDetails!
-                                            .location!
-                                            .coordinates),
-                                    trade!,
-                                    descrController.value.text);
+                                  widget.store.state.userDetails!.id,
+                                  titleController.value.text,
+                                  Domain(
+                                      city: widget.store.state.userDetails!
+                                          .location!.address.city,
+                                      coordinates: widget.store.state
+                                          .userDetails!.location!.coordinates),
+                                  trade!,
+                                  descrController.value.text,
+                                );
                               }
-                            }),
+                            },
+                          ),
                     //********************************************//
                     const Padding(padding: EdgeInsets.all(5)),
 
                     //************DISCARD BUTTON*****************//
                     ButtonWidget(
-                        text: "Discard", color: "dark", function: vm.popPage)
+                      text: "Discard",
+                      color: "dark",
+                      function: vm.popPage,
+                    )
                     //********************************************//
                   ],
                 ),
