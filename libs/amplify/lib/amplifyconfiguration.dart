@@ -49,10 +49,10 @@ const amplifyconfig = ''' {
                 },
                 "GoogleSignIn": {
                     "Permissions": "email,profile,openid",
-                    "ClientId-WebApp": "70583037389-7mu5170jddsv3q019u34v882pn2n51mb.apps.googleusercontent.com"
+                    "ClientId-WebApp": "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
                 },
                 "FacebookSignIn": {
-                    "AppId": "1269894613781517",
+                    "AppId": "459283716090620",
                     "Permissions": "public_profile"
                 },
                 "Auth": {
