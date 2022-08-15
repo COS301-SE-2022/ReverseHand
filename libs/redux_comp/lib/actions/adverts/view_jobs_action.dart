@@ -17,7 +17,13 @@ class ViewJobsAction extends ReduxAction<AppState> {
         date_created
         date_closed
         description
-        location
+        domain {
+          city
+          coordinates {
+            lat
+            lng
+          }
+        }
         title
         type
         accepted_bid
@@ -35,6 +41,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
       return state.copy(
+        viewAdverts: List.from(adverts),
         adverts: adverts,
       );
     } catch (e) {

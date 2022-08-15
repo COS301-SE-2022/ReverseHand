@@ -37,7 +37,7 @@ type Mutation {
     ad_id: String!
     title: String!
     description: String
-    location: String!
+    domain: DomainInput!
     type: String!
   ): Advert! @function(name: "createAdvertResolver-${env}")
 
@@ -72,7 +72,7 @@ type Mutation {
     title: String
     description: String
     type: String
-    location: String
+    domain: DomainInput
     date_closed: String
   ): Advert! @function(name: "editAdvertResolver-${env}")
 
@@ -203,7 +203,7 @@ type Advert implements UniqueID {
   description: String
   type: String
   accepted_bid: String
-  location: String # temporary
+  domain: Domain! # temporary
   date_created: String! # temporary
   date_closed: String # temporary
 }
@@ -222,7 +222,7 @@ type Bid implements UniqueID {
 type Notification  {
   title: String!
   msg: String!
-  type: String!
+  type: NotificationType!
   timestamp: Float!
 }
 
@@ -240,13 +240,17 @@ input ReviewInput {
   description: String
   user_id: String!
   advert_id: String!
-  date_created: String!
+  date_created: String
 }
 
 # add more jobs here as we think of them
 enum JobType {
   Plumbing
   Painting
+}
+
+enum NotificationType {
+  bidShortlisted
 }
 
 interface UniqueID {

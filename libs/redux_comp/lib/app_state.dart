@@ -1,22 +1,28 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
+import 'package:redux_comp/models/geolocation/coordinates_model.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
+import 'package:redux_comp/models/review_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
 import 'models/geolocation/location_model.dart';
+import 'models/user_models/cognito_auth_model.dart';
 import 'models/user_models/user_model.dart';
 import 'models/user_models/partial_user_model.dart';
 
 @immutable
 class AppState {
   // put all app state requiered here
+  final CognitoAuthModel? authModel;
   final UserModel? userDetails;
   final PartialUser? partialUser;
   final List<BidModel> bids; // holds all of the bids i.e viewBids ⊆ bids
   final List<BidModel> shortlistBids;
   final List<BidModel> viewBids; // holds the list of bids to view
   final List<AdvertModel> adverts;
+  final List<AdvertModel> viewAdverts;
   final BidModel?
       activeBid; // represents the current bid, used for viewing a bid
   final AdvertModel? activeAd; // used for representing the current ad
@@ -25,40 +31,50 @@ class AppState {
   final ErrorType error;
   final bool change; // used to show that state changed and must rebuild
   final Wait wait; // for progress indicators
+  final List<ReviewModel> reviews; //holds the list of a users reviews.
 
   // chat functionality
   final List<ChatModel> chats; // all chats
   final ChatModel chat; // the current active chat
 
   // constructor must only take named parameters
-  const AppState({
-    required this.userDetails,
-    required this.partialUser,
-    required this.adverts,
-    required this.bids,
-    required this.shortlistBids,
-    required this.viewBids,
-    required this.activeAd,
-    required this.activeBid,
-    required this.locationResult,
-    required this.error,
-    required this.change,
-    required this.wait,
-    required this.chats,
-    required this.chat,
-  });
+  const AppState(
+      {required this.authModel,
+      required this.userDetails,
+      required this.partialUser,
+      required this.adverts,
+      required this.viewAdverts,
+      required this.bids,
+      required this.shortlistBids,
+      required this.viewBids,
+      required this.activeAd,
+      required this.activeBid,
+      required this.locationResult,
+      required this.error,
+      required this.change,
+      required this.wait,
+      required this.chats,
+      required this.chat,
+      required this.reviews});
 
   // this methods sets the starting state for the store
   factory AppState.initial() {
     return AppState(
+      authModel: null,
       userDetails: const UserModel(id: "", email: "", userType: ""),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
+      viewAdverts: const [],
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
-      activeAd:
-          const AdvertModel(id: "", title: "", location: "", dateCreated: ""),
+      reviews: const [],
+      activeAd: const AdvertModel(
+          id: "",
+          title: "",
+          domain:
+              Domain(city: "city", coordinates: Coordinates(lat: 22, lng: 21)),
+          dateCreated: ""),
       activeBid: const BidModel(
         id: "",
         userId: "",
@@ -88,14 +104,17 @@ class AppState {
         email: "some@email.com",
         name: "Someone",
         cellNo: "0821234567",
-        userType: "confirmed",
+        userType: "customer",
       ),
       wait: Wait(),
+      authModel: null,
       partialUser: null,
       adverts: const [],
+      viewAdverts: const [],
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
+      reviews: const [],
       activeAd: null,
       activeBid: null,
       locationResult: null,
@@ -113,12 +132,15 @@ class AppState {
   }
   // easy way to replace store wihtout specifying all paramters
   AppState copy({
+    CognitoAuthModel? authModel,
     UserModel? userDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
+    List<AdvertModel>? viewAdverts,
     List<BidModel>? bids,
     List<BidModel>? shortlistBids,
     List<BidModel>? viewBids,
+    List<ReviewModel>? reviews,
     BidModel? activeBid,
     AdvertModel? activeAd,
     Location? locationResult,
@@ -130,10 +152,13 @@ class AppState {
     ChatModel? chat,
   }) {
     return AppState(
+      authModel: authModel ?? this.authModel,
       userDetails: userDetails ?? this.userDetails,
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,
+      viewAdverts: viewAdverts ?? this.viewAdverts,
       bids: bids ?? this.bids,
+      reviews: reviews ?? this.reviews,
       shortlistBids: shortlistBids ?? this.shortlistBids,
       viewBids: viewBids ?? this.viewBids,
       activeAd: activeAd ?? this.activeAd,

@@ -1,16 +1,15 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/theme.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/dialog_helper.dart';
+import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import '../widgets/navbar.dart';
-import '../widgets/place_bid_popup.dart';
+import '../widgets/tradesman_navbar_widget.dart';
+import '../widgets/place_bid_popup_widget.dart';
 // import '../widgets/place_bid_popup.dart';
 
 class TradesmanJobDetails extends StatelessWidget {
@@ -21,74 +20,75 @@ class TradesmanJobDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) =>
-                SingleChildScrollView(
-              child: Column(
-                children: [
-                  //**********APPBAR***********//
-                  AppBarWidget(title: "JOB INFO", store: store),
-                  //*******************************************//
+      child: Scaffold(
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) =>
+              SingleChildScrollView(
+            child: Column(
+              children: [
+                //**********APPBAR***********//
+                AppBarWidget(title: "JOB INFO", store: store),
+                //*******************************************//
 
-                  //**********DETAILED JOB INFORMATION***********//
-                  JobCardWidget(
-                    titleText: vm.advert.title,
-                    descText: vm.advert.description ?? "",
-                    date: vm.advert.dateCreated,
-                    type: vm.advert.type!,
-                    location: vm.advert.location,
+                //**********DETAILED JOB INFORMATION***********//
+                JobCardWidget(
+                  titleText: vm.advert.title,
+                  descText: vm.advert.description ?? "",
+                  date: vm.advert.dateCreated,
+                  type: vm.advert.type ?? "",
+                  location: vm.advert.domain.city,
+                ),
+
+                const Padding(padding: EdgeInsets.only(top: 50)),
+
+                //*************BOTTOM BUTTONS**************//
+                Stack(alignment: Alignment.center, children: <Widget>[
+                  BottomOverlayWidget(
+                    height: MediaQuery.of(context).size.height / 2,
                   ),
 
-                  const Padding(padding: EdgeInsets.only(top: 50)),
+                  //place bid
+                  Positioned(
+                      top: 35,
+                      child: ButtonWidget(
+                          text: "Place Bid",
+                          function: () {
+                            DarkDialogHelper.display(
+                                context, PlaceBidPopupWidget(store: store));
+                          })),
+                  //fix function call here
+                  //DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
 
-                  //*************BOTTOM BUTTONS**************//
-                  Stack(alignment: Alignment.center, children: <Widget>[
-                    BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 2,
-                    ),
+                  //view bids
+                  Positioned(
+                      top: 95,
+                      child: ButtonWidget(
+                          text: "View Bids",
+                          color: "light",
+                          function: vm.pushViewBidsPage)),
 
-                    //place bid
-                    Positioned(
-                        top: 35,
-                        child: ButtonWidget(
-                            text: "Place Bid", function: () {DialogHelper.display(context,PlaceBidPopupWidget(store: store));})),
-                    //fix function call here
-                    //DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
-
-                    //view bids
-                    Positioned(
-                        top: 95,
-                        child: ButtonWidget(
-                            text: "View Bids",
-                            color: "light",
-                            function: vm.pushViewBidsPage)),
-
-                    //Back
-                    Positioned(
-                        top: 155,
-                        child: ButtonWidget(
-                            text: "Back",
-                            color: "light",
-                            border: "white",
-                            function: vm.popPage))
-                  ]),
-                  //*************BOTTOM BUTTONS**************//
-                  // ...populateBids(vm.us vm.bids)
-                ],
-              ),
+                  //Back
+                  Positioned(
+                      top: 155,
+                      child: ButtonWidget(
+                          text: "Back",
+                          color: "light",
+                          border: "white",
+                          function: vm.popPage))
+                ]),
+                //*************BOTTOM BUTTONS**************//
+                // ...populateBids(vm.us vm.bids)
+              ],
             ),
           ),
-          //************************NAVBAR***********************/
-          bottomNavigationBar: TNavBarWidget(
-            store: store,
-          ),
-        
-          //*************************************************//
         ),
+        //************************NAVBAR***********************/
+        bottomNavigationBar: TNavBarWidget(
+          store: store,
+        ),
+
+        //*************************************************//
       ),
     );
   }

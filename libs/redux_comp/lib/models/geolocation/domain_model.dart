@@ -38,4 +38,14 @@ class Domain {
       coordinates: Coordinates.fromJson(json['coordinates']),
     );
   }
+
+  @override
+  int get hashCode => hashValues(city, coordinates);
+
+  @override
+  bool operator ==(Object other) {
+    return other is Domain &&
+        city == other.city &&
+        coordinates == other.coordinates;
+  }
 }

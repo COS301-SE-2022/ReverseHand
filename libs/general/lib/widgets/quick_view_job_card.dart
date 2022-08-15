@@ -4,6 +4,8 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
+//still deciding
+
 class QuickViewJobCardWidget extends StatelessWidget {
   final AdvertModel advert; // Current advert
   final Store<AppState> store;
@@ -63,7 +65,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                           ),
                           const Padding(
                               padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
-                          Text(advert.location,
+                          Text(advert.domain.city,
                               style: const TextStyle(
                                   fontSize: 20, color: Colors.white))
                         ],

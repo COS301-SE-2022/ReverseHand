@@ -1,9 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:general/widgets/textfield.dart';
-import 'package:redux_comp/actions/user/create_user_action.dart';
-import 'package:redux_comp/actions/user/edit_user_details_action.dart';
+import 'package:redux_comp/actions/user/user_table/create_user_action.dart';
+import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -45,7 +44,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
     final List<String>? results = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MultiSelectWidget(items: items, selectedItems: selected);
+        return MultiSelectWidget(items: items);
       },
     );
 
@@ -69,133 +68,131 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: widget.store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          resizeToAvoidBottomInset:
-              false, //prevents floatingActionButton appearing above keyboard
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
-                children: [
-                  //*******************APP BAR WIDGET******************//
-                  AppBarWidget(title: "EDIT PROFILE", store: widget.store),
-                  //***************************************************//
+      child: Scaffold(
+        resizeToAvoidBottomInset:
+            false, //prevents floatingActionButton appearing above keyboard
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) => Column(
+              children: [
+                //*******************APP BAR WIDGET******************//
+                AppBarWidget(title: "EDIT PROFILE", store: widget.store),
+                //***************************************************//
 
-                  //**********************NAME************************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: TextFieldWidget(
-                      initialVal: vm.userDetails!.name,
-                      label: "Name",
-                      obscure: false,
-                      min: 1,
-                      controller: nameController,
-                    ),
+                //**********************NAME************************//
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
+                  child: TextFieldWidget(
+                    initialVal: vm.userDetails!.name,
+                    label: "Name",
+                    obscure: false,
+                    min: 1,
+                    controller: nameController,
                   ),
-                  //**************************************************//
+                ),
+                //**************************************************//
 
-                  //********************NUMBER**********************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                    child: TextFieldWidget(
-                      initialVal: vm.userDetails!.cellNo,
-                      label: "Phone",
-                      obscure: false,
-                      controller: cellController,
-                      min: 1,
-                    ),
+                //********************NUMBER**********************//
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+                  child: TextFieldWidget(
+                    initialVal: vm.userDetails!.cellNo,
+                    label: "Phone",
+                    obscure: false,
+                    controller: cellController,
+                    min: 1,
                   ),
+                ),
 
-                  //********************TRADE**********************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                    child: TextFieldWidget(
-                      label: "Trade",
-                      obscure: false,
-                      controller: tradeController,
-                      onTap: () => showMultiSelect(vm.userDetails!.tradeTypes),
-                      min: 1,
-                    ),
+                //********************TRADE**********************//
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+                  child: TextFieldWidget(
+                    label: "Trade",
+                    obscure: false,
+                    controller: tradeController,
+                    onTap: () => showMultiSelect(vm.userDetails!.tradeTypes),
+                    min: 1,
                   ),
+                ),
 
-                   // display selected items
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
-                    children: selectedItems
-                        .map((types) => Chip(
-                              labelPadding:
-                                  const EdgeInsets.all(2.0),
-                              label: Text(
-                                types,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                ),
+                // display selected items
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: selectedItems
+                      .map((types) => Chip(
+                            labelPadding: const EdgeInsets.all(2.0),
+                            label: Text(
+                              types,
+                              style: const TextStyle(
+                                color: Colors.white,
                               ),
-                              backgroundColor:
-                                  const Color.fromRGBO(
-                                      35, 47, 62, 1),
-                              padding:
-                                  const EdgeInsets.all(8.0),
-                            ))
-                        .toList(),
+                            ),
+                            backgroundColor:
+                                const Color.fromRGBO(35, 47, 62, 1),
+                            padding: const EdgeInsets.all(8.0),
+                          ))
+                      .toList(),
+                ),
+                //**************************************************//
+
+                //********************DOMAIN**********************//
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+                  child: TextFieldWidget(
+                    label: "Domains",
+                    obscure: false,
+                    controller: TextEditingController(),
+                    onTap: vm.pushDomainConfirmPage,
+                    min: 1,
                   ),
-                  //**************************************************//
+                ),
+                //**************************************************//
 
-                  //********************DOMAIN**********************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                    child: TextFieldWidget(
-                      label: "Domains",
-                      obscure: false,
-                      controller: TextEditingController(),
-                      onTap: vm.pushDomainConfirmPage,
-                      min: 1,
-                    ),
-                  ),
-                  //**************************************************//
+                const Padding(padding: EdgeInsets.only(bottom: 30)),
+                //**************************************************//
 
-                  const Padding(padding: EdgeInsets.only(bottom: 30)),
-                  //**************************************************//
-
+                //*******************SAVE BUTTON********************//
+                if (vm.userDetails!.registered == true) ...[
                   //*******************SAVE BUTTON********************//
-                  if (vm.userDetails!.registered == true) ...[
-                    //*******************SAVE BUTTON********************//
-                    ButtonWidget(
-                        text: "Save Changes", function: () {
-                          String? name, cellNo;
-                          (vm.userDetails!.name != nameController.value.text) ? name = nameController.value.text : null;
-                          (vm.userDetails!.cellNo != cellController.value.text) ? cellNo = cellController.value.text : null;
-                          vm.dispatchEditTradesmanAction(name, cellNo, selectedItems, vm.userDetails!.domains);
-                        }),
-                    //**************************************************//
+                  ButtonWidget(
+                      text: "Save Changes",
+                      function: () {
+                        String? name, cellNo;
+                        (vm.userDetails!.name != nameController.value.text)
+                            ? name = nameController.value.text
+                            : null;
+                        (vm.userDetails!.cellNo != cellController.value.text)
+                            ? cellNo = cellController.value.text
+                            : null;
+                        vm.dispatchEditTradesmanAction(name, cellNo,
+                            selectedItems, vm.userDetails!.domains);
+                      }),
+                  //**************************************************//
 
-                    const Padding(padding: EdgeInsets.all(8)),
-                    ButtonWidget(
-                        text: "Discard",
-                        color: "dark",
-                        function: vm.popPage),
-                  ] else
-                    //*******************SAVE BUTTON********************//
-                    ButtonWidget(
-                        text: "Save Changes",
-                        function: () {
-                          final name = nameController.value.text.trim();
-                          final cell = cellController.value.text.trim();
-                          final domains = vm.userDetails!.domains;
-                          if (domains.isNotEmpty && selectedItems.isNotEmpty) {
-                            vm.dispatchCreateTradesmanAction(name, cell,
-                                selectedItems, vm.userDetails!.domains);
-                          } else {
-                            // thinking maybe we can make a generic dispatch error action with an ErrorTpe parameter
-                            // something like:
-                            // vm.dispatchError(ErrorType.locationNotCaptured)
-                          }
-                        }),
-                ],
-              ),
+                  const Padding(padding: EdgeInsets.all(8)),
+                  ButtonWidget(
+                      text: "Discard", color: "dark", function: vm.popPage),
+                ] else
+                  //*******************SAVE BUTTON********************//
+                  ButtonWidget(
+                      text: "Save Changes",
+                      function: () {
+                        final name = nameController.value.text.trim();
+                        final cell = cellController.value.text.trim();
+                        final domains = vm.userDetails!.domains;
+                        if (domains.isNotEmpty && selectedItems.isNotEmpty) {
+                          vm.dispatchCreateTradesmanAction(name, cell,
+                              selectedItems, vm.userDetails!.domains);
+                        } else {
+                          // thinking maybe we can make a generic dispatch error action with an ErrorTpe parameter
+                          // something like:
+                          // vm.dispatchError(ErrorType.locationNotCaptured)
+                        }
+                      }),
+              ],
             ),
           ),
         ),
@@ -218,9 +215,9 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
           tradeTypes: tradeTypes,
           domains: domains,
         )),
-        dispatchEditTradesmanAction:
-            (String? name, String? cell, List<String>? tradeTypes, List<Domain>? domains) =>
-                dispatch(EditUserDetailsAction(
+        dispatchEditTradesmanAction: (String? name, String? cell,
+                List<String>? tradeTypes, List<Domain>? domains) =>
+            dispatch(EditUserDetailsAction(
           userId: state.userDetails!.id,
           name: name,
           cellNo: cell,
