@@ -47,9 +47,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     debugPrint(graphQLDocument);
 
     try {
-      /*final response =*/ await Amplify.API
-          .mutate(request: request)
-          .response;
+      final response = await Amplify.API.mutate(request: request).response;
 
       // List<AdvertModel> adverts = state.adverts;
       // final data = jsonDecode(response.data);
@@ -58,7 +56,6 @@ class CreateAdvertAction extends ReduxAction<AppState> {
       //     title: title,
       //     dateCreated: data['createAdvert']['date_created'],
       //     location: 'temp location'));
-
       return null;
     } catch (e) {
       return null; // on error does not modify appstate
