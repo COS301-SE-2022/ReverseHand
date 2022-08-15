@@ -76,7 +76,19 @@ class TNavBarWidget extends StatelessWidget {
                             splashColor: Colors.white,
                           ),
 
-                          //icon 3 - profile
+                          //icon 3 - activity stream
+                          IconButton(
+                            icon: const Icon(
+                              Icons.notifications,
+                              color: Colors.white,
+                            ),
+                            onPressed: () => vm.pushActivityStreamPage(),
+                            splashRadius: 30,
+                            highlightColor: Colors.orange,
+                            splashColor: Colors.white,
+                          ),
+
+                          //icon 4 - profile
                           IconButton(
                             icon: const Icon(
                               Icons.person,
@@ -85,18 +97,6 @@ class TNavBarWidget extends StatelessWidget {
                             onPressed: () {
                               vm.pushProfilePage();
                             },
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
-                          ),
-
-                          //icon 4 - log out ?
-                          IconButton(
-                            icon: const Icon(
-                              Icons.logout,
-                              color: Colors.white,
-                            ),
-                            onPressed: () => vm.dispatchLogoutAction(),
                             splashRadius: 30,
                             highlightColor: Colors.orange,
                             splashColor: Colors.white,
@@ -141,12 +141,12 @@ class _ViewModel extends Vm {
   final VoidCallback pushChatPage;
   final void Function() dispatchGetChatsAction;
 
-  _ViewModel(
-      {required this.pushProfilePage, 
-      required this.pushActivityStreamPage, 
-      required this.pushTradesmanListings,
-      required this.dispatchLogoutAction,
-      required this.pushChatPage,
-      required this.dispatchGetChatsAction,
-      });
+  _ViewModel({
+    required this.pushProfilePage,
+    required this.pushActivityStreamPage,
+    required this.pushTradesmanListings,
+    required this.dispatchLogoutAction,
+    required this.pushChatPage,
+    required this.dispatchGetChatsAction,
+  });
 }

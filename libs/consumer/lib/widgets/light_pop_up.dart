@@ -22,7 +22,7 @@ class LightPopUpCardWidget extends StatelessWidget {
   _buildPopUp(BuildContext context, Widget widget) {
     return Center(
       child: Container(
-        height: 320,
+        // height: 320,
         // width: 1200,
         margin: const EdgeInsets.only(left: 0, right: 0),
         decoration: const BoxDecoration(

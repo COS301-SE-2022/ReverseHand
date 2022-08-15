@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/redux_comp.dart';
-import '../widgets/tradesman_navbar_widget.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/notification_card_widget.dart';
 
-class TradesmanActivityStream extends StatelessWidget {
+class ConsumerActivityStream extends StatelessWidget {
   final Store<AppState> store;
-  const TradesmanActivityStream({Key? key, required this.store}) : super(key: key);
+  const ConsumerActivityStream({Key? key, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class TradesmanActivityStream extends StatelessWidget {
         ),
 
         //************************NAVBAR***********************
-        bottomNavigationBar: TNavBarWidget(
+        bottomNavigationBar: NavBarWidget(
           store: store,
         ),
         //*****************************************************/
@@ -56,7 +57,7 @@ class TradesmanActivityStream extends StatelessWidget {
   }
 }
 
-class _Factory extends VmFactory<AppState, TradesmanActivityStream> {
+class _Factory extends VmFactory<AppState, ConsumerActivityStream> {
   _Factory(widget) : super(widget);
   @override
   _ViewModel fromStore() => _ViewModel(
