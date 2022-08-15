@@ -206,9 +206,9 @@ type Advert implements UniqueID {
   description: String
   type: String
   accepted_bid: String
-  domain: Domain! # temporary
-  date_created: String! # temporary
-  date_closed: String # temporary
+  domain: Domain!
+  date_created: Float!
+  date_closed: Float
 }
 
 type Bid implements UniqueID {
