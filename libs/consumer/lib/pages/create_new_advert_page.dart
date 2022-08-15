@@ -69,6 +69,18 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               //********************************************************//
 
               //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER***//
+              //***************TRADE TITLE******************/
+              // const Padding(
+              //   padding: EdgeInsets.only(left: 20.0, bottom: 10),
+              //   child: Align(
+              //     alignment: Alignment.center,
+              //     child: Text(
+              //       "TRADE TYPE",
+              //       style: TextStyle(fontSize: 20),
+              //     ),
+              //   ),
+              // ),
+              //**********************************************/
 
               //title
               Padding(
