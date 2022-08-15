@@ -32,7 +32,7 @@ class AdvertModel {
       acceptedBid: obj['accepted_bid'],
       domain: Domain.fromJson(obj['domain']),
       dateCreated: obj['date_created'].toDouble(),
-      dateClosed: obj['date_closed'].toDouble(),
+      dateClosed: obj['date_closed']?.toDouble(),
     );
   }
 

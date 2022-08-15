@@ -22,7 +22,7 @@ exports.handler = async (event) => {
     try {
         // getting current date
         const date = new Date();
-        const currentDate = date.now();
+        const currentDate = date.getTime();
         
         let params = {
             TableName: ReverseHandTable,
