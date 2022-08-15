@@ -3,7 +3,7 @@ import 'package:amplify/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
-import 'package:redux_comp/actions/user/cognito/intiate_auth_action.dart';
+import 'package:redux_comp/actions/user/amplify_auth/check_signed_in_action.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -20,7 +20,7 @@ class InitAmplifyAction extends ReduxAction<AppState> {
 @override
   void after() {
     if (Amplify.isConfigured) {
-      dispatch(IntiateAuthAction());
+      dispatch(CheckSignedInAction());
     }
   }
 }

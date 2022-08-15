@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
-import 'package:redux_comp/actions/user/cognito/intiate_auth_action.dart';
+import 'package:redux_comp/actions/user/amplify_auth/check_signed_in_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 
@@ -74,7 +74,7 @@ class LoginAction extends ReduxAction<AppState> {
   @override
   void after() async {
     if (state.error == ErrorType.none) {
-      await dispatch(IntiateAuthAction());
+      await dispatch(CheckSignedInAction());
 
     } else {
       dispatch(WaitAction.remove("flag"));

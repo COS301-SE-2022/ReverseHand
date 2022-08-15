@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:redux_comp/actions/user/cognito/intiate_auth_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 
 import '../../../app_state.dart';
@@ -80,10 +79,4 @@ class RefreshUserTokenAction extends ReduxAction<AppState> {
     }
   }
 
-  @override
-  void after() {
-    if (state.error == ErrorType.none) {
-      dispatch(IntiateAuthAction());
-    }
-  }
 }

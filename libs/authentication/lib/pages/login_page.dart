@@ -8,7 +8,8 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/login_action.dart';
-import 'package:redux_comp/actions/user/cognito/intiate_auth_action.dart';
+import 'package:redux_comp/actions/user/signin_facebook_action.dart';
+import 'package:redux_comp/actions/user/signin_google_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/auth_button.dart';
@@ -210,7 +211,7 @@ class LoginPage extends StatelessWidget {
                               children: [
                                 //Facebook
                                 GestureDetector(
-                                  onTap: () {}, // Image tapped
+                                  onTap: vm.dispatchSignInFacebook, // Image tapped
                                   child: Align(
                                     alignment: Alignment.bottomLeft,
                                     child: Image.asset(
@@ -228,7 +229,7 @@ class LoginPage extends StatelessWidget {
                                 //Google
                                 GestureDetector(
                                   onTap:
-                                      vm.dispatchSignInFacebook, // Image tapped
+                                      vm.dispatchSignInGoogle, // Image tapped
                                   child: Align(
                                     alignment: Alignment.bottomCenter,
                                     child: Image.asset(
@@ -270,9 +271,8 @@ class _Factory extends VmFactory<AppState, LoginPage> {
           LoginAction(email, password),
         ),
         error: state.error,
-        dispatchSignInFacebook: () => dispatch(
-          IntiateAuthAction(),
-        ),
+        dispatchSignInFacebook: () => dispatch(SigninFacebookAction()),
+        dispatchSignInGoogle: () => dispatch(SignInGoogleAction()),
       );
 }
 
@@ -280,6 +280,7 @@ class _Factory extends VmFactory<AppState, LoginPage> {
 class _ViewModel extends Vm {
   final void Function(String, String) dispatchLoginAction;
   final void Function() dispatchSignInFacebook;
+  final void Function() dispatchSignInGoogle;
   final VoidCallback pushSignUpPage;
   final bool loading;
   final ErrorType error;
@@ -287,8 +288,9 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.dispatchLoginAction,
     required this.dispatchSignInFacebook,
+    required this.dispatchSignInGoogle,
     required this.loading,
     required this.pushSignUpPage,
     required this.error,
-  }) : super(equals: [loading, error]); 
+  }) : super(equals: [loading, error]);
 }
