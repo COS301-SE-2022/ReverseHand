@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -205,6 +206,19 @@ class ConsumerProfilePage extends StatelessWidget {
                   ),
                 ),
                 //************************************/
+
+                //**********TEMP LOGOUT BUTTON********/
+                IconButton(
+                  icon: const Icon(
+                    Icons.logout,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => vm.dispatchLogoutAction(),
+                  splashRadius: 30,
+                  highlightColor: Colors.orange,
+                  splashColor: Colors.white,
+                ),
+                //************************************/
               ],
             ),
           ),
@@ -229,6 +243,7 @@ class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
       pushEditProfilePage: () => dispatch(
             NavigateAction.pushNamed('/consumer/edit_profile_page'),
           ),
+      dispatchLogoutAction: () => dispatch(LogoutAction()),
       userDetails: state.userDetails!);
 }
 
@@ -236,9 +251,11 @@ class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
 class _ViewModel extends Vm {
   final VoidCallback pushEditProfilePage;
   final UserModel userDetails;
+  final void Function() dispatchLogoutAction;
 
   _ViewModel({
     required this.pushEditProfilePage,
     required this.userDetails,
+    required this.dispatchLogoutAction,
   }) : super(equals: [userDetails]);
 }
