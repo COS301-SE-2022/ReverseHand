@@ -49,11 +49,11 @@
         },
         "createAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/createAdvertResolver-6a466a715557306c7665-build.zip"
+          "s3Key": "amplify-builds/createAdvertResolver-5744616151677272686f-build.zip"
         },
         "placeBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/placeBidResolver-514846316a68724d6344-build.zip"
+          "s3Key": "amplify-builds/placeBidResolver-65664c33616c58543633-build.zip"
         },
         "shortListBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -113,7 +113,7 @@
         },
         "addReviewResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/addReviewResolver-434e366d594e4f326649-build.zip"
+          "s3Key": "amplify-builds/addReviewResolver-495a524268765a58687a-build.zip"
         },
         "removeDomainResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -146,6 +146,14 @@
         "getNotificationsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getNotificationsResolver-77767849543449656c76-build.zip"
+        },
+        "deleteReviewResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/deleteReviewResolver-4c523354637a5868437a-build.zip"
+        },
+        "getUserStatisticsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getUserStatisticsResolver-6a46382f2f4e542b7642-build.zip"
         }
       }
     }

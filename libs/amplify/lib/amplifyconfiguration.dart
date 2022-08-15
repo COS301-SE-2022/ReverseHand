@@ -58,10 +58,10 @@ const amplifyconfig = ''' {
                 "Auth": {
                     "Default": {
                         "OAuth": {
-                            "WebDomain": "reversehandd8eb6d1c-d8eb6d1c-staging.auth.eu-west-1.amazoncognito.com",
+                            "WebDomain": "reversehand2ce3b132-2ce3b132-staging.auth.eu-west-1.amazoncognito.com",
                             "AppClientId": "5sjgir76gfiuar2iu2t6v4ml5a",
-                            "SignInRedirectURI": "reversehand://",
-                            "SignOutRedirectURI": "reversehand://",
+                            "SignInRedirectURI": "reversehandapp://",
+                            "SignOutRedirectURI": "reversehandapp://",
                             "Scopes": [
                                 "phone",
                                 "email",
@@ -71,7 +71,10 @@ const amplifyconfig = ''' {
                             ]
                         },
                         "authenticationFlowType": "USER_SRP_AUTH",
-                        "socialProviders": [],
+                        "socialProviders": [
+                            "FACEBOOK",
+                            "GOOGLE"
+                        ],
                         "usernameAttributes": [
                             "EMAIL"
                         ],

@@ -9,12 +9,7 @@ const UserTable = process.env.USER;
 exports.handler = async (event) => {
    try{
 
-    //creating a data to add to the review
-    const date = new Date();
-    const dd = String(date.getDate()).padStart(2, '0');
-    const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const yyyy = date.getFullYear();
-    const currentDate = mm + '-' + dd + '-' + yyyy;
+    const currentDate = Math.round(new Date().getTime()/1000);
     
     //get the data in the database
     let params = {
@@ -41,8 +36,7 @@ exports.handler = async (event) => {
     mergedList.forEach(review =>{
         sum += parseInt(review['rating']);
     })
-    //convert the numeric sum to a string
-    sum = sum.toString();
+    
 
     if(event.arguments.reviews !== undefined){
         args.push('#reviews = :reviews');
