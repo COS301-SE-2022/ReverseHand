@@ -87,8 +87,8 @@ class ConsumerListingsPage extends StatelessWidget {
                   ...open,
 
                   // populating column with adverts
-                  if (vm.loading)
-                    const LoadingWidget()
+                  if (vm.loading) 
+                    const LoadingWidget(padding: 80)
 
                   //************MESSAGE IF THERE ARE NO ADVERTS***********/
                   else if (vm.adverts.isEmpty)

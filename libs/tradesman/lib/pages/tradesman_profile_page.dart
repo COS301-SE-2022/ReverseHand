@@ -24,6 +24,8 @@ class TradesmanProfilePage extends StatelessWidget {
               AppBarWidget(store: store, title: "PROFILE"),
               //***********************************/
 
+              const Padding(padding: EdgeInsets.only(top: 20)),
+
               //**************HEADING***************/
               Center(
                 child: Text(
@@ -268,11 +270,14 @@ class TradesmanProfilePage extends StatelessWidget {
               const ProfileDividerWidget(),
 
               //***************EDIT*****************/
+              const Padding(padding: EdgeInsets.only(top: 10)),
               IconButton(
                 onPressed: vm.pushEditProfilePage,
                 icon: const Icon(Icons.edit),
                 color: Colors.white70,
               ),
+
+              const Padding(padding: EdgeInsets.only(bottom: 50)),
               //************************************/
             ]),
           ),

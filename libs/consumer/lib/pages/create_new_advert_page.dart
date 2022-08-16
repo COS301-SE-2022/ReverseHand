@@ -117,7 +117,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
                     //*********CREATE JOB BUTTON******************//
                     vm.loading
-                        ? const LoadingWidget()
+                        ? const LoadingWidget(padding: 0)
                         : ButtonWidget(
                             text: "Create Job",
                             function: () {

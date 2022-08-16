@@ -97,7 +97,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         ),
                       ),
 
-                    //Delete - currently just takes you back to Consumer Listings page
+                    //Delete 
                     if (vm.advert.acceptedBid == null)
                       Positioned(
                         top: 75,

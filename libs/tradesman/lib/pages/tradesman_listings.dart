@@ -31,7 +31,7 @@ class TradesmanJobListings extends StatelessWidget {
                 ...populateAdverts(vm.adverts, store),
 
                 if (vm.loading)
-                  const LoadingWidget()
+                  const LoadingWidget(padding: 80)
 
                 //************MESSAGE IF THERE ARE NO ADVERTS***********/
                 else if (vm.adverts.isEmpty)

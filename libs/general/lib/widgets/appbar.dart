@@ -19,12 +19,12 @@ class AppBarWidget extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) => 
           AppBar(
             title: Text(title),
+            leadingWidth: 80,
             backgroundColor: Theme.of(context).primaryColorDark,
             leading: Padding(
                 padding: const EdgeInsets.only(left: 30),
                 child: Container(
                   width: 50,
-                  height: 80,
                   child: Image.asset( 
                     'assets/images/logo.png',
                       package: 'authentication',
