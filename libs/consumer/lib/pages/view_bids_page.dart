@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:async_redux/async_redux.dart';
+import 'package:general/methods/time.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
 import 'package:general/widgets/appbar.dart';
@@ -41,7 +42,7 @@ class ViewBidsPage extends StatelessWidget {
                 JobCardWidget(
                   titleText: vm.advert.title,
                   descText: vm.advert.description ?? "",
-                  date: vm.advert.dateCreated,
+                  date: timestampToDate(vm.advert.dateCreated),
                   type: vm.advert.type!,
                   location: vm.advert.domain.city,
                 ),

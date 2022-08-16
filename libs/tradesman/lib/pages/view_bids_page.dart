@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:async_redux/async_redux.dart';
+import 'package:general/methods/time.dart';
 // ignore: depend_on_referenced_packages
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
@@ -44,7 +45,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                 JobCardWidget(
                   titleText: vm.advert.title,
                   descText: vm.advert.description ?? "",
-                  date: vm.advert.dateCreated,
+                  date: timestampToDate(vm.advert.dateCreated),
                   type: vm.advert.type ?? "",
                   location: vm.advert.domain.city,
                 ),
@@ -137,7 +138,6 @@ class _ViewModel extends Vm {
 }
 
 /*
-
   "domains" : [
      {
       city : "Pretoria",
@@ -159,10 +159,4 @@ class _ViewModel extends Vm {
       },
 
   ]
-
-
-
-
-
-
 */

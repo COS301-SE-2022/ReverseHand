@@ -74,7 +74,19 @@ class NavBarWidget extends StatelessWidget {
                     splashColor: Colors.white,
                   ),
 
-                  //icon 3 - profile
+                  //icon 3 - activity stream
+                  IconButton(
+                    icon: const Icon(
+                      Icons.notifications,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => vm.pushActivityStreamPage(),
+                    splashRadius: 30,
+                    highlightColor: Colors.orange,
+                    splashColor: Colors.white,
+                  ),
+
+                  //icon 4 - profile
                   IconButton(
                     icon: const Icon(
                       Icons.person,
@@ -83,18 +95,6 @@ class NavBarWidget extends StatelessWidget {
                     onPressed: () {
                       vm.pushProfilePage();
                     },
-                    splashRadius: 30,
-                    highlightColor: Colors.orange,
-                    splashColor: Colors.white,
-                  ),
-
-                  //icon 4 - log out ?
-                  IconButton(
-                    icon: const Icon(
-                      Icons.logout,
-                      color: Colors.white,
-                    ),
-                    onPressed: () => vm.dispatchLogoutAction(),
                     splashRadius: 30,
                     highlightColor: Colors.orange,
                     splashColor: Colors.white,
@@ -124,6 +124,9 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
         pushChatPage: () => dispatch(
           NavigateAction.pushNamed('/chats'),
         ),
+        pushActivityStreamPage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/activity_stream'),
+        ),
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchGetChatsAction: () => dispatch(GetChatsAction()),
       );
@@ -134,14 +137,15 @@ class _ViewModel extends Vm {
   final VoidCallback pushProfilePage;
   final VoidCallback pushConsumerListings;
   final VoidCallback pushChatPage;
+  final VoidCallback pushActivityStreamPage;
   final void Function() dispatchLogoutAction;
   final void Function() dispatchGetChatsAction;
 
-  _ViewModel({
-    required this.pushProfilePage,
-    required this.pushChatPage,
-    required this.dispatchGetChatsAction,
-    required this.pushConsumerListings,
-    required this.dispatchLogoutAction,
-  });
+  _ViewModel(
+      {required this.pushProfilePage,
+      required this.pushChatPage,
+      required this.dispatchGetChatsAction,
+      required this.pushConsumerListings,
+      required this.dispatchLogoutAction,
+      required this.pushActivityStreamPage});
 }

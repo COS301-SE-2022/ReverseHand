@@ -6,9 +6,8 @@ import '../../../app_state.dart';
 class RegisterUserAction extends ReduxAction<AppState> {
   final String username;
   final String password;
-  final bool userType; // true for customer
 
-  RegisterUserAction(this.username, this.password, this.userType);
+  RegisterUserAction(this.username, this.password);
 
   @override
   Future<AppState?> reduce() async {
@@ -17,21 +16,11 @@ class RegisterUserAction extends ReduxAction<AppState> {
           await Amplify.Auth.signUp(username: username, password: password);
 
       if (res.nextStep.signUpStep == "CONFIRM_SIGN_UP_STEP") {
-        if (userType) {
-          return state.copy(
-              partialUser: state.partialUser!.copy(
-                  email: username,
-                  password: password,
-                  group: "customer",
-                  verified: res.nextStep.signUpStep));
-        } else {
-          return state.copy(
-              partialUser: state.partialUser!.copy(
-                  email: username,
-                  password: password,
-                  group: "tradesman",
-                  verified: res.nextStep.signUpStep));
-        }
+        return state.copy(
+            partialUser: state.partialUser!.copy(
+                email: username,
+                password: password,
+                verified: res.nextStep.signUpStep));
       } else {
         return null; /* do not modify state */
       }

@@ -117,7 +117,7 @@ class _Factory extends VmFactory<AppState, UserTypeSelectionPage> {
         loading: state.wait.isWaiting,
         error: state.error,
         dispatchAddUserToGroup: (String group) => dispatch(
-          AddUserToGroupAction((state.userDetails!.externalProvider == false) ? state.userDetails!.email : state.userDetails!.externalUsername! , group),
+          AddUserToGroupAction(state.userDetails!.externalUsername! , group),
         ),
         pushSignUpPage: () =>
             dispatch(NavigateAction.pushNamed('/signup')),

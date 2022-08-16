@@ -4,6 +4,8 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
+import '../methods/time.dart';
+
 //*********************************************** */
 // Job Listings card layout widget
 //*********************************************** */
@@ -48,7 +50,17 @@ class QuickViewJobCardWidget extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                fontSize: 30, color: Color.fromRGBO(7, 10, 13, 1))),
+                                fontSize: 30, color: Colors.white)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
+                        child: Text(
+                          timestampToDate(advert.dateCreated),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.white70,
+                          ),
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

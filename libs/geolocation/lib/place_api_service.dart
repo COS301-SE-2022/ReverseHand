@@ -104,6 +104,10 @@ class PlaceApiSingleton {
   static PlaceApiService? _placeApi;
   final _initPlaceApiMemoizer = AsyncMemoizer<PlaceApiService>();
 
+  void destroy() {
+      _placeApi = null;
+  }
+
   Future<PlaceApiService?> get placeApi async {
     if (_placeApi != null) {
       return _placeApi;

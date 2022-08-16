@@ -1,3 +1,4 @@
+import 'package:geolocation/place_api_service.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -36,6 +37,7 @@ class SetPlaceAction extends ReduxAction<AppState> {
 
   @override
   void after() {
+    PlaceApiSingleton.instance.destroy();
     dispatch(NavigateAction.pop());
   }
 }

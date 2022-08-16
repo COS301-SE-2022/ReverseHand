@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/delete_advert_popup.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:consumer/widgets/rating_popup.dart';
+import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
@@ -39,7 +40,7 @@ class AdvertDetailsPage extends StatelessWidget {
                   descText: vm.advert.description ?? "",
                   location: vm.advert.domain.city,
                   type: vm.advert.type ?? "",
-                  date: vm.advert.dateCreated,
+                  date: timestampToDate(vm.advert.dateCreated),
                 ),
                 //*******************************************//
 
@@ -56,7 +57,11 @@ class AdvertDetailsPage extends StatelessWidget {
                   )),
                 //**********************************************/
 
-                const Padding(padding: EdgeInsets.only(top: 15)),
+                //extra padding if there is an accepted bid
+                if (vm.advert.acceptedBid != null)
+                  (const Padding(padding: EdgeInsets.all(40))),
+
+                const Padding(padding: EdgeInsets.only(top: 20)),
 
                 //*************BOTTOM BUTTONS**************//
                 Stack(
@@ -113,16 +118,29 @@ class AdvertDetailsPage extends StatelessWidget {
                         ),
                       ),
 
-                    //Back
-                    Positioned(
-                      top: 135,
-                      child: ButtonWidget(
-                        text: "Back",
-                        color: "light",
-                        border: "white",
-                        function: vm.popPage,
-                      ),
-                    )
+                    //Back - if no bid accepted yet
+                    if (vm.advert.acceptedBid == null)
+                      (Positioned(
+                        top: 135,
+                        child: ButtonWidget(
+                          text: "Back",
+                          color: "light",
+                          border: "white",
+                          function: vm.popPage,
+                        ),
+                      )),
+
+                    //Back - if bid accepted
+                    if (vm.advert.acceptedBid != null)
+                      (Positioned(
+                        top: 115,
+                        child: ButtonWidget(
+                          text: "Back",
+                          color: "light",
+                          border: "white",
+                          function: vm.popPage,
+                        ),
+                      ))
                   ],
                 ),
                 //*************BOTTOM BUTTONS**************//

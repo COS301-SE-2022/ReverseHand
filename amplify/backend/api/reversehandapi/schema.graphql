@@ -112,6 +112,9 @@ type Mutation {
 
   addReview(user_id: String!, reviews: ReviewInput!) : [Review!]!
   @function(name: "addReviewResolver-${env}")
+
+  deleteReview(user_id: String!, id: String!) : [Review!]! #id is the review id
+  @function(name: "deleteReviewResolver-${env}")
 }
 
 type Subscription {
@@ -203,9 +206,9 @@ type Advert implements UniqueID {
   description: String
   type: String
   accepted_bid: String
-  domain: Domain! # temporary
-  date_created: String! # temporary
-  date_closed: String # temporary
+  domain: Domain!
+  date_created: Float!
+  date_closed: Float
 }
 
 type Bid implements UniqueID {
@@ -228,19 +231,20 @@ type Notification  {
 
 type Review implements UniqueID {
   id: String!
-  rating: Int
-  description: String
+  rating: Int!
+  description: String!
   user_id: String!
   advert_id: String!
+  date_created: Int
 }
 
 input ReviewInput {
   id: String!
-  rating: Int
-  description: String
+  rating: Int!
+  description: String!
   user_id: String!
   advert_id: String!
-  date_created: String
+  date_created: Int
 }
 
 # add more jobs here as we think of them
