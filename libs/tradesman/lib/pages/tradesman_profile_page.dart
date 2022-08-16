@@ -4,6 +4,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
+import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 
 import '../widgets/tradesman_navbar_widget.dart';
 
@@ -276,9 +277,22 @@ class TradesmanProfilePage extends StatelessWidget {
                 icon: const Icon(Icons.edit),
                 color: Colors.white70,
               ),
-
-              const Padding(padding: EdgeInsets.only(bottom: 50)),
               //************************************/
+
+                //**********TEMP LOGOUT BUTTON********/
+                IconButton(
+                  icon: const Icon(
+                    Icons.logout,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => vm.dispatchLogoutAction(),
+                  splashRadius: 30,
+                  highlightColor: Colors.orange,
+                  splashColor: Colors.white,
+                ),
+                //************************************/
+
+                 const Padding(padding: EdgeInsets.only(bottom: 50)),
             ]),
           ),
         ),
@@ -299,6 +313,7 @@ class _Factory extends VmFactory<AppState, TradesmanProfilePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
       userDetails: state.userDetails!,
+      dispatchLogoutAction: () => dispatch(LogoutAction()),
       pushEditProfilePage: () => dispatch(
             NavigateAction.pushNamed('/tradesman/edit_profile_page'),
           ));
@@ -308,9 +323,11 @@ class _Factory extends VmFactory<AppState, TradesmanProfilePage> {
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final VoidCallback pushEditProfilePage;
+  final void Function() dispatchLogoutAction;
 
   _ViewModel({
     required this.pushEditProfilePage,
     required this.userDetails,
+    required this.dispatchLogoutAction,
   }) : super(equals: [userDetails]);
 }
