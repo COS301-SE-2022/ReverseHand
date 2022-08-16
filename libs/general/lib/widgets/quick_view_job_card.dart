@@ -50,7 +50,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                fontSize: 30, color: Colors.white)),
+                                fontSize: 30, color: Colors.black)),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
@@ -58,7 +58,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                           timestampToDate(advert.dateCreated),
                           style: const TextStyle(
                             fontSize: 18,
-                            color: Colors.white70,
+                            color: Colors.black,
                           ),
                         ),
                       ),

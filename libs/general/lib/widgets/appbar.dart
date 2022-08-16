@@ -31,23 +31,6 @@ class AppBarWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.notifications,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    vm.pushActivityStreamPage();
-                  },
-                  splashRadius: 1,
-                  highlightColor: Colors.orange,
-                  splashColor: Colors.white,
-                ),
-              ),
-            ],
           ),
         ));
   }
