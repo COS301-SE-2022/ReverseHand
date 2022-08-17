@@ -50,14 +50,17 @@ class TradesmanJobListings extends StatelessWidget {
           ),
         ),
         //************************NAVBAR***********************/
-        floatingActionButton: TradesmanFloatingButtonWidget(function: () {
-          DarkDialogHelper.display(
-            context,
-            FilterPopUpWidget(
-              store: store,
-            ),
-          );
-        }),
+        floatingActionButton: TradesmanFloatingButtonWidget(
+          function: () {
+            DarkDialogHelper.display(
+              context,
+              FilterPopUpWidget(
+                store: store,
+              ),
+            );
+          },
+          type: "filter",
+        ),
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: TNavBarWidget(
