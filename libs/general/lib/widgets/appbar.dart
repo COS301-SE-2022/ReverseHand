@@ -23,6 +23,7 @@ class AppBarWidget extends StatelessWidget {
             backgroundColor: Theme.of(context).primaryColorDark,
             leading: Padding(
                 padding: const EdgeInsets.only(left: 30),
+                // ignore: sized_box_for_whitespace
                 child: Container(
                   width: 50,
                   child: Image.asset( 
