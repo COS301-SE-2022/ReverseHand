@@ -70,7 +70,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //title
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                padding: const EdgeInsets.fromLTRB(15, 50, 15, 5),
                 child: TextFieldWidget(
                   label: "Title",
                   obscure: false,
@@ -142,11 +142,11 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 vm: () => _Factory(this),
                 builder: (BuildContext context, _ViewModel vm) => Column(
                   children: [
-                    const Padding(padding: EdgeInsets.all(25)),
+                    const Padding(padding: EdgeInsets.fromLTRB(10 ,20, 20, 10)),
 
                     //*********CREATE JOB BUTTON******************//
                     vm.loading
-                        ? const LoadingWidget()
+                        ? const LoadingWidget(padding: 0)
                         : ButtonWidget(
                             text: "Create Job",
                             function: () {

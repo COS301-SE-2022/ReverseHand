@@ -22,6 +22,7 @@ class TradesmanJobDetails extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
+        // backgroundColor: Theme.of(context).primaryColorLight,
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) =>
@@ -46,7 +47,7 @@ class TradesmanJobDetails extends StatelessWidget {
                 //*************BOTTOM BUTTONS**************//
                 Stack(alignment: Alignment.center, children: <Widget>[
                   BottomOverlayWidget(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height,
                   ),
 
                   //place bid
@@ -58,8 +59,6 @@ class TradesmanJobDetails extends StatelessWidget {
                             DarkDialogHelper.display(
                                 context, PlaceBidPopupWidget(store: store));
                           })),
-                  //fix function call here
-                  //DialogHelper.display(context,PlaceBidPopupWidget(store: store),)
 
                   //view bids
                   Positioned(

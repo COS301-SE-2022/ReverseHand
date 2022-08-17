@@ -25,6 +25,8 @@ class ConsumerProfilePage extends StatelessWidget {
                 AppBarWidget(title: "PROFILE", store: store),
                 //********************************************************//
 
+                const Padding(padding: EdgeInsets.only(top: 20)),
+                
                 //**************HEADING***************/
                 Center(
                   child: Text(

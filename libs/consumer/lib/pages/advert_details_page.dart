@@ -23,6 +23,7 @@ class AdvertDetailsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
+        // backgroundColor: Theme.of(context).primaryColorLight,
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) =>
@@ -67,7 +68,7 @@ class AdvertDetailsPage extends StatelessWidget {
                   alignment: Alignment.center,
                   children: <Widget>[
                     BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: MediaQuery.of(context).size.height,
                     ),
 
                     //view bids
@@ -101,7 +102,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         ),
                       ),
 
-                    //Delete - currently just takes you back to Consumer Listings page
+                    //Delete 
                     if (vm.advert.acceptedBid == null)
                       Positioned(
                         top: 75,

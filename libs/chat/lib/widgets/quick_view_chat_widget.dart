@@ -26,25 +26,33 @@ class QuickViewChatWidget extends StatelessWidget {
             vm.pushChatPage();
           },
           child: SizedBox(
-            width: 800,
-            height: 80,
-            child: Card(
-              margin: const EdgeInsets.all(10),
-              color: Theme.of(context).primaryColorLight,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-              elevation: 8,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                child: Text(
-                  vm.userType == "Consumer"
-                      ? chat.tradesmanName
-                      : chat.consumerName,
-                  style: const TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
+            width: 400,
+            height: 130,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 25),
+              child: Card(
+                margin: const EdgeInsets.all(10),
+                color: const Color.fromARGB(255, 220, 224, 230),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7)
+                ),
+                elevation: 2,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                  child: Row(
+                    children: [
+                      Text(
+                        vm.userType == "Consumer"
+                            ? chat.tradesmanName
+                            : chat.consumerName,
+                        style: const TextStyle(
+                          fontSize: 25,
+                          color: Color.fromRGBO(7, 10, 13, 1)
+                        ),
+                      ),
+                      //add message preview and time sent and chat notification to card
+                    ],
                   ),
                 ),
               ),

@@ -1,4 +1,4 @@
-import 'package:async_redux/async_redux.dart';
+ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -6,7 +6,9 @@ import 'package:redux_comp/models/advert_model.dart';
 
 import '../methods/time.dart';
 
-//still deciding
+//*********************************************** */
+// Job Listings card layout widget
+//*********************************************** */
 
 class QuickViewJobCardWidget extends StatelessWidget {
   final AdvertModel advert; // Current advert
@@ -28,28 +30,27 @@ class QuickViewJobCardWidget extends StatelessWidget {
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
             margin: const EdgeInsets.all(10),
-            color: Theme.of(context).primaryColorLight,
+            // color: Theme.of(context).primaryColorLight,
+            color: const Color.fromARGB(255, 220, 224, 230),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(7),
             ),
             elevation: 2,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 25),
               child: Row(
                 children: <Widget>[
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisSize: MainAxisSize.min,
                     children: [
-                      //not working yet?
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 1.3,
                         child: Text(advert.title,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                fontSize: 30, color: Colors.white)),
+                                fontSize: 30, color: Colors.black)),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
@@ -57,7 +58,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                           timestampToDate(advert.dateCreated),
                           style: const TextStyle(
                             fontSize: 18,
-                            color: Colors.white70,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -66,15 +67,21 @@ class QuickViewJobCardWidget extends StatelessWidget {
                         children: [
                           const Icon(
                             Icons.location_on,
-                            color: Colors.white,
+                            color: Colors.black,
                             size: 25.0,
                           ),
                           const Padding(
-                              padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 0)),
                           Text(advert.domain.city,
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.white))
+                            style: const TextStyle(
+                              fontSize: 20, color: Colors.black))
                         ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(150, 4, 5, 2),
+                        child: Text("Posted: ${advert.dateCreated}",
+                            style: const TextStyle(
+                                fontSize: 18, color: Color.fromARGB(255, 70, 70, 70))),
                       ),
                     ],
                   ),
@@ -106,5 +113,5 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.dispatchViewBidsAction,
-  }); // implementinf hashcode
+  });
 }

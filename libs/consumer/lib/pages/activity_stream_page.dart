@@ -25,6 +25,8 @@ class ConsumerActivityStream extends StatelessWidget {
                 AppBarWidget(title: "ACTIVITY STREAM", store: store),
                 //********************************************************//
 
+                 const Padding(padding: EdgeInsets.only(top: 20)),
+
                 //*******************MOCK NOTIFICATIONS CARDS*********************//
                 const NotificationCardWidget(
                   titleText: "New Bid!",

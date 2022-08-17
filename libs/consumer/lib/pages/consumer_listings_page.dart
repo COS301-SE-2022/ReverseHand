@@ -61,11 +61,11 @@ class ConsumerListingsPage extends StatelessWidget {
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 18.0),
+                            padding: EdgeInsets.only(left: 18.0, top: 25),
                             child: Text(
                               "OPEN",
                               style: TextStyle(
-                                  fontSize: 20, color: Colors.white60),
+                                  fontSize: 20, color: Colors.white),
                             ),
                           ),
                         ),
@@ -86,8 +86,8 @@ class ConsumerListingsPage extends StatelessWidget {
                   ...open,
 
                   // populating column with adverts
-                  if (vm.loading)
-                    const LoadingWidget()
+                  if (vm.loading) 
+                    const LoadingWidget(padding: 80)
 
                   //************MESSAGE IF THERE ARE NO ADVERTS***********/
                   else if (vm.adverts.isEmpty)
@@ -104,7 +104,7 @@ class ConsumerListingsPage extends StatelessWidget {
                   if (vm.adverts.isNotEmpty)
                     Column(
                       children: [
-                        //******************OPEN HEADING***********************//
+                        //******************IN PROGRESS HEADING***********************//
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -112,7 +112,7 @@ class ConsumerListingsPage extends StatelessWidget {
                             child: Text(
                               "IN PROGRESS",
                               style: TextStyle(
-                                  fontSize: 20, color: Colors.white60),
+                                  fontSize: 20, color: Colors.white),
                             ),
                           ),
                         ),
@@ -121,7 +121,7 @@ class ConsumerListingsPage extends StatelessWidget {
                         //**************************DIVIDER**********************//
                         Divider(
                           height: 20,
-                          thickness: 0.5,
+                          thickness: 1,
                           indent: 15,
                           endIndent: 15,
                           color: Theme.of(context).primaryColorLight,
