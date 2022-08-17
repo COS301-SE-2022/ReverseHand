@@ -102,7 +102,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                       width: MediaQuery.of(context).size.width,
                       child: Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10),
                               border: Border.all(color: Colors.grey, width: 1)),
                           child: Padding(
                               padding: const EdgeInsets.all(20.0),
@@ -142,7 +142,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 vm: () => _Factory(this),
                 builder: (BuildContext context, _ViewModel vm) => Column(
                   children: [
-                    const Padding(padding: EdgeInsets.fromLTRB(10 ,20, 20, 10)),
+                    const Padding(padding: EdgeInsets.fromLTRB(10, 20, 20, 10)),
 
                     //*********CREATE JOB BUTTON******************//
                     vm.loading
