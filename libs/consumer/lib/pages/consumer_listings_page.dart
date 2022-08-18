@@ -18,122 +18,116 @@ class ConsumerListingsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) {
-              List<Widget> open = [];
-              List<Widget> inProgress = [];
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) {
+            List<Widget> open = [];
+            List<Widget> inProgress = [];
 
-              for (AdvertModel advert in vm.adverts) {
-                if (advert.dateClosed != null) {
-                  continue;
-                }
-
-                if (advert.acceptedBid == null) {
-                  open.add(
-                    QuickViewJobCardWidget(
-                      advert: advert,
-                      store: store,
-                    ),
-                  );
-                } else {
-                  inProgress.add(
-                    QuickViewJobCardWidget(
-                      advert: advert,
-                      store: store,
-                    ),
-                  );
-                }
+            for (AdvertModel advert in vm.adverts) {
+              if (advert.dateClosed != null) {
+                continue;
               }
 
-              return Column(
-                children: [
-                  //*******************APP BAR WIDGET*********************//
-                  AppBarWidget(title: "MY JOBS", store: store),
-                  //********************************************************//
+              if (advert.acceptedBid == null) {
+                open.add(
+                  QuickViewJobCardWidget(
+                    advert: advert,
+                    store: store,
+                  ),
+                );
+              } else {
+                inProgress.add(
+                  QuickViewJobCardWidget(
+                    advert: advert,
+                    store: store,
+                  ),
+                );
+              }
+            }
 
-                  //if there are adverts, heading should be displayed
-                  if (vm.adverts.isNotEmpty)
-                    Column(
-                      children: [
-                        //******************OPEN HEADING***********************//
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 18.0, top: 25),
+            return DefaultTabController(
+                length: 2,
+                child: Column(
+                  children: [
+                    //*******************APP BAR WIDGET*********************//
+                    AppBarWidget(title: "MY JOBS", store: store),
+                    //********************************************************//
+
+                    //*******************TAB BAR LABELS***********************//
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: TabBar(
+                        indicatorColor: Theme.of(context).primaryColor,
+                        tabs: const [
+                          Padding(
+                            padding: EdgeInsets.all(15.0),
                             child: Text(
                               "OPEN",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
-                        ),
-                        //******************************************************//
-
-                        //**************************DIVIDER**********************//
-                        Divider(
-                          height: 20,
-                          thickness: 0.5,
-                          indent: 15,
-                          endIndent: 15,
-                          color: Theme.of(context).primaryColorLight,
-                        ),
-                        //******************************************************//
-                      ],
-                    ),
-
-                  ...open,
-
-                  // populating column with adverts
-                  if (vm.loading)
-                    const LoadingWidget(padding: 80)
-
-                  //************MESSAGE IF THERE ARE NO ADVERTS***********/
-                  else if (vm.adverts.isEmpty)
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: (MediaQuery.of(context).size.height) / 3),
-                      child: const Text(
-                        "There are no\n active jobs",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 25, color: Colors.white54),
-                      ),
-                    ),
-                  //*****************************************************/
-                  if (vm.adverts.isNotEmpty)
-                    Column(
-                      children: [
-                        //******************IN PROGRESS HEADING***********************//
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 10, left: 18.0),
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: Text(
                               "IN PROGRESS",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
-                        ),
-                        //******************************************************//
-
-                        //**************************DIVIDER**********************//
-                        Divider(
-                          height: 20,
-                          thickness: 1,
-                          indent: 15,
-                          endIndent: 15,
-                          color: Theme.of(context).primaryColorLight,
-                        ),
-                        //******************************************************//
-                        ...inProgress,
-                      ],
+                        ],
+                      ),
                     ),
-                ],
-              );
-            },
-          ),
+                    //********************************************************//
+
+                    //*********************TAB FUNCTIONALITY******************//
+                    Expanded(
+                        child: TabBarView(children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            //display loading icon
+                            if (vm.loading)
+                              const LoadingWidget(padding: 80)
+                            //a message if no jobs
+                            else if (open.isEmpty)
+                              (const Padding(
+                                padding: EdgeInsets.fromLTRB(40, 100, 40, 40),
+                                child: (Text(
+                                  "You do not have any active jobs. Create a new job to see it here and enable contractors to start bidding.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white70),
+                                )),
+                              )),
+                            //else populate the jobs
+                            ...open
+                          ],
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            //a message if no in progress jobs
+                            if (inProgress.isEmpty)
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(40, 100, 40, 40),
+                                child: (Text(
+                                  "No jobs are currently in progress. Only jobs with accepted bids are displayed here.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white70),
+                                )),
+                              ),
+                            //else display in progress jobs
+                            ...inProgress
+                          ],
+                        ),
+                      ),
+                    ])),
+                    //********************************************************//
+                  ],
+                ));
+          },
         ),
 
         //************************NAVBAR***********************/
