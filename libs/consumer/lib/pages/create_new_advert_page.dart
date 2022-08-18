@@ -5,6 +5,7 @@ import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/textfield.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -69,23 +70,9 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               //********************************************************//
 
               //title
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 50, 15, 0),
-                child: Row(
-                  children: const [
-                    Icon(
-                      Icons.info_outline,
-                      color: Colors.white70,
-                      size: 20,
-                    ),
-                    Padding(padding: EdgeInsets.all(3)),
-                    Text(
-                      "Enter a title",
-                      style: TextStyle(color: Colors.white70),
-                    )
-                  ],
-                ),
-              ),
+              const Padding(padding: EdgeInsets.only(top: 20)),
+              const HintWidget(text: "Enter a title"),
+
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                 child: TextFieldWidget(
@@ -98,24 +85,12 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               ),
 
               //trade type
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                child: Row(
-                  children: const [
-                    Icon(
-                      Icons.info_outline,
-                      color: Colors.white70,
-                      size: 20,
-                    ),
-                    Padding(padding: EdgeInsets.all(3)),
-                    Text("Select all the relevant trade types",
-                        style: TextStyle(color: Colors.white70))
-                  ],
-                ),
-              ),
+              const HintWidget(text: "Select all relevant trade types"),
+
               Padding(
                   padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                   child: InkWell(
+                    // tick boxes and not radio buttons?
                     onTap: () => showRadioSelect(),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
@@ -133,21 +108,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                   )),
 
               //description
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                child: Row(
-                  children: const [
-                    Icon(
-                      Icons.info_outline,
-                      color: Colors.white70,
-                      size: 20,
-                    ),
-                    Padding(padding: EdgeInsets.all(3)),
-                    Text("Enter a short description of the job",
-                        style: TextStyle(color: Colors.white70))
-                  ],
-                ),
-              ),
+              const HintWidget(text: "Enter a short description of the job"),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 child: TextFieldWidget(
@@ -160,30 +121,45 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               ),
 
               //location
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                child: Row(
-                  children: const [
-                    Icon(
-                      Icons.info_outline,
-                      color: Colors.white70,
-                      size: 20,
-                    ),
-                    Padding(padding: EdgeInsets.all(3)),
-                    Text("Only the suburb will be displayed",
-                        style: TextStyle(color: Colors.white70))
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-                child: TextFieldWidget(
-                  label: "Location",
-                  obscure: false,
-                  min: 1,
-                  controller: descrController,
-                  initialVal: null,
-                ),
+              const HintWidget(
+                  text:
+                      "The address for the job. Only the city will be displayed"),
+              StoreConnector<AppState, _ViewModel>(
+                vm: () => _Factory(this),
+                builder: (BuildContext context, _ViewModel vm) => Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.grey, width: 1)),
+                          child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //GET THE WHOLE ADDRESS?
+                                  Text(
+                                    widget.store.state.userDetails!.location!
+                                        .address.city,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                  InkWell(
+                                    onTap:
+                                        () {}, //should be able to change the location of the job on tap
+                                    child: const Text(
+                                      "change address",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.white70,
+                                          decoration: TextDecoration.underline),
+                                    ),
+                                  ),
+                                ],
+                              ))),
+                    )),
               ),
               //*************************************************//
 
