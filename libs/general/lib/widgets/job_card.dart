@@ -34,8 +34,8 @@ class JobCardWidget extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width / 1.25,
             child: Text(titleText,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+                // maxLines: 2,
+                // overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: 35, color: Colors.white)),
           ),
           //*****************************************//
@@ -65,20 +65,20 @@ class JobCardWidget extends StatelessWidget {
                     ),
                     const Padding(padding: EdgeInsets.only(right: 2)),
                     Text(location,
-                        style: const TextStyle(
-                            fontSize: 20, color: Colors.white))
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white))
                   ],
                 ),
               ),
               //*****************************************//
               const Padding(
-                padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                 child: Text("|",
                     style: TextStyle(fontSize: 20, color: Colors.white70)),
               ),
               //****************TRADE********************//
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+                padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                 child: Row(
                   children: [
                     const Icon(
@@ -88,8 +88,8 @@ class JobCardWidget extends StatelessWidget {
                     ),
                     const Padding(padding: EdgeInsets.only(right: 2)),
                     Text(type,
-                        style: const TextStyle(
-                            fontSize: 20, color: Colors.white))
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white))
                   ],
                 ),
               ),
@@ -103,10 +103,9 @@ class JobCardWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 20, left: 5),
               child: Text(descText,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style:
-                      const TextStyle(fontSize: 20, color: Colors.white)),
+                  // maxLines: 3,
+                  // overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 20, color: Colors.white)),
             ),
           ),
           //**********************************************/

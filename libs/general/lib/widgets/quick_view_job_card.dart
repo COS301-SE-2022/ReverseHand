@@ -30,6 +30,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
             margin: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+            //experimenting with colours currenlty
             // color: Theme.of(context).primaryColorLight,
             // color: const Color.fromARGB(255, 220, 224, 230),
             color: const Color.fromARGB(255, 232, 232, 232),
@@ -62,24 +63,35 @@ class QuickViewJobCardWidget extends StatelessWidget {
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(
-                        Icons.location_on,
-                        color: Colors.black,
-                        size: 25.0,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Icon(
+                            Icons.location_on,
+                            color: Colors.black,
+                            size: 25.0,
+                          ),
+                          Text(advert.domain.city,
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.black)),
+                        ],
                       ),
-                      Text(advert.domain.city,
-                          style: const TextStyle(
-                              fontSize: 20, color: Colors.black)),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          //MICHAEL
+                          //   "Posted: ${advert.dateCreated}",
+                          "Posted: 16/08",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 70, 70, 70)),
+                          maxLines: 1,
+                        ),
+                      ),
                     ],
                   ),
-                  // Text(
-                  //   "Posted: ${advert.dateCreated}",
-                  //   style: const TextStyle(
-                  //       fontSize: 18, color: Color.fromARGB(255, 70, 70, 70)),
-                  //   maxLines: 1,
-                  // ),
                 ],
               ),
             ),

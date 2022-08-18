@@ -70,7 +70,24 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //title
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 50, 15, 5),
+                padding: const EdgeInsets.fromLTRB(15, 50, 15, 0),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.info_outline,
+                      color: Colors.white70,
+                      size: 20,
+                    ),
+                    Padding(padding: EdgeInsets.all(3)),
+                    Text(
+                      "Enter a title",
+                      style: TextStyle(color: Colors.white70),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                 child: TextFieldWidget(
                   label: "Title",
                   obscure: false,
@@ -80,22 +97,24 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 ),
               ),
 
-              //**************************DIVIDER**********************//
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Divider(
-                  height: 20,
-                  thickness: 0.5,
-                  indent: 15,
-                  endIndent: 15,
-                  color: Theme.of(context).primaryColorLight,
-                ),
-              ),
-              //******************************************************//
-
               //trade type
               Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.info_outline,
+                      color: Colors.white70,
+                      size: 20,
+                    ),
+                    Padding(padding: EdgeInsets.all(3)),
+                    Text("Select all the relevant trade types",
+                        style: TextStyle(color: Colors.white70))
+                  ],
+                ),
+              ),
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                   child: InkWell(
                     onTap: () => showRadioSelect(),
                     child: SizedBox(
@@ -112,26 +131,56 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                               ))),
                     ),
                   )),
-              //**************************DIVIDER**********************//
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Divider(
-                  height: 20,
-                  thickness: 0.5,
-                  indent: 15,
-                  endIndent: 15,
-                  color: Theme.of(context).primaryColorLight,
-                ),
-              ),
-              //******************************************************//
 
               //description
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.info_outline,
+                      color: Colors.white70,
+                      size: 20,
+                    ),
+                    Padding(padding: EdgeInsets.all(3)),
+                    Text("Enter a short description of the job",
+                        style: TextStyle(color: Colors.white70))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 child: TextFieldWidget(
                   label: "Description",
                   obscure: false,
                   min: 3,
+                  controller: descrController,
+                  initialVal: null,
+                ),
+              ),
+
+              //location
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.info_outline,
+                      color: Colors.white70,
+                      size: 20,
+                    ),
+                    Padding(padding: EdgeInsets.all(3)),
+                    Text("Only the suburb will be displayed",
+                        style: TextStyle(color: Colors.white70))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                child: TextFieldWidget(
+                  label: "Location",
+                  obscure: false,
+                  min: 1,
                   controller: descrController,
                   initialVal: null,
                 ),

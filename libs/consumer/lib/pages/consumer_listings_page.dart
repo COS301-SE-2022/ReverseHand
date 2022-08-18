@@ -64,8 +64,8 @@ class ConsumerListingsPage extends StatelessWidget {
                             padding: EdgeInsets.only(left: 18.0, top: 25),
                             child: Text(
                               "OPEN",
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
                             ),
                           ),
                         ),
@@ -86,7 +86,7 @@ class ConsumerListingsPage extends StatelessWidget {
                   ...open,
 
                   // populating column with adverts
-                  if (vm.loading) 
+                  if (vm.loading)
                     const LoadingWidget(padding: 80)
 
                   //************MESSAGE IF THERE ARE NO ADVERTS***********/
@@ -111,8 +111,8 @@ class ConsumerListingsPage extends StatelessWidget {
                             padding: EdgeInsets.only(top: 10, left: 18.0),
                             child: Text(
                               "IN PROGRESS",
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
                             ),
                           ),
                         ),
