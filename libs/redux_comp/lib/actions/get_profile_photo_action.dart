@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -23,15 +24,15 @@ class GetProfilePhotoAction extends ReduxAction<AppState> {
         key: key,
         local: file,
         onProgress: (progress) {
-          print('Fraction completed: ${progress.getFractionCompleted()}');
+          debugPrint('Fraction completed: ${progress.getFractionCompleted()}');
         },
       );
       final contents = result.file.readAsStringSync();
       // Or you can reference the file that is created above
       // final contents = file.readAsStringSync();
-      print('Downloaded contents: $contents');
+      debugPrint('Downloaded contents: $contents');
     } on StorageException catch (e) {
-      print('Error downloading file: $e');
+      debugPrint('Error downloading file: $e');
     }
 
     return null;

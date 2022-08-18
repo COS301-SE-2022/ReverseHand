@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:redux_comp/models/bucket_model.dart';
 import '../app_state.dart';
@@ -41,16 +42,17 @@ class GetFromBucketAction extends ReduxAction<AppState> {
 
         final file = File(filepath);
 
-        final result = await Amplify.Storage.downloadFile(
+        /* final result = */ await Amplify.Storage.downloadFile(
           key: key,
           local: file,
           onProgress: (progress) {
-            print('Fraction completed: ${progress.getFractionCompleted()}');
+            debugPrint(
+                'Fraction completed: ${progress.getFractionCompleted()}');
           },
         );
       }
     } on StorageException catch (e) {
-      print('Error downloading file: $e');
+      debugPrint('Error downloading file: $e');
     }
 
     return null;
