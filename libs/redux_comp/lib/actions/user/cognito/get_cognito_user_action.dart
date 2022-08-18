@@ -1,4 +1,5 @@
 import 'package:redux_comp/actions/get_from_bucket_action.dart';
+import 'package:redux_comp/actions/get_profile_photo_action.dart';
 import 'package:redux_comp/actions/user/user_table/check_user_exists_action.dart';
 import 'package:redux_comp/models/bucket_model.dart';
 import 'package:redux_comp/models/error_type_model.dart';
@@ -36,10 +37,7 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
       dispatch(CheckUserExistsAction());
       dispatch(SubscribMessagesAction());
 
-      dispatch(GetFromBucketAction(
-        fileType: FileType.profile,
-        userId: "c#652cec1c-4699-468a-aa4c-75205ea3bc39",
-      ));
+      dispatch(GetFromBucketAction("a#001", FileType.job));
     }
   }
 }
