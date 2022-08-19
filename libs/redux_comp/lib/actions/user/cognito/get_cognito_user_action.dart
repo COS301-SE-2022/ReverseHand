@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/user_table/check_user_exists_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import '../../../app_state.dart';
@@ -30,9 +31,13 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
 
   @override
   Future<void> after() async {
-    if (state.error == ErrorType.none) {
+    if (state.error == ErrorType.none && state.userDetails!.userType != "Admin") {
       dispatch(CheckUserExistsAction());
       dispatch(SubscribMessagesAction());
+    } else if (state.error == ErrorType.none && state.userDetails!.userType == "Admin") {
+      dispatch(NavigateAction.pushNamed(""));
+    } else {
+      debugPrint("Confused as to how we got stuck in actions/user/cognito/get_cog_user");
     }
   }
 }
