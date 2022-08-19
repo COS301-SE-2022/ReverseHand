@@ -26,11 +26,11 @@ exports.handler = async (event) => {
         let reviews = data['Item']['reviews'];
 
         //consumer variables
-        let numAdvertsCreated = "";//number of adverts that a consumer created
+        let numAdvertsCreated = 0;//number of adverts that a consumer created
         let numAdvertsWon = 0; //adverts which got completed by a tradesman
 
         //tradesman variables
-        let numBidsCreated = "";
+        let numBidsCreated = 0;
         let numJobsWon = 0;
         
         
@@ -55,7 +55,7 @@ exports.handler = async (event) => {
                     numAdvertsWon += 1;
             });
 
-            numAdvertsWon = numAdvertsWon;//.toString();//convert the int to a string
+            
         }
         else //data which is specific to a tradesman
         {
@@ -72,24 +72,29 @@ exports.handler = async (event) => {
                 }
             };
 
-            data = await docClient.query(params).promise();
+            let Tdata = await docClient.query(params).promise();
 
-            numBidsCreated = data['Count'];
-            console.log(numBidsCreated);
-
-            (data['Items']).forEach(bid => {
-                console.log(bid);
-            });
+            numBidsCreated = Tdata['Count'];
 
             //Need to get bids won by the tradesman
+            numJobsWon = (data['Item']['adverts_won']).length;
         }
 
         let result = {
             rating_sum : ratingSum,
-            num_review : (reviews.length).toString()
+            num_reviews : reviews.length,
+            consumer_stats : {
+                num_adverts_won : numAdvertsWon,
+                num_adverts_created : numAdvertsCreated
+            },
+            tradesman_stats : {
+                num_jobs_won : numJobsWon,
+                num_bids_placed: numBidsCreated
+            }
         };
 
-        console.log(result);
+        
+        return result;
 
         
     } catch (error) {
