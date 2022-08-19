@@ -35,7 +35,7 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
       dispatch(CheckUserExistsAction());
       dispatch(SubscribMessagesAction());
     } else if (state.error == ErrorType.none && state.userDetails!.userType == "Admin") {
-      dispatch(NavigateAction.pushNamed(""));
+      dispatch(NavigateAction.pushNamed("/admin_listings"));
     } else {
       debugPrint("Confused as to how we got stuck in actions/user/cognito/get_cog_user");
     }
