@@ -134,7 +134,8 @@ type User implements UniqueID {
   domains: [Domain!]
   tradetypes: [String!]
   reviews: [Review!]
-  sum: Int #For the time being nullable but will be changed once things like create user initialize this to zero
+  sum: Int, #For the time being nullable but will be changed once things like create user initialize this to zero
+  advertsWon: [String] 
 }
 
 type Chat {
