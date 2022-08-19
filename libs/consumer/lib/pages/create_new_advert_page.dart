@@ -1,4 +1,6 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/job_creation_popup.dart';
+import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
@@ -188,6 +190,9 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   trade!,
                                   descrController.value.text,
                                 );
+                              } else {
+                                (LightDialogHelper.display(
+                                    context, const CreationPopupWidget()));
                               }
                             },
                           ),
