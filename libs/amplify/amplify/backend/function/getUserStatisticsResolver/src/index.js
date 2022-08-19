@@ -55,7 +55,7 @@ exports.handler = async (event) => {
                     numAdvertsWon += 1;
             });
 
-            numAdvertsWon = numAdvertsWon.toString();//convert the int to a string
+            numAdvertsWon = numAdvertsWon;//.toString();//convert the int to a string
         }
         else //data which is specific to a tradesman
         {
@@ -80,6 +80,8 @@ exports.handler = async (event) => {
             (data['Items']).forEach(bid => {
                 console.log(bid);
             });
+
+            //Need to get bids won by the tradesman
         }
 
         let result = {

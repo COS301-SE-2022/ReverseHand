@@ -24,6 +24,7 @@ class DeleteReviewAction extends ReduxAction<AppState> {
         description
         rating
         user_id
+        date_created
       }
     }''';
 

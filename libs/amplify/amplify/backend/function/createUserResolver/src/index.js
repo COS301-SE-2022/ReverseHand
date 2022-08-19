@@ -39,7 +39,9 @@ exports.handler = async (event) => {
                         lat: event.arguments.lat,
                         lng: event.arguments.lng
                     }
-                }
+                },
+                sum: 0,
+                adverts_won: []
             }
         };
         

@@ -1,10 +1,8 @@
 import 'package:redux_comp/actions/user/user_table/check_user_exists_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-
 import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-
 import '../../chat/subscribe_messages_action.dart';
 
 class GetCognitoUserAction extends ReduxAction<AppState> {
@@ -31,7 +29,7 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() {
+  Future<void> after() async {
     if (state.error == ErrorType.none) {
       dispatch(CheckUserExistsAction());
       dispatch(SubscribMessagesAction());
