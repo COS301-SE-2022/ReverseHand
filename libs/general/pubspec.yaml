@@ -22,6 +22,7 @@ dependencies:
 
   consumer:
     path: '../consumer'
+  file_picker: ^5.0.1
 
 
 dev_dependencies:

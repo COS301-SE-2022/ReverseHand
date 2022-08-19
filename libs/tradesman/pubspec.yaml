@@ -30,6 +30,7 @@ dependencies:
 
   notifications:
     path: '../notifications'
+  file_picker: ^5.0.1
     
 
 dev_dependencies:
