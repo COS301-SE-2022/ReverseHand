@@ -145,6 +145,10 @@
         "getUserStatisticsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getUserStatisticsResolver-2f3270534c4931565772-build.zip"
+        },
+        "getAdminAdvertReports": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getAdminAdvertReports-326338466e764c616236-build.zip"
         }
       }
     }
