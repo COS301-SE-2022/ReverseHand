@@ -1,4 +1,4 @@
-import 'package:admin/pages/report_listings.dart';
+import 'package:admin/pages/admin_advert_reports.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
@@ -104,7 +104,7 @@ class Launch extends StatelessWidget {
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),
           //admin routes
-          '/admin_listings': (context) => ReportListings(store: store),
+          '/admin_advert_reports': (context) => AdminAdvertReports(store: store),
         },
       ),
     );
