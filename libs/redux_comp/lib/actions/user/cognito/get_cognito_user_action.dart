@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/user_table/check_user_exists_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import '../../chat/subscribe_messages_action.dart';
 
 class GetCognitoUserAction extends ReduxAction<AppState> {
   @override
@@ -22,22 +20,29 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
           break;
       }
     }
+    switch (state.userDetails!.userType) {
+      case "Consumer":
+        id = "c#$id";
+        break;
+      case "Tradesman":
+        id = "t#$id";
+        break;
+      case "Admin":
+        id = "admin#$id";
+        break;
+    }
     return state.copy(
         error: ErrorType.none,
         userDetails: state.userDetails!.copy(
-            id: (state.userDetails!.userType == "Consumer") ? "c#$id" : "t#$id",
-            email: email));
+          id: id,
+          email: email,
+        ));
   }
 
   @override
   Future<void> after() async {
-    if (state.error == ErrorType.none && state.userDetails!.userType != "Admin") {
+    if (state.error == ErrorType.none) {
       dispatch(CheckUserExistsAction());
-      dispatch(SubscribMessagesAction());
-    } else if (state.error == ErrorType.none && state.userDetails!.userType == "Admin") {
-      dispatch(NavigateAction.pushNamed("/admin_advert_reports"));
-    } else {
-      debugPrint("Confused as to how we got stuck in actions/user/cognito/get_cog_user");
-    }
+    } 
   }
 }

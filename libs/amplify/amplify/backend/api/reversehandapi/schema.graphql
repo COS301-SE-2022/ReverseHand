@@ -16,16 +16,19 @@ type Query {
   viewKey: String! @function(name: "getGoogleApiKeyResolver-${env}")
 
   getConsumerChats(c_id: String!): [Chat!]!
-  @function(name: "getConsumerMessagesResolver-${env}")
+    @function(name: "getConsumerMessagesResolver-${env}")
 
   getTradesmanChats(c_id: String!): [Chat!]!
-  @function(name: "getTradesmanMessagesResolver-${env}")
+    @function(name: "getTradesmanMessagesResolver-${env}")
 
   getNotifications(user_id: String!): [Notification!]!
-  @function(name: "getNotificationsResolver-${env}")
+    @function(name: "getNotificationsResolver-${env}")
 
   getUserStatistics(user_id: String!): Statistics!
-  @function(name: "getUserStatisticsResolver-${env}")
+    @function(name: "getUserStatisticsResolver-${env}")
+
+  # getAdminAdvertReports(user_id: String!): [Advert]!
+  #   @function(name: "getAdminAdvertReports-${env}")
 }
 
 type Mutation {
@@ -53,7 +56,6 @@ type Mutation {
     price_upper: Int!
     quote: String
   ): Bid! @function(name: "placeBidResolver-${env}") # quote is optional and represents a name of a file in a S3 bucket
-
   closeAdvert(ad_id: String!): Advert!
     @function(name: "closeAdvertResolver-${env}")
 
@@ -104,28 +106,37 @@ type Mutation {
   removeDomain(user_id: String!, domain_pos: Int!): Int!
     @function(name: "removeDomainResolver-${env}")
 
-  createChat(c_id: String!, t_id: String!, c_name: String!, t_name: String!): Chat!
-  @function(name: "createChatResolver-${env}")
+  createChat(
+    c_id: String!
+    t_id: String!
+    c_name: String!
+    t_name: String!
+  ): Chat! @function(name: "createChatResolver-${env}")
 
-  sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!, name: String!): Message!
-  @function(name: "sendMessageResolver-${env}")
+  sendMessage(
+    c_id: String!
+    t_id: String!
+    msg: String!
+    sender: String!
+    name: String!
+  ): Message! @function(name: "sendMessageResolver-${env}")
 
   deleteChat(c_id: String!, ad_id: String!): Chat!
-  @function(name: "deleteChatResolver-${env}")
+    @function(name: "deleteChatResolver-${env}")
 
-  addReview(user_id: String!, reviews: ReviewInput!) : [Review!]!
-  @function(name: "addReviewResolver-${env}")
+  addReview(user_id: String!, reviews: ReviewInput!): [Review!]!
+    @function(name: "addReviewResolver-${env}")
 
-  deleteReview(user_id: String!, id: String!) : [Review!]! #id is the review id
-  @function(name: "deleteReviewResolver-${env}")
+  deleteReview(user_id: String!, id: String!): [Review!]!  #id is the review id
+    @function(name: "deleteReviewResolver-${env}")
 }
 
 type Subscription {
   getMessageUpdatesConsumer(consumer_id: String!): Message
-  @aws_subscribe(mutations: ["sendMessage"])
+    @aws_subscribe(mutations: ["sendMessage"])
 
   getMessageUpdatesTradesman(tradesman_id: String!): Message
-  @aws_subscribe(mutations: ["sendMessage"])
+    @aws_subscribe(mutations: ["sendMessage"])
 }
 
 type User implements UniqueID {
@@ -137,24 +148,25 @@ type User implements UniqueID {
   domains: [Domain!]
   tradetypes: [String!]
   reviews: [Review!]
-  sum: Int, #For the time being nullable but will be changed once things like create user initialize this to zero
-  advertsWon: [String] 
+  sum: Int #For the time being nullable but will be changed once things like create user initialize this to zero
+  advertsWon: [String]
+  scope: String! #The scope/province that the admin can view reports from
 }
 
 type Statistics {
-  rating_sum: Int!,
-  num_reviews: Int!,
-  consumer_stats: ConsumerStats!,
+  rating_sum: Int!
+  num_reviews: Int!
+  consumer_stats: ConsumerStats!
   tradesman_stats: TradesmanStats!
 }
 
-type ConsumerStats{
-  num_adverts_won: Int!,
+type ConsumerStats {
+  num_adverts_won: Int!
   num_adverts_created: Int!
 }
 
-type TradesmanStats{
-  num_jobs_won: Int!,
+type TradesmanStats {
+  num_jobs_won: Int!
   num_bids_placed: Int!
 }
 
@@ -243,7 +255,7 @@ type Bid implements UniqueID {
   date_closed: String
 }
 
-type Notification  {
+type Notification {
   title: String!
   msg: String!
   type: NotificationType!
