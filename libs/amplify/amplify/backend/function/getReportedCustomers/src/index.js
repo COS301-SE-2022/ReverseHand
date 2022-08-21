@@ -15,24 +15,24 @@ exports.handler = async (event) => {
             },
         };
         let data = await docClient.get(params).promise();
-        console.log(data);
-        let advert_reports = data.Item.advert_reports;
-        
-        let advert_keys = [];
-        advert_reports.forEach(function(ad_id) {
-            advert_keys.push({part_key: ad_id, sort_key: ad_id});
+        let customer_keys = [];
+        data.Item.customer_reports.forEach(function (id) {
+            customer_keys.push({user_id: id});
         });
         
         params = {
-        RequestItems: {},
-      };
-      
-      params.RequestItems[ReverseHandTable] = {Keys: advert_keys};
-      
-      
-      data = await docClient.batchGet(params).promise();
-      return data;
-        
+            RequestItems: {
+                User : {
+                    Keys : customer_keys
+                }
+            },
+        };
+        data = await docClient.batchGet(params).promise();
+        data.Responses.User.forEach(function (user) {
+            user.id = user.user_id;
+            delete user.user_id;
+        });
+        return data.Responses.User;
     } catch (e) {
         console.log(e);
     }

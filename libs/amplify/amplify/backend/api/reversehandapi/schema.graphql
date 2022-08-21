@@ -27,8 +27,8 @@ type Query {
   getUserStatistics(user_id: String!): Statistics!
     @function(name: "getUserStatisticsResolver-${env}")
 
-  getAdminAdvertReports(scope: String!, city: String!): [Advert]!
-    @function(name: "getAdminAdvertReports-${env}")
+  getReportedCustomers(scope: String!, city: String!): [User]!
+    @function(name: "getReportedCustomers-${env}")
 }
 
 type Mutation {
@@ -278,6 +278,20 @@ input ReviewInput {
   user_id: String!
   advert_id: String!
   date_created: Int
+}
+
+
+type AdminAdvert {
+  id: String!
+  advert: Advert!
+  count: Int!
+  reports: [AdminAdvertReport!]!
+}
+
+type AdminAdvertReport {
+  tradesman_id: String!
+  reason: String!
+  description: String!
 }
 
 # add more jobs here as we think of them

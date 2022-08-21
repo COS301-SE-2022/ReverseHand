@@ -194,7 +194,7 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "getAdminAdvertReports": {
+        "getReportedCustomers": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

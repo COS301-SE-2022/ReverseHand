@@ -48,7 +48,7 @@ class AdminNavBarWidget extends StatelessWidget {
                           //icon 1 - Advert Reports
                           IconButton(
                             icon: const Text(
-                              "A",
+                              "C",
                               style: TextStyle(fontSize: 25),
                             ),
                             onPressed: () {
@@ -62,7 +62,7 @@ class AdminNavBarWidget extends StatelessWidget {
                           //icon 2 - chat
                           IconButton(
                             icon: const Text(
-                              "B",
+                              "T",
                               style: TextStyle(fontSize: 25),
                             ),
                             onPressed: () {

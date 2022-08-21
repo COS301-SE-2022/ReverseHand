@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
+import 'package:redux_comp/models/admin/admin_model.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -37,31 +38,37 @@ class AppState {
   final List<ChatModel> chats; // all chats
   final ChatModel chat; // the current active chat
 
+  //admin functionality
+  final AdminModel admin;
+
   // constructor must only take named parameters
-  const AppState(
-      {required this.authModel,
-      required this.userDetails,
-      required this.partialUser,
-      required this.adverts,
-      required this.viewAdverts,
-      required this.bids,
-      required this.shortlistBids,
-      required this.viewBids,
-      required this.activeAd,
-      required this.activeBid,
-      required this.locationResult,
-      required this.error,
-      required this.change,
-      required this.wait,
-      required this.chats,
-      required this.chat,
-      required this.reviews});
+  const AppState({
+    required this.authModel,
+    required this.userDetails,
+    required this.partialUser,
+    required this.adverts,
+    required this.viewAdverts,
+    required this.bids,
+    required this.shortlistBids,
+    required this.viewBids,
+    required this.activeAd,
+    required this.activeBid,
+    required this.locationResult,
+    required this.error,
+    required this.change,
+    required this.wait,
+    required this.chats,
+    required this.chat,
+    required this.reviews,
+    required this.admin,
+  });
 
   // this methods sets the starting state for the store
   factory AppState.initial() {
     return AppState(
       authModel: null,
-      userDetails: const UserModel(id: "", email: "", userType: "", externalProvider: false),
+      userDetails: const UserModel(
+          id: "", email: "", userType: "", externalProvider: false),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
       viewAdverts: const [],
@@ -95,6 +102,7 @@ class AppState {
         tradesmanId: "",
         messages: [],
       ),
+      admin: const AdminModel(reportedCustomers: []),
     );
   }
 
@@ -130,6 +138,7 @@ class AppState {
         tradesmanId: "",
         messages: [],
       ),
+      admin: const AdminModel(reportedCustomers: []),
     );
   }
   // easy way to replace store wihtout specifying all paramters
@@ -152,6 +161,7 @@ class AppState {
     Wait? wait,
     List<ChatModel>? chats,
     ChatModel? chat,
+    AdminModel? admin
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
@@ -171,6 +181,7 @@ class AppState {
       wait: wait ?? this.wait,
       chats: chats ?? this.chats,
       chat: chat ?? this.chat,
+      admin: admin ?? this.admin,
     );
   }
 }

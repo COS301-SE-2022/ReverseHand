@@ -256,7 +256,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "getAdminAdvertReports": {
+    "getReportedCustomers": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

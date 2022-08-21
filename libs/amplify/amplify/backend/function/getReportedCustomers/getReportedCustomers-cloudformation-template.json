@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getAdminAdvertReports",
+            "getReportedCustomers",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getAdminAdvertReports",
+                  "getReportedCustomers",
                   "-",
                   {
                     "Ref": "env"
@@ -73,7 +73,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand"
+            "REVERSEHAND": "ReverseHand",
+            "USER": "User"
           }
         },
         "Role": {
@@ -93,12 +94,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole3695ce9a",
+            "reversehandLambdaRolea850752d",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole3695ce9a",
+                  "reversehandLambdaRolea850752d",
                   "-",
                   {
                     "Ref": "env"
@@ -201,9 +202,9 @@
                 },
                 {
                   "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
                     {
-                      "tablename": "ReverseHand"
+                      "tablename": "User"
                     }
                   ]
                 }
