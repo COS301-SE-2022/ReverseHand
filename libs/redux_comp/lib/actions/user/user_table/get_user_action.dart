@@ -171,7 +171,7 @@ class GetUserAction extends ReduxAction<AppState> {
         List<String> tradeTypes = state.userDetails!.tradeTypes;
         dispatch(ViewJobsAction(domains, tradeTypes));
         dispatch(SubscribMessagesAction());
-        dispatch(NavigateAction.pushNamed("/trademan"));
+        dispatch(NavigateAction.pushNamed("/tradesman"));
         break;
       case "Admin":
         dispatch(GetReportedCustomersAction(city: "Pretoria"));
