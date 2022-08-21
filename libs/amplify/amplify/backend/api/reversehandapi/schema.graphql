@@ -197,6 +197,7 @@ type Location {
 
 type Domain {
   city: String!
+  province: String!
   coordinates: Coordinates!
 }
 
@@ -215,6 +216,7 @@ type Address {
 
 input DomainInput {
   city: String
+  province: String
   coordinates: CoordinatesInput
 }
 

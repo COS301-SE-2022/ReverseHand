@@ -158,6 +158,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   Domain(
                                       city: widget.store.state.userDetails!
                                           .location!.address.city,
+                                      province: widget.store.state.userDetails!.location!.address.province,
                                       coordinates: widget.store.state
                                           .userDetails!.location!.coordinates),
                                   trade!,

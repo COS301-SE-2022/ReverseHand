@@ -6,7 +6,6 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/models/admin/advert_report_model.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
-import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class AdminAdvertDetailsPage extends StatelessWidget {

@@ -80,7 +80,7 @@ class AppState {
         id: "",
         title: "",
         domain:
-            Domain(city: "city", coordinates: Coordinates(lat: 22, lng: 21)),
+            Domain(city: "city", province: "province",coordinates: Coordinates(lat: 22, lng: 21)),
         dateCreated: 0,
       ),
       activeBid: const BidModel(

@@ -76,6 +76,7 @@ class GetUserAction extends ReduxAction<AppState> {
           cellNo
           domains {
             city
+            province
             coordinates {
               lat
               lng
