@@ -8,6 +8,7 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/appbar.dart';
 
+
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
   const ConsumerListingsPage({Key? key, required this.store}) : super(key: key);

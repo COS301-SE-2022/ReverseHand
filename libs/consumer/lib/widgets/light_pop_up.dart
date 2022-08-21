@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class LightPopUpCardWidget extends StatelessWidget {
   final Widget popUpWidget;
+  final double height;
   const LightPopUpCardWidget({
     Key? key,
     required this.popUpWidget,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -15,14 +17,14 @@ class LightPopUpCardWidget extends StatelessWidget {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: _buildPopUp(context, popUpWidget),
+      child: _buildPopUp(context, popUpWidget, height),
     );
   }
 
-  _buildPopUp(BuildContext context, Widget widget) {
+  _buildPopUp(BuildContext context, Widget widget, double height) {
     return Center(
       child: Container(
-        // height: 320,
+        height: height,
         // width: 1200,
         margin: const EdgeInsets.only(left: 0, right: 0),
         decoration: const BoxDecoration(

@@ -157,17 +157,15 @@ class _SignUpPageState extends State<SignUpPage> {
                             function: () {
                               vm.dispatchSignUpAction(
                                 emailController.value.text.trim(),
-                              
-                                
                                 passwordController.value.text.trim(),
                               );
 
                               DarkDialogHelper.display(
-                                context,
-                                PopupWidget(
-                                  store: widget.store,
-                                ),
-                              ); //trigger OTP popup
+                                  context,
+                                  PopupWidget(
+                                    store: widget.store,
+                                  ),
+                                  1000.0); //trigger OTP popup
                             },
                           ),
                         ),
@@ -246,8 +244,10 @@ class _Factory extends VmFactory<AppState, _SignUpPageState> {
 class _ViewModel extends Vm {
   final VoidCallback pushLoginPage;
   final VoidCallback pushLocationPage;
-  final void Function(String, String,)
-      dispatchSignUpAction;
+  final void Function(
+    String,
+    String,
+  ) dispatchSignUpAction;
 
   _ViewModel({
     required this.dispatchSignUpAction,

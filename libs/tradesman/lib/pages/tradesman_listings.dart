@@ -53,11 +53,11 @@ class TradesmanJobListings extends StatelessWidget {
         floatingActionButton: TradesmanFloatingButtonWidget(
           function: () {
             DarkDialogHelper.display(
-              context,
-              FilterPopUpWidget(
-                store: store,
-              ),
-            );
+                context,
+                FilterPopUpWidget(
+                  store: store,
+                ),
+                1000.0);
           },
           type: "filter",
         ),
