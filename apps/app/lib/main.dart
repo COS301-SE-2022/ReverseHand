@@ -1,3 +1,4 @@
+import 'package:admin/pages/admin_advert_details_page.dart';
 import 'package:admin/pages/admin_advert_reports_page.dart';
 import 'package:admin/pages/admin_consumer_profile_page.dart';
 import 'package:admin/pages/admin_consumer_reports_page.dart';
@@ -109,6 +110,7 @@ class Launch extends StatelessWidget {
           '/admin_consumer_reports': (context) => AdminConsumerReportsPage(store: store),
           '/admin_consumer_profile': (context) => AdminConsumerProfilePage(store: store),
           '/admin_consumer_advert_reports': (context) => AdminAdvertReportsPage(store: store),
+          '/admin_consumer_advert_details': (context) => AdminAdvertDetailsPage(store: store),
         },
       ),
     );

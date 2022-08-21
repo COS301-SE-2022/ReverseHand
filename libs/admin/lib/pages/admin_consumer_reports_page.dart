@@ -27,10 +27,9 @@ class AdminConsumerReportsPage extends StatelessWidget {
               return Column(
                 children: [
                   //*******************APP BAR WIDGET*********************//
-                  AppBarWidget(title: "Customer Reports", store: store),
+                  AppBarWidget(title: "Reported Customers", store: store),
                   //********************************************************//
 
-                  //if there are adverts, heading should be displayed
                   if (vm.reportedCustomers.isNotEmpty) 
                     Column(
                       children: [...reportedUsers],
@@ -59,7 +58,6 @@ class _Factory extends VmFactory<AppState, AdminConsumerReportsPage> {
 
 // view model
 class _ViewModel extends Vm {
-  // final void Function(String) dispatchViewBidsAction;
   final List<ReportedUserModel> reportedCustomers;
 
   _ViewModel({

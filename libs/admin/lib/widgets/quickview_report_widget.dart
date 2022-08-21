@@ -1,31 +1,21 @@
- import 'package:async_redux/async_redux.dart';
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/admin/set_current_advert_action.dart';
-import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/admin/reported_advert_model.dart';
+import 'package:redux_comp/models/admin/advert_report_model.dart';
+import 'package:redux_comp/redux_comp.dart';
 
-//*********************************************** */
-// Reported Advert card layout widget
-//*********************************************** */
-
-class QuickViewReportedAdvertCardWidget extends StatelessWidget {
-  final ReportedAdvertModel advert; // Current user
+class QuickviewReportWidget extends StatelessWidget {
   final Store<AppState> store;
-
-  const QuickViewReportedAdvertCardWidget({
-    Key? key,
-    required this.advert,
-    required this.store,
-  }) : super(key: key);
+  final AdvertReportModel report;
+const QuickviewReportWidget({ Key? key, required this.store, required this.report }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return StoreProvider<AppState>(
       store: store,
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
-        builder: (BuildContext context, _ViewModel vm) => InkWell(
-          onTap: () => vm.dispatchViewAdvertDetails(advert.id),
+        builder: (BuildContext context, _ViewModel vm) { return InkWell(
+          onTap: () {},
           child: Card(
             margin: const EdgeInsets.all(10),
             // color: Theme.of(context).primaryColorLight,
@@ -44,7 +34,7 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 1.3,
-                        child: Text(advert.advert.title,
+                        child: Text(report.tradesmanId,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -60,46 +50,50 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                           ),
                           const Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 0)),
-                          Text(advert.count.toString(),
+                          Text(report.reason,
                             style: const TextStyle(
                               fontSize: 20, color: Colors.black))
                         ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(150, 4, 5, 2),
-                        child: Text("Warning: 5",
-                            style: TextStyle(
-                                fontSize: 18, color: Color.fromARGB(255, 70, 70, 70))),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.numbers,
+                            color: Colors.black,
+                            size: 25.0,
+                          ),
+                          const Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 0)),
+                          Text(report.description,
+                            style: const TextStyle(
+                              fontSize: 20, color: Colors.black))
+                        ],
                       ),
+                      
                     ],
                   ),
                 ],
               ),
             ),
           ),
-        ),
+        );},
       ),
     );
   }
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, QuickViewReportedAdvertCardWidget> {
+class _Factory extends VmFactory<AppState, QuickviewReportWidget> {
   _Factory(widget) : super(widget);
 
   @override
-  _ViewModel fromStore() => _ViewModel(
-        dispatchViewAdvertDetails: (reportId) => dispatch(
-          SetCurrentAdvertAction(reportId),
-        ),
+  _ViewModel fromStore() => _ViewModel(    
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String) dispatchViewAdvertDetails;
 
-  _ViewModel({
-    required this.dispatchViewAdvertDetails,
-  });
+  _ViewModel();
 }

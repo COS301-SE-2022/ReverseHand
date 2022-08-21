@@ -35,7 +35,6 @@ class AdminAdvertReportsPage extends StatelessWidget {
                         store: store),
                     //********************************************************//
 
-                    //if there are adverts, heading should be displayed
                     if (vm.reportedAds.isNotEmpty)
                       Column(
                         children: [...reportedAds],
