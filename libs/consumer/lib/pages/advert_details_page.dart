@@ -109,7 +109,7 @@ class AdvertDetailsPage extends StatelessWidget {
                           color: "light",
                           function: () {
                             LightDialogHelper.display(
-                                context, const DeletePopUpWidget(), 320);
+                                context, const DeletePopUpWidget(), 320.0);
                           },
                         ),
                       ),
