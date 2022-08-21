@@ -14,7 +14,7 @@ dependencies:
     
   async_redux: ^15.0.0
 
-  redux_comp: 
+  redux_comp:  
     path: '../redux_comp'
     
   general:

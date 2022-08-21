@@ -52,7 +52,7 @@ class AdminNavBarWidget extends StatelessWidget {
                               style: TextStyle(fontSize: 25),
                             ),
                             onPressed: () {
-                              vm.pushAdvertReports();
+                              vm.pushConsumerReports();
                             },
                             splashRadius: 30,
                             highlightColor: Colors.orange,
@@ -66,7 +66,7 @@ class AdminNavBarWidget extends StatelessWidget {
                               style: TextStyle(fontSize: 25),
                             ),
                             onPressed: () {
-                              vm.pushBidReports();
+                              vm.pushTradesmanReports();
                             },
                             splashRadius: 30,
                             highlightColor: Colors.orange,
@@ -112,10 +112,10 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushAdvertReports: () => dispatch(
-          NavigateAction.pushReplacementNamed('/admin_advert_reports'),
+        pushConsumerReports: () => dispatch(
+          NavigateAction.pushNamedAndRemoveUntil('/admin_consumer_reports', ModalRoute.withName('/')),
         ),
-        pushBidReports: () => dispatch(
+        pushTradesmanReports: () => dispatch(
           NavigateAction.pushNamed('/'),
         ),
         pushActivityStreamPage: () => dispatch(
@@ -129,14 +129,14 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushAdvertReports;
-  final VoidCallback pushBidReports;
+  final VoidCallback pushConsumerReports;
+  final VoidCallback pushTradesmanReports;
   final VoidCallback pushActivityStreamPage;
   final VoidCallback pushProfilePage;
 
   _ViewModel({
-    required this.pushAdvertReports,
-    required this.pushBidReports,
+    required this.pushConsumerReports,
+    required this.pushTradesmanReports,
     required this.pushActivityStreamPage,
     required this.pushProfilePage,
   });

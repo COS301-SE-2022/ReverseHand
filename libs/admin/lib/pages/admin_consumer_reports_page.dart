@@ -6,9 +6,9 @@ import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/models/admin/reported_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class AdminAdvertReports extends StatelessWidget {
+class AdminConsumerReportsPage extends StatelessWidget {
   final Store<AppState> store;
-  const AdminAdvertReports({Key? key, required this.store}) : super(key: key);
+  const AdminConsumerReportsPage({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class AdminAdvertReports extends StatelessWidget {
 
 
 // factory for view model
-class _Factory extends VmFactory<AppState, AdminAdvertReports> {
+class _Factory extends VmFactory<AppState, AdminConsumerReportsPage> {
   _Factory(widget) : super(widget);
 
   @override

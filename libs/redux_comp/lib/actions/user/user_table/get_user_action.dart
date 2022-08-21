@@ -174,7 +174,7 @@ class GetUserAction extends ReduxAction<AppState> {
         break;
       case "Admin":
         dispatch(GetReportedCustomersAction(city: "Pretoria"));
-        dispatch(NavigateAction.pushNamed("/admin_advert_reports"));
+        dispatch(NavigateAction.pushNamed("/admin_consumer_reports"));
         break;
     }
     // wait until error has finished before stopping loading

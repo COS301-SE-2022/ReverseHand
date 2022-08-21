@@ -2,19 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/admin/set_current_user_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/admin/reported_user_model.dart';
+import 'package:redux_comp/models/admin/reported_advert_model.dart';
 
 //*********************************************** */
-// Reported Customers card layout widget
+// Reported Advert card layout widget
 //*********************************************** */
 
-class QuickViewReportedUserCardWidget extends StatelessWidget {
-  final ReportedUserModel user; // Current user
+class QuickViewReportedAdvertCardWidget extends StatelessWidget {
+  final ReportedAdvertModel advert; // Current user
   final Store<AppState> store;
 
-  const QuickViewReportedUserCardWidget({
+  const QuickViewReportedAdvertCardWidget({
     Key? key,
-    required this.user,
+    required this.advert,
     required this.store,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class QuickViewReportedUserCardWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          onTap: () => vm.dispatchViewProfileAction(user.id),
+          onTap: () {},
           child: Card(
             margin: const EdgeInsets.all(10),
             // color: Theme.of(context).primaryColorLight,
@@ -44,7 +44,7 @@ class QuickViewReportedUserCardWidget extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 1.3,
-                        child: Text(user.name,
+                        child: Text(advert.advert.title,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -54,13 +54,13 @@ class QuickViewReportedUserCardWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(
-                            Icons.email,
+                            Icons.numbers,
                             color: Colors.black,
                             size: 25.0,
                           ),
                           const Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 0)),
-                          Text(user.email,
+                          Text(advert.count.toString(),
                             style: const TextStyle(
                               fontSize: 20, color: Colors.black))
                         ],
@@ -84,7 +84,7 @@ class QuickViewReportedUserCardWidget extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, QuickViewReportedUserCardWidget> {
+class _Factory extends VmFactory<AppState, QuickViewReportedAdvertCardWidget> {
   _Factory(widget) : super(widget);
 
   @override

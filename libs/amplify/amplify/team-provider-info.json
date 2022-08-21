@@ -149,6 +149,10 @@
         "getReportedCustomers": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getReportedCustomers-65653732613556597970-build.zip"
+        },
+        "getCustomerReportedAdverts": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getCustomerReportedAdverts-6a375639657275784d77-build.zip"
         }
       }
     }
