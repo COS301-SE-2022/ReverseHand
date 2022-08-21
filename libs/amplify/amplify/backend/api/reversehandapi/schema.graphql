@@ -23,6 +23,9 @@ type Query {
 
   getNotifications(user_id: String!): [Notification!]!
   @function(name: "getNotificationsResolver-${env}")
+
+  getUserStatistics(user_id: String!): Statistics!
+  @function(name: "getUserStatisticsResolver-${env}")
 }
 
 type Mutation {
@@ -134,7 +137,25 @@ type User implements UniqueID {
   domains: [Domain!]
   tradetypes: [String!]
   reviews: [Review!]
-  sum: Int #For the time being nullable but will be changed once things like create user initialize this to zero
+  sum: Int, #For the time being nullable but will be changed once things like create user initialize this to zero
+  advertsWon: [String] 
+}
+
+type Statistics {
+  rating_sum: Int!,
+  num_reviews: Int!,
+  consumer_stats: ConsumerStats!,
+  tradesman_stats: TradesmanStats!
+}
+
+type ConsumerStats{
+  num_adverts_won: Int!,
+  num_adverts_created: Int!
+}
+
+type TradesmanStats{
+  num_jobs_won: Int!,
+  num_bids_placed: Int!
 }
 
 type Chat {

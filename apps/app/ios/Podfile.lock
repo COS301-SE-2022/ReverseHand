@@ -76,7 +76,7 @@ PODS:
   - path_provider_ios (0.0.1):
     - Flutter
   - Starscream (4.0.4)
-  - SwiftFormat/CLI (0.49.16)
+  - SwiftFormat/CLI (0.49.17)
   - SwiftLint (0.48.0)
 
 DEPENDENCIES:
@@ -149,7 +149,7 @@ SPEC CHECKSUMS:
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
-  SwiftFormat: 6cbe842d41ab5b9713c0d34e0d3dd12186bccd72
+  SwiftFormat: 64ac3f15bbfc3c830103a17340bcc5b60d9a3acd
   SwiftLint: 284cea64b6187c5d6bd83e9a548a64104d546447
 
 PODFILE CHECKSUM: efd43c12b0d50fe0ebc6ec0718d186c90c94e0f2

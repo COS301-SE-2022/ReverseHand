@@ -73,7 +73,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand"
+            "REVERSEHAND": "ReverseHand",
+            "USER": "User"
           }
         },
         "Role": {
@@ -193,7 +194,8 @@
                 "dynamodb:Query",
                 "dynamodb:Scan",
                 "dynamodb:Delete*",
-                "dynamodb:UpdateItem"
+                "dynamodb:UpdateItem",
+                "dynamodb:GetItem"
               ],
               "Resource": [
                 {
@@ -209,6 +211,14 @@
                     "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
                     {
                       "tablename": "ReverseHand"
+                    }
+                  ]
+                },
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
+                    {
+                      "tablename": "User"
                     }
                   ]
                 }
