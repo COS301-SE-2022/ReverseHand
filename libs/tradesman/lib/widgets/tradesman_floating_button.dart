@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-
 class TradesmanFloatingButtonWidget extends StatelessWidget {
   final void Function() function;
-  const TradesmanFloatingButtonWidget({Key? key, required this.function})
+  final String type;
+  const TradesmanFloatingButtonWidget(
+      {Key? key, required this.function, required this.type})
       : super(key: key);
 
   @override
@@ -11,7 +12,9 @@ class TradesmanFloatingButtonWidget extends StatelessWidget {
     return FloatingActionButton(
       onPressed: function,
       backgroundColor: Colors.orange,
-      child: const Icon(Icons.filter_alt),
+      child: type == "filter"
+          ? const Icon(Icons.filter_alt)
+          : const Icon(Icons.add),
     );
   }
 }

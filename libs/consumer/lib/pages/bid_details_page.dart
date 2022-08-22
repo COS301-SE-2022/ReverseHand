@@ -138,7 +138,8 @@ class BidDetailsPage extends StatelessWidget {
                                 store: store,
                                 shortlisted:
                                     vm.bid.isShortlisted() ? true : false,
-                              ));
+                              ),
+                              320.0);
                         }),
                   ),
 

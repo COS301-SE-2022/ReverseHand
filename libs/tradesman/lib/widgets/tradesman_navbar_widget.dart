@@ -23,8 +23,8 @@ class TNavBarWidget extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.black,
-              spreadRadius: 3,
-              blurRadius: 8,
+              spreadRadius: 2,
+              blurRadius: 5,
             ),
           ],
         ),

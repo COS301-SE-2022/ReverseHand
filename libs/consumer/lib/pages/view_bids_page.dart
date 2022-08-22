@@ -64,11 +64,11 @@ class ViewBidsPage extends StatelessWidget {
                       color: "dark",
                       function: () {
                         DarkDialogHelper.display(
-                          context,
-                          FilterPopUpWidget(
-                            store: store,
-                          ),
-                        );
+                            context,
+                            FilterPopUpWidget(
+                              store: store,
+                            ),
+                            1000.0);
                       },
                     ),
                   ],

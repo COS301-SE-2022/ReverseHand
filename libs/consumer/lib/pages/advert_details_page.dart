@@ -89,20 +89,18 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: ButtonWidget(
                           text: "Close job",
                           function: () {
-                            LightDialogHelper.display(
-                              context,
-                              RatingPopUpWidget(
-                                onPressed: () {
-                                  vm.dispatchDeleteChatAction();
-                                  vm.pushConsumerListings();
-                                },
-                              ),
-                            );
+                            LightDialogHelper.display(context,
+                                RatingPopUpWidget(
+                              onPressed: () {
+                                vm.dispatchDeleteChatAction();
+                                vm.pushConsumerListings();
+                              },
+                            ), 1000.0);
                           },
                         ),
                       ),
 
-                    //Delete 
+                    //Delete
                     if (vm.advert.acceptedBid == null)
                       Positioned(
                         top: 75,
@@ -111,9 +109,7 @@ class AdvertDetailsPage extends StatelessWidget {
                           color: "light",
                           function: () {
                             LightDialogHelper.display(
-                              context,
-                              const DeletePopUpWidget(),
-                            );
+                                context, const DeletePopUpWidget(), 320.0);
                           },
                         ),
                       ),
