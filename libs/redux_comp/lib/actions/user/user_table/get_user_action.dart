@@ -181,5 +181,6 @@ class GetUserAction extends ReduxAction<AppState> {
     // wait until error has finished before stopping loading
     store.waitCondition((state) => state.error == ErrorType.none);
     dispatch(WaitAction.remove("flag"));
+    dispatch(WaitAction.remove("auto-login"));
   }
 }

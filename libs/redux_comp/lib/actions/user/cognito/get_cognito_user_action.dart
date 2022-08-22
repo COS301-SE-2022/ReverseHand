@@ -43,6 +43,8 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
   Future<void> after() async {
     if (state.error == ErrorType.none) {
       dispatch(CheckUserExistsAction());
-    } 
+    } else {
+      dispatch(WaitAction.remove("auto-login"));
+    }
   }
 }
