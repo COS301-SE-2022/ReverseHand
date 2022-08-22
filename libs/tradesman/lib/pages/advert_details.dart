@@ -56,8 +56,8 @@ class TradesmanJobDetails extends StatelessWidget {
                       child: ButtonWidget(
                           text: "Place Bid",
                           function: () {
-                            DarkDialogHelper.display(
-                                context, PlaceBidPopupWidget(store: store));
+                            DarkDialogHelper.display(context,
+                                PlaceBidPopupWidget(store: store), 1000.0);
                           })),
 
                   //view bids

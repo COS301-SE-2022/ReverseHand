@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 
 class PopupCardWidget extends StatelessWidget {
   final Widget popUpWidget;
+  final double height;
   const PopupCardWidget({
     Key? key,
     required this.popUpWidget,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -17,11 +19,11 @@ class PopupCardWidget extends StatelessWidget {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: _buildPopUp(context, popUpWidget),
+      child: _buildPopUp(context, popUpWidget, height),
     );
   }
 
-  _buildPopUp(BuildContext context, Widget widget) {
+  _buildPopUp(BuildContext context, Widget widget, double height) {
     return Center(
       child: Container(
         height: MediaQuery.of(context).size.height,
@@ -38,7 +40,7 @@ class PopupCardWidget extends StatelessWidget {
         ),
         child: Center(
           child: SizedBox(
-            // height: 500,
+            height: height,
             width: 1200,
             child: widget, //call external popup widget
           ),

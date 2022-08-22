@@ -49,7 +49,10 @@ class DomainConfirmPage extends StatelessWidget {
         floatingActionButton: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) =>
-              TradesmanFloatingButtonWidget(function: vm.pushCustomSearch),
+              TradesmanFloatingButtonWidget(
+            function: vm.pushCustomSearch,
+            type: "add",
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         // bottomNavigationBar: TNavBarWidget(

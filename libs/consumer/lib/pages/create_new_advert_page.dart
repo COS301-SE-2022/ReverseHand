@@ -1,10 +1,13 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/job_creation_popup.dart';
+import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/textfield.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -69,8 +72,11 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               //********************************************************//
 
               //title
+              const Padding(padding: EdgeInsets.only(top: 20)),
+              const HintWidget(text: "Enter a title"),
+
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 50, 15, 5),
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                 child: TextFieldWidget(
                   label: "Title",
                   obscure: false,
@@ -80,29 +86,19 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 ),
               ),
 
-              //**************************DIVIDER**********************//
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Divider(
-                  height: 20,
-                  thickness: 0.5,
-                  indent: 15,
-                  endIndent: 15,
-                  color: Theme.of(context).primaryColorLight,
-                ),
-              ),
-              //******************************************************//
-
               //trade type
+              const HintWidget(text: "Select all relevant trade types"),
+
               Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                   child: InkWell(
+                    // tick boxes and not radio buttons?
                     onTap: () => showRadioSelect(),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10),
                               border: Border.all(color: Colors.grey, width: 1)),
                           child: Padding(
                               padding: const EdgeInsets.all(20.0),
@@ -112,22 +108,11 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                               ))),
                     ),
                   )),
-              //**************************DIVIDER**********************//
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Divider(
-                  height: 20,
-                  thickness: 0.5,
-                  indent: 15,
-                  endIndent: 15,
-                  color: Theme.of(context).primaryColorLight,
-                ),
-              ),
-              //******************************************************//
 
               //description
+              const HintWidget(text: "Enter a short description of the job"),
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 child: TextFieldWidget(
                   label: "Description",
                   obscure: false,
@@ -136,13 +121,55 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                   initialVal: null,
                 ),
               ),
+
+              //location
+              const HintWidget(
+                  text:
+                      "The address for the job. Only the city will be displayed"),
+              StoreConnector<AppState, _ViewModel>(
+                vm: () => _Factory(this),
+                builder: (BuildContext context, _ViewModel vm) => Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.grey, width: 1)),
+                          child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //GET THE WHOLE ADDRESS?
+                                  Text(
+                                    widget.store.state.userDetails!.location!
+                                        .address.city,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                  InkWell(
+                                    onTap:
+                                        () {}, //should be able to change the location of the job on tap
+                                    child: const Text(
+                                      "change address",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.white70,
+                                          decoration: TextDecoration.underline),
+                                    ),
+                                  ),
+                                ],
+                              ))),
+                    )),
+              ),
               //*************************************************//
 
               StoreConnector<AppState, _ViewModel>(
                 vm: () => _Factory(this),
                 builder: (BuildContext context, _ViewModel vm) => Column(
                   children: [
-                    const Padding(padding: EdgeInsets.fromLTRB(10 ,20, 20, 10)),
+                    const Padding(padding: EdgeInsets.fromLTRB(10, 20, 20, 10)),
 
                     //*********CREATE JOB BUTTON******************//
                     vm.loading
@@ -164,6 +191,9 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   trade!,
                                   descrController.value.text,
                                 );
+                              } else {
+                                (LightDialogHelper.display(
+                                    context, const CreationPopupWidget(), 320.0));
                               }
                             },
                           ),
