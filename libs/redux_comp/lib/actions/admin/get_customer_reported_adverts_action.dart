@@ -25,6 +25,7 @@ class GetCustomerReportedAdvertsAction extends ReduxAction<AppState> {
         type
         domain {
           city
+          province
           coordinates {
             lat
             lng
