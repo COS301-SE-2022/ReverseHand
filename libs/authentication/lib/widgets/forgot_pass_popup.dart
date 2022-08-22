@@ -9,17 +9,16 @@ import 'package:redux_comp/app_state.dart';
 import '../pages/login_page.dart';
 import 'link_widget.dart';
 
-
 //******************************** */
-// OTP popup widget
+// Frogot Password  popup widget
 //******************************** */
 
-class OTPPopupWidget extends StatelessWidget {
+class ForgotPassPopUpWidget extends StatelessWidget {
   final otpController = TextEditingController();
 
   final Store<AppState> store;
 
-  OTPPopupWidget({
+  ForgotPassPopUpWidget({
     Key? key,
     required this.store,
   }) : super(key: key);
@@ -37,7 +36,7 @@ class OTPPopupWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               alignment: Alignment.topCenter,
               child: const Text(
-                "Enter verification code sent to your email",
+                "Enter email to receive OTP to reset password",
                 style: TextStyle(fontSize: 21),
                 textAlign: TextAlign.center,
               ),
@@ -89,8 +88,10 @@ class OTPPopupWidget extends StatelessWidget {
   }
 }
 
+//to be edited once integreated
+
 // factory for view model
-class _Factory extends VmFactory<AppState, OTPPopupWidget> {
+class _Factory extends VmFactory<AppState, ForgotPassPopUpWidget> {
   _Factory(widget) : super(widget);
 
   @override
