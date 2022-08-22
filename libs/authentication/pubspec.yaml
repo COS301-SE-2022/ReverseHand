@@ -12,8 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_native_splash: ^2.2.8
-
   amplify_flutter: ^0.6.0
 
   async_redux: ^15.0.0
@@ -32,6 +30,7 @@ dependencies:
 
   amplify:
     path: '../../libs/amplify'
+
 
 dev_dependencies:
   flutter_test:
