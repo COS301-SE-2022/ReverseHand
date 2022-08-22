@@ -9,6 +9,7 @@ import 'package:general/widgets/button.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
@@ -24,19 +25,27 @@ class AdvertDetailsPage extends StatelessWidget {
       store: store,
       child: Scaffold(
         // backgroundColor: Theme.of(context).primaryColorLight,
-        body: StoreConnector<AppState, _ViewModel>(
+        
+        body: SingleChildScrollView(
+        child: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) =>
-              SingleChildScrollView(
-            child: Column(
+          builder: (BuildContext context, _ViewModel vm) {
+
+            return (vm.loading) ? Column(
               children: [
                 //**********APPBAR***********//
                 AppBarWidget(title: "JOB INFO", store: store),
                 //*******************************************//
 
-                if (vm.loading) {
+                 LoadingWidget(padding: MediaQuery.of(context).size.height/3)
+              ],
+            ) :
 
-                } else {
+              Column(
+              children: [
+                //**********APPBAR***********//
+                AppBarWidget(title: "JOB INFO", store: store),
+                //*******************************************//
 
                 //**********DETAILED JOB INFORMATION***********//
                 JobCardWidget(
@@ -144,9 +153,11 @@ class AdvertDetailsPage extends StatelessWidget {
                   ],
                 ),
                 //*************BOTTOM BUTTONS**************//
-                }
+                
               ],
-            ),
+            );
+          }
+              
           ),
         ),
         //************************NAVBAR***********************/
