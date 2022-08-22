@@ -34,6 +34,10 @@ class AdvertDetailsPage extends StatelessWidget {
                 AppBarWidget(title: "JOB INFO", store: store),
                 //*******************************************//
 
+                if (vm.loading) {
+
+                } else {
+
                 //**********DETAILED JOB INFORMATION***********//
                 JobCardWidget(
                   titleText: vm.advert.title,
@@ -47,14 +51,14 @@ class AdvertDetailsPage extends StatelessWidget {
                 //******************EDIT ICON****************//
                 //should only be displayed if no bid has been accepted
                 if (vm.advert.acceptedBid == null)
-                  (Padding(
+                  Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: IconButton(
                       onPressed: vm.pushEditAdvert,
                       icon: const Icon(Icons.edit),
                       color: Colors.white70,
                     ),
-                  )),
+                  ),
                 //**********************************************/
 
                 //extra padding if there is an accepted bid
@@ -140,6 +144,7 @@ class AdvertDetailsPage extends StatelessWidget {
                   ],
                 ),
                 //*************BOTTOM BUTTONS**************//
+                }
               ],
             ),
           ),
@@ -172,6 +177,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         popPage: () => dispatch(NavigateAction.pop()),
         advert: state.activeAd!,
         dispatchDeleteChatAction: () => dispatch(DeleteChatAction()),
+        loading: state.wait.isWaiting,
       );
 }
 
@@ -183,6 +189,7 @@ class _ViewModel extends Vm {
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
   final VoidCallback dispatchDeleteChatAction;
+  final bool loading;
 
   _ViewModel({
     required this.dispatchDeleteChatAction,
@@ -191,5 +198,6 @@ class _ViewModel extends Vm {
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
     required this.popPage,
-  }) : super(equals: [advert]); // implementinf hashcode
+    required this.loading,
+  }) : super(equals: [advert, loading]); // implementinf hashcode
 }

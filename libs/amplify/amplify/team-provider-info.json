@@ -152,7 +152,7 @@
         },
         "getCustomerReportedAdverts": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getCustomerReportedAdverts-556658595974564e4d64-build.zip"
+          "s3Key": "amplify-builds/getCustomerReportedAdverts-546a364e614873556d56-build.zip"
         }
       }
     }
