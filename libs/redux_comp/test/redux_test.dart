@@ -37,6 +37,7 @@ void main() {
     name: 'someone',
     cellNo: '0821234567',
     userType: 'Consumer',
+    externalProvider: false,
   );
 
   test('Test to get UserId', () {

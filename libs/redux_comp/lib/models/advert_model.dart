@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 
 @immutable
 class AdvertModel {
@@ -7,9 +8,9 @@ class AdvertModel {
   final String? description;
   final String? type;
   final String? acceptedBid;
-  final String location;
-  final String dateCreated;
-  final String? dateClosed;
+  final Domain domain;
+  final double dateCreated;
+  final double? dateClosed;
 
   const AdvertModel({
     required this.id,
@@ -17,7 +18,7 @@ class AdvertModel {
     this.description,
     this.type,
     this.acceptedBid,
-    required this.location,
+    required this.domain,
     required this.dateCreated,
     this.dateClosed,
   });
@@ -27,11 +28,11 @@ class AdvertModel {
       id: obj['id'],
       title: obj['title'],
       description: obj['description'],
-      type: null,
+      type: obj['type'],
       acceptedBid: obj['accepted_bid'],
-      location: obj['location'],
-      dateCreated: obj['date_created'],
-      dateClosed: obj['date_closed'],
+      domain: Domain.fromJson(obj['domain']),
+      dateCreated: obj['date_created'].toDouble(),
+      dateClosed: obj['date_closed']?.toDouble(),
     );
   }
 
@@ -43,7 +44,7 @@ class AdvertModel {
       description == other.description &&
       type == other.type &&
       acceptedBid == other.acceptedBid &&
-      location == other.location &&
+      domain == other.domain &&
       dateCreated == other.dateCreated &&
       dateClosed == other.dateCreated;
 
@@ -54,7 +55,7 @@ class AdvertModel {
         description,
         type,
         acceptedBid,
-        location,
+        domain,
         dateCreated,
         dateClosed,
       );

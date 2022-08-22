@@ -4,6 +4,12 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
+import '../methods/time.dart';
+
+//*********************************************** */
+// Job Listings card layout widget
+//*********************************************** */
+
 class QuickViewJobCardWidget extends StatelessWidget {
   final AdvertModel advert; // Current advert
   final Store<AppState> store;
@@ -23,50 +29,66 @@ class QuickViewJobCardWidget extends StatelessWidget {
         builder: (BuildContext context, _ViewModel vm) => InkWell(
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
-            margin: const EdgeInsets.all(10),
-            color: Theme.of(context).primaryColorLight,
+            margin: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+            //experimenting with colours currenlty
+            // color: Theme.of(context).primaryColorLight,
+            // color: const Color.fromARGB(255, 220, 224, 230),
+            color: const Color.fromARGB(255, 232, 232, 232),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(7),
             ),
             elevation: 2,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-              child: Row(
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisSize: MainAxisSize.min,
+                  const EdgeInsets.symmetric(vertical: 11.0, horizontal: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.3,
+                    child: Text(advert.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            const TextStyle(fontSize: 30, color: Colors.black)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 5, 5, 2),
+                    child: Text(
+                      timestampToDate(advert.dateCreated),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      //not working yet?
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.3,
-                        child: Text(advert.title,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontSize: 30, color: Colors.white)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
-                        child: Text(advert.dateCreated,
-                            style: const TextStyle(
-                                fontSize: 18, color: Colors.white70)),
-                      ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const Icon(
                             Icons.location_on,
-                            color: Colors.white,
-                            size: 30.0,
+                            color: Colors.black,
+                            size: 25.0,
                           ),
-                          const Padding(
-                              padding: EdgeInsets.fromLTRB(5, 0, 0, 0)),
-                          Text(advert.location,
+                          Text(advert.domain.city,
                               style: const TextStyle(
-                                  fontSize: 20, color: Colors.white))
+                                  fontSize: 20, color: Colors.black)),
                         ],
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          //MICHAEL
+                          //   "Posted: ${advert.dateCreated}",
+                          "Posted: 16/08",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 70, 70, 70)),
+                          maxLines: 1,
+                        ),
                       ),
                     ],
                   ),
@@ -98,5 +120,5 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.dispatchViewBidsAction,
-  }); // implementinf hashcode
+  });
 }

@@ -1,17 +1,17 @@
 import 'dart:async';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/foundation.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+import 'get_chats_action.dart';
 
-class GetChatsAction extends ReduxAction<AppState> {
+class SubscribMessagesAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     final String userType = state.userDetails!.userType;
 
     String graphQLDocument = '''subscription {
-      getMessageUpdates$userType(${userType.toLowerCase()}: "${state.userDetails!.id}") {
+      getMessageUpdates$userType(${userType.toLowerCase()}_id: "${state.userDetails!.id}") {
         consumer_id
         tradesman_id
         msg
@@ -24,10 +24,6 @@ class GetChatsAction extends ReduxAction<AppState> {
     final request = GraphQLRequest(document: graphQLDocument);
 
     try {
-      /* final response = */ await Amplify.API
-          .mutate(request: request)
-          .response;
-
       final Stream<GraphQLResponse<dynamic>> operation = Amplify.API.subscribe(
         request,
         onEstablished: () => debugPrint('Subscription established'),

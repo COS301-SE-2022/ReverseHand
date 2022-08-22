@@ -41,6 +41,19 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSBonjourServices</key>
+	<array>
+    	<string>_dartobservatory._tcp</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+     <array>
+         <dict>
+             <key>CFBundleURLSchemes</key>
+             <array>
+                 <string>reversehandapp</string>
+             </array>
+         </dict>
+     </array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>

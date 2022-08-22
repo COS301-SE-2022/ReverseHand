@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//used in consumer and tradesman
+
 class ButtonWidget extends StatelessWidget {
   final String text;
   final String?
@@ -34,7 +36,7 @@ class ButtonWidget extends StatelessWidget {
                     : border == "lightBlue"
                         ? Theme.of(context).primaryColorDark
                         : const Color.fromRGBO(255, 153, 0, 1)),
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.circular(15.0),
           )),
       onPressed: function,
       child: Padding(

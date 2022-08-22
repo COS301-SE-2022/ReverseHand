@@ -1,13 +1,13 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:general/widgets/navbar.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/adverts/edit_advert_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class EditAdvertPage extends StatelessWidget {
@@ -25,90 +25,86 @@ class EditAdvertPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          resizeToAvoidBottomInset:
-              false, //prevents floatingActionButton appearing above keyboard
-          backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) {
-                titleController.text = vm.advert.title;
-                descriptionController.text =
-                    vm.advert.description != null ? vm.advert.description! : "";
+      child: Scaffold(
+        resizeToAvoidBottomInset:
+            false, //prevents floatingActionButton appearing above keyboard
+        backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) {
+              return Column(
+                children: <Widget>[
+                  //*******************APP BAR WIDGET*********************//
+                  AppBarWidget(title: "EDIT JOB", store: store),
+                  //********************************************************//
 
-                return Column(
-                  children: <Widget>[
-                    //*******************APP BAR WIDGET*********************//
-                    const AppBarWidget(title: "EDIT JOB"),
-                    //********************************************************//
-
-                    //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
-                      child: TextFieldWidget(
-                        label: "Title",
-                        obscure: false,
-                        min: 2,
-                        controller: titleController,
-                      ),
+                  //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
+                    child: TextFieldWidget(
+                      initialVal: vm.advert.title,
+                      label: "Title",
+                      obscure: false,
+                      min: 2,
+                      controller: titleController,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
-                      child: TextFieldWidget(
-                        label: "Description",
-                        obscure: false,
-                        min: 3,
-                        controller: descriptionController,
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
+                    child: TextFieldWidget(
+                      initialVal: vm.advert.description,
+                      label: "Description",
+                      obscure: false,
+                      min: 3,
+                      controller: descriptionController,
                     ),
-                    //*************************************************//
+                  ),
+                  //*************************************************//
 
-                    StoreConnector<AppState, _ViewModel>(
-                      vm: () => _Factory(this),
-                      builder: (BuildContext context, _ViewModel vm) => Column(
-                        children: [
-                          const Padding(padding: EdgeInsets.all(50)),
+                  StoreConnector<AppState, _ViewModel>(
+                    vm: () => _Factory(this),
+                    builder: (BuildContext context, _ViewModel vm) => Column(
+                      children: [
+                        const Padding(padding: EdgeInsets.all(50)),
 
-                          //*********CREATE JOB BUTTON******************//
-                          vm.loading
-                              ? const LoadingWidget()
-                              : ButtonWidget(
-                                  text: "Save Changes",
-                                  // check to make sure input is good
-                                  function: () => vm.dispatchEditAdvertAction(
+                        //*********CREATE JOB BUTTON******************//
+                        vm.loading
+                            ? const LoadingWidget(padding: 0)
+                            : ButtonWidget(
+                                text: "Save Changes",
+                                // check to make sure input is good
+                                function: () => vm.dispatchEditAdvertAction(
                                     advertId: vm.advert.id,
                                     title: titleController.value.text,
                                     description:
                                         descriptionController.value.text,
-                                  ), //need to dispatch save job action?
-                                ),
-                          //********************************************//
-                          const Padding(padding: EdgeInsets.all(5)),
+                                    domain: vm.advert
+                                        .domain), //need to dispatch save job action?
+                              ),
+                        //********************************************//
+                        const Padding(padding: EdgeInsets.all(5)),
 
-                          //************DISCARD BUTTON*****************//
-                          ButtonWidget(
-                            text: "Discard",
-                            color: "dark",
-                            function: vm.popPage,
-                          )
-                          //********************************************//
-                        ],
-                      ),
+                        //************DISCARD BUTTON*****************//
+                        ButtonWidget(
+                          text: "Discard",
+                          color: "dark",
+                          function: vm.popPage,
+                        )
+                        //********************************************//
+                      ],
                     ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                ],
+              );
+            },
           ),
-          //************************NAVBAR***********************/
-          bottomNavigationBar: NavBarWidget(
-            store: store,
-          ),
-          //*****************************************************/
         ),
+        //************************NAVBAR***********************/
+        bottomNavigationBar: NavBarWidget(
+          store: store,
+        ),
+        //*****************************************************/
       ),
     );
   }
@@ -126,7 +122,7 @@ class _Factory extends VmFactory<AppState, EditAdvertPage> {
         dispatchEditAdvertAction: ({
           required String advertId,
           String? title,
-          String? location,
+          Domain? domain,
           String? description,
           String? type,
         }) =>
@@ -135,7 +131,7 @@ class _Factory extends VmFactory<AppState, EditAdvertPage> {
             advertId: advertId,
             description: description,
             type: type,
-            location: location,
+            domain: domain,
             title: title,
           ),
         ),
@@ -149,7 +145,7 @@ class _ViewModel extends Vm {
   final void Function({
     required String advertId,
     String? title,
-    String? location,
+    Domain? domain,
     String? description,
     String? type,
   }) dispatchEditAdvertAction;

@@ -1,11 +1,28 @@
 export type AmplifyDependentResourcesAttributes = {
+    "storage": {
+        "S3ReverseHand": {
+            "BucketName": "string",
+            "Region": "string"
+        }
+    },
     "auth": {
         "reversehandc4d19aa6c4d19aa6": {
+            "IdentityPoolId": "string",
+            "IdentityPoolName": "string",
+            "HostedUIDomain": "string",
+            "OAuthMetadata": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string"
+            "AppClientID": "string",
+            "GoogleWebClient": "string",
+            "FacebookWebClient": "string"
+        },
+        "userPoolGroups": {
+            "customerGroupRole": "string",
+            "tradesmanGroupRole": "string",
+            "adminGroupRole": "string"
         }
     },
     "api": {
@@ -148,6 +165,30 @@ export type AmplifyDependentResourcesAttributes = {
             "LambdaExecutionRole": "string"
         },
         "getTradesmanMessagesResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "deleteChatResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "getNotificationsResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "deleteReviewResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "getUserStatisticsResolver": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

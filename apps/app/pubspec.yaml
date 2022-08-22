@@ -54,6 +54,9 @@ dependencies:
   authentication:
     path: '../../libs/authentication'
 
+  geolocation:
+    path: '../../libs/geolocation'
+    
   chat:
     path: '../../libs/chat'
 

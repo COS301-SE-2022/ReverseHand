@@ -40,7 +40,7 @@ exports.handler = async (event) => {
                 sort_key: shortBidId, // prefixing but keeping same suffix
                 bid_details: {
                     id: shortBidId,
-                    tradesman_id: bid['bid_details']['tradesman_id'],
+                    tradesman_id: bid['tradesman_id'],
                     name: bid['bid_details']['name'],
                     price_lower: bid['bid_details']['price_lower'],
                     price_upper: bid['bid_details']['price_upper'],

@@ -1,15 +1,14 @@
 // the actual chat between 2 user
 
 import 'package:async_redux/async_redux.dart';
-import 'package:chat/widgets/chat_appbar.dart';
+import 'package:chat/widgets/chat_appbar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
-import 'package:general/widgets/navbar.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
+import 'package:redux_comp/actions/chat/send_message_action.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 import '../widgets/action_bar_widget.dart';
-import '../widgets/message_tile.dart';
+import '../widgets/message_tile_widget.dart';
 
 class ChatPage extends StatelessWidget {
   final Store<AppState> store;
@@ -20,55 +19,54 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) {
-                List<MessageOwnTileWidget> ownMessages = [];
-                List<MessageTileWidget> messages = [];
+      child: StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) {
+          List<Widget> messages = [];
 
-                for (MessageModel msg in vm.chat.messages) {
-                  if (vm.currentUser == msg.sender) {
-                    ownMessages.add(
-                      MessageOwnTileWidget(
-                        message: msg.msg,
-                      ),
-                    );
-                  } else {
-                    messages.add(
-                      MessageTileWidget(
-                        message: msg.msg,
-                      ),
-                    );
-                  }
-                }
+          for (MessageModel msg in vm.chat.messages) {
+            if (vm.currentUser == msg.sender) {
+              messages.add(
+                MessageOwnTileWidget(
+                  message: msg,
+                ),
+              );
+            } else {
+              messages.add(
+                MessageTileWidget(
+                  message: msg,
+                ),
+              );
+            }
+          }
 
-                return Column(
+            return Scaffold(
+              body: SingleChildScrollView(
+                child: Column(
                   children: [
                     //*******************APP BAR WIDGET*********************//
-                    const ChatAppBarWidget(title: "Name"),
+                    ChatAppBarWidget(
+                      title: vm.currentUser == "consumer"
+                          ? vm.chat.tradesmanName
+                          : vm.chat.consumerName,
+                    ),
                     //********************************************************//
                     // const DateLabelWidget(label: "Yesterday"), //todo michael
 
-                    //todo michael
-                    ...ownMessages,
-                    ...messages,
-                  ],
-                );
-              },
+                  //todo michael
+                  ...messages,
+                ],
+              ),
             ),
-          ),
+            //************************NAVBAR***********************/
 
-          //************************NAVBAR***********************/
-          bottomSheet: const ActionBarWidget(),
-          bottomNavigationBar: NavBarWidget(
-            store: store,
-          ),
-          //*****************************************************/
-        ),
+            bottomSheet: ActionBarWidget(
+              onPressed: vm.dispatchSendMsgAction,
+            ),
+
+            //*****************************************************/
+          );
+        },
       ),
     );
   }
@@ -80,6 +78,7 @@ class _Factory extends VmFactory<AppState, ChatPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+        dispatchSendMsgAction: (String msg) => dispatch(SendMessageAction(msg)),
         chat: state.chat,
         currentUser: state.userDetails!.userType.toLowerCase(),
       );
@@ -89,9 +88,11 @@ class _Factory extends VmFactory<AppState, ChatPage> {
 class _ViewModel extends Vm {
   final ChatModel chat;
   final String currentUser;
+  final void Function(String msg) dispatchSendMsgAction;
 
   _ViewModel({
+    required this.dispatchSendMsgAction,
     required this.chat,
     required this.currentUser,
-  }); // implementinf hashcode
+  }) : super(equals: [chat]); // implementinf hashcode
 }

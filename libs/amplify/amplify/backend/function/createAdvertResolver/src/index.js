@@ -22,15 +22,12 @@ exports.handler = async (event) => {
     try {
         // getting current date
         const date = new Date();
-        const dd = String(date.getDate()).padStart(2, '0');
-        const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-        const yyyy = date.getFullYear();
-        const currentDate = mm + '-' + dd + '-' + yyyy;
+        const currentDate = date.getTime();
         
         let params = {
             TableName: ReverseHandTable,
             Key: {
-              part_key: event.arguments.location,
+              part_key: event.arguments.domain.city,
               sort_key: event.arguments.type
             },
             UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad)`,
@@ -51,7 +48,7 @@ exports.handler = async (event) => {
                 advert_details: {
                     title: event.arguments.title,
                     description: event.arguments.description,
-                    location: event.arguments.location,
+                    domain: event.arguments.domain,
                     type: event.arguments.type,
                     date_created: currentDate // automatically generating the date
                 }

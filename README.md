@@ -5,7 +5,7 @@
 <img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/COS301-SE-2022/ReverseHand">
 [![codecov](https://codecov.io/gh/COS301-SE-2022/ReverseHand/branch/develop/graph/badge.svg?token=FP6940JI0D)](https://codecov.io/gh/COS301-SE-2022/ReverseHand)
 
-# Cache Money - ReverseHand
+# Cache Money - ReverseHand V0.3.0 Build 115
 ![logo-readme](https://user-images.githubusercontent.com/83949715/168036007-b6e2d8b3-f17b-4f3d-b664-e024118fdf36.png)
 
   <p align="center">
@@ -25,6 +25,18 @@
     <a href="https://drive.google.com/file/d/1BlUn4xhV2aT2wHjxxFXrEgVvRQu-_CTw/view?usp=sharing">SRS Documentation-V2</a>
     | 📋
     <a href="https://drive.google.com/file/d/1qt9nwzzKl4dw6GhQM0cZwAHEaprfs-uy/view?usp=sharing">User Manual</a>
+  </p> <br/>
+  <p align="center">
+    🎥
+    <a href="https://drive.google.com/file/d/1Q-wLO-P9Tui2k-YTL4j2UUdFl5fYrfyy/view?usp=sharing">CacheMoney-Demo3</a>
+    | 📝
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V3.pdf">SRS Documentation-V3</a>
+    | 📋
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/UserManual_v2-ReverseHand.pdf">User Manual</a>
+    | 📔
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/InstallationManual.pdf">Installation Manual</a>
+    | 💻
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
   </p> 
   
   <br />   <br />

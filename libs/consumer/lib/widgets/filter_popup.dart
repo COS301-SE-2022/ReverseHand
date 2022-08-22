@@ -6,6 +6,8 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/filter_bids_model.dart';
 
 // for now staeful change to stateless later using store chanegd variable
+// filter popup
+
 class FilterPopUpWidget extends StatefulWidget {
   final Store<AppState> store;
 

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+//used in tradesman and consumer
+
 class PopupCardWidget extends StatelessWidget {
   final Widget popUpWidget;
+  final double height;
   const PopupCardWidget({
     Key? key,
     required this.popUpWidget,
-  }): super(key: key);
+    required this.height,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,33 +19,31 @@ class PopupCardWidget extends StatelessWidget {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: _buildPopUp(context, popUpWidget),
+      child: _buildPopUp(context, popUpWidget, height),
     );
   }
 
-  _buildPopUp(BuildContext context, Widget widget) {
+  _buildPopUp(BuildContext context, Widget widget, double height) {
     return Center(
       child: Container(
-        height: 500,
+        height: MediaQuery.of(context).size.height,
         width: 900,
         margin: const EdgeInsets.only(left: 0, right: 0),
         decoration: const BoxDecoration(
           color: Color.fromRGBO(35, 47, 62, 0.97),
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30), topRight: Radius.circular(30), bottomRight: Radius.circular(30), bottomLeft: Radius.circular(30)
-          ),
-          // border: Border.all(
-          //   color: Colors.black87,
-          //   width: 5,
-          // ),
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+              bottomLeft: Radius.circular(30)),
         ),
         child: Center(
           child: SizedBox(
-            height: 500,
+            height: height,
             width: 1200,
             child: widget, //call external popup widget
-          ), 
+          ),
         ),
       ),
     );

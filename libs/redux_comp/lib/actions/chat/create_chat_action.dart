@@ -1,4 +1,3 @@
-import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -12,9 +11,11 @@ class CreateChatAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      createChat(c_id: "${state.userDetails!.id}", t_id: "$tradesmanId") {
+      createChat(c_id: "${state.userDetails!.id}", t_id: "$tradesmanId", c_name: "${state.userDetails!.name}", t_name: "${state.activeBid!.name}") {
         consumer_id
         tradesman_id
+        consumer_name
+        tradesman_name
         messages {
           msg
           sender
@@ -45,6 +46,5 @@ class CreateChatAction extends ReduxAction<AppState> {
   @override
   void after() {
     dispatch(GetChatsAction());
-    dispatch(NavigateAction.pushReplacementNamed("/consumer"));
-  } // after bid has been accepted no more to do so leave page and got to main page
+  } // after bid has been accepted, there is nothing more to do so leave page and go to main page
 }

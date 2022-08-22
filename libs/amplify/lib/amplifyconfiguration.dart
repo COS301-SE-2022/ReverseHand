@@ -26,6 +26,20 @@ const amplifyconfig = ''' {
                         "Region": "eu-west-1"
                     }
                 },
+                "S3TransferUtility": {
+                    "Default": {
+                        "Bucket": "reversehandbucket100406-staging",
+                        "Region": "eu-west-1"
+                    }
+                },
+                "CredentialsProvider": {
+                    "CognitoIdentity": {
+                        "Default": {
+                            "PoolId": "eu-west-1:7ea0bd4f-75ce-4ba6-9a44-010030401fa6",
+                            "Region": "eu-west-1"
+                        }
+                    }
+                },
                 "CognitoUserPool": {
                     "Default": {
                         "PoolId": "eu-west-1_QpsSD87RL",
@@ -33,10 +47,34 @@ const amplifyconfig = ''' {
                         "Region": "eu-west-1"
                     }
                 },
+                "GoogleSignIn": {
+                    "Permissions": "email,profile,openid",
+                    "ClientId-WebApp": "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
+                },
+                "FacebookSignIn": {
+                    "AppId": "459283716090620",
+                    "Permissions": "public_profile"
+                },
                 "Auth": {
                     "Default": {
+                        "OAuth": {
+                            "WebDomain": "reversehand2ce3b132-2ce3b132-staging.auth.eu-west-1.amazoncognito.com",
+                            "AppClientId": "5sjgir76gfiuar2iu2t6v4ml5a",
+                            "SignInRedirectURI": "reversehandapp://",
+                            "SignOutRedirectURI": "reversehandapp://",
+                            "Scopes": [
+                                "phone",
+                                "email",
+                                "openid",
+                                "profile",
+                                "aws.cognito.signin.user.admin"
+                            ]
+                        },
                         "authenticationFlowType": "USER_SRP_AUTH",
-                        "socialProviders": [],
+                        "socialProviders": [
+                            "FACEBOOK",
+                            "GOOGLE"
+                        ],
                         "usernameAttributes": [
                             "EMAIL"
                         ],
@@ -75,6 +113,11 @@ const amplifyconfig = ''' {
                 "arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/User",
                 "partitionKeyName": "user_id",
                 "partitionKeyType": "S"
+            },
+            "awsS3StoragePlugin": {
+                "bucket": "reversehandbucket100406-staging",
+                "region": "eu-west-1",
+                "defaultAccessLevel": "guest"
             }
         }
     }

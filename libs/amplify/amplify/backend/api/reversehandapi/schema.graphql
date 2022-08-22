@@ -8,7 +8,7 @@ type Query {
   viewAdverts(user_id: String!): [Advert]!
     @function(name: "viewAdvertsResolver-${env}")
 
-  viewJobs(locations: [String]!, type: String!): [Advert]!
+  viewJobs(locations: [String!]!, types: [String!]!): [Advert]!
     @function(name: "viewJobsResolver-${env}")
 
   viewUser(user_id: String!): User! @function(name: "viewUserResolver-${env}")
@@ -20,6 +20,12 @@ type Query {
 
   getTradesmanChats(c_id: String!): [Chat!]!
   @function(name: "getTradesmanMessagesResolver-${env}")
+
+  getNotifications(user_id: String!): [Notification!]!
+  @function(name: "getNotificationsResolver-${env}")
+
+  getUserStatistics(user_id: String!): Statistics!
+  @function(name: "getUserStatisticsResolver-${env}")
 }
 
 type Mutation {
@@ -34,7 +40,7 @@ type Mutation {
     ad_id: String!
     title: String!
     description: String
-    location: String!
+    domain: DomainInput!
     type: String!
   ): Advert! @function(name: "createAdvertResolver-${env}")
 
@@ -66,10 +72,10 @@ type Mutation {
 
   editAdvert(
     ad_id: String!
-    title: String!
+    title: String
     description: String
     type: String
-    location: String
+    domain: DomainInput
     date_closed: String
   ): Advert! @function(name: "editAdvertResolver-${env}")
 
@@ -91,17 +97,27 @@ type Mutation {
     user_id: String!
     name: String
     location: LocationInput
-    domains: [DomainInput!]!
+    tradetypes: [String]
+    domains: [DomainInput]
   ): User @function(name: "editUserDetailResolver-${env}")
 
   removeDomain(user_id: String!, domain_pos: Int!): Int!
     @function(name: "removeDomainResolver-${env}")
 
-  createChat(c_id: String!, t_id: String!): Chat!
+  createChat(c_id: String!, t_id: String!, c_name: String!, t_name: String!): Chat!
   @function(name: "createChatResolver-${env}")
 
   sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!, name: String!): Message!
   @function(name: "sendMessageResolver-${env}")
+
+  deleteChat(c_id: String!, ad_id: String!): Chat!
+  @function(name: "deleteChatResolver-${env}")
+
+  addReview(user_id: String!, reviews: ReviewInput!) : [Review!]!
+  @function(name: "addReviewResolver-${env}")
+
+  deleteReview(user_id: String!, id: String!) : [Review!]! #id is the review id
+  @function(name: "deleteReviewResolver-${env}")
 }
 
 type Subscription {
@@ -120,9 +136,31 @@ type User implements UniqueID {
   location: Location!
   domains: [Domain!]
   tradetypes: [String!]
+  reviews: [Review!]
+  sum: Int, #For the time being nullable but will be changed once things like create user initialize this to zero
+  advertsWon: [String] 
+}
+
+type Statistics {
+  rating_sum: Int!,
+  num_reviews: Int!,
+  consumer_stats: ConsumerStats!,
+  tradesman_stats: TradesmanStats!
+}
+
+type ConsumerStats{
+  num_adverts_won: Int!,
+  num_adverts_created: Int!
+}
+
+type TradesmanStats{
+  num_jobs_won: Int!,
+  num_bids_placed: Int!
 }
 
 type Chat {
+  consumer_name: String!
+  tradesman_name: String!
   consumer_id: String!
   tradesman_id: String!
   messages: [Message!]!
@@ -189,9 +227,9 @@ type Advert implements UniqueID {
   description: String
   type: String
   accepted_bid: String
-  location: String # temporary
-  date_created: String! # temporary
-  date_closed: String # temporary
+  domain: Domain!
+  date_created: Float!
+  date_closed: Float
 }
 
 type Bid implements UniqueID {
@@ -205,27 +243,39 @@ type Bid implements UniqueID {
   date_closed: String
 }
 
-type Notification implements UniqueID {
-  id: String!
-  user_id: String!
-  notification: String # temporary
-  date_created: String # temporary
-  seen: Boolean!
+type Notification  {
+  title: String!
+  msg: String!
+  type: NotificationType!
+  timestamp: Float!
 }
 
 type Review implements UniqueID {
   id: String!
-  rating: Int
-  comment: String
+  rating: Int!
+  description: String!
   user_id: String!
   advert_id: String!
-  date_created: String!
+  date_created: Int
+}
+
+input ReviewInput {
+  id: String!
+  rating: Int!
+  description: String!
+  user_id: String!
+  advert_id: String!
+  date_created: Int
 }
 
 # add more jobs here as we think of them
 enum JobType {
   Plumbing
   Painting
+}
+
+enum NotificationType {
+  bidShortlisted
 }
 
 interface UniqueID {

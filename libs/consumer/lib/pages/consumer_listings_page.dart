@@ -1,14 +1,13 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
+import 'package:consumer/widgets/consumer_floating_button.dart';
 import 'package:general/widgets/loading_widget.dart';
-
+import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import '../methods/populate_adverts.dart';
-import 'package:general/widgets/navbar.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/floating_button.dart';
+
 
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -19,86 +18,133 @@ class ConsumerListingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
-                children: [
-                  //*******************APP BAR WIDGET*********************//
-                  const AppBarWidget(title: "MY JOBS"),
-                  //********************************************************//
+      child: Scaffold(
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) {
+            List<Widget> open = [];
+            List<Widget> inProgress = [];
 
-                  //if there are adverts, heading should be displayed
-                  if (vm.adverts.isNotEmpty)
-                    Column(
-                      children: [
-                        //******************OPEN HEADING***********************//
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 18.0),
+            for (AdvertModel advert in vm.adverts) {
+              if (advert.dateClosed != null) {
+                continue;
+              }
+
+              if (advert.acceptedBid == null) {
+                open.add(
+                  QuickViewJobCardWidget(
+                    advert: advert,
+                    store: store,
+                  ),
+                );
+              } else {
+                inProgress.add(
+                  QuickViewJobCardWidget(
+                    advert: advert,
+                    store: store,
+                  ),
+                );
+              }
+            }
+
+            return DefaultTabController(
+                length: 2,
+                child: Column(
+                  children: [
+                    //*******************APP BAR WIDGET*********************//
+                    AppBarWidget(title: "MY JOBS", store: store),
+                    //********************************************************//
+
+                    //*******************TAB BAR LABELS***********************//
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: TabBar(
+                        indicatorColor: Theme.of(context).primaryColor,
+                        tabs: const [
+                          Padding(
+                            padding: EdgeInsets.all(15.0),
                             child: Text(
                               "OPEN",
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white60),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
-                        ),
-                        //******************************************************//
-
-                        //**************************DIVIDER**********************//
-                        Divider(
-                          height: 20,
-                          thickness: 0.5,
-                          indent: 15,
-                          endIndent: 15,
-                          color: Theme.of(context).primaryColorLight,
-                        ),
-                        //******************************************************//
-                      ],
-                    ),
-
-                  // populating column with adverts
-                  if (vm.loading) const LoadingWidget(),
-
-                  ...populateAdverts(vm.adverts, store),
-
-                  //************MESSAGE IF THERE ARE NO ADVERTS***********/
-                  if (vm.adverts.isEmpty)
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: (MediaQuery.of(context).size.height) / 3),
-                      child: const Text(
-                        "There are no\n active jobs",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 25, color: Colors.white54),
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              "IN PROGRESS",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  //*****************************************************/
-                ],
-              ),
-            ),
-          ),
+                    //********************************************************//
 
-          //************************NAVBAR***********************/
-          floatingActionButton: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) =>
-                FloatingButtonWidget(
-              function: vm.pushCreateAdvertPage,
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-
-          bottomNavigationBar: NavBarWidget(
-            store: store,
-          ),
-          //*****************************************************/
+                    //*********************TAB FUNCTIONALITY******************//
+                    Expanded(
+                        child: TabBarView(children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            //display loading icon
+                            if (vm.loading)
+                              const LoadingWidget(padding: 80)
+                            //a message if no jobs
+                            else if (open.isEmpty)
+                              (const Padding(
+                                padding: EdgeInsets.fromLTRB(40, 100, 40, 40),
+                                child: (Text(
+                                  "You do not have any active jobs. Create a new job to see it here and enable contractors to start bidding.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white70),
+                                )),
+                              )),
+                            //else populate the jobs
+                            ...open
+                          ],
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            //a message if no in progress jobs
+                            if (inProgress.isEmpty)
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(40, 100, 40, 40),
+                                child: (Text(
+                                  "No jobs are currently in progress. Only jobs with accepted bids are displayed here.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white70),
+                                )),
+                              ),
+                            //else display in progress jobs
+                            ...inProgress
+                          ],
+                        ),
+                      ),
+                    ])),
+                    //********************************************************//
+                  ],
+                ));
+          },
         ),
+
+        //************************NAVBAR***********************/
+        floatingActionButton: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) =>
+              ConsumerFloatingButtonWidget(
+            function: vm.pushCreateAdvertPage,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+        bottomNavigationBar: NavBarWidget(
+          store: store,
+        ),
+        //*****************************************************/
       ),
     );
   }

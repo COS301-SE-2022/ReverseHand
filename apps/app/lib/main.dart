@@ -1,5 +1,10 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
+import 'package:authentication/pages/usertype_selection_page.dart';
+import 'package:consumer/pages/activity_stream_page.dart';
+import 'package:general/general.dart';
+import 'package:geolocation/pages/custom_location_search_page.dart';
+import 'package:geolocation/pages/location_confirm_page.dart';
 import 'package:chat/pages/chat_page.dart';
 import 'package:chat/pages/chat_selection_page.dart';
 import 'package:consumer/consumer.dart';
@@ -12,12 +17,12 @@ import 'package:consumer/pages/view_bids_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/pages/activity_stream_page.dart';
-import 'package:tradesman/pages/edit_bids_page.dart';
+import 'package:tradesman/pages/bid_details_page.dart';
 import 'package:tradesman/pages/domain_confirmation_page.dart';
+import 'package:tradesman/pages/edit_bid_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
-import 'package:tradesman/pages/location_confirm_page.dart';
 import 'package:tradesman/tradesman.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -45,13 +50,12 @@ class Launch extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
+        theme: CustomTheme.darkTheme,
         initialRoute: '/',
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
-          '/': (context) => LoginPage(
-                store: store,
-              ),
+          '/': (context) => LoginPage(store: store),
           // consumer routes
           '/consumer': (context) => ConsumerListingsPage(store: store),
           '/consumer/create_advert': (context) =>
@@ -67,6 +71,8 @@ class Launch extends StatelessWidget {
           '/consumer/view_bids': (context) => ViewBidsPage(store: store),
           '/consumer/edit_advert_page': (context) =>
               EditAdvertPage(store: store),
+          '/consumer/activity_stream': (context) =>
+              ConsumerActivityStream(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
@@ -76,18 +82,23 @@ class Launch extends StatelessWidget {
               EditTradesmanProfilePage(store: store),
           '/tradesman/view_bids_page': (context) =>
               TradesmanViewBidsPage(store: store),
-          '/tradesman/advert_details/edit_bid': (context) =>
-              EditBidsPage(store: store),
+          '/tradesman/advert_details/bid_details': (context) =>
+              TBidDetailsPage(store: store),
+          '/tradesman/edit_bid': (context) => TEditBidPage(store: store),
           '/tradesman/activity_stream': (context) =>
-              ActivityStream(store: store),
-          '/tradesman/location_confirm': (context) =>
+              TradesmanActivityStream(store: store),
+          '/geolocation/location_confirm': (context) =>
               LocationConfirmPage(store: store),
+          '/geolocation/custom_location_search': (context) =>
+              CustomLocationSearchPage(store: store),
           '/tradesman/domain_confirm': (context) =>
               DomainConfirmPage(store: store),
           '/tradesman/view_bids': (context) =>
               TradesmanViewBidsPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
+          '/usertype_selection': (context) =>
+              UserTypeSelectionPage(store: store),
           '/login': (context) => LoginPage(store: store),
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),

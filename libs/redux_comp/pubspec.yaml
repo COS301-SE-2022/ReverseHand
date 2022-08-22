@@ -16,16 +16,19 @@ dependencies:
     path: ../geolocation
 
   # amplify
-  amplify_flutter: ^0.5.1
-  amplify_auth_cognito: ^0.5.1
-  amplify_api: ^0.5.1
+  amplify_flutter: ^0.6.0
+  amplify_auth_cognito: ^0.6.0
+  amplify_api: ^0.6.0
+  amplify_storage_s3: ^0.6.0
 
   # redux
   async_redux: ^15.0.0
 
   # other
   uuid: ^3.0.6
+  path_provider: ^2.0.11
   jwt_decode: ^0.3.1
+  geolocator: ^9.0.1
 
   amplify:
     path: '../amplify'
@@ -33,10 +36,12 @@ dependencies:
   general:
     path: '../general'
 
+  http: ^0.13.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

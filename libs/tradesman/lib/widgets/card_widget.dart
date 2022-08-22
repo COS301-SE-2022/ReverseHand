@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
+import 'package:redux_comp/actions/user/user_table/remove_domain_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
+
+//******************************** */
+//  domain list card widget
+//******************************** */
 
 class CardWidget extends StatelessWidget {
   final String title;
@@ -41,7 +46,7 @@ class CardWidget extends StatelessWidget {
                     ButtonWidget(
                       text: "Delete",
                       color: "light",
-                      function: vm.pushLocationConfirmPage,
+                      function: () => vm.dispatchRemoveDomainAction(title),
                     ),
                   ],
                 ),
@@ -60,16 +65,16 @@ class _Factory extends VmFactory<AppState, CardWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      pushLocationConfirmPage: () => dispatch(
-            NavigateAction.pushNamed('/tradesman/location_confirm'),
+      dispatchRemoveDomainAction: (String city) => dispatch(
+            RemoveDomainAction(city),
           ));
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushLocationConfirmPage;
+  final void Function(String city) dispatchRemoveDomainAction;
 
   _ViewModel({
-    required this.pushLocationConfirmPage,
+    required this.dispatchRemoveDomainAction,
   });
 }
