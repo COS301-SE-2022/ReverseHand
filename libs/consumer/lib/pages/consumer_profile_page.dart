@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/bottom_sheet.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -9,7 +10,8 @@ import 'package:general/widgets/profile_divider.dart';
 
 class ConsumerProfilePage extends StatelessWidget {
   final Store<AppState> store;
-  const ConsumerProfilePage({Key? key, required this.store}) : super(key: key);
+  final nameController = TextEditingController();
+  ConsumerProfilePage({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class ConsumerProfilePage extends StatelessWidget {
                 //********************************************************//
 
                 const Padding(padding: EdgeInsets.only(top: 20)),
-                
+
                 //**************HEADING***************/
                 Center(
                   child: Text(
@@ -105,57 +107,9 @@ class ConsumerProfilePage extends StatelessWidget {
                 ),
                 //***********************************/
 
-                //************NAME*******************/
-                Padding(
-                  padding: const EdgeInsets.only(left: 100, top: 20),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.person,
-                        color: Colors.white70,
-                        size: 26.0,
-                      ),
-                      const Padding(padding: EdgeInsets.only(right: 8)),
-                      Text(
-                        (vm.userDetails.name != null)
-                            ? vm.userDetails.name!
-                            : "null",
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-                //************************************/
-
-                const ProfileDividerWidget(),
-
-                //************CELL*******************/
-                Padding(
-                  padding: const EdgeInsets.only(left: 100, top: 5),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.phone,
-                        color: Colors.white70,
-                        size: 26.0,
-                      ),
-                      const Padding(padding: EdgeInsets.only(right: 8)),
-                      Text(
-                          (vm.userDetails.cellNo != null)
-                              ? vm.userDetails.cellNo!
-                              : "null",
-                          style: const TextStyle(
-                              fontSize: 20, color: Colors.white)),
-                    ],
-                  ),
-                ),
-                //************************************/
-
-                const ProfileDividerWidget(),
-
                 //************EMAIL*******************/
                 Padding(
-                  padding: const EdgeInsets.only(left: 100, top: 5),
+                  padding: const EdgeInsets.only(left: 40, right: 30, top: 20),
                   child: Row(
                     children: [
                       const Icon(
@@ -174,23 +128,91 @@ class ConsumerProfilePage extends StatelessWidget {
 
                 const ProfileDividerWidget(),
 
-                //************LOCATION*****************/
+                //************NAME*******************/
                 Padding(
-                  padding: const EdgeInsets.only(left: 100, top: 5),
+                  padding: const EdgeInsets.only(left: 40, right: 30),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(
-                        Icons.location_on,
-                        color: Colors.white70,
-                        size: 26.0,
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.person,
+                            color: Colors.white70,
+                            size: 26.0,
+                          ),
+                          const Padding(padding: EdgeInsets.only(right: 8)),
+                          Text(
+                            (vm.userDetails.name != null)
+                                ? vm.userDetails.name!
+                                : "null",
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ],
                       ),
-                      const Padding(padding: EdgeInsets.only(right: 8)),
-                      Text(
-                          (vm.userDetails.location != null)
-                              ? "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}"
-                              : "null",
-                          style: const TextStyle(
-                              fontSize: 20, color: Colors.white)),
+                      IconButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (BuildContext context) {
+                                  return BottomSheetWidget(
+                                      text: "What name would you like to save?",
+                                      initialVal: vm.userDetails.name,
+                                      controller: nameController);
+                                });
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 15,
+                          )),
+                    ],
+                  ),
+                ),
+                //************************************/
+                const ProfileDividerWidget(),
+
+                //************CELL*******************/
+                Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.phone,
+                            color: Colors.white70,
+                            size: 26.0,
+                          ),
+                          const Padding(padding: EdgeInsets.only(right: 8)),
+                          Text(
+                              (vm.userDetails.cellNo != null)
+                                  ? vm.userDetails.cellNo!
+                                  : "null",
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.white)),
+                        ],
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (BuildContext context) {
+                                  return BottomSheetWidget(
+                                      text:
+                                          "What cell number would you like to save?",
+                                      initialVal: vm.userDetails.cellNo,
+                                      controller: nameController);
+                                });
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 15,
+                          ))
                     ],
                   ),
                 ),
@@ -198,16 +220,53 @@ class ConsumerProfilePage extends StatelessWidget {
 
                 const ProfileDividerWidget(),
 
-                //*****************EDIT***************/
+                //************LOCATION*****************/
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: IconButton(
-                    onPressed: vm.pushEditProfilePage,
-                    icon: const Icon(Icons.edit),
-                    color: Colors.white70,
+                  padding: const EdgeInsets.only(left: 40, right: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on,
+                            color: Colors.white70,
+                            size: 26.0,
+                          ),
+                          const Padding(padding: EdgeInsets.only(right: 8)),
+                          Text(
+                              (vm.userDetails.location != null)
+                                  ? "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}"
+                                  : "null",
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.white)),
+                        ],
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (BuildContext context) {
+                                  return BottomSheetWidget(
+                                      text:
+                                          "What location would you like to save?",
+                                      initialVal:
+                                          vm.userDetails.location!.address.city,
+                                      controller: nameController);
+                                });
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 15,
+                          ))
+                    ],
                   ),
                 ),
                 //************************************/
+
+                const ProfileDividerWidget(),
 
                 //**********TEMP LOGOUT BUTTON********/
                 IconButton(
@@ -240,23 +299,25 @@ class ConsumerProfilePage extends StatelessWidget {
 class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
   _Factory(widget) : super(widget);
 
+  //Just making sure edit page is not necessary before it is removed from viewmodel
+
   @override
   _ViewModel fromStore() => _ViewModel(
-      pushEditProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/consumer/edit_profile_page'),
-          ),
+      // pushEditProfilePage: () => dispatch(
+      //       NavigateAction.pushNamed('/consumer/edit_profile_page'),
+      //     ),
       dispatchLogoutAction: () => dispatch(LogoutAction()),
       userDetails: state.userDetails!);
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushEditProfilePage;
+  // final VoidCallback pushEditProfilePage;
   final UserModel userDetails;
   final void Function() dispatchLogoutAction;
 
   _ViewModel({
-    required this.pushEditProfilePage,
+    // required this.pushEditProfilePage,
     required this.userDetails,
     required this.dispatchLogoutAction,
   }) : super(equals: [userDetails]);
