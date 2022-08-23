@@ -43,12 +43,15 @@ class ChatPage extends StatelessWidget {
           }
 
           // setting scroll
-          if (scrollController.hasClients) {
-            scrollController.animateTo(
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (scrollController.hasClients) {
+              scrollController.animateTo(
                 scrollController.position.maxScrollExtent,
                 duration: const Duration(seconds: 1),
-                curve: Curves.ease);
-          }
+                curve: Curves.ease,
+              );
+            }
+          });
 
           return Scaffold(
             body: SingleChildScrollView(
