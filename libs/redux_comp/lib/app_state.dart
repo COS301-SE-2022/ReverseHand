@@ -4,6 +4,7 @@ import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/review_model.dart';
+import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
 import 'models/error_type_model.dart';
@@ -32,6 +33,9 @@ class AppState {
   final bool change; // used to show that state changed and must rebuild
   final Wait wait; // for progress indicators
   final List<ReviewModel> reviews; //holds the list of a users reviews.
+  final int sum; //this represents the sum of a users reviews
+  final List<String> advertsWon; //adverts tradesman won.
+  final StatisticsModel? userStatistics;
 
   // chat functionality
   final List<ChatModel> chats; // all chats
@@ -55,15 +59,22 @@ class AppState {
       required this.wait,
       required this.chats,
       required this.chat,
-      required this.reviews});
+      required this.reviews,
+      required this.sum,
+      required this.advertsWon,
+      required this.userStatistics});
 
   // this methods sets the starting state for the store
   factory AppState.initial() {
     return AppState(
       authModel: null,
-      userDetails: const UserModel(id: "", email: "", userType: "", externalProvider: false),
+      userDetails: const UserModel(
+          id: "", email: "", userType: "", externalProvider: false),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
+      advertsWon: const [],
+      sum: 0,
+      userStatistics: null,
       viewAdverts: const [],
       bids: const [],
       shortlistBids: const [],
@@ -117,6 +128,9 @@ class AppState {
       shortlistBids: const [],
       viewBids: const [],
       reviews: const [],
+      sum: 0,
+      userStatistics: null,
+      advertsWon: const [],
       activeAd: null,
       activeBid: null,
       locationResult: null,
@@ -133,44 +147,48 @@ class AppState {
     );
   }
   // easy way to replace store wihtout specifying all paramters
-  AppState copy({
-    CognitoAuthModel? authModel,
-    UserModel? userDetails,
-    PartialUser? partialUser,
-    List<AdvertModel>? adverts,
-    List<AdvertModel>? viewAdverts,
-    List<BidModel>? bids,
-    List<BidModel>? shortlistBids,
-    List<BidModel>? viewBids,
-    List<ReviewModel>? reviews,
-    BidModel? activeBid,
-    AdvertModel? activeAd,
-    Location? locationResult,
-    ErrorType? error,
-    bool? loading,
-    bool? change,
-    Wait? wait,
-    List<ChatModel>? chats,
-    ChatModel? chat,
-  }) {
+  AppState copy(
+      {CognitoAuthModel? authModel,
+      UserModel? userDetails,
+      PartialUser? partialUser,
+      List<AdvertModel>? adverts,
+      List<AdvertModel>? viewAdverts,
+      List<BidModel>? bids,
+      List<BidModel>? shortlistBids,
+      List<BidModel>? viewBids,
+      List<ReviewModel>? reviews,
+      BidModel? activeBid,
+      AdvertModel? activeAd,
+      Location? locationResult,
+      ErrorType? error,
+      bool? loading,
+      bool? change,
+      Wait? wait,
+      List<ChatModel>? chats,
+      ChatModel? chat,
+      List<String>? advertsWon,
+      int? sum,
+      StatisticsModel? userStatistics}) {
     return AppState(
-      authModel: authModel ?? this.authModel,
-      userDetails: userDetails ?? this.userDetails,
-      partialUser: partialUser ?? this.partialUser,
-      adverts: adverts ?? this.adverts,
-      viewAdverts: viewAdverts ?? this.viewAdverts,
-      bids: bids ?? this.bids,
-      reviews: reviews ?? this.reviews,
-      shortlistBids: shortlistBids ?? this.shortlistBids,
-      viewBids: viewBids ?? this.viewBids,
-      activeAd: activeAd ?? this.activeAd,
-      activeBid: activeBid ?? this.activeBid,
-      locationResult: locationResult ?? this.locationResult,
-      error: error ?? this.error,
-      change: change ?? this.change,
-      wait: wait ?? this.wait,
-      chats: chats ?? this.chats,
-      chat: chat ?? this.chat,
-    );
+        authModel: authModel ?? this.authModel,
+        userDetails: userDetails ?? this.userDetails,
+        partialUser: partialUser ?? this.partialUser,
+        adverts: adverts ?? this.adverts,
+        viewAdverts: viewAdverts ?? this.viewAdverts,
+        bids: bids ?? this.bids,
+        reviews: reviews ?? this.reviews,
+        shortlistBids: shortlistBids ?? this.shortlistBids,
+        viewBids: viewBids ?? this.viewBids,
+        activeAd: activeAd ?? this.activeAd,
+        activeBid: activeBid ?? this.activeBid,
+        locationResult: locationResult ?? this.locationResult,
+        error: error ?? this.error,
+        change: change ?? this.change,
+        wait: wait ?? this.wait,
+        chats: chats ?? this.chats,
+        chat: chat ?? this.chat,
+        sum: sum ?? this.sum,
+        advertsWon: advertsWon ?? this.advertsWon,
+        userStatistics: userStatistics ?? this.userStatistics);
   }
 }
