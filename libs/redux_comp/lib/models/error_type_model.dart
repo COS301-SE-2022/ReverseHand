@@ -28,7 +28,8 @@ enum ErrorType {
   localPermissionDenied,
   // generic errors
   noInput,
-  //
+  //userStats errors
+  failedToGetUserStatistics,
 }
 
 // for use later, have each error typer return its own message
