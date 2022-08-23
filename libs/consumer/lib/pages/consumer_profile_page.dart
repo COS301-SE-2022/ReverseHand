@@ -109,7 +109,7 @@ class ConsumerProfilePage extends StatelessWidget {
 
                 //************EMAIL*******************/
                 Padding(
-                  padding: const EdgeInsets.only(left: 40, right: 30, top: 20),
+                  padding: const EdgeInsets.only(left: 40, right: 30, top: 20,bottom: 10),
                   child: Row(
                     children: [
                       const Icon(
