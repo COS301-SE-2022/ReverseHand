@@ -29,10 +29,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
         builder: (BuildContext context, _ViewModel vm) => InkWell(
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
-            margin: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-            //experimenting with colours currenlty
-            // color: Theme.of(context).primaryColorLight,
-            // color: const Color.fromARGB(255, 220, 224, 230),
+            margin: const EdgeInsets.fromLTRB(5, 0, 15, 5),
             color: const Color.fromARGB(255, 232, 232, 232),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(7),
@@ -40,57 +37,56 @@ class QuickViewJobCardWidget extends StatelessWidget {
             elevation: 2,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 11.0, horizontal: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                  const EdgeInsets.symmetric(vertical: 11.0, horizontal: 5),
+              child: Row(
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: Text(advert.title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style:
-                            const TextStyle(fontSize: 30, color: Colors.black)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(3, 5, 5, 2),
-                    child: Text(
-                      timestampToDate(advert.dateCreated),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
+                  Container(
+                      // decoration: ,
+                      child: const Padding(
+                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                    child: Icon(
+                      Icons.construction_outlined,
+                      color: Colors.white,
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                            color: Colors.black,
-                            size: 25.0,
-                          ),
-                          Text(advert.domain.city,
+                  )),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 1.3,
+                          child: Text(advert.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                  fontSize: 20, color: Colors.black)),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 8.0),
-                        child: Text(
-                          //MICHAEL
-                          //   "Posted: ${advert.dateCreated}",
-                          "Posted: 16/08",
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 70, 70, 70)),
-                          maxLines: 1,
+                                  fontSize: 28,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
                         ),
-                      ),
-                    ],
+                        const Padding(padding: EdgeInsets.only(top: 8)),
+                        Row(
+                          children: [
+                            Text(advert.domain.city,
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.black)),
+                            const Padding(padding: EdgeInsets.only(right: 10)),
+                            const Icon(Icons.circle_outlined, size: 8),
+                            const Padding(padding: EdgeInsets.only(left: 10)),
+                            Text(advert.type!,
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.black)),
+                          ],
+                        ),
+                        // Text(
+                        //   "Posted ${timestampToDate(advert.dateCreated)}",
+                        //   style: const TextStyle(
+                        //     fontSize: 18,
+                        //     color: Colors.black54,
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
                 ],
               ),
