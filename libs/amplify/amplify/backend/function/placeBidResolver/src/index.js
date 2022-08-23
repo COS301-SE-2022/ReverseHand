@@ -36,5 +36,6 @@ exports.handler = async (event) => {
     await docClient.put(item).promise();
 
     item.Item.bid_details['id'] = event.arguments.bid_id; // bids id to be returned
+    item.Item.bid_details['tradesman_id'] = item.Item.tradesman_id;
     return item.Item.bid_details;
 };
