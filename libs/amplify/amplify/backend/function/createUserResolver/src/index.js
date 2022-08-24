@@ -28,18 +28,7 @@ exports.handler = async (event) => {
                 cellNo: event.arguments.cellNo,
                 notifications: [],
                 reviews: [],
-                location: {
-                    address: {
-                        streetNumber: event.arguments.streetNumber,
-                        street: event.arguments.street,
-                        city: event.arguments.city,
-                        zipCode: event.arguments.zipCode
-                    },
-                    coordinates: {
-                        lat: event.arguments.lat,
-                        lng: event.arguments.lng
-                    }
-                },
+                location: event.arguments.location,
                 sum: 0,
                 adverts_won: []
             }
