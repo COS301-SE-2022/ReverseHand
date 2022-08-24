@@ -1,3 +1,4 @@
+import 'package:admin/widgets/admin_navbar_widget.dart';
 import 'package:admin/widgets/quickview_report_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
@@ -16,40 +17,41 @@ class AdminAdvertDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-        store: store,
-        child: Scaffold(
-            body: SingleChildScrollView(
-                child: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) {
-            
-            List<Widget> reports = [];
-            for (AdvertReportModel report in vm.reports) {
-              reports.add(QuickviewReportWidget(report: report, store: store));
-            }
-            
-            
-            
-            return Column(children: [
-              //**********APPBAR***********//
-              AppBarWidget(title: "JOB INFO", store: store),
-              //*******************************************//
+      store: store,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) {
+              List<Widget> reports = [];
+              for (AdvertReportModel report in vm.reports) {
+                reports
+                    .add(QuickviewReportWidget(report: report, store: store));
+              }
 
-              //**********DETAILED JOB INFORMATION***********//
-              JobCardWidget(
-                titleText: vm.activeAdvert.advert.title,
-                descText: vm.activeAdvert.advert.description ?? "",
-                location: vm.activeAdvert.advert.domain.city,
-                type: vm.activeAdvert.advert.type ?? "",
-                date: timestampToDate(vm.activeAdvert.advert.dateCreated),
-              ),
-              //*******************************************//
+              return Column(children: [
+                //**********APPBAR***********//
+                AppBarWidget(title: "JOB INFO", store: store),
+                //*******************************************//
 
+                //**********DETAILED JOB INFORMATION***********//
+                JobCardWidget(
+                  titleText: vm.activeAdvert.advert.title,
+                  descText: vm.activeAdvert.advert.description ?? "",
+                  location: vm.activeAdvert.advert.domain.city,
+                  type: vm.activeAdvert.advert.type ?? "",
+                  date: timestampToDate(vm.activeAdvert.advert.dateCreated),
+                ),
+                //*******************************************//
 
-              ...reports
-            ]);
-          },
-        ))));
+                ...reports
+              ]);
+            },
+          ),
+        ),
+        bottomNavigationBar: AdminNavBarWidget(store: store),
+      ),
+    );
   }
 }
 
