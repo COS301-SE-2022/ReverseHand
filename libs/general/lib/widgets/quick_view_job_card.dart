@@ -4,8 +4,6 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
-import '../methods/time.dart';
-
 //*********************************************** */
 // Job Listings card layout widget
 //*********************************************** */
@@ -29,33 +27,35 @@ class QuickViewJobCardWidget extends StatelessWidget {
         builder: (BuildContext context, _ViewModel vm) => InkWell(
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
-            margin: const EdgeInsets.fromLTRB(5, 0, 15, 5),
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 7),
             color: const Color.fromARGB(255, 232, 232, 232),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(7),
             ),
             elevation: 2,
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 11.0, horizontal: 5),
+              padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 5),
               child: Row(
                 children: [
+                  const Padding(padding: EdgeInsets.all(2)),
                   Container(
-                      // decoration: ,
-                      child: const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: Icon(
-                      Icons.construction_outlined,
-                      color: Colors.white,
-                    ),
-                  )),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                              width: 2, color: Theme.of(context).primaryColor)),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                        child: Icon(Icons.construction_outlined,
+                            color: Theme.of(context).primaryColor),
+                      )),
+                  const Padding(padding: EdgeInsets.all(2)),
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.3,
+                          width: MediaQuery.of(context).size.width / 1.4,
                           child: Text(advert.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
