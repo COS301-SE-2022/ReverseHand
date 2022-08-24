@@ -92,7 +92,7 @@ class AppState {
         userId: "",
         priceLower: 0,
         priceUpper: 0,
-        dateCreated: "",
+        dateCreated: 0,
       ),
       locationResult: null,
       error: ErrorType.none,
