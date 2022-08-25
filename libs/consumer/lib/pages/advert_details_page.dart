@@ -9,6 +9,7 @@ import 'package:general/widgets/button.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/archive_advert_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
@@ -109,7 +110,11 @@ class AdvertDetailsPage extends StatelessWidget {
                           color: "light",
                           function: () {
                             LightDialogHelper.display(
-                                context, const DeletePopUpWidget(), 320.0);
+                                context,
+                                DeletePopUpWidget(
+                                  action: vm.dispatchArchiveAdvertAction,
+                                ),
+                                320.0);
                           },
                         ),
                       ),
@@ -172,6 +177,11 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         popPage: () => dispatch(NavigateAction.pop()),
         advert: state.activeAd!,
         dispatchDeleteChatAction: () => dispatch(DeleteChatAction()),
+        dispatchArchiveAdvertAction: () {
+          dispatch(ArchiveAdvertAction());
+          dispatch(NavigateAction
+              .pop()); // to go back after advert has been archived
+        },
       );
 }
 
@@ -183,6 +193,8 @@ class _ViewModel extends Vm {
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
   final VoidCallback dispatchDeleteChatAction;
+  final VoidCallback
+      dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
 
   _ViewModel({
     required this.dispatchDeleteChatAction,
@@ -191,5 +203,6 @@ class _ViewModel extends Vm {
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
     required this.popPage,
+    required this.dispatchArchiveAdvertAction,
   }) : super(equals: [advert]); // implementinf hashcode
 }
