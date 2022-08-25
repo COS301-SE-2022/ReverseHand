@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:consumer/widgets/shortlist_bid_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:redux_comp/actions/bids/accept_bid_action.dart';
@@ -47,9 +48,13 @@ class BidDetailsPage extends StatelessWidget {
                   Positioned(
                     top: 95,
                     right: 35,
-                    child: Text(vm.bid.dateCreated,
-                        style: const TextStyle(
-                            fontSize: 17, color: Colors.white70)),
+                    child: Text(
+                      timestampToDate(vm.bid.dateCreated),
+                      style: const TextStyle(
+                        fontSize: 17,
+                        color: Colors.white70,
+                      ),
+                    ),
                   ),
                   //***************************//
                 ]),
