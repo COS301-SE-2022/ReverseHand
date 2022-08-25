@@ -17,7 +17,7 @@ exports.handler = async (event) => {
             part_key: event.arguments.ad_id,
             sort_key: event.arguments.ad_id
         },
-        UpdateExpression: 'set advert_details.date_closed = :ab',
+        UpdateExpression: 'set advert_details.date_closed = :date',
         ExpressionAttributeValues: {
             ':date': currentDate,
         },
@@ -33,8 +33,8 @@ exports.handler = async (event) => {
         },
     };
 
-    let data = await docClient.update(item).promise();
-    data['advert_details']['id'] = event.rguments.ad_id;
+    let data = await docClient.get(item).promise();
+    data['Item']['advert_details']['id'] = event.arguments.ad_id;
 
-    return data['advert_details'];
+    return data['Item']['advert_details'];
 };

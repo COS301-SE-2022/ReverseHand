@@ -30,15 +30,17 @@ class DeletePopUpWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //Delete
-            ButtonWidget(text: "Delete", function: () {}),
+            ButtonWidget(
+                text: "Delete",
+                function: () {
+                  action();
+                  Navigator.pop(context);
+                }),
             const Padding(padding: EdgeInsets.all(5)),
             //Cancel
             ButtonWidget(
               text: "Cancel",
-              function: () {
-                action();
-                Navigator.pop(context);
-              },
+              function: () => Navigator.pop(context),
               color: "light",
               border: "lightBlue",
             )

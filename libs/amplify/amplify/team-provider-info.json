@@ -168,7 +168,7 @@
         },
         "archiveAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/archiveAdvertResolver-4c6c3472785633666b6c-build.zip"
+          "s3Key": "amplify-builds/archiveAdvertResolver-4a535339364d556a7939-build.zip"
         }
       }
     }
