@@ -9,7 +9,7 @@ const UserTable = process.env.USER;
 exports.handler = async (event) => {
    try{
 
-    const currentDate = Math.round(new Date().getTime()/1000);
+    const currentDate = new Date().getTime();
     
     //get the data in the database
     let params = {

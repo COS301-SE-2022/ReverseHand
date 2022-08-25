@@ -19,6 +19,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
         description
         domain {
           city
+          province
           coordinates {
             lat
             lng

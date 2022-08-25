@@ -32,15 +32,16 @@ exports.handler = async (event) => {
         await docClient.delete(del).promise();
         
         let shortBidId =  's' + event.arguments.bid_id;
+        
+        console.log(data);
 
         let item = {
             TableName: ReverseHandTable,
             Item: {
                 part_key: event.arguments.ad_id,
                 sort_key: shortBidId, // prefixing but keeping same suffix
+                tradesman_id: bid['tradesman_id'],
                 bid_details: {
-                    id: shortBidId,
-                    tradesman_id: bid['tradesman_id'],
                     name: bid['bid_details']['name'],
                     price_lower: bid['bid_details']['price_lower'],
                     price_upper: bid['bid_details']['price_upper'],
@@ -53,7 +54,8 @@ exports.handler = async (event) => {
 
         await docClient.put(item).promise();
         
-        item.Item.bid_details['tradesman_id'] = bid['bid_details']['tradesman_id'];
+        item.Item.bid_details['tradesman_id'] = bid['tradesman_id'];
+        item.Item.bid_details['id'] = shortBidId;
     
         return item.Item.bid_details;
     } catch(e) {

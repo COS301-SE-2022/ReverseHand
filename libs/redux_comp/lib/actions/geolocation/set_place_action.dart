@@ -19,6 +19,7 @@ class SetPlaceAction extends ReduxAction<AppState> {
           List<Domain> userDomains = List.from(state.userDetails!.domains);
           userDomains.add(Domain(
             city: state.locationResult!.address.city,
+            province: state.locationResult!.address.province,
             coordinates: Coordinates(
                 lat: state.locationResult!.coordinates.lat,
                 lng: state.locationResult!.coordinates.lng),
