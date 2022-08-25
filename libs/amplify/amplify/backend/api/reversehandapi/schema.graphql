@@ -132,6 +132,9 @@ type Mutation {
 
   deleteReview(user_id: String!, id: String!): [Review!]!  #id is the review id
     @function(name: "deleteReviewResolver-${env}")
+
+  archiveAdvert(ad_id: String!): Advert!  #id is the review id
+    @function(name: "archiveAdvertResolver-${env}")
 }
 
 type Subscription {
