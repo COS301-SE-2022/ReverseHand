@@ -17,6 +17,8 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
     return StoreProvider<AppState>(
       store: store,
       child: StoreConnector<AppState, _ViewModel>(
@@ -40,18 +42,30 @@ class ChatPage extends StatelessWidget {
             }
           }
 
-            return Scaffold(
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //*******************APP BAR WIDGET*********************//
-                    ChatAppBarWidget(
-                      title: vm.currentUser == "consumer"
-                          ? vm.chat.tradesmanName
-                          : vm.chat.consumerName,
-                    ),
-                    //********************************************************//
-                    // const DateLabelWidget(label: "Yesterday"), //todo michael
+          // setting scroll
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (scrollController.hasClients) {
+              scrollController.animateTo(
+                scrollController.position.maxScrollExtent,
+                duration: const Duration(seconds: 1),
+                curve: Curves.ease,
+              );
+            }
+          });
+
+          return Scaffold(
+            body: SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                children: [
+                  //*******************APP BAR WIDGET*********************//
+                  ChatAppBarWidget(
+                    title: vm.currentUser == "consumer"
+                        ? vm.chat.tradesmanName
+                        : vm.chat.consumerName,
+                  ),
+                  //********************************************************//
+                  // const DateLabelWidget(label: "Yesterday"), //todo michael
 
                   //todo michael
                   ...messages,
