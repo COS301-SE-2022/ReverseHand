@@ -30,11 +30,6 @@ exports.handler = async (event) => {
         // getting accepted bid
         let params = {
             TableName: ReverseHandTable,
-            // KeyConditionExpression: "part_key = :p and sort_key = :s",
-            // ExpressionAttributeValues: {
-            //     ":p": event.arguments.ad_id,
-            //     ":s": event.arguments.sbid_id
-            // }
             Key: {
                 part_key: event.arguments.ad_id,
                 sort_key: event.arguments.sbid_id,
