@@ -134,6 +134,7 @@ exports.handler = async (event) => {
         };
 
         data = await docClient.get(params).promise();
+        data['Item']['advert_details']['id'] = event.arguments.ad_id;
 
-        return data['advert_details'];
+        return data['Item']['advert_details'];
 };
