@@ -53,6 +53,7 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
       // wait until error has finished before stopping loading
       await store.waitCondition((state) => state.error == ErrorType.none);
       dispatch(WaitAction.remove("flag"));
+      dispatch(WaitAction.remove("auto-login"));
     }
   }
 }

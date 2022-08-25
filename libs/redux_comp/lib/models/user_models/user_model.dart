@@ -14,8 +14,9 @@ class UserModel {
   final List<String> tradeTypes;
   final String userType;
   final bool? registered;
-  final bool externalProvider;
-  final String? externalUsername;
+  final bool externalProvider; 
+  final String? externalUsername; //for adding to user group, usernames different :(
+  final String? scope; //for the admin user province scope
 
   const UserModel({
     required this.id,
@@ -29,6 +30,7 @@ class UserModel {
     this.registered,
     required this.externalProvider,
     this.externalUsername,
+    this.scope,
   });
 
   UserModel copy({
@@ -43,6 +45,7 @@ class UserModel {
     bool? registered,
     bool? externalProvider,
     String? externalUsername,
+    String? scope,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -56,6 +59,7 @@ class UserModel {
       registered: registered ?? this.registered,
       externalProvider: externalProvider ?? this.externalProvider,
       externalUsername: externalUsername ?? this.externalUsername,
+      scope: scope ?? this.scope,
     );
   }
 }

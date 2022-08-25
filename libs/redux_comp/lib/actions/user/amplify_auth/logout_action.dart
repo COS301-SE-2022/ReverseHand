@@ -10,7 +10,7 @@ class LogoutAction extends ReduxAction<AppState> {
       /* Sign out the currently signed in user */
       await Amplify.Auth.signOut();
       /* Delete the store state */
-      // await store.deletePersistedState();
+      await store.deletePersistedState();
       return AppState.initial();
     } on AuthException catch (e) {
       debugPrint(e.message);
@@ -21,7 +21,7 @@ class LogoutAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() {
-    dispatch(NavigateAction.pushNamed('/login'));
+  void before() {
+    dispatch(NavigateAction.pushNamedAndRemoveAll('/login'));
   }
 }
