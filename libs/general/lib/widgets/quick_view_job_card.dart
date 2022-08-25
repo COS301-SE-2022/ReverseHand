@@ -4,6 +4,8 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
+import '../methods/time.dart';
+
 //*********************************************** */
 // Job Listings card layout widget
 //*********************************************** */
@@ -44,9 +46,25 @@ class QuickViewJobCardWidget extends StatelessWidget {
                           border: Border.all(
                               width: 2, color: Theme.of(context).primaryColor)),
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                        child: Icon(Icons.construction_outlined,
-                            color: Theme.of(context).primaryColor),
+                        padding: const EdgeInsets.all(13),
+                        child: Icon(
+                          //Painting
+                          // Icons.imagesearch_roller,
+                          //Tiler
+                          //Carpenter
+                          // Icons.carpenter,
+                          //Cleaner
+                          // Icons.sanitizer,
+                          //Designer
+                          // Icons.design_services,
+                          //Landscaper
+                          //Electrician
+                          // Icons.bolt,
+                          //Plumbing
+                          Icons.plumbing,
+                          color: Theme.of(context).primaryColor,
+                          size: 35,
+                        ),
                       )),
                   const Padding(padding: EdgeInsets.all(2)),
                   Padding(
