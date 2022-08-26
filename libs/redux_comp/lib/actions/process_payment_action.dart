@@ -14,26 +14,31 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     PaystackPlugin paystackPlugin = PaystackPlugin();
 
-    paystackPlugin.initialize(
+    await paystackPlugin.initialize(
       publicKey: "pk_test_baaa336322aaf8057d0e5827c21b3cbb96d0bcdb",
     );
 
     // testing
     Charge charge = Charge()
-      ..amount = 10000
+      ..amount = 600
       ..reference = DateTime.now().millisecondsSinceEpoch.toString()
-//..accessCode = _createAcessCode(skTest, _getReference())
+      // ..accessCode = await createAccessCode()
+      ..currency = 'ZAR'
       ..email = 'mdp0101@gmail.com';
+
+    // ignore: use_build_context_synchronously
     CheckoutResponse response = await paystackPlugin.checkout(
       context,
       method: CheckoutMethod.card,
       charge: charge,
     );
-    if (response.status == true) {
+    if (response.status) {
       _verifyOnServer(response.reference);
     } else {
       //show error
     }
+
+    return null;
   }
 }
 
