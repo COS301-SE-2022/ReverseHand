@@ -4,7 +4,9 @@ import 'package:general/widgets/button.dart';
 //popup info for deleting an advert
 
 class DeletePopUpWidget extends StatelessWidget {
-  const DeletePopUpWidget({Key? key}) : super(key: key);
+  final void Function() action;
+
+  const DeletePopUpWidget({Key? key, required this.action}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,12 @@ class DeletePopUpWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //Delete
-            ButtonWidget(text: "Delete", function: () {}),
+            ButtonWidget(
+                text: "Delete",
+                function: () {
+                  action();
+                  Navigator.pop(context);
+                }),
             const Padding(padding: EdgeInsets.all(5)),
             //Cancel
             ButtonWidget(

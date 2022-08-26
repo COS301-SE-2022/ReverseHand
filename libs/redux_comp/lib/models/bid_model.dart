@@ -8,8 +8,8 @@ class BidModel {
   final int priceLower;
   final int priceUpper;
   final String? quote;
-  final String dateCreated; // change later to json/map object
-  final String? dateClosed; // change later to json/map object
+  final double dateCreated; // change later to json/map object
+  final double? dateClosed; // change later to json/map object
 
   const BidModel({
     required this.id,
@@ -34,8 +34,8 @@ class BidModel {
       priceLower: obj['price_lower'],
       priceUpper: obj['price_upper'],
       quote: obj['quote'],
-      dateCreated: obj['date_created'],
-      dateClosed: obj['date_Closed'],
+      dateCreated: obj['date_created'].toDouble(),
+      dateClosed: obj['date_Closed']?.toDouble(),
     );
   }
 }
