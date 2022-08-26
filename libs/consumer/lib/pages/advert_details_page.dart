@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/delete_advert_popup.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
@@ -11,6 +9,7 @@ import 'package:general/widgets/button.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/archive_advert_action.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/process_payment_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -124,8 +123,13 @@ class AdvertDetailsPage extends StatelessWidget {
                                     text: "Delete",
                                     color: "light",
                                     function: () {
-                                      // LightDialogHelper.display(context,
-                                      //     const DeletePopUpWidget(), 320.0);
+                                      // LightDialogHelper.display(
+                                      //     context,
+                                      //     DeletePopUpWidget(
+                                      //       action:
+                                      //           vm.dispatchArchiveAdvertAction,
+                                      //     ),
+                                      //     320.0);
                                       vm.test(context);
                                     },
                                   ),
@@ -153,7 +157,7 @@ class AdvertDetailsPage extends StatelessWidget {
                                     border: "white",
                                     function: vm.popPage,
                                   ),
-                                ))
+                                )),
                             ],
                           ),
                           //*************BOTTOM BUTTONS**************//
@@ -190,6 +194,10 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         advert: state.activeAd!,
         dispatchDeleteChatAction: () => dispatch(DeleteChatAction()),
         loading: state.wait.isWaiting,
+        dispatchArchiveAdvertAction: () {
+          dispatch(ArchiveAdvertAction());
+          dispatch(NavigateAction.pop());
+        },
         test: (BuildContext context) => dispatch(ProcessPaymentAction(context)),
       );
 }
@@ -203,6 +211,8 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final VoidCallback dispatchDeleteChatAction;
   final bool loading;
+  final VoidCallback
+      dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
   final void Function(BuildContext context) test;
 
   _ViewModel({
@@ -213,6 +223,7 @@ class _ViewModel extends Vm {
     required this.pushConsumerListings,
     required this.popPage,
     required this.loading,
+    required this.dispatchArchiveAdvertAction,
     required this.test,
   }) : super(equals: [advert, loading]); // implementinf hashcode
 }

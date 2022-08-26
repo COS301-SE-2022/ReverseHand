@@ -132,5 +132,5 @@ class _ViewModel extends Vm {
     required this.pushEditAdvert,
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
-  });
+  }) : super(equals: [advert]);
 }

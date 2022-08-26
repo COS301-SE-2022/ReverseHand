@@ -75,12 +75,11 @@ class EditAdvertPage extends StatelessWidget {
                                 text: "Save Changes",
                                 // check to make sure input is good
                                 function: () => vm.dispatchEditAdvertAction(
-                                    advertId: vm.advert.id,
-                                    title: titleController.value.text,
-                                    description:
-                                        descriptionController.value.text,
-                                    domain: vm.advert
-                                        .domain), //need to dispatch save job action?
+                                  advertId: vm.advert.id,
+                                  title: titleController.value.text,
+                                  description: descriptionController.value.text,
+                                  domain: vm.advert.domain,
+                                ), //need to dispatch save job action?
                               ),
                         //********************************************//
                         const Padding(padding: EdgeInsets.all(5)),
