@@ -26,13 +26,14 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String adId = "a#${const Uuid().v1()}";
-
+    
     String graphQLDocument = '''mutation {
       createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", domain: ${domain.toString()}, type: "$type") {
         id
         date_created
         domain {
           city
+          province
         }
         title
         type
@@ -43,8 +44,6 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     final request = GraphQLRequest(
       document: graphQLDocument,
     );
-
-    debugPrint(graphQLDocument);
 
     try {
       /* final response = */ await Amplify.API

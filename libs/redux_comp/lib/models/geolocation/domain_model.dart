@@ -29,7 +29,7 @@ class Domain {
   String toString() {
     return """{
       city : "$city",
-      city : "$province",
+      province : "$province",
       coordinates : {
         lat: ${coordinates.lat},
         lng: ${coordinates.lng},
