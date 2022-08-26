@@ -63,6 +63,14 @@ class ViewBidsAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() => dispatch(NavigateAction.pushNamed(
-      "/${state.userDetails!.userType.toLowerCase()}/advert_details")); // move to page after action completes
+  void before() {
+    dispatch(WaitAction.add("viewBids"));
+    dispatch(NavigateAction.pushNamed(
+        "/${state.userDetails!.userType.toLowerCase()}/advert_details"));
+  }
+
+  @override
+  void after() {
+    dispatch(WaitAction.remove("viewBids"));
+  } // move to page after action completes
 }

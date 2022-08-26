@@ -1,3 +1,7 @@
+import 'package:admin/pages/admin_advert_details_page.dart';
+import 'package:admin/pages/admin_advert_reports_page.dart';
+import 'package:admin/pages/admin_consumer_profile_page.dart';
+import 'package:admin/pages/admin_consumer_reports_page.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
@@ -102,6 +106,11 @@ class Launch extends StatelessWidget {
           '/login': (context) => LoginPage(store: store),
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),
+          //admin routes
+          '/admin_consumer_reports': (context) => AdminConsumerReportsPage(store: store),
+          '/admin_consumer_profile': (context) => AdminConsumerProfilePage(store: store),
+          '/admin_consumer_advert_reports': (context) => AdminAdvertReportsPage(store: store),
+          '/admin_consumer_advert_details': (context) => AdminAdvertDetailsPage(store: store),
         },
       ),
     );

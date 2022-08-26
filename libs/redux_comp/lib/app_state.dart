@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
+import 'package:redux_comp/models/admin/admin_model.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -41,28 +42,33 @@ class AppState {
   final List<ChatModel> chats; // all chats
   final ChatModel chat; // the current active chat
 
+  //admin functionality
+  final AdminModel admin;
+
   // constructor must only take named parameters
-  const AppState(
-      {required this.authModel,
-      required this.userDetails,
-      required this.partialUser,
-      required this.adverts,
-      required this.viewAdverts,
-      required this.bids,
-      required this.shortlistBids,
-      required this.viewBids,
-      required this.activeAd,
-      required this.activeBid,
-      required this.locationResult,
-      required this.error,
-      required this.change,
-      required this.wait,
-      required this.chats,
-      required this.chat,
-      required this.reviews,
-      required this.sum,
-      required this.advertsWon,
-      required this.userStatistics});
+  const AppState({
+    required this.authModel,
+    required this.userDetails,
+    required this.partialUser,
+    required this.adverts,
+    required this.viewAdverts,
+    required this.bids,
+    required this.shortlistBids,
+    required this.viewBids,
+    required this.activeAd,
+    required this.activeBid,
+    required this.locationResult,
+    required this.error,
+    required this.change,
+    required this.wait,
+    required this.chats,
+    required this.chat,
+    required this.reviews,
+    required this.sum,
+    required this.advertsWon,
+    required this.userStatistics,
+    required this.admin,
+  });
 
   // this methods sets the starting state for the store
   factory AppState.initial() {
@@ -83,8 +89,10 @@ class AppState {
       activeAd: const AdvertModel(
         id: "",
         title: "",
-        domain:
-            Domain(city: "city", coordinates: Coordinates(lat: 22, lng: 21)),
+        domain: Domain(
+            city: "city",
+            province: "province",
+            coordinates: Coordinates(lat: 22, lng: 21)),
         dateCreated: 0,
       ),
       activeBid: const BidModel(
@@ -92,7 +100,7 @@ class AppState {
         userId: "",
         priceLower: 0,
         priceUpper: 0,
-        dateCreated: "",
+        dateCreated: 0,
       ),
       locationResult: null,
       error: ErrorType.none,
@@ -106,6 +114,7 @@ class AppState {
         tradesmanId: "",
         messages: [],
       ),
+      admin: const AdminModel(reportedCustomers: []),
     );
   }
 
@@ -144,6 +153,7 @@ class AppState {
         tradesmanId: "",
         messages: [],
       ),
+      admin: const AdminModel(reportedCustomers: []),
     );
   }
   // easy way to replace store wihtout specifying all paramters
@@ -166,6 +176,7 @@ class AppState {
       Wait? wait,
       List<ChatModel>? chats,
       ChatModel? chat,
+      AdminModel? admin,
       List<String>? advertsWon,
       int? sum,
       StatisticsModel? userStatistics}) {
@@ -187,6 +198,7 @@ class AppState {
         wait: wait ?? this.wait,
         chats: chats ?? this.chats,
         chat: chat ?? this.chat,
+        admin: admin ?? this.admin,
         sum: sum ?? this.sum,
         advertsWon: advertsWon ?? this.advertsWon,
         userStatistics: userStatistics ?? this.userStatistics);

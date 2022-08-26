@@ -30,9 +30,16 @@ class CheckSignedInAction extends ReduxAction<AppState> {
   }
 
   @override
+  void before() {
+    dispatch(WaitAction.add("auto-login"));
+  }
+
+  @override
   void after() {
     if (state.error == ErrorType.none) {
       dispatch(AssignGroupsAction());
-    } 
+    } else {
+      dispatch(WaitAction.remove("auto-login"));
+    }
   }
 }

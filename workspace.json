@@ -11,6 +11,7 @@
     "authentication": "libs/authentication",
     "geolocation": "libs/geolocation",
     "notifications": "libs/notifications",
-    "chat": "libs/chat"
+    "chat": "libs/chat",
+    "admin": "libs/admin"
   }
 }
