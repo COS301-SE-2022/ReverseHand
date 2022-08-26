@@ -218,12 +218,6 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "addBidReportResolver": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
         "archiveAdvertResolver": {
             "Name": "string",
             "Arn": "string",

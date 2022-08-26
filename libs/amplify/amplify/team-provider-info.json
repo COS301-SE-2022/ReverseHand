@@ -40,7 +40,7 @@
       "function": {
         "acceptBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/acceptBidResolver-3962685a4d775a586170-build.zip"
+          "s3Key": "amplify-builds/acceptBidResolver-5635487367315a456b36-build.zip"
         },
         "closeAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -161,10 +161,6 @@
         "addAdvertReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/addAdvertReportResolver-575539546377735a3247-build.zip"
-        },
-        "addBidReportResolver": {
-          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/addBidReportResolver-46305376706949634345-build.zip"
         },
         "archiveAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
