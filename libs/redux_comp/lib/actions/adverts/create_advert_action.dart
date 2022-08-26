@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:uuid/uuid.dart';
@@ -33,6 +32,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
         date_created
         domain {
           city
+          province
         }
         title
         type
@@ -43,8 +43,6 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     final request = GraphQLRequest(
       document: graphQLDocument,
     );
-
-    debugPrint(graphQLDocument);
 
     try {
       /* final response = */ await Amplify.API
