@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:uuid/uuid.dart';
@@ -26,7 +25,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String adId = "a#${const Uuid().v1()}";
-    
+
     String graphQLDocument = '''mutation {
       createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", domain: ${domain.toString()}, type: "$type") {
         id
