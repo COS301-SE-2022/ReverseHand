@@ -5,12 +5,14 @@ import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
+import 'package:general/widgets/bottom_sheet.dart';
 
 import '../widgets/tradesman_navbar_widget.dart';
 
 class TradesmanProfilePage extends StatelessWidget {
   final Store<AppState> store;
-  const TradesmanProfilePage({Key? key, required this.store}) : super(key: key);
+  final nameController = TextEditingController();
+  TradesmanProfilePage({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -132,57 +134,10 @@ class TradesmanProfilePage extends StatelessWidget {
               ),
               //***********************************/
 
-              //************NAME*******************/
+              //************EMAIL*******************/
               Padding(
-                padding: const EdgeInsets.only(left: 85, top: 20),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.person,
-                      color: Colors.white70,
-                      size: 26.0,
-                    ),
-                    const Padding(padding: EdgeInsets.only(right: 8)),
-                    Text(
-                      (vm.userDetails.name != null)
-                          ? vm.userDetails.name!
-                          : "null",
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-              ),
-              //************************************/
-
-              const ProfileDividerWidget(),
-
-              //************CELL*******************/
-              Padding(
-                padding: const EdgeInsets.only(left: 85, top: 5),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.phone,
-                      color: Colors.white70,
-                      size: 26.0,
-                    ),
-                    const Padding(padding: EdgeInsets.only(right: 8)),
-                    Text(
-                        (vm.userDetails.cellNo != null)
-                            ? vm.userDetails.cellNo!
-                            : "null",
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.white)),
-                  ],
-                ),
-              ),
-              //************************************/
-
-              const ProfileDividerWidget(),
-
-              //************EMAIl*******************/
-              Padding(
-                padding: const EdgeInsets.only(left: 85, top: 5),
+                padding: const EdgeInsets.only(
+                    left: 40, right: 30, top: 20, bottom: 10),
                 child: Row(
                   children: [
                     const Icon(
@@ -192,46 +147,112 @@ class TradesmanProfilePage extends StatelessWidget {
                     ),
                     const Padding(padding: EdgeInsets.only(right: 8)),
                     SizedBox(
-                      width: 250,
-                      child: Text(
-                        vm.userDetails.email,
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.white),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      width: MediaQuery.of(context).size.width / 1.4,
+                      child: Text(vm.userDetails.email,
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white)),
                     ),
                   ],
                 ),
               ),
               //************************************/
+
+              const ProfileDividerWidget(),
+
+              //************NAME*******************/
+              Padding(
+                padding: const EdgeInsets.only(left: 40, right: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.person,
+                          color: Colors.white70,
+                          size: 26.0,
+                        ),
+                        const Padding(padding: EdgeInsets.only(right: 8)),
+                        Text(
+                          (vm.userDetails.name != null)
+                              ? vm.userDetails.name!
+                              : "null",
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return BottomSheetWidget(
+                                    text: "What name would you like to save?",
+                                    initialVal: vm.userDetails.name,
+                                    controller: nameController);
+                              });
+                        },
+                        icon: const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 15,
+                        )),
+                  ],
+                ),
+              ),
+              //************************************/
+
               const ProfileDividerWidget(),
 
               //************TRADES******************/
               Padding(
-                padding: const EdgeInsets.only(left: 85, top: 5),
+                padding: const EdgeInsets.only(left: 40, right: 30),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(
-                      Icons.construction_outlined,
-                      color: Colors.white70,
-                      size: 26.0,
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.construction,
+                          color: Colors.white70,
+                          size: 26.0,
+                        ),
+                        const Padding(padding: EdgeInsets.only(right: 8)),
+                        SizedBox(
+                          width: 200,
+                          height: 25,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: vm.userDetails.tradeTypes
+                                .map(
+                                  (element) => Text("$element ",
+                                      style: const TextStyle(
+                                          fontSize: 20, color: Colors.white)),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ],
                     ),
-                    const Padding(padding: EdgeInsets.only(right: 8)),
-                    SizedBox(
-                      width: 200,
-                      height: 25,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: vm.userDetails.tradeTypes
-                            .map(
-                              (element) => Text("$element ",
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white)),
-                            )
-                            .toList(),
-                      ),
-                    ),
+                    IconButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return BottomSheetWidget(
+                                    text:
+                                        "What location would you like to save?",
+                                    initialVal: "test",
+                                    controller: nameController);
+                              });
+                        },
+                        icon: const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 15,
+                        ))
                   ],
                 ),
               ),
@@ -239,30 +260,54 @@ class TradesmanProfilePage extends StatelessWidget {
               const ProfileDividerWidget(),
 
               //************DOMAINS*****************/
+
               Padding(
-                padding: const EdgeInsets.only(left: 85, top: 5),
+                padding: const EdgeInsets.only(left: 40, right: 30),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: Colors.white70,
-                      size: 26.0,
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: Colors.white70,
+                          size: 26.0,
+                        ),
+                        const Padding(padding: EdgeInsets.only(right: 8)),
+                        SizedBox(
+                          width: 200,
+                          height: 25,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: vm.userDetails.domains
+                                .map(
+                                  (domain) => Text("${domain.city} ",
+                                      style: const TextStyle(
+                                          fontSize: 20, color: Colors.white)),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ],
                     ),
-                    const Padding(padding: EdgeInsets.only(right: 8)),
-                    SizedBox(
-                      width: 200,
-                      height: 25,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: vm.userDetails.domains
-                            .map(
-                              (domain) => Text("${domain.city} ",
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white)),
-                            )
-                            .toList(),
-                      ),
-                    ),
+                    IconButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return BottomSheetWidget(
+                                    text:
+                                        "What location would you like to save?",
+                                    initialVal: "test",
+                                    controller: nameController);
+                              });
+                        },
+                        icon: const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 15,
+                        ))
                   ],
                 ),
               ),
@@ -279,20 +324,20 @@ class TradesmanProfilePage extends StatelessWidget {
               ),
               //************************************/
 
-                //**********TEMP LOGOUT BUTTON********/
-                IconButton(
-                  icon: const Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => vm.dispatchLogoutAction(),
-                  splashRadius: 30,
-                  highlightColor: Colors.orange,
-                  splashColor: Colors.white,
+              //**********TEMP LOGOUT BUTTON********/
+              IconButton(
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.white,
                 ),
-                //************************************/
+                onPressed: () => vm.dispatchLogoutAction(),
+                splashRadius: 30,
+                highlightColor: Colors.orange,
+                splashColor: Colors.white,
+              ),
+              //************************************/
 
-                 const Padding(padding: EdgeInsets.only(bottom: 50)),
+              const Padding(padding: EdgeInsets.only(bottom: 50)),
             ]),
           ),
         ),
