@@ -27,11 +27,6 @@ type Query {
   getUserStatistics(user_id: String!): Statistics!
     @function(name: "getUserStatisticsResolver-${env}")
 
-  getReportedCustomers(scope: String!, city: String!): [User]!
-    @function(name: "getReportedCustomers-${env}")
-
-  getCustomerReportedAdverts(customer_id: String!): [AdminAdvert]!
-    @function(name: "getCustomerReportedAdverts-${env}")
 }
 
 type Mutation {
