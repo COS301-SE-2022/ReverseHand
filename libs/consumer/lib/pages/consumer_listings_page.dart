@@ -8,7 +8,6 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/appbar.dart';
 
-
 class ConsumerListingsPage extends StatelessWidget {
   final Store<AppState> store;
   const ConsumerListingsPage({Key? key, required this.store}) : super(key: key);
@@ -91,15 +90,12 @@ class ConsumerListingsPage extends StatelessWidget {
                               const LoadingWidget(padding: 80)
                             //a message if no jobs
                             else if (open.isEmpty)
-                              (const Padding(
-                                padding: EdgeInsets.fromLTRB(40, 100, 40, 40),
-                                child: (Text(
-                                  "You do not have any active jobs. Create a new job to see it here and enable contractors to start bidding.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white70),
-                                )),
-                              )),
+                              ((const Text(
+                                "You do not have any active jobs. Create a new job to see it here and enable contractors to start bidding.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white70),
+                              ))),
                             //else populate the jobs
                             ...open
                           ],

@@ -39,9 +39,9 @@ class TradesmanJobListings extends StatelessWidget {
                     padding: EdgeInsets.only(
                         top: (MediaQuery.of(context).size.height) / 3),
                     child: const Text(
-                      "There are no\n active jobs",
+                      "There are no jobs to display.",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 25, color: Colors.white54),
+                      style: TextStyle(fontSize: 20, color: Colors.white70),
                     ),
                   ),
                 //*****************************************************/
