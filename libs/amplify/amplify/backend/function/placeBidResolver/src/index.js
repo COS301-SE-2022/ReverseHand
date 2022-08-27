@@ -12,10 +12,7 @@ const ReverseHandTable = process.env.REVERSEHAND;
 exports.handler = async (event) => {
     // getting current date
     const date = new Date();
-    const dd = String(date.getDate()).padStart(2, '0');
-    const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const yyyy = date.getFullYear();
-    const currentDate = mm + '-' + dd + '-' + yyyy;
+    const currentDate = date.getTime();
 
     let item = {
         TableName: ReverseHandTable,
@@ -36,5 +33,6 @@ exports.handler = async (event) => {
     await docClient.put(item).promise();
 
     item.Item.bid_details['id'] = event.arguments.bid_id; // bids id to be returned
+    item.Item.bid_details['tradesman_id'] = item.Item.tradesman_id;
     return item.Item.bid_details;
 };

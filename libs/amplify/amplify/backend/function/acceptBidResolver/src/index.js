@@ -27,29 +27,29 @@ exports.handler = async (event) => {
 
         await docClient.update(item).promise();
         
-        // getting accepted bi
+        // getting accepted bid
         let params = {
             TableName: ReverseHandTable,
-            KeyConditionExpression: "part_key = :p and sort_key = :s",
-            ExpressionAttributeValues: {
-                ":p": event.arguments.ad_id,
-                ":s": event.arguments.sbid_id
+            Key: {
+                part_key: event.arguments.ad_id,
+                sort_key: event.arguments.sbid_id,
             }
         };
 
-        const data = await docClient.query(params).promise();
-        let sbid = data["Items"][0]['bid_details'];
+        const data = await docClient.get(params).promise();
+        let sbid = data["Item"]['bid_details'];
 
         //adding the advert_id to the tradesman that won it
         params = {
             TableName: UserTable,
             Key: {
-                user_id: data["Items"][0]['bid_details']['tradesman_id'],
+                user_id: data["Item"]['tradesman_id'],
             }
         };
 
         let userData = await docClient.get(params).promise();//get the tradesman
         let inputAd = [];
+        
 
         inputAd.push(event.arguments.ad_id);
         let mergedList = [...userData['Item']['adverts_won'],...inputAd];//add the new advert to the tradesmans list
@@ -73,7 +73,7 @@ exports.handler = async (event) => {
         params = {
             TableName: UserTable,
             Key: {
-                user_id: data["Items"][0]['bid_details']['tradesman_id'],
+                user_id: data["Item"]['tradesman_id'],
             },
             UpdateExpression: updateExpression,
             ExpressionAttributeValues: expressionAttributeValues,
@@ -82,6 +82,7 @@ exports.handler = async (event) => {
     
         await docClient.update(params).promise();
 
+        sbid['tradesman_id'] = data["Item"]['tradesman_id'];
     
         return sbid;
     } catch(e) {

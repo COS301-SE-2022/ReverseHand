@@ -21,6 +21,8 @@ class AssignGroupsAction extends ReduxAction<AppState> {
         userType = "Consumer";
       } else if (groups.contains("tradesman")) {
         userType = "Tradesman";
+      }else if (groups.contains("admin")) {
+        userType = "Admin";
       } else {
         return state.copy(
             error: ErrorType.userNotInGroup,
@@ -48,6 +50,7 @@ class AssignGroupsAction extends ReduxAction<AppState> {
     if (state.error == ErrorType.none) {
       dispatch(GetCognitoUserAction());
     } else if (state.error == ErrorType.userNotInGroup) {
+      dispatch(WaitAction.remove("auto-login"));
       dispatch(WaitAction.remove("flag"));
       dispatch(NavigateAction.pushNamed('/usertype_selection'));
     }
