@@ -72,10 +72,12 @@ class JobCardWidget extends StatelessWidget {
               ),
               //*****************************************//
               const Padding(
-                padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                child: Text("|",
-                    style: TextStyle(fontSize: 20, color: Colors.white70)),
-              ),
+                  padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                  child: Icon(
+                    Icons.circle_outlined,
+                    size: 8,
+                    color: Colors.white,
+                  )),
               //****************TRADE********************//
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),

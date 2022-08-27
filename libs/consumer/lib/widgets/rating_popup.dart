@@ -33,7 +33,7 @@ class RatingPopUpWidgetState extends State<RatingPopUpWidget> {
           child: Column(
             children: [
               const Text(
-                "Please rate the services you received.",
+                "Rate the services you received",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24, color: Colors.black),
               ),
@@ -49,10 +49,18 @@ class RatingPopUpWidgetState extends State<RatingPopUpWidget> {
               const Padding(padding: EdgeInsets.all(20)),
 
               //***********************REVIEW*************************
+
               const Text(
-                "Would you like to add a review?",
+                "Write a review",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24, color: Colors.black),
+              ),
+              const SizedBox(
+                width: 300,
+                child: Text(
+                    "An optional message to describe\n your experience.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black)),
               ),
 
               const Padding(padding: EdgeInsets.all(10)),
