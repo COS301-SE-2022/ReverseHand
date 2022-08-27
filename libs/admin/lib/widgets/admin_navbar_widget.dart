@@ -48,11 +48,11 @@ class AdminNavBarWidget extends StatelessWidget {
                           //icon 1 - Advert Reports
                           IconButton(
                             icon: const Text(
-                              "C",
+                              "M",
                               style: TextStyle(fontSize: 25),
                             ),
                             onPressed: () {
-                              vm.pushConsumerReports();
+                              vm.pushAppMetrics();
                             },
                             splashRadius: 30,
                             highlightColor: Colors.orange,
@@ -62,11 +62,11 @@ class AdminNavBarWidget extends StatelessWidget {
                           //icon 2 - chat
                           IconButton(
                             icon: const Text(
-                              "T",
+                              "U",
                               style: TextStyle(fontSize: 25),
                             ),
                             onPressed: () {
-                              vm.pushTradesmanReports();
+                              vm.pushContentManage();
                             },
                             splashRadius: 30,
                             highlightColor: Colors.orange,
@@ -75,11 +75,11 @@ class AdminNavBarWidget extends StatelessWidget {
 
                           //icon 3 - activity stream
                           IconButton(
-                            icon: const Icon(
-                              Icons.notifications,
-                              color: Colors.white,
+                           icon: const Text(
+                              "C",
+                              style: TextStyle(fontSize: 25),
                             ),
-                            onPressed: () => vm.pushActivityStreamPage(),
+                            onPressed: () => vm.pushUserManage(),
                             splashRadius: 30,
                             highlightColor: Colors.orange,
                             splashColor: Colors.white,
@@ -87,9 +87,9 @@ class AdminNavBarWidget extends StatelessWidget {
 
                           //icon 4 - profile
                           IconButton(
-                            icon: const Icon(
-                              Icons.person,
-                              color: Colors.white,
+                            icon: const Text(
+                              "?",
+                              style: TextStyle(fontSize: 25),
                             ),
                             onPressed: () {
                               vm.pushProfilePage();
@@ -112,32 +112,32 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushConsumerReports: () => dispatch(
-          NavigateAction.pushNamedAndRemoveUntil('/admin_consumer_reports', ModalRoute.withName('/')),
+        pushAppMetrics: () => dispatch(
+          NavigateAction.pushNamedAndRemoveUntil('/admin_metrics', ModalRoute.withName('/')),
         ),
-        pushTradesmanReports: () => dispatch(
-          NavigateAction.pushNamed('/'),
+        pushUserManage: () => dispatch(
+          NavigateAction.pushNamedAndRemoveUntil('/admin_content', ModalRoute.withName('/')),
         ),
-        pushActivityStreamPage: () => dispatch(
-          NavigateAction.pushNamed('/'),
+        pushContentManage: () => dispatch(
+          NavigateAction.pushNamedAndRemoveUntil('/admin_users', ModalRoute.withName('/')),
         ),
         pushProfilePage: () => dispatch(
-          NavigateAction.pushNamed('/'),
+          NavigateAction.pushNamedAndRemoveUntil('/admin_metrics', ModalRoute.withName('/')),
         ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushConsumerReports;
-  final VoidCallback pushTradesmanReports;
-  final VoidCallback pushActivityStreamPage;
+  final VoidCallback pushAppMetrics;
+  final VoidCallback pushUserManage;
+  final VoidCallback pushContentManage;
   final VoidCallback pushProfilePage;
 
   _ViewModel({
-    required this.pushConsumerReports,
-    required this.pushTradesmanReports,
-    required this.pushActivityStreamPage,
+    required this.pushAppMetrics,
+    required this.pushUserManage,
+    required this.pushContentManage,
     required this.pushProfilePage,
   });
 }

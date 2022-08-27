@@ -160,7 +160,6 @@ class GetUserAction extends ReduxAction<AppState> {
       case "Consumer":
         dispatch(ViewAdvertsAction());
         dispatch(SubscribMessagesAction());
-
         dispatch(NavigateAction.pushNamed("/consumer"));
         break;
       case "Tradesman":
@@ -174,8 +173,7 @@ class GetUserAction extends ReduxAction<AppState> {
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;
       case "Admin":
-        dispatch(GetReportedCustomersAction(city: "Pretoria"));
-        dispatch(NavigateAction.pushNamed("/admin_consumer_reports"));
+        dispatch(NavigateAction.pushNamed("/admin_metrics"));
         break;
     }
     // wait until error has finished before stopping loading
