@@ -192,8 +192,8 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   descrController.value.text,
                                 );
                               } else {
-                                (LightDialogHelper.display(
-                                    context, const CreationPopupWidget(), 320.0));
+                                (LightDialogHelper.display(context,
+                                    const CreationPopupWidget(), 210.0));
                               }
                             },
                           ),
