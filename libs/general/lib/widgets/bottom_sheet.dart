@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
-import 'package:general/widgets/textfield.dart';
 
 //used in consumer and tradesman
 
@@ -14,10 +13,13 @@ class BottomSheetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (initialVal != null) {
+      controller.text = initialVal!;
+    }
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Container(
-        color: Theme.of(context).primaryColorDark,
+        color: Colors.white,
         child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: SizedBox(
@@ -25,18 +27,35 @@ class BottomSheetWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Text(text,
-                      style: const TextStyle(
-                        fontSize: 20,
-                      )),
+                      style:
+                          const TextStyle(fontSize: 20, color: Colors.black)),
                   const Padding(padding: EdgeInsets.all(10)),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFieldWidget(
-                        label: "",
-                        obscure: false,
-                        min: 1,
-                        initialVal: initialVal,
-                        controller: controller),
+                    child: TextFormField(
+                      minLines: 1,
+                      style: const TextStyle(color: Colors.black, fontSize: 18),
+                      obscureText: false,
+                      controller: controller,
+                      onTap: () {},
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(7),
+                          borderSide: const BorderSide(
+                            color: Colors.grey,
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(7),
+                          borderSide: const BorderSide(
+                            color: Colors.orange,
+                            width: 2.0,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   const Padding(padding: EdgeInsets.all(5)),
                   ButtonWidget(text: "Save", function: () {})

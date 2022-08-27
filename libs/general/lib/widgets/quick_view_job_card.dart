@@ -4,7 +4,7 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
-import '../methods/time.dart';
+// import '../methods/time.dart';
 
 //*********************************************** */
 // Job Listings card layout widget
@@ -82,7 +82,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold)),
                         ),
-                        const Padding(padding: EdgeInsets.only(top: 8)),
+                        const Padding(padding: EdgeInsets.only(top: 4)),
                         Row(
                           children: [
                             Text(advert.domain.city,
