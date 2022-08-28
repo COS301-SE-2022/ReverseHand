@@ -1,9 +1,12 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/button.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
+import 'package:general/pages/camera_page.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 
 import '../widgets/tradesman_navbar_widget.dart';
@@ -36,13 +39,24 @@ class TradesmanProfilePage extends StatelessWidget {
               ),
               //************************************/
 
-              //****************ICON****************/
-              const Icon(
+              //****************PROFILE IMAGE****************/
+             const Icon(
                 Icons.account_circle,
                 color: Colors.white,
                 size: 80.0,
-              ),
-              //************************************/
+             ),
+              //*****************************************
+
+              //********** Temp Edit Profile Button */
+                ButtonWidget(
+                  text: "Edit Profile Picture",
+                  function: () async { //open camera to take photo currently
+                    await availableCameras().then((value) => Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+                  }
+                ),
+
+              //*****************************************
 
               //****************RATING**************/
               Padding(
