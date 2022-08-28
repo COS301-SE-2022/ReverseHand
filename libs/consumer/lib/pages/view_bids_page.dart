@@ -68,7 +68,7 @@ class ViewBidsPage extends StatelessWidget {
                             FilterPopUpWidget(
                               store: store,
                             ),
-                            1000.0);
+                            600.0);
                       },
                     ),
                   ],

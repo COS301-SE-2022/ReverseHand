@@ -28,6 +28,8 @@ class TradesmanJobListings extends StatelessWidget {
                 AppBarWidget(title: "JOB LISTINGS", store: store),
                 //********************************************************//
 
+                const Padding(padding: EdgeInsets.only(top: 20)),
+
                 ...populateAdverts(vm.adverts, store),
 
                 if (vm.loading)
@@ -39,7 +41,7 @@ class TradesmanJobListings extends StatelessWidget {
                     padding: EdgeInsets.only(
                         top: (MediaQuery.of(context).size.height) / 3),
                     child: const Text(
-                      "There are no\n active jobs",
+                      "No jobs to display.",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 25, color: Colors.white54),
                     ),
@@ -57,7 +59,7 @@ class TradesmanJobListings extends StatelessWidget {
                 FilterPopUpWidget(
                   store: store,
                 ),
-                1000.0);
+                MediaQuery.of(context).size.height);
           },
           type: "filter",
         ),
