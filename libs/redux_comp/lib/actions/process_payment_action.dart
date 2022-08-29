@@ -15,7 +15,7 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
     PaystackPlugin paystackPlugin = PaystackPlugin();
 
     await paystackPlugin.initialize(
-      publicKey: "pk_test_baaa336322aaf8057d0e5827c21b3cbb96d0bcdb",
+      publicKey: state.paystackPublicKey,
     );
 
     // testing
@@ -40,55 +40,54 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
 
     return null;
   }
-}
 
-Future<String> createAccessCode() async {
-  Map<String, String> headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': 'Bearer sk_test_8193004a99ab1e7bf93ace9b03abb738d776281e'
-  };
-
-  Map data = {
-    "amount": 600,
-    "email": "cachemoney.up@gmail.com",
-    "reference": DateTime.now().millisecondsSinceEpoch.toString(),
-  };
-
-  String payload = json.encode(data);
-  http.Response response = await http.post(
-    Uri.parse("https://api.paystack.co/transaction/initialize"),
-    headers: headers,
-    body: payload,
-  );
-
-  final Map d = jsonDecode(response.body);
-  String accessCode = d['data']['access_code'];
-
-  return accessCode;
-}
-
-void _verifyOnServer(String? reference) async {
-  try {
+  Future<String> createAccessCode() async {
     Map<String, String> headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization':
-          'Bearer sk_test_8193004a99ab1e7bf93ace9b03abb738d776281e',
+      'Authorization': 'Bearer ${state.paystackSecretKey}'
     };
-    http.Response response = await http.get(
-      Uri.parse('https://api.paystack.co/transaction/verify/$reference'),
+
+    Map data = {
+      "amount": 600,
+      "email": "cachemoney.up@gmail.com",
+      "reference": DateTime.now().millisecondsSinceEpoch.toString(),
+    };
+
+    String payload = json.encode(data);
+    http.Response response = await http.post(
+      Uri.parse("https://api.paystack.co/transaction/initialize"),
       headers: headers,
+      body: payload,
     );
-    final Map body = json.decode(response.body);
-    if (body['data']['status'] == 'success') {
-      //do something with the response. show success
-      print("success");
-    } else {
-      //show error prompt
-      print("fail");
+
+    final Map d = jsonDecode(response.body);
+    String accessCode = d['data']['access_code'];
+
+    return accessCode;
+  }
+
+  void _verifyOnServer(String? reference) async {
+    try {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${state.paystackSecretKey}',
+      };
+      http.Response response = await http.get(
+        Uri.parse('https://api.paystack.co/transaction/verify/$reference'),
+        headers: headers,
+      );
+      final Map body = json.decode(response.body);
+      if (body['data']['status'] == 'success') {
+        //do something with the response. show success
+        print("success");
+      } else {
+        //show error prompt
+        print("fail");
+      }
+    } catch (e) {
+      print(e);
     }
-  } catch (e) {
-    print(e);
   }
 }
