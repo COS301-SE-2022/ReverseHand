@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/admin/get_reported_customers_action.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';

@@ -1,5 +1,3 @@
-import 'package:admin/pages/admin_advert_details_page.dart';
-import 'package:admin/pages/admin_advert_reports_page.dart';
 import 'package:admin/pages/admin_consumer_profile_page.dart';
 import 'package:admin/pages/admin_consumer_reports_page.dart';
 import 'package:async_redux/async_redux.dart';
