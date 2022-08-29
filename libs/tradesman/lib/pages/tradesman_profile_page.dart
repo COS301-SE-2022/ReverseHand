@@ -1,13 +1,10 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
-import 'package:general/pages/camera_page.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 
 import '../widgets/tradesman_navbar_widget.dart';

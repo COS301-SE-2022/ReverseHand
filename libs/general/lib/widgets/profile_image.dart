@@ -6,10 +6,10 @@ class ProfileImageWidget extends StatefulWidget {
   const ProfileImageWidget({Key? key}) : super(key: key);
 
   @override
-  _ProfileImageWidgetState createState() => _ProfileImageWidgetState();
+  ProfileImageWidgetState createState() => ProfileImageWidgetState();
 }
 
-class _ProfileImageWidgetState extends State<ProfileImageWidget> {
+class ProfileImageWidgetState extends State<ProfileImageWidget> {
   bool circular = false;
   XFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
