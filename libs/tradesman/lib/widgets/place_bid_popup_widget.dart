@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -87,6 +88,18 @@ class _PlaceBidPopupWidgetState extends State<PlaceBidPopupWidget> {
                   ),
 
                 //*************************************************//
+
+                //***************** UPLOAD QUOTE ****************** */
+                ElevatedButton(
+                  child: const Text("Upload Qupte"),
+                  onPressed: () async{
+                    // Lets the user pick one file; files with any file extension can be selected
+                    // final result = await FilePicker.platform.pickFiles();
+
+                  }, 
+                ),
+
+                //************************************************ */
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);

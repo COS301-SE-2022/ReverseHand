@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
@@ -36,13 +37,9 @@ class TradesmanProfilePage extends StatelessWidget {
               ),
               //************************************/
 
-              //****************ICON****************/
-              const Icon(
-                Icons.account_circle,
-                color: Colors.white,
-                size: 80.0,
-              ),
-              //************************************/
+              //****************PROFILE IMAGE****************/
+              ProfileImageWidget(store: store,),
+              //*****************************************
 
               //****************RATING**************/
               Padding(
