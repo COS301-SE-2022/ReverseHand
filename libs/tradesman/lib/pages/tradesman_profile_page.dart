@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
+import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
@@ -40,22 +41,7 @@ class TradesmanProfilePage extends StatelessWidget {
               //************************************/
 
               //****************PROFILE IMAGE****************/
-             const Icon(
-                Icons.account_circle,
-                color: Colors.white,
-                size: 80.0,
-             ),
-              //*****************************************
-
-              //********** Temp Edit Profile Button */
-                ButtonWidget(
-                  text: "Edit Profile Picture",
-                  function: () async { //open camera to take photo currently
-                    await availableCameras().then((value) => Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
-                  }
-                ),
-
+              const ProfileImageWidget(),
               //*****************************************
 
               //****************RATING**************/
