@@ -11,7 +11,6 @@ import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/archive_advert_action.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/actions/process_payment_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
@@ -123,14 +122,13 @@ class AdvertDetailsPage extends StatelessWidget {
                                     text: "Delete",
                                     color: "light",
                                     function: () {
-                                      // LightDialogHelper.display(
-                                      //     context,
-                                      //     DeletePopUpWidget(
-                                      //       action:
-                                      //           vm.dispatchArchiveAdvertAction,
-                                      //     ),
-                                      //     320.0);
-                                      vm.test(context);
+                                      LightDialogHelper.display(
+                                          context,
+                                          DeletePopUpWidget(
+                                            action:
+                                                vm.dispatchArchiveAdvertAction,
+                                          ),
+                                          320.0);
                                     },
                                   ),
                                 ),
@@ -198,7 +196,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           dispatch(ArchiveAdvertAction());
           dispatch(NavigateAction.pop());
         },
-        test: (BuildContext context) => dispatch(ProcessPaymentAction(context)),
       );
 }
 
@@ -213,7 +210,6 @@ class _ViewModel extends Vm {
   final bool loading;
   final VoidCallback
       dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
-  final void Function(BuildContext context) test;
 
   _ViewModel({
     required this.dispatchDeleteChatAction,
@@ -224,6 +220,5 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.loading,
     required this.dispatchArchiveAdvertAction,
-    required this.test,
   }) : super(equals: [advert, loading]); // implementinf hashcode
 }

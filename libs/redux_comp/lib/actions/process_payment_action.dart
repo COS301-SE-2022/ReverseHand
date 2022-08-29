@@ -81,13 +81,13 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
       final Map body = json.decode(response.body);
       if (body['data']['status'] == 'success') {
         //do something with the response. show success
-        print("success");
+        // print("success");
       } else {
         //show error prompt
-        print("fail");
+        // print("fail");
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 }
