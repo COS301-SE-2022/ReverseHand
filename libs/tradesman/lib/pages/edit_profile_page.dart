@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/widgets/textfield.dart';
+import 'package:general/widgets/bottom_sheet.dart';
+import 'package:general/widgets/profile_divider.dart';
 import 'package:redux_comp/actions/user/user_table/create_user_action.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -69,87 +70,229 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
     return StoreProvider<AppState>(
       store: widget.store,
       child: Scaffold(
-        resizeToAvoidBottomInset:
-            false, //prevents floatingActionButton appearing above keyboard
+        resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) => Column(
               children: [
                 //*******************APP BAR WIDGET******************//
-                AppBarWidget(title: "EDIT PROFILE", store: widget.store),
+                AppBarWidget(title: "CREATE PROFILE", store: widget.store),
                 //***************************************************//
 
-                //**********************NAME************************//
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                  child: TextFieldWidget(
-                    initialVal: vm.userDetails!.name,
-                    label: "Name",
-                    obscure: false,
-                    min: 1,
-                    controller: nameController,
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext context) {
+                          return BottomSheetWidget(
+                              text: "What name would you like to save?",
+                              initialVal: "",
+                              controller: nameController);
+                        });
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 40, right: 30, top: 80),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.person,
+                              color: Colors.white70,
+                              size: 26.0,
+                            ),
+                            const Padding(padding: EdgeInsets.only(right: 8)),
+                            Text(
+                              nameController.text.isEmpty
+                                  ? "Enter your name"
+                                  : nameController.text,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ],
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 15,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 //**************************************************//
 
+                const ProfileDividerWidget(),
+
                 //********************NUMBER**********************//
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                  child: TextFieldWidget(
-                    initialVal: vm.userDetails!.cellNo,
-                    label: "Phone",
-                    obscure: false,
-                    controller: cellController,
-                    min: 1,
-                  ),
-                ),
-
-                //********************TRADE**********************//
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                  child: TextFieldWidget(
-                    label: "Trade",
-                    obscure: false,
-                    controller: tradeController,
-                    onTap: () => showMultiSelect(vm.userDetails!.tradeTypes),
-                    min: 1,
-                  ),
-                ),
-
-                // display selected items
-                Wrap(
-                  spacing: 8.0,
-                  runSpacing: 8.0,
-                  children: selectedItems
-                      .map((types) => Chip(
-                            labelPadding: const EdgeInsets.all(2.0),
-                            label: Text(
-                              types,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+                //   child: TextFieldWidget(
+                //     initialVal: vm.userDetails!.cellNo,
+                //     label: "Phone",
+                //     obscure: false,
+                //     controller: cellController,
+                //     min: 1,
+                //   ),
+                // ),
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext context) {
+                          return BottomSheetWidget(
+                              text: "What phone number ",
+                              initialVal: "",
+                              controller: nameController);
+                        });
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 40, right: 30, top: 50),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.phone,
+                              color: Colors.white70,
+                              size: 26.0,
                             ),
-                            backgroundColor:
-                                const Color.fromRGBO(35, 47, 62, 1),
-                            padding: const EdgeInsets.all(8.0),
-                          ))
-                      .toList(),
+                            Padding(padding: EdgeInsets.only(right: 8)),
+                            Text(
+                              "Enter your phone number",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ],
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 15,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
+
+                const ProfileDividerWidget(),
+                //********************TRADE**********************//
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+                //   child: TextFieldWidget(
+                //     label: "Trade",
+                //     obscure: false,
+                //     controller: tradeController,
+                //     onTap: () => showMultiSelect(vm.userDetails!.tradeTypes),
+                //     min: 1,
+                //   ),
+                // ),
+                InkWell(
+                  onTap: () => showMultiSelect(vm.userDetails!.tradeTypes),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 40, right: 30, top: 50),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.construction,
+                              color: Colors.white70,
+                              size: 26.0,
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 8)),
+                            Text(
+                              "Select your trade type(s)",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ],
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 15,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+
+                const ProfileDividerWidget(),
+                // display selected items
+                // Wrap(
+                //   spacing: 8.0,
+                //   runSpacing: 8.0,
+                //   children: selectedItems
+                //       .map((types) => Chip(
+                //             labelPadding: const EdgeInsets.all(2.0),
+                //             label: Text(
+                //               types,
+                //               style: const TextStyle(
+                //                 color: Colors.white,
+                //               ),
+                //             ),
+                //             backgroundColor:
+                //                 const Color.fromRGBO(35, 47, 62, 1),
+                //             padding: const EdgeInsets.all(8.0),
+                //           ))
+                //       .toList(),
+                // ),
                 //**************************************************//
 
                 //********************DOMAIN**********************//
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                  child: TextFieldWidget(
-                    label: "Domains",
-                    obscure: false,
-                    controller: TextEditingController(),
-                    onTap: vm.pushDomainConfirmPage,
-                    min: 1,
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
+                //   child: TextFieldWidget(
+                //     label: "Domains",
+                //     obscure: false,
+                //     controller: TextEditingController(),
+                //     onTap: vm.pushDomainConfirmPage,
+                //     min: 1,
+                //   ),
+                // ),
+                InkWell(
+                  onTap: () {
+                    vm.pushDomainConfirmPage();
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 40, right: 30, top: 50),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.white70,
+                              size: 26.0,
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 8)),
+                            Text(
+                              "Enter your domain(s)",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ],
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 15,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 //**************************************************//
+
+                const ProfileDividerWidget(),
 
                 const Padding(padding: EdgeInsets.only(bottom: 30)),
                 //**************************************************//
@@ -158,7 +301,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                 if (vm.userDetails!.registered == true) ...[
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "Save Changes",
+                      text: "save changes",
                       function: () {
                         String? name, cellNo;
                         (vm.userDetails!.name != nameController.value.text)
@@ -178,7 +321,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                 ] else
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "Save Changes",
+                      text: "Done",
                       function: () {
                         final name = nameController.value.text.trim();
                         final cell = cellController.value.text.trim();
