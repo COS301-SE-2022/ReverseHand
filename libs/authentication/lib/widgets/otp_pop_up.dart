@@ -14,12 +14,12 @@ import 'link_widget.dart';
 // OTP popup widget
 //******************************** */
 
-class PopupWidget extends StatelessWidget {
+class OTPPopupWidget extends StatelessWidget {
   final otpController = TextEditingController();
 
   final Store<AppState> store;
 
-  PopupWidget({
+  OTPPopupWidget({
     Key? key,
     required this.store,
   }) : super(key: key);
@@ -90,7 +90,7 @@ class PopupWidget extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, PopupWidget> {
+class _Factory extends VmFactory<AppState, OTPPopupWidget> {
   _Factory(widget) : super(widget);
 
   @override

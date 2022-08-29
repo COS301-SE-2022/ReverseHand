@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 # input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
@@ -315,3 +316,4 @@ enum NotificationType {
 interface UniqueID {
   id: String!
 }
+>>>>>>> 998e713cd6b197805ac4eee5adf686e0436dd616

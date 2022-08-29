@@ -4,6 +4,7 @@ import 'package:authentication/widgets/circle_blur_widget.dart';
 import 'package:authentication/widgets/divider_widget.dart';
 import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
+// import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
@@ -13,6 +14,7 @@ import 'package:redux_comp/actions/user/signin_google_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/auth_button.dart';
+// import '../widgets/forgot_pass_popup.dart';
 import '../widgets/link_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -144,6 +146,27 @@ class LoginPage extends StatelessWidget {
                                   ),
                       ),
                       //***************************************************
+
+                       //*****************Forgot password**********************
+                      StoreConnector<AppState, _ViewModel>(
+                        vm: () => _Factory(this),
+                        builder: (BuildContext context, _ViewModel vm) =>
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 14),
+                            child: GestureDetector(
+                            onTap: (){} , //forgot password popup linked here
+                            child: const Text(
+                              "Forgot Password?",
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.grey,
+                              ),
+                              softWrap: false,
+                            ),
+                          ),
+                        ),
+                      ),
+                      //******************************************************* */
 
                       //*****************"OR" divider"**********************
                       SizedBox(
