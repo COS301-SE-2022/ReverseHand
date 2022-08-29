@@ -4,7 +4,7 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
-import '../methods/time.dart';
+// import '../methods/time.dart';
 
 //*********************************************** */
 // Job Listings card layout widget
@@ -29,68 +29,82 @@ class QuickViewJobCardWidget extends StatelessWidget {
         builder: (BuildContext context, _ViewModel vm) => InkWell(
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
-            margin: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-            //experimenting with colours currenlty
-            // color: Theme.of(context).primaryColorLight,
-            // color: const Color.fromARGB(255, 220, 224, 230),
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 7),
             color: const Color.fromARGB(255, 232, 232, 232),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(7),
             ),
             elevation: 2,
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 11.0, horizontal: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 5),
+              child: Row(
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: Text(advert.title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style:
-                            const TextStyle(fontSize: 30, color: Colors.black)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(3, 5, 5, 2),
-                    child: Text(
-                      timestampToDate(advert.dateCreated),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                            color: Colors.black,
-                            size: 25.0,
-                          ),
-                          Text(advert.domain.city,
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.black)),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 8.0),
-                        child: Text(
-                          //MICHAEL
-                          //   "Posted: ${advert.dateCreated}",
-                          "Posted: 16/08",
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 70, 70, 70)),
-                          maxLines: 1,
+                  const Padding(padding: EdgeInsets.all(2)),
+                  Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                              width: 2, color: Theme.of(context).primaryColor)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(13),
+                        child: Icon(
+                          //Painting
+                          // Icons.imagesearch_roller,
+                          //Tiler
+                          //Carpenter
+                          // Icons.carpenter,
+                          //Cleaner
+                          // Icons.sanitizer,
+                          //Designer
+                          // Icons.design_services,
+                          //Landscaper
+                          //Electrician
+                          // Icons.bolt,
+                          //Plumbing
+                          Icons.plumbing,
+                          color: Theme.of(context).primaryColor,
+                          size: 35,
                         ),
-                      ),
-                    ],
+                      )),
+                  const Padding(padding: EdgeInsets.all(2)),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 1.4,
+                          child: Text(advert.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 28,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 4)),
+                        Row(
+                          children: [
+                            Text(advert.domain.city,
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.black)),
+                            const Padding(padding: EdgeInsets.only(right: 10)),
+                            const Icon(Icons.circle_outlined, size: 8),
+                            const Padding(padding: EdgeInsets.only(left: 10)),
+                            Text(advert.type!,
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.black)),
+                          ],
+                        ),
+                        // Text(
+                        //   "Posted ${timestampToDate(advert.dateCreated)}",
+                        //   style: const TextStyle(
+                        //     fontSize: 18,
+                        //     color: Colors.black54,
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
                 ],
               ),
