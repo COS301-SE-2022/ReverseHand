@@ -160,7 +160,11 @@
         },
         "getReportedAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getReportedAdvertsResolver-694e6c64534646386870-build.zip"
+          "s3Key": "amplify-builds/getReportedAdvertsResolver-68786b66466a77364e4b-build.zip"
+        },
+        "getPayStackApiKeysResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getPayStackApiKeysResolver-666a2f6b586e51574744-build.zip"
         }
       }
     }

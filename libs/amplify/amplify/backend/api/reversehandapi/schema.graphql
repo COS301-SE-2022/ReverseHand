@@ -15,6 +15,9 @@ type Query {
 
   viewKey: String! @function(name: "getGoogleApiKeyResolver-${env}")
 
+  getPayStackKeys: PayStackKeys!
+  @function(name: "getPayStackApiKeysResolver-${env}")
+
   getConsumerChats(c_id: String!): [Chat!]!
     @function(name: "getConsumerMessagesResolver-${env}")
 
@@ -27,9 +30,8 @@ type Query {
   getUserStatistics(user_id: String!): Statistics!
     @function(name: "getUserStatisticsResolver-${env}")
 
-    getReportedAdverts(province: String!): [AdminAdvert]!
+  getReportedAdverts(province: String!): [AdminAdvert]!
     @function(name: "getReportedAdvertsResolver-${env}")
-
 }
 
 type Mutation {
@@ -299,6 +301,11 @@ type AdminAdvertReport {
   tradesman_id: String!
   reason: String!
   description: String!
+}
+
+type PayStackKeys {
+  private_key: String!
+  public_key: String!
 }
 
 # add more jobs here as we think of them
