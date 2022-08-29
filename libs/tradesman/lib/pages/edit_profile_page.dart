@@ -102,7 +102,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                           children: [
                             const Icon(
                               Icons.person,
-                              color: Colors.white70,
+                              color: Colors.orange,
                               size: 26.0,
                             ),
                             const Padding(padding: EdgeInsets.only(right: 8)),
@@ -110,14 +110,15 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                               nameController.text.isEmpty
                                   ? "Enter your name"
                                   : nameController.text,
-                              style: const TextStyle(fontSize: 18),
+                              style: const TextStyle(
+                                  fontSize: 18, color: Colors.white70),
                             ),
                           ],
                         ),
                         const Icon(
-                          Icons.arrow_forward_ios,
+                          Icons.close,
                           color: Colors.white,
-                          size: 15,
+                          size: 20,
                         )
                       ],
                     ),
@@ -160,20 +161,21 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                           children: const [
                             Icon(
                               Icons.phone,
-                              color: Colors.white70,
+                              color: Colors.orange,
                               size: 26.0,
                             ),
                             Padding(padding: EdgeInsets.only(right: 8)),
                             Text(
                               "Enter your phone number",
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.white70),
                             ),
                           ],
                         ),
                         const Icon(
-                          Icons.arrow_forward_ios,
+                          Icons.close,
                           color: Colors.white,
-                          size: 15,
+                          size: 20,
                         )
                       ],
                     ),
@@ -204,20 +206,21 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                           children: const [
                             Icon(
                               Icons.construction,
-                              color: Colors.white70,
+                              color: Colors.orange,
                               size: 26.0,
                             ),
                             Padding(padding: EdgeInsets.only(right: 8)),
                             Text(
                               "Select your trade type(s)",
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.white70),
                             ),
                           ],
                         ),
                         const Icon(
-                          Icons.arrow_forward_ios,
+                          Icons.close,
                           color: Colors.white,
-                          size: 15,
+                          size: 20,
                         )
                       ],
                     ),
@@ -271,20 +274,21 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                           children: const [
                             Icon(
                               Icons.location_on,
-                              color: Colors.white70,
+                              color: Colors.orange,
                               size: 26.0,
                             ),
                             Padding(padding: EdgeInsets.only(right: 8)),
                             Text(
                               "Enter your domain(s)",
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.white70),
                             ),
                           ],
                         ),
                         const Icon(
-                          Icons.arrow_forward_ios,
+                          Icons.done,
                           color: Colors.white,
-                          size: 15,
+                          size: 20,
                         )
                       ],
                     ),
