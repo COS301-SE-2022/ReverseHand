@@ -38,7 +38,7 @@ class TradesmanProfilePage extends StatelessWidget {
               //************************************/
 
               //****************PROFILE IMAGE****************/
-              const ProfileImageWidget(),
+              ProfileImageWidget(store: store,),
               //*****************************************
 
               //****************RATING**************/
