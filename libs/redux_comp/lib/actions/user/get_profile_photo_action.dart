@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import '../app_state.dart';
+import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
