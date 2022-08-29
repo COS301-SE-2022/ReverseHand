@@ -15,6 +15,7 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
     PaystackPlugin paystackPlugin = PaystackPlugin();
 
     await paystackPlugin.initialize(
+      publicKey: "pk_test_baaa336322aaf8057d0e5827c21b3cbb96d0bcdb",
     );
 
     // testing
@@ -45,6 +46,7 @@ Future<String> createAccessCode() async {
   Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
+    'Authorization': 'Bearer sk_test_8193004a99ab1e7bf93ace9b03abb738d776281e'
   };
 
   Map data = {
@@ -72,6 +74,7 @@ void _verifyOnServer(String? reference) async {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization':
+          'Bearer sk_test_8193004a99ab1e7bf93ace9b03abb738d776281e',
     };
     http.Response response = await http.get(
       Uri.parse('https://api.paystack.co/transaction/verify/$reference'),
