@@ -27,6 +27,9 @@ type Query {
   getUserStatistics(user_id: String!): Statistics!
     @function(name: "getUserStatisticsResolver-${env}")
 
+    getReportedAdverts(province: String!): [AdminAdvert]!
+    @function(name: "getReportedAdvertsResolver-${env}")
+
 }
 
 type Mutation {
@@ -286,6 +289,7 @@ input ReviewInput {
 
 type AdminAdvert {
   id: String!
+  customer_id: String!
   advert: Advert!
   count: Int!
   reports: [AdminAdvertReport!]!
