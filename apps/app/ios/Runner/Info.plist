@@ -3,7 +3,9 @@
 <plist version="1.0">
 	<dict>
 		<key>NSCameraUsageDescription</key>
-		<string>This app needs access to camera when used</string>
+		<string>This app needs access to your camera when used</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>This app needs access to your gallery when used</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>

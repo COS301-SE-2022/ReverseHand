@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
@@ -45,6 +46,9 @@ class AppState {
   //admin functionality
   final AdminModel admin;
 
+  // images
+  final File? userProfileImage;
+
   // constructor must only take named parameters
   const AppState({
     required this.authModel,
@@ -68,6 +72,7 @@ class AppState {
     required this.advertsWon,
     required this.userStatistics,
     required this.admin,
+    required this.userProfileImage,
   });
 
   // this methods sets the starting state for the store
@@ -115,6 +120,7 @@ class AppState {
         messages: [],
       ),
       admin: const AdminModel(reportedCustomers: []),
+      userProfileImage: null,
     );
   }
 
@@ -154,53 +160,58 @@ class AppState {
         messages: [],
       ),
       admin: const AdminModel(reportedCustomers: []),
+      userProfileImage: null,
     );
   }
   // easy way to replace store wihtout specifying all paramters
-  AppState copy(
-      {CognitoAuthModel? authModel,
-      UserModel? userDetails,
-      PartialUser? partialUser,
-      List<AdvertModel>? adverts,
-      List<AdvertModel>? viewAdverts,
-      List<BidModel>? bids,
-      List<BidModel>? shortlistBids,
-      List<BidModel>? viewBids,
-      List<ReviewModel>? reviews,
-      BidModel? activeBid,
-      AdvertModel? activeAd,
-      Location? locationResult,
-      ErrorType? error,
-      bool? loading,
-      bool? change,
-      Wait? wait,
-      List<ChatModel>? chats,
-      ChatModel? chat,
-      AdminModel? admin,
-      List<String>? advertsWon,
-      int? sum,
-      StatisticsModel? userStatistics}) {
+  AppState copy({
+    CognitoAuthModel? authModel,
+    UserModel? userDetails,
+    PartialUser? partialUser,
+    List<AdvertModel>? adverts,
+    List<AdvertModel>? viewAdverts,
+    List<BidModel>? bids,
+    List<BidModel>? shortlistBids,
+    List<BidModel>? viewBids,
+    List<ReviewModel>? reviews,
+    BidModel? activeBid,
+    AdvertModel? activeAd,
+    Location? locationResult,
+    ErrorType? error,
+    bool? loading,
+    bool? change,
+    Wait? wait,
+    List<ChatModel>? chats,
+    ChatModel? chat,
+    AdminModel? admin,
+    List<String>? advertsWon,
+    int? sum,
+    StatisticsModel? userStatistics,
+    File? userProfileImage,
+  }) {
     return AppState(
-        authModel: authModel ?? this.authModel,
-        userDetails: userDetails ?? this.userDetails,
-        partialUser: partialUser ?? this.partialUser,
-        adverts: adverts ?? this.adverts,
-        viewAdverts: viewAdverts ?? this.viewAdverts,
-        bids: bids ?? this.bids,
-        reviews: reviews ?? this.reviews,
-        shortlistBids: shortlistBids ?? this.shortlistBids,
-        viewBids: viewBids ?? this.viewBids,
-        activeAd: activeAd ?? this.activeAd,
-        activeBid: activeBid ?? this.activeBid,
-        locationResult: locationResult ?? this.locationResult,
-        error: error ?? this.error,
-        change: change ?? this.change,
-        wait: wait ?? this.wait,
-        chats: chats ?? this.chats,
-        chat: chat ?? this.chat,
-        admin: admin ?? this.admin,
-        sum: sum ?? this.sum,
-        advertsWon: advertsWon ?? this.advertsWon,
-        userStatistics: userStatistics ?? this.userStatistics);
+      authModel: authModel ?? this.authModel,
+      userDetails: userDetails ?? this.userDetails,
+      partialUser: partialUser ?? this.partialUser,
+      adverts: adverts ?? this.adverts,
+      viewAdverts: viewAdverts ?? this.viewAdverts,
+      bids: bids ?? this.bids,
+      reviews: reviews ?? this.reviews,
+      shortlistBids: shortlistBids ?? this.shortlistBids,
+      viewBids: viewBids ?? this.viewBids,
+      activeAd: activeAd ?? this.activeAd,
+      activeBid: activeBid ?? this.activeBid,
+      locationResult: locationResult ?? this.locationResult,
+      error: error ?? this.error,
+      change: change ?? this.change,
+      wait: wait ?? this.wait,
+      chats: chats ?? this.chats,
+      chat: chat ?? this.chat,
+      admin: admin ?? this.admin,
+      sum: sum ?? this.sum,
+      advertsWon: advertsWon ?? this.advertsWon,
+      userStatistics: userStatistics ?? this.userStatistics,
+      userProfileImage: userProfileImage ?? this.userProfileImage,
+    );
   }
 }
