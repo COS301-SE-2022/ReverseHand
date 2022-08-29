@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getCustomerReportedAdverts",
+            "getReportedAdvertsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getCustomerReportedAdverts",
+                  "getReportedAdvertsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -93,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole10193828",
+            "reversehandLambdaRolec5cfa71d",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole10193828",
+                  "reversehandLambdaRolec5cfa71d",
                   "-",
                   {
                     "Ref": "env"
@@ -187,13 +187,9 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:BatchWriteItem",
-                "dynamodb:PutItem",
-                "dynamodb:List*",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:Delete*",
-                "dynamodb:UpdateItem"
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetItem",
+                "dynamodb:Query"
               ],
               "Resource": [
                 {
