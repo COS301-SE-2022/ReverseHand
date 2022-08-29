@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:redux_comp/app_state.dart';
 
 class ProfileImageWidget extends StatefulWidget {
-  const ProfileImageWidget({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const ProfileImageWidget({Key? key, required this.store}) : super(key: key);
 
   @override
   ProfileImageWidgetState createState() => ProfileImageWidgetState();
@@ -16,33 +19,36 @@ class ProfileImageWidgetState extends State<ProfileImageWidget> {
   
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Stack(children: <Widget>[
-        CircleAvatar(
-          radius: 80.0,
-          backgroundImage: _imageFile == null
-              // ? Image.asset('assets/images/profile.png',height: 250, width: 250,package: 'general',) as ImageProvider
-              ? const AssetImage("assets/images/profile.png", package: 'general') as ImageProvider
-              : FileImage(File(_imageFile!.path)),
-        ),
-        Positioned(
-          bottom: 20.0,
-          right: 20.0,
-          child: InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                builder: ((builder) => bottomSheet()),
-              );
-            },
-            child: const Icon(
-              Icons.camera_alt,
-              color: Colors.white,
-              size: 28.0,
+    return  StoreProvider<AppState>(
+      store: widget.store,
+      child: Center(
+        child: Stack(children: <Widget>[
+          CircleAvatar(
+            radius: 80.0,
+            backgroundImage: _imageFile == null
+                // ? Image.asset('assets/images/profile.png',height: 250, width: 250,package: 'general',) as ImageProvider
+                ? const AssetImage("assets/images/profile.png", package: 'general') as ImageProvider
+                : FileImage(File(_imageFile!.path)),
+          ),
+          Positioned(
+            bottom: 20.0,
+            right: 20.0,
+            child: InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: ((builder) => bottomSheet()),
+                );
+              },
+              child: const Icon(
+                Icons.camera_alt,
+                color: Colors.white,
+                size: 28.0,
+              ),
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 
