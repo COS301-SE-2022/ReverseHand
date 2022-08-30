@@ -6,15 +6,15 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class GetProfilePhotoAction extends ReduxAction<AppState> {
-  final String userId;
+  final String? userId;
 
-  GetProfilePhotoAction(this.userId);
+  GetProfilePhotoAction({this.userId});
 
   @override
   Future<AppState?> reduce() async {
     final documentsDir = await getApplicationDocumentsDirectory();
 
-    String key = "profiles/$userId";
+    String key = "profiles/${userId ?? state.userDetails!.id}";
     final String filepath = "${documentsDir.path}/${key.replaceAll("/", "-")}";
 
     final file = File(filepath);
@@ -31,10 +31,11 @@ class GetProfilePhotoAction extends ReduxAction<AppState> {
       // Or you can reference the file that is created above
       // final contents = file.readAsStringSync();
       debugPrint('Downloaded contents: $contents');
+
+      return state.copy(userProfileImage: result.file);
     } on StorageException catch (e) {
       debugPrint('Error downloading file: $e');
+      return null;
     }
-
-    return null;
   }
 }

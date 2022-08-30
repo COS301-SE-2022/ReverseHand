@@ -19,17 +19,10 @@ class ProfileImageWidget extends StatelessWidget {
         child: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
-            ImagePicker picker = ImagePicker();
-
             return Stack(
               children: [
                 CircleAvatar(
                   radius: 80.0,
-                  // backgroundImage: _imageFile == null
-                  //     // ? Image.asset('assets/images/profile.png',height: 250, width: 250,package: 'general',) as ImageProvider
-                  //     ? const AssetImage("assets/images/profile.png",
-                  //         package: 'general') as ImageProvider
-                  //     : FileImage(File(_imageFile!.path)),
                   backgroundImage: vm.profilePhoto == null
                       ? const AssetImage("assets/images/profile.png",
                           package: 'general') as ImageProvider
@@ -39,18 +32,8 @@ class ProfileImageWidget extends StatelessWidget {
                   bottom: 20.0,
                   right: 20.0,
                   child: InkWell(
-                    onTap: () async {
-                      try {
-                        XFile? file = await picker.pickImage(
-                          source: ImageSource.camera,
-                          preferredCameraDevice: CameraDevice.front,
-                        );
-
-                        print('yay');
-                      } catch (e) {
-                        print(e);
-                      }
-                    },
+                    onTap: () =>
+                        bottomSheet(context, vm.dispatchAddtoBucketAction),
                     child: const Icon(
                       Icons.camera_alt,
                       color: Colors.white,
@@ -112,11 +95,14 @@ class ProfileImageWidget extends StatelessWidget {
   }
 
   Future<XFile?> takePhoto(ImageSource source) async {
-    // XFile? file = await picker.pickImage(
-    //   source: source,
-    // );
+    ImagePicker picker = ImagePicker();
 
-    // return file;
+    XFile? file = await picker.pickImage(
+      source: source,
+      preferredCameraDevice: CameraDevice.front,
+    );
+
+    return file;
   }
 }
 
