@@ -1,5 +1,3 @@
-import 'package:admin/pages/admin_advert_details_page.dart';
-import 'package:admin/pages/admin_advert_reports_page.dart';
 import 'package:admin/pages/admin_consumer_profile_page.dart';
 import 'package:admin/pages/admin_consumer_reports_page.dart';
 import 'package:async_redux/async_redux.dart';
@@ -28,6 +26,7 @@ import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
 import 'package:tradesman/tradesman.dart';
+import 'package:admin/admin.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -111,6 +110,9 @@ class Launch extends StatelessWidget {
           '/admin_consumer_profile': (context) => AdminConsumerProfilePage(store: store),
           '/admin_consumer_advert_reports': (context) => AdminAdvertReportsPage(store: store),
           '/admin_consumer_advert_details': (context) => AdminAdvertDetailsPage(store: store),
+          '/admin_metrics': (context) => AdminMetricsPage(store: store),
+          '/admin_content': (context) => AdminContentPage(store: store),
+          '/admin_users': (context) => AdminUsersPage(store: store),
         },
       ),
     );

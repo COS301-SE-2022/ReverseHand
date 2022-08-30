@@ -1,7 +1,7 @@
-library admin;
+library consumer;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'pages/admin_metrics_page.dart';
+export 'pages/admin_content_page.dart';
+export 'pages/admin_users_page.dart';
+export 'pages/admin_advert_details_page.dart';
+export 'pages/admin_advert_reports_page.dart';
