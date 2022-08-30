@@ -17,7 +17,7 @@ class InitAmplifyAction extends ReduxAction<AppState> {
     return null;
   }
 
-@override
+  @override
   void after() {
     if (Amplify.isConfigured) {
       dispatch(CheckSignedInAction());
