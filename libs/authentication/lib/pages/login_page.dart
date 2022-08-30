@@ -164,7 +164,7 @@ class LoginPage extends StatelessWidget {
                                   return Padding(
                                     padding: MediaQuery.of(context).viewInsets,
                                     child: Container(
-                                      color: Colors.white,
+                                      color: const Color.fromARGB(255, 232, 232, 232),
                                       child: Padding(
                                           padding: const EdgeInsets.all(20.0),
                                           child: SizedBox(
@@ -174,14 +174,14 @@ class LoginPage extends StatelessWidget {
                                                 const Text("Enter email to receive OTP",
                                                     style: TextStyle(fontSize: 20, color: Colors.black)),
                                                 const Padding(padding: EdgeInsets.all(10)),
-                                                //*****************OTP text field**********************
+                                                //*****************Email text field**********************
                                                 Container(
                                                   margin: const EdgeInsets.only(left: 25, right: 25),
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: AuthTextFieldWidget(
-                                                    label: 'otp',
+                                                    label: 'email',
                                                     obscure: false,
-                                                    icon: Icons.domain_verification_outlined, 
+                                                    icon: Icons.email_outlined, 
                                                     controller: otpController,
                                                     
                                                   ),
@@ -193,6 +193,7 @@ class LoginPage extends StatelessWidget {
                                                   text1: "Didn't receive OTP? ",
                                                   text2: "Resend",
                                                   navigate: () => LoginPage(store: store),
+                                                  colour: Colors.black
                                                 ),
                                                 const Padding(padding: EdgeInsets.all(20)),
                                                 ButtonWidget(text: "Send", function: () {})
@@ -241,6 +242,7 @@ class LoginPage extends StatelessWidget {
                           text1: "Don't have an account? ",
                           text2: "Sign Up",
                           navigate: () => vm.pushSignUpPage(),
+                          colour: Colors.grey
                         ),
                       ),
                       //******************************************************* */
