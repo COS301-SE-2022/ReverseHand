@@ -15,6 +15,9 @@ type Query {
 
   viewKey: String! @function(name: "getGoogleApiKeyResolver-${env}")
 
+  getPayStackKeys: PayStackKeys!
+  @function(name: "getPayStackApiKeysResolver-${env}")
+
   getConsumerChats(c_id: String!): [Chat!]!
     @function(name: "getConsumerMessagesResolver-${env}")
 
@@ -27,11 +30,8 @@ type Query {
   getUserStatistics(user_id: String!): Statistics!
     @function(name: "getUserStatisticsResolver-${env}")
 
-  getReportedCustomers(scope: String!, city: String!): [User]!
-    @function(name: "getReportedCustomers-${env}")
-
-  getCustomerReportedAdverts(customer_id: String!): [AdminAdvert]!
-    @function(name: "getCustomerReportedAdverts-${env}")
+  getReportedAdverts(province: String!): [AdminAdvert]!
+    @function(name: "getReportedAdvertsResolver-${env}")
 }
 
 type Mutation {
@@ -291,6 +291,7 @@ input ReviewInput {
 
 type AdminAdvert {
   id: String!
+  customer_id: String!
   advert: Advert!
   count: Int!
   reports: [AdminAdvertReport!]!
@@ -300,6 +301,11 @@ type AdminAdvertReport {
   tradesman_id: String!
   reason: String!
   description: String!
+}
+
+type PayStackKeys {
+  secret_key: String!
+  public_key: String!
 }
 
 # add more jobs here as we think of them

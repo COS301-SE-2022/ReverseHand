@@ -37,6 +37,9 @@ dependencies:
     path: '../general'
 
   http: ^0.13.4
+
+  # payments
+  flutter_paystack: ^1.0.5+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

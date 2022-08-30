@@ -155,7 +155,7 @@ class AdvertDetailsPage extends StatelessWidget {
                                     border: "white",
                                     function: vm.popPage,
                                   ),
-                                ))
+                                )),
                             ],
                           ),
                           //*************BOTTOM BUTTONS**************//

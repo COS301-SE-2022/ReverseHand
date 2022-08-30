@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getReportedCustomers",
+            "getPayStackApiKeysResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getReportedCustomers",
+                  "getPayStackApiKeysResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -72,9 +72,7 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "REVERSEHAND": "ReverseHand",
-            "USER": "User"
+            }
           }
         },
         "Role": {
@@ -94,12 +92,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRolea850752d",
+            "reversehandLambdaRole785e83ae",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRolea850752d",
+                  "reversehandLambdaRole785e83ae",
                   "-",
                   {
                     "Ref": "env"
@@ -165,50 +163,6 @@
                   }
                 ]
               }
-            }
-          ]
-        }
-      }
-    },
-    "AccessDynamoDBApiResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyName": "amplify-lambda-execution-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:BatchGetItem",
-                "dynamodb:GetItem"
-              ],
-              "Resource": [
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
-                    {
-                      "tablename": "ReverseHand"
-                    }
-                  ]
-                },
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
-                    {
-                      "tablename": "User"
-                    }
-                  ]
-                }
-              ]
             }
           ]
         }

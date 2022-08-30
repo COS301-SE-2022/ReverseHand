@@ -162,7 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                               DarkDialogHelper.display(
                                   context,
-                                  PopupWidget(
+                                  OTPPopupWidget(
                                     store: widget.store,
                                   ),
                                   1000.0); //trigger OTP popup
