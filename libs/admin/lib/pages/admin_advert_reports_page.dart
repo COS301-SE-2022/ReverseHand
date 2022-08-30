@@ -31,8 +31,9 @@ class AdminAdvertReportsPage extends StatelessWidget {
                   children: [
                     //*******************APP BAR WIDGET*********************//
                     AppBarWidget(
-                        title: "Advert Reports for ${vm.activeUser.name}",
-                        store: store),
+                      title: "Advert Reports for ${vm.activeUser.name}",
+                      store: store,
+                    ),
                     //********************************************************//
 
                     if (vm.reportedAds.isNotEmpty)

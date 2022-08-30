@@ -1,3 +1,4 @@
+import 'package:admin/widgets/admin_appbar_widget.dart';
 import 'package:admin/widgets/admin_navbar_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class AdminUsersPage extends StatelessWidget {
                   ? Column(
                       children: [
                         //**********APPBAR***********//
-                        AppBarWidget(title: "User Management", store: store),
+                        AdminAppBarWidget(title: "User Management", store: store),
                         //*******************************************//
 
                         LoadingWidget(
@@ -33,7 +34,7 @@ class AdminUsersPage extends StatelessWidget {
                   : Column(
                       children: [
                         //**********APPBAR***********//
-                        AppBarWidget(title: "User Management", store: store),
+                        AdminAppBarWidget(title: "User Management", store: store),
                         ButtonWidget(
                           text: "View all users",
                           function: () {},

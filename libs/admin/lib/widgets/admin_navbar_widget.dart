@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/admin/get_reported_adverts_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -66,7 +67,7 @@ class AdminNavBarWidget extends StatelessWidget {
                               style: TextStyle(fontSize: 25),
                             ),
                             onPressed: () {
-                              vm.pushContentManage();
+                              vm.pushUserManage();
                             },
                             splashRadius: 30,
                             highlightColor: Colors.orange,
@@ -75,11 +76,11 @@ class AdminNavBarWidget extends StatelessWidget {
 
                           //icon 3 - activity stream
                           IconButton(
-                           icon: const Text(
+                            icon: const Text(
                               "C",
                               style: TextStyle(fontSize: 25),
                             ),
-                            onPressed: () => vm.pushUserManage(),
+                            onPressed: () => vm.pushContentManage(),
                             splashRadius: 30,
                             highlightColor: Colors.orange,
                             splashColor: Colors.white,
@@ -113,16 +114,21 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         pushAppMetrics: () => dispatch(
-          NavigateAction.pushNamedAndRemoveUntil('/admin_metrics', ModalRoute.withName('/')),
+          NavigateAction.pushNamedAndRemoveUntil(
+              '/admin_metrics', ModalRoute.withName('/')),
         ),
         pushUserManage: () => dispatch(
-          NavigateAction.pushNamedAndRemoveUntil('/admin_content', ModalRoute.withName('/')),
+          NavigateAction.pushNamedAndRemoveUntil(
+              '/admin_users', ModalRoute.withName('/')),
         ),
-        pushContentManage: () => dispatch(
-          NavigateAction.pushNamedAndRemoveUntil('/admin_users', ModalRoute.withName('/')),
-        ),
+        pushContentManage: () {
+          dispatch(GetReportedAdvertsAction(state.userDetails!.scope!));
+          dispatch(NavigateAction.pushNamedAndRemoveUntil(
+              '/admin_content', ModalRoute.withName('/')));
+        },
         pushProfilePage: () => dispatch(
-          NavigateAction.pushNamedAndRemoveUntil('/admin_metrics', ModalRoute.withName('/')),
+          NavigateAction.pushNamedAndRemoveUntil(
+              '/admin_metrics', ModalRoute.withName('/')),
         ),
       );
 }
