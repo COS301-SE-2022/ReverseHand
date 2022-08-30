@@ -1,4 +1,4 @@
-library consumer;
+library admin;
 
 export 'pages/admin_metrics_page.dart';
 export 'pages/admin_content_page.dart';
