@@ -11,7 +11,7 @@ class GetChatsAction extends ReduxAction<AppState> {
     // if (state.chats.isNotEmpty) return null;
 
     String graphQLDocument = '''query {
-      getConsumerChats(c_id: "${state.userDetails!.id}") {
+      get${state.userDetails!.userType}(c_id: "${state.userDetails!.id}") {
         consumer_id
         tradesman_id
         consumer_name
