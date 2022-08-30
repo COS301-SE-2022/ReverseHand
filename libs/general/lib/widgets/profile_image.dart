@@ -9,9 +9,7 @@ import 'package:redux_comp/models/bucket_model.dart';
 class ProfileImageWidget extends StatelessWidget {
   final Store<AppState> store;
 
-  ProfileImageWidget({Key? key, required this.store}) : super(key: key);
-
-  final ImagePicker _picker = ImagePicker();
+  const ProfileImageWidget({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +19,8 @@ class ProfileImageWidget extends StatelessWidget {
         child: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
+            ImagePicker picker = ImagePicker();
+
             return Stack(
               children: [
                 CircleAvatar(
@@ -39,12 +39,17 @@ class ProfileImageWidget extends StatelessWidget {
                   bottom: 20.0,
                   right: 20.0,
                   child: InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: ((builder) =>
-                            bottomSheet(context, vm.dispatchAddtoBucketAction)),
-                      );
+                    onTap: () async {
+                      try {
+                        XFile? file = await picker.pickImage(
+                          source: ImageSource.camera,
+                          preferredCameraDevice: CameraDevice.front,
+                        );
+
+                        print('yay');
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                     child: const Icon(
                       Icons.camera_alt,
@@ -84,14 +89,16 @@ class ProfileImageWidget extends StatelessWidget {
             TextButton.icon(
               icon: const Icon(Icons.camera_alt, color: Colors.black),
               onPressed: () async {
-                func(File((await takePhoto(ImageSource.camera))!.path));
+                XFile? file = (await takePhoto(ImageSource.camera));
+                if (file != null) func(File(file.path));
               },
               label: const Text("Camera"),
             ),
             TextButton.icon(
               icon: const Icon(Icons.image, color: Colors.black),
               onPressed: () async {
-                func(File((await takePhoto(ImageSource.gallery))!.path));
+                XFile? file = (await takePhoto(ImageSource.gallery));
+                if (file != null) func(File(file.path));
               },
               label: const Text(
                 "Gallery",
@@ -105,11 +112,11 @@ class ProfileImageWidget extends StatelessWidget {
   }
 
   Future<XFile?> takePhoto(ImageSource source) async {
-    XFile? file = await _picker.pickImage(
-      source: source,
-    );
+    // XFile? file = await picker.pickImage(
+    //   source: source,
+    // );
 
-    return file;
+    // return file;
   }
 }
 

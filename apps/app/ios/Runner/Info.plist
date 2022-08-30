@@ -6,6 +6,10 @@
 		<string>This app needs access to your camera when used</string>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>This app needs access to your gallery when used</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>This app needs access to your gallery when used</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>This app needs access to your micorphone when used</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
