@@ -10,8 +10,11 @@ class GetChatsAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     // if (state.chats.isNotEmpty) return null;
 
+    final String user =
+        state.userDetails!.userType == 'Consumer' ? 'c_id' : 't_id';
+
     String graphQLDocument = '''query {
-      get${state.userDetails!.userType}Chat(c_id: "${state.userDetails!.id}") {
+      get${state.userDetails!.userType}Chats($user: "${state.userDetails!.id}") {
         consumer_id
         tradesman_id
         consumer_name
