@@ -13,14 +13,24 @@ class RankAdvertsAction extends ReduxAction<AppState> {
     double ranking = 0.0;
 
     //First rank the adverts
-    for (AdvertModel advert in state.adverts) {
-      ranking = _rankTitle(advert) as double;
-      ranking = _photoRank(advert) as double;
-      _rankDescription(advert);
-      _rankDateCreated(advert);
+    for (AdvertModel advert in state.viewAdverts) {
+      ranking += _rankTitle(advert);
+      ranking += _photoRank(advert);
+      ranking += _rankDescription(advert);
+      ranking += _rankDateCreated(advert);
 
       //create a new advert with updated rank
-      AdvertModel ad = advert.copy(advertRank: ranking);
+      AdvertModel ad = advert.copy(
+        id: advert.id,
+        title: advert.title,
+        description: advert.description,
+        type: advert.type,
+        acceptedBid: advert.acceptedBid,
+        domain: advert.domain,
+        dateCreated: advert.dateCreated,
+        dateClosed: advert.dateClosed,
+        advertRank: ranking,
+      );
       adverts.add(ad);
       //reset the counter
       ranking = 0.0;
@@ -28,16 +38,17 @@ class RankAdvertsAction extends ReduxAction<AppState> {
     //Now have to sort the adverts based on the rank.
     adverts = _sortAdverts(adverts);
 
-    return state.copy(adverts: adverts);
+    return state.copy(viewAdverts: adverts);
   }
 
-  int _rankTitle(AdvertModel advert) {
+  double _rankTitle(AdvertModel advert) {
     List<String>? tradeTypes = state.userDetails?.tradeTypes;
-    int ranking = 0;
+    double ranking = 0;
 
     //First check if the title contains the tradetype of a tradesman
     for (String trade in tradeTypes!) {
-      if ((advert.title.toLowerCase()).contains(trade.toLowerCase())) {
+      // if ((advert.title.toLowerCase()).contains(trade.toLowerCase())) {
+      if ((trade.toLowerCase()).contains(advert.title.toLowerCase())) {
         ranking += 2;
         break; //exit on first match
       }
@@ -59,11 +70,13 @@ class RankAdvertsAction extends ReduxAction<AppState> {
     return ranking;
   }
 
-  void _photoRank(AdvertModel advert) {}
+  double _photoRank(AdvertModel advert) {
+    return 0.0; //stub for now
+  }
 
-  int _rankDescription(AdvertModel advert) {
+  double _rankDescription(AdvertModel advert) {
     String description = advert.description!.trim();
-    int ranking = 0;
+    double ranking = 0;
 
     if (description.length < 100 && description.length > 50) {
       ranking += 1;
@@ -78,15 +91,15 @@ class RankAdvertsAction extends ReduxAction<AppState> {
     return ranking;
   }
 
-  int _rankDateCreated(AdvertModel advert) {
-    int ranking = 0;
+  double _rankDateCreated(AdvertModel advert) {
+    double ranking = 0;
     int sevenDay = 604800; //time in seconds
     //example format of date: 27-08-2022
 
     //get the current date as a unix timestamp
-    int currrentDate = (DateTime.now().millisecondsSinceEpoch / 1000) as int;
+    double currrentDate = (DateTime.now().millisecondsSinceEpoch / 1000);
 
-    if (((advert.dateCreated as int) / 1000) + sevenDay < currrentDate) {
+    if (((advert.dateCreated) / 1000) + sevenDay < currrentDate) {
       ranking += 1;
     } else {
       ranking += 2;
@@ -96,7 +109,7 @@ class RankAdvertsAction extends ReduxAction<AppState> {
   }
 
   List<AdvertModel> _sortAdverts(List<AdvertModel> adverts) {
-    adverts.sort((a, b) => a.advertRank!.compareTo(b.advertRank!));
+    adverts.sort((a, b) => b.advertRank!.compareTo(a.advertRank!));
     return adverts;
   }
 }
