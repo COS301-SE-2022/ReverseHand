@@ -15,7 +15,7 @@ class RankAdvertsAction extends ReduxAction<AppState> {
     //First rank the adverts
     for (AdvertModel advert in state.adverts) {
       ranking = _rankTitle(advert) as double;
-      _photoRank(advert);
+      ranking = _photoRank(advert) as double;
       _rankDescription(advert);
       _rankDateCreated(advert);
 
@@ -26,6 +26,9 @@ class RankAdvertsAction extends ReduxAction<AppState> {
       ranking = 0.0;
     }
     //Now have to sort the adverts based on the rank.
+    adverts = _sortAdverts(adverts);
+
+    return state.copy(adverts: adverts);
   }
 
   int _rankTitle(AdvertModel advert) {
@@ -58,9 +61,44 @@ class RankAdvertsAction extends ReduxAction<AppState> {
 
   void _photoRank(AdvertModel advert) {}
 
-  void _rankDescription(AdvertModel advert) {}
+  int _rankDescription(AdvertModel advert) {
+    String description = advert.description!.trim();
+    int ranking = 0;
 
-  void _rankDateCreated(AdvertModel advert) {}
+    if (description.length < 100 && description.length > 50) {
+      ranking += 1;
+    }
+
+    //check if description has any possible numbers that might be used
+    //as a hint for dimensions provided.
+    if (description.contains(RegExp(r'[0-9]'))) {
+      ranking += 1;
+    }
+
+    return ranking;
+  }
+
+  int _rankDateCreated(AdvertModel advert) {
+    int ranking = 0;
+    int sevenDay = 604800; //time in seconds
+    //example format of date: 27-08-2022
+
+    //get the current date as a unix timestamp
+    int currrentDate = (DateTime.now().millisecondsSinceEpoch / 1000) as int;
+
+    if (((advert.dateCreated as int) / 1000) + sevenDay < currrentDate) {
+      ranking += 1;
+    } else {
+      ranking += 2;
+    }
+
+    return ranking;
+  }
+
+  List<AdvertModel> _sortAdverts(List<AdvertModel> adverts) {
+    adverts.sort((a, b) => a.advertRank!.compareTo(b.advertRank!));
+    return adverts;
+  }
 }
 
 /**
@@ -76,7 +114,7 @@ class RankAdvertsAction extends ReduxAction<AppState> {
  * (c). Title contains tradetype of tradesman 2 points
  * 
  * Description: Check the following:
- * (a). Length of the Description. 1 points based on some measurement
+ * (a). Length of the Description. 1 point if 50<length<100
  * (b). Presence of any numbers that could potentially be dimensions or quantity
  *      1 point for this.
  * 
@@ -84,5 +122,12 @@ class RankAdvertsAction extends ReduxAction<AppState> {
  * (a). Presence of Photo equals 2 points straight
  * 
  * Date Created: 
- * (a). Adverts where  7 days < date_created < 40 days get 2 points else 1 point
+ * (a). Adverts older than 7 days get points else 1 point.
  */
+
+/*
+    *Example code on how to sort a list 
+final numbers = <String>['one', 'two', 'three', 'four'];
+numbers.sort((a, b) => a.length.compareTo(b.length));
+print(numbers); // [one, two, four, three] OR [two, one, four, three]
+*/
