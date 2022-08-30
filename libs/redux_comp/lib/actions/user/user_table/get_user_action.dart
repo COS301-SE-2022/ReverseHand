@@ -5,6 +5,7 @@ import 'package:redux_comp/actions/admin/get_reported_customers_action.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
+import 'package:redux_comp/actions/get_paystack_secrets_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
@@ -139,12 +140,10 @@ class GetUserAction extends ReduxAction<AppState> {
             (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
         return state.copy(
-          userDetails: state.userDetails!.copy(
-            name: user["name"],
-            email: user["email"],
-            scope: user["scope"]
-          )
-        );
+            userDetails: state.userDetails!.copy(
+                name: user["name"],
+                email: user["email"],
+                scope: user["scope"]));
       } on ApiException catch (e) {
         debugPrint(e.message);
         return null;
@@ -171,6 +170,7 @@ class GetUserAction extends ReduxAction<AppState> {
         List<String> tradeTypes = state.userDetails!.tradeTypes;
         dispatch(ViewJobsAction(domains, tradeTypes));
         dispatch(SubscribMessagesAction());
+        dispatch(GetPaystackSecretsAction());
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;
       case "Admin":
