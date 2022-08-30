@@ -49,6 +49,10 @@ class AppState {
   // images
   final File? userProfileImage;
 
+  // paystack keys
+  final String paystackSecretKey;
+  final String paystackPublicKey;
+
   // constructor must only take named parameters
   const AppState({
     required this.authModel,
@@ -73,6 +77,8 @@ class AppState {
     required this.userStatistics,
     required this.admin,
     required this.userProfileImage,
+    required this.paystackSecretKey,
+    required this.paystackPublicKey,
   });
 
   // this methods sets the starting state for the store
@@ -121,6 +127,8 @@ class AppState {
       ),
       admin: const AdminModel(reportedCustomers: []),
       userProfileImage: null,
+      paystackPublicKey: "",
+      paystackSecretKey: "",
     );
   }
 
@@ -161,6 +169,8 @@ class AppState {
       ),
       admin: const AdminModel(reportedCustomers: []),
       userProfileImage: null,
+      paystackPublicKey: "",
+      paystackSecretKey: "",
     );
   }
   // easy way to replace store wihtout specifying all paramters
@@ -188,6 +198,8 @@ class AppState {
     int? sum,
     StatisticsModel? userStatistics,
     File? userProfileImage,
+    String? paystackPublicKey,
+    String? paystackSecretKey,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
@@ -212,6 +224,8 @@ class AppState {
       advertsWon: advertsWon ?? this.advertsWon,
       userStatistics: userStatistics ?? this.userStatistics,
       userProfileImage: userProfileImage ?? this.userProfileImage,
+      paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
+      paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
     );
   }
 }

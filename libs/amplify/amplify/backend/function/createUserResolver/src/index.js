@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const UserTable = process.env.USER;
@@ -52,4 +51,3 @@ exports.handler = async (event) => {
         console.log(e);
     }
 };
->>>>>>> 998e713cd6b197805ac4eee5adf686e0436dd616
