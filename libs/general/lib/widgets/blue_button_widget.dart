@@ -36,8 +36,8 @@ class BlueButtonWidget extends StatelessWidget {
               style: const TextStyle(fontSize: 17),
             )),
         style: ElevatedButton.styleFrom(
-            primary: Colors.black.withOpacity(0),
-            onPrimary: Colors.white,
+            foregroundColor: Colors.white, 
+            backgroundColor: Colors.black.withOpacity(0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
               side: const BorderSide(color: Colors.grey, width: 1),

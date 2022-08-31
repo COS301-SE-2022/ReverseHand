@@ -42,7 +42,7 @@ class ProfileImageWidgetState extends State<ProfileImageWidget> {
               },
               child: const Icon(
                 Icons.camera_alt,
-                color: Colors.white,
+                color: Color.fromARGB(255, 73, 73, 73),
                 size: 28.0,
               ),
             ),
@@ -98,7 +98,6 @@ class ProfileImageWidgetState extends State<ProfileImageWidget> {
     );
     setState(() {
       _imageFile = pickedFile;
-      // final File? imagefile = File(pickedFile!.path);
     });
   }
 }

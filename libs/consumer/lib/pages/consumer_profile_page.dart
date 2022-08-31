@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/bottom_sheet.dart';
+import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -27,7 +28,7 @@ class ConsumerProfilePage extends StatelessWidget {
                 AppBarWidget(title: "PROFILE", store: store),
                 //********************************************************//
 
-                const Padding(padding: EdgeInsets.only(top: 20)),
+                const Padding(padding: EdgeInsets.only(top: 25)),
 
                 //**************HEADING***************/
                 Center(
@@ -39,19 +40,15 @@ class ConsumerProfilePage extends StatelessWidget {
                   ),
                 ),
                 //************************************/
-
-                //****************ICON****************/
-                const Icon(
-                  Icons.account_circle,
-                  color: Colors.white,
-                  size: 80.0,
-                ),
-                //************************************/
+                const Padding(padding: EdgeInsets.only(top: 15)),
+                //****************PROFILE IMAGE****************/
+                ProfileImageWidget(store: store,),
+                //*****************************************
 
                 //************STATS*******************/
                 //CHANGE ICONS
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
                   child: SizedBox(
                     height: 100,
                     width: 300,
@@ -280,6 +277,7 @@ class ConsumerProfilePage extends StatelessWidget {
                   splashColor: Colors.white,
                 ),
                 //************************************/
+                const Padding(padding: EdgeInsets.only(bottom: 50)),
               ],
             ),
           ),
