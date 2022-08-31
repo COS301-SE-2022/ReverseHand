@@ -181,6 +181,10 @@
         "reversehandsecretsManagerLayer": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/reversehandsecretsManagerLayer-LambdaLayerVersiondcc80d03-build.zip"
+        },
+        "notifyNewNotificationsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/notifyNewNotificationsResolver-444d512f516363636361-build.zip"
         }
       }
     }
