@@ -79,9 +79,8 @@ class _RadioSelectWidgetState extends State<RadioSelectWidget> {
               ElevatedButton(
                 onPressed: _submit,
                 style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).primaryColorDark, // Background color
-                    foregroundColor: Colors.white, // Text Color (Foreground color)
+                    foregroundColor: Colors.white, 
+                    backgroundColor: Theme.of(context).primaryColorDark, // Text Color (Foreground color)
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                       side: const BorderSide(color: Colors.orange, width: 1),

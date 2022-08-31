@@ -64,6 +64,7 @@ class OTPPopupWidget extends StatelessWidget {
               text1: "Didn't receive OTP? ",
               text2: "Resend",
               navigate: () => LoginPage(store: store),
+              colour: Colors.grey
             ),
             const TransparentDividerWidget(),
             //*****************************************************
