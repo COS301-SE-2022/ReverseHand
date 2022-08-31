@@ -75,7 +75,7 @@ class AdvertModel {
       dateClosed == other.dateCreated;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
         id,
         title,
         description,
