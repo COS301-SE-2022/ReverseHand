@@ -12,9 +12,9 @@ exports.handler = async (event) => {
     let params = {
         TableName: ReverseHandTable,
         IndexName: "swap_keys",
-        KeyConditionExpression: "sort_key = :t",
+        KeyConditionExpression: "sort_key = :u",
         ExpressionAttributeValues: {
-            ":t": event.arguments.t_id, // should be a consumers id
+            ":u": event.arguments.user_id, // should be a consumers id
         }
     };
 
