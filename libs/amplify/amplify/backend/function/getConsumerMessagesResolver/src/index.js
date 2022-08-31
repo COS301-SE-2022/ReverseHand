@@ -10,9 +10,9 @@ const ReverseHandTable = process.env.REVERSEHAND;
 exports.handler = async (event) => {
     let params = {
         TableName: ReverseHandTable,
-        KeyConditionExpression: "part_key = :c",
+        KeyConditionExpression: "part_key = :u",
         ExpressionAttributeValues: {
-            ":c": event.arguments.c_id, // should be a consumers id
+            ":u": event.arguments.user_id, // should be a consumers id
         }
     };
 

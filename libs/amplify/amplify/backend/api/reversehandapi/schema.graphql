@@ -3,7 +3,7 @@
 # input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Query {
-  viewBids(ad_id: String!): [Bid]! @function(name: "viewBidsResolver-${env}")
+  viewBids(ad_id: String!): [Bid!]! @function(name: "viewBidsResolver-${env}")
 
   viewAdverts(user_id: String!): [Advert]!
     @function(name: "viewAdvertsResolver-${env}")
@@ -18,10 +18,10 @@ type Query {
   getPayStackKeys: PayStackKeys!
   @function(name: "getPayStackApiKeysResolver-${env}")
 
-  getConsumerChats(c_id: String!): [Chat!]!
+  getConsumerChats(user_id: String!): [Chat!]!
     @function(name: "getConsumerMessagesResolver-${env}")
 
-  getTradesmanChats(c_id: String!): [Chat!]!
+  getTradesmanChats(user_id: String!): [Chat!]!
     @function(name: "getTradesmanMessagesResolver-${env}")
 
   getNotifications(user_id: String!): [Notification!]!

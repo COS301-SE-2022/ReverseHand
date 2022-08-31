@@ -64,7 +64,7 @@
         },
         "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/viewBidsResolver-7348415a592f744a6b66-build.zip"
+          "s3Key": "amplify-builds/viewBidsResolver-723052446f4b56793642-build.zip"
         },
         "viewJobsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -124,11 +124,11 @@
         },
         "getConsumerMessagesResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getConsumerMessagesResolver-465a4a3178492f76476a-build.zip"
+          "s3Key": "amplify-builds/getConsumerMessagesResolver-3049433939767346732f-build.zip"
         },
         "getTradesmanMessagesResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getTradesmanMessagesResolver-707139364b692f45455a-build.zip"
+          "s3Key": "amplify-builds/getTradesmanMessagesResolver-544a3450436f7533782b-build.zip"
         },
         "deleteChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -168,11 +168,27 @@
         },
         "getReportedAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getReportedAdvertsResolver-694e6c64534646386870-build.zip"
+          "s3Key": "amplify-builds/getReportedAdvertsResolver-68786b66466a77364e4b-build.zip"
         },
         "getPayStackApiKeysResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getPayStackApiKeysResolver-666a2f6b586e51574744-build.zip"
+          "s3Key": "amplify-builds/getPayStackApiKeysResolver-6178634956594b6d7743-build.zip"
+        },
+        "getReportedUsersResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getReportedUsersResolver-656d756b345a3231366a-build.zip"
+        },
+        "notificationsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/notificationsResolver-7a524465717a665a722f-build.zip"
+        },
+        "reversehandnodefetchLayer": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/reversehandnodefetchLayer-LambdaLayerVersion2c638020-build.zip"
+        },
+        "reversehandsecretsManagerLayer": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/reversehandsecretsManagerLayer-LambdaLayerVersiondcc80d03-build.zip"
         }
       }
     }
