@@ -23,10 +23,10 @@ class QuickViewBidWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => Padding(
-          padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
           child: Material(
             elevation: 3,
-            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            borderRadius: const BorderRadius.all(Radius.circular(7)),
             child: InkWell(
               onTap: () => vm.dispatchSetActiveBid(bid),
               child: Container(
@@ -34,7 +34,7 @@ class QuickViewBidWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColorLight,
-                  borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(7.0)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,7 +47,7 @@ class QuickViewBidWidget extends StatelessWidget {
                           Row(
                             children: [
                               (Icon(
-                                Icons.favorite,
+                                Icons.bookmark,
                                 color: Theme.of(context).primaryColor,
                               )),
                               const Padding(padding: EdgeInsets.all(2))

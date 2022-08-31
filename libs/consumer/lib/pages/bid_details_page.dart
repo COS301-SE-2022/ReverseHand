@@ -111,8 +111,8 @@ class BidDetailsPage extends StatelessWidget {
                               },
                               icon: Icon(
                                 vm.bid.isShortlisted()
-                                    ? Icons.favorite
-                                    : Icons.favorite_outline,
+                                    ? Icons.bookmark
+                                    : Icons.bookmark_outline,
                                 color: Theme.of(context).primaryColor,
                               )),
                         ),
