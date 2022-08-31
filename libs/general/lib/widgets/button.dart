@@ -23,7 +23,7 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          primary: color == "dark"
+          backgroundColor: color == "dark"
               ? Theme.of(context).scaffoldBackgroundColor
               : color == "light"
                   ? Theme.of(context).primaryColorDark

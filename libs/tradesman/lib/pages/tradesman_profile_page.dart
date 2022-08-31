@@ -288,8 +288,7 @@ class TradesmanProfilePage extends StatelessWidget {
                   splashColor: Colors.white,
                 ),
                 //************************************/
-
-                 const Padding(padding: EdgeInsets.only(bottom: 50)),
+                const Padding(padding: EdgeInsets.only(bottom: 50)),
             ]),
           ),
         ),

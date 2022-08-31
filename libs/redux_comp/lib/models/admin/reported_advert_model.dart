@@ -5,6 +5,7 @@ import 'package:redux_comp/models/advert_model.dart';
 @immutable
 class ReportedAdvertModel {
   final String id;
+  final String customerId;
   final int count;
   final AdvertModel advert;
   final List<AdvertReportModel> reports;
@@ -13,6 +14,7 @@ class ReportedAdvertModel {
   const ReportedAdvertModel({
     required this.id,
     required this.count,
+    required this.customerId,
     required this.advert,
     required this.reports,
   });
@@ -26,6 +28,7 @@ class ReportedAdvertModel {
     return ReportedAdvertModel(
       id: obj['id'],
       count: obj['count'],
+      customerId: obj['customer_id'],
       advert: AdvertModel.fromJson(obj["advert"]),
       reports: reports
     );

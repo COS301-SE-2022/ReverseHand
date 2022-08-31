@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/admin/get_reported_customers_action.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
@@ -160,7 +159,6 @@ class GetUserAction extends ReduxAction<AppState> {
       case "Consumer":
         dispatch(ViewAdvertsAction());
         dispatch(SubscribMessagesAction());
-
         dispatch(NavigateAction.pushNamed("/consumer"));
         break;
       case "Tradesman":
@@ -176,8 +174,7 @@ class GetUserAction extends ReduxAction<AppState> {
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;
       case "Admin":
-        dispatch(GetReportedCustomersAction(city: "Pretoria"));
-        dispatch(NavigateAction.pushNamed("/admin_consumer_reports"));
+        dispatch(NavigateAction.pushNamed("/admin_metrics"));
         break;
     }
     // wait until error has finished before stopping loading
