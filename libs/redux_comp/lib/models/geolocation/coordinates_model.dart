@@ -15,7 +15,7 @@ class Coordinates {
   }
 
   @override
-  int get hashCode => hashValues(lat, lng);
+  int get hashCode => Object.hash(lat, lng);
 
   @override
   bool operator ==(Object other) {

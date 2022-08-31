@@ -72,15 +72,15 @@ class _MultiSelectWidgetState extends State<MultiSelectWidget> {
         TextButton(
           onPressed: _cancel,
           style: TextButton.styleFrom(
-            primary: Colors.orange,
+            backgroundColor: Colors.orange,
           ),
           child: const Text('Cancel'),
         ),
         ElevatedButton(
           onPressed: _submit,
           style: ElevatedButton.styleFrom(
-            primary: Colors.transparent, // Background color
-            onPrimary: Colors.white, // Text Color (Foreground color)
+            backgroundColor: Colors.transparent, // Background color
+            foregroundColor: Colors.white, // Text Color (Foreground color)
             shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
             side: const BorderSide(color: Colors.orange, width: 1),
