@@ -11,6 +11,7 @@ class AdvertModel {
   final Domain domain;
   final double dateCreated;
   final double? dateClosed;
+  final double? advertRank;
 
   const AdvertModel({
     required this.id,
@@ -21,7 +22,32 @@ class AdvertModel {
     required this.domain,
     required this.dateCreated,
     this.dateClosed,
+    this.advertRank,
   });
+
+  AdvertModel copy({
+    String? id,
+    String? title,
+    String? description,
+    String? type,
+    String? acceptedBid,
+    Domain? domain,
+    double? dateCreated,
+    double? dateClosed,
+    double? advertRank,
+  }) {
+    return AdvertModel(
+      id: id ?? this.id,
+      title: title ?? this.id,
+      description: description ?? this.description,
+      type: type ?? this.type,
+      acceptedBid: acceptedBid ?? this.acceptedBid,
+      domain: domain ?? this.domain,
+      dateCreated: dateCreated ?? this.dateCreated,
+      dateClosed: dateClosed ?? this.dateClosed,
+      advertRank: advertRank ?? this.advertRank,
+    );
+  }
 
   factory AdvertModel.fromJson(obj) {
     return AdvertModel(
