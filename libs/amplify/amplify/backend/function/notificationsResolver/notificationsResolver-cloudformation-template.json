@@ -22,6 +22,10 @@
     "functionreversehandnodefetchLayerArn": {
       "Type": "String",
       "Default": "functionreversehandnodefetchLayerArn"
+    },
+    "functionreversehandsecretsManagerLayerArn": {
+      "Type": "String",
+      "Default": "functionreversehandsecretsManagerLayerArn"
     }
   },
   "Conditions": {
@@ -78,7 +82,10 @@
               "Ref": "AWS::Region"
             },
             "REVERSEHAND": "ReverseHand",
-            "USER": "User"
+            "USER": "User",
+            "CLIENTID": "7d07e1rr668a73i0rdnp6e9om2",
+            "ENDPOINT": "https://olype7mopba2talc333b7k46jy.appsync-api.eu-west-1.amazonaws.com/graphql",
+            "USERPOOLID": "eu-west-1_QpsSD87RL"
           }
         },
         "Role": {
@@ -90,7 +97,7 @@
         "Runtime": "nodejs14.x",
         "Layers": [
           {
-            "Ref": "functionreversehandnodefetchLayerArn"
+            "Ref": "functionreversehandsecretsManagerLayerArn"
           }
         ],
         "Timeout": 25

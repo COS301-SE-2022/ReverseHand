@@ -1,10 +1,12 @@
-import URL from 'url';
-import fetch from 'node-fetch';
-import { CognitoIdentityServiceProvider } from 'aws-sdk';
+const URL = require('url');
+const fetch = require('node-fetch');
+const AWS = require("aws-sdk");
+const SecretsManager = require('/opt/secretesmanager.js');
 
-const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
-const initiateAuth = async ({ clientId, username, password }) => cognitoIdentityServiceProvider.initiateAuth({
-    AuthFlow: 'USER_PASSWORD_AUTH',
+const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
+const initiateAuth = async ({clientId, username, password }) => cognitoIdentityServiceProvider.adminInitiateAuth({
+    AuthFlow: 'ADMIN_NO_SRP_AUTH', // [ADMIN_NO_SRP_AUTH, ADMIN_USER_PASSWORD_AUTH, USER_SRP_AUTH, REFRESH_TOKEN_AUTH, REFRESH_TOKEN, CUSTOM_AUTH, USER_PASSWORD_AUTH]
+    UserPoolId: process.env.USERPOOLID,
     ClientId: clientId,
     AuthParameters: {
       USERNAME: username,
@@ -13,30 +15,32 @@ const initiateAuth = async ({ clientId, username, password }) => cognitoIdentity
   })
   .promise();
 
-export const handler = async (event, context, callback) => {
-  const clientId = 'YOUR_COGNITO_CLIENT_ID';
-  const endPoint = 'YOUR_GRAPHQL_END_POINT_URL';
-  const username = 'COGNITO_USERNAME';
-  const password = 'COGNITO_PASSWORD';
+exports.handler = async (event, context, callback) => {
+  const secrets = await SecretsManager.getSecret("NotificationLoginSecrets", "eu-west-1");
+  const creds = JSON.parse(secrets);
+
+  const clientId = process.env.CLIENTID;
+  const endPoint = process.env.ENDPOINT;
+  const username = creds.username;
+  const password = creds.password;
+  
   const { AuthenticationResult } = await initiateAuth({
     clientId,
     username,
     password,
   });
+  
   const accessToken = AuthenticationResult && AuthenticationResult.AccessToken;
+  
   const postBody = {
-    query: `mutation AddUser($userId: ID!, $userDetails: UserInput!) {
-        addUser(userId: $userId, userDetails: $userDetails) {
-            userId
-            name
-        }`,
-    variables: {
-        userId: 'userId',
-        userDetails: { name: 'name' },
-    },
+    query: `query {
+              viewBids(ad_id: "a#770afc30-250b-11ed-8df1-718bcfb21334") {
+                id
+              }
+            }`,
   };
 
-  const uri = await URL.parse(endPoint);
+  const uri = URL.parse(endPoint);
 
   const options = {
     method: 'POST',
@@ -47,9 +51,9 @@ export const handler = async (event, context, callback) => {
       Authorization: accessToken,
     },
   };
+  
   const response = await fetch(uri.href, options);
   const { data } = await response.json();
 
-  const result = data && data.addUser;
-  callback(null, result);
+  return data;
 };

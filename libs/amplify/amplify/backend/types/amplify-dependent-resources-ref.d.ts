@@ -238,6 +238,9 @@ export type AmplifyDependentResourcesAttributes = {
         },
         "reversehandnodefetchLayer": {
             "Arn": "string"
+        },
+        "reversehandsecretsManagerLayer": {
+            "Arn": "string"
         }
     }
 }

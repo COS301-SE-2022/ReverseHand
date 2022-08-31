@@ -172,7 +172,7 @@
         },
         "getPayStackApiKeysResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getPayStackApiKeysResolver-666a2f6b586e51574744-build.zip"
+          "s3Key": "amplify-builds/getPayStackApiKeysResolver-6178634956594b6d7743-build.zip"
         },
         "getReportedUsersResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -184,7 +184,11 @@
         },
         "notificationsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/notificationsResolver-7346666a616678504666-build.zip"
+          "s3Key": "amplify-builds/notificationsResolver-7a524465717a665a722f-build.zip"
+        },
+        "reversehandsecretsManagerLayer": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/reversehandsecretsManagerLayer-LambdaLayerVersiondcc80d03-build.zip"
         }
       }
     }

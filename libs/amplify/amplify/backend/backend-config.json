@@ -293,7 +293,7 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "reversehandnodefetchLayer",
+          "resourceName": "reversehandsecretsManagerLayer",
           "attributes": [
             "Arn"
           ]
@@ -301,6 +301,11 @@
       ]
     },
     "reversehandnodefetchLayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
+    },
+    "reversehandsecretsManagerLayer": {
       "providerPlugin": "awscloudformation",
       "service": "LambdaLayer",
       "build": true

@@ -2,7 +2,7 @@
   "lambdaLayers": [
     {
       "type": "ProjectLayer",
-      "resourceName": "reversehandnodefetchLayer",
+      "resourceName": "reversehandsecretsManagerLayer",
       "env": "staging",
       "version": "Always choose latest version",
       "isLatestVersionSelected": true
