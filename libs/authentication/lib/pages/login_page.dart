@@ -4,6 +4,7 @@ import 'package:authentication/widgets/circle_blur_widget.dart';
 import 'package:authentication/widgets/divider_widget.dart';
 import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/button.dart';
 // import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
@@ -23,6 +24,7 @@ class LoginPage extends StatelessWidget {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final otpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +156,54 @@ class LoginPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 14),
                             child: GestureDetector(
-                            onTap: (){} , //forgot password popup linked here
+                            onTap: () { 
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (BuildContext context) {
+                                  return Padding(
+                                    padding: MediaQuery.of(context).viewInsets,
+                                    child: Container(
+                                      color: const Color.fromARGB(255, 232, 232, 232),
+                                      child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: SizedBox(
+                                            height: 300,
+                                            child: Column(
+                                              children: [
+                                                const Text("Enter email to receive OTP",
+                                                    style: TextStyle(fontSize: 20, color: Colors.black)),
+                                                const Padding(padding: EdgeInsets.all(10)),
+                                                //*****************Email text field**********************
+                                                Container(
+                                                  margin: const EdgeInsets.only(left: 25, right: 25),
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: AuthTextFieldWidget(
+                                                    label: 'email',
+                                                    obscure: false,
+                                                    icon: Icons.email_outlined, 
+                                                    controller: otpController,
+                                                    
+                                                  ),
+                                                ),
+                                                //*****************************************************
+
+                                                //*****************Heading **********************
+                                                LinkWidget(
+                                                  text1: "Didn't receive OTP? ",
+                                                  text2: "Resend",
+                                                  navigate: () => LoginPage(store: store),
+                                                  colour: Colors.black
+                                                ),
+                                                const Padding(padding: EdgeInsets.all(20)),
+                                                ButtonWidget(text: "Send", function: () {})
+                                              ],
+                                            ),
+                                          )),
+                                    ),
+                                  );
+                                });
+                            } , //forgot password popup linked here
                             child: const Text(
                               "Forgot Password?",
                               style: TextStyle(
@@ -193,6 +242,7 @@ class LoginPage extends StatelessWidget {
                           text1: "Don't have an account? ",
                           text2: "Sign Up",
                           navigate: () => vm.pushSignUpPage(),
+                          colour: Colors.grey
                         ),
                       ),
                       //******************************************************* */

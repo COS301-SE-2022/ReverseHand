@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 class LinkWidget extends StatelessWidget {
   final String text1; 
   final String text2; 
+  final Color colour;
   final void Function() navigate;
-  const LinkWidget({Key? key, required this.text1, required this.text2, required this.navigate}) : super(key: key);
+  const LinkWidget({Key? key, required this.text1, required this.text2, required this.navigate, required this.colour}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,9 @@ class LinkWidget extends StatelessWidget {
       children: [
         Text(
             text1,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 17,
-              color: Color(0xfff5fffa),
+              color: colour,
             ),
             softWrap: false,
           ),

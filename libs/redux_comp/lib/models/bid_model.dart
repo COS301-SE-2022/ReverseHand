@@ -34,8 +34,8 @@ class BidModel {
       priceLower: obj['price_lower'],
       priceUpper: obj['price_upper'],
       quote: obj['quote'],
-      dateCreated: obj['date_created'].toDouble(),
-      dateClosed: obj['date_Closed']?.toDouble(),
+      dateCreated: double.parse(obj['date_created']),
+      dateClosed: (obj['date_Closed'] != null) ? double.parse(obj['date_Closed']) : null,
     );
   }
 }
