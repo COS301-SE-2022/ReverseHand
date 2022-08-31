@@ -64,7 +64,7 @@
         },
         "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/viewBidsResolver-7348415a592f744a6b66-build.zip"
+          "s3Key": "amplify-builds/viewBidsResolver-723052446f4b56793642-build.zip"
         },
         "viewJobsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -164,7 +164,7 @@
         },
         "getPayStackApiKeysResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getPayStackApiKeysResolver-6178634956594b6d7743-build.zip"
+          "s3Key": "amplify-builds/getPayStackApiKeysResolver-6f52596452462f62534b-build.zip"
         },
         "getReportedUsersResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",

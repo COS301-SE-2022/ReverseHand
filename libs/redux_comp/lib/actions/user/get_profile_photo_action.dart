@@ -27,10 +27,6 @@ class GetProfilePhotoAction extends ReduxAction<AppState> {
           debugPrint('Fraction completed: ${progress.getFractionCompleted()}');
         },
       );
-      final contents = result.file.readAsStringSync();
-      // Or you can reference the file that is created above
-      // final contents = file.readAsStringSync();
-      debugPrint('Downloaded contents: $contents');
 
       return state.copy(userProfileImage: result.file);
     } on StorageException catch (e) {

@@ -279,13 +279,21 @@
     "getPayStackApiKeysResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "reversehandsecretsManagerLayer",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ]
     },
     "getReportedUsersResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-<<<<<<< HEAD
     },
     "notificationsResolver": {
       "build": true,
@@ -310,8 +318,6 @@
       "providerPlugin": "awscloudformation",
       "service": "LambdaLayer",
       "build": true
-=======
->>>>>>> 1e86a2c2fe149c1b3e836bff9f804f8426d54ee2
     }
   }
 }

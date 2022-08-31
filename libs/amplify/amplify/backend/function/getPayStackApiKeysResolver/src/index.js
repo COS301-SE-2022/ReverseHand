@@ -1,4 +1,4 @@
-const SecretsManager = require('./secretsmanager.js');
+const SecretsManager = require('/opt/secretesmanager.js');
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
