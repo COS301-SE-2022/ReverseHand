@@ -28,8 +28,8 @@ class AuthButtonWidget extends StatelessWidget {
         children: <Widget>[
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.orange,
-              onPrimary: Colors.white,
+              backgroundColor: Colors.orange,
+              foregroundColor: Colors.white,
               shadowColor: Colors.black,
               elevation: 9,
               textStyle: const TextStyle(fontSize: 20),
