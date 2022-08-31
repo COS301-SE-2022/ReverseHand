@@ -108,10 +108,6 @@ class ViewBidsPage extends StatelessWidget {
         bottomNavigationBar: NavBarWidget(
           store: store,
         ),
-
-        resizeToAvoidBottomInset: false,
-        // floatingActionButton: const FloatingButtonWidget(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         //*************************************************//
       ),
     );

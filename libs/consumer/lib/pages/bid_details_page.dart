@@ -28,36 +28,31 @@ class BidDetailsPage extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Stack(children: [
-                  //**********APPBAR***********//
-                  AppBarWidget(title: "BID DETAILS", store: store),
-                  //***************************//
+              children: [
+                //************APPBAR**************************//
+                AppBarWidget(title: "BID DETAILS", store: store),
+                //********************************************//
 
-                  //************DATE***********//
-                  Positioned(
-                    top: 90,
-                    left: 35,
-                    child: Text('${vm.bid.name}',
-                        style:
-                            const TextStyle(fontSize: 33, color: Colors.white)),
-                  ),
-                  //***************************//
-
-                  //**********NAME***********//
-                  Positioned(
-                    top: 95,
-                    right: 35,
-                    child: Text(
-                      timestampToDate(vm.bid.dateCreated),
-                      style: const TextStyle(
-                        fontSize: 17,
-                        color: Colors.white70,
+                //************NAME AND ROW*******************//
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0, top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('${vm.bid.name}',
+                          style: const TextStyle(
+                              fontSize: 33, color: Colors.white)),
+                      Text(
+                        timestampToDate(vm.bid.dateCreated),
+                        style: const TextStyle(
+                          fontSize: 17,
+                          color: Colors.white70,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                  //***************************//
-                ]),
+                ),
+                //*******************************************//
 
                 //**********DIVIDER***********//
                 Divider(
@@ -72,9 +67,8 @@ class BidDetailsPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Padding(padding: EdgeInsets.all(15)),
-
                     //**************BID RANGE***************/
+                    const Padding(padding: EdgeInsets.all(15)),
                     const Center(
                       child: Text(
                         'Quoted price',
@@ -95,36 +89,41 @@ class BidDetailsPage extends StatelessWidget {
 
                     //**************SEE QUOTE BUTTON***************/
                     //if quote is not uploaded
-                    const Center(
-                      child: (Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          "No quote has been\n uploaded yet.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: Colors.white54),
+                    const Padding(padding: EdgeInsets.only(top: 15)),
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 58.0),
+                            child: Text(
+                              "No quote has been\n uploaded yet.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.white54),
+                            ),
+                          ),
                         ),
-                      )),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: IconButton(
+                              onPressed: () {
+                                vm.dispatchShortListBidAction();
+                              },
+                              icon: Icon(
+                                vm.bid.isShortlisted()
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline,
+                                color: Theme.of(context).primaryColor,
+                              )),
+                        ),
+                      ],
                     ),
-
-                    //if quote is uploaded
-                    // Padding(
-                    //   padding: const EdgeInsets.all(20.0),
-                    //   child: Center(
-                    //     child: ButtonWidget(
-                    //         text: "See Quote",
-                    //         color: "dark",
-                    //         function: () {
-                    //           DialogHelper.display(
-                    //               context, const QuotePopUpWidget());
-                    //         }),
-                    //   ),
-                    // )
-                    //**************&*****************************/
+                    const Padding(padding: EdgeInsets.only(top: 15))
                   ],
                 ),
 
                 //****************BOTTOM BUTTONS**************//
-                const Padding(padding: EdgeInsets.all(15)),
+                const Padding(padding: EdgeInsets.only(top: 5)),
                 Stack(alignment: Alignment.center, children: <Widget>[
                   BottomOverlayWidget(
                     height: MediaQuery.of(context).size.height / 2,
@@ -133,9 +132,7 @@ class BidDetailsPage extends StatelessWidget {
                   Positioned(
                     top: 20,
                     child: ButtonWidget(
-                        text: vm.bid.isShortlisted()
-                            ? "Accept Bid"
-                            : "Shortlist Bid",
+                        text: "Accept Bid",
                         function: () {
                           LightDialogHelper.display(
                               context,
