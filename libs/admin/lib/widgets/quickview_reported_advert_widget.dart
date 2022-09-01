@@ -110,17 +110,20 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                                 "Report count:",
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black)),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(7),
-                                  color: Theme.of(context).primaryColor),
-                              child: const Padding(
-                                padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                                child: Text(
-                                    // advert.count.toString(),
-                                    "5",
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.black)),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 3.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    color: Theme.of(context).primaryColor),
+                                child: const Padding(
+                                  padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+                                  child: Text(
+                                      // advert.count.toString(),
+                                      "5",
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.black)),
+                                ),
                               ),
                             ),
                           ],
