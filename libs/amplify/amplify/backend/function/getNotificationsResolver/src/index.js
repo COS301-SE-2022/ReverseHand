@@ -11,16 +11,13 @@ const UserTable = process.env.USER;
 exports.handler = async (event) => {
     let params = {
         TableName: UserTable, 
-        KeyConditionExpression: "user_id = :u",
-        ExpressionAttributeValues: {
-            ":u": event.arguments.user_id,
+        Key: {
+            user_id: event.arguments.user_id
         }
     };
-    const data = await docClient.query(params).promise();
-    let item = data["Items"][0];
-    
-    item.id = item.user_id;
-    delete item.user_id;
+
+    const data = await docClient.get(params).promise();
+    let item = data["Item"];
     
     return item;
 };
