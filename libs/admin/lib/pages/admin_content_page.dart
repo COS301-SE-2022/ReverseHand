@@ -25,7 +25,9 @@ class AdminContentPage extends StatelessWidget {
               if (vm.adverts != null) {
                 for (ReportedAdvertModel advert in vm.adverts!) {
                   reportedAdverts.add(QuickViewReportedAdvertCardWidget(
-                      advert: advert, store: store));
+
+                      // advert: advert,
+                      store: store));
                 }
               }
               return (vm.loading)
@@ -44,15 +46,16 @@ class AdminContentPage extends StatelessWidget {
                         //**********APPBAR***********//
                         AppBarWidget(title: "Reported Adverts", store: store),
                         ...reportedAdverts,
-                        Center(
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: ButtonWidget(
-                              text: "View all adverts",
-                              function: () {},
-                            ),
-                          ),
-                        ),
+                        // Center(
+                        //   child: Align(
+                        //     alignment: Alignment.bottomCenter,
+                        //     child: ButtonWidget(
+                        //       text: "View all adverts",
+                        //       function: () {},
+                        //     ),
+                        //   ),
+                        // ),
+                        QuickViewReportedAdvertCardWidget(store: store)
                       ],
                     );
             },
