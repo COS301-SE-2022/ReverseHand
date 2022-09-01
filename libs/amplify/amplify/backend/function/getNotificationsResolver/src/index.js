@@ -17,7 +17,5 @@ exports.handler = async (event) => {
     };
 
     const data = await docClient.get(params).promise();
-    let item = data["Item"];
-    
-    return item;
+    return data["Item"]['notifications'];
 };

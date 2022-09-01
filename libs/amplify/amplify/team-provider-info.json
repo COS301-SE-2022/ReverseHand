@@ -137,7 +137,7 @@
         },
         "getNotificationsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getNotificationsResolver-534f2f794349574f7569-build.zip"
+          "s3Key": "amplify-builds/getNotificationsResolver-574a74356c326f6a4f45-build.zip"
         },
         "deleteReviewResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",

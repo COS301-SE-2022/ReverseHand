@@ -155,7 +155,7 @@ class GetUserAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() async {
+  void after() {
     switch (state.userDetails!.userType) {
       case "Consumer":
         dispatch(ViewAdvertsAction());
