@@ -49,24 +49,24 @@ PODS:
     - AWSS3 (~> 2.27.0)
   - AppSyncRealTimeClient (1.10.0):
     - Starscream (~> 4.0.4)
-  - AWSAuthCore (2.27.13):
-    - AWSCore (= 2.27.13)
-  - AWSCognitoIdentityProvider (2.27.13):
-    - AWSCognitoIdentityProviderASF (= 2.27.13)
-    - AWSCore (= 2.27.13)
-  - AWSCognitoIdentityProviderASF (2.27.13):
-    - AWSCore (= 2.27.13)
-  - AWSCore (2.27.13)
-  - AWSMobileClient (2.27.13):
-    - AWSAuthCore (= 2.27.13)
-    - AWSCognitoIdentityProvider (= 2.27.13)
-    - AWSCognitoIdentityProviderASF (= 2.27.13)
-    - AWSCore (= 2.27.13)
+  - AWSAuthCore (2.27.14):
+    - AWSCore (= 2.27.14)
+  - AWSCognitoIdentityProvider (2.27.14):
+    - AWSCognitoIdentityProviderASF (= 2.27.14)
+    - AWSCore (= 2.27.14)
+  - AWSCognitoIdentityProviderASF (2.27.14):
+    - AWSCore (= 2.27.14)
+  - AWSCore (2.27.14)
+  - AWSMobileClient (2.27.14):
+    - AWSAuthCore (= 2.27.14)
+    - AWSCognitoIdentityProvider (= 2.27.14)
+    - AWSCognitoIdentityProviderASF (= 2.27.14)
+    - AWSCore (= 2.27.14)
   - AWSPluginsCore (1.25.0):
     - Amplify (= 1.25.0)
     - AWSCore (~> 2.27.0)
-  - AWSS3 (2.27.13):
-    - AWSCore (= 2.27.13)
+  - AWSS3 (2.27.14):
+    - AWSCore (= 2.27.14)
   - camera_avfoundation (0.0.1):
     - Flutter
   - DKImagePickerController/Core (4.3.4):
@@ -122,7 +122,7 @@ PODS:
   - SDWebImage/Core (5.13.2)
   - Starscream (4.0.4)
   - SwiftFormat/CLI (0.49.17)
-  - SwiftLint (0.48.0)
+  - SwiftLint (0.49.0)
   - SwiftyGif (5.4.3)
 
 DEPENDENCIES:
@@ -201,18 +201,18 @@ SPEC CHECKSUMS:
   amplify_storage_s3_ios: 958f4989117718621340d7405d792b957adcf764
   AmplifyPlugins: 110388250aeaf45eaf3008991616be84b2c605f7
   AppSyncRealTimeClient: 656ab4215e05f6ca47fe6d8c73f416d9984a8aac
-  AWSAuthCore: 9898614783bd6375742b58a1df38c6a8b8276eda
-  AWSCognitoIdentityProvider: c105df15533a029230c325acd2be60ff45e8f3f9
-  AWSCognitoIdentityProviderASF: e0f40ef2f5c2c357b77553144e8f41a6c0b0b81b
-  AWSCore: 05edadb5f3d0b92a50ea8c66b06f1a10477878da
-  AWSMobileClient: a49361347ff5c0cff946b3f777936c0fdf9c190d
+  AWSAuthCore: 331e789932e2313e214ed40dfaf1a48dc235592a
+  AWSCognitoIdentityProvider: 2e8eba9ce629e4a30539b4ea8288f1d4c7091c36
+  AWSCognitoIdentityProviderASF: 70e4acd7554b2b35ac5eee1ca531b312bb6ea467
+  AWSCore: e945fb601c0e34ccb8f337e4cc51be0a09bdf9d8
+  AWSMobileClient: 319f1575f35e985ab1f85f5490d0ec2971fbb00f
   AWSPluginsCore: c29c4b91c4ecd7376b85288615bb482f409a0b73
-  AWSS3: 0ce6101e04b1c8a72eec165155e2f1da43d7229b
+  AWSS3: 48b2bb8d2597123e248e9418051689838067575a
   camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 817ab1d8cd2da9d2da412a417162deee3500fc95
-  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   flutter_paystack: 50021637b71e7712780744f69d2843e71b65175d
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
@@ -223,9 +223,9 @@ SPEC CHECKSUMS:
   SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftFormat: 64ac3f15bbfc3c830103a17340bcc5b60d9a3acd
-  SwiftLint: 284cea64b6187c5d6bd83e9a548a64104d546447
+  SwiftLint: 414d099c0f305c6c73e56139efb468666e535ece
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
 
-PODFILE CHECKSUM: efd43c12b0d50fe0ebc6ec0718d186c90c94e0f2
+PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 
 COCOAPODS: 1.11.3

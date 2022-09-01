@@ -14,11 +14,13 @@ exports.handler = async (event) => {
     const date = new Date();
     const currentDate = date.getTime();
 
+    const bid_id = "b#" + AWS.util.uuid.v4();
+
     let item = {
         TableName: ReverseHandTable,
         Item: {
             part_key: event.arguments.ad_id,
-            sort_key: event.arguments.bid_id, // prefixing but keeping same suffix
+            sort_key: bid_id, // prefixing but keeping same suffix
             tradesman_id: event.arguments.tradesman_id,
             bid_details: {
                 name: event.arguments.name,
@@ -32,7 +34,7 @@ exports.handler = async (event) => {
 
     await docClient.put(item).promise();
 
-    item.Item.bid_details['id'] = event.arguments.bid_id; // bids id to be returned
+    item.Item.bid_details['id'] = bid_id; // bids id to be returned
     item.Item.bid_details['tradesman_id'] = item.Item.tradesman_id;
     return item.Item.bid_details;
 };

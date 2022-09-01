@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
@@ -45,6 +46,9 @@ class AppState {
   //admin functionality
   final AdminModel admin;
 
+  // images
+  final File? userProfileImage;
+
   // paystack keys
   final String paystackSecretKey;
   final String paystackPublicKey;
@@ -72,6 +76,7 @@ class AppState {
     required this.advertsWon,
     required this.userStatistics,
     required this.admin,
+    required this.userProfileImage,
     required this.paystackSecretKey,
     required this.paystackPublicKey,
   });
@@ -121,6 +126,7 @@ class AppState {
         messages: [],
       ),
       admin: const AdminModel(reportedCustomers: []),
+      userProfileImage: null,
       paystackPublicKey: "",
       paystackSecretKey: "",
     );
@@ -162,6 +168,7 @@ class AppState {
         messages: [],
       ),
       admin: const AdminModel(reportedCustomers: []),
+      userProfileImage: null,
       paystackPublicKey: "",
       paystackSecretKey: "",
     );
@@ -190,6 +197,7 @@ class AppState {
     List<String>? advertsWon,
     int? sum,
     StatisticsModel? userStatistics,
+    File? userProfileImage,
     String? paystackPublicKey,
     String? paystackSecretKey,
   }) {
@@ -215,6 +223,7 @@ class AppState {
       sum: sum ?? this.sum,
       advertsWon: advertsWon ?? this.advertsWon,
       userStatistics: userStatistics ?? this.userStatistics,
+      userProfileImage: userProfileImage ?? this.userProfileImage,
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
     );

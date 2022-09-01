@@ -27,7 +27,8 @@
           "partitionKeyName": "part_key",
           "partitionKeyType": "S",
           "sortKeyName": "sort_key",
-          "sortKeyType": "S"
+          "sortKeyType": "S",
+          "streamArn": "arn:aws:dynamodb:eu-west-1:727515863527:table/ReverseHand/stream/2022-08-31T18:30:15.588"
         },
         "User": {
           "tableName": "User",
@@ -64,7 +65,7 @@
         },
         "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/viewBidsResolver-7348415a592f744a6b66-build.zip"
+          "s3Key": "amplify-builds/viewBidsResolver-723052446f4b56793642-build.zip"
         },
         "viewJobsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -164,11 +165,27 @@
         },
         "getPayStackApiKeysResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getPayStackApiKeysResolver-666a2f6b586e51574744-build.zip"
+          "s3Key": "amplify-builds/getPayStackApiKeysResolver-6f52596452462f62534b-build.zip"
         },
         "getReportedUsersResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getReportedUsersResolver-656d756b345a3231366a-build.zip"
+        },
+        "reversehandnodefetchLayer": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/reversehandnodefetchLayer-LambdaLayerVersion2c638020-build.zip"
+        },
+        "notificationsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/notificationsResolver-426c6d54513641506133-build.zip"
+        },
+        "reversehandsecretsManagerLayer": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/reversehandsecretsManagerLayer-LambdaLayerVersiondcc80d03-build.zip"
+        },
+        "notifyNewNotificationsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/notifyNewNotificationsResolver-43513855386a6e633751-build.zip"
         }
       }
     }

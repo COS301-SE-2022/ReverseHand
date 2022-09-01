@@ -1,6 +1,6 @@
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 
-import '../app_state.dart';
+import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
