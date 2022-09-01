@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+const func = process.env.FUNCTION;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -17,9 +18,39 @@ exports.handler = async (event) => {
             }
         };
 
-        const data = await docClient.get(params).promise();
+        const bidData = await docClient.get(params).promise();
+
+        params = {
+            TableName: ReverseHandTable,
+            Key: {
+                part_key: event.arguments.ad_id,
+                sort_key: event.arguments.ad_id
+            }
+        };
+
+        const adData = await docClient.get(params).promise();
         
-        let bid = data['Item'];
+        let bid = bidData['Item'];
+        let ad = adData['Item'];
+
+        // notification being sent out
+        // getting current date
+        const date = new Date();
+        const currentDate = date.getTime();
+
+        const lambda = new AWS.Lambda();
+        let notification = lambda.invoke({
+            FunctionName: func,
+            Payload: JSON.stringify({
+                userId: bid.tradesman_id,
+                notification: {
+                    title: "Bid Shortlisted",
+                    msg: "Your bid for " + ad.advert_details.title + " has been shortlisted.",
+                    type: "BidShortlisted",
+                    timestamp: currentDate
+                }
+            })
+        }).promise();
         
         // removing from bids
         let del = {
@@ -33,8 +64,6 @@ exports.handler = async (event) => {
         
         let shortBidId =  's' + event.arguments.bid_id;
         
-        console.log(data);
-
         let item = {
             TableName: ReverseHandTable,
             Item: {
@@ -56,6 +85,8 @@ exports.handler = async (event) => {
         
         item.Item.bid_details['tradesman_id'] = bid['tradesman_id'];
         item.Item.bid_details['id'] = shortBidId;
+        
+        await notification;
     
         return item.Item.bid_details;
     } catch(e) {
