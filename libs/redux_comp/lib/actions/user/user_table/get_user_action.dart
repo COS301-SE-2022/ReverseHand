@@ -6,6 +6,7 @@ import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
 import 'package:redux_comp/actions/get_paystack_secrets_action.dart';
 import 'package:redux_comp/actions/user/get_profile_photo_action.dart';
+import 'package:redux_comp/actions/user/subscribe_notifications_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
@@ -158,7 +159,7 @@ class GetUserAction extends ReduxAction<AppState> {
     switch (state.userDetails!.userType) {
       case "Consumer":
         dispatch(ViewAdvertsAction());
-        dispatch(SubscribMessagesAction());
+        startupActions();
         dispatch(NavigateAction.pushNamed("/consumer"));
         break;
       case "Tradesman":
@@ -168,9 +169,7 @@ class GetUserAction extends ReduxAction<AppState> {
         }
         List<String> tradeTypes = state.userDetails!.tradeTypes;
         dispatch(ViewJobsAction(domains, tradeTypes));
-        dispatch(SubscribMessagesAction());
-        dispatch(GetPaystackSecretsAction());
-        dispatch(GetProfilePhotoAction());
+        startupActions();
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;
       case "Admin":
@@ -181,5 +180,12 @@ class GetUserAction extends ReduxAction<AppState> {
     store.waitCondition((state) => state.error == ErrorType.none);
     dispatch(WaitAction.remove("flag"));
     dispatch(WaitAction.remove("auto-login"));
+  }
+
+  void startupActions() {
+    dispatch(SubscribMessagesAction());
+    dispatch(GetPaystackSecretsAction());
+    dispatch(GetProfilePhotoAction());
+    dispatch(SubscribeNotificationsAction());
   }
 }
