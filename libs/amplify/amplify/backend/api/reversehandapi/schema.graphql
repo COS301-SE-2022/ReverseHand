@@ -3,7 +3,7 @@
 # input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Query {
-  viewBids(ad_id: String!): [Bid]! @function(name: "viewBidsResolver-${env}")
+  viewBids(ad_id: String!): [Bid!]! @function(name: "viewBidsResolver-${env}")
 
   viewAdverts(user_id: String!): [Advert]!
     @function(name: "viewAdvertsResolver-${env}")
