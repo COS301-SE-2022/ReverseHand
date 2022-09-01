@@ -121,7 +121,11 @@ PODS:
     - SDWebImage/Core (= 5.13.2)
   - SDWebImage/Core (5.13.2)
   - Starscream (4.0.4)
+<<<<<<< HEAD
   - SwiftFormat/CLI (0.49.18)
+=======
+  - SwiftFormat/CLI (0.49.17)
+>>>>>>> f6cc5c4996998655ccdaf6f8a47f834d7fc53f2f
   - SwiftLint (0.49.0)
   - SwiftyGif (5.4.3)
 
@@ -201,6 +205,7 @@ SPEC CHECKSUMS:
   amplify_storage_s3_ios: 958f4989117718621340d7405d792b957adcf764
   AmplifyPlugins: 110388250aeaf45eaf3008991616be84b2c605f7
   AppSyncRealTimeClient: 656ab4215e05f6ca47fe6d8c73f416d9984a8aac
+<<<<<<< HEAD
   AWSAuthCore: 0bac0e67c28d620c8f823c88bd15d552544e801a
   AWSCognitoIdentityProvider: a8d244d0cdfeff425fe20a2fb49b7e9cb89c4748
   AWSCognitoIdentityProviderASF: 5dccf24b43c287eb1949e83cefccb6c25cdc04b7
@@ -208,6 +213,15 @@ SPEC CHECKSUMS:
   AWSMobileClient: 6f60d1fb6373e21aaada443dd4d4bf087158614d
   AWSPluginsCore: c29c4b91c4ecd7376b85288615bb482f409a0b73
   AWSS3: 09801b290f8818f532694cabd5d503c7474eb3df
+=======
+  AWSAuthCore: 331e789932e2313e214ed40dfaf1a48dc235592a
+  AWSCognitoIdentityProvider: 2e8eba9ce629e4a30539b4ea8288f1d4c7091c36
+  AWSCognitoIdentityProviderASF: 70e4acd7554b2b35ac5eee1ca531b312bb6ea467
+  AWSCore: e945fb601c0e34ccb8f337e4cc51be0a09bdf9d8
+  AWSMobileClient: 319f1575f35e985ab1f85f5490d0ec2971fbb00f
+  AWSPluginsCore: c29c4b91c4ecd7376b85288615bb482f409a0b73
+  AWSS3: 48b2bb8d2597123e248e9418051689838067575a
+>>>>>>> f6cc5c4996998655ccdaf6f8a47f834d7fc53f2f
   camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
@@ -222,10 +236,18 @@ SPEC CHECKSUMS:
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
+<<<<<<< HEAD
   SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
   SwiftLint: 414d099c0f305c6c73e56139efb468666e535ece
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+=======
+  SwiftFormat: 64ac3f15bbfc3c830103a17340bcc5b60d9a3acd
+  SwiftLint: 414d099c0f305c6c73e56139efb468666e535ece
+  SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
+
+PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
+>>>>>>> f6cc5c4996998655ccdaf6f8a47f834d7fc53f2f
 
 COCOAPODS: 1.11.3

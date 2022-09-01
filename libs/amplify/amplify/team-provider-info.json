@@ -171,13 +171,13 @@
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getReportedUsersResolver-656d756b345a3231366a-build.zip"
         },
-        "notificationsResolver": {
-          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/notificationsResolver-542b2f30414b6f704143-build.zip"
-        },
         "reversehandnodefetchLayer": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/reversehandnodefetchLayer-LambdaLayerVersion2c638020-build.zip"
+        },
+        "notificationsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/notificationsResolver-426c6d54513641506133-build.zip"
         },
         "reversehandsecretsManagerLayer": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",

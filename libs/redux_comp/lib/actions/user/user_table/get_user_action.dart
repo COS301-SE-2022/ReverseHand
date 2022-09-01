@@ -5,6 +5,7 @@ import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
 import 'package:redux_comp/actions/get_paystack_secrets_action.dart';
+import 'package:redux_comp/actions/user/get_profile_photo_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
@@ -169,6 +170,7 @@ class GetUserAction extends ReduxAction<AppState> {
         dispatch(ViewJobsAction(domains, tradeTypes));
         dispatch(SubscribMessagesAction());
         dispatch(GetPaystackSecretsAction());
+        dispatch(GetProfilePhotoAction());
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;
       case "Admin":

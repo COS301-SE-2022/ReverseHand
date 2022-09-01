@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import '../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -18,8 +17,8 @@ class GetPaystackSecretsAction extends ReduxAction<AppState> {
       document: graphQLDocument,
     );
 
-    dynamic response = await Amplify.API.query(request: request).response;
-    dynamic keys = json.decode(response)['getPayStackKeys'];
+    final response = await Amplify.API.query(request: request).response;
+    dynamic keys = json.decode(response.data)['getPayStackKeys'];
 
     return state.copy(
       paystackSecretKey: keys['secret_key'],
