@@ -2,7 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/admin/set_current_advert_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/admin/reported_advert_model.dart';
+// import 'package:redux_comp/models/admin/reported_advert_model.dart';
 
 //*********************************************** */
 // Reported Advert card layout widget
