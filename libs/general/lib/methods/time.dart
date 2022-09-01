@@ -22,5 +22,24 @@ String timestampToDate(double timestamp) {
 
 // figures out how long since the timestamp
 String timeSinceTimestamp(double timestamp) {
-  return "7";
+  String time = "minutes";
+
+  int difference =
+      ((DateTime.now().millisecondsSinceEpoch - timestamp.toInt()) /
+              (1000 * 60))
+          .floor(); // getting to minutes
+
+  if ((difference / 60).floor() != 0) {
+    difference = (difference / 60).floor(); // hours
+    time = "hours";
+
+    if ((difference / 24).floor() != 0) {
+      time = "days";
+      difference = (difference / 24).floor();
+    }
+  }
+
+  time = difference == 1 ? time.substring(0, time.length - 1) : time;
+
+  return "$difference $time ago";
 }
