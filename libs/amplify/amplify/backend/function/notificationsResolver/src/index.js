@@ -33,9 +33,9 @@ exports.handler = async (event, context, callback) => {
   const accessToken = AuthenticationResult && AuthenticationResult.AccessToken;
   
   const postBody = {
-    query: `query {
-              viewBids(ad_id: "a#770afc30-250b-11ed-8df1-718bcfb21334") {
-                id
+    query: `mutation {
+              notification(user_id: "c#001") {
+                user_id
               }
             }`,
   };

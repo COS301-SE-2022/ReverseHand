@@ -27,7 +27,8 @@
           "partitionKeyName": "part_key",
           "partitionKeyType": "S",
           "sortKeyName": "sort_key",
-          "sortKeyType": "S"
+          "sortKeyType": "S",
+          "streamArn": "arn:aws:dynamodb:eu-west-1:727515863527:table/ReverseHand/stream/2022-08-31T18:30:15.588"
         },
         "User": {
           "tableName": "User",
@@ -176,7 +177,7 @@
         },
         "notificationsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/notificationsResolver-7a524465717a665a722f-build.zip"
+          "s3Key": "amplify-builds/notificationsResolver-426c6d54513641506133-build.zip"
         },
         "reversehandsecretsManagerLayer": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -184,7 +185,7 @@
         },
         "notifyNewNotificationsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/notifyNewNotificationsResolver-444d512f516363636361-build.zip"
+          "s3Key": "amplify-builds/notifyNewNotificationsResolver-43513855386a6e633751-build.zip"
         }
       }
     }
