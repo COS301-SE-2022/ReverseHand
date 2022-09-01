@@ -3,7 +3,7 @@
 # input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Query {
-  viewBids(ad_id: String!): [Bid]! @function(name: "viewBidsResolver-${env}")
+  viewBids(ad_id: String!): [Bid!]! @function(name: "viewBidsResolver-${env}")
 
   viewAdverts(user_id: String!): [Advert]!
     @function(name: "viewAdvertsResolver-${env}")
@@ -135,6 +135,9 @@ type Mutation {
 
   archiveAdvert(ad_id: String!): Advert!  #id is the review id
     @function(name: "archiveAdvertResolver-${env}")
+
+  notification(user_id: String!): NotificationUpdate! # returns the id of the user who has a new notification
+    @function(name: "notifyNewNotificationsResolver-${env}")
 }
 
 type Subscription {
@@ -143,6 +146,9 @@ type Subscription {
 
   getMessageUpdatesTradesman(tradesman_id: String!): Message
     @aws_subscribe(mutations: ["sendMessage"])
+
+  notifyNewNotifications(user_id: String!): NotificationUpdate
+    @aws_subscribe(mutations: ["notification"])
 }
 
 type User implements UniqueID {
@@ -268,6 +274,11 @@ type Notification {
   msg: String!
   type: NotificationType!
   timestamp: Float!
+}
+
+# needs to exist to trigger notification subscription
+type NotificationUpdate {
+  user_id: String!
 }
 
 type Review implements UniqueID {

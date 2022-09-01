@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.5.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "shortListBidResolver",
+            "notifyNewNotificationsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "shortListBidResolver",
+                  "notifyNewNotificationsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -72,8 +72,7 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "REVERSEHAND": "ReverseHand"
+            }
           }
         },
         "Role": {
@@ -93,12 +92,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole7788845d",
+            "reversehandLambdaRolef6477125",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole7788845d",
+                  "reversehandLambdaRolef6477125",
                   "-",
                   {
                     "Ref": "env"
@@ -123,11 +122,7 @@
               ]
             }
           ]
-        },
-        "ManagedPolicyArns": [
-          "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
-          "arn:aws:iam::727515863527:policy/LambdaAdminLogin"
-        ]
+        }
       }
     },
     "lambdaexecutionpolicy": {
@@ -168,55 +163,6 @@
                   }
                 ]
               }
-            }
-          ]
-        }
-      }
-    },
-    "AccessDynamoDBApiResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyName": "amplify-lambda-execution-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:GetItem",
-                "dynamodb:PutItem",
-                "dynamodb:List*",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:Delete*",
-                "dynamodb:UpdateItem"
-              ],
-              "Resource": [
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
-                    {
-                      "tablename": "ReverseHand"
-                    }
-                  ]
-                },
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
-                    {
-                      "tablename": "ReverseHand"
-                    }
-                  ]
-                }
-              ]
             }
           ]
         }
