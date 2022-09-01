@@ -2,19 +2,19 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/admin/set_current_advert_action.dart';
 import 'package:redux_comp/app_state.dart';
-// import 'package:redux_comp/models/admin/reported_advert_model.dart';
+import 'package:redux_comp/models/admin/reported_advert_model.dart';
 
 //*********************************************** */
 // Reported Advert card layout widget
 //*********************************************** */
 
 class QuickViewReportedAdvertCardWidget extends StatelessWidget {
-  // final ReportedAdvertModel advert; // Current user
+  final ReportedAdvertModel advert; // Current user
   final Store<AppState> store;
 
   const QuickViewReportedAdvertCardWidget({
     Key? key,
-    // required this.advert,
+    required this.advert,
     required this.store,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          // onTap: () => vm.dispatchViewAdvertDetails(advert.id),
+          onTap: () => vm.dispatchViewAdvertDetails(advert.id),
           child: Card(
             margin: const EdgeInsets.all(10),
             // color: Theme.of(context).primaryColorLight,
@@ -73,11 +73,12 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.5,
-                          child: const Text(
-                              "AdvertTitle", // advert.advert.title,
+                          child:  Text(
+                              // "AdvertTitle", 
+                              advert.advert.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 28,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold)),
@@ -85,8 +86,9 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
 
                         const Padding(padding: EdgeInsets.only(top: 4)),
                         Row(
-                          children: const [
-                            Text("Randburg",
+                          children:  const [
+                            Text(
+                              "Randburg",
                                 // advert.domain.city,
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black)),
@@ -105,10 +107,9 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                         const Padding(padding: EdgeInsets.only(top: 3)),
                         Row(
                           children: [
-                            const Text(
-                                // advert.count.toString(),
+                             const Text(
                                 "Report count:",
-                                style: TextStyle(
+                                style:  TextStyle(
                                     fontSize: 20, color: Colors.black)),
                             Padding(
                               padding: const EdgeInsets.only(left: 3.0),
@@ -116,12 +117,12 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(7),
                                     color: Theme.of(context).primaryColor),
-                                child: const Padding(
-                                  padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+                                child:  Padding(
+                                  padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
                                   child: Text(
-                                      // advert.count.toString(),
-                                      "5",
-                                      style: TextStyle(
+                                      advert.count.toString(),
+                                      // "5",
+                                      style: const TextStyle(
                                           fontSize: 20, color: Colors.black)),
                                 ),
                               ),

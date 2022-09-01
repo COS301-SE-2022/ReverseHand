@@ -3,7 +3,6 @@ import 'package:admin/widgets/quickview_reported_advert_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -25,9 +24,7 @@ class AdminContentPage extends StatelessWidget {
               if (vm.adverts != null) {
                 for (ReportedAdvertModel advert in vm.adverts!) {
                   reportedAdverts.add(QuickViewReportedAdvertCardWidget(
-
-                      // advert: advert,
-                      store: store));
+                      advert: advert, store: store));
                 }
               }
               return (vm.loading)
@@ -55,7 +52,6 @@ class AdminContentPage extends StatelessWidget {
                         //     ),
                         //   ),
                         // ),
-                        QuickViewReportedAdvertCardWidget(store: store)
                       ],
                     );
             },
