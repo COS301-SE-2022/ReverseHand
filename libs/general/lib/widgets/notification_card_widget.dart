@@ -12,11 +12,13 @@ import 'package:flutter/material.dart';
 class NotificationCardWidget extends StatelessWidget {
   final String titleText;
   final String date;
+  final String msg;
 
   const NotificationCardWidget({
     Key? key,
     required this.titleText,
     required this.date,
+    required this.msg,
   }) : super(key: key);
 
   @override
@@ -63,11 +65,7 @@ class NotificationCardWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 3),
                         child: Text(
-                          titleText == "Accepted!"
-                              ? "Your bid was accepted. A chat has been created between you and your client."
-                              : titleText == "New Bid!"
-                                  ? "A bid was made on your advert."
-                                  : "A job which you bid on has been closed.",
+                          msg,
                           style: const TextStyle(
                               fontSize: 20, color: Colors.white),
                         ),

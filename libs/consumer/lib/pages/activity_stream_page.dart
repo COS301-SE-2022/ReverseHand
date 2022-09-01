@@ -1,7 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
+import 'package:redux_comp/models/user_models/notification_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/notification_card_widget.dart';
@@ -18,35 +20,34 @@ class ConsumerActivityStream extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) => Column(
-              children: [
-                //*******************APP BAR WIDGET*********************//
-                AppBarWidget(title: "ACTIVITY STREAM", store: store),
-                //********************************************************//
+              vm: () => _Factory(this),
+              builder: (BuildContext context, _ViewModel vm) {
+                List<NotificationCardWidget> notificationWidgets =
+                    vm.notifications
+                        .map(
+                          (e) => NotificationCardWidget(
+                            titleText: e.title,
+                            msg: e.msg,
+                            date: timeSinceTimestamp(e.timestamp),
+                          ),
+                        )
+                        .toList();
 
-                 const Padding(padding: EdgeInsets.only(top: 20)),
+                return Column(
+                  children: [
+                    //*******************APP BAR WIDGET*********************//
+                    AppBarWidget(title: "ACTIVITY STREAM", store: store),
+                    //********************************************************//
 
-                //*******************MOCK NOTIFICATIONS CARDS*********************//
-                const NotificationCardWidget(
-                  titleText: "New Bid!",
-                  date: "3 min ago",
-                ),
+                    const Padding(padding: EdgeInsets.only(top: 20)),
 
-                const NotificationCardWidget(
-                  titleText: "Accepted!",
-                  date: "3 min ago",
-                ),
+                    //*******************MOCK NOTIFICATIONS CARDS*********************//
+                    ...notificationWidgets
 
-                const NotificationCardWidget(
-                  titleText: "Job Closed.",
-                  date: "3 min ago",
-                ),
-
-                //********************************************************//
-              ],
-            ),
-          ),
+                    //********************************************************//
+                  ],
+                );
+              }),
         ),
 
         //************************NAVBAR***********************
@@ -63,14 +64,15 @@ class _Factory extends VmFactory<AppState, ConsumerActivityStream> {
   _Factory(widget) : super(widget);
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchLogoutAction: () => dispatch(LogoutAction()),
+        notifications: state.notifications,
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function() dispatchLogoutAction;
+  final List<NotificationModel> notifications;
+
   _ViewModel({
-    required this.dispatchLogoutAction,
-  });
+    required this.notifications,
+  }) : super(equals: [notifications]);
 }

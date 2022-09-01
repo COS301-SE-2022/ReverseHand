@@ -8,7 +8,8 @@ import 'package:general/widgets/notification_card_widget.dart';
 
 class TradesmanActivityStream extends StatelessWidget {
   final Store<AppState> store;
-  const TradesmanActivityStream({Key? key, required this.store}) : super(key: key);
+  const TradesmanActivityStream({Key? key, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +29,19 @@ class TradesmanActivityStream extends StatelessWidget {
                 const NotificationCardWidget(
                   titleText: "New Bid!",
                   date: "3 min ago",
+                  msg: "",
                 ),
 
                 const NotificationCardWidget(
                   titleText: "Accepted!",
                   date: "3 min ago",
+                  msg: "",
                 ),
 
                 const NotificationCardWidget(
                   titleText: "Job Closed.",
                   date: "3 min ago",
+                  msg: "",
                 ),
 
                 //********************************************************//

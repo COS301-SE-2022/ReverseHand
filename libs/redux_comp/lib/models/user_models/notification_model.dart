@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 class NotificationModel {
   final String title;
   final String msg;
-  final String type;
   final double timestamp;
+  final String type;
+  /*
+    Possible Options for type are:
+      - BidShortlisted
+  */
 
   const NotificationModel({
     required this.title,
