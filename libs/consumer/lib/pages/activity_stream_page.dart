@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/models/user_models/notification_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
