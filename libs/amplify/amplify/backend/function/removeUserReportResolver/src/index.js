@@ -14,14 +14,24 @@ exports.handler = async (event) => {
       Key: {
         user_id: event.arguments.user_id,
       },
-      UpdateExpression: `set user_reports = list_append(if_not_exists(user_reports,:list),:report)`,
+      UpdateExpression: `set user_reports = if_not_exists(user_reports,:list)`,
       ExpressionAttributeValues: {
-        ":report": [event.arguments.report],
         ":list" : []
       },
     };
     
     const user = await docClient.update(params).promise().then((resp) => resp.Attributes);
+    
+    if (!user.user_reports.some((report) => report.reporter_id === event.arguments.report.reporter_id)) {
+      user.user_reports.push(event.arguments.report);
+    } else return event.arguments.report;
+    
+    params = {
+      TableName: UserTable,
+      Item: user
+    };
+    
+    await docClient.put(params).promise();
     
     params = {
       TableName: UserTable,
@@ -31,7 +41,6 @@ exports.handler = async (event) => {
     };
     
     const user_reports_list = await docClient.get(params).promise().then((resp) => resp.Item);
-    console.log(user_reports_list);
     if (event.arguments.user_id[0] == "c") {
       if (!user_reports_list.customers.some(e => e.user_id === event.arguments.user_id)) {
         user_reports_list.customers.push({"user_id": event.arguments.user_id});

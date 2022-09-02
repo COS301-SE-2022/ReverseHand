@@ -18,14 +18,6 @@
     },
     "apiGraphQLAPIIdOutput": {
       "Type": "String"
-    },
-    "functionreversehandnodefetchLayerArn": {
-      "Type": "String",
-      "Default": "functionreversehandnodefetchLayerArn"
-    },
-    "functionreversehandsecretsManagerLayerArn": {
-      "Type": "String",
-      "Default": "functionreversehandsecretsManagerLayerArn"
     }
   },
   "Conditions": {
@@ -58,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "notificationsResolver",
+            "removeUserReportResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "notificationsResolver",
+                  "removeUserReportResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -81,11 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand",
-            "USER": "User",
-            "CLIENTID": "7d07e1rr668a73i0rdnp6e9om2",
-            "ENDPOINT": "https://olype7mopba2talc333b7k46jy.appsync-api.eu-west-1.amazonaws.com/graphql",
-            "USERPOOLID": "eu-west-1_QpsSD87RL"
+            "USER": "User"
           }
         },
         "Role": {
@@ -95,11 +83,7 @@
           ]
         },
         "Runtime": "nodejs14.x",
-        "Layers": [
-          {
-            "Ref": "functionreversehandsecretsManagerLayerArn"
-          }
-        ],
+        "Layers": [],
         "Timeout": 25
       }
     },
@@ -109,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole7b8dc2ed",
+            "reversehandLambdaRole5a6e8919",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole7b8dc2ed",
+                  "reversehandLambdaRole5a6e8919",
                   "-",
                   {
                     "Ref": "env"
@@ -139,11 +123,7 @@
               ]
             }
           ]
-        },
-        "ManagedPolicyArns": [
-          "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
-          "arn:aws:iam::727515863527:policy/LambdaAdminLogin"
-        ]
+        }
       }
     },
     "lambdaexecutionpolicy": {
@@ -207,25 +187,12 @@
             {
               "Effect": "Allow",
               "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
                 "dynamodb:UpdateItem"
               ],
               "Resource": [
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
-                    {
-                      "tablename": "ReverseHand"
-                    }
-                  ]
-                },
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
-                    {
-                      "tablename": "ReverseHand"
-                    }
-                  ]
-                },
                 {
                   "Fn::Sub": [
                     "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
