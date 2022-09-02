@@ -139,7 +139,11 @@
               ]
             }
           ]
-        }
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+          "arn:aws:iam::727515863527:policy/LambdaAdminLogin"
+        ]
       }
     },
     "lambdaexecutionpolicy": {
@@ -203,7 +207,7 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:Query"
+                "dynamodb:UpdateItem"
               ],
               "Resource": [
                 {

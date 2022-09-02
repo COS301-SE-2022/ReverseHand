@@ -271,7 +271,7 @@ type Bid implements UniqueID {
 type Notification {
   title: String!
   msg: String!
-  type: NotificationType!
+  type: String!
   timestamp: Float!
 }
 
@@ -322,10 +322,6 @@ type PayStackKeys {
 enum JobType {
   Plumbing
   Painting
-}
-
-enum NotificationType {
-  bidShortlisted
 }
 
 interface UniqueID {

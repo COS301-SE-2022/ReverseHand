@@ -55,7 +55,6 @@ exports.handler = async (event) => {
                     date_created: currentDate // automatically generating the date
                 }
             }
-    
         };
         await docClient.put(item).promise();
     
