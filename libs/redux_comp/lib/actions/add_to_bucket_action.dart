@@ -56,10 +56,20 @@ class AddToBucketAction extends ReduxAction<AppState> {
                 'Fraction completed: ${progress.getFractionCompleted()}');
           });
       debugPrint('Successfully uploaded file: ${result.key}');
+
+      switch (fileType) {
+        case FileType.profile:
+          return state.copy(userProfileImage: file);
+        case FileType.job: // happens if consumer is logged in
+          break;
+        case FileType.quote: // happens when tradesman is logged in
+          break;
+      }
+
+      return null;
     } on StorageException catch (e) {
       debugPrint('Error uploading protected file: $e');
+      return null;
     }
-
-    return null;
   }
 }

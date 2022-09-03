@@ -1,7 +1,30 @@
+<<<<<<< HEAD
+=======
+// this function creates a notification and notifies the user of the new notification
+
+// parameters are 
+/*
+{
+  notification: {
+    title
+    msg
+    type
+    timestamp
+  },
+  userId
+}
+*/
+
+>>>>>>> a359f85b48ebfa39831da87d93f20598f9f06043
 const URL = require('url');
 const fetch = require('node-fetch');
 const AWS = require("aws-sdk");
 const SecretsManager = require('/opt/secretesmanager.js');
+<<<<<<< HEAD
+=======
+const docClient = new AWS.DynamoDB.DocumentClient();
+const User = process.env.USER;
+>>>>>>> a359f85b48ebfa39831da87d93f20598f9f06043
 
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
 const initiateAuth = async ({clientId, username, password }) => cognitoIdentityServiceProvider.adminInitiateAuth({
@@ -16,6 +39,20 @@ const initiateAuth = async ({clientId, username, password }) => cognitoIdentityS
   .promise();
 
 exports.handler = async (event, context, callback) => {
+  let params = {
+    TableName: User,
+    Key: {
+      user_id: event.userId,
+    },
+    UpdateExpression: `set notifications = list_append(if_not_exists(notifications,:list),:notif)`,
+    ExpressionAttributeValues: {
+      ":notif": [event.notification],
+      ":list": []
+    },
+  };
+
+  let notification = docClient.update(params).promise()
+
   const secrets = await SecretsManager.getSecret("NotificationLoginSecrets", "eu-west-1");
   const creds = JSON.parse(secrets);
 
@@ -32,10 +69,20 @@ exports.handler = async (event, context, callback) => {
   
   const accessToken = AuthenticationResult && AuthenticationResult.AccessToken;
   
+<<<<<<< HEAD
   const postBody = {
     query: `query {
               viewBids(ad_id: "a#770afc30-250b-11ed-8df1-718bcfb21334") {
                 id
+=======
+  await notification;
+
+  // notifying user of new notification
+  const postBody = {
+    query: `mutation {
+              notification(user_id: "${event.userId}") {
+                user_id
+>>>>>>> a359f85b48ebfa39831da87d93f20598f9f06043
               }
             }`,
   };

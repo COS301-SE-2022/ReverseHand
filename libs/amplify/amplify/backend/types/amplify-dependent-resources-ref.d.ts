@@ -241,6 +241,18 @@ export type AmplifyDependentResourcesAttributes = {
         },
         "reversehandsecretsManagerLayer": {
             "Arn": "string"
+        },
+        "notifyNewNotificationsResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "addUserReportResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     }
 }
