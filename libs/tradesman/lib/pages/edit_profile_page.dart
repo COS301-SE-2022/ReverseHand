@@ -12,6 +12,8 @@ import 'package:general/widgets/button.dart';
 
 import '../widgets/multiselect_widget.dart';
 
+// import '../widgets/multiselect_widget.dart';
+
 class EditTradesmanProfilePage extends StatefulWidget {
   final Store<AppState> store;
   const EditTradesmanProfilePage({Key? key, required this.store})
@@ -89,7 +91,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                           return BottomSheetWidget(
                               text: "What name would you like to save?",
                               initialVal: "",
-                              controller: nameController);
+                              controller: nameController, function: () {  },);
                         });
                   },
                   child: Padding(
@@ -148,7 +150,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                           return BottomSheetWidget(
                               text: "What phone number ",
                               initialVal: "",
-                              controller: nameController);
+                              controller: nameController, function: () {  },);
                         });
                   },
                   child: Padding(
@@ -369,7 +371,7 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
           name: name,
           cellNo: cell,
           tradeTypes: tradeTypes,
-          domains: domains,
+          domains: domains, changed: '',
         )),
         popPage: () => dispatch(
           NavigateAction.pop(),

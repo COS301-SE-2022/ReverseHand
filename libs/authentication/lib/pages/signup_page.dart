@@ -196,6 +196,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             text1: "Already have an account? ",
                             text2: "Sign In",
                             navigate: () => vm.pushLoginPage(),
+                            colour: Colors.grey
                           ),
                         ),
 

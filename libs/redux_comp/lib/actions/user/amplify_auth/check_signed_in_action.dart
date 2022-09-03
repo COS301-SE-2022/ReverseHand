@@ -39,7 +39,7 @@ class CheckSignedInAction extends ReduxAction<AppState> {
     if (state.error == ErrorType.none) {
       dispatch(AssignGroupsAction());
     } else {
-      dispatch(WaitAction.remove("auto-login"));
+      dispatch(WaitAction.remove("auto-login")); // if there's an error don't log them in
     }
   }
 }

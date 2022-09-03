@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
+import 'package:redux_comp/actions/user/get_notifications_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -80,7 +81,10 @@ class NavBarWidget extends StatelessWidget {
                       Icons.notifications,
                       color: Colors.white,
                     ),
-                    onPressed: () => vm.pushActivityStreamPage(),
+                    onPressed: () {
+                      vm.dispatchGetNotificationsAction();
+                      vm.pushActivityStreamPage();
+                    },
                     splashRadius: 30,
                     highlightColor: Colors.orange,
                     splashColor: Colors.white,
@@ -129,6 +133,8 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
         ),
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchGetChatsAction: () => dispatch(GetChatsAction()),
+        dispatchGetNotificationsAction: () =>
+            dispatch(GetNotificationsAction()),
       );
 }
 
@@ -140,12 +146,15 @@ class _ViewModel extends Vm {
   final VoidCallback pushActivityStreamPage;
   final void Function() dispatchLogoutAction;
   final void Function() dispatchGetChatsAction;
+  final void Function() dispatchGetNotificationsAction;
 
-  _ViewModel(
-      {required this.pushProfilePage,
-      required this.pushChatPage,
-      required this.dispatchGetChatsAction,
-      required this.pushConsumerListings,
-      required this.dispatchLogoutAction,
-      required this.pushActivityStreamPage});
+  _ViewModel({
+    required this.pushProfilePage,
+    required this.pushChatPage,
+    required this.dispatchGetChatsAction,
+    required this.pushConsumerListings,
+    required this.dispatchLogoutAction,
+    required this.pushActivityStreamPage,
+    required this.dispatchGetNotificationsAction,
+  });
 }

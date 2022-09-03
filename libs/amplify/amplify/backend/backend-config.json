@@ -279,6 +279,74 @@
     "getPayStackApiKeysResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "reversehandsecretsManagerLayer",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ]
+    },
+    "getReportedUsersResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "notificationsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "reversehandsecretsManagerLayer",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ]
+    },
+    "reversehandnodefetchLayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
+    },
+    "reversehandsecretsManagerLayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
+    },
+    "notifyNewNotificationsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "addUserReportResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "removeUserReportResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getReportedReviewsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "addReviewReportResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "removeReviewReportResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   }

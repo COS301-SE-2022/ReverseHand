@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
@@ -5,6 +6,7 @@ import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/review_model.dart';
+import 'package:redux_comp/models/user_models/notification_model.dart';
 import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
@@ -45,9 +47,14 @@ class AppState {
   //admin functionality
   final AdminModel admin;
 
+  // images
+  final File? userProfileImage;
+
   // paystack keys
   final String paystackSecretKey;
   final String paystackPublicKey;
+
+  final List<NotificationModel> notifications;
 
   // constructor must only take named parameters
   const AppState({
@@ -72,8 +79,10 @@ class AppState {
     required this.advertsWon,
     required this.userStatistics,
     required this.admin,
+    required this.userProfileImage,
     required this.paystackSecretKey,
     required this.paystackPublicKey,
+    required this.notifications,
   });
 
   // this methods sets the starting state for the store
@@ -121,51 +130,13 @@ class AppState {
         messages: [],
       ),
       admin: const AdminModel(reportedCustomers: []),
+      userProfileImage: null,
       paystackPublicKey: "",
       paystackSecretKey: "",
+      notifications: const [],
     );
   }
 
-  factory AppState.mock() {
-    return AppState(
-      userDetails: const UserModel(
-        id: "0",
-        email: "some@email.com",
-        name: "Someone",
-        cellNo: "0821234567",
-        userType: "customer",
-        externalProvider: false,
-      ),
-      wait: Wait(),
-      authModel: null,
-      partialUser: null,
-      adverts: const [],
-      viewAdverts: const [],
-      bids: const [],
-      shortlistBids: const [],
-      viewBids: const [],
-      reviews: const [],
-      sum: 0,
-      userStatistics: null,
-      advertsWon: const [],
-      activeAd: null,
-      activeBid: null,
-      locationResult: null,
-      error: ErrorType.none,
-      change: false,
-      chats: const [],
-      chat: const ChatModel(
-        consumerName: "",
-        tradesmanName: "",
-        consumerId: "",
-        tradesmanId: "",
-        messages: [],
-      ),
-      admin: const AdminModel(reportedCustomers: []),
-      paystackPublicKey: "",
-      paystackSecretKey: "",
-    );
-  }
   // easy way to replace store wihtout specifying all paramters
   AppState copy({
     CognitoAuthModel? authModel,
@@ -190,8 +161,10 @@ class AppState {
     List<String>? advertsWon,
     int? sum,
     StatisticsModel? userStatistics,
+    File? userProfileImage,
     String? paystackPublicKey,
     String? paystackSecretKey,
+    List<NotificationModel>? notifications,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
@@ -215,8 +188,10 @@ class AppState {
       sum: sum ?? this.sum,
       advertsWon: advertsWon ?? this.advertsWon,
       userStatistics: userStatistics ?? this.userStatistics,
+      userProfileImage: userProfileImage ?? this.userProfileImage,
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
+      notifications: notifications ?? this.notifications,
     );
   }
 }

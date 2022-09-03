@@ -170,5 +170,4 @@ class _ViewModel extends Vm {
     required this.adverts,
     required this.pushCreateAdvertPage,
   }) : super(equals: [adverts, loading]); // implementinf hashcode
-
 }

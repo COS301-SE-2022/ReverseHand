@@ -17,8 +17,6 @@ class SetCurrentAdvertAction extends ReduxAction<AppState> {
 
   @override
   void after() {
-    if (state.admin.activeUser != null) {
-      dispatch(NavigateAction.pushNamed('/admin_consumer_advert_details'));
-    }
+    dispatch(NavigateAction.pushNamed('/admin_consumer_advert_details'));
   }
 }

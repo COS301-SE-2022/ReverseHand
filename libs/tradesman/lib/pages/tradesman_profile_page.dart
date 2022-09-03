@@ -252,7 +252,7 @@ class TradesmanProfilePage extends StatelessWidget {
                                         text:
                                             "What name would you like to save?",
                                         initialVal: vm.userDetails.name,
-                                        controller: nameController);
+                                        controller: nameController, function: () {  },);
                                   });
                             },
                             icon: const Icon(
@@ -349,7 +349,7 @@ class TradesmanProfilePage extends StatelessWidget {
                                         text:
                                             "What location would you like to save?",
                                         initialVal: "test",
-                                        controller: nameController);
+                                        controller: nameController, function: () {  },);
                                   });
                             },
                             icon: const Icon(

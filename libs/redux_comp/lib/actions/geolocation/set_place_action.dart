@@ -1,4 +1,5 @@
 import 'package:geolocation/place_api_service.dart';
+import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -11,6 +12,7 @@ class SetPlaceAction extends ReduxAction<AppState> {
     if (state.locationResult != null) {
       switch (state.userDetails!.userType) {
         case "Consumer":
+          dispatch(EditUserDetailsAction(userId: state.userDetails!.id, changed: "location", location: state.locationResult));
           return state.copy(
             userDetails:
                 state.userDetails!.copy(location: state.locationResult),
