@@ -3,7 +3,6 @@ import 'package:admin/widgets/quickview_reported_advert_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -44,15 +43,15 @@ class AdminContentPage extends StatelessWidget {
                         //**********APPBAR***********//
                         AppBarWidget(title: "Reported Adverts", store: store),
                         ...reportedAdverts,
-                        Center(
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: ButtonWidget(
-                              text: "View all adverts",
-                              function: () {},
-                            ),
-                          ),
-                        ),
+                        // Center(
+                        //   child: Align(
+                        //     alignment: Alignment.bottomCenter,
+                        //     child: ButtonWidget(
+                        //       text: "View all adverts",
+                        //       function: () {},
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     );
             },

@@ -1,11 +1,7 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/widgets/delete_advert_popup.dart';
-import 'package:consumer/widgets/light_dialog_helper.dart';
-import 'package:consumer/widgets/rating_popup.dart';
+import 'package:authentication/widgets/auth_button.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/bottom_overlay.dart';
-import 'package:general/widgets/button.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +10,9 @@ import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
+
+import '../widgets/delete_advert_popup.dart';
+import '../widgets/light_dialog_helper.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -62,7 +61,7 @@ class AdvertDetailsPage extends StatelessWidget {
                           //should only be displayed if no bid has been accepted
                           if (vm.advert.acceptedBid == null)
                             Padding(
-                              padding: const EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 20),
                               child: IconButton(
                                 onPressed: vm.pushEditAdvert,
                                 icon: const Icon(Icons.edit),
@@ -78,86 +77,98 @@ class AdvertDetailsPage extends StatelessWidget {
                           const Padding(padding: EdgeInsets.only(top: 20)),
 
                           //*************BOTTOM BUTTONS**************//
-                          Stack(
-                            alignment: Alignment.center,
-                            children: <Widget>[
-                              BottomOverlayWidget(
-                                height: MediaQuery.of(context).size.height,
+                          if (vm.advert.acceptedBid == null)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: Column(
+                                children: [
+                                  AuthButtonWidget(
+                                      text: "View Bids",
+                                      function: () {
+                                        vm.pushViewBidsPage();
+                                      }),
+                                  SizedBox(
+                                    width: 290,
+                                    height: 50,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.white,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                        shadowColor: Colors.black,
+                                        elevation: 9,
+                                        side: const BorderSide(
+                                            color: Colors.orange),
+                                        textStyle:
+                                            const TextStyle(fontSize: 20),
+                                        minimumSize: const Size(400, 50),
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30.0))),
+                                      ),
+                                      onPressed: () {
+                                        LightDialogHelper.display(
+                                            context,
+                                            DeletePopUpWidget(
+                                              action: vm
+                                                  .dispatchArchiveAdvertAction,
+                                            ),
+                                            320.0);
+                                      },
+                                      child: const Text("Delete"),
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ),
 
-                              //view bids
-                              //should only be displayed if no bid is accepted yet
-                              if (vm.advert.acceptedBid == null)
-                                Positioned(
-                                  top: 15,
-                                  child: ButtonWidget(
-                                    text: "View Bids",
-                                    function: vm.pushViewBidsPage,
-                                  ),
-                                ),
+                          //should only be displayed if a bid has been accepted
+                          // if (vm.advert.acceptedBid != null)
+                          //   ButtonWidget(
+                          //     text: "Close job",
+                          //     function: () {
+                          //       LightDialogHelper.display(context,
+                          //           RatingPopUpWidget(
+                          //         onPressed: () {
+                          //           vm.dispatchDeleteChatAction();
+                          //           vm.pushConsumerListings();
+                          //         },
+                          //       ), 1000.0);
+                          //     },
+                          //   ),
 
-                              //should only be displayed if a bid has been accepted
-                              if (vm.advert.acceptedBid != null)
-                                Positioned(
-                                  top: 50,
-                                  child: ButtonWidget(
-                                    text: "Close job",
-                                    function: () {
-                                      LightDialogHelper.display(context,
-                                          RatingPopUpWidget(
-                                        onPressed: () {
-                                          vm.dispatchDeleteChatAction();
-                                          vm.pushConsumerListings();
-                                        },
-                                      ), 1000.0);
-                                    },
-                                  ),
-                                ),
+                          // //Delete
+                          // if (vm.advert.acceptedBid == null)
+                          //   ButtonWidget(
+                          //     text: "Delete",
+                          //     color: "light",
+                          //     function: () {
+                          //       LightDialogHelper.display(
+                          //           context,
+                          //           DeletePopUpWidget(
+                          //             action: vm.dispatchArchiveAdvertAction,
+                          //           ),
+                          //           320.0);
+                          //     },
+                          //   ),
 
-                              //Delete
-                              if (vm.advert.acceptedBid == null)
-                                Positioned(
-                                  top: 75,
-                                  child: ButtonWidget(
-                                    text: "Delete",
-                                    color: "light",
-                                    function: () {
-                                      LightDialogHelper.display(
-                                          context,
-                                          DeletePopUpWidget(
-                                            action:
-                                                vm.dispatchArchiveAdvertAction,
-                                          ),
-                                          320.0);
-                                    },
-                                  ),
-                                ),
+                          //Back - if no bid accepted yet
+                          // if (vm.advert.acceptedBid == null)
+                          //   (ButtonWidget(
+                          //     text: "Back",
+                          //     color: "light",
+                          //     border: "white",
+                          //     function: vm.popPage,
+                          //   )),
 
-                              //Back - if no bid accepted yet
-                              if (vm.advert.acceptedBid == null)
-                                (Positioned(
-                                  top: 135,
-                                  child: ButtonWidget(
-                                    text: "Back",
-                                    color: "light",
-                                    border: "white",
-                                    function: vm.popPage,
-                                  ),
-                                )),
-
-                              //Back - if bid accepted
-                              if (vm.advert.acceptedBid != null)
-                                (Positioned(
-                                  top: 115,
-                                  child: ButtonWidget(
-                                    text: "Back",
-                                    color: "light",
-                                    border: "white",
-                                    function: vm.popPage,
-                                  ),
-                                )),
-                            ],
-                          ),
+                          //Back - if bid accepted
+                          // if (vm.advert.acceptedBid != null)
+                          //   (ButtonWidget(
+                          //     text: "Back",
+                          //     color: "light",
+                          //     border: "white",
+                          //     function: vm.popPage,
+                          //   )),
                           //*************BOTTOM BUTTONS**************//
                         ],
                       );

@@ -5,7 +5,6 @@ import 'package:general/methods/time.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/bottom_overlay.dart';
 import 'package:general/widgets/button.dart';
 
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -76,8 +75,8 @@ class ViewBidsPage extends StatelessWidget {
                 //*******************************************//
                 const Padding(padding: EdgeInsets.all(5)),
                 Stack(children: [
-                  BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height),
+                  // BottomOverlayWidget(
+                  //     height: MediaQuery.of(context).size.height),
                   Container(
                     padding: const EdgeInsets.all(10),
                     child: Column(children: [
@@ -105,13 +104,10 @@ class ViewBidsPage extends StatelessWidget {
         ),
 
         //************************NAVBAR***********************/
+
         bottomNavigationBar: NavBarWidget(
           store: store,
         ),
-
-        resizeToAvoidBottomInset: false,
-        // floatingActionButton: const FloatingButtonWidget(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         //*************************************************//
       ),
     );
