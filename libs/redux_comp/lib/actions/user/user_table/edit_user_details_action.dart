@@ -71,7 +71,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
             document: graphQLDoc,
           );
 
-          final resp = await Amplify.API.mutate(request: requestChangeName).response;
+          await Amplify.API.mutate(request: requestChangeName).response;
           return state.copy(
               userDetails: state.userDetails!.copy(location: location));
         case "domains":
