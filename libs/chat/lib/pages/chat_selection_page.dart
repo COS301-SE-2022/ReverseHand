@@ -5,6 +5,7 @@ import 'package:chat/methods/populate_chats.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:tradesman/widgets/tradesman_navbar_widget.dart';
@@ -27,8 +28,9 @@ class ChatSelectionPage extends StatelessWidget {
                 //*******************APP BAR WIDGET*********************//
                 AppBarWidget(title: "MY CHATS", store: store),
                 //********************************************************//
-
-                if (vm.chats.isEmpty)
+                if (vm.loading)
+                  const LoadingWidget(padding: 0)
+                else if (vm.chats.isEmpty)
                   Padding(
                     padding: EdgeInsets.only(
                         top: (MediaQuery.of(context).size.height) / 3),
@@ -66,6 +68,7 @@ class _Factory extends VmFactory<AppState, ChatSelectionPage> {
   _ViewModel fromStore() => _ViewModel(
         chats: state.chats,
         userType: state.userDetails!.userType.toLowerCase(),
+        loading: state.wait.isWaiting,
       );
 }
 
@@ -73,9 +76,11 @@ class _Factory extends VmFactory<AppState, ChatSelectionPage> {
 class _ViewModel extends Vm {
   final List<ChatModel> chats;
   final String userType;
+  final bool loading;
 
   _ViewModel({
     required this.chats,
     required this.userType,
-  }) : super(equals: [chats, userType]); // implementinf hashcode
+    required this.loading,
+  }) : super(equals: [chats, userType, loading]); // implementinf hashcode
 }

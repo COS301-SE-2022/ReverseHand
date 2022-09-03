@@ -35,7 +35,7 @@ class GetNotificationsAction extends ReduxAction<AppState> {
 
   @override
   void before() {
-    // if there are currently adverts the user may be viewing them and if a
+    // if there are currently notifications the user may be viewing them and if a
     // new one comes in we don't want to hide everything and display a loading icon
     if (state.notifications.isEmpty) dispatch(WaitAction.add("get_notifs"));
   }
