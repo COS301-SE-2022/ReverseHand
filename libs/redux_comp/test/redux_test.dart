@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:redux_comp/models/geolocation/address_model.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
-// import 'package:redux_comp/app_state.dart';
-// import 'package:redux_comp/models/user_models/consumer_model.dart';
 
 void main() {
   test("Mock Test Redux", () {
@@ -67,5 +66,28 @@ void main() {
     expect(user.registered, copy.registered);
     expect(user.externalUsername, copy.externalUsername);
     expect(copy.scope, user.scope);
+  });
+
+  Address adrr = const Address(
+    streetNumber: "256",
+    street: "forbidden",
+    city: "Pretoria",
+    province: "G",
+    zipCode: "111",
+  );
+
+  Address adr = adrr.replace(
+      streetNumber: "333",
+      street: "yes",
+      city: "cape",
+      province: "q",
+      zipCode: "222");
+
+  test("Testing replace method of address", () {
+    expect("333", adr.streetNumber);
+    expect("yes", adr.street);
+    expect("cape", adr.city);
+    expect("q", adr.province);
+    expect("222", adr.zipCode);
   });
 }
