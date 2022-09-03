@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 // this function creates a notification and notifies the user of the new notification
 
 // parameters are 
@@ -15,16 +13,12 @@
 }
 */
 
->>>>>>> a359f85b48ebfa39831da87d93f20598f9f06043
 const URL = require('url');
 const fetch = require('node-fetch');
 const AWS = require("aws-sdk");
 const SecretsManager = require('/opt/secretesmanager.js');
-<<<<<<< HEAD
-=======
 const docClient = new AWS.DynamoDB.DocumentClient();
 const User = process.env.USER;
->>>>>>> a359f85b48ebfa39831da87d93f20598f9f06043
 
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
 const initiateAuth = async ({clientId, username, password }) => cognitoIdentityServiceProvider.adminInitiateAuth({
@@ -69,12 +63,6 @@ exports.handler = async (event, context, callback) => {
   
   const accessToken = AuthenticationResult && AuthenticationResult.AccessToken;
   
-<<<<<<< HEAD
-  const postBody = {
-    query: `query {
-              viewBids(ad_id: "a#770afc30-250b-11ed-8df1-718bcfb21334") {
-                id
-=======
   await notification;
 
   // notifying user of new notification
@@ -82,7 +70,6 @@ exports.handler = async (event, context, callback) => {
     query: `mutation {
               notification(user_id: "${event.userId}") {
                 user_id
->>>>>>> a359f85b48ebfa39831da87d93f20598f9f06043
               }
             }`,
   };
