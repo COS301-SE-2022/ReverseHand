@@ -13,14 +13,12 @@ import 'package:consumer/pages/advert_details_page.dart';
 import 'package:consumer/pages/bid_details_page.dart';
 import 'package:consumer/pages/consumer_profile_page.dart';
 import 'package:consumer/pages/edit_advert_page.dart';
-import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:consumer/pages/view_bids_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/pages/bid_details_page.dart';
 import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_bid_page.dart';
-import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
 import 'package:tradesman/tradesman.dart';
@@ -68,8 +66,6 @@ class Launch extends StatelessWidget {
               BidDetailsPage(store: store),
           '/consumer/consumer_profile_page': (context) =>
               ConsumerProfilePage(store: store),
-          '/consumer/edit_profile_page': (context) =>
-              EditProfilePage(store: store),
           '/consumer/view_bids': (context) => ViewBidsPage(store: store),
           '/consumer/edit_advert_page': (context) =>
               EditAdvertPage(store: store),
@@ -78,8 +74,6 @@ class Launch extends StatelessWidget {
           '/tradesman/advert_details': (context) =>
               TradesmanJobDetails(store: store),
           '/tradesman/profile': (context) => TradesmanProfilePage(store: store),
-          '/tradesman/edit_profile_page': (context) =>
-              EditTradesmanProfilePage(store: store),
           '/tradesman/view_bids_page': (context) =>
               TradesmanViewBidsPage(store: store),
           '/tradesman/advert_details/bid_details': (context) =>

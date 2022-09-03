@@ -7,8 +7,9 @@ class BottomSheetWidget extends StatelessWidget {
   final TextEditingController controller;
   final String text;
   final String? initialVal;
+  final void Function() function;
   const BottomSheetWidget(
-      {Key? key, required this.controller, required this.text, this.initialVal})
+      {Key? key, required this.controller, required this.text, required this.function, this.initialVal})
       : super(key: key);
 
   @override
@@ -37,7 +38,6 @@ class BottomSheetWidget extends StatelessWidget {
                       style: const TextStyle(color: Colors.black, fontSize: 18),
                       obscureText: false,
                       controller: controller,
-                      onTap: () {},
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         enabledBorder: OutlineInputBorder(
@@ -58,7 +58,7 @@ class BottomSheetWidget extends StatelessWidget {
                     ),
                   ),
                   const Padding(padding: EdgeInsets.all(5)),
-                  ButtonWidget(text: "Save", function: () {})
+                  ButtonWidget(text: "Save", function: function)
                 ],
               ),
             )),

@@ -27,8 +27,7 @@
           "partitionKeyName": "part_key",
           "partitionKeyType": "S",
           "sortKeyName": "sort_key",
-          "sortKeyType": "S",
-          "streamArn": "arn:aws:dynamodb:eu-west-1:727515863527:table/ReverseHand/stream/2022-08-31T18:30:15.588"
+          "sortKeyType": "S"
         },
         "User": {
           "tableName": "User",
@@ -189,7 +188,23 @@
         },
         "addUserReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/addUserReportResolver-5a6d62384a4e7a676e33-build.zip"
+          "s3Key": "amplify-builds/addUserReportResolver-63313137594778454454-build.zip"
+        },
+        "removeUserReportResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/removeUserReportResolver-4739596572392f597a34-build.zip"
+        },
+        "getReportedReviewsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getReportedReviewsResolver-474742344b38426c6f54-build.zip"
+        },
+        "addReviewReportResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/addReviewReportResolver-52493974484f5779336c-build.zip"
+        },
+        "removeReviewReportResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/removeReviewReportResolver-736b486f30456a557362-build.zip"
         }
       }
     }
