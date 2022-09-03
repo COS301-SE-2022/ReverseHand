@@ -122,7 +122,11 @@ PODS:
   - SDWebImage/Core (5.13.2)
   - Starscream (4.0.4)
   - SwiftFormat/CLI (0.49.18)
+<<<<<<< HEAD
   - SwiftLint (0.49.0)
+=======
+  - SwiftLint (0.49.1)
+>>>>>>> a359f85b48ebfa39831da87d93f20598f9f06043
   - SwiftyGif (5.4.3)
 
 DEPENDENCIES:
@@ -223,9 +227,9 @@ SPEC CHECKSUMS:
   SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
-  SwiftLint: 414d099c0f305c6c73e56139efb468666e535ece
+  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
 
-PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+PODFILE CHECKSUM: 2d003d2a4f4b67e0a26ff44e9ea1b5df6c5e26d8
 
 COCOAPODS: 1.11.3
