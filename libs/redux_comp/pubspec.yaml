@@ -41,8 +41,8 @@ dependencies:
   # payments
   flutter_paystack:
     git:
-      url: https://github.com/definitelyme/flutter_paystack.git
-      ref: a4a33c3dd0a12f46d655a2e63d11e9f20ba82d01
+      url: https://github.com/wilburt/flutter_paystack
+      ref: eb26f246efb5ee1550b1a2cd5473f34ae6f17d92
 dev_dependencies:
   flutter_test:
     sdk: flutter

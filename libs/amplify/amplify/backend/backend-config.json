@@ -279,9 +279,52 @@
     "getPayStackApiKeysResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "reversehandsecretsManagerLayer",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ]
     },
     "getReportedUsersResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "notificationsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "reversehandsecretsManagerLayer",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ]
+    },
+    "reversehandnodefetchLayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
+    },
+    "reversehandsecretsManagerLayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
+    },
+    "notifyNewNotificationsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "addUserReportResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

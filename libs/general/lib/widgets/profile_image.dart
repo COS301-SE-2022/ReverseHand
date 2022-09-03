@@ -2,57 +2,54 @@ import 'dart:io';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:redux_comp/actions/add_to_bucket_action.dart';
 import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/bucket_model.dart';
 
-class ProfileImageWidget extends StatefulWidget {
+class ProfileImageWidget extends StatelessWidget {
   final Store<AppState> store;
+
   const ProfileImageWidget({Key? key, required this.store}) : super(key: key);
 
   @override
-  ProfileImageWidgetState createState() => ProfileImageWidgetState();
-}
-
-class ProfileImageWidgetState extends State<ProfileImageWidget> {
-  bool circular = false;
-  XFile? _imageFile;
-  final ImagePicker _picker = ImagePicker();
-  
-  @override
   Widget build(BuildContext context) {
-    return  StoreProvider<AppState>(
-      store: widget.store,
+    return StoreProvider<AppState>(
+      store: store,
       child: Center(
-        child: Stack(children: <Widget>[
-          CircleAvatar(
-            radius: 80.0,
-            backgroundImage: _imageFile == null
-                // ? Image.asset('assets/images/profile.png',height: 250, width: 250,package: 'general',) as ImageProvider
-                ? const AssetImage("assets/images/profile.png", package: 'general') as ImageProvider
-                : FileImage(File(_imageFile!.path)),
-          ),
-          Positioned(
-            bottom: 20.0,
-            right: 20.0,
-            child: InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: ((builder) => bottomSheet()),
-                );
-              },
-              child: const Icon(
-                Icons.camera_alt,
-                color: Color.fromARGB(255, 73, 73, 73),
-                size: 28.0,
-              ),
-            ),
-          ),
-        ]),
+        child: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) {
+            return Stack(
+              children: [
+                CircleAvatar(
+                  radius: 80.0,
+                  backgroundImage: vm.profilePhoto == null
+                      ? const AssetImage("assets/images/profile.png",
+                          package: 'general') as ImageProvider
+                      : FileImage(vm.profilePhoto!),
+                ),
+                Positioned(
+                  bottom: 20.0,
+                  right: 20.0,
+                  child: InkWell(
+                    onTap: () =>
+                        bottomSheet(context, vm.dispatchAddtoBucketAction),
+                    child: const Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                      size: 28.0,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
 
-  Widget bottomSheet() {
+  Widget bottomSheet(BuildContext context, dynamic func) {
     return Container(
       height: 100.0,
       width: MediaQuery.of(context).size.width,
@@ -74,17 +71,22 @@ class ProfileImageWidgetState extends State<ProfileImageWidget> {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             TextButton.icon(
               icon: const Icon(Icons.camera_alt, color: Colors.black),
-              onPressed: () {
-                takePhoto(ImageSource.camera);
+              onPressed: () async {
+                XFile? file = (await takePhoto(ImageSource.camera));
+                if (file != null) func(File(file.path));
               },
               label: const Text("Camera"),
             ),
             TextButton.icon(
               icon: const Icon(Icons.image, color: Colors.black),
-              onPressed: () {
-                takePhoto(ImageSource.gallery);
+              onPressed: () async {
+                XFile? file = (await takePhoto(ImageSource.gallery));
+                if (file != null) func(File(file.path));
               },
-              label: const Text("Gallery", style: TextStyle(color: Colors.black),),
+              label: const Text(
+                "Gallery",
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           ])
         ],
@@ -92,12 +94,41 @@ class ProfileImageWidgetState extends State<ProfileImageWidget> {
     );
   }
 
-  void takePhoto(ImageSource source) async {
-    final pickedFile = await _picker.pickImage(
+  Future<XFile?> takePhoto(ImageSource source) async {
+    ImagePicker picker = ImagePicker();
+
+    XFile? file = await picker.pickImage(
       source: source,
+      preferredCameraDevice: CameraDevice.front,
     );
-    setState(() {
-      _imageFile = pickedFile;
-    });
+
+    return file;
   }
+}
+
+// factory for view model
+class _Factory extends VmFactory<AppState, ProfileImageWidget> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+        profilePhoto: state.userProfileImage,
+        dispatchAddtoBucketAction: (File file) => dispatch(
+          AddToBucketAction(
+            fileType: FileType.profile,
+            file: file,
+          ),
+        ),
+      );
+}
+
+// view model
+class _ViewModel extends Vm {
+  final File? profilePhoto;
+  final void Function(File file) dispatchAddtoBucketAction;
+
+  _ViewModel({
+    required this.profilePhoto,
+    required this.dispatchAddtoBucketAction,
+  }) : super(equals: [profilePhoto]); // implementinf hashcode
 }
