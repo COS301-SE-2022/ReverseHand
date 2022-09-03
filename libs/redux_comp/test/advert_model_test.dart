@@ -34,4 +34,8 @@ void main() {
     expect(ad.dateClosed, adCopy.dateClosed);
     expect(ad.advertRank, adCopy.advertRank);
   });
+
+  test("Testing overloaded equality operator", () {
+    expect(true, adCopy == ad); //testing
+  });
 }
