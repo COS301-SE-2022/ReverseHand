@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "addUserReportResolver",
+            "removeUserReportResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "addUserReportResolver",
+                  "removeUserReportResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -93,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole07b01f87",
+            "reversehandLambdaRole5a6e8919",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole07b01f87",
+                  "reversehandLambdaRole5a6e8919",
                   "-",
                   {
                     "Ref": "env"
@@ -187,8 +187,9 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:GetItem",
                 "dynamodb:PutItem",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
                 "dynamodb:UpdateItem"
               ],
               "Resource": [
