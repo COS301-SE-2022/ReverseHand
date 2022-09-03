@@ -31,7 +31,6 @@ exports.handler = async (event) => {
     };
     
     const user_reports_list = await docClient.get(params).promise().then((resp) => resp.Item);
-    console.log(user_reports_list);
     if (event.arguments.user_id[0] == "c") {
       if (!user_reports_list.customers.some(e => e.user_id === event.arguments.user_id)) {
         user_reports_list.customers.push({"user_id": event.arguments.user_id});

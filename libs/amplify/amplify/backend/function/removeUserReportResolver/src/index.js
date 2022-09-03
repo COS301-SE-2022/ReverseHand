@@ -8,23 +8,41 @@ const UserTable = process.env.USER;
  */
 exports.handler = async (event) => {
    
-   let params = {
+    let params = {
       TableName: UserTable,
-      ReturnValues: 'ALL_NEW',
       Key: {
         user_id: event.arguments.user_id,
-      },
-      UpdateExpression: `set user_reports = if_not_exists(user_reports,:list)`,
-      ExpressionAttributeValues: {
-        ":list" : []
-      },
+      }
     };
     
-    const user = await docClient.update(params).promise().then((resp) => resp.Attributes);
+    let user = await docClient.get(params).promise().then((resp) => resp.Item);
     
-    if (!user.user_reports.some((report) => report.reporter_id === event.arguments.report.reporter_id)) {
-      user.user_reports.push(event.arguments.report);
-    } else return event.arguments.report;
+    let report = user.user_reports.filter(report => report.reporter_id == event.arguments.reporter_id);
+    user.user_reports = user.user_reports.filter(report => report.reporter_id != event.arguments.reporter_id);
+
+    if (user.user_reports.length == 0) {
+      delete user.user_reports;
+      let params = {
+        TableName: UserTable,
+        Key: {
+          user_id: "reported#users",
+        },
+      };
+      
+      let user_reports_item = await docClient.get(params).promise().then(data => data.Item);
+      if (event.arguments.user_id[0] == "c") {
+        user_reports_item.customers.filter(user => user.user_id != event.arguments.user_id);
+      } else {
+        user_reports_item.tradesmen.filter(user => user.user_id != event.arguments.user_id);
+      }
+      
+      params = {
+        TableName: UserTable,
+        Item: user_reports_item
+      };
+      
+      await docClient.put(params).promise();
+    }
     
     params = {
       TableName: UserTable,
@@ -33,30 +51,5 @@ exports.handler = async (event) => {
     
     await docClient.put(params).promise();
     
-    params = {
-      TableName: UserTable,
-      Key: {
-        user_id: "reported#users",
-      },
-    };
-    
-    const user_reports_list = await docClient.get(params).promise().then((resp) => resp.Item);
-    if (event.arguments.user_id[0] == "c") {
-      if (!user_reports_list.customers.some(e => e.user_id === event.arguments.user_id)) {
-        user_reports_list.customers.push({"user_id": event.arguments.user_id});
-    }
-    } else {
-      if (!user_reports_list.tradesmen.some(e => e.user_id === event.arguments.user_id)) {
-        user_reports_list.tradesmen.push({"user_id": event.arguments.user_id});
-      }
-    }
-    
-    params = {
-      TableName: UserTable,
-      Item: user_reports_list
-    };
-    
-    await docClient.put(params).promise();
-    
-    return event.arguments.report;
+    return report;
 };
