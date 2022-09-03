@@ -120,7 +120,8 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         pushProfilePage: () => dispatch(
-          NavigateAction.pushReplacementNamed('/consumer/consumer_profile_page'),
+          NavigateAction.pushReplacementNamed(
+              '/consumer/consumer_profile_page'),
         ),
         pushConsumerListings: () => dispatch(
           NavigateAction.pushReplacementNamed('/consumer'),
@@ -129,7 +130,7 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
           NavigateAction.pushReplacementNamed('/chats'),
         ),
         pushActivityStreamPage: () => dispatch(
-          NavigateAction.pushReplacementNamed('/consumer/activity_stream'),
+          NavigateAction.pushReplacementNamed('/general/activity_stream'),
         ),
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchGetChatsAction: () => dispatch(GetChatsAction()),

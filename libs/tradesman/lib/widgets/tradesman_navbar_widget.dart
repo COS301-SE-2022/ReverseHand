@@ -119,7 +119,7 @@ class _Factory extends VmFactory<AppState, TNavBarWidget> {
           NavigateAction.pushNamed('/tradesman/profile'),
         ),
         pushActivityStreamPage: () => dispatch(
-          NavigateAction.pushNamed('/tradesman/activity_stream'),
+          NavigateAction.pushNamed('/general/activity_stream'),
         ),
         pushTradesmanListings: () => dispatch(
           NavigateAction.pushNamed('/tradesman'),
