@@ -38,6 +38,9 @@ void main() {
     cellNo: '0821234567',
     userType: 'Consumer',
     externalProvider: false,
+    registered: true,
+    externalUsername: "test1234",
+    scope: "global",
   );
 
   test('Test to get UserId', () {
@@ -50,5 +53,19 @@ void main() {
 
   test('Test to get UserType', () {
     expect('Consumer', user.userType);
+  });
+
+  UserModel copy = user.copy();
+
+  test("Testing copy method of UserModel", () {
+    expect(user.id, copy.id);
+    expect(user.email, copy.email);
+    expect(user.name, copy.name);
+    expect(user.cellNo, copy.cellNo);
+    expect(user.userType, copy.userType);
+    expect(user.externalProvider, copy.externalProvider);
+    expect(user.registered, copy.registered);
+    expect(user.externalUsername, copy.externalUsername);
+    expect(copy.scope, user.scope);
   });
 }
