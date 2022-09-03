@@ -32,4 +32,14 @@ class GetNotificationsAction extends ReduxAction<AppState> {
       return null; /* On Error do not modify state */
     }
   }
+
+  @override
+  void before() {
+    // if there are currently adverts the user may be viewing them and if a
+    // new one comes in we don't want to hide everything and display a loading icon
+    if (state.notifications.isEmpty) dispatch(WaitAction.add("get_notifs"));
+  }
+
+  @override
+  void after() => dispatch(WaitAction.remove("get_notifs"));
 }
