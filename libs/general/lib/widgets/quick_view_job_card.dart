@@ -73,7 +73,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.4,
+                          width: MediaQuery.of(context).size.width / 1.5,
                           child: Text(advert.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

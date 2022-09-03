@@ -3,7 +3,6 @@ import 'package:admin/pages/admin_consumer_reports_page.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
-import 'package:consumer/pages/activity_stream_page.dart';
 import 'package:general/general.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
@@ -17,7 +16,6 @@ import 'package:consumer/pages/edit_advert_page.dart';
 import 'package:consumer/pages/view_bids_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:tradesman/pages/activity_stream_page.dart';
 import 'package:tradesman/pages/bid_details_page.dart';
 import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_bid_page.dart';
@@ -25,6 +23,7 @@ import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
 import 'package:tradesman/tradesman.dart';
 import 'package:admin/admin.dart';
+import 'package:general/pages/activity_stream.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -70,8 +69,6 @@ class Launch extends StatelessWidget {
           '/consumer/view_bids': (context) => ViewBidsPage(store: store),
           '/consumer/edit_advert_page': (context) =>
               EditAdvertPage(store: store),
-          '/consumer/activity_stream': (context) =>
-              ConsumerActivityStream(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
@@ -82,8 +79,6 @@ class Launch extends StatelessWidget {
           '/tradesman/advert_details/bid_details': (context) =>
               TBidDetailsPage(store: store),
           '/tradesman/edit_bid': (context) => TEditBidPage(store: store),
-          '/tradesman/activity_stream': (context) =>
-              TradesmanActivityStream(store: store),
           '/geolocation/location_confirm': (context) =>
               LocationConfirmPage(store: store),
           '/geolocation/custom_location_search': (context) =>
@@ -92,6 +87,9 @@ class Launch extends StatelessWidget {
               DomainConfirmPage(store: store),
           '/tradesman/view_bids': (context) =>
               TradesmanViewBidsPage(store: store),
+          // shared routes for consumer and tradesman
+          '/general/activity_stream': (context) =>
+              ActivityStreamPage(store: store),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/usertype_selection': (context) =>
@@ -100,10 +98,14 @@ class Launch extends StatelessWidget {
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),
           //admin routes
-          '/admin_consumer_reports': (context) => AdminConsumerReportsPage(store: store),
-          '/admin_consumer_profile': (context) => AdminConsumerProfilePage(store: store),
-          '/admin_consumer_advert_reports': (context) => AdminAdvertReportsPage(store: store),
-          '/admin_consumer_advert_details': (context) => AdminAdvertDetailsPage(store: store),
+          '/admin_consumer_reports': (context) =>
+              AdminConsumerReportsPage(store: store),
+          '/admin_consumer_profile': (context) =>
+              AdminConsumerProfilePage(store: store),
+          '/admin_consumer_advert_reports': (context) =>
+              AdminAdvertReportsPage(store: store),
+          '/admin_consumer_advert_details': (context) =>
+              AdminAdvertDetailsPage(store: store),
           '/admin_metrics': (context) => AdminMetricsPage(store: store),
           '/admin_content': (context) => AdminContentPage(store: store),
           '/admin_users': (context) => AdminUsersPage(store: store),

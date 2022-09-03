@@ -23,12 +23,12 @@ class ShortlistPopUpWidget extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(25),
-            child: Text(
-              shortlisted == true
-                  ? "Are you sure you want to accept this bid?\n\n All other bids will be discarded."
-                  : "Are you sure you want to shortlist this bid?\n\n The relevant Contractor will be notified to send a detailed quote.",
+            child: const Text(
+              // shortlisted == true
+              "Are you sure you want to accept this bid?\n\n All other bids will be discarded.",
+              // : "Are you sure you want to shortlist this bid?\n\n The relevant Contractor will be notified to send a detailed quote.",
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black, fontSize: 22),
+              style: TextStyle(color: Colors.black, fontSize: 22),
             ),
           ),
           StoreConnector<AppState, _ViewModel>(
@@ -37,13 +37,15 @@ class ShortlistPopUpWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ButtonWidget(
-                  text: shortlisted == true
-                      ? "Accept"
-                      : "Shortlist", //if already shortlisted, accept should be the description
+                  // text: shortlisted == true
+                  //     ?
+                  text: "Accept",
+                  // : "Shortlist", //if already shortlisted, accept should be the description
                   function: () {
-                    shortlisted
-                        ? vm.dispatchAcceptBidAction()
-                        : vm.dispatchShortListBidAction();
+                    // shortlisted
+                    // ?
+                    vm.dispatchAcceptBidAction();
+
                     Navigator.pop(context);
                   },
                 ),
