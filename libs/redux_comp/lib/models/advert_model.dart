@@ -38,7 +38,7 @@ class AdvertModel {
   }) {
     return AdvertModel(
       id: id ?? this.id,
-      title: title ?? this.id,
+      title: title ?? this.title,
       description: description ?? this.description,
       type: type ?? this.type,
       acceptedBid: acceptedBid ?? this.acceptedBid,
