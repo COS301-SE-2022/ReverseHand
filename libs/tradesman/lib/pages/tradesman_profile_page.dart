@@ -249,10 +249,11 @@ class TradesmanProfilePage extends StatelessWidget {
                                   isScrollControlled: true,
                                   builder: (BuildContext context) {
                                     return BottomSheetWidget(
-                                        text:
-                                            "What name would you like to save?",
-                                        initialVal: vm.userDetails.name,
-                                        controller: nameController, function: () {  },);
+                                      text: "What name would you like to save?",
+                                      initialVal: vm.userDetails.name,
+                                      controller: nameController,
+                                      function: () {},
+                                    );
                                   });
                             },
                             icon: const Icon(
@@ -346,10 +347,12 @@ class TradesmanProfilePage extends StatelessWidget {
                                   isScrollControlled: true,
                                   builder: (BuildContext context) {
                                     return BottomSheetWidget(
-                                        text:
-                                            "What location would you like to save?",
-                                        initialVal: "test",
-                                        controller: nameController, function: () {  },);
+                                      text:
+                                          "What location would you like to save?",
+                                      initialVal: "test",
+                                      controller: nameController,
+                                      function: () {},
+                                    );
                                   });
                             },
                             icon: const Icon(
