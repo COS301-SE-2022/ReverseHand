@@ -28,7 +28,6 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
           onTap: () => vm.dispatchViewAdvertDetails(advert.id),
           child: Card(
             margin: const EdgeInsets.all(10),
-            // color: Theme.of(context).primaryColorLight,
             color: const Color.fromARGB(255, 220, 224, 230),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(7),
@@ -73,12 +72,11 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.5,
-                          child:  Text(
-                              // "AdvertTitle", 
-                              advert.advert.title,
+                          child: const Text("AdvertTitle",
+                              // advert.advert.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontSize: 28,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold)),
@@ -86,9 +84,8 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
 
                         const Padding(padding: EdgeInsets.only(top: 4)),
                         Row(
-                          children:  const [
-                            Text(
-                              "Randburg",
+                          children: const [
+                            Text("Randburg",
                                 // advert.domain.city,
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black)),
@@ -107,9 +104,8 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                         const Padding(padding: EdgeInsets.only(top: 3)),
                         Row(
                           children: [
-                             const Text(
-                                "Report count:",
-                                style:  TextStyle(
+                            const Text("Report count: ",
+                                style: TextStyle(
                                     fontSize: 20, color: Colors.black)),
                             Padding(
                               padding: const EdgeInsets.only(left: 3.0),
@@ -117,12 +113,12 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(7),
                                     color: Theme.of(context).primaryColor),
-                                child:  Padding(
-                                  padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
+                                child: const Padding(
+                                  padding: EdgeInsets.fromLTRB(10, 1, 10, 1),
                                   child: Text(
-                                      advert.count.toString(),
-                                      // "5",
-                                      style: const TextStyle(
+                                      // advert.count.toString(),
+                                      "5",
+                                      style: TextStyle(
                                           fontSize: 20, color: Colors.black)),
                                 ),
                               ),
