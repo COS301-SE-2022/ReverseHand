@@ -17,7 +17,11 @@
           "facebookAppId": "459283716090620",
           "googleClientId": "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
         },
-        "userPoolGroups": {}
+        "userPoolGroups": {},
+        "true": {
+          "facebookAppId": "459283716090620",
+          "googleClientId": "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
+        }
       },
       "storage": {
         "ReverseHand": {
@@ -204,7 +208,7 @@
         },
         "removeReviewReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/removeReviewReportResolver-736b486f30456a557362-build.zip"
+          "s3Key": "amplify-builds/removeReviewReportResolver-717452414f6539703671-build.zip"
         }
       }
     }

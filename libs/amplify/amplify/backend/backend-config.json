@@ -349,5 +349,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
+  },
+  "analytics": {
+    "reversehandPinpoint": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

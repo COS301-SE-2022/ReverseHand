@@ -278,5 +278,12 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string"
         }
+    },
+    "analytics": {
+        "reversehandPinpoint": {
+            "Region": "string",
+            "Id": "string",
+            "appName": "string"
+        }
     }
 }
