@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
@@ -39,7 +40,8 @@ class AdminContentPage extends StatelessWidget {
                             padding: MediaQuery.of(context).size.height / 3)
                       ],
                     )
-                  : Column(
+                  : 
+                  Column(
                       children: [
                         //**********APPBAR***********//
                         AppBarWidget(title: "Reported Adverts", store: store),
@@ -53,6 +55,16 @@ class AdminContentPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                         IconButton(
+                        icon: const Icon(
+                          Icons.logout,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => vm.dispatchLogoutAction(),
+                        splashRadius: 30,
+                        highlightColor: Colors.orange,
+                        splashColor: Colors.white,
+                      ),
                       ],
                     );
             },
@@ -72,16 +84,19 @@ class _Factory extends VmFactory<AppState, AdminContentPage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         adverts: state.admin.activeAdverts,
+        dispatchLogoutAction: () => dispatch(LogoutAction()),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
+  final void Function() dispatchLogoutAction;
   final List<ReportedAdvertModel>? adverts;
 
   _ViewModel({
     required this.loading,
+    required this.dispatchLogoutAction,
     required this.adverts,
   }) : super(equals: [loading, adverts]);
 }
