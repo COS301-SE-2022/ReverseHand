@@ -44,6 +44,127 @@ class AdminAdvertDetailsPage extends StatelessWidget {
                 ),
                 //*******************************************//
 
+                //CODE FOR BUTTONS - COMMENTED OUT TILL IT CAN BE DISPLAYED
+                //  Padding(
+                //           padding: const EdgeInsets.all(15.0),
+                //           child: Column(
+                //             children: const [
+                //               Align(
+                //                   alignment: Alignment.centerLeft,
+                //                   child: Text(
+                //                     "Advert Details: ",
+                //                     style: TextStyle(fontSize: 20),
+                //                   )),
+                //               Align(
+                //                   alignment: Alignment.centerLeft,
+                //                   child: Text(
+                //                     "Report Count: ",
+                //                     style: TextStyle(fontSize: 20),
+                //                   )),
+                //             ],
+                //           ),
+                //         ),
+
+                //         //****************BUTTONS**************//
+                //         Column(
+                //           crossAxisAlignment: CrossAxisAlignment.end,
+                //           children: [
+                //             AuthButtonWidget(
+                //               function: () {
+                //                 showModalBottomSheet(
+                //                     context: context,
+                //                     builder: (BuildContext context) {
+                //                       return SizedBox(
+                //                         height: 200,
+                //                         child: Column(
+                //                           children: [
+                //                             const Padding(
+                //                               padding: EdgeInsets.fromLTRB(
+                //                                   10, 30, 10, 10),
+                //                               child: Text(
+                //                                 "Are you sure you want to\n issue a warning?",
+                //                                 textAlign: TextAlign.center,
+                //                                 style: TextStyle(
+                //                                     fontWeight: FontWeight.w500,
+                //                                     color: Colors.black,
+                //                                     fontSize: 23),
+                //                               ),
+                //                             ),
+                //                             Row(
+                //                               mainAxisAlignment:
+                //                                   MainAxisAlignment.center,
+                //                               children: [
+                //                                 ButtonWidget(
+                //                                     text: " Issue ",
+                //                                     function: () {}),
+                //                                 const Padding(
+                //                                     padding: EdgeInsets.all(5)),
+                //                                 ButtonWidget(
+                //                                   text: "Cancel",
+                //                                   color: "light",
+                //                                   border: "lightBlue",
+                //                                   function: () =>
+                //                                       Navigator.pop(context),
+                //                                 ),
+                //                               ],
+                //                             ),
+                //                           ],
+                //                         ),
+                //                       );
+                //                     });
+                //               },
+                //               text: 'Issue Warning',
+                //             ),
+                //             AuthButtonWidget(
+                //               function: () {
+                //                 showModalBottomSheet(
+                //                     context: context,
+                //                     builder: (BuildContext context) {
+                //                       return SizedBox(
+                //                         height: 200,
+                //                         child: Column(
+                //                           children: [
+                //                             const Padding(
+                //                               padding: EdgeInsets.fromLTRB(
+                //                                   10, 30, 10, 10),
+                //                               child: Text(
+                //                                 "Are you sure you want to\n remove this report?",
+                //                                 textAlign: TextAlign.center,
+                //                                 style: TextStyle(
+                //                                     fontWeight: FontWeight.w500,
+                //                                     color: Colors.black,
+                //                                     fontSize: 23),
+                //                               ),
+                //                             ),
+                //                             Row(
+                //                               mainAxisAlignment:
+                //                                   MainAxisAlignment.center,
+                //                               children: [
+                //                                 ButtonWidget(
+                //                                     text: "Remove",
+                //                                     function: () {}),
+                //                                 const Padding(
+                //                                     padding: EdgeInsets.all(5)),
+                //                                 ButtonWidget(
+                //                                   text: " Cancel ",
+                //                                   color: "light",
+                //                                   border: "lightBlue",
+                //                                   function: () =>
+                //                                       Navigator.pop(context),
+                //                                 ),
+                //                               ],
+                //                             ),
+                //                           ],
+                //                         ),
+                //                       );
+                //                     });
+                //               },
+                //               text: 'Remove Report',
+                //             ),
+                //           ],
+                //         ),
+                //****************BUTTONS**************//
+
                 ...reports
               ]);
             },

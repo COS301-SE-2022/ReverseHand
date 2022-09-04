@@ -9,12 +9,12 @@ import 'package:redux_comp/models/admin/reported_advert_model.dart';
 //*********************************************** */
 
 class QuickViewReportedAdvertCardWidget extends StatelessWidget {
-  // final ReportedAdvertModel advert; // Current user
+  final ReportedAdvertModel advert; // Current user
   final Store<AppState> store;
 
   const QuickViewReportedAdvertCardWidget({
     Key? key,
-    // required this.advert,
+    required this.advert,
     required this.store,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          // onTap: () => vm.dispatchViewAdvertDetails(advert.id),
+          onTap: () => vm.dispatchViewAdvertDetails(advert.id),
           child: Card(
             margin: const EdgeInsets.all(10),
             color: const Color.fromARGB(255, 220, 224, 230),
