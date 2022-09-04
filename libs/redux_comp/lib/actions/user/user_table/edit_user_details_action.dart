@@ -65,8 +65,6 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
             }
           }''';
 
-          debugPrint(graphQLDoc);
-
           final requestChangeName = GraphQLRequest(
             document: graphQLDoc,
           );
