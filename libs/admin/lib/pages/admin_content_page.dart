@@ -3,9 +3,11 @@ import 'package:admin/widgets/quickview_reported_advert_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:authentication/widgets/auth_button.dart';
 
 class AdminContentPage extends StatelessWidget {
   final Store<AppState> store;
@@ -24,7 +26,8 @@ class AdminContentPage extends StatelessWidget {
               if (vm.adverts != null) {
                 for (ReportedAdvertModel advert in vm.adverts!) {
                   reportedAdverts.add(QuickViewReportedAdvertCardWidget(
-                      advert: advert, store: store));
+                      // advert: advert,
+                      store: store));
                 }
               }
               return (vm.loading)
@@ -52,6 +55,99 @@ class AdminContentPage extends StatelessWidget {
                         //     ),
                         //   ),
                         // ),
+                        QuickViewReportedAdvertCardWidget(store: store),
+                        AuthButtonWidget(
+                          function: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SizedBox(
+                                    height: 200,
+                                    child: Column(
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                              10, 30, 10, 10),
+                                          child: Text(
+                                            "Are you sure you want to\n issue a warning?",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black,
+                                                fontSize: 23),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            ButtonWidget(
+                                                text: "Submit",
+                                                function: () {}),
+                                            const Padding(
+                                                padding: EdgeInsets.all(5)),
+                                            ButtonWidget(
+                                              text: "Cancel",
+                                              color: "light",
+                                              border: "lightBlue",
+                                              function: () =>
+                                                  Navigator.pop(context),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
+                          },
+                          text: 'Issue Warning',
+                        ),
+                        AuthButtonWidget(
+                          function: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SizedBox(
+                                    height: 200,
+                                    child: Column(
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                              10, 30, 10, 10),
+                                          child: Text(
+                                            "Are you sure you want to\n remove this report?",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black,
+                                                fontSize: 23),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            ButtonWidget(
+                                                text: "Submit",
+                                                function: () {}),
+                                            const Padding(
+                                                padding: EdgeInsets.all(5)),
+                                            ButtonWidget(
+                                              text: "Cancel",
+                                              color: "light",
+                                              border: "lightBlue",
+                                              function: () =>
+                                                  Navigator.pop(context),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
+                          },
+                          text: 'Remove Report',
+                        ),
                       ],
                     );
             },

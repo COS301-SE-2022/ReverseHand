@@ -24,7 +24,8 @@ class AdminAdvertReportsPage extends StatelessWidget {
                 List<Widget> reportedAds = [];
                 for (ReportedAdvertModel ad in vm.reportedAds) {
                   reportedAds.add(QuickViewReportedAdvertCardWidget(
-                      advert: ad, store: store));
+                      // advert: ad, 
+                      store: store));
                 }
 
                 return Column(
