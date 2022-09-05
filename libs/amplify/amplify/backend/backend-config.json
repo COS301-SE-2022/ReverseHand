@@ -45,6 +45,12 @@
           ]
         }
       ]
+    },
+    "ArchivedReverseHand": {
+      "service": "DynamoDB",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
     }
   },
   "auth": {

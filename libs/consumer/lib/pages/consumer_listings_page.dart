@@ -23,27 +23,27 @@ class ConsumerListingsPage extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) {
             List<Widget> open = [];
             List<Widget> inProgress = [];
-              for (AdvertModel advert in vm.adverts) {
-                if (advert.dateClosed != null) {
-                  continue;
-                }
-
-                if (advert.acceptedBid == null) {
-                  open.add(
-                    QuickViewJobCardWidget(
-                      advert: advert,
-                      store: store,
-                    ),
-                  );
-                } else {
-                  inProgress.add(
-                    QuickViewJobCardWidget(
-                      advert: advert,
-                      store: store,
-                    ),
-                  );
-                }
+            for (AdvertModel advert in vm.adverts) {
+              if (advert.dateClosed != null) {
+                continue;
               }
+
+              if (advert.acceptedBid == null) {
+                open.add(
+                  QuickViewJobCardWidget(
+                    advert: advert,
+                    store: store,
+                  ),
+                );
+              } else {
+                inProgress.add(
+                  QuickViewJobCardWidget(
+                    advert: advert,
+                    store: store,
+                  ),
+                );
+              }
+            }
 
             return DefaultTabController(
                 length: 2,
@@ -89,12 +89,15 @@ class ConsumerListingsPage extends StatelessWidget {
                               const LoadingWidget(padding: 80)
                             //a message if no jobs
                             else if (open.isEmpty)
-                              ((const Text(
-                                "You do not have any active jobs. Create a new job to see it here and enable contractors to start bidding.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white70),
-                              ))),
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(40, 100, 40, 40),
+                                child: (Text(
+                                  "You do not have any active jobs. Create a new job to see it here and enable contractors to start bidding.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white70),
+                                )),
+                              ),
                             //else populate the jobs
                             ...open
                           ],
