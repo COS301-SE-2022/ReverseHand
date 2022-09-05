@@ -15,18 +15,34 @@ class ChatAppBarWidget extends StatelessWidget {
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) => 
           AppBar(
-            title: Text(title),
-            leadingWidth: 80,
+            automaticallyImplyLeading: false,
+            title: Row(
+              children: [
+                GestureDetector(
+                  onTap: () { }, //todo, link profile
+                  child: const CircleAvatar(
+                    backgroundImage: AssetImage("assets/images/profile.png",
+                            package: 'general'),
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.only(left: 20),
+                  child: Text(title),
+                ),
+              ],
+
+            ),
             backgroundColor: Theme.of(context).primaryColorDark,
-            leading: StoreConnector<AppState, _ViewModel>(
+            leading: 
+              StoreConnector<AppState, _ViewModel>(
                   vm: () => _Factory(this),
                   builder: (BuildContext context, _ViewModel vm) => IconButton(
-                    onPressed: vm.popPage,
+                    onPressed: vm.popPage, 
                     icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    )),
-                ),
+                          Icons.arrow_back,
+                          color: Colors.white,
+                    ),
+                  )
+              ),
               ),
           ),
         );
