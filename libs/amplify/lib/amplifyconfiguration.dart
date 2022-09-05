@@ -119,11 +119,13 @@ const amplifyconfig = ''' {
     "storage": {
         "plugins": {
             "awsDynamoDbStoragePlugin": {
-                "name": "User",
+                "name": "ArchivedReverseHand",
                 "region": "eu-west-1",
-                "arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/User",
-                "partitionKeyName": "user_id",
-                "partitionKeyType": "S"
+                "arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/ArchivedReverseHand",
+                "partitionKeyName": "part_key",
+                "partitionKeyType": "S",
+                "sortKeyName": "sort_key",
+                "sortKeyType": "S"
             },
             "awsS3StoragePlugin": {
                 "bucket": "reversehandbucket100406-staging",

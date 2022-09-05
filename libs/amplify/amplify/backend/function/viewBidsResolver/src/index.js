@@ -22,8 +22,6 @@ exports.handler = async (event, context) => {
         // console.log(data);
         let items = data["Items"];
         
-        console.log(items);
-        
         let bids = [];
         for (let item of items) {
             bids.push({
@@ -50,8 +48,6 @@ exports.handler = async (event, context) => {
         data = await docClient.query(params).promise();
         // console.log(data);
         items = data["Items"];
-        
-        console.log(items);
         
         let sbids = [];
         for (let item of items) {
