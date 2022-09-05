@@ -37,7 +37,7 @@ class TradesmanProfilePage extends StatelessWidget {
                             color: Theme.of(context).primaryColorLight,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(7))),
-                        width: MediaQuery.of(context).size.width / 1.6,
+                        width: MediaQuery.of(context).size.width / 1.7,
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -61,7 +61,7 @@ class TradesmanProfilePage extends StatelessWidget {
                             color: Theme.of(context).primaryColorLight,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(7))),
-                        width: MediaQuery.of(context).size.width / 1.6,
+                        width: MediaQuery.of(context).size.width / 1.7,
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -211,7 +211,8 @@ class TradesmanProfilePage extends StatelessWidget {
                           width: MediaQuery.of(context).size.width / 1.4,
                           child: Text(vm.userDetails.email,
                               style: const TextStyle(
-                                  fontSize: 20, color: Colors.white)),
+                                  fontSize: 20, 
+                                  color: Colors.white)),
                         ),
                       ],
                     ),
@@ -281,7 +282,7 @@ class TradesmanProfilePage extends StatelessWidget {
                               color: Colors.white70,
                               size: 26.0,
                             ),
-                            const Padding(padding: EdgeInsets.only(right: 8)),
+                            const Padding(padding: EdgeInsets.only(left: 10, right: 5)),
                             Column(
                               children: [...trades],
                             )
@@ -334,7 +335,7 @@ class TradesmanProfilePage extends StatelessWidget {
                               color: Colors.white70,
                               size: 26.0,
                             ),
-                            const Padding(padding: EdgeInsets.only(right: 8)),
+                            const Padding(padding: EdgeInsets.only(left: 10, right: 5)),
                             Column(
                               children: [...domains],
                             )
@@ -376,7 +377,7 @@ class TradesmanProfilePage extends StatelessWidget {
                   ),
                   //************************************/
 
-                  //**********TEMP LOGOUT BUTTON********/
+                  //**********LOGOUT BUTTON********/
                   IconButton(
                     icon: const Icon(
                       Icons.logout,
