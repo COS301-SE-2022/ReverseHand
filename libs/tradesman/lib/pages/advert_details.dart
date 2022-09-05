@@ -10,7 +10,6 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import '../widgets/tradesman_navbar_widget.dart';
-// import '../widgets/place_bid_popup.dart';
 
 class TradesmanJobDetails extends StatelessWidget {
   final Store<AppState> store;
@@ -22,7 +21,6 @@ class TradesmanJobDetails extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        // backgroundColor: Theme.of(context).primaryColorLight,
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) =>
@@ -50,6 +48,7 @@ class TradesmanJobDetails extends StatelessWidget {
                 AuthButtonWidget(
                     text: "Place Bid",
                     function: () {
+                      //keeping this here so that a bid can still be made while we create the last UI
                       // DarkDialogHelper.display(context,
                       // PlaceBidPopupWidget(store: store), 1000.0);
                       showModalBottomSheet(
@@ -137,8 +136,6 @@ class TradesmanJobDetails extends StatelessWidget {
 
                 AuthButtonWidget(
                     text: "View Bids", function: vm.pushViewBidsPage),
-                //*************BOTTOM BUTTONS**************//
-                // ...populateBids(vm.us vm.bids)
               ],
             ),
           ),
@@ -147,7 +144,6 @@ class TradesmanJobDetails extends StatelessWidget {
         bottomNavigationBar: TNavBarWidget(
           store: store,
         ),
-
         //*************************************************//
       ),
     );
