@@ -28,6 +28,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
   ];
 
   final Map<String, bool> values = {};
+  final Map<String, bool> domains = {};
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +36,14 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
       store: widget.store,
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(widget),
-        onInitialBuild: (context, store, vm) {
-          for (String tradeType in vm.userDetails.tradeTypes) {
+        onInit: (store) {
+          for (String tradeType in store.state.userDetails!.tradeTypes) {
             values[tradeType] = true;
           }
-         
+
+          for (var i = 0; i < store.state.userDetails!.domains.length; i++) {
+            domains[store.state.userDetails!.domains.elementAt(i).city] = true;
+          }
         },
         builder: (BuildContext context, _ViewModel vm) => SingleChildScrollView(
           child: Column(
@@ -232,9 +236,13 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                           children: vm.userDetails.domains
                               .map((domain) => CheckboxListTile(
                                     title: Text(domain.city),
-                                    value: true,
+                                    value: domains[domain.city],
                                     activeColor: Theme.of(context).primaryColor,
-                                    onChanged: (bool? value) {},
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        domains[domain.city] = value!;
+                                      });
+                                    },
                                   ))
                               .toList()),
                     ),
