@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/models/user_models/notification_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -41,7 +42,10 @@ class ActivityStreamPage extends StatelessWidget {
                       const Padding(padding: EdgeInsets.only(top: 20)),
 
                       //*******************MOCK NOTIFICATIONS CARDS*********************//
-                      ...notificationWidgets
+                      if (vm.loading)
+                        const LoadingWidget(padding: 0)
+                      else
+                        ...notificationWidgets
 
                       //********************************************************//
                     ],
@@ -62,6 +66,7 @@ class _Factory extends VmFactory<AppState, ActivityStreamPage> {
   _ViewModel fromStore() => _ViewModel(
         notifications: state.notifications,
         currentUser: state.userDetails!.userType.toLowerCase(),
+        loading: state.wait.isWaiting,
       );
 }
 
@@ -69,9 +74,11 @@ class _Factory extends VmFactory<AppState, ActivityStreamPage> {
 class _ViewModel extends Vm {
   final List<NotificationModel> notifications;
   final String currentUser;
+  final bool loading;
 
   _ViewModel({
     required this.notifications,
     required this.currentUser,
-  }) : super(equals: [notifications]);
+    required this.loading,
+  }) : super(equals: [notifications, loading]);
 }

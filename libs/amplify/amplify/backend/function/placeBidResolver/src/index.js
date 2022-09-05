@@ -28,6 +28,7 @@ exports.handler = async (event) => {
                 price_upper:event.arguments.price_upper,
                 quote: event.arguments.quote, //optional parameter
                 date_created: currentDate,
+                shortlisted: false,
             }
         }
     };

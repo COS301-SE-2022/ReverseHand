@@ -53,5 +53,13 @@ class GetChatsAction extends ReduxAction<AppState> {
     }
   }
 
-  // in after dispatch action to create subscription
+  @override
+  void before() {
+    // if there are currently chats the user may be viewing them and if a
+    // new one comes in we don't want to hide everything and display a loading icon
+    if (state.chats.isEmpty) dispatch(WaitAction.add("get_chats"));
+  }
+
+  @override
+  void after() => dispatch(WaitAction.remove("get_chats"));
 }

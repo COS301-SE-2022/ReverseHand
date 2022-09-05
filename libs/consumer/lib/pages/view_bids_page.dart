@@ -1,11 +1,11 @@
 // import 'dart:html';
 
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/consumer_floating_button.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:flutter/material.dart';
@@ -48,63 +48,53 @@ class ViewBidsPage extends StatelessWidget {
                 //*******************************************//
 
                 const Padding(padding: EdgeInsets.all(10)),
-                //********************BUTTONS*****************//
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ButtonWidget(
-                        text: "Back",
-                        color: "dark",
-                        border: "white",
-                        function: vm.popPage),
-                    const Padding(padding: EdgeInsets.all(5)),
-                    ButtonWidget(
-                      text: "Filter",
-                      color: "dark",
-                      function: () {
-                        DarkDialogHelper.display(
-                            context,
-                            FilterPopUpWidget(
-                              store: store,
-                            ),
-                            600.0);
-                      },
-                    ),
-                  ],
+
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(children: [
+                    if (vm.bids.isNotEmpty)
+                      const Divider(
+                        color: Colors.white,
+                        thickness: 0.5,
+                        indent: 15,
+                        endIndent: 15,
+                      ),
+                    const Padding(padding: EdgeInsets.only(top: 15)),
+                    ...populateBids(vm.bids, store),
+                    //********IF NO BIDS********************/
+                    if (vm.bids.isEmpty)
+                      const Center(
+                        child: (Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text(
+                            "No bids to\n display",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white54),
+                          ),
+                        )),
+                      ),
+                    //**************************************/
+                  ]),
                 ),
-                //*******************************************//
-                const Padding(padding: EdgeInsets.all(5)),
-                Stack(children: [
-                  // BottomOverlayWidget(
-                  //     height: MediaQuery.of(context).size.height),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(children: [
-                      ...populateBids(vm.bids, store),
-                      //********IF NO BIDS********************/
-                      if (vm.bids.isEmpty)
-                        const Center(
-                          child: (Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "No bids to\n display",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white54),
-                            ),
-                          )),
-                        ),
-                      //**************************************/
-                    ]),
-                  ),
-                ]),
               ],
             ),
           ),
         ),
 
         //************************NAVBAR***********************/
-
+        floatingActionButton: ConsumerFloatingButtonWidget(
+          function: () {
+            DarkDialogHelper.display(
+                context,
+                FilterPopUpWidget(
+                  store: store,
+                ),
+                600.0);
+          },
+          type: "filter",
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: NavBarWidget(
           store: store,
         ),
@@ -126,6 +116,7 @@ class _Factory extends VmFactory<AppState, ViewBidsPage> {
         popPage: () => dispatch(NavigateAction.pop()),
         bids: state.viewBids,
         advert: state.activeAd!,
+        loading: state.wait.isWaiting,
       );
 }
 
@@ -136,6 +127,7 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final bool change;
   final void Function(bool, bool) dispatchToggleViewBidsAction;
+  final bool loading;
 
   _ViewModel({
     required this.dispatchToggleViewBidsAction,
@@ -143,5 +135,6 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.bids,
     required this.advert,
+    required this.loading,
   }) : super(equals: [change, bids]); // implementing hashcode
 }

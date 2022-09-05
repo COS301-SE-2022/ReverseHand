@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/job_icons.dart';
 import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -48,20 +49,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(13),
                         child: Icon(
-                          //Painting
-                          // Icons.imagesearch_roller,
-                          //Tiler
-                          //Carpenter
-                          // Icons.carpenter,
-                          //Cleaner
-                          // Icons.sanitizer,
-                          //Designer
-                          // Icons.design_services,
-                          //Landscaper
-                          //Electrician
-                          // Icons.bolt,
-                          //Plumbing
-                          Icons.plumbing,
+                          getIcon(advert.type.toString()),
                           color: Theme.of(context).primaryColor,
                           size: 35,
                         ),
@@ -72,6 +60,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.5,
                           child: Text(advert.title,

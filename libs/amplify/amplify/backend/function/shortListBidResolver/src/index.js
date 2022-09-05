@@ -76,7 +76,8 @@ exports.handler = async (event) => {
                     price_upper: bid['bid_details']['price_upper'],
                     quote: bid['bid_details']['quote'],
                     date_created: bid['bid_details']['date_created'],
-                    date_closed: bid['bid_details']['date_closed']
+                    date_closed: bid['bid_details']['date_closed'],
+                    shortlisted: true
                 }
             }
         };
