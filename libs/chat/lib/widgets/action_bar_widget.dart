@@ -1,7 +1,5 @@
-import 'package:async_redux/async_redux.dart';
 import 'package:chat/widgets/action_button_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/app_state.dart';
 
 class ActionBarWidget extends StatefulWidget {
   final void Function(String msg) onPressed;

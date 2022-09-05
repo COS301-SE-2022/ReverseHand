@@ -86,7 +86,7 @@ class ConsumerListingsPage extends StatelessWidget {
                           children: [
                             //display loading icon
                             if (vm.loading)
-                              const LoadingWidget(padding: 80)
+                              const LoadingWidget(topPadding: 80, bottomPadding: 0)
                             //a message if no jobs
                             else if (open.isEmpty)
                               const Padding(

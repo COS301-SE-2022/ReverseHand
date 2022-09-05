@@ -134,7 +134,7 @@ class LoginPage extends StatelessWidget {
                         },
                         builder: (BuildContext context, _ViewModel vm) =>
                             vm.loading
-                                ? const LoadingWidget(padding: 0)
+                                ? const LoadingWidget(topPadding: 5, bottomPadding: 15)
                                 : AuthButtonWidget(
                                     text: "Login",
                                     function: () {
