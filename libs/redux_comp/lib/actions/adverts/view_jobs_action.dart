@@ -1,19 +1,25 @@
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import '../../app_state.dart';
 import '../../models/advert_model.dart';
 
 class ViewJobsAction extends ReduxAction<AppState> {
-  final List<String> locations;
+  final List<Domain> domains;
   final List<String> tradetypes;
 
-  ViewJobsAction(this.locations, this.tradetypes);
+  ViewJobsAction(this.domains, this.tradetypes);
 
   @override
   Future<AppState?> reduce() async {
+    List<String> domainsQuery = [];
+    for (Domain domain in domains) {
+      domainsQuery.add(domain.toString());
+    }
+
     String graphQLDocument = '''query {
-      viewJobs(locations: ${jsonEncode(locations)}, types: ${jsonEncode(tradetypes)}) {
+      viewJobs(domains: $domainsQuery, types: ${jsonEncode(tradetypes)}) {
         date_created
         date_closed
         description

@@ -29,13 +29,14 @@ exports.handler = async (event) => {
         let params = {
             TableName: ReverseHandTable,
             Key: {
-              part_key: event.arguments.domain.city,
+              part_key: event.arguments.domain.city + "#" + event.arguments.domain.province,
               sort_key: event.arguments.type
             },
-            UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad)`,
+            UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad), province_id = if_not_exists(province_id, :p_id)`,
             ExpressionAttributeValues: {
-              ":ad": [ad_id],
-              ":list": []
+              ":ad": [{part_key: ad_id, sort_key: ad_id}],
+              ":list": [],
+              ":p_id" : event.arguments.domain.province
             },
         };
         

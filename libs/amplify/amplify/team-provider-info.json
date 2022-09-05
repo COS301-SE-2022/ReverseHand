@@ -17,7 +17,11 @@
           "facebookAppId": "459283716090620",
           "googleClientId": "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
         },
-        "userPoolGroups": {}
+        "userPoolGroups": {},
+        "true": {
+          "facebookAppId": "459283716090620",
+          "googleClientId": "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
+        }
       },
       "storage": {
         "ReverseHand": {
@@ -48,7 +52,7 @@
         },
         "createAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/createAdvertResolver-464336727769562b342b-build.zip"
+          "s3Key": "amplify-builds/createAdvertResolver-4c716850516d4e567277-build.zip"
         },
         "placeBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -152,7 +156,7 @@
         },
         "addAdvertReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/addAdvertReportResolver-4b39315765416b4f384c-build.zip"
+          "s3Key": "amplify-builds/addAdvertReportResolver-4146316a384c5979776e-build.zip"
         },
         "archiveAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -204,7 +208,7 @@
         },
         "removeReviewReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/removeReviewReportResolver-736b486f30456a557362-build.zip"
+          "s3Key": "amplify-builds/removeReviewReportResolver-717452414f6539703671-build.zip"
         }
       }
     }

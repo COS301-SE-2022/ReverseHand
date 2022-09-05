@@ -23,7 +23,6 @@ class ConsumerListingsPage extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) {
             List<Widget> open = [];
             List<Widget> inProgress = [];
-
             for (AdvertModel advert in vm.adverts) {
               if (advert.dateClosed != null) {
                 continue;

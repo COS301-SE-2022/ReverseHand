@@ -33,11 +33,16 @@ class ChatSelectionPage extends StatelessWidget {
                 else if (vm.chats.isEmpty)
                   Padding(
                     padding: EdgeInsets.only(
-                        top: (MediaQuery.of(context).size.height) / 3),
-                    child: const Text(
-                      "There are no\n active chats",
+                        top: (MediaQuery.of(context).size.height) / 3,
+                        left: 40,
+                        right: 40),
+                    child: Text(
+                      vm.userType == "consumer"
+                          ? "There are no active chats. Accept a bid from a contractor to start a chat with them."
+                          : "There are no active chats. Once a client has accepted your bid, a chat will be displayed here.",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 25, color: Colors.white54),
+                      style: const TextStyle(
+                          fontSize: 20, color: Colors.white70),
                     ),
                   )
                 else

@@ -8,7 +8,7 @@ type Query {
   viewAdverts(user_id: String!): [Advert]!
     @function(name: "viewAdvertsResolver-${env}")
 
-  viewJobs(locations: [String!]!, types: [String!]!): [Advert]!
+  viewJobs(domains: [DomainInput!]!, types: [String!]!): [Advert]!
     @function(name: "viewJobsResolver-${env}")
 
   viewUser(user_id: String!): User! @function(name: "viewUserResolver-${env}")
