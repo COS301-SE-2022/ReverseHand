@@ -39,7 +39,7 @@ class AdminAdvertDetailsPage extends StatelessWidget {
                   titleText: vm.activeAdvert.advert.title,
                   descText: vm.activeAdvert.advert.description ?? "",
                   location: vm.activeAdvert.advert.domain.city,
-                  type: vm.activeAdvert.advert.type ?? "",
+                  type: vm.activeAdvert.advert.type,
                   date: timestampToDate(vm.activeAdvert.advert.dateCreated),
                 ),
                 //*******************************************//

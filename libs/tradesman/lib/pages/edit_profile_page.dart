@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/bottom_sheet.dart';
 import 'package:general/widgets/profile_divider.dart';
+import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/user_table/create_user_action.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -9,10 +10,7 @@ import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-
 import '../widgets/multiselect_widget.dart';
-
-// import '../widgets/multiselect_widget.dart';
 
 class EditTradesmanProfilePage extends StatefulWidget {
   final Store<AppState> store;
@@ -25,28 +23,21 @@ class EditTradesmanProfilePage extends StatefulWidget {
 }
 
 class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController cellController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _cellController = TextEditingController();
+
+  // used to determine whether an x or check should be displayed
+  bool _nameValid = false;
+  bool _cellValid = false;
 
   //used for multiselect for trade type
   List<String> selectedItems = [];
 
   void showMultiSelect(List<String> selected) async {
-    final List<String> items = [
-      "Painting",
-      "Tiler",
-      "Carpenter",
-      "Cleaner",
-      "Designer",
-      "Landscaper",
-      "Electrician",
-      "Plumbing",
-    ];
-
     final List<String>? results = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MultiSelectWidget(items: items, selectedItems: selectedItems);
+        return MultiSelectWidget(selectedItems: selectedItems);
       },
     );
 
@@ -60,25 +51,9 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
 
   @override
   void dispose() {
-    nameController.dispose();
-    cellController.dispose();
+    _nameController.dispose();
+    _cellController.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    nameController.addListener(() {
-      setState(() {
-        nameController = nameController;
-      });
-    });
-    cellController.addListener(() {
-      setState(() {
-        cellController = cellController;
-      });
-    });
-
-    super.initState();
   }
 
   @override
@@ -156,9 +131,20 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                             return BottomSheetWidget(
                               text: "What name would you like to save?",
                               initialVal: "",
-                              controller: nameController,
+                              controller: _nameController,
                               function: () {
-                                Navigator.pop(context);
+                                vm.popPage();
+
+                                String name = _nameController.value.text;
+                                if (!RegExp(r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")
+                                        .hasMatch(name) ||
+                                    name.isEmpty) {
+                                  _nameValid = false;
+                                } else {
+                                  _nameValid = true;
+                                }
+
+                                setState(() {});
                               },
                             );
                           });
@@ -178,22 +164,22 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                               ),
                               const Padding(padding: EdgeInsets.only(right: 8)),
                               Text(
-                                nameController.value.text.isEmpty
+                                _nameController.value.text.isEmpty
                                     ? "Enter your name"
-                                    : nameController.value.text,
+                                    : _nameController.value.text,
                                 style: const TextStyle(
                                     fontSize: 18, color: Colors.white70),
                               ),
                             ],
                           ),
-                          (nameController.value.text.isEmpty)
+                          _nameValid
                               ? const Icon(
-                                  Icons.close,
+                                  Icons.done,
                                   color: Colors.white,
                                   size: 20,
                                 )
                               : const Icon(
-                                  Icons.done,
+                                  Icons.close,
                                   color: Colors.white,
                                   size: 20,
                                 )
@@ -209,13 +195,25 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                       showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
+                          isDismissible: false,
                           builder: (BuildContext context) {
                             return BottomSheetWidget(
                               text: "What phone number ",
                               initialVal: "",
-                              controller: cellController,
+                              controller: _cellController,
                               function: () {
-                                Navigator.pop(context);
+                                vm.popPage();
+
+                                final cell = _cellController.value.text.trim();
+                                if (!RegExp(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
+                                        .hasMatch(cell) ||
+                                    cell.isEmpty) {
+                                  _cellValid = false;
+                                } else {
+                                  _cellValid = true;
+                                }
+
+                                setState(() {});
                               },
                             );
                           });
@@ -235,22 +233,22 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                               ),
                               const Padding(padding: EdgeInsets.only(right: 8)),
                               Text(
-                                cellController.value.text.isEmpty
+                                _cellController.value.text.isEmpty
                                     ? "Enter your cell"
-                                    : cellController.value.text,
+                                    : _cellController.value.text,
                                 style: const TextStyle(
                                     fontSize: 18, color: Colors.white70),
                               ),
                             ],
                           ),
-                          (cellController.value.text.isEmpty)
+                          _cellValid
                               ? const Icon(
-                                  Icons.close,
+                                  Icons.done,
                                   color: Colors.white,
                                   size: 20,
                                 )
                               : const Icon(
-                                  Icons.done,
+                                  Icons.close,
                                   color: Colors.white,
                                   size: 20,
                                 )
@@ -287,13 +285,16 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                                 size: 26.0,
                               ),
                               const Padding(padding: EdgeInsets.only(right: 8)),
-                              (selectedItems.isEmpty) ? const Text("Select your tradeTypes", style: TextStyle(
-                                    fontSize: 18, color: Colors.white70)) : Column(
-                                children: [...trades],
-                              )
+                              selectedItems.isEmpty
+                                  ? const Text("Select your tradeTypes",
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white70))
+                                  : Column(
+                                      children: [...trades],
+                                    )
                             ],
                           ),
-                          (selectedItems.isEmpty)
+                          selectedItems.isEmpty
                               ? const Icon(
                                   Icons.close,
                                   color: Colors.white,
@@ -312,8 +313,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                   const ProfileDividerWidget(),
 
                   InkWell(
-                    onTap: 
-                      vm.pushDomainConfirmPage,
+                    onTap: vm.pushDomainConfirmPage,
                     child: Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 30, top: 50),
@@ -328,13 +328,16 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                                 size: 26.0,
                               ),
                               const Padding(padding: EdgeInsets.only(right: 8)),
-                             (domains.isEmpty) ? const Text("Select your domains", style:  TextStyle(
-                                    fontSize: 18, color: Colors.white70)) : Column(
-                                children: [...domains],
-                              )
+                              domains.isEmpty
+                                  ? const Text("Select your domains",
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white70))
+                                  : Column(
+                                      children: [...domains],
+                                    )
                             ],
                           ),
-                          (vm.userDetails.domains.isEmpty)
+                          vm.userDetails.domains.isEmpty
                               ? const Icon(
                                   Icons.close,
                                   color: Colors.white,
@@ -358,19 +361,44 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
 
                   //*******************SAVE BUTTON********************//
                   ButtonWidget(
-                      text: "Done",
-                      function: () {
-                        final name = nameController.value.text.trim();
-                        final cell = cellController.value.text.trim();
-                        final domains = vm.userDetails.domains;
-                        if (name.isNotEmpty &&
-                            cell.isNotEmpty &&
-                            domains.isNotEmpty &&
-                            selectedItems.isNotEmpty) {
-                          vm.dispatchCreateTradesmanAction(name, cell,
-                              selectedItems, vm.userDetails.domains);
-                        } else {}
-                      }),
+                    text: "Done",
+                    function: () {
+                      final name = _nameController.value.text.trim();
+                      if (!RegExp(r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")
+                              .hasMatch(name) ||
+                          name.isEmpty) {
+                        // ToastErrorAction(context, "Invalid Name");
+                        vm.dispatchToastErrorAction(context, "Invalid name");
+                        return;
+                      }
+
+                      final cell = _cellController.value.text.trim();
+                      if (!RegExp(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
+                              .hasMatch(cell) ||
+                          cell.isEmpty) {
+                        // ToastErrorAction(context, "Invalid Name");
+                        vm.dispatchToastErrorAction(
+                            context, "Invalid cellphone number");
+                        return;
+                      }
+
+                      final domains = vm.userDetails.domains;
+                      if (domains.isEmpty) {
+                        vm.dispatchToastErrorAction(
+                            context, "Select at least one domain");
+                        return;
+                      }
+
+                      if (selectedItems.isEmpty) {
+                        vm.dispatchToastErrorAction(
+                            context, "Select at least one tradetype");
+                        return;
+                      }
+
+                      vm.dispatchCreateTradesmanAction(
+                          name, cell, selectedItems, vm.userDetails.domains);
+                    },
+                  ),
                 ],
               );
             },
@@ -412,6 +440,8 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
         userDetails: state.userDetails!,
+        dispatchToastErrorAction: (context, msg) =>
+            dispatch(ToastErrorAction(context, msg)),
       );
 }
 
@@ -424,6 +454,8 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final VoidCallback pushDomainConfirmPage;
   final UserModel userDetails;
+  final void Function(BuildContext context, String msg)
+      dispatchToastErrorAction;
 
   _ViewModel({
     required this.dispatchCreateTradesmanAction,
@@ -431,5 +463,6 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.pushDomainConfirmPage,
     required this.userDetails,
+    required this.dispatchToastErrorAction,
   }) : super(equals: [userDetails]);
 }

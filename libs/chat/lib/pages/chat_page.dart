@@ -43,15 +43,17 @@ class ChatPage extends StatelessWidget {
           }
 
           // setting scroll
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (scrollController.hasClients) {
-              scrollController.animateTo(
-                scrollController.position.maxScrollExtent,
-                duration: const Duration(seconds: 1),
-                curve: Curves.ease,
-              );
-            }
-          });
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) {
+              if (scrollController.hasClients) {
+                scrollController.animateTo(
+                  scrollController.position.maxScrollExtent,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.ease,
+                );
+              }
+            },
+          );
 
           return Scaffold(
             body: Stack(
@@ -61,7 +63,7 @@ class ChatPage extends StatelessWidget {
                   title: vm.currentUser == "consumer"
                       ? vm.chat.tradesmanName
                       : vm.chat.consumerName,
-                  store: store
+                  store: store,
                 ),
                 //********************************************************//
                 SingleChildScrollView(
@@ -69,9 +71,13 @@ class ChatPage extends StatelessWidget {
                   child: Column(
                     children: [
                       // const DateLabelWidget(label: "Yesterday"), //todo michael
-                      const Padding(padding: EdgeInsets.only(top: 95),),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 95),
+                      ),
                       ...messages,
-                       const Padding(padding: EdgeInsets.only(bottom: 80),),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 80),
+                      ),
                     ],
                   ),
                 ),
