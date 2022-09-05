@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final Map<String, IconData> domains = {
+const Map<String, IconData> domains = {
   'Plumber': Icons.plumbing,
   'Designer': Icons.design_services,
   'Carpenter': Icons.carpenter,
