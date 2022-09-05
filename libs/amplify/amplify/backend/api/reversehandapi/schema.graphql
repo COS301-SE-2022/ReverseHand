@@ -266,6 +266,7 @@ type Bid implements UniqueID {
   quote: String # filename of quote stored in s3 bucket
   date_created: String!
   date_closed: String
+  shortlisted: Boolean!
 }
 
 type Notification {

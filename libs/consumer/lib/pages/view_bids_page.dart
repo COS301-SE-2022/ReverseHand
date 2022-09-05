@@ -10,6 +10,7 @@ import 'package:general/widgets/button.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -79,23 +80,27 @@ class ViewBidsPage extends StatelessWidget {
                   //     height: MediaQuery.of(context).size.height),
                   Container(
                     padding: const EdgeInsets.all(10),
-                    child: Column(children: [
-                      ...populateBids(vm.bids, store),
-                      //********IF NO BIDS********************/
-                      if (vm.bids.isEmpty)
-                        const Center(
-                          child: (Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "No bids to\n display",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white54),
-                            ),
-                          )),
-                        ),
-                      //**************************************/
-                    ]),
+                    child: vm.loading
+                        ? const LoadingWidget(padding: 0)
+                        : Column(
+                            children: [
+                              ...populateBids(vm.bids, store),
+                              //********IF NO BIDS********************/
+                              if (vm.bids.isEmpty)
+                                const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: Text(
+                                      "No bids to\n display",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white54),
+                                    ),
+                                  ),
+                                ),
+                              //**************************************/
+                            ],
+                          ),
                   ),
                 ]),
               ],
@@ -126,6 +131,7 @@ class _Factory extends VmFactory<AppState, ViewBidsPage> {
         popPage: () => dispatch(NavigateAction.pop()),
         bids: state.viewBids,
         advert: state.activeAd!,
+        loading: state.wait.isWaiting,
       );
 }
 
@@ -136,6 +142,7 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final bool change;
   final void Function(bool, bool) dispatchToggleViewBidsAction;
+  final bool loading;
 
   _ViewModel({
     required this.dispatchToggleViewBidsAction,
@@ -143,5 +150,6 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.bids,
     required this.advert,
+    required this.loading,
   }) : super(equals: [change, bids]); // implementing hashcode
 }
