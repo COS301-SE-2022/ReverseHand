@@ -39,6 +39,7 @@ class TQuickViewBidWidget extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(7.0)),
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
                       width: 130,

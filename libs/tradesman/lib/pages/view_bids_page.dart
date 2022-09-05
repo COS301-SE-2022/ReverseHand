@@ -53,7 +53,6 @@ class TradesmanViewBidsPage extends StatelessWidget {
                 //*******************************************//
 
                 const Padding(padding: EdgeInsets.all(10)),
-                //**************TAB 1 INFO********************//
                 Container(
                   padding: const EdgeInsets.all(8),
                   child: Column(children: [
@@ -77,9 +76,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                         ),
                       )),
                     //**************************************/
-                  ]
-                      //all bids should be populated here
-                      ),
+                  ]),
                 ),
               ],
             ),
