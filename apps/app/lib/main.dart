@@ -3,6 +3,7 @@ import 'package:admin/pages/admin_consumer_reports_page.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
+import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:general/general.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
@@ -70,6 +71,8 @@ class Launch extends StatelessWidget {
           '/consumer/view_bids': (context) => ViewBidsPage(store: store),
           '/consumer/edit_advert_page': (context) =>
               EditAdvertPage(store: store),
+          '/consumer/edit_profile_page': (context) =>
+              EditConsumerProfilePage(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>

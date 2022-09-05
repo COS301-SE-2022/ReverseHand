@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -73,9 +75,43 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
           return state.copy(
               userDetails: state.userDetails!.copy(location: location));
         case "domains":
-          return null;
+          List<String> domainsQuery = [];
+          for (Domain domain in domains!) {
+            domainsQuery.add(domain.toString());
+          }
+          String graphQLDoc = '''mutation  {
+            editUserDetail(user_id: "$userId", domains: $domainsQuery) {
+              id
+              domains {
+                city
+                province
+              }
+            }
+          }''';
+
+          final requestChangeName = GraphQLRequest(
+            document: graphQLDoc,
+          );
+
+          await Amplify.API.mutate(request: requestChangeName).response;
+          return state.copy(
+              userDetails: state.userDetails!.copy(domains: domains));
         case "tradetypes":
-          return null;
+          
+          String graphQLDoc = '''mutation  {
+            editUserDetail(user_id: "$userId", tradetypes: ${jsonEncode(tradeTypes)}) {
+              id
+              tradetypes
+            }
+          }''';
+
+          final requestChangeName = GraphQLRequest(
+            document: graphQLDoc,
+          );
+
+          await Amplify.API.mutate(request: requestChangeName).response;
+          return state.copy(
+              userDetails: state.userDetails!.copy(tradeTypes: tradeTypes));
         default:
           return null;
       }
