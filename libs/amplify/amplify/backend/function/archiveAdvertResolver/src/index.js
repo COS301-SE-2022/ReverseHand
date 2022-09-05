@@ -9,10 +9,24 @@ const ArchivedReverseHandTable = process.env.ARCHIVEDREVERSEHAND;
 
 // archive an advert without a winning bid
 exports.handler = async (event) => {
+    // archiving bids
+    let params = {
+        TableName: ReverseHandTable,
+        KeyConditionExpression: "part_key = :p and begins_with(sort_key, :b)",
+        ExpressionAttributeValues: {
+            ":p": event.arguments.ad_id,
+            ":b": "b#",
+        }
+    };
+    let data = await docClient.query(params).promise();
+    let items = data["Items"];
+
+    
+
+    // archiving advert
     const date = new Date();
     const currentDate = date.getTime();
 
-    // deleting advert
     let item = {
         TableName: ReverseHandTable,
         ReturnValues: 'ALL_OLD',
@@ -30,8 +44,6 @@ exports.handler = async (event) => {
         TableName: ArchivedReverseHandTable,
         Item: resp,
     };
-
-    // deleting bids
     
 
     await docClient.put(item).promise();
