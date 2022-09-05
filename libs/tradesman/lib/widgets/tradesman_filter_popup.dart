@@ -16,7 +16,7 @@ class FilterPopUpWidget extends StatefulWidget {
 }
 
 class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
-  final String? dropDownListVal = "None";
+  String? dropDownListVal = "None";
 
   final TextEditingController distanceController = TextEditingController();
 
@@ -27,12 +27,20 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
     "Date added",
   ];
 
+  final Map<String, bool> values = {};
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: widget.store,
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(widget),
+        onInitialBuild: (context, store, vm) {
+          for (String tradeType in vm.userDetails.tradeTypes) {
+            values[tradeType] = true;
+          }
+         
+        },
         builder: (BuildContext context, _ViewModel vm) => SingleChildScrollView(
           child: Column(
             children: [
@@ -86,7 +94,11 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                             child: Text(value),
                           ))
                       .toList(),
-                  onChanged: (String? kind) {},
+                  onChanged: (String? kind) {
+                    setState(() {
+                      dropDownListVal = kind;
+                    });
+                  },
                 ),
               ),
               //******************************************/
@@ -161,25 +173,25 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                 child: Column(
                   children: [
                     SizedBox(
-                      width: 200,
-                      //the height of the box should increase and be scrollable
-                      //only if more than 1 item is present
-                      height: (vm.userDetails.tradeTypes.toList().length) > 1
-                          ? 120
-                          : 60,
-                      child: ListView(
-                        children: vm.userDetails.tradeTypes
-                            .map((element) => SizedBox(
-                                  child: CheckboxListTile(
-                                    title: Text(element),
-                                    value: true,
-                                    activeColor: Theme.of(context).primaryColor,
-                                    onChanged: (bool? value) {},
-                                  ),
-                                ))
-                            .toList(),
-                      ),
-                    ),
+                        width: 200,
+                        //the height of the box should increase and be scrollable
+                        //only if more than 1 item is present
+                        height: (vm.userDetails.tradeTypes.toList().length) > 1
+                            ? 120
+                            : 60,
+                        child: ListView(
+                            children:
+                                vm.userDetails.tradeTypes.map((String key) {
+                          return CheckboxListTile(
+                              title: Text(key),
+                              value: values[key],
+                              activeColor: Theme.of(context).primaryColor,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  values[key] = value!;
+                                });
+                              });
+                        }).toList())),
                   ],
                 ),
               ),

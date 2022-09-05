@@ -6,12 +6,10 @@ import 'package:general/methods/time.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
-import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -58,8 +56,8 @@ class ViewBidsPage extends StatelessWidget {
                       const Divider(
                         color: Colors.white,
                         thickness: 0.5,
-                        indent: 30,
-                        endIndent: 30,
+                        indent: 15,
+                        endIndent: 15,
                       ),
                     const Padding(padding: EdgeInsets.only(top: 15)),
                     ...populateBids(vm.bids, store),

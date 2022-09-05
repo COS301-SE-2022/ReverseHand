@@ -4,11 +4,8 @@ import 'package:async_redux/async_redux.dart';
 import 'package:general/methods/time.dart';
 // ignore: depend_on_referenced_packages
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/bottom_overlay.dart';
-import 'package:general/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
-import 'package:general/widgets/profile_divider.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
