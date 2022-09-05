@@ -20,4 +20,7 @@ void main() {
     expect(true, bidOne.isShortlisted());
     expect(false, bidTwo.isShortlisted());
   });
+
+  //need to update this test since there is now a boolean to check if a bid
+  //is shortlisted
 }
