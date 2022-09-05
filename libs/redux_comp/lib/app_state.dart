@@ -116,6 +116,7 @@ class AppState {
         priceLower: 0,
         priceUpper: 0,
         dateCreated: 0,
+        shortlisted: false,
       ),
       locationResult: null,
       error: ErrorType.none,

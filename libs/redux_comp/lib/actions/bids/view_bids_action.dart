@@ -23,6 +23,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
         quote
         date_created
         date_closed
+        shortlisted
       }
     }''';
 
@@ -40,8 +41,8 @@ class ViewBidsAction extends ReduxAction<AppState> {
 
       // since all bids are gotten we seperate them into two lists
       for (dynamic d in data['viewBids']) {
-        String id = d['id'];
-        if (id.contains('s')) {
+        final bool shortlisted = d['shortlisted'];
+        if (shortlisted) {
           shortlistedBids.add(BidModel.fromJson(d));
         } else {
           bids.add(BidModel.fromJson(d));
