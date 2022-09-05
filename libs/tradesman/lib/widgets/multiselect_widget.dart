@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 
 class MultiSelectWidget extends StatefulWidget {
-  final List<String> items; //list of types
-  const MultiSelectWidget({Key? key, required this.items}) : super(key: key);
+  final List<String> items;
+  final List<String> selectedItems; //list of types
+  const MultiSelectWidget({Key? key, required this.items, required this.selectedItems}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MultiSelectWidgetState();
 }
 
+
 class _MultiSelectWidgetState extends State<MultiSelectWidget> {
   final List<String> _selectedItems = []; //sleected items
 
+  @override
+  void initState() {
+    for (String item in widget.selectedItems) {
+      _selectedItems.add(item);
+    }
+    super.initState();
+  }
   //triggered when a checkbox is checked or unchecked
   void _itemChange(String itemValue, bool isSelected) {
     setState(() {
