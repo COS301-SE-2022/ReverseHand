@@ -4,8 +4,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:general/methods/time.dart';
 // ignore: depend_on_referenced_packages
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/bottom_overlay.dart';
-import 'package:general/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
@@ -52,40 +50,31 @@ class TradesmanViewBidsPage extends StatelessWidget {
                 //*******************************************//
 
                 const Padding(padding: EdgeInsets.all(10)),
-
-                Stack(children: [
-                  BottomOverlayWidget(
-                      height: MediaQuery.of(context).size.height),
-                  //**************TAB 1 INFO********************//
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(children: [
-                      ...populateBids(vm.userId, vm.bids, store),
-                      //********IF NO BIDS********************/
-                      if (vm.bids.isEmpty)
-                        (const Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Text(
-                            "No bids have\n been made yet",
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white54),
-                          ),
-                        )),
-                      //**************************************/
-                      ButtonWidget(
-                          text: "Back",
-                          color: "light",
-                          border: "white",
-                          function: vm.popPage)
-                    ]
-                        //all bids should be populated here
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(children: [
+                    if (vm.bids.isNotEmpty)
+                      const Divider(
+                        color: Colors.white,
+                        thickness: 0.5,
+                        indent: 30,
+                        endIndent: 30,
+                      ),
+                    const Padding(padding: EdgeInsets.only(top: 15)),
+                    ...populateBids(vm.userId, vm.bids, store),
+                    //********IF NO BIDS********************/
+                    if (vm.bids.isEmpty)
+                      (const Padding(
+                        padding: EdgeInsets.all(40.0),
+                        child: Text(
+                          "No bids have\n been made yet",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20, color: Colors.white54),
                         ),
-                  ),
-                  //****************************************//
-
-                  //****************************************/
-                ]),
+                      )),
+                    //**************************************/
+                  ]),
+                ),
               ],
             ),
           ),
