@@ -49,7 +49,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(13),
                         child: Icon(
-                          getIcon(advert.type.toString()),
+                          getIcon(advert.type),
                           color: Theme.of(context).primaryColor,
                           size: 35,
                         ),
@@ -60,7 +60,6 @@ class QuickViewJobCardWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.5,
                           child: Text(advert.title,
@@ -80,7 +79,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                             const Padding(padding: EdgeInsets.only(right: 10)),
                             const Icon(Icons.circle_outlined, size: 8),
                             const Padding(padding: EdgeInsets.only(left: 10)),
-                            Text(advert.type!,
+                            Text(advert.type,
                                 style: const TextStyle(
                                     fontSize: 20, color: Colors.black)),
                           ],

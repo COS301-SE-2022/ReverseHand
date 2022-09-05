@@ -29,21 +29,10 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
   List<String> selectedItems = [];
 
   void showMultiSelect(List<String> selected) async {
-    final List<String> items = [
-      "Painting",
-      "Tiler",
-      "Carpenter",
-      "Cleaner",
-      "Designer",
-      "Landscaper",
-      "Electrician",
-      "Plumbing",
-    ];
-
     final List<String>? results = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MultiSelectWidget(items: items, selectedItems: selected);
+        return MultiSelectWidget(selectedItems: selected);
       },
     );
 
@@ -71,7 +60,6 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
           child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
-                
                 if (vm.isWaiting) {
                   return Column(
                     children: [
@@ -83,8 +71,9 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                 } else {
                   if (selectedItems.isNotEmpty &&
                       selectedItems != vm.userDetails.tradeTypes) {
-                    vm.dispatchChangeTradeAction(vm.userDetails.id, selectedItems);
-                }
+                    vm.dispatchChangeTradeAction(
+                        vm.userDetails.id, selectedItems);
+                  }
                   List<Widget> trades = [];
                   List<Widget> domains = [];
                   for (var i = 0; i < vm.userDetails.tradeTypes.length; i++) {
