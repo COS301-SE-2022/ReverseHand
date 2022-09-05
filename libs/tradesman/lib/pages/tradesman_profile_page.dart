@@ -53,26 +53,28 @@ class TradesmanProfilePage extends StatelessWidget {
                 }
                 for (var i = 0; i < vm.userDetails.domains.length; i++) {
                   {
-                    domains.add(Padding(
-                      padding: const EdgeInsets.only(top: 3.0, bottom: 3),
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColorLight,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(7))),
-                        width: MediaQuery.of(context).size.width / 1.6,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              "${vm.userDetails.domains.elementAt(i).city}, ${vm.userDetails.domains.elementAt(i).province}",
-                              style: const TextStyle(fontSize: 20),
+                    domains.add(
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3.0, bottom: 3),
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColorLight,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(7))),
+                          width: MediaQuery.of(context).size.width / 1.6,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(
+                                "${vm.userDetails.domains.elementAt(i).city}, ${vm.userDetails.domains.elementAt(i).province}",
+                                style: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ));
+                    );
                   }
                 }
                 return Column(children: [
@@ -295,8 +297,8 @@ class TradesmanProfilePage extends StatelessWidget {
                                   context: context,
                                   isScrollControlled: true,
                                   builder: (BuildContext context) {
-                                    return const MultiSelectWidget(
-                                      items: [
+                                    return MultiSelectWidget(
+                                      items: const [
                                         "Painting",
                                         "Tiler",
                                         "Carpenter",
@@ -306,6 +308,7 @@ class TradesmanProfilePage extends StatelessWidget {
                                         "Electrician",
                                         "Plumbing",
                                       ],
+                                      selectedItems: vm.userDetails.tradeTypes,
                                     );
                                   });
                             },
