@@ -1,5 +1,7 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:chat/widgets/action_button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/app_state.dart';
 
 class ActionBarWidget extends StatefulWidget {
   final void Function(String msg) onPressed;
@@ -32,7 +34,7 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
       child: SafeArea(
         child: Row(
           children: [
-            const Icon(
+            const Icon( //may need to remove
               Icons.camera_alt,
               color: Colors.white,
             ),
@@ -47,10 +49,7 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
                 ),
                 child: Row(
                   children: [
-                    const Padding(padding: EdgeInsets.only(left: 5, right: 5),
-                      child: Icon(Icons.sentiment_satisfied_alt_outlined), 
-                    ),
-                    const SizedBox(width: 5),
+                    const SizedBox(width: 25),
                     Expanded(
                       child: TextField(
                         controller: msgController,
@@ -78,60 +77,6 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
         ),
       ),
     );
-    // return Container(
-    //   color: Theme.of(context).scaffoldBackgroundColor,
-    //   child: Row(
-    //     children: [
-    //       //*********************CAMERA ************** */
-    //       const Padding(
-    //         padding: EdgeInsets.only(left: 30, right: 10),
-    //         child: Icon(
-    //           Icons.camera_alt,
-    //           color: Colors.white,
-    //         ),
-    //       ),
-    //       //***************************************** */
-    //       Expanded(
-    //         child: Padding(
-    //           padding: const EdgeInsets.only(left: 16.0),
-    //           child: SizedBox(
-    //             height: 40,
-    //             child: TextField(
-    //               controller: msgController,
-    //               // maxLines: 50,
-    //               style: const TextStyle(fontSize: 17, color: Colors.white),
-    //               decoration: InputDecoration(
-    //                 enabledBorder: OutlineInputBorder(
-    //                   borderRadius: BorderRadius.circular(10),
-    //                   borderSide:
-    //                       BorderSide(color: Theme.of(context).primaryColor),
-    //                 ),
-    //                 focusedBorder: OutlineInputBorder(
-    //                   borderRadius: BorderRadius.circular(10),
-    //                   borderSide:
-    //                       BorderSide(color: Theme.of(context).primaryColor),
-    //                 ),
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //       Padding(
-    //         padding: const EdgeInsets.only(
-    //           left: 22,
-    //           right: 5.0,
-    //         ),
-    //         child: ActionButtonWidget(
-    //           color: const Color.fromRGBO(243, 157, 55, 1),
-    //           icon: Icons.send_rounded,
-    //           onPressed: () {
-    //             widget.onPressed(msgController.value.text);
-    //             msgController.clear();
-    //           },
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
+
   }
 }
