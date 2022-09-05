@@ -20,6 +20,29 @@ class QuickViewJobCardWidget extends StatelessWidget {
     required this.store,
   }) : super(key: key);
 
+  IconData jobType() {
+    switch (advert.type) {
+      case "Painting":
+        return Icons.imagesearch_roller;
+      case "Tiler":
+        return Icons.imagesearch_roller;
+      case "Carpenter":
+        return Icons.carpenter;
+      case "Cleaner":
+        return Icons.sanitizer;
+      case "Designer":
+        return Icons.design_services;
+      case "Landscaper":
+        return Icons.imagesearch_roller;
+      case "Electrician":
+        return Icons.bolt;
+      case "Plumbing":
+        return Icons.plumbing;
+      default:
+        return Icons.plumbing;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -48,20 +71,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(13),
                         child: Icon(
-                          //Painting
-                          // Icons.imagesearch_roller,
-                          //Tiler
-                          //Carpenter
-                          // Icons.carpenter,
-                          //Cleaner
-                          // Icons.sanitizer,
-                          //Designer
-                          // Icons.design_services,
-                          //Landscaper
-                          //Electrician
-                          // Icons.bolt,
-                          //Plumbing
-                          Icons.plumbing,
+                          jobType(),
                           color: Theme.of(context).primaryColor,
                           size: 35,
                         ),
