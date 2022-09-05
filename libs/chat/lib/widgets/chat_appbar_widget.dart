@@ -13,37 +13,32 @@ class ChatAppBarWidget extends StatelessWidget {
         store: store,
         child: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) => 
-          AppBar(
-            automaticallyImplyLeading: false,
-            title: Row(
-              children: [
-                GestureDetector(
-                  onTap: () { }, //todo, link profile
-                  child: const CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/profile.png",
-                            package: 'general'),
-                  ),
-                ),
-                Padding(padding: const EdgeInsets.only(left: 20),
-                  child: Text(title),
-                ),
-              ],
-
-            ),
-            backgroundColor: Theme.of(context).primaryColorDark,
-            leading: 
-              StoreConnector<AppState, _ViewModel>(
-                  vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) => IconButton(
-                    onPressed: vm.popPage, 
-                    icon: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
+          builder: (BuildContext context, _ViewModel vm) => SliverAppBar(
+              pinned: true,
+              backgroundColor: Theme.of(context).primaryColorDark,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () { }, //todo, link profile
+                      child: const CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/profile.png",
+                                package: 'general'),
+                      ),
                     ),
-                  )
+                    Padding(padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        title, 
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 23,
+                        )
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              ),
+            ),
           ),
         );
   }
