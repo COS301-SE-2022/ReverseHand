@@ -1,5 +1,6 @@
 import 'package:amplify/amplifyconfiguration.dart';
 import 'package:amplify/models/ModelProvider.dart';
+import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
@@ -32,13 +33,14 @@ Future<void> _configureAmplify() async {
     final AmplifyAPI api = AmplifyAPI(modelProvider: ModelProvider.instance);
     final AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
     final AmplifyStorageS3 storage = AmplifyStorageS3();
-    // final analyticsPlugin = AmplifyAnalyticsPinpoint();
+    final AmplifyAnalyticsPinpoint analyticsPlugin = AmplifyAnalyticsPinpoint();
 
     // add Amplify plugins
     await Amplify.addPlugins([
       api,
       authPlugin,
-      storage, /* analyticsPlugin */
+      storage, 
+      analyticsPlugin
     ]);
 
     // configure Amplify
