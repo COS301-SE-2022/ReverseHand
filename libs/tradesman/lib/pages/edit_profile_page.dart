@@ -204,6 +204,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                   //**************************************************//
 
                   const ProfileDividerWidget(),
+                  //********************NUMBER**********************//
                   InkWell(
                     onTap: () {
                       showModalBottomSheet(
@@ -261,16 +262,6 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
 
                   const ProfileDividerWidget(),
                   //********************TRADE**********************//
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                  //   child: TextFieldWidget(
-                  //     label: "Trade",
-                  //     obscure: false,
-                  //     controller: tradeController,
-                  //     onTap: () => showMultiSelect(vm.userDetails!.tradeTypes),
-                  //     min: 1,
-                  //   ),
-                  // ),
                   InkWell(
                     onTap: () => showMultiSelect(selectedItems),
                     child: Padding(
