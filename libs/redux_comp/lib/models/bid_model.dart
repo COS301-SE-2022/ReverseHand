@@ -10,6 +10,7 @@ class BidModel {
   final String? quote;
   final double dateCreated; // change later to json/map object
   final double? dateClosed; // change later to json/map object
+  final bool shortlisted;
 
   const BidModel({
     required this.id,
@@ -20,6 +21,7 @@ class BidModel {
     this.name,
     required this.dateCreated,
     this.dateClosed,
+    required this.shortlisted,
   });
 
   bool isShortlisted() {
@@ -28,14 +30,16 @@ class BidModel {
 
   factory BidModel.fromJson(obj) {
     return BidModel(
-      id: obj['id'],
-      userId: obj['tradesman_id'],
-      name: obj['name'],
-      priceLower: obj['price_lower'],
-      priceUpper: obj['price_upper'],
-      quote: obj['quote'],
-      dateCreated: double.parse(obj['date_created']),
-      dateClosed: (obj['date_Closed'] != null) ? double.parse(obj['date_Closed']) : null,
-    );
+        id: obj['id'],
+        userId: obj['tradesman_id'],
+        name: obj['name'],
+        priceLower: obj['price_lower'],
+        priceUpper: obj['price_upper'],
+        quote: obj['quote'],
+        dateCreated: double.parse(obj['date_created']),
+        dateClosed: (obj['date_Closed'] != null)
+            ? double.parse(obj['date_Closed'])
+            : null,
+        shortlisted: obj['shortlisted']);
   }
 }

@@ -42,13 +42,15 @@ class EditBidAction extends ReduxAction<AppState> {
       bids.removeWhere((element) => element.id == bidId);
       //update the bid as a new bid
       bids.add(BidModel(
-          id: bd.id,
-          userId: bd.userId,
-          priceLower: data["price_lower"],
-          priceUpper: data["price_upper"],
-          dateCreated: bd.dateCreated,
-          quote: data["quote"],
-          name: bd.name));
+        id: bd.id,
+        userId: bd.userId,
+        priceLower: data["price_lower"],
+        priceUpper: data["price_upper"],
+        dateCreated: bd.dateCreated,
+        quote: data["quote"],
+        name: bd.name,
+        shortlisted: bd.shortlisted,
+      ));
 
       return state.copy(bids: bids);
     } catch (e) {
