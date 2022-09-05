@@ -67,7 +67,6 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
 
   @override
   void initState() {
-    // <- here
     nameController.addListener(() {
       setState(() {
         nameController = nameController;
@@ -205,18 +204,6 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                   //**************************************************//
 
                   const ProfileDividerWidget(),
-
-                  //********************NUMBER**********************//
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                  //   child: TextFieldWidget(
-                  //     initialVal: vm.userDetails!.cellNo,
-                  //     label: "Phone",
-                  //     obscure: false,
-                  //     controller: cellController,
-                  //     min: 1,
-                  //   ),
-                  // ),
                   InkWell(
                     onTap: () {
                       showModalBottomSheet(
@@ -323,42 +310,10 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                   ),
 
                   const ProfileDividerWidget(),
-                  // display selected items
-                  // Wrap(
-                  //   spacing: 8.0,
-                  //   runSpacing: 8.0,
-                  //   children: selectedItems
-                  //       .map((types) => Chip(
-                  //             labelPadding: const EdgeInsets.all(2.0),
-                  //             label: Text(
-                  //               types,
-                  //               style: const TextStyle(
-                  //                 color: Colors.white,
-                  //               ),
-                  //             ),
-                  //             backgroundColor:
-                  //                 const Color.fromRGBO(35, 47, 62, 1),
-                  //             padding: const EdgeInsets.all(8.0),
-                  //           ))
-                  //       .toList(),
-                  // ),
-                  //**************************************************//
 
-                  //********************DOMAIN**********************//
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                  //   child: TextFieldWidget(
-                  //     label: "Domains",
-                  //     obscure: false,
-                  //     controller: TextEditingController(),
-                  //     onTap: vm.pushDomainConfirmPage,
-                  //     min: 1,
-                  //   ),
-                  // ),
                   InkWell(
-                    onTap: () {
-                      vm.pushDomainConfirmPage();
-                    },
+                    onTap: 
+                      vm.pushDomainConfirmPage,
                     child: Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 30, top: 50),
