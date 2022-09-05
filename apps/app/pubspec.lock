@@ -15,6 +15,27 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  amplify_analytics_pinpoint:
+    dependency: transitive
+    description:
+      name: amplify_analytics_pinpoint
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.5"
+  amplify_analytics_pinpoint_android:
+    dependency: transitive
+    description:
+      name: amplify_analytics_pinpoint_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.5"
+  amplify_analytics_pinpoint_ios:
+    dependency: transitive
+    description:
+      name: amplify_analytics_pinpoint_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.5"
   amplify_api:
     dependency: transitive
     description:
@@ -337,9 +358,9 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: a4a33c3dd0a12f46d655a2e63d11e9f20ba82d01
-      resolved-ref: a4a33c3dd0a12f46d655a2e63d11e9f20ba82d01
-      url: "https://github.com/definitelyme/flutter_paystack.git"
+      ref: eb26f246efb5ee1550b1a2cd5473f34ae6f17d92
+      resolved-ref: eb26f246efb5ee1550b1a2cd5473f34ae6f17d92
+      url: "https://github.com/wilburt/flutter_paystack"
     source: git
     version: "1.0.5+1"
   flutter_plugin_android_lifecycle:

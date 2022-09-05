@@ -163,12 +163,7 @@ class GetUserAction extends ReduxAction<AppState> {
         dispatch(NavigateAction.pushNamed("/consumer"));
         break;
       case "Tradesman":
-        List<String> domains = [];
-        for (Domain d in state.userDetails!.domains) {
-          domains.add(d.city);
-        }
-        List<String> tradeTypes = state.userDetails!.tradeTypes;
-        dispatch(ViewJobsAction(domains, tradeTypes));
+        dispatch(ViewJobsAction(state.userDetails!.domains, state.userDetails!.tradeTypes));
         startupActions();
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;

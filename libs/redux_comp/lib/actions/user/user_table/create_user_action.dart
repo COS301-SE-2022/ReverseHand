@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
-import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
+import 'package:redux_comp/actions/user/user_table/get_user_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
@@ -128,18 +127,6 @@ class CreateUserAction extends ReduxAction<AppState> {
 
   @override
   Future<void> after() async {
-    if (state.userDetails!.userType == "Consumer") {
-      dispatch(ViewAdvertsAction());
-    } else if (state.userDetails!.userType == "Tradesman") {
-      List<String> domains = [];
-      for (Domain d in state.userDetails!.domains) {
-        domains.add(d.city);
-      }
-      List<String> tradeTypes = state.userDetails!.tradeTypes;
-      dispatch(ViewJobsAction(domains, tradeTypes));
-    }
-    dispatch(NavigateAction.pushNamed(
-        "/${state.userDetails!.userType.toLowerCase()}"));
-    // wait until error has finished before stopping loading
+   dispatch(GetUserAction());
   }
 }

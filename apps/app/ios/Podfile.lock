@@ -2,6 +2,11 @@ PODS:
   - Amplify (1.25.0):
     - Amplify/Default (= 1.25.0)
   - Amplify/Default (1.25.0)
+  - amplify_analytics_pinpoint_ios (0.0.1):
+    - Amplify (= 1.25.0)
+    - amplify_core
+    - AmplifyPlugins/AWSPinpointAnalyticsPlugin (= 1.25.0)
+    - Flutter
   - amplify_api_ios (0.0.1):
     - Amplify (= 1.25.0)
     - amplify_core
@@ -43,6 +48,10 @@ PODS:
     - AWSCore (~> 2.27.0)
     - AWSMobileClient (~> 2.27.0)
     - AWSPluginsCore (= 1.25.0)
+  - AmplifyPlugins/AWSPinpointAnalyticsPlugin (1.25.0):
+    - AWSCore (~> 2.27.0)
+    - AWSPinpoint (~> 2.27.0)
+    - AWSPluginsCore (= 1.25.0)
   - AmplifyPlugins/AWSS3StoragePlugin (1.25.0):
     - AWSCore (~> 2.27.0)
     - AWSPluginsCore (= 1.25.0)
@@ -61,6 +70,8 @@ PODS:
     - AWSAuthCore (= 2.27.15)
     - AWSCognitoIdentityProvider (= 2.27.15)
     - AWSCognitoIdentityProviderASF (= 2.27.15)
+    - AWSCore (= 2.27.15)
+  - AWSPinpoint (2.27.15):
     - AWSCore (= 2.27.15)
   - AWSPluginsCore (1.25.0):
     - Amplify (= 1.25.0)
@@ -126,6 +137,7 @@ PODS:
   - SwiftyGif (5.4.3)
 
 DEPENDENCIES:
+  - amplify_analytics_pinpoint_ios (from `.symlinks/plugins/amplify_analytics_pinpoint_ios/ios`)
   - amplify_api_ios (from `.symlinks/plugins/amplify_api_ios/ios`)
   - amplify_auth_cognito_ios (from `.symlinks/plugins/amplify_auth_cognito_ios/ios`)
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
@@ -151,6 +163,7 @@ SPEC REPOS:
     - AWSCognitoIdentityProviderASF
     - AWSCore
     - AWSMobileClient
+    - AWSPinpoint
     - AWSPluginsCore
     - AWSS3
     - DKImagePickerController
@@ -163,6 +176,8 @@ SPEC REPOS:
     - SwiftyGif
 
 EXTERNAL SOURCES:
+  amplify_analytics_pinpoint_ios:
+    :path: ".symlinks/plugins/amplify_analytics_pinpoint_ios/ios"
   amplify_api_ios:
     :path: ".symlinks/plugins/amplify_api_ios/ios"
   amplify_auth_cognito_ios:
@@ -194,6 +209,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Amplify: 4e1839747f51c5f28f95ce36ef6d356f032b42b7
+  amplify_analytics_pinpoint_ios: 4c63b83fdbf6ddda62d9589a6b34edcb9d3eec2b
   amplify_api_ios: 769bc2a5f7f8599bcdf070a1ac55831ed10c741c
   amplify_auth_cognito_ios: 8a014f5d5e085265e13a270dc03fbe0818bb1f54
   amplify_core: e67fe0c53845db08aced670bfc7370b1329d2798
@@ -206,6 +222,7 @@ SPEC CHECKSUMS:
   AWSCognitoIdentityProviderASF: 5dccf24b43c287eb1949e83cefccb6c25cdc04b7
   AWSCore: c67277201b6aca10e4cf24638eadaa67c85ebf03
   AWSMobileClient: 6f60d1fb6373e21aaada443dd4d4bf087158614d
+  AWSPinpoint: e2ea6471c4a4efd7a4d58546f34539c9dac185a7
   AWSPluginsCore: c29c4b91c4ecd7376b85288615bb482f409a0b73
   AWSS3: 09801b290f8818f532694cabd5d503c7474eb3df
   camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
@@ -226,6 +243,6 @@ SPEC CHECKSUMS:
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
 
-PODFILE CHECKSUM: 2d003d2a4f4b67e0a26ff44e9ea1b5df6c5e26d8
+PODFILE CHECKSUM: c527ae5525e255413e90864467a7354714ff7b65
 
 COCOAPODS: 1.11.3

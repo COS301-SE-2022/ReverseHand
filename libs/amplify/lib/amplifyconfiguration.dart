@@ -101,6 +101,17 @@ const amplifyconfig = ''' {
                         "AuthMode": "AMAZON_COGNITO_USER_POOLS",
                         "ClientDatabasePrefix": "reversehandapi_AMAZON_COGNITO_USER_POOLS"
                     }
+                },
+                "PinpointAnalytics": {
+                    "Default": {
+                        "AppId": "fe811469c6cb4fd6bbfa4886a0c4c906",
+                        "Region": "eu-west-1"
+                    }
+                },
+                "PinpointTargeting": {
+                    "Default": {
+                        "Region": "eu-west-1"
+                    }
                 }
             }
         }
@@ -118,6 +129,19 @@ const amplifyconfig = ''' {
                 "bucket": "reversehandbucket100406-staging",
                 "region": "eu-west-1",
                 "defaultAccessLevel": "guest"
+            }
+        }
+    },
+    "analytics": {
+        "plugins": {
+            "awsPinpointAnalyticsPlugin": {
+                "pinpointAnalytics": {
+                    "appId": "fe811469c6cb4fd6bbfa4886a0c4c906",
+                    "region": "eu-west-1"
+                },
+                "pinpointTargeting": {
+                    "region": "eu-west-1"
+                }
             }
         }
     }
