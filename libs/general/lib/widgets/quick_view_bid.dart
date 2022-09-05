@@ -32,9 +32,9 @@ class QuickViewBidWidget extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(12),
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorLight,
-                  borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 232, 232, 232),
+                  borderRadius: BorderRadius.all(Radius.circular(7.0)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -28,26 +28,38 @@ class TQuickViewBidWidget extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
           child: Material(
             elevation: 3,
-            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            borderRadius: const BorderRadius.all(Radius.circular(7)),
             child: InkWell(
               onTap: () => vm.dispatchSetActiveBid(bid),
               child: Container(
                 padding: const EdgeInsets.all(12),
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorLight,
-                  borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 232, 232, 232),
+                  borderRadius: BorderRadius.all(Radius.circular(7.0)),
                 ),
                 child: Row(
                   children: [
-                    Text(
-                      '${bid.name}',
-                      style: const TextStyle(fontSize: 22, color: Colors.white),
+                    SizedBox(
+                      width: 130,
+                      child: Text(
+                        '${bid.name}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.black,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Theme.of(context).primaryColor,
+                            decorationThickness: 2),
+                      ),
                     ),
                     const Padding(padding: EdgeInsets.only(right: 20)),
                     Text(
                       'R${bid.priceLower}  -  R${bid.priceUpper}',
-                      style: const TextStyle(fontSize: 22, color: Colors.white),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 22, color: Colors.black),
                     ),
                   ],
                 ),

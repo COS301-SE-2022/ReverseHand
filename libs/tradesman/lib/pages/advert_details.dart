@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:authentication/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
@@ -42,127 +43,101 @@ class TradesmanJobDetails extends StatelessWidget {
                   location: vm.advert.domain.city,
                 ),
 
-                const Padding(padding: EdgeInsets.only(top: 50)),
+                const Padding(padding: EdgeInsets.only(top: 80)),
+
+                
 
                 //*************BOTTOM BUTTONS**************//
-                Stack(alignment: Alignment.center, children: <Widget>[
-                  BottomOverlayWidget(
-                    height: MediaQuery.of(context).size.height,
-                  ),
-
-                  //place bid
-                  Positioned(
-                      top: 35,
-                      child: ButtonWidget(
-                          text: "Place Bid",
-                          function: () {
-                            // DarkDialogHelper.display(context,
-                            //     PlaceBidPopupWidget(store: store), 1000.0);
-                            showModalBottomSheet(
-                                context: context,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7.0),
+                AuthButtonWidget(
+                    text: "Place Bid",
+                    function: () {
+                      // DarkDialogHelper.display(context,
+                      //PlaceBidPopupWidget(store: store), 1000.0);
+                      showModalBottomSheet(
+                          context: context,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7.0),
+                          ),
+                          // isScrollControlled: true,
+                          builder: (BuildContext context) {
+                            return Column(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Text(
+                                    "Place Bid",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                                // isScrollControlled: true,
-                                builder: (BuildContext context) {
-                                  return Column(
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                      "Add a detailed breakdown of materials and services.\n You can return to this step later.",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black)),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                      "Enter the final amount for your bid.\n This is a required step.",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.black)),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(60, 20, 60, 10),
+                                  child: TextFormField(
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 18),
+                                    controller: bidController,
+                                    onTap: () {},
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(7),
+                                        borderSide: const BorderSide(
+                                          color: Colors.black,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(7),
+                                        borderSide: const BorderSide(
+                                          color: Colors.orange,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Padding(
-                                        padding: EdgeInsets.all(15.0),
-                                        child: Text(
-                                          "Place Bid",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 30,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text(
-                                            "Add a detailed breakdown of materials and services.\n You can return to this step later.",
-                                            textAlign: TextAlign.center,
-                                            style:
-                                                TextStyle(color: Colors.black)),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text(
-                                            "Enter the final amount for your bid.\n This is a required step.",
-                                            textAlign: TextAlign.center,
-                                            style:
-                                                TextStyle(color: Colors.black)),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            60, 20, 60, 10),
-                                        child: TextFormField(
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18),
-                                          controller: bidController,
-                                          onTap: () {},
-                                          decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(7),
-                                              borderSide: const BorderSide(
-                                                color: Colors.black,
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(7),
-                                              borderSide: const BorderSide(
-                                                color: Colors.orange,
-                                                width: 2.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            ButtonWidget(
-                                                text: "Submit",
-                                                function: () {}),
-                                            const Padding(
-                                                padding: EdgeInsets.all(3)),
-                                            ButtonWidget(
-                                                text: "Cancel",
-                                                color: "light",
-                                                border: "lightBlue",
-                                                function: () {})
-                                          ],
-                                        ),
-                                      )
+                                      ButtonWidget(
+                                          text: "Submit", function: () {}),
+                                      const Padding(padding: EdgeInsets.all(3)),
+                                      ButtonWidget(
+                                          text: "Cancel",
+                                          color: "light",
+                                          border: "lightBlue",
+                                          function: () {
+                                            vm.popPage();
+                                          })
                                     ],
-                                  );
-                                });
-                          })),
+                                  ),
+                                )
+                              ],
+                            );
+                          });
+                    }),
+                //place bid
 
-                  //view bids
-                  Positioned(
-                      top: 95,
-                      child: ButtonWidget(
-                          text: "View Bids",
-                          color: "light",
-                          function: vm.pushViewBidsPage)),
-
-                  //Back
-                  Positioned(
-                      top: 155,
-                      child: ButtonWidget(
-                          text: "Back",
-                          color: "light",
-                          border: "white",
-                          function: vm.popPage))
-                ]),
+                AuthButtonWidget(
+                    text: "View Bids", function: vm.pushViewBidsPage),
                 //*************BOTTOM BUTTONS**************//
                 // ...populateBids(vm.us vm.bids)
               ],
