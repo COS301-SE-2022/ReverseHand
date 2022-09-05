@@ -23,27 +23,27 @@ class ConsumerListingsPage extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) {
             List<Widget> open = [];
             List<Widget> inProgress = [];
-              for (AdvertModel advert in vm.adverts) {
-                if (advert.dateClosed != null) {
-                  continue;
-                }
-
-                if (advert.acceptedBid == null) {
-                  open.add(
-                    QuickViewJobCardWidget(
-                      advert: advert,
-                      store: store,
-                    ),
-                  );
-                } else {
-                  inProgress.add(
-                    QuickViewJobCardWidget(
-                      advert: advert,
-                      store: store,
-                    ),
-                  );
-                }
+            for (AdvertModel advert in vm.adverts) {
+              if (advert.dateClosed != null) {
+                continue;
               }
+
+              if (advert.acceptedBid == null) {
+                open.add(
+                  QuickViewJobCardWidget(
+                    advert: advert,
+                    store: store,
+                  ),
+                );
+              } else {
+                inProgress.add(
+                  QuickViewJobCardWidget(
+                    advert: advert,
+                    store: store,
+                  ),
+                );
+              }
+            }
 
             return DefaultTabController(
                 length: 2,
@@ -132,6 +132,7 @@ class ConsumerListingsPage extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) =>
               ConsumerFloatingButtonWidget(
             function: vm.pushCreateAdvertPage,
+            type: "add",
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

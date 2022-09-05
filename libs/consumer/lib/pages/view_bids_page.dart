@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/consumer_floating_button.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
@@ -48,63 +49,45 @@ class ViewBidsPage extends StatelessWidget {
                 //*******************************************//
 
                 const Padding(padding: EdgeInsets.all(10)),
-                //********************BUTTONS*****************//
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ButtonWidget(
-                        text: "Back",
-                        color: "dark",
-                        border: "white",
-                        function: vm.popPage),
-                    const Padding(padding: EdgeInsets.all(5)),
-                    ButtonWidget(
-                      text: "Filter",
-                      color: "dark",
-                      function: () {
-                        DarkDialogHelper.display(
-                            context,
-                            FilterPopUpWidget(
-                              store: store,
-                            ),
-                            600.0);
-                      },
-                    ),
-                  ],
+
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(children: [
+                    ...populateBids(vm.bids, store),
+                    //********IF NO BIDS********************/
+                    if (vm.bids.isEmpty)
+                      const Center(
+                        child: (Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text(
+                            "No bids to\n display",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white54),
+                          ),
+                        )),
+                      ),
+                    //**************************************/
+                  ]),
                 ),
-                //*******************************************//
-                const Padding(padding: EdgeInsets.all(5)),
-                Stack(children: [
-                  // BottomOverlayWidget(
-                  //     height: MediaQuery.of(context).size.height),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(children: [
-                      ...populateBids(vm.bids, store),
-                      //********IF NO BIDS********************/
-                      if (vm.bids.isEmpty)
-                        const Center(
-                          child: (Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(
-                              "No bids to\n display",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white54),
-                            ),
-                          )),
-                        ),
-                      //**************************************/
-                    ]),
-                  ),
-                ]),
               ],
             ),
           ),
         ),
 
         //************************NAVBAR***********************/
-
+        floatingActionButton: ConsumerFloatingButtonWidget(
+          function: () {
+            DarkDialogHelper.display(
+                context,
+                FilterPopUpWidget(
+                  store: store,
+                ),
+                600.0);
+          },
+          type: "filter",
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: NavBarWidget(
           store: store,
         ),

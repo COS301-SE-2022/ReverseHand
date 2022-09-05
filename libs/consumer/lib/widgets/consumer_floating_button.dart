@@ -4,7 +4,9 @@ import 'package:redux_comp/app_state.dart';
 
 class ConsumerFloatingButtonWidget extends StatelessWidget {
   final void Function() function;
-  const ConsumerFloatingButtonWidget({Key? key, required this.function})
+  final String type;
+  const ConsumerFloatingButtonWidget(
+      {Key? key, required this.function, required this.type})
       : super(key: key);
 
   @override
@@ -14,7 +16,9 @@ class ConsumerFloatingButtonWidget extends StatelessWidget {
       builder: (BuildContext context, _ViewModel vm) => FloatingActionButton(
         onPressed: function,
         backgroundColor: Colors.orange,
-        child: const Icon(Icons.add),
+        child: type == "filter"
+            ? const Icon(Icons.filter_alt)
+            : const Icon(Icons.add),
       ),
     );
   }
