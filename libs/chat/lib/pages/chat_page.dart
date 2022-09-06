@@ -43,15 +43,17 @@ class ChatPage extends StatelessWidget {
           }
 
           // setting scroll
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (scrollController.hasClients) {
-              scrollController.animateTo(
-                scrollController.position.maxScrollExtent,
-                duration: const Duration(seconds: 1),
-                curve: Curves.ease,
-              );
-            }
-          });
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) {
+              if (scrollController.hasClients) {
+                scrollController.animateTo(
+                  scrollController.position.maxScrollExtent,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.ease,
+                );
+              }
+            },
+          );
 
         return Scaffold(
           body: CustomScrollView(

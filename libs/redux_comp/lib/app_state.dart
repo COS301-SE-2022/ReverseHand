@@ -103,6 +103,7 @@ class AppState {
       reviews: const [],
       activeAd: const AdvertModel(
         id: "",
+        type: "none",
         title: "",
         domain: Domain(
             city: "city",

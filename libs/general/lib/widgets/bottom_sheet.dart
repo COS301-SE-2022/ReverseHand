@@ -9,7 +9,11 @@ class BottomSheetWidget extends StatelessWidget {
   final String? initialVal;
   final void Function() function;
   const BottomSheetWidget(
-      {Key? key, required this.controller, required this.text, required this.function, this.initialVal})
+      {Key? key,
+      required this.controller,
+      required this.text,
+      required this.function,
+      this.initialVal})
       : super(key: key);
 
   @override
@@ -27,13 +31,15 @@ class BottomSheetWidget extends StatelessWidget {
               height: 180,
               child: Column(
                 children: [
-                  Text(text,
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.black)),
+                  Text(
+                    text,
+                    style: const TextStyle(fontSize: 20, color: Colors.black),
+                  ),
                   const Padding(padding: EdgeInsets.all(10)),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      autofocus: true,
                       minLines: 1,
                       style: const TextStyle(color: Colors.black, fontSize: 18),
                       obscureText: false,
