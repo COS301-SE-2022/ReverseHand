@@ -9,21 +9,24 @@ class AdminModel {
   final List<ReportedUserModel> reportedCustomers;
   final ReportedUserModel? activeUser;
   final List<ReportedAdvertModel>? activeAdverts;
+  final List<ReportedUserModel>? activeUsers;
   final ReportedAdvertModel? activeAdvert;
 
 
   const AdminModel(
-      {required this.reportedCustomers, this.activeUser, this.activeAdverts, this.activeAdvert});
+      {required this.reportedCustomers, this.activeUser,this.activeUsers, this.activeAdverts, this.activeAdvert});
 
   AdminModel copy({
     List<ReportedUserModel>? reportedCustomers,
     ReportedUserModel? activeUser,
+    List<ReportedUserModel>? activeUsers,
     List<ReportedAdvertModel>? activeAdverts,
     ReportedAdvertModel? activeAdvert,
   }) {
     return AdminModel(
       reportedCustomers: reportedCustomers ?? this.reportedCustomers,
       activeUser: activeUser ?? this.activeUser,
+      activeUsers: activeUsers ?? this.activeUsers,
       activeAdverts: activeAdverts ?? this.activeAdverts,
       activeAdvert: activeAdvert ?? this.activeAdvert,
     );

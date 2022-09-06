@@ -74,7 +74,8 @@
               "Ref": "AWS::Region"
             },
             "USER": "User",
-            "REVERSEHAND": "ReverseHand"
+            "REVERSEHAND": "ReverseHand",
+            "ARCHIVEDREVERSEHAND": "ArchivedReverseHand"
           }
         },
         "Role": {
@@ -213,6 +214,22 @@
                     "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
                     {
                       "tablename": "ReverseHand"
+                    }
+                  ]
+                },
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
+                    {
+                      "tablename": "ArchivedReverseHand"
+                    }
+                  ]
+                },
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
+                    {
+                      "tablename": "ArchivedReverseHand"
                     }
                   ]
                 }

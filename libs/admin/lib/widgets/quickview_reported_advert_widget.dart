@@ -25,7 +25,7 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          onTap: () => vm.dispatchViewAdvertDetails(advert.id),
+          onTap: () => vm.dispatchViewAdvertDetails(advert.advert.id),
           child: Card(
             margin: const EdgeInsets.all(10),
             color: const Color.fromARGB(255, 220, 224, 230),

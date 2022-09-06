@@ -7,7 +7,8 @@ import 'package:redux_comp/app_state.dart';
 class AdminAppBarWidget extends StatelessWidget {
   final String title;
   final Store<AppState> store;
-  const AdminAppBarWidget({Key? key, required this.title, required this.store})
+  final Widget? filterActions;
+  const AdminAppBarWidget({Key? key, required this.title, required this.store, this.filterActions})
       : super(key: key);
 
   @override
@@ -31,19 +32,9 @@ class AdminAppBarWidget extends StatelessWidget {
                 ),
               ),
             ),
-            actions: [
-              PopupMenuButton<String>( 
-                onSelected: ((item) => true),
-                itemBuilder: (BuildContext context) {
-                  return {'Filter', ''}.map((String choice) {
-                    return PopupMenuItem<String>(
-                      value: choice,
-                      child: Text(choice, style: const TextStyle(color: Colors.black)),
-                    );
-                  }).toList();
-                },
-              ),
-            ],
+            actions: (filterActions != null) ? [ 
+              filterActions!
+            ] : [],
           ),
         ));
   }

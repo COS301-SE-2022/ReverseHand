@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/job_card.dart';
-import 'package:redux_comp/models/admin/advert_report_model.dart';
+import 'package:redux_comp/models/admin/report_model.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
@@ -24,7 +24,7 @@ class AdminAdvertDetailsPage extends StatelessWidget {
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) {
               List<Widget> reports = [];
-              for (AdvertReportModel report in vm.reports) {
+              for (ReportModel report in vm.reports) {
                 reports
                     .add(QuickviewReportWidget(report: report, store: store));
               }
@@ -188,7 +188,7 @@ class _Factory extends VmFactory<AppState, AdminAdvertDetailsPage> {
 
 // view model
 class _ViewModel extends Vm {
-  final List<AdvertReportModel> reports;
+  final List<ReportModel> reports;
   final ReportedAdvertModel activeAdvert;
 
   _ViewModel({

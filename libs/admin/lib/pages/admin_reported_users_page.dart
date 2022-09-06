@@ -1,15 +1,16 @@
-import 'package:admin/widgets/admin_appbar_user_actions_widget.dart';
 import 'package:admin/widgets/admin_appbar_widget.dart';
 import 'package:admin/widgets/admin_navbar_widget.dart';
+import 'package:admin/widgets/quickview_reported_user_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/actions/admin/get_reported_users_action.dart';
+import 'package:redux_comp/models/admin/reported_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class AdminUsersPage extends StatelessWidget {
+class AdminReportedUsersPage extends StatelessWidget {
   final Store<AppState> store;
-  const AdminUsersPage({Key? key, required this.store}) : super(key: key);
+  const AdminReportedUsersPage({Key? key, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +21,17 @@ class AdminUsersPage extends StatelessWidget {
           child: StoreConnector<AppState, _ViewModel>(
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) {
+              List<Widget> reportedUsers = [];
+              for (ReportedUserModel user in vm.reportedUsers) {
+                reportedUsers.add(
+                    QuickViewReportedUserCardWidget(user: user, store: store));
+              }
+
               return (vm.loading)
                   ? Column(
                       children: [
                         //**********APPBAR***********//
-                        AdminAppBarWidget(
-                            title: "User Management", store: store),
+                        AdminAppBarWidget(title: "Reported Users", store: store),
                         //*******************************************//
 
                         LoadingWidget(
@@ -35,16 +41,9 @@ class AdminUsersPage extends StatelessWidget {
                   : Column(
                       children: [
                         //**********APPBAR***********//
-                        AdminAppBarWidget(
-                          title: "User Management",
-                          store: store,
-                          filterActions: AdminAppbarUserActionsWidget(
-                            store: store,
-                            functions: {
-                              "List reported users": vm.pushUserReportsPage
-                            },
-                          ),
-                        ),
+                        AdminAppBarWidget(title: "Reported Users", store: store),
+
+                        ...reportedUsers
                       ],
                     );
             },
@@ -57,33 +56,22 @@ class AdminUsersPage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, AdminUsersPage> {
+class _Factory extends VmFactory<AppState, AdminReportedUsersPage> {
   _Factory(widget) : super(widget);
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        loading: state.wait.isWaiting,
-        pushUserReportsPage: () {
-          dispatch(GetReportedUsersAction());
-          dispatch(NavigateAction.pushNamed('/admin_reported_users'));
-        },
-      );
+      reportedUsers: state.admin.activeUsers ?? [],
+      loading: state.wait.isWaiting,);
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
-  final VoidCallback pushUserReportsPage;
+  final List<ReportedUserModel> reportedUsers;
 
   _ViewModel({
     required this.loading,
-    required this.pushUserReportsPage,
-  }) : super(equals: [loading]); // implementinf hashcode;
+    required this.reportedUsers,
+  }) : super(equals: [loading, reportedUsers]); // implementinf hashcode;
 }
-
-// Map<String, VoidCallback> _usersPageOptions(_ViewModel vm) {
-//   return {
-//     "List reported users": vm.pushUserReportsPage
-//   };
-  
-// }

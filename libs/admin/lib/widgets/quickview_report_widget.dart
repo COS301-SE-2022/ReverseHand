@@ -1,11 +1,11 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/admin/advert_report_model.dart';
+import 'package:redux_comp/models/admin/report_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class QuickviewReportWidget extends StatelessWidget {
   final Store<AppState> store;
-  final AdvertReportModel report;
+  final ReportModel report;
 const QuickviewReportWidget({ Key? key, required this.store, required this.report }) : super(key: key);
 
   @override
@@ -34,7 +34,7 @@ const QuickviewReportWidget({ Key? key, required this.store, required this.repor
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 1.3,
-                        child: Text(report.tradesmanId,
+                        child: Text(report.reporterId,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(

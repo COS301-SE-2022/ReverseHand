@@ -3,7 +3,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-import 'package:redux_comp/actions/admin/get_customer_reported_adverts_action.dart';
 import 'package:redux_comp/models/admin/reported_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
@@ -174,9 +173,7 @@ class _Factory extends VmFactory<AppState, AdminConsumerProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchGetReportedAdverts: (customerId) => dispatch(
-          GetCustomerReportedAdvertsAction(customerId),
-        ),
+        dispatchGetReportedAdverts: (item) {},
         userDetails: state.admin.activeUser!,
       );
 }

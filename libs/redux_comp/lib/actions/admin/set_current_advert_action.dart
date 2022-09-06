@@ -8,7 +8,7 @@ class SetCurrentAdvertAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     final ReportedAdvertModel advert = state.admin.activeAdverts!
-        .firstWhere((element) => element.id == reportId);
+        .firstWhere((element) => element.advert.id == reportId);
 
     return state.copy(
       admin: state.admin.copy(activeAdvert: advert),

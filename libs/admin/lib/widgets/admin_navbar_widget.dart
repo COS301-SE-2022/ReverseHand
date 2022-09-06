@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/admin/get_reported_adverts_action.dart';
+import 'package:redux_comp/actions/admin/get_reported_users_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -117,10 +118,12 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
           NavigateAction.pushNamedAndRemoveUntil(
               '/admin_metrics', ModalRoute.withName('/')),
         ),
-        pushUserManage: () => dispatch(
-          NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_users', ModalRoute.withName('/')),
-        ),
+        pushUserManage: () {
+          dispatch(
+            NavigateAction.pushNamedAndRemoveUntil(
+                '/admin_users', ModalRoute.withName('/')),
+          );
+        },
         pushContentManage: () {
           dispatch(GetReportedAdvertsAction(state.userDetails!.scope!));
           dispatch(NavigateAction.pushNamedAndRemoveUntil(

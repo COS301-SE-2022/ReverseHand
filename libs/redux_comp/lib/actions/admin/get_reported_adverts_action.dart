@@ -15,16 +15,15 @@ class GetReportedAdvertsAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     String graphQLDoc = ''' query {
       getReportedAdverts(province: "Gauteng") {
-        id
         reports {
           description
           reason
-          tradesman_id
+          reporter_id
         }
         customer_id
         count
         advert {
-          accepted_bid
+          id
           date_created
           description
           domain {
@@ -35,7 +34,6 @@ class GetReportedAdvertsAction extends ReduxAction<AppState> {
               lng
             }
           }
-        id
         title
         type
       }
@@ -46,7 +44,7 @@ class GetReportedAdvertsAction extends ReduxAction<AppState> {
 
     try {
       final response = await Amplify.API.query(request: request).response;
-      final List<ReportedAdvertModel> adverts = [];
+      List<ReportedAdvertModel> adverts = [];
 
       dynamic data = jsonDecode(response.data)['getReportedAdverts'];
       for (dynamic ad in data) {
