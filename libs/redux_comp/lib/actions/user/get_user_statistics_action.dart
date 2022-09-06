@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +19,8 @@ class GetUserStatisticsAction extends ReduxAction<AppState> {
       getUserStatistics(
         user_id : "$userId"
       ){
-          consumer_stats {
-            num_adverts_won
-            num_adverts_created
-          }
-          tradesman_stats {
-            num_jobs_won
-            num_bids_placed
-          }
+          num_created
+          num_won
           rating_sum
           num_reviews
       }
@@ -40,23 +33,8 @@ class GetUserStatisticsAction extends ReduxAction<AppState> {
 
       final data = jsonDecode(response.data);
 
-      final ConsumerStatsModel consumerStats = ConsumerStatsModel(
-          numAdvertsWon: data['getUserStatistics']['consumer_stats']
-              ['num_adverts_won'],
-          numAdvertsCreated: data['getUserStatistics']['consumer_stats']
-              ['num_adverts_created']);
-
-      final TradesmanStatsModel tradesManStats = TradesmanStatsModel(
-          numJobsWon: data['getUserStatistics']['tradesman_stats']
-              ['num_jobs_won'],
-          numBidsPlaced: data['getUserStatistics']['tradesman_stats']
-              ['num_bids_placed']);
-
-      final StatisticsModel stats = StatisticsModel(
-          ratingSum: data['getUserStatistics']['rating_sum'],
-          numReviews: data['getUserStatistics']['num_reviews'],
-          consumerStats: consumerStats,
-          tradesManStats: tradesManStats);
+      final StatisticsModel stats =
+          StatisticsModel.fromJson(data['getUserStatistics']);
 
       return state.copy(userStatistics: stats);
     } on ApiException catch (e) {
