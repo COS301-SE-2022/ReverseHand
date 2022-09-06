@@ -26,6 +26,7 @@ class SetPlaceAction extends ReduxAction<AppState> {
                 lat: state.locationResult!.coordinates.lat,
                 lng: state.locationResult!.coordinates.lng),
           ));
+          dispatch(EditUserDetailsAction(userId: state.userDetails!.id, changed: "domains", domains: userDomains));
           return state.copy(
             userDetails:
                 state.userDetails!.copy(domains: userDomains, location: state.locationResult),
