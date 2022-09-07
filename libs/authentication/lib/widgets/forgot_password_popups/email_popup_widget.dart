@@ -10,6 +10,7 @@ import 'package:redux_comp/app_state.dart';
 import '../../pages/login_page.dart';
 import '../auth_textfield_light.dart';
 import '../link_widget.dart';
+import 'otp_popup_widget.dart';
 
 
 //******************************** */
@@ -17,7 +18,7 @@ import '../link_widget.dart';
 //******************************** */
 
 class FPEmailPopupWidget extends StatelessWidget {
-  final otpController = TextEditingController();
+  final emailController = TextEditingController();
 
   final Store<AppState> store;
 
@@ -49,7 +50,7 @@ class FPEmailPopupWidget extends StatelessWidget {
                       label: 'email',
                       obscure: false,
                       icon: Icons.email_outlined, 
-                      controller: otpController,
+                      controller: emailController,
                       
                     ),
                   ),
@@ -63,7 +64,14 @@ class FPEmailPopupWidget extends StatelessWidget {
                     colour: Colors.black
                   ),
                   const Padding(padding: EdgeInsets.all(20)),
-                  ButtonWidget(text: "Send", function: () {})
+                  ButtonWidget(text: "Send", function: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (BuildContext context) =>
+                        FPOTPPopupWidget(store: store,),
+                      );
+                  })
                 ],
               ),
             )),
@@ -78,7 +86,7 @@ class _Factory extends VmFactory<AppState, FPEmailPopupWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchVerifyUserAction: (otp) => dispatch(VerifyUserAction(otp)),
+        dispatchVerifyUserAction: (email) => dispatch(VerifyUserAction(email)),
       );
 }
 
