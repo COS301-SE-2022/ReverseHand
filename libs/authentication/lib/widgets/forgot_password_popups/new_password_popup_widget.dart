@@ -1,0 +1,105 @@
+import 'package:async_redux/async_redux.dart';
+import 'package:authentication/widgets/transparent_divider.dart';
+import 'package:authentication/widgets/auth_textfield.dart';
+import 'package:flutter/material.dart';
+import 'package:general/widgets/blue_button_widget.dart';
+import 'package:general/widgets/button.dart';
+import 'package:general/widgets/hint_widget.dart';
+import 'package:redux_comp/actions/user/amplify_auth/verify_user_action.dart';
+import 'package:redux_comp/app_state.dart';
+
+import '../../pages/login_page.dart';
+import '../auth_textfield_light.dart';
+import '../link_widget.dart';
+
+
+//******************************** */
+// Forgot password otp popup widget
+//******************************** */
+
+class NewPasswordPopupWidget extends StatelessWidget {
+  
+  final newPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  final Store<AppState> store;
+
+  NewPasswordPopupWidget({
+    Key? key,
+    required this.store,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Container(
+        color: const Color.fromARGB(255, 232, 232, 232),
+        child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SizedBox(
+              height: 360,
+              child: Column(
+                children: [
+                  const Text("New password",
+                      style: TextStyle(fontSize: 20, color: Colors.black)),
+                  const Padding(padding: EdgeInsets.all(10)),
+                  //*****************Password text field**********************
+                  const HintWidget(text: "Enter new password"),
+                  Container(
+                    margin: const EdgeInsets.only(left: 25, right: 25),
+                    padding: const EdgeInsets.all(8.0),
+                    child: AuthTextFieldLightWidget(
+                      label: 'new password',
+                      obscure: false,
+                      icon: Icons.lock_open_outlined, 
+                      controller: newPasswordController,
+                      
+                    ),
+                  ),
+                  //*****************************************************
+
+                   //*****************Confirm Password text field**********************
+                  const HintWidget(text: "Confirm password"),
+                  Container(
+                    margin: const EdgeInsets.only(left: 25, right: 25),
+                    padding: const EdgeInsets.all(8.0),
+                    child: AuthTextFieldLightWidget(
+                      label: 'confirm password',
+                      obscure: false,
+                      icon: Icons.lock_outline_rounded, 
+                      controller: confirmPasswordController,
+                      
+                    ),
+                  ),
+                  //*****************************************************
+
+                  //*****************Heading **********************
+                  const Padding(padding: EdgeInsets.all(20)),
+                  ButtonWidget(text: "Send", function: () {})
+                ],
+              ),
+            )),
+      ),
+    );
+  }
+}
+
+// factory for view model
+class _Factory extends VmFactory<AppState, NewPasswordPopupWidget> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel(
+        dispatchVerifyUserAction: (new_pass) => dispatch(VerifyUserAction(new_pass)),
+      );
+}
+
+// view model
+class _ViewModel extends Vm {
+  final void Function(String) dispatchVerifyUserAction;
+
+  _ViewModel({
+    required this.dispatchVerifyUserAction,
+  });
+}

@@ -57,12 +57,6 @@ class FPEmailPopupWidget extends StatelessWidget {
                   //*****************************************************
 
                   //*****************Heading **********************
-                  LinkWidget(
-                    text1: "Didn't receive OTP? ",
-                    text2: "Resend",
-                    navigate: () => LoginPage(store: store),
-                    colour: Colors.black
-                  ),
                   const Padding(padding: EdgeInsets.all(20)),
                   ButtonWidget(text: "Send", function: () {
                     showModalBottomSheet(
@@ -96,5 +90,5 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.dispatchVerifyUserAction,
-  }); // implementing hashcode
+  }); 
 }

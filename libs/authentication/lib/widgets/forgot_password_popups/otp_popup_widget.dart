@@ -10,6 +10,7 @@ import 'package:redux_comp/app_state.dart';
 import '../../pages/login_page.dart';
 import '../auth_textfield_light.dart';
 import '../link_widget.dart';
+import 'new_password_popup_widget.dart';
 
 
 //******************************** */
@@ -41,7 +42,7 @@ class FPOTPPopupWidget extends StatelessWidget {
                   const Text("Enter OTP sent to your email",
                       style: TextStyle(fontSize: 20, color: Colors.black)),
                   const Padding(padding: EdgeInsets.all(10)),
-                  //*****************Email text field**********************
+                  //*****************OTP text field**********************
                   Container(
                     margin: const EdgeInsets.only(left: 25, right: 25),
                     padding: const EdgeInsets.all(8.0),
@@ -63,7 +64,14 @@ class FPOTPPopupWidget extends StatelessWidget {
                     colour: Colors.black
                   ),
                   const Padding(padding: EdgeInsets.all(20)),
-                  ButtonWidget(text: "Send", function: () {})
+                  ButtonWidget(text: "Verify", function: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (BuildContext context) =>
+                        NewPasswordPopupWidget(store: store,),
+                      );
+                  })
                 ],
               ),
             )),
@@ -88,5 +96,5 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.dispatchVerifyUserAction,
-  }); // implementing hashcode
+  });
 }
