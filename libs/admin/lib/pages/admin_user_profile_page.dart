@@ -6,9 +6,9 @@ import 'package:general/widgets/button.dart';
 import 'package:redux_comp/models/admin/reported_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class AdminConsumerProfilePage extends StatelessWidget {
+class AdminUserProfilePage extends StatelessWidget {
   final Store<AppState> store;
-  const AdminConsumerProfilePage({Key? key, required this.store})
+  const AdminUserProfilePage({Key? key, required this.store})
       : super(key: key);
 
   @override
@@ -168,7 +168,7 @@ class AdminConsumerProfilePage extends StatelessWidget {
   }
 }
 
-class _Factory extends VmFactory<AppState, AdminConsumerProfilePage> {
+class _Factory extends VmFactory<AppState, AdminUserProfilePage> {
   _Factory(widget) : super(widget);
 
   @override

@@ -11,14 +11,27 @@ import 'package:redux_comp/actions/admin/get_reported_users_action.dart';
 import 'package:redux_comp/models/admin/cognito_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class AdminUsersPage extends StatelessWidget {
+class AdminUsersPage extends StatefulWidget {
   final Store<AppState> store;
   const AdminUsersPage({Key? key, required this.store}) : super(key: key);
 
   @override
+  State<AdminUsersPage> createState() => _AdminUsersPageState();
+}
+
+class _AdminUsersPageState extends State<AdminUsersPage> {
+  final TextEditingController searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: Scaffold(
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
@@ -26,15 +39,26 @@ class AdminUsersPage extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) {
               List<Widget> cognitoUsers = [];
               for (CognitoUserModel user in vm.cognitoUsers) {
-                cognitoUsers.add(
-                    QuickViewCognitoUserCardWidget(user: user, store: store));
+                cognitoUsers.add(QuickViewCognitoUserCardWidget(
+                    user: user, store: widget.store));
               }
+
+              Widget appBar = AdminAppBarWidget(
+                title: "User Management",
+                store: widget.store,
+                filterActions: AdminAppbarUserActionsWidget(
+                  store: widget.store,
+                  functions: {
+                    "List reported users": vm.pushUserReportsPage,
+                    "List reported reviews": vm.pushReviewReportsPage
+                  },
+                ),
+              );
               return (vm.loading)
                   ? Column(
                       children: [
                         //**********APPBAR***********//
-                        AdminAppBarWidget(
-                            title: "User Management", store: store),
+                        appBar,
                         //*******************************************//
 
                         LoadingWidget(
@@ -44,15 +68,32 @@ class AdminUsersPage extends StatelessWidget {
                   : Column(
                       children: [
                         //**********APPBAR***********//
-                        AdminAppBarWidget(
-                          title: "User Management",
-                          store: store,
-                          filterActions: AdminAppbarUserActionsWidget(
-                            store: store,
-                            functions: {
-                              "List reported users": vm.pushUserReportsPage,
-                              "List reported reviews": vm.pushReviewReportsPage
-                            },
+                        appBar,
+
+                        TextField(
+                          style: const TextStyle(color: Colors.white),
+                          controller: searchController,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.search,
+                              color: Colors.white,
+                            ),
+                            suffixIcon: (searchController.value.text != "") ? IconButton(
+                              icon: const Icon(
+                                Icons.clear,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                searchController.clear();
+                              },
+                            ) : const Icon(
+                              Icons.clear,
+                              color: Colors.grey,
+                            ),
+                            hintText: 'Search...',
+                            hintStyle: const TextStyle(color: Colors.white),
+                            border: InputBorder.none,
+                            fillColor: Colors.white,
                           ),
                         ),
 
@@ -62,20 +103,20 @@ class AdminUsersPage extends StatelessWidget {
             },
           ),
         ),
-        bottomNavigationBar: AdminNavBarWidget(store: store),
+        bottomNavigationBar: AdminNavBarWidget(store: widget.store),
       ),
     );
   }
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, AdminUsersPage> {
+class _Factory extends VmFactory<AppState, _AdminUsersPageState> {
   _Factory(widget) : super(widget);
 
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
-        cognitoUsers: state.admin.activeCognitoUsers!,
+        cognitoUsers: state.admin.activeCognitoUsers ?? [],
         pushUserReportsPage: () {
           dispatch(GetReportedUsersAction());
           dispatch(NavigateAction.pushNamed('/admin_reported_users'));
