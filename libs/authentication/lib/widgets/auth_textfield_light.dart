@@ -35,13 +35,13 @@ class AuthTextFieldLightWidget extends StatelessWidget {
     OutlineInputBorder unfocused = OutlineInputBorder(
       borderRadius: BorderRadius.circular(30),
       borderSide: const BorderSide(
-        color: Colors.grey,
+        color: Colors.orange,
         width: 2,
       ),
     );
 
     return TextFormField(
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black),
       validator: validator,
       obscureText: obscure,
       controller: controller,
@@ -55,10 +55,10 @@ class AuthTextFieldLightWidget extends StatelessWidget {
           // lack of errors
           prefixIcon: Icon(
             icon,
-            color: Colors.white,
+            color: Theme.of(context).primaryColorDark,
           ),
           filled: true,
-          fillColor: Theme.of(context).primaryColorLight.withOpacity(0.8),
+          fillColor: const Color.fromARGB(255, 232, 232, 232),
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           enabledBorder: unfocused,
           focusedBorder: focused),

@@ -1,13 +1,9 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/transparent_divider.dart';
-import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:general/widgets/blue_button_widget.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/user/amplify_auth/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
-
 import '../../pages/login_page.dart';
 import '../auth_textfield_light.dart';
 import '../link_widget.dart';
@@ -41,7 +37,7 @@ class FPOTPPopupWidget extends StatelessWidget {
               child: Column(
                 children: [
                   const Text("OTP Verification",
-                      style: TextStyle(fontSize: 20, color: Colors.black)),
+                      style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.bold)),
                   const Padding(padding: EdgeInsets.all(10)),
                   //*****************OTP text field**********************
                   const HintWidget(text: "Enter OTP sent to email",  
@@ -86,6 +82,7 @@ class FPOTPPopupWidget extends StatelessWidget {
 }
 
 // factory for view model
+// ignore: unused_element
 class _Factory extends VmFactory<AppState, FPOTPPopupWidget> {
   _Factory(widget) : super(widget);
 
