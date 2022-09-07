@@ -32,6 +32,12 @@ type Query {
 
   getReportedAdverts(province: String!): [AdminAdvert]!
     @function(name: "getReportedAdvertsResolver-${env}")
+
+  getReportedUsers: [AdminUser]!
+    @function(name: "getReportedUsersResolver-${env}")
+
+  getReportedReviews: [AdminUser]!
+    @function(name: "getReportedReviewsResolver-${env}")
 }
 
 type Mutation {
@@ -161,14 +167,16 @@ type User implements UniqueID {
   reviews: [Review!]
   sum: Int #For the time being nullable but will be changed once things like create user initialize this to zero
   advertsWon: [String]
-  scope: String! #The scope/province that the admin can view reports from
+  scope: String!  #The scope/province that the admin can view reports from
+  user_reports: [AdminReport!]! 
+  review_reports: [AdminReport!]!
 }
 
 type Statistics {
   rating_sum: Int!
   num_reviews: Int!
-  consumer_stats: ConsumerStats!
-  tradesman_stats: TradesmanStats!
+  num_won: Int!
+  num_created: Int!
 }
 
 type ConsumerStats {
@@ -299,17 +307,23 @@ input ReviewInput {
   date_created: Int
 }
 
+type AdminUser {
+  user_id: String!
+  user: User!
+  warnings: Int!
+  review_reports: [AdminReport!]!
+  user_reports: [AdminReport!]!
+}
 
 type AdminAdvert {
-  id: String!
   customer_id: String!
   advert: Advert!
   count: Int!
-  reports: [AdminAdvertReport!]!
+  reports: [AdminReport!]!
 }
 
-type AdminAdvertReport {
-  tradesman_id: String!
+type AdminReport {
+  reporter_id: String!
   reason: String!
   description: String!
 }

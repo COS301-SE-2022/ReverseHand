@@ -3,14 +3,13 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 const UserTable = process.env.USER;
 const ReverseHandTable = process.env.REVERSEHAND;
-
+const ArchivedReverseHandTable = process.env.ARCHIVEDREVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
     try {
-
         //get the user details
         let params = {
             TableName: UserTable,
@@ -32,6 +31,9 @@ exports.handler = async (event) => {
         //tradesman variables
         let numBidsCreated = 0;
         let numJobsWon = 0;
+
+        let won = 0;
+        let created = 0;
         
         
         if((event.arguments.user_id).charAt(0) == 'c') //data which is specific to a consumer
@@ -50,18 +52,31 @@ exports.handler = async (event) => {
 
             numAdvertsCreated = data['Count'];
 
-            (data['Items']).forEach(advert => {
-                if(advert['advert_details']['date_closed'] != null)//find the number of closed advaerts
+            // getting from archived table
+            params = {
+                TableName: ArchivedReverseHandTable,
+                IndexName: "customer_view",
+                KeyConditionExpression: "customer_id = :p",
+                ExpressionAttributeValues: {
+                    ":p": event.arguments.user_id, // should be a consumers id
+                }
+            };
+    
+            data = await docClient.query(params).promise();
+            numAdvertsCreated += data['Count'];
+
+            data['Items'].forEach(advert => {
+                if(advert['advert_details']['accepted_bid'] != null) //find the number of closed advaerts
                     numAdvertsWon += 1;
             });
 
-            
+            won = numAdvertsCreated;
+            created = numAdvertsWon;
         }
         else //data which is specific to a tradesman
         {
             //get all bids made by the tradesman
             //get all information related to the tradesman
-
 
             params = {
                 TableName: ReverseHandTable,
@@ -78,25 +93,34 @@ exports.handler = async (event) => {
 
             //Need to get bids won by the tradesman
             numJobsWon = (data['Item']['adverts_won']).length;
+
+            params = {
+                TableName: ArchivedReverseHandTable,
+                IndexName: "tradesman_view",
+                KeyConditionExpression: "tradesman_id = :p",
+                ExpressionAttributeValues: {
+                    ":p": event.arguments.user_id, // should be a tradesman id
+                }
+            };
+
+            Tdata = await docClient.query(params).promise();
+
+            numBidsCreated += Tdata['Count'];
+
+            numJobsWon += (data['Item']['adverts_won']).length;
+
+            won = numJobsWon;
+            created = numBidsCreated;
         }
 
         let result = {
             rating_sum : ratingSum,
             num_reviews : reviews.length,
-            consumer_stats : {
-                num_adverts_won : numAdvertsWon,
-                num_adverts_created : numAdvertsCreated
-            },
-            tradesman_stats : {
-                num_jobs_won : numJobsWon,
-                num_bids_placed: numBidsCreated
-            }
+            num_won: won,
+            num_created: created,
         };
-
         
         return result;
-
-        
     } catch (error) {
         console.log(error);
     }

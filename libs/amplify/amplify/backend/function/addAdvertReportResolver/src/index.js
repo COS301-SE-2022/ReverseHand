@@ -7,24 +7,20 @@ const ReverseHandTable = process.env.REVERSEHAND;
  */
 exports.handler = async (event) => {
     
-    let params = {
+    let paramsGetAdvert = {
       TableName: ReverseHandTable,
-      ReturnValues: 'ALL_OLD',
       Key: {
         part_key: event.arguments.advert_id,
         sort_key: event.arguments.advert_id
       },
-      UpdateExpression: `set admin_reports = list_append(if_not_exists(admin_reports,:list),:report)`,
-      ExpressionAttributeValues: {
-        ":report": [event.arguments.report],
-        ":list" : [],
-      },
     };
     
-    const old_advert = await docClient.update(params).promise().then((resp) => resp.Attributes);
-    if (old_advert.admin_reports == null) {
-      const advert_details = old_advert.advert_details;
-      let params = {
+    const advert = await docClient.get(paramsGetAdvert).promise().then((resp) => resp.Item);
+    
+    if (advert.admin_reports == null) {
+      advert.admin_reports = [];
+      const advert_details = advert.advert_details;
+      let paramsUpdateReportsList = {
         TableName: ReverseHandTable,
         ReturnValues: 'ALL_NEW',
         Key: {
@@ -39,11 +35,24 @@ exports.handler = async (event) => {
         },
       };
         
-      const resp = await docClient.update(params).promise().then((resp) => resp.Attributes);
-      return resp;
-    } else if (old_advert.admin_reports.length + 1 > 5) {
-      //archive advert when archive table set up
+      await docClient.update(paramsUpdateReportsList).promise().then((resp) => resp.Attributes);
+      
+    } else if (advert.admin_reports.some(report => report.reporter_id == event.arguments.report.reporter_id)) {
+        return "Advert already reported";
+    }
+    
+    advert.admin_reports.push(event.arguments.report);
+    
+    let paramsPutAdvert = {
+      TableName: ReverseHandTable,
+      Item : advert
     };
     
-    return old_advert;
+    await docClient.put(paramsPutAdvert).promise();
+    
+    if (advert.admin_reports.length > 5) {
+      
+    }
+    
+    return advert;
 };
