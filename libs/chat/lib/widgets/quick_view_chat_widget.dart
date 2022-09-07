@@ -42,16 +42,22 @@ class QuickViewChatWidget extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                   child: Row(
                     children: [
+                      const CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/profile.png",
+                                package: 'general'),
+                      ),
+                      const Padding(padding: EdgeInsets.only(right: 15)),
                       Text(
                         vm.userType == "Consumer"
                             ? chat.tradesmanName
                             : chat.consumerName,
                         style: const TextStyle(
                           fontSize: 25,
-                          color: Color.fromRGBO(7, 10, 13, 1)
+                          color: Color.fromRGBO(7, 10, 13, 1),
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      //add message preview and time sent and chat notification to card
+                      //todo add message preview and time sent and chat notification to card
                     ],
                   ),
                 ),

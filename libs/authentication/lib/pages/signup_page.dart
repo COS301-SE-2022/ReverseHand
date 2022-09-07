@@ -11,6 +11,7 @@ import '../widgets/transparent_divider.dart';
 import '../widgets/link_widget.dart';
 import '../widgets/otp_pop_up.dart';
 import '../widgets/auth_textfield.dart';
+import 'package:authentication/methods/validation.dart';
 
 //************************************** */
 //Consumer sign up page
@@ -33,23 +34,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final tradeController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
-
-  // used for validation
-
-  String? Function(String?) _createValidator(
-      String kind, String invalidMsg, RegExp regex) {
-    return (value) {
-      if (value == null || value.isEmpty) {
-        return 'A $kind must be entered';
-      }
-
-      if (!regex.hasMatch(value)) {
-        return "${kind[0].toUpperCase() + kind.substring(1)} $invalidMsg";
-      }
-
-      return null;
-    };
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   obscure: false,
                                   icon: Icons.alternate_email_outlined,
                                   controller: emailController,
-                                  validator: _createValidator(
+                                  validator: createValidator(
                                       'email',
                                       'is invalid',
                                       RegExp(
@@ -117,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   obscure: true,
                                   icon: Icons.lock_open_outlined,
                                   controller: passwordController,
-                                  validator: _createValidator(
+                                  validator: createValidator(
                                     'password',
                                     'must be at least 8 characters with upper and lowercase, atleast one number and special character',
                                     RegExp(
@@ -133,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   obscure: true,
                                   icon: Icons.lock_outline_rounded,
                                   controller: confirmController,
-                                  validator: _createValidator(
+                                  validator: createValidator(
                                     'password',
                                     'must be at least 8 characters with upper and lowercase, atleast one number and special character',
                                     RegExp(

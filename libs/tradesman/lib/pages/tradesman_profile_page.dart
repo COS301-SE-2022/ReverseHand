@@ -66,7 +66,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     children: [
                       AppBarWidget(title: "PROFILE", store: widget.store),
                       LoadingWidget(
-                          padding: MediaQuery.of(context).size.height / 3)
+                          topPadding: MediaQuery.of(context).size.height / 3, bottomPadding: 0)
                     ],
                   );
                 } else {

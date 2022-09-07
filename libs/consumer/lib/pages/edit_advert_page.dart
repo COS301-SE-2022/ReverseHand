@@ -70,7 +70,7 @@ class EditAdvertPage extends StatelessWidget {
 
                         //*********CREATE JOB BUTTON******************//
                         vm.loading
-                            ? const LoadingWidget(padding: 0)
+                            ? const LoadingWidget(topPadding: 0, bottomPadding: 0)
                             : ButtonWidget(
                                 text: "Save Changes",
                                 // check to make sure input is good

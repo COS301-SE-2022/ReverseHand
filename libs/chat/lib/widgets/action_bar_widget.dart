@@ -22,47 +22,48 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColorDark,
-      child: Row(
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 30, right: 10),
-            child: Icon(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 15,
+        vertical: 13,
+      ),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor
+      ),
+      child: SafeArea(
+        child: Row(
+          children: [
+            const Icon( //may need to remove
               Icons.camera_alt,
               color: Colors.white,
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: SizedBox(
-                height: 40,
-                child: TextField(
-                  controller: msgController,
-                  // maxLines: 50,
-                  style: const TextStyle(fontSize: 17, color: Colors.white),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: Theme.of(context).primaryColor),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(),
+                height: 45,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 25),
+                    Expanded(
+                      child: TextField(
+                        controller: msgController,
+                        style: const TextStyle(color: Colors.black),
+                        decoration: const InputDecoration(
+                          hintText: "Type message",
+                          border: InputBorder.none,
+                        ),
+                      ),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: Theme.of(context).primaryColor),
-                    ),
-                  ),
+                  ],
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 22,
-              right: 5.0,
-            ),
-            child: ActionButtonWidget(
+            const SizedBox(width: 15),
+            ActionButtonWidget(
               color: const Color.fromRGBO(243, 157, 55, 1),
               icon: Icons.send_rounded,
               onPressed: () {
@@ -70,9 +71,10 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
                 msgController.clear();
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+
   }
 }
