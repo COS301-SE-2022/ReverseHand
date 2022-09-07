@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/user_models/tradesman_stats_model.dart';
-
-import 'consumer_stats_model.dart';
 
 @immutable
 class StatisticsModel {
