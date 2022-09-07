@@ -17,17 +17,20 @@ exports.handler = async (event) => {
         const reported_users_item = await docClient.get(params).promise().then((resp) => resp.Item);
         let user_ids = [...reported_users_item.customers, ...reported_users_item.tradesmen];
         
-        console.log(user_ids);
-        
         params = {
             RequestItems: {},
         };
       
         params.RequestItems[UserTable] = {Keys: user_ids};
         
-        const users = await docClient.batchGet(params).promise().then((resp) => resp.Responses.User);
+        let users = await docClient.batchGet(params).promise().then((resp) => resp.Responses.User);
         
+        users.forEach(function(user) {
+          user.id = user.user_id; 
+          delete user.user_id;
+        });
         return users;
+    
     } catch(e) {
         return e;
     }

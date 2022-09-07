@@ -49,6 +49,7 @@ exports.handler = async (event) => {
 
         let userData = await docClient.get(params).promise();//get the tradesman
         let inputAd = [];
+        
 
         inputAd.push(event.arguments.ad_id);
         let mergedList = [...userData['Item']['adverts_won'],...inputAd];//add the new advert to the tradesmans list
