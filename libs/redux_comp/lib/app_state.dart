@@ -38,7 +38,7 @@ class AppState {
   final List<ReviewModel> reviews; //holds the list of a users reviews.
   final int sum; //this represents the sum of a users reviews
   final List<String> advertsWon; //adverts tradesman won.
-  final StatisticsModel? userStatistics;
+  final StatisticsModel userStatistics;
 
   // chat functionality
   final List<ChatModel> chats; // all chats
@@ -95,7 +95,12 @@ class AppState {
       adverts: const [],
       advertsWon: const [],
       sum: 0,
-      userStatistics: null,
+      userStatistics: const StatisticsModel(
+        numCreated: 0,
+        numReviews: 0,
+        numWon: 0,
+        ratingSum: 0,
+      ),
       viewAdverts: const [],
       bids: const [],
       shortlistBids: const [],
@@ -103,6 +108,7 @@ class AppState {
       reviews: const [],
       activeAd: const AdvertModel(
         id: "",
+        type: "none",
         title: "",
         domain: Domain(
             city: "city",

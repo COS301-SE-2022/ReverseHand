@@ -135,6 +135,7 @@ class ConsumerListingsPage extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) =>
               ConsumerFloatingButtonWidget(
             function: vm.pushCreateAdvertPage,
+            type: "add",
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

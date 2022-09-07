@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
+import 'package:redux_comp/actions/user/get_user_statistics_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
@@ -129,6 +130,8 @@ class _Factory extends VmFactory<AppState, TNavBarWidget> {
           NavigateAction.pushNamed('/chats'),
         ),
         dispatchGetChatsAction: () => dispatch(GetChatsAction()),
+        dispatchGetUserStatisticsAction: () =>
+            dispatch(GetUserStatisticsAction()),
       );
 }
 
@@ -140,6 +143,7 @@ class _ViewModel extends Vm {
   final void Function() dispatchLogoutAction;
   final VoidCallback pushChatPage;
   final void Function() dispatchGetChatsAction;
+  final VoidCallback dispatchGetUserStatisticsAction;
 
   _ViewModel({
     required this.pushProfilePage,
@@ -148,5 +152,6 @@ class _ViewModel extends Vm {
     required this.dispatchLogoutAction,
     required this.pushChatPage,
     required this.dispatchGetChatsAction,
+    required this.dispatchGetUserStatisticsAction,
   });
 }

@@ -6,7 +6,7 @@ class AdvertModel {
   final String id;
   final String title;
   final String? description;
-  final String? type;
+  final String type;
   final String? acceptedBid;
   final Domain domain;
   final double dateCreated;
@@ -17,7 +17,7 @@ class AdvertModel {
     required this.id,
     required this.title,
     this.description,
-    this.type,
+    required this.type,
     this.acceptedBid,
     required this.domain,
     required this.dateCreated,

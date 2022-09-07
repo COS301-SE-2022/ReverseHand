@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/job_icons.dart';
 import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -19,29 +20,6 @@ class QuickViewJobCardWidget extends StatelessWidget {
     required this.advert,
     required this.store,
   }) : super(key: key);
-
-  IconData jobType() {
-    switch (advert.type) {
-      case "Painting":
-        return Icons.imagesearch_roller;
-      case "Tiler":
-        return Icons.imagesearch_roller;
-      case "Carpenter":
-        return Icons.carpenter;
-      case "Cleaner":
-        return Icons.sanitizer;
-      case "Designer":
-        return Icons.design_services;
-      case "Landscaper":
-        return Icons.imagesearch_roller;
-      case "Electrician":
-        return Icons.bolt;
-      case "Plumbing":
-        return Icons.plumbing;
-      default:
-        return Icons.plumbing;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +49,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(13),
                         child: Icon(
-                          jobType(),
+                          getIcon(advert.type),
                           color: Theme.of(context).primaryColor,
                           size: 35,
                         ),
@@ -101,7 +79,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                             const Padding(padding: EdgeInsets.only(right: 10)),
                             const Icon(Icons.circle_outlined, size: 8),
                             const Padding(padding: EdgeInsets.only(left: 10)),
-                            Text(advert.type!,
+                            Text(advert.type,
                                 style: const TextStyle(
                                     fontSize: 20, color: Colors.black)),
                           ],

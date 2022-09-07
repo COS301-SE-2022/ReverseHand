@@ -33,6 +33,7 @@ type Query {
   getReportedAdverts(province: String!): [AdminAdvert]!
     @function(name: "getReportedAdvertsResolver-${env}")
 
+<<<<<<< HEAD
   getReportedUsers: [User]!
     @function(name: "getReportedUsersResolver-${env}")
 
@@ -41,6 +42,13 @@ type Query {
 
   listUsersInGroup(group: String!, nextToken: String): CognitoUserPagenation!
     @function(name: "listUsersInGroupResolver-${env}")
+=======
+  getReportedUsers: [AdminUser]!
+    @function(name: "getReportedUsersResolver-${env}")
+
+  getReportedReviews: [AdminUser]!
+    @function(name: "getReportedReviewsResolver-${env}")
+>>>>>>> 123b5ddaf56dc698d9128bfaf4fbbb28d8a31aa7
 }
 
 type Mutation {

@@ -32,9 +32,9 @@ class QuickViewBidWidget extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(12),
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorLight,
-                  borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 232, 232, 232),
+                  borderRadius: BorderRadius.all(Radius.circular(7.0)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,24 +56,28 @@ class QuickViewBidWidget extends StatelessWidget {
                         //***************************************/
 
                         //***********CONTRACTOR NAME*************/
-                        Text(
-                          '${bid.name}',
-                          style: const TextStyle(
-                              fontSize: 22, color: Colors.white),
+
+                        SizedBox(
+                          width: 130,
+                          child: Text(
+                            '${bid.name}',
+                            style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.black,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Theme.of(context).primaryColor,
+                                decorationThickness: 2),
+                          ),
                         ),
                         //***************************************/
                       ],
                     ),
                     //**************BID RANGE********************/
-                    SizedBox(
-                      width: 120,
-                      child: Text(
-                        'R${bid.priceLower}-R${bid.priceUpper}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style:
-                            const TextStyle(fontSize: 22, color: Colors.white),
-                      ),
+                    Text(
+                      'R${bid.priceLower}-R${bid.priceUpper}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 22, color: Colors.black),
                     ),
                     //***************************************/
                   ],
