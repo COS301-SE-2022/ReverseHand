@@ -44,7 +44,11 @@ class FPEmailPopupWidget extends StatelessWidget {
                       style: TextStyle(fontSize: 20, color: Colors.black)),
                   const Padding(padding: EdgeInsets.all(10)),
                   //*****************Email text field**********************
-                  const HintWidget(text: "Enter email to receive OTP"),
+                  const HintWidget(
+                    text: "Enter email to receive OTP", 
+                    colour: Colors.black, 
+                    padding: 70
+                  ),
                   Container(
                     margin: const EdgeInsets.only(left: 25, right: 25),
                     padding: const EdgeInsets.all(8.0),

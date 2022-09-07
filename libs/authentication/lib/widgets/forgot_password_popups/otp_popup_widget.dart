@@ -44,7 +44,10 @@ class FPOTPPopupWidget extends StatelessWidget {
                       style: TextStyle(fontSize: 20, color: Colors.black)),
                   const Padding(padding: EdgeInsets.all(10)),
                   //*****************OTP text field**********************
-                  const HintWidget(text: "Enter OTP sent to email"),
+                  const HintWidget(text: "Enter OTP sent to email",  
+                    colour: Colors.black, 
+                    padding: 85
+                  ),
                   Container(
                     margin: const EdgeInsets.only(left: 25, right: 25),
                     padding: const EdgeInsets.all(8.0),

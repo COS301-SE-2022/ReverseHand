@@ -45,7 +45,10 @@ class NewPasswordPopupWidget extends StatelessWidget {
                       style: TextStyle(fontSize: 20, color: Colors.black)),
                   const Padding(padding: EdgeInsets.all(10)),
                   //*****************Password text field**********************
-                  const HintWidget(text: "Enter new password"),
+                  const HintWidget(text: "Enter new password",  
+                    colour: Colors.black, 
+                    padding: 95
+                  ),
                   Container(
                     margin: const EdgeInsets.only(left: 25, right: 25),
                     padding: const EdgeInsets.all(8.0),
@@ -67,7 +70,10 @@ class NewPasswordPopupWidget extends StatelessWidget {
                   //*****************************************************
 
                    //*****************Confirm Password text field**********************
-                  const HintWidget(text: "Confirm password"),
+                  const HintWidget(text: "Confirm password",  
+                    colour: Colors.black, 
+                    padding: 95
+                  ),
                   Container(
                     margin: const EdgeInsets.only(left: 25, right: 25),
                     padding: const EdgeInsets.all(8.0),

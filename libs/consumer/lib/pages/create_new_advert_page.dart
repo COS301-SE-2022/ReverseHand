@@ -73,7 +73,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //title
               const Padding(padding: EdgeInsets.only(top: 20)),
-              const HintWidget(text: "Enter a title"),
+              const HintWidget(text: "Enter a title", colour: Colors.white70, padding: 15),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
@@ -87,7 +87,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               ),
 
               //trade type
-              const HintWidget(text: "Select all relevant trade types"),
+              const HintWidget(text: "Select all relevant trade types", colour: Colors.white70, padding: 15),
 
               Padding(
                   padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
@@ -110,7 +110,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                   )),
 
               //description
-              const HintWidget(text: "Enter a short description of the job"),
+              const HintWidget(text: "Enter a short description of the job", colour: Colors.white70, padding: 15),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 child: TextFieldWidget(
@@ -125,7 +125,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               //location
               const HintWidget(
                   text:
-                      "The address for the job. Only the city will be displayed"),
+                      "The address for the job. Only the city will be displayed", colour: Colors.white70, padding: 15),
               StoreConnector<AppState, _ViewModel>(
                 vm: () => _Factory(this),
                 builder: (BuildContext context, _ViewModel vm) => Padding(
