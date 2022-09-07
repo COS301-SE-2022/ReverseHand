@@ -2,6 +2,9 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
 
+//this makes the dynamic popup menu in the admin app bar, 
+//yes... popup menu would've been a better name
+
 class AdminAppbarUserActionsWidget extends StatelessWidget {
   final Store<AppState> store;
   final Map<String, VoidCallback> functions;

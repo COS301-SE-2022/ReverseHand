@@ -8,7 +8,13 @@ class AdminAppBarWidget extends StatelessWidget {
   final String title;
   final Store<AppState> store;
   final Widget? filterActions;
-  const AdminAppBarWidget({Key? key, required this.title, required this.store, this.filterActions})
+  final bool? backButton;
+  const AdminAppBarWidget(
+      {Key? key,
+      required this.title,
+      required this.store,
+      this.filterActions,
+      this.backButton})
       : super(key: key);
 
   @override
@@ -26,15 +32,17 @@ class AdminAppBarWidget extends StatelessWidget {
               // ignore: sized_box_for_whitespace
               child: Container(
                 width: 50,
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  package: 'authentication',
-                ),
+                child: (backButton == true)
+                    ? IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: vm.popPage)
+                    : Image.asset(
+                        'assets/images/logo.png',
+                        package: 'authentication',
+                      ),
               ),
             ),
-            actions: (filterActions != null) ? [ 
-              filterActions!
-            ] : [],
+            actions: (filterActions != null) ? [filterActions!] : [],
           ),
         ));
   }
@@ -46,15 +54,15 @@ class _Factory extends VmFactory<AppState, AdminAppBarWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushActivityStreamPage: () => dispatch(
-          NavigateAction.pushNamed('/tradesman/activity_stream'),
+        popPage: () => dispatch(
+          NavigateAction.pop(),
         ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushActivityStreamPage;
+  final VoidCallback popPage;
 
-  _ViewModel({required this.pushActivityStreamPage});
+  _ViewModel({required this.popPage});
 }

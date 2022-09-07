@@ -31,6 +31,9 @@ exports.handler = async (event) => {
         //tradesman variables
         let numBidsCreated = 0;
         let numJobsWon = 0;
+
+        let won = 0;
+        let created = 0;
         
         
         if((event.arguments.user_id).charAt(0) == 'c') //data which is specific to a consumer
@@ -60,12 +63,15 @@ exports.handler = async (event) => {
             };
     
             data = await docClient.query(params).promise();
-            numAdvertsCreated += data['Items'].length;
+            numAdvertsCreated += data['Count'];
 
             data['Items'].forEach(advert => {
                 if(advert['advert_details']['accepted_bid'] != null) //find the number of closed advaerts
                     numAdvertsWon += 1;
             });
+
+            won = numAdvertsCreated;
+            created = numAdvertsWon;
         }
         else //data which is specific to a tradesman
         {
@@ -102,19 +108,16 @@ exports.handler = async (event) => {
             numBidsCreated += Tdata['Count'];
 
             numJobsWon += (data['Item']['adverts_won']).length;
+
+            won = numJobsWon;
+            created = numBidsCreated;
         }
 
         let result = {
             rating_sum : ratingSum,
             num_reviews : reviews.length,
-            consumer_stats : {
-                num_adverts_won : numAdvertsWon,
-                num_adverts_created : numAdvertsCreated
-            },
-            tradesman_stats : {
-                num_jobs_won : numJobsWon,
-                num_bids_placed: numBidsCreated
-            }
+            num_won: won,
+            num_created: created,
         };
         
         return result;

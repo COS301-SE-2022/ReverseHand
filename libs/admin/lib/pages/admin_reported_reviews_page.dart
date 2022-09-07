@@ -1,15 +1,16 @@
 import 'package:admin/widgets/admin_appbar_widget.dart';
-import 'package:admin/widgets/admin_navbar_widget.dart';
 import 'package:admin/widgets/quickview_reported_user_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/admin/reported_user_model.dart';
-import 'package:redux_comp/redux_comp.dart';
 
-class AdminReportedUsersPage extends StatelessWidget {
+import '../widgets/admin_navbar_widget.dart';
+
+class AdminReportedReviewsPage extends StatelessWidget {
   final Store<AppState> store;
-  const AdminReportedUsersPage({Key? key, required this.store})
+  const AdminReportedReviewsPage({Key? key, required this.store})
       : super(key: key);
 
   @override
@@ -32,7 +33,7 @@ class AdminReportedUsersPage extends StatelessWidget {
                       children: [
                         //**********APPBAR***********//
                         AdminAppBarWidget(
-                          title: "Reported Users",
+                          title: "Review reports",
                           store: store,
                           backButton: true,
                         ),
@@ -46,7 +47,7 @@ class AdminReportedUsersPage extends StatelessWidget {
                       children: [
                         //**********APPBAR***********//
                         AdminAppBarWidget(
-                          title: "Reported Users",
+                          title: "Review Reports",
                           store: store,
                           backButton: true,
                         ),
@@ -63,7 +64,7 @@ class AdminReportedUsersPage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, AdminReportedUsersPage> {
+class _Factory extends VmFactory<AppState, AdminReportedReviewsPage> {
   _Factory(widget) : super(widget);
 
   @override

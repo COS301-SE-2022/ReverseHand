@@ -1,6 +1,6 @@
 let AWS = require('aws-sdk');
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event, context, callback)  => {
     let cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 
     let params = {
@@ -10,4 +10,5 @@ exports.handler = (event, context, callback) => {
     };
 
     await cognitoIdentityServiceProvider.adminAddUserToGroup(params).promise();
+    return event.arguments.group;
 };

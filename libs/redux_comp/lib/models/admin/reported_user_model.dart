@@ -19,7 +19,6 @@ class ReportedUserModel {
   });
 
   factory ReportedUserModel.fromJson(obj) {
-    debugPrint(obj.toString());
     List<ReportModel> reports = [];
     for(dynamic report in obj["user_reports"]) {
       reports.add(ReportModel.fromJson(report));

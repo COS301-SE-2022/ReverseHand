@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/admin/get_reported_adverts_action.dart';
-import 'package:redux_comp/actions/admin/get_reported_users_action.dart';
+import 'package:redux_comp/actions/admin/list_users_in_group_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -119,6 +119,7 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
               '/admin_metrics', ModalRoute.withName('/')),
         ),
         pushUserManage: () {
+          dispatch(ListUsersInGroupAction(groupName: "customer"));
           dispatch(
             NavigateAction.pushNamedAndRemoveUntil(
                 '/admin_users', ModalRoute.withName('/')),

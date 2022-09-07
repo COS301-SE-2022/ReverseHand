@@ -6,26 +6,27 @@ const UserTable = process.env.USER;
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-   let params = {
+   let paramsReportsList = {
             TableName: UserTable, 
             Key: {
                 user_id: "reported#reviews"
             } 
         };
         
-    const reported_reviews_item = await docClient.get(params).promise().then((resp) => resp.Item);
+    const reported_reviews_item = await docClient.get(paramsReportsList).promise().then((resp) => resp.Item);
     
     let user_ids = [...reported_reviews_item.customers, ...reported_reviews_item.tradesmen];
-        
-    console.log(user_ids);
-        
-    params = {
+                
+    let paramsGetUsers = {
         RequestItems: {},
     };
       
-    params.RequestItems[UserTable] = {Keys: user_ids};
+    paramsGetUsers.RequestItems[UserTable] = {Keys: user_ids};
     
-    const users = await docClient.batchGet(params).promise().then((resp) => resp.Responses.User);
-        
+    let users = await docClient.batchGet(paramsGetUsers).promise().then((resp) => resp.Responses.User);
+    users.forEach(function(user) {
+       user.id = user.user_id; 
+       delete user.user_id;
+    });
     return users;
 };

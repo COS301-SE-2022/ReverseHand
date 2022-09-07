@@ -35,6 +35,12 @@ type Query {
 
   getReportedUsers: [User]!
     @function(name: "getReportedUsersResolver-${env}")
+
+  getReportedReviews: [User]!
+    @function(name: "getReportedReviewsResolver-${env}")
+
+  listUsersInGroup(group: String!, nextToken: String): CognitoUserPagenation!
+    @function(name: "listUsersInGroupResolver-${env}")
 }
 
 type Mutation {
@@ -172,8 +178,8 @@ type User implements UniqueID {
 type Statistics {
   rating_sum: Int!
   num_reviews: Int!
-  consumer_stats: ConsumerStats!
-  tradesman_stats: TradesmanStats!
+  num_won: Int!
+  num_created: Int!
 }
 
 type ConsumerStats {
@@ -304,6 +310,16 @@ input ReviewInput {
   date_created: Int
 }
 
+type CognitoUser {
+  id: String!
+  email: String!
+  enabled: Boolean!
+}
+
+type CognitoUserPagenation {
+  users: [CognitoUser!]!
+  nextToken: String
+}
 
 type AdminAdvert {
   customer_id: String!

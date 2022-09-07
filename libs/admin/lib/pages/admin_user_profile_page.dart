@@ -146,7 +146,7 @@ class AdminConsumerProfilePage extends StatelessWidget {
 
                   //*******************ADVERTS BUTTON********************//
                   ButtonWidget(
-                    text: "Review Reported Adverts",
+                    text: "Enab",
                     function: () =>
                         vm.dispatchGetReportedAdverts(vm.userDetails.id),
                   ),

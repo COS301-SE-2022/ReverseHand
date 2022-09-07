@@ -7,11 +7,11 @@ import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
-class GetReportedUsersAction extends ReduxAction<AppState> {
+class GetReportedReviewsAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDoc = '''query {
-      getReportedUsers {
+      getReportedReviews {
         id
         email
         name
@@ -28,6 +28,13 @@ class GetReportedUsersAction extends ReduxAction<AppState> {
 
     try {
       final response = await Amplify.API.query(request: request).response;
+
+      for (GraphQLResponseError err in response.errors) {
+        if (err.message == "No user's found") {
+          return state.copy(admin: state.admin.copy(activeAdverts: []));
+        }
+      }
+
       List<ReportedUserModel> users = [];
 
       dynamic data = jsonDecode(response.data)['getReportedUsers'];
@@ -40,10 +47,14 @@ class GetReportedUsersAction extends ReduxAction<AppState> {
       );
     } on ApiException catch (e) {
       debugPrint(e.message);
-      return null;
+      return state.copy(
+        admin: state.admin.copy(activeUsers: []),
+      );
     } catch (e) {
       debugPrint(e.toString());
-      return null;
+      return state.copy(
+        admin: state.admin.copy(activeUsers: []),
+      );
     }
   }
 
