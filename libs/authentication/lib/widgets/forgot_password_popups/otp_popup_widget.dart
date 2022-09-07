@@ -4,6 +4,7 @@ import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/blue_button_widget.dart';
 import 'package:general/widgets/button.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/user/amplify_auth/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 
@@ -39,10 +40,11 @@ class FPOTPPopupWidget extends StatelessWidget {
               height: 300,
               child: Column(
                 children: [
-                  const Text("Enter OTP sent to your email",
+                  const Text("OTP Verification",
                       style: TextStyle(fontSize: 20, color: Colors.black)),
                   const Padding(padding: EdgeInsets.all(10)),
                   //*****************OTP text field**********************
+                  const HintWidget(text: "Enter OTP sent to email"),
                   Container(
                     margin: const EdgeInsets.only(left: 25, right: 25),
                     padding: const EdgeInsets.all(8.0),

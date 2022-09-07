@@ -4,9 +4,10 @@ import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/blue_button_widget.dart';
 import 'package:general/widgets/button.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/user/amplify_auth/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
-
+import '../../methods/validation.dart';
 import '../../pages/login_page.dart';
 import '../auth_textfield_light.dart';
 import '../link_widget.dart';
@@ -39,10 +40,11 @@ class FPEmailPopupWidget extends StatelessWidget {
               height: 300,
               child: Column(
                 children: [
-                  const Text("Enter email to receive OTP",
+                  const Text("Email Verification",
                       style: TextStyle(fontSize: 20, color: Colors.black)),
                   const Padding(padding: EdgeInsets.all(10)),
                   //*****************Email text field**********************
+                  const HintWidget(text: "Enter email to receive OTP"),
                   Container(
                     margin: const EdgeInsets.only(left: 25, right: 25),
                     padding: const EdgeInsets.all(8.0),
@@ -51,6 +53,11 @@ class FPEmailPopupWidget extends StatelessWidget {
                       obscure: false,
                       icon: Icons.email_outlined, 
                       controller: emailController,
+                      validator: createValidator(
+                        'email',
+                        'is invalid',
+                        RegExp(
+                            r'^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$')),
                       
                     ),
                   ),
