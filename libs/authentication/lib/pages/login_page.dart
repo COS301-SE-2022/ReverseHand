@@ -16,6 +16,7 @@ import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/auth_button.dart';
 // import '../widgets/forgot_pass_popup.dart';
+import '../widgets/forgot_password_popups/email_popup_widget.dart';
 import '../widgets/link_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -160,49 +161,9 @@ class LoginPage extends StatelessWidget {
                               showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,
-                                builder: (BuildContext context) {
-                                  return Padding(
-                                    padding: MediaQuery.of(context).viewInsets,
-                                    child: Container(
-                                      color: const Color.fromARGB(255, 232, 232, 232),
-                                      child: Padding(
-                                          padding: const EdgeInsets.all(20.0),
-                                          child: SizedBox(
-                                            height: 300,
-                                            child: Column(
-                                              children: [
-                                                const Text("Enter email to receive OTP",
-                                                    style: TextStyle(fontSize: 20, color: Colors.black)),
-                                                const Padding(padding: EdgeInsets.all(10)),
-                                                //*****************Email text field**********************
-                                                Container(
-                                                  margin: const EdgeInsets.only(left: 25, right: 25),
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: AuthTextFieldWidget(
-                                                    label: 'email',
-                                                    obscure: false,
-                                                    icon: Icons.email_outlined, 
-                                                    controller: otpController,
-                                                    
-                                                  ),
-                                                ),
-                                                //*****************************************************
-
-                                                //*****************Heading **********************
-                                                LinkWidget(
-                                                  text1: "Didn't receive OTP? ",
-                                                  text2: "Resend",
-                                                  navigate: () => LoginPage(store: store),
-                                                  colour: Colors.black
-                                                ),
-                                                const Padding(padding: EdgeInsets.all(20)),
-                                                ButtonWidget(text: "Send", function: () {})
-                                              ],
-                                            ),
-                                          )),
-                                    ),
-                                  );
-                                });
+                                builder: (BuildContext context) =>
+                                  FPEmailPopupWidget(store: store,),
+                                );
                             } , //forgot password popup linked here
                             child: const Text(
                               "Forgot Password?",
