@@ -221,7 +221,11 @@
         },
         "listUsersInGroupResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/listUsersInGroupResolver-7944504d71536b4b6f4c-build.zip"
+          "s3Key": "amplify-builds/listUsersInGroupResolver-5a6a58746366636c6442-build.zip"
+        },
+        "getSystemMetricsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getSystemMetricsResolver-42362f71536666793371-build.zip"
         }
       }
     }

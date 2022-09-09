@@ -1,5 +1,5 @@
-let AWS = require("aws-sdk");
-let buildUser = require("buildUser.js");
+const AWS = require("aws-sdk");
+const buildUser = require("./buildUser");
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
@@ -14,7 +14,6 @@ exports.handler = async (event) => {
     };
 
     const response = await cognitoIdentityServiceProvider.listUsersInGroup(params).promise();
-    console.log(response);
     let users = [];
     response.Users.forEach(function (user) {
         if (event.arguments.group == "customer")

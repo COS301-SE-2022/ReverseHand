@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "listUsersInGroupResolver",
+            "getSystemMetricsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "listUsersInGroupResolver",
+                  "getSystemMetricsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -72,8 +72,7 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "USERPOOLID": "eu-west-1_QpsSD87RL"
+            }
           }
         },
         "Role": {
@@ -93,12 +92,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRolee1bb53fa",
+            "reversehandLambdaRolec32442be",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRolee1bb53fa",
+                  "reversehandLambdaRolec32442be",
                   "-",
                   {
                     "Ref": "env"
@@ -169,6 +168,30 @@
         }
       }
     },
+    "cloudWatchListMetricsPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "cloudwatch:ListMetrics",
+              "Resource": "*"
+            }
+          ]
+        },
+        "PolicyName": "cloudwatch-list-users-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ]
+      }
+    },
     "CustomLambdaExecutionPolicy": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
@@ -178,10 +201,10 @@
           "Statement": [
             {
               "Action": [
-                "cognito-idp:ListUsersInGroup"
+                "cloudwatch:ListMetrics"
               ],
               "Resource": [
-                "arn:aws:cognito-idp:eu-west-1:727515863527:userpool/eu-west-1_QpsSD87RL"
+                "*"
               ],
               "Effect": "Allow"
             }
