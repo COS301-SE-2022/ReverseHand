@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/admin/set_current_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/admin/cognito_user_model.dart';
-import 'package:redux_comp/models/admin/reported_user_model.dart';
 
 //*********************************************** */
 // Reported Customers card layout widget
@@ -26,7 +25,7 @@ class QuickViewCognitoUserCardWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          onTap: () => vm.dispatchViewProfileAction(user.id),
+          onTap: vm.dispatchManageUser,
           child: Card(
             margin: const EdgeInsets.all(10),
             // color: Theme.of(context).primaryColorLight,
@@ -82,17 +81,17 @@ class _Factory extends VmFactory<AppState, QuickViewCognitoUserCardWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchViewProfileAction: (userId) => dispatch(
-          SetCurrentUserAction(userId),
+        dispatchManageUser: () => dispatch(
+          NavigateAction.pushNamed("/admin_user_manage"),
         ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String) dispatchViewProfileAction;
+  final void Function() dispatchManageUser;
 
   _ViewModel({
-    required this.dispatchViewProfileAction,
+    required this.dispatchManageUser,
   });
 }

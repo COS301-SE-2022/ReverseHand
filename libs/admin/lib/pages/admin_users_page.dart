@@ -2,7 +2,6 @@ import 'package:admin/widgets/admin_appbar_user_actions_widget.dart';
 import 'package:admin/widgets/admin_appbar_widget.dart';
 import 'package:admin/widgets/admin_navbar_widget.dart';
 import 'package:admin/widgets/quickview_cognito_user_widget.dart';
-import 'package:admin/widgets/quickview_reported_user_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/loading_widget.dart';
@@ -73,23 +72,29 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                         TextField(
                           style: const TextStyle(color: Colors.white),
                           controller: searchController,
+                          onChanged: (value) {
+                            setState(() {});
+                          },
                           decoration: InputDecoration(
                             prefixIcon: const Icon(
                               Icons.search,
                               color: Colors.white,
                             ),
-                            suffixIcon: (searchController.value.text != "") ? IconButton(
-                              icon: const Icon(
-                                Icons.clear,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                searchController.clear();
-                              },
-                            ) : const Icon(
-                              Icons.clear,
-                              color: Colors.grey,
-                            ),
+                            suffixIcon: (searchController.value.text != "")
+                                ? IconButton(
+                                    icon: const Icon(
+                                      Icons.clear,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      searchController.clear();
+                                      setState(() {});
+                                    },
+                                  )
+                                : const Icon(
+                                    Icons.clear,
+                                    color: Colors.grey,
+                                  ),
                             hintText: 'Search...',
                             hintStyle: const TextStyle(color: Colors.white),
                             border: InputBorder.none,

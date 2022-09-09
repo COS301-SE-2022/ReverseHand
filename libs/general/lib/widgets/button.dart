@@ -27,7 +27,9 @@ class ButtonWidget extends StatelessWidget {
               ? Theme.of(context).scaffoldBackgroundColor
               : color == "light"
                   ? Theme.of(context).primaryColorDark
-                  : const Color.fromRGBO(255, 153, 0, 1),
+                  : color == "red"
+                      ? Colors.red
+                      : const Color.fromRGBO(255, 153, 0, 1),
           shape: RoundedRectangleBorder(
             side: BorderSide(
                 width: 1.2,

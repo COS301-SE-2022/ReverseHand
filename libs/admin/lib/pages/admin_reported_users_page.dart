@@ -1,5 +1,4 @@
 import 'package:admin/widgets/admin_appbar_widget.dart';
-import 'package:admin/widgets/admin_navbar_widget.dart';
 import 'package:admin/widgets/quickview_reported_user_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';

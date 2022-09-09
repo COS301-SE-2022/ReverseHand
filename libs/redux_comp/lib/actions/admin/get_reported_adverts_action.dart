@@ -47,7 +47,7 @@ class GetReportedAdvertsAction extends ReduxAction<AppState> {
       List<ReportedAdvertModel> adverts = [];
 
       dynamic data = jsonDecode(response.data)['getReportedAdverts'];
-      for (dynamic ad in data) {
+      for (dynamic ad in data) { 
         adverts.add(ReportedAdvertModel.fromJson(ad));
       }
       return state.copy(

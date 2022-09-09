@@ -6,7 +6,6 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/admin/reported_user_model.dart';
 
-import '../widgets/admin_navbar_widget.dart';
 
 class AdminReportedReviewsPage extends StatelessWidget {
   final Store<AppState> store;
