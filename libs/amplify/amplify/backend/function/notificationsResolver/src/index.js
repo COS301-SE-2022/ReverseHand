@@ -18,7 +18,7 @@ const fetch = require('node-fetch');
 const AWS = require("aws-sdk");
 const SecretsManager = require('/opt/secretesmanager.js');
 const docClient = new AWS.DynamoDB.DocumentClient();
-const User = process.env.USER;
+const ReverseHandTable = process.env.REVERSEHAND;
 
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
 const initiateAuth = async ({clientId, username, password }) => cognitoIdentityServiceProvider.adminInitiateAuth({
@@ -33,19 +33,12 @@ const initiateAuth = async ({clientId, username, password }) => cognitoIdentityS
   .promise();
 
 exports.handler = async (event, context, callback) => {
-  let params = {
-    TableName: User,
-    Key: {
-      user_id: event.userId,
-    },
-    UpdateExpression: `set notifications = list_append(if_not_exists(notifications,:list),:notif)`,
-    ExpressionAttributeValues: {
-      ":notif": [event.notification],
-      ":list": []
-    },
+  const params = {
+    TableName: ReverseHandTable,
+    Item: event.notification,
   };
 
-  let notification = docClient.update(params).promise()
+  const notification = docClient.put(params).promise()
 
   const secrets = await SecretsManager.getSecret("NotificationLoginSecrets", "eu-west-1");
   const creds = JSON.parse(secrets);

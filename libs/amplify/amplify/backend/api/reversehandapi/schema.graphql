@@ -164,12 +164,11 @@ type User implements UniqueID {
   location: Location!
   domains: [Domain!]
   tradetypes: [String!]
-  reviews: [Review!]
-  sum: Int #For the time being nullable but will be changed once things like create user initialize this to zero
-  advertsWon: [String]
   scope: String!  #The scope/province that the admin can view reports from
-  user_reports: [AdminReport!]! 
-  review_reports: [AdminReport!]!
+  created: Int! #number of bids/adverts made
+  finished: Int! # number of adverts completed or bids won
+  rating_sum: Int!
+  rating_count: Int!
 }
 
 type Statistics {
