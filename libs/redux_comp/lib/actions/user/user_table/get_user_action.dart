@@ -10,6 +10,7 @@ import 'package:redux_comp/actions/user/subscribe_notifications_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
+import 'package:redux_comp/models/user_models/statistics_model.dart';
 import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -28,6 +29,10 @@ class GetUserAction extends ReduxAction<AppState> {
           email
           name
           cellNo
+          created
+          finished
+          rating_sum
+          rating_count
           location {
             address {
               streetNumber
@@ -56,12 +61,15 @@ class GetUserAction extends ReduxAction<AppState> {
         // build place model from result
         Location location = Location.fromJson(user["location"]);
 
+        final StatisticsModel userStatistics = StatisticsModel.fromJson(user);
+
         return state.copy(
           userDetails: state.userDetails!.copy(
             name: user["name"],
             cellNo: user["cellNo"],
             email: user["email"],
             location: location,
+            statistics: userStatistics,
           ),
         );
       } on ApiException catch (e) {
@@ -76,6 +84,10 @@ class GetUserAction extends ReduxAction<AppState> {
           email
           name
           cellNo
+          created
+          finished
+          rating_sum
+          rating_count
           domains {
             city
             province
@@ -107,6 +119,8 @@ class GetUserAction extends ReduxAction<AppState> {
           tradeTypes.add(trade);
         }
 
+        final StatisticsModel userStatistics = StatisticsModel.fromJson(user);
+
         return state.copy(
           userDetails: state.userDetails!.copy(
             name: user["name"],
@@ -114,6 +128,7 @@ class GetUserAction extends ReduxAction<AppState> {
             cellNo: user["cellNo"],
             domains: domains,
             tradeTypes: tradeTypes,
+            statistics: userStatistics,
           ),
         );
       } on ApiException catch (e) {
@@ -163,7 +178,8 @@ class GetUserAction extends ReduxAction<AppState> {
         dispatch(NavigateAction.pushNamed("/consumer"));
         break;
       case "Tradesman":
-        dispatch(ViewJobsAction(state.userDetails!.domains, state.userDetails!.tradeTypes));
+        dispatch(ViewJobsAction(
+            state.userDetails!.domains, state.userDetails!.tradeTypes));
         startupActions();
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;

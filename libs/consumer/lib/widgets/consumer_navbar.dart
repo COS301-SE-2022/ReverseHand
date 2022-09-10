@@ -98,7 +98,6 @@ class NavBarWidget extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      vm.dispatchGetUserStatisticsAction();
                       vm.pushProfilePage();
                     },
                     splashRadius: 30,
@@ -138,8 +137,6 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
         dispatchGetChatsAction: () => dispatch(GetChatsAction()),
         dispatchGetNotificationsAction: () =>
             dispatch(GetNotificationsAction()),
-        dispatchGetUserStatisticsAction: () =>
-            dispatch(GetUserStatisticsAction()),
       );
 }
 
@@ -152,7 +149,6 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchLogoutAction;
   final VoidCallback dispatchGetChatsAction;
   final VoidCallback dispatchGetNotificationsAction;
-  final VoidCallback dispatchGetUserStatisticsAction;
 
   _ViewModel({
     required this.pushProfilePage,
@@ -162,6 +158,5 @@ class _ViewModel extends Vm {
     required this.dispatchLogoutAction,
     required this.pushActivityStreamPage,
     required this.dispatchGetNotificationsAction,
-    required this.dispatchGetUserStatisticsAction,
   });
 }

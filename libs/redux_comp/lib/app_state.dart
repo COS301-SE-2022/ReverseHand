@@ -38,7 +38,6 @@ class AppState {
   final List<ReviewModel> reviews; //holds the list of a users reviews.
   final int sum; //this represents the sum of a users reviews
   final List<String> advertsWon; //adverts tradesman won.
-  final StatisticsModel userStatistics;
 
   // chat functionality
   final List<ChatModel> chats; // all chats
@@ -77,7 +76,6 @@ class AppState {
     required this.reviews,
     required this.sum,
     required this.advertsWon,
-    required this.userStatistics,
     required this.admin,
     required this.userProfileImage,
     required this.paystackSecretKey,
@@ -90,17 +88,21 @@ class AppState {
     return AppState(
       authModel: null,
       userDetails: const UserModel(
-          id: "", email: "", userType: "", externalProvider: false),
+        id: "",
+        email: "",
+        userType: "",
+        externalProvider: false,
+        statistics: StatisticsModel(
+          ratingSum: 0,
+          ratingCount: 0,
+          created: 0,
+          finished: 0,
+        ),
+      ),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
       advertsWon: const [],
       sum: 0,
-      userStatistics: const StatisticsModel(
-        numCreated: 0,
-        numReviews: 0,
-        numWon: 0,
-        ratingSum: 0,
-      ),
       viewAdverts: const [],
       bids: const [],
       shortlistBids: const [],
@@ -194,7 +196,6 @@ class AppState {
       admin: admin ?? this.admin,
       sum: sum ?? this.sum,
       advertsWon: advertsWon ?? this.advertsWon,
-      userStatistics: userStatistics ?? this.userStatistics,
       userProfileImage: userProfileImage ?? this.userProfileImage,
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,

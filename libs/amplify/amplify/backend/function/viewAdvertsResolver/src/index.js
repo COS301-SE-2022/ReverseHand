@@ -1,7 +1,6 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
-const CustomerView = process.env.CUSTOMERVIEW;
 // this function is used to retrieve the bids for a specific consumer
 
 /**
