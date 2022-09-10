@@ -6,20 +6,22 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/methods/populate_bids.dart';
 
 void main() {
-  var store = Store<AppState>(initialState: AppState.mock());
+  var store = Store<AppState>(initialState: AppState.initial());
 
   const bidOne = BidModel(
       id: "b#001",
       userId: "u12345",
       priceLower: 10,
       priceUpper: 20,
-      dateCreated: 123456);
+      dateCreated: 123456,
+      shortlisted: false);
   const bidTwo = BidModel(
       id: "b#002",
       userId: "u12346",
       priceLower: 12,
       priceUpper: 100,
-      dateCreated: 989999989);
+      dateCreated: 989999989,
+      shortlisted: true);
 
   List<BidModel> bids = [];
 

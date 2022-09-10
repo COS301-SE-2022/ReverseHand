@@ -15,16 +15,30 @@ void main() {
       province: "province",
       coordinates: Coordinates(lat: 22.2, lng: 22.2));
 
-  const ad = AdvertModel(
-      id: "test", title: "Test", domain: domain, dateCreated: 1246546);
+  const adOne = AdvertModel(
+    id: "test",
+    title: "Test",
+    domain: domain,
+    dateCreated: 1246546,
+    type: "Painting",
+  );
 
-  adverts.add(ad);
+  const adTwo = AdvertModel(
+    id: "id",
+    title: "title123",
+    type: "Carpenter",
+    domain: domain,
+    dateCreated: 12345,
+  );
 
-  var store = Store<AppState>(initialState: AppState.mock());
+  adverts.add(adOne);
+  adverts.add(adTwo);
+
+  var store = Store<AppState>(initialState: AppState.initial());
 
   List<Widget> result = populateAdverts(adverts, store);
 
   test("populateAdverts unit test", () {
-    expect(1, result.length);
+    expect(2, result.length);
   });
 }

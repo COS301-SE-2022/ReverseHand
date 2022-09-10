@@ -7,7 +7,7 @@ import 'package:tradesman/methods/populate_domains.dart';
 import 'package:tradesman/widgets/card_widget.dart';
 
 void main() {
-  var store = Store<AppState>(initialState: AppState.mock());
+  var store = Store<AppState>(initialState: AppState.initial());
 
   List<Domain> domains = [];
 

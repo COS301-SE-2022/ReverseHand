@@ -8,7 +8,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 void main() {
-  var store = Store<AppState>(initialState: AppState.mock());
+  var store = Store<AppState>(initialState: AppState.initial());
 
   final navigatorKey = GlobalKey<NavigatorState>();
 
