@@ -33,14 +33,11 @@ type Query {
   getReportedAdverts(province: String!): [AdminAdvert]!
     @function(name: "getReportedAdvertsResolver-${env}")
 
-  getReportedUsers: [User]!
+  getReportedUsers: [AdminUser]!
     @function(name: "getReportedUsersResolver-${env}")
 
-  getReportedReviews: [User]!
+  getReportedReviews: [AdminUser]!
     @function(name: "getReportedReviewsResolver-${env}")
-
-  listUsersInGroup(group: String!, nextToken: String): CognitoUserPagenation!
-    @function(name: "listUsersInGroupResolver-${env}")
 }
 
 type Mutation {
@@ -135,7 +132,7 @@ type Mutation {
   deleteChat(c_id: String!, ad_id: String!): Chat!
     @function(name: "deleteChatResolver-${env}")
 
-  addReview(user_id: String!, reviews: ReviewInput!): [Review!]!
+  addReview(user_id: String!, reviews: ReviewInput!): Review!
     @function(name: "addReviewResolver-${env}")
 
   deleteReview(user_id: String!, id: String!): [Review!]!  #id is the review id
@@ -167,12 +164,11 @@ type User implements UniqueID {
   location: Location!
   domains: [Domain!]
   tradetypes: [String!]
-  reviews: [Review!]
-  sum: Int #For the time being nullable but will be changed once things like create user initialize this to zero
-  advertsWon: [String]
   scope: String!  #The scope/province that the admin can view reports from
-  user_reports: [AdminReport!]! 
-  review_reports: [AdminReport!]!
+  created: Int! #number of bids/adverts made
+  finished: Int! # number of adverts completed or bids won
+  rating_sum: Int!
+  rating_count: Int!
 }
 
 type Statistics {
@@ -310,15 +306,12 @@ input ReviewInput {
   date_created: Int
 }
 
-type CognitoUser {
-  id: String!
-  email: String!
-  enabled: Boolean!
-}
-
-type CognitoUserPagenation {
-  users: [CognitoUser!]!
-  nextToken: String
+type AdminUser {
+  user_id: String!
+  user: User!
+  warnings: Int!
+  review_reports: [AdminReport!]!
+  user_reports: [AdminReport!]!
 }
 
 type AdminAdvert {
