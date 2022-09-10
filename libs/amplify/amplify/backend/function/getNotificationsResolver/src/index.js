@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-const UserTable = process.env.USER;
+
+const ReverseHandTable = process.env.REVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -9,13 +10,15 @@ const UserTable = process.env.USER;
 // gets all notificatiosn for a specfic user
 // input paramter is user id
 exports.handler = async (event) => {
-    let params = {
-        TableName: UserTable, 
-        Key: {
-            user_id: event.arguments.user_id
+    const params = {
+        TableName: ReverseHandTablev, 
+        KeyConditionExpression: "part_key = :id",
+        ExpressionAttributeValues: {
+            ":id": "notifications#" + event.arguments.user_id,
         }
     };
 
-    const data = await docClient.get(params).promise();
-    return data["Item"]['notifications'];
+    const notifications = await docClient.query(params)
+    .promise().then(data => data.Items);
+    return notifications;
 };

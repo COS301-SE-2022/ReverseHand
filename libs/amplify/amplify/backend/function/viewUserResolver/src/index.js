@@ -1,28 +1,28 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-const UserTable = process.env.USER;
+const ReverseHandTable = process.env.REVERSEHAND;
 // this function is used to retrieve the information about a specific user
-
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    try {
         let params = {
-            TableName: UserTable, 
-            KeyConditionExpression: "user_id = :u",
-            ExpressionAttributeValues: {
-                ":u": event.arguments.user_id,
+            TableName: ReverseHandTable, 
+            Key : {
+                part_key: event.arguments.user_id,
+                sort_key: event.arguments.user_id,
             }
         };
-        const data = await docClient.query(params).promise();
-        let item = data["Items"][0];
+        let user = await docClient.get(params).promise().then(data => data.Item);
         
-        item.id = item.user_id;
-        delete item.user_id;
+        if (user == undefined) {
+            throw "No users found";
+        }
         
-        return item;
-    } catch(e) {
-        return e;
-    }
+        user.id = user.part_key;
+        delete user.part_key;
+        delete user.sort_key;
+        
+        return user;
+
 };
