@@ -42,10 +42,10 @@ exports.handler = async (event) => {
         createParams.Item.tradetypes = event.arguments.tradetypes;
     };
 
-    await docClient.put(item).promise();
+    await docClient.put(createParams).promise();
 
-    item.Item.id = item.Item.user_id;
-    delete item.Item.user_id;
-    return item.Item;
+    createParams.Item.id = createParams.Item.user_id;
+    delete createParams.Item.user_id;
+    return createParams.Item;
 
 };

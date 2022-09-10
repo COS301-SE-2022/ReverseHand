@@ -64,7 +64,7 @@ exports.handler = async (event) => {
         }
         await docClient.delete(del).promise();
         
-        let shortBidId =  's' + event.arguments.bid_id;
+        let shortBidId =  event.arguments.bid_id;
         
         let item = {
             TableName: ReverseHandTable,

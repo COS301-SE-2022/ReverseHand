@@ -9,7 +9,7 @@ const ReverseHandTable = process.env.REVERSEHAND;
 exports.handler = async (event) => {
     
     const currentDate = new Date().getTime();
-    event.arguments.reviews.date_created = currentDate;
+    event.arguments.review.date_created = currentDate;
     const transactParams = [
         {
             Put: {
@@ -36,7 +36,9 @@ exports.handler = async (event) => {
             },
         }
     ]
-    await docClient.transactWrite(transactParams).promise();
+    await docClient.transactWrite({
+        TransactItems: transactParams
+    }).promise();
     // {
     //     const currentDate = new Date().getTime();
 

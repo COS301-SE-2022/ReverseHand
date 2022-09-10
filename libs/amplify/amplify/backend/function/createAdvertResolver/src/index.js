@@ -41,8 +41,8 @@ exports.handler = async (event) => {
         }
     };
 
-    await document.transactWrite({
-        TransactItem: [
+    await docClient.transactWrite({
+        TransactItems: [
             {
                 // updating domain
                 Update: {
@@ -68,10 +68,10 @@ exports.handler = async (event) => {
                 Update: {
                     TableName: ReverseHandTable,
                     Key: {
-                        part_key: customer_id,
-                        sort_key: customer_id
+                        part_key: event.arguments.customer_id,
+                        sort_key: event.arguments.customer_id
                     },
-                    UpdateExpression: "set created = :created + :value",
+                    UpdateExpression: "set created = created + :value",
                     ExpressionAttributeValues: {
                         ":value": 1,
                     }

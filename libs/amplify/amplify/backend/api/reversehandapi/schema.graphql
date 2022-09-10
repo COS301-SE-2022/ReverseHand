@@ -132,7 +132,7 @@ type Mutation {
   deleteChat(c_id: String!, ad_id: String!): Chat!
     @function(name: "deleteChatResolver-${env}")
 
-  addReview(user_id: String!, reviews: ReviewInput!): Review!
+  addReview(user_id: String!, review: ReviewInput!): Review!
     @function(name: "addReviewResolver-${env}")
 
   deleteReview(user_id: String!, id: String!): [Review!]!  #id is the review id
@@ -298,7 +298,6 @@ type Review implements UniqueID {
 }
 
 input ReviewInput {
-  id: String!
   rating: Int!
   description: String!
   user_id: String!
