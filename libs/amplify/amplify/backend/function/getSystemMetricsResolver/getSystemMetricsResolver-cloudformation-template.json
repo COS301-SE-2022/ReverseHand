@@ -201,7 +201,7 @@
           "Statement": [
             {
               "Action": [
-                "cloudwatch:ListMetrics"
+                "cloudwatch:GetMetricStatistics"
               ],
               "Resource": [
                 "*"

@@ -1,6 +1,6 @@
 [
   {
-    "Action": ["cloudwatch:ListMetrics"],
+    "Action": ["cloudwatch:GetMetricStatistics"],
     "Resource": ["*"]
   }
 ]
