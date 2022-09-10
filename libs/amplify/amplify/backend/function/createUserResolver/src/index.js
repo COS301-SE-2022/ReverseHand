@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-const UserTable = process.env.USER;
+// const UserTable = process.env.USER;
+const ReverseHandTable = process.env.REVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -18,36 +19,33 @@ const UserTable = process.env.USER;
     domains:
 */
 exports.handler = async (event) => {
-    try {
-        let item = {
-            TableName: UserTable,
-            Item: {
-                user_id: event.arguments.user_id,
-                name: event.arguments.name,
-                email: event.arguments.email,
-                cellNo: event.arguments.cellNo,
-                notifications: [],
-                reviews: [],
-                location: event.arguments.location,
-                sum: 0,
-                adverts_won: []
-            }
-        };
-        
-        if (event.arguments.domains !== undefined) {
-            item.Item.domains = event.arguments.domains;
+
+    let createParams = {
+        TableName: ReverseHandTable,
+        Item: {
+            part_key: event.arguments.user_id,
+            sort_key: event.arguments.user_id,
+            name: event.arguments.name,
+            email: event.arguments.email,
+            cellNo: event.arguments.cellNo,
+            created: 0,
+            finished: 0,
+            rating_sum: 0,
+            rating_count: 0
         }
-        
-        if (event.arguments.tradetypes !== undefined) {
-            item.Item.tradetypes = event.arguments.tradetypes;
-        }
-        
-        await docClient.put(item).promise();
-        
-        item.Item.id = item.Item.user_id;
-        delete item.Item.user_id;
-        return item.Item;
-    } catch(e) {
-        console.log(e);
-    }
+    };
+
+    if (event.arguments.user_id[0] == "c") {
+        createParams.Item.location = event.arguments.location;
+    } else {
+        createParams.Item.domains = event.arguments.domains;
+        createParams.Item.tradetypes = event.arguments.tradetypes;
+    };
+
+    await docClient.put(item).promise();
+
+    item.Item.id = item.Item.user_id;
+    delete item.Item.user_id;
+    return item.Item;
+
 };
