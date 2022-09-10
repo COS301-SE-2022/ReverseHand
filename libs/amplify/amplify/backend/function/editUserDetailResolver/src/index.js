@@ -1,12 +1,12 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-const UserTable = process.env.USER;
+const ReverseHandTable = process.env.REVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    try {
+    
         let args = [];
         let expressionAttributeNames = {};
         
@@ -52,35 +52,22 @@ exports.handler = async (event) => {
         expressionAttributeValues[':tradetypes'] = event.arguments.tradetypes;
 
         let params = {
-            TableName: UserTable,
+            TableName: ReverseHandTable,
+            ReturnValies : "ALL_NEW",
             Key: {
-                user_id: event.arguments.user_id,
+                part_key: event.arguments.user_id,
+                sort_key: event.arguments.user_id,
             },
             UpdateExpression: updateExpression,
             ExpressionAttributeValues: expressionAttributeValues,
             ExpressionAttributeNames: expressionAttributeNames,
         };
 
-        await docClient.update(params).promise();
-
-        // getting item to be returned
-        params = {
-            TableName: UserTable,
-            Key: {
-                user_id: event.arguments.user_id,
-            }
-        };
-
-        const data = await docClient.get(params).promise();
-        
-        let user = data['Item'];
+        let user = await docClient.update(params).promise().then(data => data.Attributes);
         //formatting for API User Model
-        user.id = user.user_id;
-        delete user.user_id;
+        user.id = user.part_key;
+        delete user.part_key;
+        delete user.sort_key;
         
         return user;
-        
-    } catch (error) {
-        console.log(error);
-    }
 };

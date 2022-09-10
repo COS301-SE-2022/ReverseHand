@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:redux_comp/models/geolocation/address_model.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
+import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 
 void main() {
@@ -37,9 +38,12 @@ void main() {
     cellNo: '0821234567',
     userType: 'Consumer',
     externalProvider: false,
-    registered: true,
-    externalUsername: "test1234",
-    scope: "global",
+    statistics: StatisticsModel(
+      ratingSum: 0,
+      ratingCount: 0,
+      created: 0,
+      finished: 0,
+    ),
   );
 
   test('Test to get UserId', () {

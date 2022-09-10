@@ -19,49 +19,102 @@ const ReverseHandTable = process.env.REVERSEHAND;
     location // will become required later on
 */
 exports.handler = async (event) => {
-    try {
-        const ad_id = "a#" + AWS.util.uuid.v4();
+    const ad_id = "a#" + AWS.util.uuid.v4();
 
-        // getting current date
-        const date = new Date();
-        const currentDate = date.getTime();
-        
-        let params = {
-            TableName: ReverseHandTable,
-            Key: {
-              part_key: event.arguments.domain.city + "#" + event.arguments.domain.province,
-              sort_key: event.arguments.type
-            },
-            UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad), province_id = if_not_exists(province_id, :p_id)`,
-            ExpressionAttributeValues: {
-              ":ad": [{part_key: ad_id, sort_key: ad_id}],
-              ":list": [],
-              ":p_id" : event.arguments.domain.province
-            },
-        };
-        
-        await docClient.update(params).promise(); //adding the advert to the list of adverts within the location and type
+    // getting current date
+    const date = new Date();
+    const currentDate = date.getTime();
 
-        let item = {
-            TableName: ReverseHandTable,
-            Item: {
-                part_key: ad_id,
-                sort_key: ad_id, // prefixing but keeping same suffix
-                customer_id: event.arguments.customer_id,
-                advert_details: {
-                    title: event.arguments.title,
-                    description: event.arguments.description,
-                    domain: event.arguments.domain,
-                    type: event.arguments.type,
-                    date_created: currentDate // automatically generating the date
+    let item = {
+        TableName: ReverseHandTable,
+        Item: {
+            part_key: ad_id,
+            sort_key: ad_id, // prefixing but keeping same suffix
+            customer_id: event.arguments.customer_id,
+            advert_details: {
+                title: event.arguments.title,
+                description: event.arguments.description,
+                domain: event.arguments.domain,
+                type: event.arguments.type,
+                date_created: currentDate // automatically generating the date
+            }
+        }
+    };
+
+    await docClient.transactWrite({
+        TransactItems: [
+            {
+                // updating domain
+                Update: {
+                    TableName: ReverseHandTable,
+                    Key: {
+                        part_key: event.arguments.domain.city + "#" + event.arguments.domain.province,
+                        sort_key: event.arguments.type
+                    },
+                    UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad), province_id = if_not_exists(province_id, :p_id)`,
+                    ExpressionAttributeValues: {
+                        ":ad": [{part_key: ad_id, sort_key: ad_id}],
+                        ":list": [],
+                        ":p_id" : event.arguments.domain.province
+                    },
+                }
+            },
+            // adding advert
+            {
+                Put: item
+            },
+            // incrementing adverts created
+            {
+                Update: {
+                    TableName: ReverseHandTable,
+                    Key: {
+                        part_key: event.arguments.customer_id,
+                        sort_key: event.arguments.customer_id
+                    },
+                    UpdateExpression: "set created = created + :value",
+                    ExpressionAttributeValues: {
+                        ":value": 1,
+                    }
                 }
             }
-        };
-        await docClient.put(item).promise();
+        ],
+    }).promise();
     
-        item.Item.advert_details['id'] = ad_id; // adding advert id to be returned
-        return item.Item.advert_details;
-    } catch(e) {
-        console.log(e);
-    }
+    /*
+    let params = {
+        TableName: ReverseHandTable,
+        Key: {
+            part_key: event.arguments.domain.city + "#" + event.arguments.domain.province,
+            sort_key: event.arguments.type
+        },
+        UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad), province_id = if_not_exists(province_id, :p_id)`,
+        ExpressionAttributeValues: {
+            ":ad": [{part_key: ad_id, sort_key: ad_id}],
+            ":list": [],
+            ":p_id" : event.arguments.domain.province
+        },
+    };
+    
+    await docClient.update(params).promise(); //adding the advert to the list of adverts within the location and type
+
+    let item = {
+        TableName: ReverseHandTable,
+        Item: {
+            part_key: ad_id,
+            sort_key: ad_id, // prefixing but keeping same suffix
+            customer_id: event.arguments.customer_id,
+            advert_details: {
+                title: event.arguments.title,
+                description: event.arguments.description,
+                domain: event.arguments.domain,
+                type: event.arguments.type,
+                date_created: currentDate // automatically generating the date
+            }
+        }
+    };
+    await docClient.put(item).promise();
+    */
+
+    item.Item.advert_details['id'] = ad_id; // adding advert id to be returned
+    return item.Item.advert_details;
 };

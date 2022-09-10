@@ -15,27 +15,46 @@ exports.handler = async (event) => {
     const currentDate = date.getTime();
 
     const bid_id = "b#" + AWS.util.uuid.v4();
-
+    
     let item = {
-        TableName: ReverseHandTable,
-        Item: {
-            part_key: event.arguments.ad_id,
-            sort_key: bid_id, // prefixing but keeping same suffix
-            tradesman_id: event.arguments.tradesman_id,
-            bid_details: {
-                name: event.arguments.name,
-                price_lower: event.arguments.price_lower,
-                price_upper:event.arguments.price_upper,
-                quote: event.arguments.quote, //optional parameter
-                date_created: currentDate,
-                shortlisted: false,
+                        part_key: event.arguments.ad_id,
+                        sort_key: bid_id, // prefixing but keeping same suffix
+                        tradesman_id: event.arguments.tradesman_id,
+                        bid_details: {
+                            name: event.arguments.name,
+                            price_lower: event.arguments.price_lower,
+                            price_upper:event.arguments.price_upper,
+                            quote: event.arguments.quote, //optional parameter
+                            date_created: currentDate,
+                            shortlisted: false,
+                        }
+                    };
+
+    await docClient.transactWrite({
+        TransactItems: [
+            {
+                Put: {
+                    TableName: ReverseHandTable,
+                    Item: item
+                }
+            },
+            {
+                Update: {
+                    TableName: ReverseHandTable,
+                    Key: {
+                        part_key: event.arguments.tradesman_id,
+                        sort_key: event.arguments.tradesman_id
+                    },
+                    UpdateExpression: "set created = created + :value",
+                    ExpressionAttributeValues: {
+                        ":value": 1,
+                    }
+                }
             }
-        }
-    };
+        ]
+    }).promise();
 
-    await docClient.put(item).promise();
-
-    item.Item.bid_details['id'] = bid_id; // bids id to be returned
-    item.Item.bid_details['tradesman_id'] = item.Item.tradesman_id;
-    return item.Item.bid_details;
+    item.bid_details['id'] = bid_id; // bids id to be returned
+    item.bid_details['tradesman_id'] = item.tradesman_id;
+    return item.bid_details;
 };
