@@ -10,7 +10,7 @@ class ActionButtonWidget extends StatelessWidget {
     Key? key,
     required this.color,
     required this.icon,
-    this.size = 50,
+    this.size = 45,
     required this.onPressed,
   }) : super(key: key);
 
