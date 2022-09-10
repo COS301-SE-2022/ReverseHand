@@ -3,6 +3,7 @@ import 'package:authentication/widgets/auth_button.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
@@ -11,6 +12,7 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
 import '../widgets/delete_advert_popup.dart';
 import '../widgets/light_dialog_helper.dart';
+import '../widgets/rating_popup.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -22,8 +24,6 @@ class AdvertDetailsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        // backgroundColor: Theme.of(context).primaryColorLight,
-
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
@@ -107,52 +107,32 @@ class AdvertDetailsPage extends StatelessWidget {
                       ),
 
                     //should only be displayed if a bid has been accepted
-                    // if (vm.advert.acceptedBid != null)
-                    //   ButtonWidget(
-                    //     text: "Close job",
-                    //     function: () {
-                    //       LightDialogHelper.display(context,
-                    //           RatingPopUpWidget(
-                    //         onPressed: () {
-                    //           vm.dispatchDeleteChatAction();
-                    //           vm.pushConsumerListings();
-                    //         },
-                    //       ), 1000.0);
-                    //     },
-                    //   ),
+                    if (vm.advert.acceptedBid != null)
+                      Center(
+                        child: Column(
+                          children: [
+                            const HintWidget(
+                                text:
+                                    "Close the job once all contractor\n services have been completed",
+                                colour: Colors.white70,
+                                padding: 0),
+                            const Padding(padding: EdgeInsets.only(top: 15)),
+                            AuthButtonWidget(
+                              text: "Close",
+                              function: () {
+                                LightDialogHelper.display(context,
+                                    RatingPopUpWidget(
+                                  onPressed: () {
+                                    vm.dispatchDeleteChatAction();
+                                    vm.pushConsumerListings();
+                                  },
+                                ), 1000.0);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
 
-                    // //Delete
-                    // if (vm.advert.acceptedBid == null)
-                    //   ButtonWidget(
-                    //     text: "Delete",
-                    //     color: "light",
-                    //     function: () {
-                    //       LightDialogHelper.display(
-                    //           context,
-                    //           DeletePopUpWidget(
-                    //             action: vm.dispatchArchiveAdvertAction,
-                    //           ),
-                    //           320.0);
-                    //     },
-                    //   ),
-
-                    //Back - if no bid accepted yet
-                    // if (vm.advert.acceptedBid == null)
-                    //   (ButtonWidget(
-                    //     text: "Back",
-                    //     color: "light",
-                    //     border: "white",
-                    //     function: vm.popPage,
-                    //   )),
-
-                    //Back - if bid accepted
-                    // if (vm.advert.acceptedBid != null)
-                    //   (ButtonWidget(
-                    //     text: "Back",
-                    //     color: "light",
-                    //     border: "white",
-                    //     function: vm.popPage,
-                    //   )),
                     //*************BOTTOM BUTTONS**************//
                   ],
                 );

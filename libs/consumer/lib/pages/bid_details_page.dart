@@ -9,8 +9,7 @@ import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:general/widgets/bottom_overlay.dart';
-import 'package:general/widgets/button.dart';
+import 'package:authentication/widgets/auth_button.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -35,7 +34,7 @@ class BidDetailsPage extends StatelessWidget {
 
                 //************NAME AND ROW*******************//
                 Padding(
-                  padding: const EdgeInsets.only(right: 15.0, top: 10),
+                  padding: const EdgeInsets.only(right: 15, top: 30, left: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -103,6 +102,8 @@ class BidDetailsPage extends StatelessWidget {
                             ),
                           ),
                         ),
+
+                        //this does not currently evaluate correctly?
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
                           child: IconButton(
@@ -123,39 +124,19 @@ class BidDetailsPage extends StatelessWidget {
                 ),
 
                 //****************BOTTOM BUTTONS**************//
-                const Padding(padding: EdgeInsets.only(top: 5)),
-                Stack(alignment: Alignment.center, children: <Widget>[
-                  BottomOverlayWidget(
-                    height: MediaQuery.of(context).size.height / 2,
-                  ),
-
-                  Positioned(
-                    top: 20,
-                    child: ButtonWidget(
-                        text: "Accept Bid",
-                        function: () {
-                          LightDialogHelper.display(
-                              context,
-                              ShortlistPopUpWidget(
-                                store: store,
-                                shortlisted:
-                                    vm.bid.isShortlisted() ? true : false,
-                              ),
-                              320.0);
-                        }),
-                  ),
-
-                  //Back
-                  Positioned(
-                    top: 80,
-                    child: ButtonWidget(
-                      text: "Back",
-                      color: "light",
-                      border: "white",
-                      function: vm.popPage,
-                    ),
-                  ),
-                ]),
+                const Padding(padding: EdgeInsets.only(top: 75)),
+                Center(
+                  child: AuthButtonWidget(
+                      text: "Accept Bid",
+                      function: () {
+                        LightDialogHelper.display(
+                            context,
+                            ShortlistPopUpWidget(
+                              store: store,
+                            ),
+                            320.0);
+                      }),
+                ),
                 //******************************************//
               ],
             ),
