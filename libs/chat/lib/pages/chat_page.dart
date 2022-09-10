@@ -55,34 +55,34 @@ class ChatPage extends StatelessWidget {
             },
           );
 
-          return Scaffold(
-            body: Stack(
-              children: <Widget>[
-                //*******************APP BAR WIDGET*********************//
-                ChatAppBarWidget(
-                  title: vm.currentUser == "consumer"
-                      ? vm.chat.tradesmanName
-                      : vm.chat.consumerName,
-                  store: store,
-                ),
-                //********************************************************//
-                SingleChildScrollView(
-                  controller: scrollController,
-                  child: Column(
-                    children: [
-                      // const DateLabelWidget(label: "Yesterday"), //todo michael
-                      const Padding(
-                        padding: EdgeInsets.only(top: 95),
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              ChatAppBarWidget(
+                title: vm.currentUser == "consumer"
+                    ? vm.chat.tradesmanName
+                    : vm.chat.consumerName,
+                store: store
+              ),
+              SliverToBoxAdapter(
+                child: Stack(
+                  children: <Widget>[
+                    SingleChildScrollView(
+                      controller: scrollController,
+                      child: Column(
+                        children: [
+                          // const DateLabelWidget(label: "Yesterday"), //todo michael
+                          const Padding(padding: EdgeInsets.only(top: 35),),
+                          ...messages,
+                          const Padding(padding: EdgeInsets.only(bottom: 80),),
+                        ],
                       ),
-                      ...messages,
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 80),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
             //************************NAVBAR***********************/
 
             bottomSheet: ActionBarWidget(

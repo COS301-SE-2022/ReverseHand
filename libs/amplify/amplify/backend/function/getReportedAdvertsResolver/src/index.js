@@ -18,15 +18,20 @@ exports.handler = async (event) => {
     const response = await docClient.query(params).promise().then((data) => data.Items);
     //if the response is empty there are no adverts in this province
     if (response.length == 0) {
-        return response;
+        return "No adverts";
     }
     
     //build keys for batch_get
     let concat_reports_list = [];
     response.forEach(function (item) {
-        item.reports_list.forEach((ad_id) => concat_reports_list.push({part_key: ad_id, sort_key: ad_id}));
+        if (item.reports_list != null) {
+            concat_reports_list = [...concat_reports_list, ...item.reports_list];
+        }
     });
     
+    if (concat_reports_list.length == 0) {
+        return "No reported adverts";
+    }
     params = {
         RequestItems: {},
     };
@@ -37,7 +42,7 @@ exports.handler = async (event) => {
     let result = [];
     adverts.forEach(function (advert) {
         let obj = {};
-        obj.id = advert.report_id;
+        obj.id = advert.part_key;
         obj.advert = advert.advert_details;
         obj.advert.id = advert.part_key;
         obj.customer_id = advert.customer_id;

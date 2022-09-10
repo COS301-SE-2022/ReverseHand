@@ -28,9 +28,10 @@ class LinkWidget extends StatelessWidget {
             onTap: navigate,
             child: Text(
               text2,
-              style: TextStyle(
-                fontSize: 17,
-                color: Theme.of(context).primaryColor,
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.orange,
+                fontWeight: FontWeight.bold
               ),
               softWrap: false,
             ),

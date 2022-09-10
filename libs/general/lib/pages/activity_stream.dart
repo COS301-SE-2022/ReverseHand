@@ -43,7 +43,7 @@ class ActivityStreamPage extends StatelessWidget {
 
                       //*******************MOCK NOTIFICATIONS CARDS*********************//
                       if (vm.loading)
-                        const LoadingWidget(padding: 0)
+                        const LoadingWidget(topPadding: 0, bottomPadding: 0)
                       else
                         ...notificationWidgets
 

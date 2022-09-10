@@ -4,6 +4,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
+import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
@@ -65,7 +66,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     children: [
                       AppBarWidget(title: "PROFILE", store: widget.store),
                       LoadingWidget(
-                          padding: MediaQuery.of(context).size.height / 3)
+                          topPadding: MediaQuery.of(context).size.height / 3, bottomPadding: 0)
                     ],
                   );
                 } else {
@@ -126,6 +127,18 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                       );
                     }
                   }
+
+                  int startAmount = vm.userStatistics.numReviews == 0
+                      ? 0
+                      : vm.userStatistics.ratingSum ~/
+                          vm.userStatistics.numReviews;
+
+                  List<Icon> stars = [];
+                  for (int i = 0; i < startAmount; i++) {
+                    stars.add(Icon(Icons.star,
+                        size: 30, color: Theme.of(context).primaryColor));
+                  }
+
                   return Column(children: [
                     //**************APPBAR***************/
                     AppBarWidget(store: widget.store, title: "PROFILE"),
@@ -136,7 +149,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     //**************HEADING***************/
                     Center(
                       child: Text(
-                        (vm.userDetails.name != null)
+                        vm.userDetails.name != null
                             ? vm.userDetails.name!
                             : "null",
                         style: const TextStyle(fontSize: 35),
@@ -164,23 +177,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                             padding: const EdgeInsets.all(20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.star,
-                                    size: 30,
-                                    color: Theme.of(context).primaryColor),
-                                Icon(Icons.star,
-                                    size: 30,
-                                    color: Theme.of(context).primaryColor),
-                                Icon(Icons.star,
-                                    size: 30,
-                                    color: Theme.of(context).primaryColor),
-                                Icon(Icons.star,
-                                    size: 30,
-                                    color: Theme.of(context).primaryColor),
-                                Icon(Icons.star,
-                                    size: 30,
-                                    color: Theme.of(context).primaryColor),
-                              ],
+                              children: stars,
                             ),
                           ),
                         ),
@@ -213,9 +210,9 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         Icons.check_circle_outline,
                                         color: Theme.of(context).primaryColor,
                                       ),
-                                      const Text(
-                                        "11 Jobs Completed",
-                                        style: TextStyle(fontSize: 18),
+                                      Text(
+                                        "${vm.userStatistics.numWon} Jobs Completed",
+                                        style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
                                   ),
@@ -231,9 +228,9 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         Icons.front_hand_outlined,
                                         color: Theme.of(context).primaryColor,
                                       ),
-                                      const Text(
-                                        "19 Bids Made",
-                                        style: TextStyle(fontSize: 18),
+                                      Text(
+                                        "${vm.userStatistics.numCreated} Bids Made",
+                                        style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
                                   ),
@@ -493,6 +490,7 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
+        userStatistics: state.userStatistics,
       );
 }
 
@@ -505,6 +503,7 @@ class _ViewModel extends Vm {
   final void Function(String, String) dispatchChangeCellAction;
   final void Function(String, List<String>) dispatchChangeTradeAction;
   final bool isWaiting;
+  final StatisticsModel userStatistics;
 
   _ViewModel({
     required this.userDetails,
@@ -514,5 +513,6 @@ class _ViewModel extends Vm {
     required this.dispatchChangeCellAction,
     required this.dispatchChangeTradeAction,
     required this.isWaiting,
-  }) : super(equals: [userDetails, isWaiting]);
+    required this.userStatistics,
+  }) : super(equals: [userDetails, isWaiting, userStatistics]);
 }
