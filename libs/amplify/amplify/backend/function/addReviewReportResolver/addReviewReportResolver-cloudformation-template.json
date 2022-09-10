@@ -73,7 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "USER": "User"
+            "REVERSEHAND": "ReverseHand"
           }
         },
         "Role": {
@@ -196,7 +196,7 @@
                   "Fn::Sub": [
                     "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
                     {
-                      "tablename": "User"
+                      "tablename": "ReverseHand"
                     }
                   ]
                 }
