@@ -21,16 +21,22 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
     );
 
     try {
-      final data =
-          jsonDecode((await Amplify.API.query(request: request).response).data);
-      final user = data["viewUser"];
+      final resp = await Amplify.API.query(request: request).response;
+      if (resp.errors.isNotEmpty) {
+        for (var error in resp.errors) {
+          switch (error.message) {
+            case "No users found":
+              return state.copy(
+                  userDetails: state.userDetails!.copy(
+                registered: false,
+              ));
+          }
+        }
+      }
 
-      if (user["id"] == "User Not Found") {
-        return state.copy(
-            userDetails: state.userDetails!.copy(
-          registered: false,
-        ));
-      } else if (user["id"] == id) {
+      final user = jsonDecode((resp).data)["viewUser"];
+
+      if (user["id"] == id) {
         store.dispatch(GetUserAction());
         return state.copy(
             userDetails: state.userDetails!.copy(

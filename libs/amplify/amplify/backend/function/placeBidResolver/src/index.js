@@ -1,5 +1,4 @@
 const AWS = require("aws-sdk");
-const { doc } = require("prettier");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
 
@@ -16,13 +15,8 @@ exports.handler = async (event) => {
     const currentDate = date.getTime();
 
     const bid_id = "b#" + AWS.util.uuid.v4();
-
-    await document.transactWrite({
-        TransactItems: [
-            {
-                Put: {
-                    TableName: ReverseHandTable,
-                    Item: {
+    
+    let item = {
                         part_key: event.arguments.ad_id,
                         sort_key: bid_id, // prefixing but keeping same suffix
                         tradesman_id: event.arguments.tradesman_id,
@@ -34,17 +28,24 @@ exports.handler = async (event) => {
                             date_created: currentDate,
                             shortlisted: false,
                         }
-                    }
+                    };
+
+    await docClient.transactWrite({
+        TransactItems: [
+            {
+                Put: {
+                    TableName: ReverseHandTable,
+                    Item: item
                 }
             },
             {
                 Update: {
                     TableName: ReverseHandTable,
                     Key: {
-                        part_key: tradesman_id,
-                        sort_key: tradesman_id
+                        part_key: event.arguments.tradesman_id,
+                        sort_key: event.arguments.tradesman_id
                     },
-                    UpdateExpression: "set created = :created + :value",
+                    UpdateExpression: "set created = created + :value",
                     ExpressionAttributeValues: {
                         ":value": 1,
                     }
@@ -53,7 +54,7 @@ exports.handler = async (event) => {
         ]
     }).promise();
 
-    item.Item.bid_details['id'] = bid_id; // bids id to be returned
-    item.Item.bid_details['tradesman_id'] = item.Item.tradesman_id;
-    return item.Item.bid_details;
+    item.bid_details['id'] = bid_id; // bids id to be returned
+    item.bid_details['tradesman_id'] = item.tradesman_id;
+    return item.bid_details;
 };
