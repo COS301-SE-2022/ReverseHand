@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
-import 'package:redux_comp/actions/user/get_user_statistics_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
