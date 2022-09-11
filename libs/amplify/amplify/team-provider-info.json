@@ -205,7 +205,7 @@
         },
         "removeUserReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/removeUserReportResolver-7a4343664c39436d5149-build.zip"
+          "s3Key": "amplify-builds/removeUserReportResolver-6a637534634572382f51-build.zip"
         },
         "getReportedReviewsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -217,7 +217,7 @@
         },
         "removeReviewReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/removeReviewReportResolver-704e4c3578584f543870-build.zip"
+          "s3Key": "amplify-builds/removeReviewReportResolver-557742635a6e6f456649-build.zip"
         }
       }
     }
