@@ -122,11 +122,11 @@ type Mutation {
   ): Chat! @function(name: "createChatResolver-${env}")
 
   sendMessage(
-    c_id: String!
-    t_id: String!
+    chat_id: String!
+    consumer_id: String
+    tradesman_id: String
     msg: String!
     sender: String!
-    name: String!
   ): Message! @function(name: "sendMessageResolver-${env}")
 
   deleteChat(c_id: String!, ad_id: String!): Chat!
@@ -188,21 +188,20 @@ type TradesmanStats {
   num_bids_placed: Int!
 }
 
-type Chat {
+type Chat implements UniqueID {
+  id: String!
   consumer_name: String!
   tradesman_name: String!
-  consumer_id: String!
-  tradesman_id: String!
-  messages: [Message!]!
+  timestamp: Float!
 }
 
-type Message {
+type Message implements UniqueID {
+  id: String!
   consumer_id: String # only sent for subscription
   tradesman_id: String # only sent for subscription
   msg: String!
   sender: String!
   timestamp: Float!
-  name: String!
 }
 
 type Location {

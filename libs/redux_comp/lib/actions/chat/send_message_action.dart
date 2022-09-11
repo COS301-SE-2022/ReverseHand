@@ -11,7 +11,7 @@ class SendMessageAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      sendMessage(c_id: "${state.chat.consumerId}", t_id: "${state.chat.tradesmanId}", msg: "$msg", sender: "${state.userDetails!.userType.toLowerCase()}", name: "${state.userDetails!.name}") {
+      sendMessage(c_id: "${state.chat.consumerId}", t_id: "${state.chat.tradesmanId}", msg: "$msg", sender: "${state.userDetails!.userType.toLowerCase()}") {
         consumer_id
         tradesman_id
         msg

@@ -9,18 +9,44 @@ const ReverseHandTable = process.env.REVERSEHAND;
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    let item = {
-        TableName: ReverseHandTable,
-        Item: {
-          part_key: event.arguments.c_id,
-          sort_key: event.arguments.t_id,
-          consumer_name: event.arguments.c_name,
-          tradesman_name: event.arguments.t_name,
-          messages: []
-        },
+    const timestamp = (new Date()).getTime();
+    const chatId = AWS.util.uuid.v4()
+
+    await docClient.batchWrite({
+      RequestItems: {
+        ReverseHand: [
+          // for consumer
+          {
+            PutRequest: {
+              Item: {
+                part_key: "chats#" + event.arguments.c_id,
+                sort_key: "chat#" + chatIds,
+                timestamp: timestamp,
+                consumer_name: event.arguments.c_name,
+                tradesman_name: event.arguments.t_name,
+              }
+            }
+          },
+          // for tradesman
+          {
+            PutRequest: {
+              Item: {
+                part_key: "chats#" + event.arguments.t_id,
+                sort_key: "chat#" + chatId,
+                timestamp: timestamp,
+                consumer_name: event.arguments.c_name,
+                tradesman_name: event.arguments.t_name,
+              }
+            }
+          }
+        ]
+      }
+    }).promise();
+
+    return {
+      id: chatId,
+      timestamp: timestamp,
+      consumer_name: event.arguments.c_name,
+      tradesman_name: event.arguments.t_name,
     };
-
-    await docClient.put(item).promise();
-
-    return item.Item;
 };
