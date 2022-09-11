@@ -20,7 +20,7 @@ exports.handler = async (event) => {
             PutRequest: {
               Item: {
                 part_key: "chats#" + event.arguments.c_id,
-                sort_key: "chat#" + chatIds,
+                sort_key: "chat#" + chatId,
                 timestamp: timestamp,
                 consumer_name: event.arguments.c_name,
                 tradesman_name: event.arguments.t_name,

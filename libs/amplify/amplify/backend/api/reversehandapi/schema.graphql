@@ -18,11 +18,8 @@ type Query {
   getPayStackKeys: PayStackKeys!
   @function(name: "getPayStackApiKeysResolver-${env}")
 
-  getConsumerChats(user_id: String!): [Chat!]!
-    @function(name: "getConsumerMessagesResolver-${env}")
-
-  getTradesmanChats(user_id: String!): [Chat!]!
-    @function(name: "getTradesmanMessagesResolver-${env}")
+  getChats(user_id: String!): [Chat!]!
+  @function(name: "getChatsResolver-${env}")
 
   getNotifications(user_id: String!): [Notification!]!
     @function(name: "getNotificationsResolver-${env}")

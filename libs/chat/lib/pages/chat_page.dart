@@ -107,7 +107,7 @@ class _Factory extends VmFactory<AppState, ChatPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchSendMsgAction: (String msg) => dispatch(SendMessageAction(msg)),
-        chat: state.chat,
+        chat: state.chat!,
         currentUser: state.userDetails!.userType.toLowerCase(),
         messages: state.messages,
       );
