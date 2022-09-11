@@ -44,6 +44,8 @@ exports.handler = async (event) => {
             Payload: JSON.stringify({
                 userId: bid.tradesman_id,
                 notification: {
+                    part_key: "notifications#" + event.arguments.tradesman_id,
+                    sort_key: "notification#" + AWS.util.uuid.v4(),
                     title: "Bid Shortlisted",
                     msg: "Your bid for " + ad.advert_details.title + " has been shortlisted.",
                     type: "BidShortlisted",
@@ -62,7 +64,7 @@ exports.handler = async (event) => {
         }
         await docClient.delete(del).promise();
         
-        let shortBidId =  's' + event.arguments.bid_id;
+        let shortBidId =  event.arguments.bid_id;
         
         let item = {
             TableName: ReverseHandTable,

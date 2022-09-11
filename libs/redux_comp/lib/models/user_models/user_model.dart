@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
+import 'package:redux_comp/models/user_models/statistics_model.dart';
 
 import '../geolocation/domain_model.dart';
 
@@ -14,9 +15,11 @@ class UserModel {
   final List<String> tradeTypes;
   final String userType;
   final bool? registered;
-  final bool externalProvider; 
-  final String? externalUsername; //for adding to user group, usernames different :(
+  final bool externalProvider;
+  final String?
+      externalUsername; //for adding to user group, usernames different :(
   final String? scope; //for the admin user province scope
+  final StatisticsModel statistics;
 
   const UserModel({
     required this.id,
@@ -31,6 +34,7 @@ class UserModel {
     required this.externalProvider,
     this.externalUsername,
     this.scope,
+    required this.statistics,
   });
 
   UserModel copy({
@@ -46,6 +50,7 @@ class UserModel {
     bool? externalProvider,
     String? externalUsername,
     String? scope,
+    StatisticsModel? statistics,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -60,6 +65,7 @@ class UserModel {
       externalProvider: externalProvider ?? this.externalProvider,
       externalUsername: externalUsername ?? this.externalUsername,
       scope: scope ?? this.scope,
+      statistics: statistics ?? this.statistics,
     );
   }
 }
