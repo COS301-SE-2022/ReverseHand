@@ -21,8 +21,8 @@ class CheckUserExistsAction extends ReduxAction<AppState> {
     );
 
     try {
-      final data =
-          jsonDecode((await Amplify.API.query(request: request).response).data);
+      final response = await Amplify.API.query(request: request).response;
+      final data = jsonDecode(response.data);
       final user = data["viewUser"];
 
       if (user["id"] == "User Not Found") {
