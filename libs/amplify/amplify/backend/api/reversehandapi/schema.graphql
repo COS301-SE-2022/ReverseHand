@@ -144,10 +144,7 @@ type Mutation {
 }
 
 type Subscription {
-  getMessageUpdatesConsumer(consumer_id: String!): Message
-    @aws_subscribe(mutations: ["sendMessage"])
-
-  getMessageUpdatesTradesman(tradesman_id: String!): Message
+  getMessageUpdates(chat_id: String!): Message
     @aws_subscribe(mutations: ["sendMessage"])
 
   notifyNewNotifications(user_id: String!): NotificationUpdate

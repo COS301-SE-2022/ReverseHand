@@ -42,7 +42,7 @@ class AppState {
 
   // chat functionality
   final List<ChatModel> chats; // all chats
-  final ChatModel chat; // the current active chat
+  final ChatModel? chat; // the current active chat if null than no active chat
   final List<MessageModel>
       messages; // list of messages for current active chats
 
@@ -135,12 +135,7 @@ class AppState {
       change: false,
       wait: Wait(),
       chats: const [],
-      chat: const ChatModel(
-        id: "",
-        consumerName: "",
-        timestamp: 0,
-        tradesmanName: "",
-      ),
+      chat: null,
       messages: const [],
       admin: const AdminModel(reportedCustomers: []),
       userProfileImage: null,
