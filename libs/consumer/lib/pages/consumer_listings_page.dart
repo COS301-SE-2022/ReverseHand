@@ -63,14 +63,14 @@ class ConsumerListingsPage extends StatelessWidget {
                             padding: EdgeInsets.all(15.0),
                             child: Text(
                               "OPEN",
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
                               "IN PROGRESS",
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],

@@ -14,6 +14,7 @@ import 'package:redux_comp/actions/chat/delete_chat_action.dart';
 import '../widgets/delete_advert_popup.dart';
 import '../widgets/light_dialog_helper.dart';
 import '../widgets/rating_popup.dart';
+import 'package:general/widgets/long_button_transparent.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -75,35 +76,18 @@ class AdvertDetailsPage extends StatelessWidget {
                                 function: () {
                                   vm.pushViewBidsPage();
                                 }),
-                            SizedBox(
-                              width: 290,
-                              height: 50,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  shadowColor: Colors.black,
-                                  elevation: 9,
-                                  side: const BorderSide(color: Colors.orange),
-                                  textStyle: const TextStyle(fontSize: 20),
-                                  minimumSize: const Size(400, 50),
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(30.0))),
-                                ),
-                                onPressed: () {
-                                  LightDialogHelper.display(
-                                      context,
-                                      DeletePopUpWidget(
-                                        // action: vm.dispatchArchiveAdvertAction,
-                                        action: () => vm.testPayments(context),
-                                      ),
-                                      320.0);
-                                },
-                                child: const Text("Delete"),
-                              ),
-                            ),
+                            TransparentLongButtonWidget(
+                              text: "Hello",
+                              function: () {
+                                LightDialogHelper.display(
+                                    context,
+                                    DeletePopUpWidget(
+                                      // action: vm.dispatchArchiveAdvertAction,
+                                      action: () => vm.testPayments(context),
+                                    ),
+                                    320.0);
+                              },
+                            )
                           ],
                         ),
                       ),
