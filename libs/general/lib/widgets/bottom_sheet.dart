@@ -28,11 +28,12 @@ class BottomSheetWidget extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: SizedBox(
-              height: 180,
+              height: 210,
               child: Column(
                 children: [
                   Text(
                     text,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 20, color: Colors.black),
                   ),
                   const Padding(padding: EdgeInsets.all(10)),

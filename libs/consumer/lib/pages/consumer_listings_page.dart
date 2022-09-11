@@ -63,14 +63,20 @@ class ConsumerListingsPage extends StatelessWidget {
                             padding: EdgeInsets.all(15.0),
                             child: Text(
                               "OPEN",
-                              style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
                               "IN PROGRESS",
-                              style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -86,12 +92,17 @@ class ConsumerListingsPage extends StatelessWidget {
                           children: [
                             //display loading icon
                             if (vm.loading)
-                              const LoadingWidget(topPadding: 80, bottomPadding: 0)
+                              const LoadingWidget(
+                                  topPadding: 80, bottomPadding: 0)
                             //a message if no jobs
                             else if (open.isEmpty)
-                              const Padding(
-                                padding: EdgeInsets.fromLTRB(40, 100, 40, 40),
-                                child: (Text(
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: (MediaQuery.of(context).size.height) /
+                                        4,
+                                    left: 40,
+                                    right: 40),
+                                child: (const Text(
                                   "You do not have any active jobs. Create a new job to see it here and enable contractors to start bidding.",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -108,9 +119,13 @@ class ConsumerListingsPage extends StatelessWidget {
                           children: [
                             //a message if no in progress jobs
                             if (inProgress.isEmpty)
-                              const Padding(
-                                padding: EdgeInsets.fromLTRB(40, 100, 40, 40),
-                                child: (Text(
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: (MediaQuery.of(context).size.height) /
+                                        4,
+                                    left: 40,
+                                    right: 40),
+                                child: (const Text(
                                   "No jobs are currently in progress. Only jobs with accepted bids are displayed here.",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(

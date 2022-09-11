@@ -77,7 +77,7 @@ class AdvertDetailsPage extends StatelessWidget {
                                   vm.pushViewBidsPage();
                                 }),
                             TransparentLongButtonWidget(
-                              text: "Hello",
+                              text: "Delete",
                               function: () {
                                 LightDialogHelper.display(
                                     context,
