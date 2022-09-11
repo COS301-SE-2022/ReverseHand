@@ -66,7 +66,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     children: [
                       AppBarWidget(title: "PROFILE", store: widget.store),
                       LoadingWidget(
-                          padding: MediaQuery.of(context).size.height / 3)
+                          topPadding: MediaQuery.of(context).size.height / 3, bottomPadding: 0)
                     ],
                   );
                 } else {
@@ -128,10 +128,10 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     }
                   }
 
-                  int startAmount = vm.userStatistics.numReviews == 0
+                  int startAmount = vm.userStatistics.ratingSum == 0
                       ? 0
                       : vm.userStatistics.ratingSum ~/
-                          vm.userStatistics.numReviews;
+                          vm.userStatistics.ratingCount;
 
                   List<Icon> stars = [];
                   for (int i = 0; i < startAmount; i++) {
@@ -211,7 +211,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         color: Theme.of(context).primaryColor,
                                       ),
                                       Text(
-                                        "${vm.userStatistics.numWon} Jobs Completed",
+                                        "${vm.userStatistics.created} Jobs Completed",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
@@ -229,7 +229,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         color: Theme.of(context).primaryColor,
                                       ),
                                       Text(
-                                        "${vm.userStatistics.numCreated} Bids Made",
+                                        "${vm.userStatistics.finished} Bids Made",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
@@ -490,7 +490,7 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
-        userStatistics: state.userStatistics,
+        userStatistics: state.userDetails!.statistics,
       );
 }
 

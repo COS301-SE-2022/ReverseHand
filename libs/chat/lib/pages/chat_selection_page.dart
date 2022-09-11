@@ -29,7 +29,7 @@ class ChatSelectionPage extends StatelessWidget {
                 AppBarWidget(title: "MY CHATS", store: store),
                 //********************************************************//
                 if (vm.loading)
-                  const LoadingWidget(padding: 0)
+                  const LoadingWidget(topPadding: 50, bottomPadding: 0)
                 else if (vm.chats.isEmpty)
                   Padding(
                     padding: EdgeInsets.only(

@@ -61,7 +61,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                         //*******************************************//
 
                         LoadingWidget(
-                            padding: MediaQuery.of(context).size.height / 3)
+                            topPadding: MediaQuery.of(context).size.height / 3,bottomPadding: 0)
                       ],
                     )
                   : Column(

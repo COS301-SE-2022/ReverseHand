@@ -6,6 +6,7 @@ import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
+import 'package:redux_comp/actions/process_payment_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
@@ -95,7 +96,8 @@ class AdvertDetailsPage extends StatelessWidget {
                                   LightDialogHelper.display(
                                       context,
                                       DeletePopUpWidget(
-                                        action: vm.dispatchArchiveAdvertAction,
+                                        // action: vm.dispatchArchiveAdvertAction,
+                                        action: () => vm.testPayments(context),
                                       ),
                                       320.0);
                                 },
@@ -190,6 +192,8 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           dispatch(ArchiveAdvertAction());
           dispatch(NavigateAction.pop());
         },
+        testPayments: (BuildContext context) =>
+            dispatch(ProcessPaymentAction(context)),
       );
 }
 
@@ -203,6 +207,7 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchDeleteChatAction;
   final VoidCallback
       dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
+  final void Function(BuildContext context) testPayments;
 
   _ViewModel({
     required this.dispatchDeleteChatAction,
@@ -212,5 +217,6 @@ class _ViewModel extends Vm {
     required this.pushConsumerListings,
     required this.popPage,
     required this.dispatchArchiveAdvertAction,
+    required this.testPayments,
   }) : super(equals: [advert]); // implementinf hashcode
 }

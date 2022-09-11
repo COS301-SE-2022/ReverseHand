@@ -30,7 +30,7 @@ class ConsumerProfilePage extends StatelessWidget {
                     children: [
                       AppBarWidget(title: "PROFILE", store: store),
                       LoadingWidget(
-                          padding: MediaQuery.of(context).size.height / 3)
+                          topPadding: MediaQuery.of(context).size.height / 3, bottomPadding: 0)
                     ],
                   )
                 : Column(
@@ -85,7 +85,7 @@ class ConsumerProfilePage extends StatelessWidget {
                                           color: Theme.of(context).primaryColor,
                                         ),
                                         Text(
-                                          "Adverts Closed ${vm.userStatistics.numWon}",
+                                          "Adverts Closed ${vm.userStatistics.finished}",
                                           style: const TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -103,7 +103,7 @@ class ConsumerProfilePage extends StatelessWidget {
                                           color: Theme.of(context).primaryColor,
                                         ),
                                         Text(
-                                          "Total Adverts ${vm.userStatistics.numCreated}",
+                                          "Total Adverts ${vm.userStatistics.created}",
                                           style: const TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -331,7 +331,7 @@ class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
                 userId: userId, changed: "cellNo", cellNo: cellNo)),
         userDetails: state.userDetails!,
         isWaiting: state.wait.isWaiting,
-        userStatistics: state.userStatistics,
+        userStatistics: state.userDetails!.statistics,
       );
 }
 
