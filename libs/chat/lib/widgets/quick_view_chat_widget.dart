@@ -22,7 +22,7 @@ class QuickViewChatWidget extends StatelessWidget {
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
           onTap: () {
-            vm.dispatchGetMessagesAction(chat);
+            vm.dispatchGetMessagesAction();
             vm.pushChatPage();
           },
           child: SizedBox(
@@ -34,8 +34,7 @@ class QuickViewChatWidget extends StatelessWidget {
                 margin: const EdgeInsets.all(10),
                 color: const Color.fromARGB(255, 220, 224, 230),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7)
-                ),
+                    borderRadius: BorderRadius.circular(7)),
                 elevation: 2,
                 child: Padding(
                   padding:
@@ -44,7 +43,7 @@ class QuickViewChatWidget extends StatelessWidget {
                     children: [
                       const CircleAvatar(
                         backgroundImage: AssetImage("assets/images/profile.png",
-                                package: 'general'),
+                            package: 'general'),
                       ),
                       const Padding(padding: EdgeInsets.only(right: 15)),
                       Text(
@@ -76,8 +75,7 @@ class _Factory extends VmFactory<AppState, QuickViewChatWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchGetMessagesAction: (ChatModel chat) =>
-            dispatch(GetMessagesAction(chat)),
+        dispatchGetMessagesAction: () => dispatch(GetMessagesAction()),
         pushChatPage: () => dispatch(
           NavigateAction.pushNamed('/chats/chat'),
         ),
@@ -87,7 +85,7 @@ class _Factory extends VmFactory<AppState, QuickViewChatWidget> {
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(ChatModel) dispatchGetMessagesAction;
+  final VoidCallback dispatchGetMessagesAction;
   final VoidCallback pushChatPage;
   final String userType;
 
