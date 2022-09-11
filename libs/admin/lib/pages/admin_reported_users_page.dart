@@ -37,8 +37,8 @@ class AdminReportedUsersPage extends StatelessWidget {
                         ),
                         //*******************************************//
 
-                        LoadingWidget(
-                            padding: MediaQuery.of(context).size.height / 3)
+                       LoadingWidget(
+                            topPadding: MediaQuery.of(context).size.height / 3,bottomPadding: 0)
                       ],
                     )
                   : Column(

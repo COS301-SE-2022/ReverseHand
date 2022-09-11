@@ -37,7 +37,7 @@ class AdminContentPage extends StatelessWidget {
                         //*******************************************//
 
                         LoadingWidget(
-                            topPadding: MediaQuery.of(context).size.height / 3, bottomPadding: 0)
+                            topPadding: MediaQuery.of(context).size.height / 3,bottomPadding: 0)
                       ],
                     )
                   : 
