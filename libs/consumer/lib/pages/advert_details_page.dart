@@ -3,7 +3,6 @@ import 'package:authentication/widgets/auth_button.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
-import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
@@ -94,32 +93,43 @@ class AdvertDetailsPage extends StatelessWidget {
 
                     //should only be displayed if a bid has been accepted
                     if (vm.advert.acceptedBid != null)
-                      Center(
-                        child: Column(
-                          children: [
-                            const HintWidget(
-                                text:
-                                    "Close the job once all contractor\n services have been completed",
-                                colour: Colors.white70,
-                                padding: 0),
-                            const Padding(padding: EdgeInsets.only(top: 15)),
-                            AuthButtonWidget(
-                              text: "Close",
-                              function: () {
-                                LightDialogHelper.display(context,
-                                    RatingPopUpWidget(
-                                  onPressed: () {
-                                    vm.dispatchDeleteChatAction();
-                                    vm.pushConsumerListings();
-                                  },
-                                ), 1000.0);
-                              },
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.info_outline,
+                                  color: Colors.white70,
+                                  size: 20,
+                                ),
+                                Padding(padding: EdgeInsets.all(2)),
+                                Text(
+                                  "Close the job once all contractor\nservices have been completed",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.white70),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          const Padding(padding: EdgeInsets.only(top: 15)),
+                          AuthButtonWidget(
+                            text: "Close",
+                            function: () {
+                              LightDialogHelper.display(context,
+                                  RatingPopUpWidget(
+                                onPressed: () {
+                                  vm.dispatchDeleteChatAction();
+                                  vm.pushConsumerListings();
+                                },
+                              ), 1000.0);
+                            },
+                          ),
+                        ],
                       ),
-
-                    //*************BOTTOM BUTTONS**************//
                   ],
                 );
               }),
