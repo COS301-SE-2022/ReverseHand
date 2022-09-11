@@ -24,8 +24,7 @@ exports.handler = async (event) => {
 
     return {
         id: msgId,
-        consumer_id: event.arguments.consumer_id,
-        tradesman_id: event.arguments.tradesman_id,
+        chat_id: event.arguments.chat_id,
         timestamp: timestamp,
         msg: event.arguments.msg,
         sender: event.arguments.sender,

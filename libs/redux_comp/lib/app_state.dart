@@ -3,6 +3,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
+import 'package:redux_comp/models/chat/message_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/review_model.dart';
@@ -42,6 +43,8 @@ class AppState {
   // chat functionality
   final List<ChatModel> chats; // all chats
   final ChatModel chat; // the current active chat
+  final List<MessageModel>
+      messages; // list of messages for current active chats
 
   //admin functionality
   final AdminModel admin;
@@ -73,6 +76,7 @@ class AppState {
     required this.wait,
     required this.chats,
     required this.chat,
+    required this.messages,
     required this.reviews,
     required this.sum,
     required this.advertsWon,
@@ -132,12 +136,12 @@ class AppState {
       wait: Wait(),
       chats: const [],
       chat: const ChatModel(
+        id: "",
         consumerName: "",
+        timestamp: 0,
         tradesmanName: "",
-        consumerId: "",
-        tradesmanId: "",
-        messages: [],
       ),
+      messages: const [],
       admin: const AdminModel(reportedCustomers: []),
       userProfileImage: null,
       paystackPublicKey: "",
@@ -166,6 +170,7 @@ class AppState {
     Wait? wait,
     List<ChatModel>? chats,
     ChatModel? chat,
+    List<MessageModel>? messages,
     AdminModel? admin,
     List<String>? advertsWon,
     int? sum,
@@ -193,6 +198,7 @@ class AppState {
       wait: wait ?? this.wait,
       chats: chats ?? this.chats,
       chat: chat ?? this.chat,
+      messages: messages ?? this.messages,
       admin: admin ?? this.admin,
       sum: sum ?? this.sum,
       advertsWon: advertsWon ?? this.advertsWon,

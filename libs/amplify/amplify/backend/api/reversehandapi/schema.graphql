@@ -123,8 +123,6 @@ type Mutation {
 
   sendMessage(
     chat_id: String!
-    consumer_id: String
-    tradesman_id: String
     msg: String!
     sender: String!
   ): Message! @function(name: "sendMessageResolver-${env}")
@@ -197,8 +195,7 @@ type Chat implements UniqueID {
 
 type Message implements UniqueID {
   id: String!
-  consumer_id: String # only sent for subscription
-  tradesman_id: String # only sent for subscription
+  chat_id: String! # to trigger subscription
   msg: String!
   sender: String!
   timestamp: Float!

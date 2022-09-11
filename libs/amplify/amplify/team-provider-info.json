@@ -133,7 +133,7 @@
         },
         "sendMessageResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/sendMessageResolver-676f7064516e48727868-build.zip"
+          "s3Key": "amplify-builds/sendMessageResolver-35577a5859356c644936-build.zip"
         },
         "getConsumerMessagesResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
