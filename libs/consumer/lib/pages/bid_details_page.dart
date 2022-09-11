@@ -2,9 +2,9 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:consumer/widgets/shortlist_bid_popup.dart';
 import 'package:flutter/material.dart';
-import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -41,13 +41,27 @@ class BidDetailsPage extends StatelessWidget {
                       Text('${vm.bid.name}',
                           style: const TextStyle(
                               fontSize: 33, color: Colors.white)),
-                      Text(
-                        timestampToDate(vm.bid.dateCreated),
-                        style: const TextStyle(
-                          fontSize: 17,
-                          color: Colors.white70,
-                        ),
-                      ),
+                      //do we still want the date?
+                      // Text(
+                      //   timestampToDate(vm.bid.dateCreated),
+                      //   style: const TextStyle(
+                      //     fontSize: 17,
+                      //     color: Colors.white70,
+                      //   ),
+                      // ),
+
+                      //this does not currently evaluate correctly?
+                      IconButton(
+                          onPressed: () {
+                            vm.dispatchShortListBidAction();
+                          },
+                          icon: Icon(
+                            vm.bid.isShortlisted()
+                                ? Icons.bookmark
+                                : Icons.bookmark_outline,
+                            size: 40,
+                            color: Theme.of(context).primaryColor,
+                          )),
                     ],
                   ),
                 ),
@@ -88,34 +102,14 @@ class BidDetailsPage extends StatelessWidget {
 
                     //**************SEE QUOTE BUTTON***************/
                     //if quote is not uploaded
-                    const Padding(padding: EdgeInsets.only(top: 15)),
+                    const Padding(padding: EdgeInsets.only(top: 40)),
                     Row(
-                      children: [
-                        const Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 58.0),
-                            child: Text(
-                              "No quote has been\n uploaded yet.",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.white54),
-                            ),
-                          ),
-                        ),
-
-                        //this does not currently evaluate correctly?
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: IconButton(
-                              onPressed: () {
-                                vm.dispatchShortListBidAction();
-                              },
-                              icon: Icon(
-                                vm.bid.isShortlisted()
-                                    ? Icons.bookmark
-                                    : Icons.bookmark_outline,
-                                color: Theme.of(context).primaryColor,
-                              )),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "No quote has been\n uploaded yet.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20, color: Colors.white54),
                         ),
                       ],
                     ),
@@ -124,18 +118,28 @@ class BidDetailsPage extends StatelessWidget {
                 ),
 
                 //****************BOTTOM BUTTONS**************//
-                const Padding(padding: EdgeInsets.only(top: 75)),
-                Center(
-                  child: AuthButtonWidget(
-                      text: "Accept Bid",
-                      function: () {
-                        LightDialogHelper.display(
-                            context,
-                            ShortlistPopUpWidget(
-                              store: store,
-                            ),
-                            320.0);
-                      }),
+
+                const Padding(padding: EdgeInsets.only(top: 55)),
+                Column(
+                  children: [
+                    Center(
+                      child: AuthButtonWidget(
+                          text: "Accept Bid",
+                          function: () {
+                            LightDialogHelper.display(
+                                context,
+                                ShortlistPopUpWidget(
+                                  store: store,
+                                ),
+                                320.0);
+                          }),
+                    ),
+                    TransparentLongButtonWidget(
+                        text: "View Contractor Profile",
+                        function: () {
+                          vm.pushLimitedProfilePage();
+                        })
+                  ],
                 ),
                 //******************************************//
               ],
@@ -160,6 +164,9 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
   _ViewModel fromStore() => _ViewModel(
         dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
+        pushLimitedProfilePage: () => dispatch(
+          NavigateAction.pushNamed('/tradesman/limited_tradesman_profile_page'),
+        ),
         bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
@@ -170,6 +177,7 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final BidModel bid;
+  final VoidCallback pushLimitedProfilePage;
   final VoidCallback dispatchAcceptBidAction;
   final VoidCallback dispatchShortListBidAction;
   final bool change;
@@ -177,6 +185,7 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.dispatchAcceptBidAction,
     required this.dispatchShortListBidAction,
+    required this.pushLimitedProfilePage,
     required this.bid,
     required this.popPage,
     required this.change,

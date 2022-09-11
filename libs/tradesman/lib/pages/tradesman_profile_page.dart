@@ -36,6 +36,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
         return MultiSelectWidget(selectedItems: selected);
       },
     );
+    
 
     // Update UI
     if (results != null) {
@@ -51,6 +52,8 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
     cellController.dispose();
     super.dispose();
   }
+
+  
 
   @override
   Widget build(BuildContext context) {

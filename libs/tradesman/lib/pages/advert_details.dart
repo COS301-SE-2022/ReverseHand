@@ -6,6 +6,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 
 import 'package:general/widgets/job_card.dart';
+import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -41,15 +42,15 @@ class TradesmanJobDetails extends StatelessWidget {
                   location: vm.advert.domain.city,
                 ),
 
-                const Padding(padding: EdgeInsets.only(top: 80)),
+                const Padding(padding: EdgeInsets.only(top: 60)),
 
                 //*************BOTTOM BUTTONS**************//
                 AuthButtonWidget(
                     text: "Place Bid",
                     function: () {
                       //keeping this here so that a bid can still be made while we create the last UI
-                      DarkDialogHelper.display(context,
-                      PlaceBidPopupWidget(store: store), 1000.0);
+                      DarkDialogHelper.display(
+                          context, PlaceBidPopupWidget(store: store), 1000.0);
                       // showModalBottomSheet(
                       //     context: context,
                       //     shape: RoundedRectangleBorder(
@@ -135,6 +136,9 @@ class TradesmanJobDetails extends StatelessWidget {
 
                 AuthButtonWidget(
                     text: "View Bids", function: vm.pushViewBidsPage),
+                const Padding(padding: EdgeInsets.only(top: 20)),
+                TransparentLongButtonWidget(
+                    text: "Report this Advert", function: () {})
               ],
             ),
           ),
