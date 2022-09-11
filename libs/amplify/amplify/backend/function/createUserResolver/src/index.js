@@ -1,6 +1,5 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-// const UserTable = process.env.USER;
 const ReverseHandTable = process.env.REVERSEHAND;
 
 /**
@@ -31,7 +30,8 @@ exports.handler = async (event) => {
             created: 0,
             finished: 0,
             rating_sum: 0,
-            rating_count: 0
+            rating_count: 0,
+            warnings: 0
         }
     };
 
@@ -42,10 +42,10 @@ exports.handler = async (event) => {
         createParams.Item.tradetypes = event.arguments.tradetypes;
     };
 
-    await docClient.put(item).promise();
+    await docClient.put(createParams).promise();
 
-    item.Item.id = item.Item.user_id;
-    delete item.Item.user_id;
-    return item.Item;
+    createParams.Item.id = createParams.Item.user_id;
+    delete createParams.Item.user_id;
+    return createParams.Item;
 
 };

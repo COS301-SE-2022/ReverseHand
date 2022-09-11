@@ -18,11 +18,11 @@ type Query {
   getPayStackKeys: PayStackKeys!
   @function(name: "getPayStackApiKeysResolver-${env}")
 
-  getConsumerChats(user_id: String!): [Chat!]!
-    @function(name: "getConsumerMessagesResolver-${env}")
+  getChats(user_id: String!): [Chat!]!
+  @function(name: "getChatsResolver-${env}")
 
-  getTradesmanChats(user_id: String!): [Chat!]!
-    @function(name: "getTradesmanMessagesResolver-${env}")
+  getMessages(chat_id: String!): [Message!]!
+  @function(name: "getMessagesResolver-${env}")
 
   getNotifications(user_id: String!): [Notification!]!
     @function(name: "getNotificationsResolver-${env}")
@@ -122,17 +122,15 @@ type Mutation {
   ): Chat! @function(name: "createChatResolver-${env}")
 
   sendMessage(
-    c_id: String!
-    t_id: String!
+    chat_id: String!
     msg: String!
     sender: String!
-    name: String!
   ): Message! @function(name: "sendMessageResolver-${env}")
 
   deleteChat(c_id: String!, ad_id: String!): Chat!
     @function(name: "deleteChatResolver-${env}")
 
-  addReview(user_id: String!, reviews: ReviewInput!): Review!
+  addReview(user_id: String!, review: ReviewInput!): Review!
     @function(name: "addReviewResolver-${env}")
 
   deleteReview(user_id: String!, id: String!): [Review!]!  #id is the review id
@@ -146,10 +144,7 @@ type Mutation {
 }
 
 type Subscription {
-  getMessageUpdatesConsumer(consumer_id: String!): Message
-    @aws_subscribe(mutations: ["sendMessage"])
-
-  getMessageUpdatesTradesman(tradesman_id: String!): Message
+  getMessageUpdates(chat_id: String!): Message
     @aws_subscribe(mutations: ["sendMessage"])
 
   notifyNewNotifications(user_id: String!): NotificationUpdate
@@ -188,21 +183,19 @@ type TradesmanStats {
   num_bids_placed: Int!
 }
 
-type Chat {
+type Chat implements UniqueID {
+  id: String!
   consumer_name: String!
   tradesman_name: String!
-  consumer_id: String!
-  tradesman_id: String!
-  messages: [Message!]!
+  timestamp: Float!
 }
 
-type Message {
-  consumer_id: String # only sent for subscription
-  tradesman_id: String # only sent for subscription
+type Message implements UniqueID {
+  id: String!
+  chat_id: String! # to trigger subscription
   msg: String!
   sender: String!
   timestamp: Float!
-  name: String!
 }
 
 type Location {
@@ -298,7 +291,6 @@ type Review implements UniqueID {
 }
 
 input ReviewInput {
-  id: String!
   rating: Int!
   description: String!
   user_id: String!

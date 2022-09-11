@@ -1,6 +1,5 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-// const UserTable = process.env.USER;
 const ReverseHandTable = process.env.REVERSEHAND;
 
 /**
@@ -66,8 +65,9 @@ exports.handler = async (event) => {
 
         let user = await docClient.update(params).promise().then(data => data.Attributes);
         //formatting for API User Model
-        user.id = user.user_id;
-        delete user.user_id;
+        user.id = user.part_key;
+        delete user.part_key;
+        delete user.sort_key;
         
         return user;
 };
