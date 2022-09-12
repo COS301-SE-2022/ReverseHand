@@ -3,18 +3,17 @@ import 'package:authentication/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
+import 'package:tradesman/widgets/upload_bid_widgets/upload_quote_sheet.dart';
 import '../widgets/tradesman_navbar_widget.dart';
 
 class TradesmanJobDetails extends StatelessWidget {
   final Store<AppState> store;
-  final TextEditingController bidController = TextEditingController();
-  TradesmanJobDetails({Key? key, required this.store}) : super(key: key);
+  const TradesmanJobDetails({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,94 +56,7 @@ class TradesmanJobDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(7.0),
                           ),
                           builder: (BuildContext context) {
-                            return SizedBox(
-                              height: 450,
-                              child: Column(
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.all(15.0),
-                                    child: Text(
-                                      "Place Bid",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                        "Add a detailed breakdown of materials and services.\n You can return to this step later.",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(color: Colors.black)),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(8, 10, 8, 8),
-                                    child: AuthButtonWidget(
-                                        text: "Upload Quote", function: () {}),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                                    child: Text(
-                                        "Enter the final amount for your bid.\n This is a required step.",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(color: Colors.black)),
-                                  ),
-                                  SizedBox(
-                                    height: 100,
-                                    width: 280,
-                                    child: TextFormField(
-                                      cursorHeight: 30,
-                                      cursorColor: Theme.of(context)
-                                          .scaffoldBackgroundColor,
-                                      style: const TextStyle(
-                                          color: Colors.black, fontSize: 18),
-                                      controller: bidController,
-                                      onTap: () {},
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(7),
-                                          borderSide: const BorderSide(
-                                            color: Colors.black,
-                                            width: 1.0,
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(7),
-                                          borderSide: const BorderSide(
-                                            color: Colors.orange,
-                                            width: 2.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ButtonWidget(
-                                            text: "Submit", function: () {}),
-                                        const Padding(
-                                            padding: EdgeInsets.all(3)),
-                                        ButtonWidget(
-                                            text: "Cancel",
-                                            color: "light",
-                                            border: "lightBlue",
-                                            function: () {
-                                              vm.popPage();
-                                            })
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
+                            return const UploadQuoteSheet();
                           });
                     }),
                 //place bid
