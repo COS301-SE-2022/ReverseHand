@@ -66,7 +66,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                  fontSize: 28,
+                                  fontSize: 25,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold)),
                         ),

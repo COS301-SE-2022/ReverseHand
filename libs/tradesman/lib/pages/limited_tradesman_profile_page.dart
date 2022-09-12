@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
@@ -52,6 +53,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                   //************************************/
 
                   //****************ICON****************/
+                  const Padding(padding: EdgeInsets.only(top: 10)),
                   ProfileImageWidget(
                     store: store,
                   ),
@@ -62,7 +64,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
                     child: SizedBox(
                       height: 70,
-                      width: 300,
+                      width: MediaQuery.of(context).size.width / 1.1,
                       child: Container(
                         decoration: BoxDecoration(
                             color: Theme.of(context).primaryColorDark,
@@ -84,7 +86,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
                       height: 100,
-                      width: 300,
+                      width: MediaQuery.of(context).size.width / 1.1,
                       child: Container(
                         decoration: BoxDecoration(
                             color: Theme.of(context).primaryColorDark,
@@ -135,6 +137,13 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  //ADD REVIEWS HERE
+
+                  const Padding(padding: EdgeInsets.only(top: 15)),
+                  TransparentLongButtonWidget(
+                      text: "Report Contractor", function: () {})
+
                   //***********************************/
                 ]);
               }),

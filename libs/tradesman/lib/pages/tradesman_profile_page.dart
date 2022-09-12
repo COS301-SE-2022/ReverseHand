@@ -36,7 +36,6 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
         return MultiSelectWidget(selectedItems: selected);
       },
     );
-    
 
     // Update UI
     if (results != null) {
@@ -53,8 +52,6 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
     super.dispose();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -69,7 +66,8 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     children: [
                       AppBarWidget(title: "PROFILE", store: widget.store),
                       LoadingWidget(
-                          topPadding: MediaQuery.of(context).size.height / 3, bottomPadding: 0)
+                          topPadding: MediaQuery.of(context).size.height / 3,
+                          bottomPadding: 0)
                     ],
                   );
                 } else {
@@ -171,7 +169,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                       padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
                       child: SizedBox(
                         height: 70,
-                        width: 300,
+                        width: MediaQuery.of(context).size.width / 1.15,
                         child: Container(
                           decoration: BoxDecoration(
                               color: Theme.of(context).primaryColorDark,
@@ -193,7 +191,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                         height: 100,
-                        width: 300,
+                        width: MediaQuery.of(context).size.width / 1.15,
                         child: Container(
                           decoration: BoxDecoration(
                               color: Theme.of(context).primaryColorDark,
