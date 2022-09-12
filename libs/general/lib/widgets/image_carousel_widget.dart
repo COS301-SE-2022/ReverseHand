@@ -17,7 +17,7 @@ class ImageCarouselWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-      options: CarouselOptions(height: 161),
+      options: CarouselOptions(height: 230),
       itemCount: images.length,
       itemBuilder: (context, index, realIndex) {
         final firstImage = images[index];
@@ -28,17 +28,17 @@ class ImageCarouselWidget extends StatelessWidget {
 
   }
 
+//the actual container for the carousel
  Widget buildImage(String firstImage, int index, BuildContext context) {
   return Container(
-      margin: const EdgeInsets.only( left: 5, right: 5),
-      color: Colors.grey,
-      child: Image.network(
-        firstImage,
-        fit: BoxFit.cover,
-        width: MediaQuery.of(context).size.width,
-        height: 350,
-      )
-              );
+        margin: const EdgeInsets.only( left: 5, right: 5),
+        color: Colors.grey,
+        child: Image.network(
+          firstImage,
+          fit: BoxFit.cover,
+          width: MediaQuery.of(context).size.width,
+        )
+  );
   }
 }
 

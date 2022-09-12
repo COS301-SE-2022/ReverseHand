@@ -24,9 +24,12 @@ class AdvertDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //this are where we do the images
     final List<String> images = [
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTIZccfNPnqalhrWev-Xo7uBhkor57_rKbkw&usqp=CAU",
-        "https://wallpaperaccess.com/full/2637581.jpg"
+        "https://media.istockphoto.com/photos/mess-and-dump-an-old-room-with-lots-of-things-devastation-very-small-picture-id1189357377?k=20&m=1189357377&s=612x612&w=0&h=l2VJRihipV0DSRf2VImuCde4wloj4vkuJhylLWcybC8=",
+        "https://www.researchgate.net/publication/264635711/figure/fig2/AS:213433816490008@1427897995893/Living-room-The-patients-living-room-was-filled-with-dirty-clothing-old-newspaper-and.png",
+        "https://renegademothering.com/wp-content/uploads/2015/06/FullSizeRender-5.jpg",
+
     ];
 
     return StoreProvider<AppState>(
