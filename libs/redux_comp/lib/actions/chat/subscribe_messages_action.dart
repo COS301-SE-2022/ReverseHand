@@ -8,6 +8,8 @@ import 'get_messages_action.dart';
 class SubscribMessagesAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
+    state.messageSubscription?.cancel();
+
     String graphQLDocument = '''subscription {
       getMessageUpdates(chat_id: "${state.chat!.id}") {
         id

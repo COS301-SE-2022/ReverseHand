@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/chat/get_messages_action.dart';
+import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 
@@ -74,6 +75,7 @@ class _Factory extends VmFactory<AppState, QuickViewChatWidget> {
   _ViewModel fromStore() => _ViewModel(
         dispatchGetMessagesAction: (ChatModel chat) async {
           await dispatch(GetMessagesAction(chat: chat));
+          dispatch(SubscribMessagesAction());
           dispatch(NavigateAction.pushNamed('/chats/chat'));
         },
         userType: state.userDetails!.userType,

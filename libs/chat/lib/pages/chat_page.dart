@@ -127,5 +127,5 @@ class _ViewModel extends Vm {
     required this.chat,
     required this.currentUser,
     required this.messages,
-  }) : super(equals: [chat]); // implementinf hashcode
+  }) : super(equals: [chat, messages]); // implementinf hashcode
 }

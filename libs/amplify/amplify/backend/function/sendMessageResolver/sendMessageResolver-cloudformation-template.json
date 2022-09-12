@@ -187,9 +187,7 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:UpdateItem",
-                "dynamodb:GetItem",
-                "dynamodb:PuItem"
+                "dynamodb:PutItem"
               ],
               "Resource": [
                 {

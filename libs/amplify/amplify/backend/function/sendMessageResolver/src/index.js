@@ -8,8 +8,9 @@ const ReverseHandTable = process.env.REVERSEHAND;
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    const timestamp = (new Date()).getTime();
-    const msgId = AWS.util.uuid.v4()
+    const date = new Date();
+    const timestamp = date.getTime();
+    const msgId = date.toISOString();
 
     await docClient.put({
         TableName: ReverseHandTable,

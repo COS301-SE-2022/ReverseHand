@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 import '../../app_state.dart';
@@ -13,8 +12,6 @@ class GetMessagesAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    state.messageSubscription?.cancel();
-
     final ChatModel current = chat ?? state.chat!;
 
     String graphQLDocument = '''query {
@@ -41,7 +38,4 @@ class GetMessagesAction extends ReduxAction<AppState> {
       return null; /* On Error do not modify state */
     }
   }
-
-  @override
-  void after() => dispatch(SubscribMessagesAction());
 }
