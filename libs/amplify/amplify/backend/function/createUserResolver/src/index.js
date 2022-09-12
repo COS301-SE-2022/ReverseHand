@@ -30,7 +30,8 @@ exports.handler = async (event) => {
             created: 0,
             finished: 0,
             rating_sum: 0,
-            rating_count: 0
+            rating_count: 0,
+            warnings: 0
         }
     };
 
