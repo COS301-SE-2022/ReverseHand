@@ -6,7 +6,7 @@ const Map<String, IconData> domains = {
   'Carpenter': Icons.carpenter,
   'Landscaper': Icons.abc, //still need an icon
   'Painting': Icons.imagesearch_roller,
-  'Cleaner': Icons.sanitizer,
+  'Cleaner': Icons.cleaning_services,
   'Tiler': Icons.abc, //still need an icon
   'Electrician': Icons.bolt
 };

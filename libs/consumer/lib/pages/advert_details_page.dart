@@ -12,6 +12,8 @@ import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
 import '../widgets/delete_advert_popup.dart';
 import '../widgets/light_dialog_helper.dart';
+import '../widgets/rating_popup.dart';
+import 'package:general/widgets/long_button_transparent.dart';
 
 class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -23,8 +25,6 @@ class AdvertDetailsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        // backgroundColor: Theme.of(context).primaryColorLight,
-
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
@@ -75,87 +75,61 @@ class AdvertDetailsPage extends StatelessWidget {
                                 function: () {
                                   vm.pushViewBidsPage();
                                 }),
-                            SizedBox(
-                              width: 290,
-                              height: 50,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  shadowColor: Colors.black,
-                                  elevation: 9,
-                                  side: const BorderSide(color: Colors.orange),
-                                  textStyle: const TextStyle(fontSize: 20),
-                                  minimumSize: const Size(400, 50),
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(30.0))),
-                                ),
-                                onPressed: () {
-                                  LightDialogHelper.display(
-                                      context,
-                                      DeletePopUpWidget(
-                                        // action: vm.dispatchArchiveAdvertAction,
-                                        action: () => vm.testPayments(context),
-                                      ),
-                                      320.0);
-                                },
-                                child: const Text("Delete"),
-                              ),
-                            ),
+                            TransparentLongButtonWidget(
+                              text: "Delete",
+                              function: () {
+                                LightDialogHelper.display(
+                                    context,
+                                    DeletePopUpWidget(
+                                      // action: vm.dispatchArchiveAdvertAction,
+                                      action: () => vm.testPayments(context),
+                                    ),
+                                    320.0);
+                              },
+                            )
                           ],
                         ),
                       ),
 
                     //should only be displayed if a bid has been accepted
-                    // if (vm.advert.acceptedBid != null)
-                    //   ButtonWidget(
-                    //     text: "Close job",
-                    //     function: () {
-                    //       LightDialogHelper.display(context,
-                    //           RatingPopUpWidget(
-                    //         onPressed: () {
-                    //           vm.dispatchDeleteChatAction();
-                    //           vm.pushConsumerListings();
-                    //         },
-                    //       ), 1000.0);
-                    //     },
-                    //   ),
-
-                    // //Delete
-                    // if (vm.advert.acceptedBid == null)
-                    //   ButtonWidget(
-                    //     text: "Delete",
-                    //     color: "light",
-                    //     function: () {
-                    //       LightDialogHelper.display(
-                    //           context,
-                    //           DeletePopUpWidget(
-                    //             action: vm.dispatchArchiveAdvertAction,
-                    //           ),
-                    //           320.0);
-                    //     },
-                    //   ),
-
-                    //Back - if no bid accepted yet
-                    // if (vm.advert.acceptedBid == null)
-                    //   (ButtonWidget(
-                    //     text: "Back",
-                    //     color: "light",
-                    //     border: "white",
-                    //     function: vm.popPage,
-                    //   )),
-
-                    //Back - if bid accepted
-                    // if (vm.advert.acceptedBid != null)
-                    //   (ButtonWidget(
-                    //     text: "Back",
-                    //     color: "light",
-                    //     border: "white",
-                    //     function: vm.popPage,
-                    //   )),
-                    //*************BOTTOM BUTTONS**************//
+                    if (vm.advert.acceptedBid != null)
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.info_outline,
+                                  color: Colors.white70,
+                                  size: 20,
+                                ),
+                                Padding(padding: EdgeInsets.all(2)),
+                                Text(
+                                  "Close the job once all contractor\nservices have been completed",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.white70),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Padding(padding: EdgeInsets.only(top: 15)),
+                          AuthButtonWidget(
+                            text: "Close",
+                            function: () {
+                              LightDialogHelper.display(context,
+                                  RatingPopUpWidget(
+                                onPressed: () {
+                                  vm.dispatchDeleteChatAction();
+                                  vm.pushConsumerListings();
+                                },
+                              ), 1000.0);
+                            },
+                          ),
+                        ],
+                      ),
                   ],
                 );
               }),
