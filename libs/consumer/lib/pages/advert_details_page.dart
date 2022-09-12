@@ -4,6 +4,7 @@ import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
+import 'package:general/widgets/appbar_popup_menu_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
@@ -42,7 +43,7 @@ class AdvertDetailsPage extends StatelessWidget {
                 return Column(
                   children: [
                     //**********APPBAR***********//
-                    AppBarWidget(title: "JOB INFO", store: store),
+                    AppBarWidget(title: "JOB INFO", store: store, backButton: true),
                     //*******************************************//
 
                      //******************CAROUSEL ****************//
