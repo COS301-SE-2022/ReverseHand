@@ -178,8 +178,7 @@ class GetUserAction extends ReduxAction<AppState> {
         dispatch(NavigateAction.pushNamed("/consumer"));
         break;
       case "Tradesman":
-        dispatch(ViewJobsAction(
-            state.userDetails!.domains, state.userDetails!.tradeTypes));
+        dispatch(ViewJobsAction());
         startupActions();
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;

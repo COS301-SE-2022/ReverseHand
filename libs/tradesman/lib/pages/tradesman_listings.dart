@@ -1,6 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/list_refresh_widget.dart';
+import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:tradesman/widgets/tradesman_floating_button.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:tradesman/methods/populate_adverts.dart';
@@ -19,38 +21,42 @@ class TradesmanJobListings extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) => Column(
-              children: [
-                //*******************APP BAR WIDGET*********************//
-                AppBarWidget(title: "JOB LISTINGS", store: store),
-                //********************************************************//
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) => Column(
+            children: [
+              //*******************APP BAR WIDGET*********************//
+              AppBarWidget(title: "JOB LISTINGS", store: store),
+              //********************************************************//
 
-                const Padding(padding: EdgeInsets.only(top: 20)),
+              const Padding(padding: EdgeInsets.only(top: 20)),
 
-                ...populateAdverts(vm.adverts, store),
+              ListRefreshWidget(
+                refreshFunction: vm.dispatchViewJobs,
+                widgets: populateAdverts(vm.adverts, store),
+              ),
 
-                if (vm.loading)
-                  const LoadingWidget(topPadding: 80, bottomPadding: 0)
+              // ...populateAdverts(vm.adverts, store),
 
-                //************MESSAGE IF THERE ARE NO ADVERTS***********/
-                else if (vm.adverts.isEmpty)
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: (MediaQuery.of(context).size.height) / 3),
-                    child: const Text(
-                      "There are no jobs to display.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white70),
-                    ),
+              if (vm.loading)
+                const LoadingWidget(topPadding: 80, bottomPadding: 0)
+
+              //************MESSAGE IF THERE ARE NO ADVERTS***********/
+              else if (vm.adverts.isEmpty)
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: (MediaQuery.of(context).size.height) / 3),
+                  child: const Text(
+                    "There are no jobs to display.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20, color: Colors.white70),
                   ),
-                //*****************************************************/
-              ],
-            ),
+                ),
+              //*****************************************************/
+            ],
           ),
         ),
+
         //************************NAVBAR***********************/
         floatingActionButton: TradesmanFloatingButtonWidget(
           function: () {
@@ -80,6 +86,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobListings> {
   _ViewModel fromStore() => _ViewModel(
         adverts: state.viewAdverts,
         loading: state.wait.isWaiting,
+        dispatchViewJobs: () => dispatch(ViewJobsAction()),
       );
 }
 
@@ -87,9 +94,11 @@ class _Factory extends VmFactory<AppState, TradesmanJobListings> {
 class _ViewModel extends Vm {
   final List<AdvertModel> adverts;
   final bool loading;
+  final void Function() dispatchViewJobs;
 
   _ViewModel({
     required this.adverts,
     required this.loading,
+    required this.dispatchViewJobs,
   }) : super(equals: [adverts, loading]);
 }
