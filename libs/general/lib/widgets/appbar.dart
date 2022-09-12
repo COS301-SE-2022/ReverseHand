@@ -7,7 +7,14 @@ import 'package:redux_comp/app_state.dart';
 class AppBarWidget extends StatelessWidget {
   final String title;
   final Store<AppState> store;
-  const AppBarWidget({Key? key, required this.title, required this.store})
+  final Widget? filterActions;
+  final bool? backButton;
+  const AppBarWidget(
+      {Key? key,
+      required this.title,
+      required this.store,
+      this.filterActions,
+      this.backButton})
       : super(key: key);
 
   @override
@@ -16,22 +23,26 @@ class AppBarWidget extends StatelessWidget {
         store: store,
         child: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) => 
-          AppBar(
+          builder: (BuildContext context, _ViewModel vm) => AppBar(
             title: Text(title),
             leadingWidth: 80,
             backgroundColor: Theme.of(context).primaryColorDark,
             leading: Padding(
-                padding: const EdgeInsets.only(left: 30),
-                // ignore: sized_box_for_whitespace
-                child: Container(
-                  width: 50,
-                  child: Image.asset( 
-                    'assets/images/logo.png',
-                      package: 'authentication',
-                  ),
-                ),
+              padding: const EdgeInsets.only(left: 30),
+              // ignore: sized_box_for_whitespace
+              child: Container(
+                width: 50,
+                child: (backButton == true)
+                    ? IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: vm.popPage)
+                    : Image.asset(
+                        'assets/images/logo.png',
+                        package: 'authentication',
+                      ),
               ),
+            ),
+            actions: (filterActions != null) ? [filterActions!] : [],
           ),
         ));
   }
@@ -43,15 +54,15 @@ class _Factory extends VmFactory<AppState, AppBarWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushActivityStreamPage: () => dispatch(
-          NavigateAction.pushNamed('/tradesman/activity_stream'),
+        popPage: () => dispatch(
+          NavigateAction.pop(),
         ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushActivityStreamPage;
+  final VoidCallback popPage;
 
-  _ViewModel({required this.pushActivityStreamPage});
+  _ViewModel({required this.popPage});
 }

@@ -1,11 +1,12 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:authentication/widgets/auth_button.dart';
 import 'package:consumer/widgets/job_creation_popup.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
@@ -74,7 +75,8 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //title
               const Padding(padding: EdgeInsets.only(top: 20)),
-              const HintWidget(text: "Enter a title", colour: Colors.white70, padding: 15),
+              const HintWidget(
+                  text: "Enter a title", colour: Colors.white70, padding: 15),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
@@ -88,7 +90,10 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               ),
 
               //trade type
-              const HintWidget(text: "Select all relevant trade types", colour: Colors.white70, padding: 15),
+              const HintWidget(
+                  text: "Select all relevant trade types",
+                  colour: Colors.white70,
+                  padding: 15),
 
               Padding(
                   padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
@@ -111,7 +116,10 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                   )),
 
               //description
-              const HintWidget(text: "Enter a short description of the job", colour: Colors.white70, padding: 15),
+              const HintWidget(
+                  text: "Enter a short description of the job",
+                  colour: Colors.white70,
+                  padding: 15),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                 child: TextFieldWidget(
@@ -126,7 +134,9 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               //location
               const HintWidget(
                   text:
-                      "The address for the job. Only the city will be displayed", colour: Colors.white70, padding: 15),
+                      "The address for the job. Only the city will be displayed",
+                  colour: Colors.white70,
+                  padding: 15),
               StoreConnector<AppState, _ViewModel>(
                 vm: () => _Factory(this),
                 builder: (BuildContext context, _ViewModel vm) => Padding(
@@ -175,7 +185,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                     //*********CREATE JOB BUTTON******************//
                     vm.loading
                         ? const LoadingWidget(topPadding: 0, bottomPadding: 0)
-                        : ButtonWidget(
+                        : AuthButtonWidget(
                             text: "Create Job",
                             function: () {
                               if (titleController.value.text != "" &&
@@ -205,15 +215,15 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                             },
                           ),
                     //********************************************//
-                    const Padding(padding: EdgeInsets.all(5)),
 
                     //************DISCARD BUTTON*****************//
-                    ButtonWidget(
+                    TransparentLongButtonWidget(
                       text: "Discard",
-                      color: "dark",
                       function: vm.popPage,
-                    )
+                    ),
                     //********************************************//
+
+                    const Padding(padding: EdgeInsets.only(top: 20))
                   ],
                 ),
               ),

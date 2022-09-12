@@ -7,11 +7,9 @@ import 'package:redux_comp/app_state.dart';
 
 class ShortlistPopUpWidget extends StatelessWidget {
   final Store<AppState> store;
-  final bool shortlisted;
 
   const ShortlistPopUpWidget({
     required this.store,
-    required this.shortlisted,
     Key? key,
   }) : super(key: key);
 
@@ -24,9 +22,7 @@ class ShortlistPopUpWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(25),
             child: const Text(
-              // shortlisted == true
               "Are you sure you want to accept this bid?\n\n All other bids will be discarded.",
-              // : "Are you sure you want to shortlist this bid?\n\n The relevant Contractor will be notified to send a detailed quote.",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black, fontSize: 22),
             ),
@@ -37,13 +33,8 @@ class ShortlistPopUpWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ButtonWidget(
-                  // text: shortlisted == true
-                  //     ?
                   text: "Accept",
-                  // : "Shortlist", //if already shortlisted, accept should be the description
                   function: () {
-                    // shortlisted
-                    // ?
                     vm.dispatchAcceptBidAction();
 
                     Navigator.pop(context);
