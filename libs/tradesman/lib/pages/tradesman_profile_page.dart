@@ -88,7 +88,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                               color: Theme.of(context).primaryColorLight,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(7))),
-                          width: MediaQuery.of(context).size.width / 1.6,
+                          width: MediaQuery.of(context).size.width / 1.7,
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
@@ -113,7 +113,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 color: Theme.of(context).primaryColorLight,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(7))),
-                            width: MediaQuery.of(context).size.width / 1.6,
+                            width: MediaQuery.of(context).size.width / 1.7,
                             child: Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),

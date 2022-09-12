@@ -36,7 +36,7 @@ class TradesmanJobDetails extends StatelessWidget {
             child: Column(
               children: [
                 //**********APPBAR***********//
-                AppBarWidget(title: "JOB INFO", store: store),
+                AppBarWidget(title: "JOB INFO", store: store, backButton: true),
                 //*******************************************//
 
                 //******************CAROUSEL ****************//
