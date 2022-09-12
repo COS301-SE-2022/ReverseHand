@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/chat/get_messages_action.dart';
+import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 
@@ -21,10 +22,7 @@ class QuickViewChatWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          onTap: () {
-            vm.dispatchGetMessagesAction(chat);
-            vm.pushChatPage();
-          },
+          onTap: () => vm.dispatchGetMessagesAction(chat),
           child: SizedBox(
             width: 400,
             height: 130,
@@ -34,8 +32,7 @@ class QuickViewChatWidget extends StatelessWidget {
                 margin: const EdgeInsets.all(10),
                 color: const Color.fromARGB(255, 220, 224, 230),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7)
-                ),
+                    borderRadius: BorderRadius.circular(7)),
                 elevation: 2,
                 child: Padding(
                   padding:
@@ -44,7 +41,7 @@ class QuickViewChatWidget extends StatelessWidget {
                     children: [
                       const CircleAvatar(
                         backgroundImage: AssetImage("assets/images/profile.png",
-                                package: 'general'),
+                            package: 'general'),
                       ),
                       const Padding(padding: EdgeInsets.only(right: 15)),
                       Text(
@@ -76,24 +73,22 @@ class _Factory extends VmFactory<AppState, QuickViewChatWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchGetMessagesAction: (ChatModel chat) =>
-            dispatch(GetMessagesAction(chat)),
-        pushChatPage: () => dispatch(
-          NavigateAction.pushNamed('/chats/chat'),
-        ),
+        dispatchGetMessagesAction: (ChatModel chat) async {
+          await dispatch(GetMessagesAction(chat: chat));
+          dispatch(SubscribMessagesAction());
+          dispatch(NavigateAction.pushNamed('/chats/chat'));
+        },
         userType: state.userDetails!.userType,
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(ChatModel) dispatchGetMessagesAction;
-  final VoidCallback pushChatPage;
+  final Future<void> Function(ChatModel chat) dispatchGetMessagesAction;
   final String userType;
 
   _ViewModel({
     required this.userType,
-    required this.pushChatPage,
     required this.dispatchGetMessagesAction,
   }); // implementinf hashcode
 }

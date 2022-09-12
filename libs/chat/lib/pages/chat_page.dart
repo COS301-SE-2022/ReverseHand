@@ -24,9 +24,11 @@ class ChatPage extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) {
+          if (vm.chat == null) return Container();
+
           List<Widget> messages = [];
 
-          for (MessageModel msg in vm.chat.messages) {
+          for (MessageModel msg in vm.messages) {
             if (vm.currentUser == msg.sender) {
               messages.add(
                 MessageOwnTileWidget(
@@ -55,34 +57,37 @@ class ChatPage extends StatelessWidget {
             },
           );
 
-        return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              ChatAppBarWidget(
-                title: vm.currentUser == "consumer"
-                    ? vm.chat.tradesmanName
-                    : vm.chat.consumerName,
-                store: store
-              ),
-              SliverToBoxAdapter(
-                child: Stack(
-                  children: <Widget>[
-                    SingleChildScrollView(
-                      controller: scrollController,
-                      child: Column(
-                        children: [
-                          // const DateLabelWidget(label: "Yesterday"), //todo michael
-                          const Padding(padding: EdgeInsets.only(top: 35),),
-                          ...messages,
-                          const Padding(padding: EdgeInsets.only(bottom: 80),),
-                        ],
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                ChatAppBarWidget(
+                    title: vm.currentUser == "consumer"
+                        ? vm.chat!.tradesmanName
+                        : vm.chat!.consumerName,
+                    store: store),
+                SliverToBoxAdapter(
+                  child: Stack(
+                    children: <Widget>[
+                      SingleChildScrollView(
+                        controller: scrollController,
+                        child: Column(
+                          children: [
+                            // const DateLabelWidget(label: "Yesterday"), //todo michael
+                            const Padding(
+                              padding: EdgeInsets.only(top: 35),
+                            ),
+                            ...messages,
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 80),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
             //************************NAVBAR***********************/
 
             bottomSheet: ActionBarWidget(
@@ -106,12 +111,14 @@ class _Factory extends VmFactory<AppState, ChatPage> {
         dispatchSendMsgAction: (String msg) => dispatch(SendMessageAction(msg)),
         chat: state.chat,
         currentUser: state.userDetails!.userType.toLowerCase(),
+        messages: state.messages,
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final ChatModel chat;
+  final ChatModel? chat;
+  final List<MessageModel> messages;
   final String currentUser;
   final void Function(String msg) dispatchSendMsgAction;
 
@@ -119,5 +126,6 @@ class _ViewModel extends Vm {
     required this.dispatchSendMsgAction,
     required this.chat,
     required this.currentUser,
-  }) : super(equals: [chat]); // implementinf hashcode
+    required this.messages,
+  }) : super(equals: [chat, messages]); // implementinf hashcode
 }

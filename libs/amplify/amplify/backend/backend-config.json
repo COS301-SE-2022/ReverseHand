@@ -232,16 +232,6 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "getConsumerMessagesResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "getTradesmanMessagesResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "deleteChatResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -351,6 +341,16 @@
       "service": "Lambda"
     },
     "removeReviewReportResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getChatsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getMessagesResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

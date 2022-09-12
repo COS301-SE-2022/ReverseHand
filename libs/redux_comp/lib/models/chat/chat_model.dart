@@ -1,29 +1,23 @@
 import 'package:flutter/widgets.dart';
-import 'package:redux_comp/models/chat/message_model.dart';
 
 @immutable
 class ChatModel {
-  final String consumerId;
-  final String tradesmanId;
-  final String tradesmanName;
+  final String id;
   final String consumerName;
-  final List<MessageModel> messages;
+  final String tradesmanName;
+  final double timestamp;
 
   const ChatModel({
+    required this.id,
     required this.tradesmanName,
     required this.consumerName,
-    required this.consumerId,
-    required this.tradesmanId,
-    required this.messages,
+    required this.timestamp,
   });
 
   factory ChatModel.fromJson(Map<String, dynamic> json) => ChatModel(
+        id: json['id'],
+        timestamp: json['timestamp'].toDouble(),
         consumerName: json['consumer_name'],
         tradesmanName: json['tradesman_name'],
-        consumerId: json['consumer_id'],
-        tradesmanId: json['tradesman_id'],
-        messages: (json['messages'] as List)
-            .map((el) => MessageModel.fromJson(el))
-            .toList(),
       );
 }
