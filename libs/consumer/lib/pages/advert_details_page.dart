@@ -49,22 +49,6 @@ class AdvertDetailsPage extends StatelessWidget {
                     ImageCarouselWidget(images: images, store: store),
                      //*******************************************//
 
-                    // //******************EDIT ICON****************//
-                    // //should only be displayed if no bid has been accepted
-                    // if (vm.advert.acceptedBid == null)
-                    // Align(
-                    //   alignment: Alignment.topRight,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.only(top: 20),
-                    //     child: IconButton(
-                    //       onPressed: vm.pushEditAdvert,
-                    //       icon: const Icon(Icons.edit),
-                    //       color: Colors.white70,
-                    //     ),
-                    //   ),
-                    // ),
-                    // //**********************************************/
-
                     JobCardWidget(
                       titleText: vm.advert.title,
                       descText: vm.advert.description ?? "",

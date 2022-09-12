@@ -28,14 +28,16 @@ class JobCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return StoreProvider<AppState>(
+      store: store,
+      child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 35),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //****************DATE*******************//
             Padding(
-              padding: const EdgeInsets.fromLTRB(5, 5, 0, 0),
+              padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
               child: Text(
                 date,
                 style: const TextStyle(
@@ -44,33 +46,35 @@ class JobCardWidget extends StatelessWidget {
             ),
             //****************************************//
 
-            //****************TITLE********************//
-            Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: Text(
-                  titleText,
-                  style: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                //****************TITLE********************//
+                Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Text(
+                      titleText,
+                      style: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                    ),
                 ),
-            ),
-            //*****************************************//
+                //*****************************************//
 
-            // //******************EDIT ICON****************//
-            // //should only be displayed if no bid has been accepted
-            // if (vm.advert.acceptedBid == null)
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: IconButton(
-                  // onPressed: vm.pushEditAdvert,
-                  onPressed: (){},
-                  icon: const Icon(Icons.edit),
-                  color: Colors.white70,
-                ),
-              ),
+                // //******************EDIT ICON****************//
+                StoreConnector<AppState, _ViewModel>(
+                  vm: () => _Factory(this),
+                  builder: (BuildContext context, _ViewModel vm) =>
+                    (vm.advert.acceptedBid == null)?
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        onPressed: vm.pushEditAdvert,
+                        icon: const Icon(Icons.edit),
+                        color: Colors.white70,
+                      ),
+                    ): Container()
+                  ),
+                //**********************************************/
+              ],
             ),
-            //**********************************************/
-
 
             //****************LOCATION********************//
             Padding(
@@ -140,8 +144,8 @@ class JobCardWidget extends StatelessWidget {
             //**********************************************/
           ],
         ),
-      );
-
+      ),
+    );
   }
 }
 
