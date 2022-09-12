@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ListRefreshWidget extends StatelessWidget {
   final List<Widget> widgets;
   final void Function()
-      refreshFunction; // The list of things you want to refresh
+      refreshFunction; // The list of things you wish to refresh
 
   const ListRefreshWidget(
       {Key? key, required this.widgets, required this.refreshFunction})
@@ -12,11 +12,17 @@ class ListRefreshWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async => refreshFunction,
+      onRefresh: () async => refreshFunction(),
       color: Colors.orange,
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(children: widgets),
+        child: SizedBox(
+          height: widgets.length * 100,
+          child: Column(
+          
+            children: widgets,
+          ),
+        ),
       ),
     );
   }

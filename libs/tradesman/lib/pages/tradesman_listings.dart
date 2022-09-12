@@ -22,40 +22,49 @@ class TradesmanJobListings extends StatelessWidget {
       store: store,
       child: Scaffold(
         body: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) => Column(
-            children: [
-              //*******************APP BAR WIDGET*********************//
-              AppBarWidget(title: "JOB LISTINGS", store: store),
-              //********************************************************//
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) {
+              Widget appbar = AppBarWidget(title: "JOB LISTINGS", store: store);
+              return (vm.loading) ? Column(children: [
+                //*******************APP BAR WIDGET*********************//
+                appbar, 
+                //********************************************************//
+                const Padding(padding: EdgeInsets.only(top: 20)),
 
-              const Padding(padding: EdgeInsets.only(top: 20)),
-
-              ListRefreshWidget(
-                refreshFunction: vm.dispatchViewJobs,
-                widgets: populateAdverts(vm.adverts, store),
-              ),
-
-              // ...populateAdverts(vm.adverts, store),
-
-              if (vm.loading)
                 const LoadingWidget(topPadding: 80, bottomPadding: 0)
 
-              //************MESSAGE IF THERE ARE NO ADVERTS***********/
-              else if (vm.adverts.isEmpty)
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: (MediaQuery.of(context).size.height) / 3),
-                  child: const Text(
-                    "There are no jobs to display.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, color: Colors.white70),
+              ],) : Column(
+                children: [
+                  //*******************APP BAR WIDGET*********************//
+                  appbar,
+                  //********************************************************//
+
+                  const Padding(padding: EdgeInsets.only(top: 20)),
+
+                  ListRefreshWidget(
+                    refreshFunction: () {
+                      vm.dispatchViewJobs();
+                    },
+                    widgets: populateAdverts(vm.adverts, store),
                   ),
-                ),
-              //*****************************************************/
-            ],
-          ),
-        ),
+
+                  // ...populateAdverts(vm.adverts, store),
+
+                  //************MESSAGE IF THERE ARE NO ADVERTS***********/
+                  if (vm.adverts.isEmpty)
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: (MediaQuery.of(context).size.height) / 3),
+                      child: const Text(
+                        "There are no jobs to display.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20, color: Colors.white70),
+                      ),
+                    ),
+                  //*****************************************************/
+                ],
+              );
+            }),
 
         //************************NAVBAR***********************/
         floatingActionButton: TradesmanFloatingButtonWidget(
