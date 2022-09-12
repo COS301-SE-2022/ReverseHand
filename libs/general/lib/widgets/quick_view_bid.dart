@@ -43,7 +43,7 @@ class QuickViewBidWidget extends StatelessWidget {
                       children: [
                         //***********IF BID IS SHORTLISTED********/
                         //then display a star
-                        if (bid.isShortlisted())
+                        if (bid.shortlisted)
                           Row(
                             children: [
                               (Icon(

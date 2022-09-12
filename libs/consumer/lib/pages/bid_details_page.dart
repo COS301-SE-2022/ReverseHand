@@ -56,7 +56,7 @@ class BidDetailsPage extends StatelessWidget {
                             vm.dispatchShortListBidAction();
                           },
                           icon: Icon(
-                            vm.bid.isShortlisted()
+                            vm.bid.shortlisted
                                 ? Icons.bookmark
                                 : Icons.bookmark_outline,
                             size: 40,
