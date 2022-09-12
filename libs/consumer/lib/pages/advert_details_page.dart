@@ -3,6 +3,7 @@ import 'package:authentication/widgets/auth_button.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
@@ -18,13 +19,17 @@ class AdvertDetailsPage extends StatelessWidget {
 
   const AdvertDetailsPage({Key? key, required this.store}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+    final List<String> images = [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTIZccfNPnqalhrWev-Xo7uBhkor57_rKbkw&usqp=CAU",
+        "https://wallpaperaccess.com/full/2637581.jpg"
+    ];
+
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        // backgroundColor: Theme.of(context).primaryColorLight,
-
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
@@ -35,7 +40,10 @@ class AdvertDetailsPage extends StatelessWidget {
                     AppBarWidget(title: "JOB INFO", store: store),
                     //*******************************************//
 
-                    //**********DETAILED JOB INFORMATION***********//
+                     //******************CAROUSEL ****************//
+                    ImageCarouselWidget(images: images, store: store),
+                     //*******************************************//
+
                     JobCardWidget(
                       titleText: vm.advert.title,
                       descText: vm.advert.description ?? "",
