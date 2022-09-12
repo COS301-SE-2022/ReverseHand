@@ -8,6 +8,7 @@ import 'package:redux_comp/models/bucket_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:carousel_slider/carousel_slider.dart';
 
+// ignore: must_be_immutable
 class ImageCarouselWidget extends StatelessWidget {
   List images;
   final Store<AppState> store;
@@ -43,6 +44,7 @@ class ImageCarouselWidget extends StatelessWidget {
 }
 
 // factory for view model
+// ignore: unused_element
 class _Factory extends VmFactory<AppState, ImageCarouselWidget> {
   _Factory(widget) : super(widget);
 
