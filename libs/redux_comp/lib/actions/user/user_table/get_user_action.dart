@@ -3,7 +3,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
-import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
 import 'package:redux_comp/actions/get_paystack_secrets_action.dart';
 import 'package:redux_comp/actions/user/get_profile_photo_action.dart';
 import 'package:redux_comp/actions/user/subscribe_notifications_action.dart';
@@ -193,7 +192,6 @@ class GetUserAction extends ReduxAction<AppState> {
   }
 
   void startupActions() {
-    dispatch(SubscribMessagesAction());
     dispatch(GetPaystackSecretsAction());
     dispatch(GetProfilePhotoAction());
     dispatch(SubscribeNotificationsAction());

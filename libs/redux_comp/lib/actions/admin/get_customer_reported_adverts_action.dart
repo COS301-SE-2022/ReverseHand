@@ -7,35 +7,37 @@ import 'package:redux_comp/models/admin/reported_advert_model.dart';
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
-class GetReportedAdvertsAction extends ReduxAction<AppState> {
-  String province;
-  GetReportedAdvertsAction(this.province);
+class GetCustomerReportedAdvertsAction extends ReduxAction<AppState> {
+  String customerId;
+  GetCustomerReportedAdvertsAction(this.customerId);
 
   @override
   Future<AppState?> reduce() async {
     String graphQLDoc = ''' query {
-      getReportedAdverts(province: "Gauteng") {
-        reports {
-          description
-          reason
-          reporter_id
-        }
-        customer_id
-        count
-        advert {
-          id
-          date_created
-          description
-          domain {
-            city
-            province
-            coordinates {
-              lat 
-              lng
-            }
-          }
+     getCustomerReportedAdverts(customer_id: "c#001") {
+      id
+      count
+      advert {
         title
+        id
+        description
+        date_created
         type
+        domain {
+          city
+          province
+          coordinates {
+            lat
+            lng
+          }
+        }
+        accepted_bid
+        date_closed
+      }
+      reports {
+        description
+        reason
+        tradesman_id
       }
     }
   }''';
@@ -44,10 +46,10 @@ class GetReportedAdvertsAction extends ReduxAction<AppState> {
 
     try {
       final response = await Amplify.API.query(request: request).response;
-      List<ReportedAdvertModel> adverts = [];
-
-      dynamic data = jsonDecode(response.data)['getReportedAdverts'];
-      for (dynamic ad in data) { 
+      final List<ReportedAdvertModel> adverts = [];
+      
+      dynamic data = jsonDecode(response.data)['getCustomerReportedAdverts'];
+      for (dynamic ad in data) {
         adverts.add(ReportedAdvertModel.fromJson(ad));
       }
       return state.copy(
@@ -63,12 +65,7 @@ class GetReportedAdvertsAction extends ReduxAction<AppState> {
   }
 
   @override
-  void before() {
-    dispatch(WaitAction.add("ReportedAdverts"));
-  }
-
-  @override
   void after() {
-    dispatch(WaitAction.remove("ReportedAdverts"));
+    dispatch(NavigateAction.pushNamed('/admin_consumer_advert_reports'));
   }
 }

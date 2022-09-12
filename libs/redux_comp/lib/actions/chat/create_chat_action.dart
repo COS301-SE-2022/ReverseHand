@@ -12,18 +12,10 @@ class CreateChatAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
       createChat(c_id: "${state.userDetails!.id}", t_id: "$tradesmanId", c_name: "${state.userDetails!.name}", t_name: "${state.activeBid!.name}") {
-        consumer_id
-        tradesman_id
+        id
+        timestamp
         consumer_name
         tradesman_name
-        messages {
-          msg
-          sender
-          timestamp
-          consumer_id
-          tradesman_id
-          name
-        }
       }
     }'''; // duplicate used for subscription
 

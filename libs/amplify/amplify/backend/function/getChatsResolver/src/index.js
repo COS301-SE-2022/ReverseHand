@@ -12,9 +12,12 @@ exports.handler = async (event) => {
         TableName: ReverseHandTable,
         KeyConditionExpression: 'part_key = :chats_id',
         ExpressionAttributeValues: {
-            'chats_id': 'chats#' + event.arguments.user_id
+            ':chats_id': 'chats#' + event.arguments.user_id
         }
     }).promise();
 
-    return response.Items.map(el => el['id'] = el['sort_key']);
+    return response.Items.map((el) => {
+        el['id'] = el['sort_key'];
+        return el;
+    });
 };
