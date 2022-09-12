@@ -14,7 +14,7 @@ class CreateChatAction extends ReduxAction<AppState> {
       createChat(c_id: "${state.userDetails!.id}", t_id: "$tradesmanId", c_name: "${state.userDetails!.name}", t_name: "${state.activeBid!.name}") {
         id
         timestamp
-        consumer_id
+        consumer_name
         tradesman_name
       }
     }'''; // duplicate used for subscription

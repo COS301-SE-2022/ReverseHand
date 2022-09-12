@@ -22,7 +22,7 @@ class GetChatsAction extends ReduxAction<AppState> {
     try {
       final response = await Amplify.API.query(request: request).response;
 
-      dynamic data = jsonDecode(response.data)['getChats'];
+      final List<dynamic> data = jsonDecode(response.data)['getChats'];
       List<ChatModel> chats = data.map((el) => ChatModel.fromJson(el)).toList();
 
       return state.copy(

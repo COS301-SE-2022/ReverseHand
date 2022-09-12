@@ -8,10 +8,8 @@ import 'get_messages_action.dart';
 class SubscribMessagesAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    final String userType = state.userDetails!.userType;
-
     String graphQLDocument = '''subscription {
-      getMessageUpdates(chat_id: ${state.chat!.id}) {
+      getMessageUpdates(chat_id: "${state.chat!.id}") {
         id
         chat_id
         msg
@@ -29,12 +27,13 @@ class SubscribMessagesAction extends ReduxAction<AppState> {
       );
 
       /* StreamSubscription<GraphQLResponse<dynamic>> subscription = */
-      operation.listen(
+      StreamSubscription<GraphQLResponse<dynamic>> subscription =
+          operation.listen(
         (event) => dispatch(GetMessagesAction()),
         onError: (Object e) => debugPrint('Error in subscription stream: $e'),
       );
 
-      return null;
+      return state.copy(messageSubscription: subscription);
     } catch (e) {
       return null; /* On Error do not modify state */
     }

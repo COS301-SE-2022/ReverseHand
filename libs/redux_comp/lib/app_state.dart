@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:io';
+import 'package:amplify_api/amplify_api.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
@@ -45,6 +47,8 @@ class AppState {
   final ChatModel? chat; // the current active chat if null than no active chat
   final List<MessageModel>
       messages; // list of messages for current active chats
+  final StreamSubscription<GraphQLResponse<dynamic>>?
+      messageSubscription; // subscription to keep track fo messages
 
   //admin functionality
   final AdminModel admin;
@@ -77,6 +81,7 @@ class AppState {
     required this.chats,
     required this.chat,
     required this.messages,
+    required this.messageSubscription,
     required this.reviews,
     required this.sum,
     required this.advertsWon,
@@ -137,6 +142,7 @@ class AppState {
       chats: const [],
       chat: null,
       messages: const [],
+      messageSubscription: null,
       admin: const AdminModel(reportedCustomers: []),
       userProfileImage: null,
       paystackPublicKey: "",
@@ -166,6 +172,7 @@ class AppState {
     List<ChatModel>? chats,
     ChatModel? chat,
     List<MessageModel>? messages,
+    StreamSubscription<GraphQLResponse<dynamic>>? messageSubscription,
     AdminModel? admin,
     List<String>? advertsWon,
     int? sum,
@@ -194,6 +201,7 @@ class AppState {
       chats: chats ?? this.chats,
       chat: chat ?? this.chat,
       messages: messages ?? this.messages,
+      messageSubscription: messageSubscription ?? this.messageSubscription,
       admin: admin ?? this.admin,
       sum: sum ?? this.sum,
       advertsWon: advertsWon ?? this.advertsWon,

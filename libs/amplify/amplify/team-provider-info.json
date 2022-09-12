@@ -214,6 +214,10 @@
         "getChatsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getChatsResolver-4c6f4a316f75706d6c63-build.zip"
+        },
+        "getMessagesResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getMessagesResolver-7a79454b4543785a3056-build.zip"
         }
       }
     }

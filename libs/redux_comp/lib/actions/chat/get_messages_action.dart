@@ -1,14 +1,24 @@
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:redux_comp/actions/chat/subscribe_messages_action.dart';
+import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
 class GetMessagesAction extends ReduxAction<AppState> {
+  final ChatModel? chat; // chat for which ti ger messages
+
+  GetMessagesAction({this.chat});
+
   @override
   Future<AppState?> reduce() async {
+    state.messageSubscription?.cancel();
+
+    final ChatModel current = chat ?? state.chat!;
+
     String graphQLDocument = '''query {
-      getMessages(chat_id: "${state.chat!.id}") {
+      getMessages(chat_id: "${current.id}") {
         id
         chat_id
         msg
@@ -22,15 +32,16 @@ class GetMessagesAction extends ReduxAction<AppState> {
     try {
       final response = await Amplify.API.query(request: request).response;
 
-      dynamic data = jsonDecode(response.data)['getChats'];
+      List<dynamic> data = jsonDecode(response.data)['getMessages'];
       List<MessageModel> messages =
           data.map((el) => MessageModel.fromJson(el)).toList();
 
-      return state.copy(
-        messages: messages,
-      );
+      return state.copy(messages: messages, chat: current);
     } catch (e) {
       return null; /* On Error do not modify state */
     }
   }
+
+  @override
+  void after() => dispatch(SubscribMessagesAction());
 }

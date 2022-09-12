@@ -24,6 +24,8 @@ class ChatPage extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) {
+          if (vm.chat == null) return Container();
+
           List<Widget> messages = [];
 
           for (MessageModel msg in vm.messages) {
@@ -60,8 +62,8 @@ class ChatPage extends StatelessWidget {
               slivers: [
                 ChatAppBarWidget(
                     title: vm.currentUser == "consumer"
-                        ? vm.chat.tradesmanName
-                        : vm.chat.consumerName,
+                        ? vm.chat!.tradesmanName
+                        : vm.chat!.consumerName,
                     store: store),
                 SliverToBoxAdapter(
                   child: Stack(
@@ -107,7 +109,7 @@ class _Factory extends VmFactory<AppState, ChatPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchSendMsgAction: (String msg) => dispatch(SendMessageAction(msg)),
-        chat: state.chat!,
+        chat: state.chat,
         currentUser: state.userDetails!.userType.toLowerCase(),
         messages: state.messages,
       );
@@ -115,7 +117,7 @@ class _Factory extends VmFactory<AppState, ChatPage> {
 
 // view model
 class _ViewModel extends Vm {
-  final ChatModel chat;
+  final ChatModel? chat;
   final List<MessageModel> messages;
   final String currentUser;
   final void Function(String msg) dispatchSendMsgAction;

@@ -21,10 +21,7 @@ class QuickViewChatWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          onTap: () {
-            vm.dispatchGetMessagesAction();
-            vm.pushChatPage();
-          },
+          onTap: () => vm.dispatchGetMessagesAction(chat),
           child: SizedBox(
             width: 400,
             height: 130,
@@ -75,23 +72,21 @@ class _Factory extends VmFactory<AppState, QuickViewChatWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchGetMessagesAction: () => dispatch(GetMessagesAction()),
-        pushChatPage: () => dispatch(
-          NavigateAction.pushNamed('/chats/chat'),
-        ),
+        dispatchGetMessagesAction: (ChatModel chat) async {
+          await dispatch(GetMessagesAction(chat: chat));
+          dispatch(NavigateAction.pushNamed('/chats/chat'));
+        },
         userType: state.userDetails!.userType,
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback dispatchGetMessagesAction;
-  final VoidCallback pushChatPage;
+  final Future<void> Function(ChatModel chat) dispatchGetMessagesAction;
   final String userType;
 
   _ViewModel({
     required this.userType,
-    required this.pushChatPage,
     required this.dispatchGetMessagesAction,
   }); // implementinf hashcode
 }

@@ -23,9 +23,7 @@ class SendMessageAction extends ReduxAction<AppState> {
     final request = GraphQLRequest(document: graphQLDocument);
 
     try {
-      /* final response = */ await Amplify.API
-          .mutate(request: request)
-          .response;
+      final response = await Amplify.API.mutate(request: request).response;
 
       return null;
     } catch (e) {

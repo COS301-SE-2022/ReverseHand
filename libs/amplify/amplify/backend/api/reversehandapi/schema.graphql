@@ -21,6 +21,9 @@ type Query {
   getChats(user_id: String!): [Chat!]!
   @function(name: "getChatsResolver-${env}")
 
+  getMessages(chat_id: String!): [Message!]!
+  @function(name: "getMessagesResolver-${env}")
+
   getNotifications(user_id: String!): [Notification!]!
     @function(name: "getNotificationsResolver-${env}")
 
