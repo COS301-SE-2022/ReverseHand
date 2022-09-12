@@ -1,4 +1,6 @@
 import 'package:flutter/services.dart';
+//still working on this - not sure if dependancy is going to be necessary
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 class CurrencyInputFormatter extends TextInputFormatter {

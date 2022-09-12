@@ -56,17 +56,27 @@ class QuickViewBidWidget extends StatelessWidget {
                         //***************************************/
 
                         //***********CONTRACTOR NAME*************/
-
                         SizedBox(
-                          width: 130,
-                          child: Text(
-                            '${bid.name}',
-                            style: TextStyle(
-                                fontSize: 22,
-                                color: Colors.black,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Theme.of(context).primaryColor,
-                                decorationThickness: 2),
+                          width: MediaQuery.of(context).size.width / 2.3,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(7),
+                              border: Border.all(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
+                              child: Center(
+                                child: Text(
+                                  '${bid.name}',
+                                  style: const TextStyle(
+                                    fontSize: 22,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         //***************************************/
