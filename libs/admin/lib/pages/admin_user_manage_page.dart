@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/models/admin/cognito_user_model.dart';
-import 'package:redux_comp/models/user_models/cognito_auth_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class AdminUserManagePage extends StatelessWidget {

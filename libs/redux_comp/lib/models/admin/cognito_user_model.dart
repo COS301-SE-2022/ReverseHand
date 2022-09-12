@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/admin/report_model.dart';
 
 @immutable
 class CognitoUserModel {

@@ -7,6 +7,7 @@ import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/review_model.dart';
 import 'package:redux_comp/models/user_models/notification_model.dart';
+import 'package:redux_comp/models/user_models/reset_password_model.dart';
 import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
@@ -20,6 +21,7 @@ import 'models/user_models/partial_user_model.dart';
 class AppState {
   // put all app state requiered here
   final CognitoAuthModel? authModel;
+  final ResetPasswordModel? resetPasswordModel;
   final UserModel? userDetails;
   final PartialUser? partialUser;
   final List<BidModel> bids; // holds all of the bids i.e viewBids ⊆ bids
@@ -58,6 +60,7 @@ class AppState {
   // constructor must only take named parameters
   const AppState({
     required this.authModel,
+    required this.resetPasswordModel,
     required this.userDetails,
     required this.partialUser,
     required this.adverts,
@@ -87,6 +90,7 @@ class AppState {
   factory AppState.initial() {
     return AppState(
       authModel: null,
+      resetPasswordModel: null,
       userDetails: const UserModel(
         id: "",
         email: "",
@@ -149,6 +153,7 @@ class AppState {
   // easy way to replace store wihtout specifying all paramters
   AppState copy({
     CognitoAuthModel? authModel,
+    ResetPasswordModel? resetPasswordModel,
     UserModel? userDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
@@ -177,6 +182,7 @@ class AppState {
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
+      resetPasswordModel: resetPasswordModel ?? this.resetPasswordModel,
       userDetails: userDetails ?? this.userDetails,
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,
