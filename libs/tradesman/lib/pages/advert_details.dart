@@ -21,6 +21,7 @@ class TradesmanJobDetails extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) =>
@@ -56,88 +57,92 @@ class TradesmanJobDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(7.0),
                           ),
                           builder: (BuildContext context) {
-                            return Padding(
-                              padding: MediaQuery.of(context).viewInsets,
-                              child: SizedBox(
-                                height: 350,
-                                child: Column(
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(15.0),
-                                      child: Text(
-                                        "Place Bid",
-                                        style: TextStyle(
+                            return SizedBox(
+                              height: 450,
+                              child: Column(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(15.0),
+                                    child: Text(
+                                      "Place Bid",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                        "Add a detailed breakdown of materials and services.\n You can return to this step later.",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.black)),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 10, 8, 8),
+                                    child: AuthButtonWidget(
+                                        text: "Upload Quote", function: () {}),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                                    child: Text(
+                                        "Enter the final amount for your bid.\n This is a required step.",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.black)),
+                                  ),
+                                  SizedBox(
+                                    height: 100,
+                                    width: 280,
+                                    child: TextFormField(
+                                      cursorHeight: 30,
+                                      cursorColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      style: const TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                      controller: bidController,
+                                      onTap: () {},
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                          borderSide: const BorderSide(
                                             color: Colors.black,
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                          "Add a detailed breakdown of materials and services.\n You can return to this step later.",
-                                          textAlign: TextAlign.center,
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                          "Enter the final amount for your bid.\n This is a required step.",
-                                          textAlign: TextAlign.center,
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          60, 20, 60, 10),
-                                      child: TextFormField(
-                                        style: const TextStyle(
-                                            color: Colors.black, fontSize: 18),
-                                        controller: bidController,
-                                        onTap: () {},
-                                        decoration: InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(7),
-                                            borderSide: const BorderSide(
-                                              color: Colors.black,
-                                              width: 1.0,
-                                            ),
+                                            width: 1.0,
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(7),
-                                            borderSide: const BorderSide(
-                                              color: Colors.orange,
-                                              width: 2.0,
-                                            ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                          borderSide: const BorderSide(
+                                            color: Colors.orange,
+                                            width: 2.0,
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(15.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          ButtonWidget(
-                                              text: "Submit", function: () {}),
-                                          const Padding(
-                                              padding: EdgeInsets.all(3)),
-                                          ButtonWidget(
-                                              text: "Cancel",
-                                              color: "light",
-                                              border: "lightBlue",
-                                              function: () {
-                                                vm.popPage();
-                                              })
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ButtonWidget(
+                                            text: "Submit", function: () {}),
+                                        const Padding(
+                                            padding: EdgeInsets.all(3)),
+                                        ButtonWidget(
+                                            text: "Cancel",
+                                            color: "light",
+                                            border: "lightBlue",
+                                            function: () {
+                                              vm.popPage();
+                                            })
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
                             );
                           });
