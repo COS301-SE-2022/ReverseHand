@@ -3,6 +3,7 @@ import 'package:authentication/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/app_state.dart';
@@ -17,6 +18,13 @@ class TradesmanJobDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final List<String> images = [
+        "https://media.istockphoto.com/photos/mess-and-dump-an-old-room-with-lots-of-things-devastation-very-small-picture-id1189357377?k=20&m=1189357377&s=612x612&w=0&h=l2VJRihipV0DSRf2VImuCde4wloj4vkuJhylLWcybC8=",
+        "https://www.researchgate.net/publication/264635711/figure/fig2/AS:213433816490008@1427897995893/Living-room-The-patients-living-room-was-filled-with-dirty-clothing-old-newspaper-and.png",
+        "https://renegademothering.com/wp-content/uploads/2015/06/FullSizeRender-5.jpg",
+    ];
+
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -29,6 +37,10 @@ class TradesmanJobDetails extends StatelessWidget {
               children: [
                 //**********APPBAR***********//
                 AppBarWidget(title: "JOB INFO", store: store),
+                //*******************************************//
+
+                //******************CAROUSEL ****************//
+                ImageCarouselWidget(images: images, store: store),
                 //*******************************************//
 
                 //**********DETAILED JOB INFORMATION***********//
