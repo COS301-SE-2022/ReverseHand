@@ -3,21 +3,20 @@ import 'package:flutter/foundation.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import 'get_chats_action.dart';
+import 'get_messages_action.dart';
 
 class SubscribMessagesAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    final String userType = state.userDetails!.userType;
+    state.messageSubscription?.cancel();
 
     String graphQLDocument = '''subscription {
-      getMessageUpdates$userType(${userType.toLowerCase()}_id: "${state.userDetails!.id}") {
-        consumer_id
-        tradesman_id
+      getMessageUpdates(chat_id: "${state.chat!.id}") {
+        id
+        chat_id
         msg
         sender
         timestamp
-        name
       }
     }''';
 
@@ -30,12 +29,13 @@ class SubscribMessagesAction extends ReduxAction<AppState> {
       );
 
       /* StreamSubscription<GraphQLResponse<dynamic>> subscription = */
-      operation.listen(
-        (event) => dispatch(GetChatsAction()),
+      StreamSubscription<GraphQLResponse<dynamic>> subscription =
+          operation.listen(
+        (event) => dispatch(GetMessagesAction()),
         onError: (Object e) => debugPrint('Error in subscription stream: $e'),
       );
 
-      return null;
+      return state.copy(messageSubscription: subscription);
     } catch (e) {
       return null; /* On Error do not modify state */
     }
