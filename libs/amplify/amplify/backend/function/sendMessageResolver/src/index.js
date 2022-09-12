@@ -8,29 +8,26 @@ const ReverseHandTable = process.env.REVERSEHAND;
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    let expressionAttributeValues = {
-        ":msg": [{
-            msg: event.arguments.msg,
-            timestamp: (new Date()).getTime(),
-            sender: event.arguments.sender,
-            name: event.arguments.name,
-        }]
-    };
+    const date = new Date();
+    const timestamp = date.getTime();
+    const msgId = date.toISOString();
 
-    let params = {
+    await docClient.put({
         TableName: ReverseHandTable,
-        Key: {
-          part_key: event.arguments.c_id,
-          sort_key: event.arguments.t_id,
-        },
-        UpdateExpression: "set messages = list_append(messages, :msg)",
-        ExpressionAttributeValues: expressionAttributeValues,
+        Item: {
+            part_key: event.arguments.chat_id,
+            sort_key: msgId,
+            timestamp: timestamp,
+            msg: event.arguments.msg,
+            sender: event.arguments.sender,
+        }
+    }).promise();
+
+    return {
+        id: msgId,
+        chat_id: event.arguments.chat_id,
+        timestamp: timestamp,
+        msg: event.arguments.msg,
+        sender: event.arguments.sender,
     };
-
-    await docClient.update(params).promise();
-
-    expressionAttributeValues[":msg"][0]["consumer_id"] = event.arguments.c_id;
-    expressionAttributeValues[":msg"][0]["tradesman_id"] = event.arguments.t_id;
-
-    return expressionAttributeValues[":msg"][0];
 };

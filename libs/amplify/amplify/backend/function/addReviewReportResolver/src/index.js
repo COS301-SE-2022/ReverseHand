@@ -1,64 +1,37 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-const UserTable = process.env.USER;
+const ReverseHandTable = process.env.REVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    let params = {
-      TableName: UserTable,
+    let paramsGetReview = {
+      TableName: ReverseHandTable,
       Key: {
-        user_id: event.arguments.user_id,
-      },
-    };
-    const user = await docClient.get(params).promise().then((data) => data.Item);
-    let user_reviews = user.reviews;
-      
-    let report_review = user_reviews.filter(review => review.id === event.arguments.review_id);
-    user_reviews = user_reviews.filter(review => review.id !== event.arguments.review_id);
-
-    params = {
-      TableName: UserTable,
-      ReturnValues: "ALL_NEW",
-      Key: {
-        user_id: event.arguments.user_id,
-      },
-      UpdateExpression: `set review_reports = list_append(if_not_exists(review_reports,:list),:report), reviews = :reviews`,
-      ExpressionAttributeValues: {
-        ":report": report_review,
-        ":list" : [],
-        ":reviews" : user_reviews
-      },
-    };
-    
-    await docClient.update(params).promise().then((data) => data.Attributes);
-    
-     params = {
-      TableName: UserTable,
-      Key : {
-        user_id: "reported#reviews"
+        part_key: "reviews#" + event.arguments.user_id,
+        sort_key: event.arguments.review_id
       }
     };
     
-    let review_reports_list = await docClient.get(params).promise().then((data) => data.Item);
-    if (event.arguments.user_id[0] == "c") {
-      if (!review_reports_list.customers.some(user => user.user_id === event.arguments.user_id)) {
-        review_reports_list.customers.push({user_id : event.arguments.user_id});
-      }
-    } else {
-      if (!review_reports_list.tradesmen.some(user => user.user_id === event.arguments.user_id)) {
-        review_reports_list.tradesmen.push({user_id : event.arguments.user_id});
-      }
-    }
+    let review = await docClient.get(paramsGetReview).promise().then(data=>data.Item);
+    review.review_details.id = review.sort_key;
+    delete review.part_key; delete review.sort_key;
     
-    params = {
-      TableName: UserTable,
-      Item: review_reports_list
+    event.arguments.report.reporter_id = event.arguments.user_id;
+    let paramsPutReport = {
+      TableName: ReverseHandTable,
+      Item : {
+        part_key: "review_reports#" + event.arguments.report.reported_user_id,
+        sort_key: "report#" + AWS.util.uuid.v4(),
+        review_details: review.review_details,
+        report_details: event.arguments.report,
+        report_type: "review#reports"
+      }
     };
     
-    await docClient.put(params).promise();
     
-    return report_review;
-    
+    await docClient.put(paramsPutReport).promise();
+    paramsPutReport.Item.report_details.id = paramsPutReport.Item.sort_key;
+    return paramsPutReport.Item.report_details;
 };

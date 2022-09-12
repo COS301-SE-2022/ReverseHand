@@ -8,20 +8,12 @@ import 'package:async_redux/async_redux.dart';
 class GetChatsAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    // if (state.chats.isNotEmpty) return null;
-
     String graphQLDocument = '''query {
-      get${state.userDetails!.userType}Chats(user_id: "${state.userDetails!.id}") {
-        consumer_id
-        tradesman_id
+      getChats(user_id: "${state.userDetails!.id}") {
+        id
         consumer_name
         tradesman_name
-        messages {
-          msg
-          sender
-          timestamp
-          name
-        }
+        timestamp
       }
     }''';
 
@@ -30,23 +22,11 @@ class GetChatsAction extends ReduxAction<AppState> {
     try {
       final response = await Amplify.API.query(request: request).response;
 
-      List<ChatModel> chats = [];
-      dynamic data =
-          jsonDecode(response.data)['get${state.userDetails!.userType}Chats'];
-
-      ChatModel chat = state.chat;
-
-      data.forEach((el) {
-        ChatModel c = ChatModel.fromJson(el);
-        if (c.consumerId == state.chat.consumerId &&
-            c.tradesmanId == state.chat.tradesmanId) chat = c;
-
-        return chats.add(c);
-      });
+      final List<dynamic> data = jsonDecode(response.data)['getChats'];
+      List<ChatModel> chats = data.map((el) => ChatModel.fromJson(el)).toList();
 
       return state.copy(
         chats: chats,
-        chat: chat,
       );
     } catch (e) {
       return null; /* On Error do not modify state */

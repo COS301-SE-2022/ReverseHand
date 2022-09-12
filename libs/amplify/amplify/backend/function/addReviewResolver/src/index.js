@@ -9,15 +9,16 @@ exports.handler = async (event) => {
     
     const currentDate = new Date().getTime();
     event.arguments.review.date_created = currentDate;
+    let putReviewItem = {
+        part_key: "reviews#" + event.arguments.user_id,
+        sort_key: "review#" + AWS.util.uuid.v4(),
+        review_details: event.arguments.review
+    };
     const transactParams = [
         {
             Put: {
-                TableName: ReverseHandTable,
-                Item: {
-                    part_key: "reviews#" + event.arguments.user_id,
-                    sort_key: "review#" + AWS.util.uuid.v4(),
-                    review_detials: event.arguments.review
-                }
+                Item: putReviewItem,
+                TableName: ReverseHandTable
             }
         },
         {
@@ -34,8 +35,14 @@ exports.handler = async (event) => {
                 TableName: ReverseHandTable,
             },
         }
-    ]
-    await docClient.transactWrite({
+    ];
+    docClient.transactWrite({
         TransactItems: transactParams
     }).promise();
+    
+    putReviewItem.id = putReviewItem.sort_key;
+    delete putReviewItem.part_key;
+    delete putReviewItem.sort_key;
+    
+    return putReviewItem;
 };
