@@ -21,6 +21,7 @@ import 'package:tradesman/pages/bid_details_page.dart';
 import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_bid_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
+import 'package:tradesman/pages/limited_tradesman_profile_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
 import 'package:tradesman/tradesman.dart';
@@ -93,6 +94,8 @@ class Launch extends StatelessWidget {
               TradesmanViewBidsPage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
+          '/tradesman/limited_tradesman_profile_page': (context) =>
+              LimitedTradesmanProfilePage(store: store),
           // shared routes for consumer and tradesman
           '/general/activity_stream': (context) =>
               ActivityStreamPage(store: store),

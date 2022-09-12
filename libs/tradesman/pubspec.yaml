@@ -35,6 +35,8 @@ dependencies:
   notifications:
     path: '../notifications'
     
+  consumer:
+    path: '../consumer'
 
 dev_dependencies:
   flutter_test:

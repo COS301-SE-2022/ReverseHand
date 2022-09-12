@@ -43,9 +43,21 @@ class ActivityStreamPage extends StatelessWidget {
 
                       //*******************MOCK NOTIFICATIONS CARDS*********************//
                       if (vm.loading)
-                        const LoadingWidget(topPadding: 0, bottomPadding: 0)
-                      else
-                        ...notificationWidgets
+                        const LoadingWidget(topPadding: 40, bottomPadding: 0)
+                      else if (notificationWidgets.isEmpty)
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: (MediaQuery.of(context).size.height) / 3,
+                              left: 40,
+                              right: 40),
+                          child: const Text(
+                            "You have not received any notifications.",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white70),
+                          ),
+                        ),
+                      ...notificationWidgets
 
                       //********************************************************//
                     ],
