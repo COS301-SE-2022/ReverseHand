@@ -41,6 +41,7 @@ class AdminAdvertDetailsPage extends StatelessWidget {
                   location: vm.activeAdvert.advert.domain.city,
                   type: vm.activeAdvert.advert.type,
                   date: timestampToDate(vm.activeAdvert.advert.dateCreated),
+                  store: store
                 ),
                 //*******************************************//
 

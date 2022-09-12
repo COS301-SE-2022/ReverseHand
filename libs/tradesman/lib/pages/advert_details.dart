@@ -38,6 +38,7 @@ class TradesmanJobDetails extends StatelessWidget {
                   date: timestampToDate(vm.advert.dateCreated),
                   type: vm.advert.type,
                   location: vm.advert.domain.city,
+                  store: store
                 ),
 
                 const Padding(padding: EdgeInsets.only(top: 60)),
