@@ -128,6 +128,7 @@ class AdvertDetailsPage extends StatelessWidget {
                               ), 1000.0);
                             },
                           ),
+                          const Padding(padding: EdgeInsets.only(bottom: 50)),
                         ],
                       ),
                   ],

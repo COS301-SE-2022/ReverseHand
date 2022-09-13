@@ -33,7 +33,7 @@ class TEditBidPageState extends State<TEditBidPage> {
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) => Column(children: [
               //*******************APP BAR WIDGET******************//
-              AppBarWidget(title: "EDIT BID", store: widget.store),
+              AppBarWidget(title: "EDIT BID", store: widget.store, backButton: true),
               //***************************************************//
 
               //**********************SLIDER************************//

@@ -77,6 +77,8 @@ class TradesmanJobDetails extends StatelessWidget {
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 // TransparentLongButtonWidget(
                 //     text: "Report this Advert", function: () {})
+
+                const Padding(padding: EdgeInsets.only(bottom: 50)),
               ],
             ),
           ),
