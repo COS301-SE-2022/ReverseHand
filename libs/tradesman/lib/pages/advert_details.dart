@@ -43,6 +43,10 @@ class TradesmanJobDetails extends StatelessWidget {
                 const Padding(padding: EdgeInsets.only(top: 60)),
 
                 //*************BOTTOM BUTTONS**************//
+                if (vm.bids.contains(vm.currentBid))
+                  (const Text(
+                      "I have placed a bid on this advert and my bid should be shown here")),
+
                 AuthButtonWidget(
                     text: "Place Bid",
                     function: () {
@@ -99,6 +103,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/tradesman'),
         ),
+        currentBid: state.userBid!,
       );
 }
 
@@ -107,6 +112,7 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final AdvertModel advert;
   final List<BidModel> bids;
+  final BidModel currentBid;
   final VoidCallback pushViewBidsPage;
   final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
@@ -114,6 +120,7 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.advert,
     required this.bids,
+    required this.currentBid,
     required this.popPage,
     required this.pushEditAdvert,
     required this.pushViewBidsPage,

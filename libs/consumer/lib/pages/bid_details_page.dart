@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
-import 'package:consumer/widgets/shortlist_bid_popup.dart';
+import 'package:consumer/widgets/accept_bid_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -50,7 +50,6 @@ class BidDetailsPage extends StatelessWidget {
                       //   ),
                       // ),
 
-                      //this does not currently evaluate correctly?
                       IconButton(
                           onPressed: () {
                             vm.dispatchShortListBidAction();
@@ -128,7 +127,7 @@ class BidDetailsPage extends StatelessWidget {
                           function: () {
                             LightDialogHelper.display(
                                 context,
-                                ShortlistPopUpWidget(
+                                AcceptPopUpWidget(
                                   store: store,
                                 ),
                                 320.0);

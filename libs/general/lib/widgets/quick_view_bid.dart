@@ -57,7 +57,7 @@ class QuickViewBidWidget extends StatelessWidget {
 
                         //***********CONTRACTOR NAME*************/
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.3,
+                          width: MediaQuery.of(context).size.width / 2.5,
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),
