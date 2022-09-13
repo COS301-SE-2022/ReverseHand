@@ -46,25 +46,109 @@ class TradesmanJobDetails extends StatelessWidget {
                     location: vm.advert.domain.city,
                     store: store),
 
-                const Padding(padding: EdgeInsets.only(top: 60)),
+                const Padding(padding: EdgeInsets.only(top: 40)),
 
                 //*************BOTTOM BUTTONS**************//
-                AuthButtonWidget(
-                    text: "Place Bid",
-                    function: () {
-                      //keeping this here so that a bid can still be made while we create the last UI
-                      // DarkDialogHelper.display(
-                      //     context, PlaceBidPopupWidget(store: store), 1000.0);
-                      showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7.0),
+                vm.bids.contains(vm.currentBid)
+                    //if this contractor has already made a bid
+                    ? Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(left: 45.0),
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "My bid",
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                )),
                           ),
-                          builder: (BuildContext context) {
-                            return const UploadQuoteSheet();
-                          });
-                    }),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 32, right: 32, bottom: 50, top: 10),
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              alignment: Alignment.center,
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 232, 232, 232),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(7.0)),
+                              ),
+                              child: SizedBox(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text(
+                                          'Amount:',
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          'R${vm.currentBid.priceLower}  -  R${vm.currentBid.priceUpper}',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.black),
+                                        ),
+                                      ],
+                                    ),
+                                    const Padding(
+                                        padding: EdgeInsets.only(top: 10)),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(
+                                          'Quote:',
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          'None Uploaded',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.black),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    //if this contractor hasn't already made a bid
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: AuthButtonWidget(
+                            text: "Place Bid",
+                            function: () {
+                              //keeping this here so that a bid can still be made while we create the last UI
+                              // DarkDialogHelper.display(
+                              //     context, PlaceBidPopupWidget(store: store), 1000.0);
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(7.0),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    return const UploadQuoteSheet();
+                                  });
+                            }),
+                      ),
                 //place bid
 
                 TransparentLongButtonWidget(
@@ -105,6 +189,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/tradesman'),
         ),
+        currentBid: state.userBid!,
         advertImages: state.advertImages,
       );
 }
@@ -114,6 +199,7 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final AdvertModel advert;
   final List<BidModel> bids;
+  final BidModel currentBid;
   final VoidCallback pushViewBidsPage;
   final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
@@ -122,6 +208,7 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.advert,
     required this.bids,
+    required this.currentBid,
     required this.popPage,
     required this.pushEditAdvert,
     required this.pushViewBidsPage,
