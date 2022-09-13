@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/admin/report_model.dart';
+import 'package:redux_comp/models/admin/app_management/models/report_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class QuickviewReportWidget extends StatelessWidget {

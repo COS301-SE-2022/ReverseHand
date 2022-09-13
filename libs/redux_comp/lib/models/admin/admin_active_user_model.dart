@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/admin/cognito_user_model.dart';
+import 'package:redux_comp/models/admin/app_management/models/cognito_user_model.dart';
 import 'package:redux_comp/models/admin/reported_user_model.dart';
 
 @immutable

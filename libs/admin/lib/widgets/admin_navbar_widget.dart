@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/admin/get_reported_adverts_action.dart';
-import 'package:redux_comp/actions/admin/list_users_in_group_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -116,23 +114,21 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
   _ViewModel fromStore() => _ViewModel(
         pushAppMetrics: () => dispatch(
           NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_metrics', ModalRoute.withName('/')),
+              '/admin_system_metrics', ModalRoute.withName('/')),
         ),
         pushUserManage: () {
-          dispatch(ListUsersInGroupAction(groupName: "customer"));
           dispatch(
             NavigateAction.pushNamedAndRemoveUntil(
-                '/admin_users', ModalRoute.withName('/')),
+                '/admin_user_metrics', ModalRoute.withName('/admin_users')),
           );
         },
         pushContentManage: () {
-          dispatch(GetReportedAdvertsAction(state.userDetails!.scope!));
           dispatch(NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_content', ModalRoute.withName('/')));
+              '/admin_management', ModalRoute.withName('/admin_content')));
         },
         pushProfilePage: () => dispatch(
           NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_metrics', ModalRoute.withName('/')),
+              '/admin_profile', ModalRoute.withName('/')),
         ),
       );
 }
