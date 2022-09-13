@@ -72,7 +72,7 @@ class TradesmanJobDetails extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 42, right: 42, bottom: 50, top: 10),
+                                left: 32, right: 32, bottom: 50, top: 10),
                             child: Container(
                               padding: const EdgeInsets.all(12),
                               alignment: Alignment.center,

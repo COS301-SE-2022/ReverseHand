@@ -67,7 +67,7 @@ class JobCardWidget extends StatelessWidget {
                     vm: () => _Factory(this),
                     builder: (BuildContext context, _ViewModel vm) =>
                         (vm.advert.acceptedBid == null)
-                            ? Align(
+                            ? const Align(
                                 alignment: Alignment.topRight,
                                 // child: IconButton(
                                 //   onPressed: vm.pushEditAdvert,
