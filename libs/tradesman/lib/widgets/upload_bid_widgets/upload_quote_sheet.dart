@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:authentication/widgets/auth_button.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/upload_bid_amount_sheet.dart';
@@ -47,7 +50,13 @@ class UploadQuoteSheet extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 10, 8, 8),
-            child: AuthButtonWidget(text: "Upload Quote", function: () {}),
+            child: AuthButtonWidget(text: "Upload Quote", function: () async {
+              FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+              if(result != null) {
+                //do something here if quote uploaded
+              }
+            }),
           ),
           ButtonWidget(
               text: "Proceed",
