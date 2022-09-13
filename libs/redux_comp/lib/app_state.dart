@@ -25,14 +25,18 @@ class AppState {
   final CognitoAuthModel? authModel;
   final UserModel? userDetails;
   final PartialUser? partialUser;
+
   final List<BidModel> bids; // holds all of the bids i.e viewBids ⊆ bids
   final List<BidModel> shortlistBids;
   final List<BidModel> viewBids; // holds the list of bids to view
+
   final List<AdvertModel> adverts;
   final List<AdvertModel> viewAdverts;
   final BidModel?
       activeBid; // represents the current bid, used for viewing a bid
   final AdvertModel? activeAd; // used for representing the current ad
+  final List<File> advertImages; // images for an advert
+
   final Location? locationResult;
   // both will change throughout the app
   final ErrorType error;
@@ -69,6 +73,7 @@ class AppState {
     required this.partialUser,
     required this.adverts,
     required this.viewAdverts,
+    required this.advertImages,
     required this.bids,
     required this.shortlistBids,
     required this.viewBids,
@@ -127,6 +132,7 @@ class AppState {
             coordinates: Coordinates(lat: 22, lng: 21)),
         dateCreated: 0,
       ),
+      advertImages: const [],
       activeBid: const BidModel(
         id: "",
         userId: "",
@@ -181,6 +187,7 @@ class AppState {
     String? paystackPublicKey,
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
+    List<File>? advertImages,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
@@ -209,6 +216,7 @@ class AppState {
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
       notifications: notifications ?? this.notifications,
+      advertImages: advertImages ?? this.advertImages,
     );
   }
 }
