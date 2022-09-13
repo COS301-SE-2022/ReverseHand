@@ -10,7 +10,6 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/upload_quote_sheet.dart';
-import '../widgets/quick_view_bid_widget.dart';
 import '../widgets/tradesman_navbar_widget.dart';
 
 class TradesmanJobDetails extends StatelessWidget {

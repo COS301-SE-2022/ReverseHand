@@ -19,34 +19,86 @@ class TradesmanJobListings extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) => Column(
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) =>
+              DefaultTabController(
+            length: 2,
+            child: Column(
               children: [
                 //*******************APP BAR WIDGET*********************//
                 AppBarWidget(title: "JOB LISTINGS", store: store),
                 //********************************************************//
 
-                const Padding(padding: EdgeInsets.only(top: 20)),
+                //*******************TAB BAR LABELS***********************//
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: TabBar(
+                    indicatorColor: Theme.of(context).primaryColor,
+                    tabs: const [
+                      Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          "OPEN JOBS",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "MY BIDS",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //********************************************************//
 
-                ...populateAdverts(vm.adverts, store),
+                Expanded(
+                    child: TabBarView(children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        //display loading icon
+                        if (vm.loading)
+                          const LoadingWidget(topPadding: 80, bottomPadding: 0)
+                        //a message if no jobs
+                        else if (populateAdverts(vm.adverts, store).isEmpty)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: (MediaQuery.of(context).size.height) / 4,
+                                left: 40,
+                                right: 40),
+                            child: (const Text(
+                              "There are no jobs to display.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.white70),
+                            )),
+                          ),
+                        //else populate the jobs
+                        ...populateAdverts(vm.adverts, store),
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: const [
+                        //the jobs that have been bid on should go here
+                      ],
+                    ),
+                  ),
+                ])),
 
                 if (vm.loading)
                   const LoadingWidget(topPadding: 80, bottomPadding: 0)
-
-                //************MESSAGE IF THERE ARE NO ADVERTS***********/
-                else if (vm.adverts.isEmpty)
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: (MediaQuery.of(context).size.height) / 3),
-                    child: const Text(
-                      "There are no jobs to display.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white70),
-                    ),
-                  ),
-                //*****************************************************/
               ],
             ),
           ),
