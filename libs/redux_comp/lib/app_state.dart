@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
@@ -25,14 +24,18 @@ class AppState {
   final CognitoAuthModel? authModel;
   final UserModel? userDetails;
   final PartialUser? partialUser;
+
   final List<BidModel> bids; // holds all of the bids i.e viewBids ⊆ bids
   final List<BidModel> shortlistBids;
   final List<BidModel> viewBids; // holds the list of bids to view
+
   final List<AdvertModel> adverts;
   final List<AdvertModel> viewAdverts;
   final BidModel?
       activeBid; // represents the current bid, used for viewing a bid
   final AdvertModel? activeAd; // used for representing the current ad
+  final List<String> advertImages; // image urls for an advert
+
   final Location? locationResult;
   // both will change throughout the app
   final ErrorType error;
@@ -54,7 +57,7 @@ class AppState {
   final AdminModel admin;
 
   // images
-  final File? userProfileImage;
+  final String? userProfileImage;
 
   // paystack keys
   final String paystackSecretKey;
@@ -69,6 +72,7 @@ class AppState {
     required this.partialUser,
     required this.adverts,
     required this.viewAdverts,
+    required this.advertImages,
     required this.bids,
     required this.shortlistBids,
     required this.viewBids,
@@ -127,6 +131,7 @@ class AppState {
             coordinates: Coordinates(lat: 22, lng: 21)),
         dateCreated: 0,
       ),
+      advertImages: const [],
       activeBid: const BidModel(
         id: "",
         userId: "",
@@ -177,10 +182,11 @@ class AppState {
     List<String>? advertsWon,
     int? sum,
     StatisticsModel? userStatistics,
-    File? userProfileImage,
+    String? userProfileImage,
     String? paystackPublicKey,
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
+    List<String>? advertImages,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
@@ -209,6 +215,7 @@ class AppState {
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
       notifications: notifications ?? this.notifications,
+      advertImages: advertImages ?? this.advertImages,
     );
   }
 }

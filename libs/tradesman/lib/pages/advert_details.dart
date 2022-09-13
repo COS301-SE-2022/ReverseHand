@@ -18,13 +18,6 @@ class TradesmanJobDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final List<String> images = [
-        "https://media.istockphoto.com/photos/mess-and-dump-an-old-room-with-lots-of-things-devastation-very-small-picture-id1189357377?k=20&m=1189357377&s=612x612&w=0&h=l2VJRihipV0DSRf2VImuCde4wloj4vkuJhylLWcybC8=",
-        "https://www.researchgate.net/publication/264635711/figure/fig2/AS:213433816490008@1427897995893/Living-room-The-patients-living-room-was-filled-with-dirty-clothing-old-newspaper-and.png",
-        "https://renegademothering.com/wp-content/uploads/2015/06/FullSizeRender-5.jpg",
-    ];
-
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -40,18 +33,18 @@ class TradesmanJobDetails extends StatelessWidget {
                 //*******************************************//
 
                 //******************CAROUSEL ****************//
-                ImageCarouselWidget(images: images, store: store),
+                if (vm.advertImages.isNotEmpty)
+                  ImageCarouselWidget(images: vm.advertImages),
                 //*******************************************//
 
                 //**********DETAILED JOB INFORMATION***********//
                 JobCardWidget(
-                  titleText: vm.advert.title,
-                  descText: vm.advert.description ?? "",
-                  date: timestampToDate(vm.advert.dateCreated),
-                  type: vm.advert.type,
-                  location: vm.advert.domain.city,
-                  store: store
-                ),
+                    titleText: vm.advert.title,
+                    descText: vm.advert.description ?? "",
+                    date: timestampToDate(vm.advert.dateCreated),
+                    type: vm.advert.type,
+                    location: vm.advert.domain.city,
+                    store: store),
 
                 const Padding(padding: EdgeInsets.only(top: 60)),
 
@@ -112,6 +105,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/tradesman'),
         ),
+        advertImages: state.advertImages,
       );
 }
 
@@ -123,6 +117,7 @@ class _ViewModel extends Vm {
   final VoidCallback pushViewBidsPage;
   final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
+  final List<String> advertImages;
 
   _ViewModel({
     required this.advert,
@@ -131,5 +126,6 @@ class _ViewModel extends Vm {
     required this.pushEditAdvert,
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
-  }) : super(equals: [advert]);
+    required this.advertImages,
+  }) : super(equals: [advert, advertImages]);
 }
