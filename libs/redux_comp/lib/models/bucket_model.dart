@@ -1,6 +1,6 @@
 // enum to show what kind of upload
 enum FileType {
-  profile,
-  job,
-  quote,
+  profile, // profile image
+  job, // a jobs images
+  quote, // quote by tradesman - pdf
 }

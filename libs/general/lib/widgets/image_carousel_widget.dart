@@ -1,15 +1,11 @@
 import 'dart:io';
-import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/add_to_bucket_action.dart';
-import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/bucket_model.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:carousel_slider/carousel_slider.dart';
 
 class ImageCarouselWidget extends StatelessWidget {
-  final List<File> images;
+  final List<String> images;
 
   const ImageCarouselWidget({
     Key? key,
@@ -24,7 +20,7 @@ class ImageCarouselWidget extends StatelessWidget {
       itemBuilder: (context, index, realIndex) {
         final firstImage = images[index];
 
-        return buildImage(firstImage.path, index, context);
+        return buildImage(firstImage, index, context);
       },
     );
   }

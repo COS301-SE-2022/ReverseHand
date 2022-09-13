@@ -119,7 +119,7 @@ class _ViewModel extends Vm {
   final VoidCallback pushViewBidsPage;
   final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
-  final List<File> advertImages;
+  final List<String> advertImages;
 
   _ViewModel({
     required this.advert,

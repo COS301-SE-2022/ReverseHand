@@ -35,7 +35,7 @@ class AppState {
   final BidModel?
       activeBid; // represents the current bid, used for viewing a bid
   final AdvertModel? activeAd; // used for representing the current ad
-  final List<File> advertImages; // images for an advert
+  final List<String> advertImages; // image urls for an advert
 
   final Location? locationResult;
   // both will change throughout the app
@@ -187,7 +187,7 @@ class AppState {
     String? paystackPublicKey,
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
-    List<File>? advertImages,
+    List<String>? advertImages,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
