@@ -51,7 +51,7 @@ class TradesmanJobDetails extends StatelessWidget {
                   store: store
                 ),
 
-                const Padding(padding: EdgeInsets.only(top: 60)),
+                const Padding(padding: EdgeInsets.only(top: 40)),
 
                 //*************BOTTOM BUTTONS**************//
                 AuthButtonWidget(

@@ -158,6 +158,8 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     ),
                     //************************************/
 
+                    const Padding(padding: EdgeInsets.only(bottom: 10)),
+
                     //****************ICON****************/
                     ProfileImageWidget(
                       store: widget.store,

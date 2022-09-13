@@ -18,7 +18,7 @@ class ImageCarouselWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-      options: CarouselOptions(height: 230),
+      options: CarouselOptions(height: 200),
       itemCount: images.length,
       itemBuilder: (context, index, realIndex) {
         final firstImage = images[index];

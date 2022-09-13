@@ -52,7 +52,7 @@ class ConsumerProfilePage extends StatelessWidget {
                         ),
                       ),
                       //************************************/
-                      const Padding(padding: EdgeInsets.only(top: 15)),
+                      const Padding(padding: EdgeInsets.only(top: 15, bottom: 15)),
                       //****************PROFILE IMAGE****************/
                       ProfileImageWidget(
                         store: store,

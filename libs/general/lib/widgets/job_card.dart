@@ -124,6 +124,14 @@ class JobCardWidget extends StatelessWidget {
               ),
             ),
 
+            const Divider(
+              height: 20,
+              thickness: 0.5,
+              indent: 5,
+              endIndent: 10,
+              color: Colors.white,
+            ),
+
             //****************DESCRIPTION*******************//
             SizedBox(
               width: MediaQuery.of(context).size.width,
