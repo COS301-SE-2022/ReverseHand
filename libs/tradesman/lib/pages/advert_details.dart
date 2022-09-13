@@ -67,7 +67,7 @@ class TradesmanJobDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(7.0),
                           ),
                           builder: (BuildContext context) {
-                            return const UploadQuoteSheet();
+                            return UploadQuoteSheet(store: store);
                           });
                     }),
                 //place bid
