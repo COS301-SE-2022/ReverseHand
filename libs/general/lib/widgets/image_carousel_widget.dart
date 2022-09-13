@@ -1,7 +1,4 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-
-// ignore: depend_on_referenced_packages
 import 'package:carousel_slider/carousel_slider.dart';
 
 class ImageCarouselWidget extends StatelessWidget {
