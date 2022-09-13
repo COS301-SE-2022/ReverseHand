@@ -30,7 +30,8 @@ class ConsumerProfilePage extends StatelessWidget {
                     children: [
                       AppBarWidget(title: "PROFILE", store: store),
                       LoadingWidget(
-                          topPadding: MediaQuery.of(context).size.height / 3, bottomPadding: 0)
+                          topPadding: MediaQuery.of(context).size.height / 3,
+                          bottomPadding: 0)
                     ],
                   )
                 : Column(
@@ -64,7 +65,7 @@ class ConsumerProfilePage extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
                         child: SizedBox(
                           height: 100,
-                          width: 300,
+                          width: MediaQuery.of(context).size.width / 1.15,
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColorDark,
