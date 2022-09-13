@@ -58,7 +58,7 @@ class AppState {
   final AdminModel admin;
 
   // images
-  final File? userProfileImage;
+  final String? userProfileImage;
 
   // paystack keys
   final String paystackSecretKey;
@@ -183,7 +183,7 @@ class AppState {
     List<String>? advertsWon,
     int? sum,
     StatisticsModel? userStatistics,
-    File? userProfileImage,
+    String? userProfileImage,
     String? paystackPublicKey,
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
