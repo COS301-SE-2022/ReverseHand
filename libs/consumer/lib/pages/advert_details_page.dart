@@ -7,7 +7,7 @@ import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
-import 'package:redux_comp/actions/process_payment_action.dart';
+import 'package:redux_comp/actions/adverts/get_advert_images_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
@@ -20,7 +20,6 @@ class AdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
 
   const AdvertDetailsPage({Key? key, required this.store}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,23 +39,23 @@ class AdvertDetailsPage extends StatelessWidget {
                 return Column(
                   children: [
                     //**********APPBAR***********//
-                    AppBarWidget(title: "JOB INFO", store: store, backButton: true),
+                    AppBarWidget(
+                        title: "JOB INFO", store: store, backButton: true),
                     //*******************************************//
 
-                     //******************CAROUSEL ****************//
-                    ImageCarouselWidget(images: images, store: store),
-                     //*******************************************//
+                    //******************CAROUSEL ****************//
+                    if (vm.advertImages.isNotEmpty)
+                      ImageCarouselWidget(images: vm.advertImages),
+                    //*******************************************//
 
                     JobCardWidget(
-                      titleText: vm.advert.title,
-                      descText: vm.advert.description ?? "",
-                      location: vm.advert.domain.city,
-                      type: vm.advert.type,
-                      date: timestampToDate(vm.advert.dateCreated),
-                      store: store
-                    ),
+                        titleText: vm.advert.title,
+                        descText: vm.advert.description ?? "",
+                        location: vm.advert.domain.city,
+                        type: vm.advert.type,
+                        date: timestampToDate(vm.advert.dateCreated),
+                        store: store),
                     //*******************************************//
-
 
                     //extra padding if there is an accepted bid
                     if (vm.advert.acceptedBid != null)
@@ -82,7 +81,7 @@ class AdvertDetailsPage extends StatelessWidget {
                                     context,
                                     DeletePopUpWidget(
                                       // action: vm.dispatchArchiveAdvertAction,
-                                      action: () => vm.testPayments(context),
+                                      action: () => vm.test(),
                                     ),
                                     320.0);
                               },
@@ -167,8 +166,8 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           dispatch(ArchiveAdvertAction());
           dispatch(NavigateAction.pop());
         },
-        testPayments: (BuildContext context) =>
-            dispatch(ProcessPaymentAction(context)),
+        test: () => dispatch(GetAdvertImagesAction()),
+        advertImages: state.advertImages,
       );
 }
 
@@ -182,7 +181,8 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchDeleteChatAction;
   final VoidCallback
       dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
-  final void Function(BuildContext context) testPayments;
+  final VoidCallback test;
+  final List<String> advertImages;
 
   _ViewModel({
     required this.dispatchDeleteChatAction,
@@ -192,6 +192,7 @@ class _ViewModel extends Vm {
     required this.pushConsumerListings,
     required this.popPage,
     required this.dispatchArchiveAdvertAction,
-    required this.testPayments,
-  }) : super(equals: [advert]); // implementinf hashcode
+    required this.test,
+    required this.advertImages,
+  }) : super(equals: [advert, advertImages]); // implementinf hashcode
 }
