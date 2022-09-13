@@ -38,6 +38,9 @@ type Query {
 
   getReportedReviews: [AdminUser]!
     @function(name: "getReportedReviewsResolver-${env}")
+
+  getDBWriteDashboard: String!
+    @function(name:  "getDashboardMetricsResolver-${env}")
 }
 
 type Mutation {

@@ -140,7 +140,6 @@ class GetUserAction extends ReduxAction<AppState> {
         viewUser(user_id: "$id") {
           id
           email
-          name
           scope
         }
       }

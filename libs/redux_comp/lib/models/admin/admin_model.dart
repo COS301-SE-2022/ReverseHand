@@ -14,10 +14,18 @@ class AdminModel {
   final List<CognitoUserModel>? activeCognitoUsers;
   final ReportedAdvertModel? activeAdvert;
   final String? pagenationToken;
+  final Image? dash;
 
-
-  const AdminModel(
-      {required this.reportedCustomers, this.activeUser, this.activeUsers, this.activeCognitoUsers , this.activeAdverts, this.activeAdvert, this.pagenationToken});
+  const AdminModel({
+    required this.reportedCustomers,
+    this.activeUser,
+    this.activeUsers,
+    this.activeCognitoUsers,
+    this.activeAdverts,
+    this.activeAdvert,
+    this.pagenationToken,
+    this.dash,
+  });
 
   AdminModel copy({
     List<ReportedUserModel>? reportedCustomers,
@@ -27,6 +35,7 @@ class AdminModel {
     List<ReportedAdvertModel>? activeAdverts,
     ReportedAdvertModel? activeAdvert,
     String? pagenationToken,
+    Image? dash,
   }) {
     return AdminModel(
       reportedCustomers: reportedCustomers ?? this.reportedCustomers,
@@ -36,6 +45,7 @@ class AdminModel {
       activeAdverts: activeAdverts ?? this.activeAdverts,
       activeAdvert: activeAdvert ?? this.activeAdvert,
       pagenationToken: pagenationToken ?? this.pagenationToken,
+      dash: dash ?? this.dash,
     );
   }
 }
