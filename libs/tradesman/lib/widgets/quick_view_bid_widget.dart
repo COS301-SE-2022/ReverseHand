@@ -29,41 +29,48 @@ class TQuickViewBidWidget extends StatelessWidget {
           child: Material(
             elevation: 3,
             borderRadius: const BorderRadius.all(Radius.circular(7)),
-            child: InkWell(
-              onTap: () => vm.dispatchSetActiveBid(bid),
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 232, 232, 232),
-                  borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 130,
-                      child: Text(
-                        '${bid.name}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 22,
-                            color: Colors.black,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Theme.of(context).primaryColor,
-                            decorationThickness: 2),
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 232, 232, 232),
+                borderRadius: BorderRadius.all(Radius.circular(7.0)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  //***********CONTRACTOR NAME*************/
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 3,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        border: Border.all(
+                            color: Theme.of(context).primaryColor, width: 2),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
+                        child: Center(
+                          child: Text(
+                            '${bid.name}',
+                            style: const TextStyle(
+                              fontSize: 22,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    const Padding(padding: EdgeInsets.only(right: 20)),
-                    Text(
-                      'R${bid.priceLower}  -  R${bid.priceUpper}',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 22, color: Colors.black),
-                    ),
-                  ],
-                ),
+                  ),
+                  //***************************************/
+                  const Padding(padding: EdgeInsets.only(right: 20)),
+                  Text(
+                    'R${bid.priceLower}  -  R${bid.priceUpper}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 22, color: Colors.black),
+                  ),
+                ],
               ),
             ),
           ),

@@ -50,7 +50,8 @@ class QuickViewBidWidget extends StatelessWidget {
                                 Icons.bookmark,
                                 color: Theme.of(context).primaryColor,
                               )),
-                              const Padding(padding: EdgeInsets.all(2))
+                              const Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 7, 0))
                             ],
                           ),
                         //***************************************/
