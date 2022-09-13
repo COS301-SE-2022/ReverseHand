@@ -57,9 +57,11 @@ class AddToBucketAction extends ReduxAction<AppState> {
           });
       debugPrint('Successfully uploaded file: ${result.key}');
 
+      final imageUrl = await Amplify.Storage.getUrl(key: key);
+
       switch (fileType) {
         case FileType.profile:
-          return state.copy(userProfileImage: file);
+          return state.copy(userProfileImage: imageUrl.url);
         case FileType.job: // happens if consumer is logged in
           break;
         case FileType.quote: // happens when tradesman is logged in

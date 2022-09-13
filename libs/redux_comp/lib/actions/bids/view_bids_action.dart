@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:redux_comp/actions/adverts/get_advert_images_action.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -79,5 +80,6 @@ class ViewBidsAction extends ReduxAction<AppState> {
   @override
   void after() {
     dispatch(WaitAction.remove("viewBids"));
+    dispatch(GetAdvertImagesAction());
   } // move to page after action completes
 }
