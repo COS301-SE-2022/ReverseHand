@@ -19,6 +19,7 @@ class RecordCreateAdvertAction extends ReduxAction<AppState> {
 
   try {
     await Amplify.Analytics.recordEvent(event: event);
+    await Amplify.Analytics.flushEvents();
 
   } catch(e) {
     debugPrint(e.toString());

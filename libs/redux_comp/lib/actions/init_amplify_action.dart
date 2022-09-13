@@ -14,6 +14,7 @@ class InitAmplifyAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     await _configureAmplify();
+    Amplify.Analytics.enable();
 
     return null;
   }

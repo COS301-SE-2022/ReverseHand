@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.1\",\"stackType\":\"analytics-Pinpoint\",\"metadata\":{}}",
+  "Description": "Pinpoint resource stack creation using Amplify CLI",
   "Parameters": {
     "appName": {
       "Type": "String"
