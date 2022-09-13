@@ -31,8 +31,8 @@ class JobCardWidget extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 35),
-      child: Column(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 35),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //****************DATE*******************//
@@ -50,28 +50,32 @@ class JobCardWidget extends StatelessWidget {
               children: [
                 //****************TITLE********************//
                 Padding(
-                    padding: const EdgeInsets.only(left: 5),
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.25,
                     child: Text(
                       titleText,
-                      style: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 35, fontWeight: FontWeight.bold),
                     ),
+                  ),
                 ),
                 //*****************************************//
 
                 // //******************EDIT ICON****************//
                 StoreConnector<AppState, _ViewModel>(
-                  vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) =>
-                    (vm.advert.acceptedBid == null)?
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        onPressed: vm.pushEditAdvert,
-                        icon: const Icon(Icons.edit),
-                        color: Colors.white70,
-                      ),
-                    ): Container()
-                  ),
+                    vm: () => _Factory(this),
+                    builder: (BuildContext context, _ViewModel vm) =>
+                        (vm.advert.acceptedBid == null)
+                            ? Align(
+                                alignment: Alignment.topRight,
+                                // child: IconButton(
+                                //   onPressed: vm.pushEditAdvert,
+                                //   icon: const Icon(Icons.edit),
+                                //   color: Colors.white70,
+                                // ),
+                              )
+                            : Container()),
                 //**********************************************/
               ],
             ),
@@ -90,7 +94,7 @@ class JobCardWidget extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(right: 1)),
 
                   Text(location,
-                    style: const TextStyle(fontSize: 20, color: Colors.grey)),
+                      style: const TextStyle(fontSize: 20, color: Colors.grey)),
                   //*****************************************//
 
                   const Padding(
@@ -98,7 +102,7 @@ class JobCardWidget extends StatelessWidget {
                       child: Icon(
                         Icons.circle,
                         size: 8,
-                        color: Colors.grey ,
+                        color: Colors.grey,
                       )),
                   //*****************************************//
 
@@ -114,8 +118,8 @@ class JobCardWidget extends StatelessWidget {
                         // ),
                         const Padding(padding: EdgeInsets.only(right: 1)),
                         Text(type,
-                            style:
-                                const TextStyle(fontSize: 20, color: Colors.grey)),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.grey)),
                       ],
                     ),
                   ),
@@ -129,16 +133,14 @@ class JobCardWidget extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               child: Padding(
                 padding: const EdgeInsets.only(left: 5, top: 10),
-                child: Text(
-                  descText,
-                  textWidthBasis: TextWidthBasis.longestLine,
+                child: Text(descText,
+                    // textWidthBasis: TextWidthBasis.longestLine,
                     style: const TextStyle(
-                      fontSize: 18, 
-                      color: Colors.white, 
-                      height: 1.3,
-                      letterSpacing: 1
-                    )
-                  ),
+                      fontSize: 18,
+                      color: Colors.white,
+                      // height: 1.3,
+                      // letterSpacing: 1
+                    )),
               ),
             ),
             //**********************************************/
@@ -172,4 +174,3 @@ class _ViewModel extends Vm {
     required this.pushEditAdvert,
   }) : super(equals: [advert]); // implementinf hashcode
 }
-
