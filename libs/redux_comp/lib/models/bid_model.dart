@@ -24,10 +24,6 @@ class BidModel {
     required this.shortlisted,
   });
 
-  bool isShortlisted() {
-    return id.contains('sb');
-  }
-
   factory BidModel.fromJson(obj) {
     return BidModel(
         id: obj['id'],

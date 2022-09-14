@@ -40,14 +40,19 @@ class ViewBidsAction extends ReduxAction<AppState> {
       List<BidModel> bids = [];
       List<BidModel> shortlistedBids = [];
 
+      BidModel? userBid;
+
       // since all bids are gotten we seperate them into two lists
       for (dynamic d in data['viewBids']) {
-        final bool shortlisted = d['shortlisted'];
-        if (shortlisted) {
-          shortlistedBids.add(BidModel.fromJson(d));
+        final BidModel bid = BidModel.fromJson(d);
+
+        if (bid.shortlisted) {
+          shortlistedBids.add(bid);
         } else {
-          bids.add(BidModel.fromJson(d));
+          bids.add(bid);
         }
+
+        if (bid.userId == state.userDetails!.id) userBid = bid;
       }
 
       final AdvertModel ad =
@@ -55,6 +60,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
 
       return state.copy(
         bids: bids,
+        userBid: userBid,
         shortlistBids: shortlistedBids,
         viewBids: bids + shortlistedBids,
         activeAd: ad, // setting the active ad

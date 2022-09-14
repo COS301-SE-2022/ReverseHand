@@ -25,14 +25,16 @@ class AppState {
   final UserModel? userDetails;
   final PartialUser? partialUser;
 
-  final List<BidModel> bids; // holds all of the bids i.e viewBids ⊆ bids
-  final List<BidModel> shortlistBids;
-  final List<BidModel> viewBids; // holds the list of bids to view
+  final List<BidModel> bids; // holds all of the bids
+  final List<BidModel> shortlistBids; // holds all bids that are shortlsited
+  final List<BidModel>
+      viewBids; // holds the list of bids to view i.e viewBids ⊆ bids ∪ shortlistBids
+  final BidModel? userBid; // the bid of the currently logged in user
+  final BidModel?
+      activeBid; // represents the current bid, used for viewing a bid
 
   final List<AdvertModel> adverts;
   final List<AdvertModel> viewAdverts;
-  final BidModel?
-      activeBid; // represents the current bid, used for viewing a bid
   final AdvertModel? activeAd; // used for representing the current ad
   final List<String> advertImages; // image urls for an advert
 
@@ -78,6 +80,7 @@ class AppState {
     required this.viewBids,
     required this.activeAd,
     required this.activeBid,
+    required this.userBid,
     required this.locationResult,
     required this.error,
     required this.change,
@@ -140,6 +143,7 @@ class AppState {
         dateCreated: 0,
         shortlisted: false,
       ),
+      userBid: null,
       locationResult: null,
       error: ErrorType.none,
       change: false,
@@ -166,6 +170,7 @@ class AppState {
     List<BidModel>? bids,
     List<BidModel>? shortlistBids,
     List<BidModel>? viewBids,
+    BidModel? userBid,
     List<ReviewModel>? reviews,
     BidModel? activeBid,
     AdvertModel? activeAd,
@@ -200,6 +205,7 @@ class AppState {
       viewBids: viewBids ?? this.viewBids,
       activeAd: activeAd ?? this.activeAd,
       activeBid: activeBid ?? this.activeBid,
+      userBid: userBid ?? this.userBid,
       locationResult: locationResult ?? this.locationResult,
       error: error ?? this.error,
       change: change ?? this.change,
