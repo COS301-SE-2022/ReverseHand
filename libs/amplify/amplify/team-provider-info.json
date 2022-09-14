@@ -218,6 +218,14 @@
         "getMessagesResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getMessagesResolver-57796251456e5061644c-build.zip"
+        },
+        "getDashboardMetricsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getDashboardMetricsResolver-37734e55486e5162664c-build.zip"
+        },
+        "getBidOnAdvertsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getBidOnAdvertsResolver-44384836524d6252486d-build.zip"
         }
       }
     }
