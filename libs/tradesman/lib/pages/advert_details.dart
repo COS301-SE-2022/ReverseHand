@@ -56,13 +56,13 @@ class TradesmanJobDetails extends StatelessWidget {
                           const Padding(
                             padding: EdgeInsets.only(left: 45.0),
                             child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "My bid",
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold),
-                                )),
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "My bid",
+                                style: TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(

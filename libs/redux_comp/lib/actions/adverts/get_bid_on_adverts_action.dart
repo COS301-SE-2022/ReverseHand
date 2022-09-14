@@ -16,7 +16,7 @@ class GetBidOnAdvertsAction extends ReduxAction<AppState> {
     final String userId = tradesmanId ?? state.userDetails!.id;
 
     String graphQLDocument = '''query {
-      getBidOnAdverts(tradesman_id: $userId) {
+      getBidOnAdverts(tradesman_id: "$userId") {
         date_created
         date_closed
         description
@@ -51,4 +51,10 @@ class GetBidOnAdvertsAction extends ReduxAction<AppState> {
       return null; /* On Error do not modify state */
     }
   }
+
+  @override
+  void before() => dispatch(WaitAction.add("get_bid_on_jobs"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("get_bid_on_jobs"));
 }

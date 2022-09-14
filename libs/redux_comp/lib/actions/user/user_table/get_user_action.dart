@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/adverts/get_bid_on_adverts_action.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/actions/get_paystack_secrets_action.dart';
@@ -177,8 +178,8 @@ class GetUserAction extends ReduxAction<AppState> {
         dispatch(NavigateAction.pushNamed("/consumer"));
         break;
       case "Tradesman":
-        dispatch(ViewJobsAction(
-            state.userDetails!.domains, state.userDetails!.tradeTypes));
+        dispatch(ViewJobsAction());
+        dispatch(GetBidOnAdvertsAction());
         startupActions();
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;

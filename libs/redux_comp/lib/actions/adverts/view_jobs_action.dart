@@ -6,13 +6,16 @@ import '../../app_state.dart';
 import '../../models/advert_model.dart';
 
 class ViewJobsAction extends ReduxAction<AppState> {
-  final List<Domain> domains;
-  final List<String> tradetypes;
+  final List<Domain>? domains;
+  final List<String>? tradetypes;
 
-  ViewJobsAction(this.domains, this.tradetypes);
+  ViewJobsAction({this.domains, this.tradetypes});
 
   @override
   Future<AppState?> reduce() async {
+    final domains = this.domains ?? state.userDetails!.domains;
+    final tradetypes = this.tradetypes ?? state.userDetails!.tradeTypes;
+
     List<String> domainsQuery = [];
     for (Domain domain in domains) {
       domainsQuery.add(domain.toString());
