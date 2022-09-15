@@ -72,4 +72,38 @@ class UserModel {
       profileImage: profileImage ?? this.profileImage,
     );
   }
+
+  // implementing hashcode
+  @override
+  int get hashCode => Object.hash(
+        id,
+        email,
+        name,
+        cellNo,
+        domains,
+        location,
+        registered,
+        externalProvider,
+        externalUsername,
+        scope,
+        statistics,
+        profileImage,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return other is UserModel &&
+        id == other.id &&
+        email == other.email &&
+        name == other.name &&
+        cellNo == other.cellNo &&
+        domains == other.domains &&
+        location == other.location &&
+        registered == other.registered &&
+        externalProvider == other.externalProvider &&
+        externalUsername == other.externalUsername &&
+        scope == other.scope &&
+        statistics == other.statistics &&
+        profileImage == other.profileImage;
+  }
 }
