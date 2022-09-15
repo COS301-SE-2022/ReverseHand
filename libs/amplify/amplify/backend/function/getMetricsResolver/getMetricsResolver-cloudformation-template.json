@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getReportedReviewsResolver",
+            "getMetricsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getReportedReviewsResolver",
+                  "getMetricsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -72,8 +72,7 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "USER": "User"
+            }
           }
         },
         "Role": {
@@ -93,12 +92,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRolea9e7d531",
+            "reversehandLambdaRole127302a1",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRolea9e7d531",
+                  "reversehandLambdaRole127302a1",
                   "-",
                   {
                     "Ref": "env"
@@ -169,42 +168,31 @@
         }
       }
     },
-    "AccessDynamoDBApiResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
+    "CustomLambdaExecutionPolicy": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
-        "PolicyName": "amplify-lambda-execution-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
+        "PolicyName": "custom-lambda-execution-policy",
         "PolicyDocument": {
           "Version": "2012-10-17",
           "Statement": [
             {
-              "Effect": "Allow",
               "Action": [
-                "dynamodb:BatchGetItem",
-                "dynamodb:GetItem",
-                "dynamodb:Query"
+                "cloudwatch:GetMetricData"
               ],
               "Resource": [
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
-                    {
-                      "tablename": "User"
-                    }
-                  ]
-                }
-              ]
+                "*"
+              ],
+              "Effect": "Allow"
             }
           ]
-        }
-      }
+        },
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ]
+      },
+      "DependsOn": "LambdaExecutionRole"
     }
   },
   "Outputs": {
