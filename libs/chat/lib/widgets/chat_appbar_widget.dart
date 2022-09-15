@@ -19,14 +19,18 @@ class ChatAppBarWidget extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 title: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () { }, //todo, link profile
-                      child: const CircleAvatar(
-                        backgroundImage: AssetImage("assets/images/profile.png",
-                                package: 'general'),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 40,),
+                        child: GestureDetector(
+                        onTap: () { }, //todo, link profile
+                        child: const CircleAvatar(
+                          radius: 15,
+                          backgroundImage: AssetImage("assets/images/profile.png",
+                                  package: 'general'),
+                        ),
                       ),
                     ),
-                    Padding(padding: const EdgeInsets.only(left: 20),
+                    Padding(padding: const EdgeInsets.only(left: 10, top: 40),
                       child: Text(
                         title, 
                         style: const TextStyle(

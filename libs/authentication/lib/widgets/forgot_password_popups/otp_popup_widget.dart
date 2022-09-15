@@ -4,9 +4,7 @@ import 'package:general/widgets/button.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/user/amplify_auth/set_otp__action.dart';
 import 'package:redux_comp/app_state.dart';
-import '../../pages/login_page.dart';
 import '../auth_textfield_light.dart';
-import '../link_widget.dart';
 import 'new_password_popup_widget.dart';
 
 //******************************** */
@@ -65,12 +63,7 @@ class FPOTPPopupWidget extends StatelessWidget {
                       //*****************************************************
 
                       //*****************Heading **********************
-                      LinkWidget(
-                          text1: "Didn't receive OTP? ",
-                          text2: "Resend",
-                          navigate: () => LoginPage(store: store),
-                          colour: Colors.black),
-                      const Padding(padding: EdgeInsets.all(20)),
+                      const Padding(padding: EdgeInsets.only(left:20, right: 20, bottom: 20)),
                       ButtonWidget(
                           text: "Verify",
                           function: () {

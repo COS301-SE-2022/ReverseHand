@@ -30,7 +30,7 @@ class BidDetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //************APPBAR**************************//
-                AppBarWidget(title: "BID DETAILS", store: store),
+                AppBarWidget(title: "BID DETAILS", store: store, backButton: true),
                 //********************************************//
 
                 //************NAME AND ROW*******************//
