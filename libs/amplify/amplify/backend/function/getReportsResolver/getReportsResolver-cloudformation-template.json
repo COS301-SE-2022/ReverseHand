@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getReportedReviewsResolver",
+            "getReportsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getReportedReviewsResolver",
+                  "getReportsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -73,7 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "USER": "User"
+            "REVERSEHAND": "ReverseHand"
           }
         },
         "Role": {
@@ -93,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRolea9e7d531",
+            "reversehandLambdaRoledb09c268",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRolea9e7d531",
+                  "reversehandLambdaRoledb09c268",
                   "-",
                   {
                     "Ref": "env"
@@ -187,8 +187,6 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:BatchGetItem",
-                "dynamodb:GetItem",
                 "dynamodb:Query"
               ],
               "Resource": [
@@ -196,7 +194,15 @@
                   "Fn::Sub": [
                     "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
                     {
-                      "tablename": "User"
+                      "tablename": "ReverseHand"
+                    }
+                  ]
+                },
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
+                    {
+                      "tablename": "ReverseHand"
                     }
                   ]
                 }

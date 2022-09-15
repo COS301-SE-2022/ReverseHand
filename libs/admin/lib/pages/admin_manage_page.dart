@@ -5,6 +5,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/appbar_popup_menu_widget.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/admin/app_management/get_user_reports_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class AdminManagePage extends StatelessWidget {
@@ -42,9 +43,13 @@ class AdminManagePage extends StatelessWidget {
                       //**********APPBAR***********//
                       appbar,
 
-                      AdminContainerWidget(text: "Advert Reports", function: () {}),
-                      AdminContainerWidget(text: "User Reports", function: () {}),
-                      AdminContainerWidget(text: "Review Reports", function: () {}),
+                      AdminContainerWidget(
+                          text: "Advert Reports", function: () {}),
+                      AdminContainerWidget(
+                          text: "User Reports",
+                          function: () => vm.pushUserReportsPage()),
+                      AdminContainerWidget(
+                          text: "Review Reports", function: () {}),
                     ],
                   );
           },
@@ -60,15 +65,22 @@ class _Factory extends VmFactory<AppState, AdminManagePage> {
   _Factory(widget) : super(widget);
 
   @override
-  _ViewModel fromStore() => _ViewModel(loading: state.wait.isWaiting);
+  _ViewModel fromStore() => _ViewModel(
+      loading: state.wait.isWaiting,
+      pushUserReportsPage: () {
+        dispatch(NavigateAction.pushNamed('/user_reports_page'));
+        dispatch(GetUserReportsAction());
+      });
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
+  final VoidCallback pushUserReportsPage;
 
   _ViewModel({
     required this.loading,
+    required this.pushUserReportsPage,
   }) : super(equals: [loading]); // implementinf hashcode;
 }
 
@@ -76,7 +88,8 @@ class AdminContainerWidget extends StatelessWidget {
   final String text;
   final void Function() function;
 
-  const AdminContainerWidget({super.key, required this.text, required this.function});
+  const AdminContainerWidget(
+      {super.key, required this.text, required this.function});
 
   @override
   Widget build(BuildContext context) {

@@ -1,17 +1,15 @@
-import 'package:admin/widgets/quickview_report_widget.dart';
+import 'package:admin/widgets/admin_user_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/list_refresh_widget.dart';
+import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/actions/admin/app_management/get_user_reports_action.dart';
-import 'package:redux_comp/models/admin/app_management/report_model.dart';
+import 'package:redux_comp/models/admin/app_management/models/admin_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class ViewReportsPage extends StatelessWidget {
+class UserManagePage extends StatelessWidget {
   final Store<AppState> store;
-
-  const ViewReportsPage({Key? key, required this.store}) : super(key: key);
+  const UserManagePage({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +19,8 @@ class ViewReportsPage extends StatelessWidget {
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
-            List<Widget> reports = [];
-            for (ReportModel report in vm.reports) {
-              reports.add(QuickviewReportWidget(store: store, report: report));
-            }
             Widget appbar = AppBarWidget(
-              title: "User Reports",
+              title: "User Management",
               store: store,
               backButton: true,
             );
@@ -46,10 +40,18 @@ class ViewReportsPage extends StatelessWidget {
                     children: [
                       //**********APPBAR***********//
                       appbar,
-                      ListRefreshWidget(
-                        widgets: reports,
-                        refreshFunction: vm.dispatchGetUserReports,
-                      )
+
+                      AdminUserWidget(user: vm.activeUser),
+                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                      ButtonWidget(
+                        text: (vm.activeUser.enabled)
+                            ? "Disable User"
+                            : "Enable User",
+                        function: (vm.activeUser.enabled) ? () {} : () {},
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                      ButtonWidget(
+                          text: "Delete User", color: "red", function: () {})
                     ],
                   );
           },
@@ -60,26 +62,22 @@ class ViewReportsPage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, ViewReportsPage> {
+class _Factory extends VmFactory<AppState, UserManagePage> {
   _Factory(widget) : super(widget);
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        loading: state.wait.isWaiting,
-        reports: state.admin.adminManage.userReports ?? [],
-        dispatchGetUserReports: () => dispatch(GetUserReportsAction()),
-      );
+      loading: state.wait.isWaiting,
+      activeUser: state.admin.adminManage.activeUser!);
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
-  final List<ReportModel> reports;
-  final void Function() dispatchGetUserReports;
+  final AdminUserModel activeUser;
 
   _ViewModel({
     required this.loading,
-    required this.reports,
-    required this.dispatchGetUserReports,
-  }) : super(equals: [loading, reports]); // implementinf hashcode;
+    required this.activeUser,
+  }) : super(equals: [loading, activeUser]); // implementinf hashcode;
 }
