@@ -8,7 +8,7 @@ class GetNotificationsAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      getNotifications(user_id: "${state.userDetails!.id}") {
+      getNotifications(user_id: "${state.userDetails.id}") {
         title
         msg
         type

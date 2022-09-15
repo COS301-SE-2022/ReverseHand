@@ -112,7 +112,7 @@ class _Factory extends VmFactory<AppState, ProfileImageWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        profilePhoto: state.userProfileImage,
+        profilePhoto: state.userDetails.profileImage,
         dispatchAddtoBucketAction: (File file) => dispatch(
           AddToBucketAction(
             fileType: FileType.profile,

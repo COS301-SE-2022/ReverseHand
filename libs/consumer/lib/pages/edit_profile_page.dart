@@ -264,7 +264,7 @@ class _Factory extends VmFactory<AppState, _EditConsumerProfilePageState> {
         pushCustomSearch: () => dispatch(
           NavigateAction.pushNamed('/geolocation/custom_location_search'),
         ),
-        isRegistered: state.userDetails!.registered!,
+        isRegistered: state.userDetails.registered!,
         locationResult: state.locationResult,
         userDetails: state.userDetails,
       );

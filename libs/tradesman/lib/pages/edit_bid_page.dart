@@ -83,9 +83,9 @@ class TEditBidPageState extends State<TEditBidPage> {
                   text: "Save Changes",
                   function: () {
                     // String? name, cellNo;
-                    // (vm.userDetails!.name != nameController.value.text) ? name = nameController.value.text : null;
-                    // (vm.userDetails!.cellNo != cellController.value.text) ? cellNo = cellController.value.text : null;
-                    // vm.dispatchEditTradesmanAction(name, cellNo, vm.userDetails!.domains);
+                    // (vm.userDetails.name != nameController.value.text) ? name = nameController.value.text : null;
+                    // (vm.userDetails.cellNo != cellController.value.text) ? cellNo = cellController.value.text : null;
+                    // vm.dispatchEditTradesmanAction(name, cellNo, vm.userDetails.domains);
                   }),
               //   //**************************************************//
 

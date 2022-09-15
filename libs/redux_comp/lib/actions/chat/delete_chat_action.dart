@@ -9,7 +9,7 @@ class DeleteChatAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      deleteChat(c_id: "${state.userDetails!.id}", ad_id: "${state.activeAd!.id}") {
+      deleteChat(c_id: "${state.userDetails.id}", ad_id: "${state.activeAd!.id}") {
         consumer_id
         tradesman_id
         consumer_name

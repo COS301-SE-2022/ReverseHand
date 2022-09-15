@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/profile_image.dart';
-import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -23,10 +22,10 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
                 //*******************STAR CALC*********************//
-                int startAmount = vm.userStatistics.ratingSum == 0
+                int startAmount = vm.userDetails.statistics.ratingSum == 0
                     ? 0
-                    : vm.userStatistics.ratingSum ~/
-                        vm.userStatistics.ratingCount;
+                    : vm.userDetails.statistics.ratingSum ~/
+                        vm.userDetails.statistics.ratingCount;
 
                 List<Icon> stars = [];
                 for (int i = 0; i < startAmount; i++) {
@@ -107,7 +106,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.userStatistics.created} Jobs Completed",
+                                      "${vm.userDetails.statistics.created} Jobs Completed",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -125,7 +124,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.userStatistics.finished} Bids Made",
+                                      "${vm.userDetails.statistics.finished} Bids Made",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -162,9 +161,8 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        userDetails: state.userDetails!,
+        userDetails: state.otherUserDetails,
         isWaiting: state.wait.isWaiting,
-        userStatistics: state.userDetails!.statistics,
       );
 }
 
@@ -172,11 +170,9 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final bool isWaiting;
-  final StatisticsModel userStatistics;
 
   _ViewModel({
     required this.userDetails,
     required this.isWaiting,
-    required this.userStatistics,
-  }) : super(equals: [userDetails, isWaiting, userStatistics]);
+  }) : super(equals: [userDetails, isWaiting]);
 }

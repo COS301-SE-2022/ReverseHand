@@ -54,20 +54,21 @@ class TradesmanJobDetails extends StatelessWidget {
                 const Padding(padding: EdgeInsets.only(top: 25)),
 
                 //*************BOTTOM BUTTONS**************//
-                vm.bids.contains(vm.currentBid)
+                vm.currentBid != null
                     //if this contractor has already made a bid
                     ? Column(
                         children: [
+                          //*************USER BID**************//
                           const Padding(
                             padding: EdgeInsets.only(left: 45.0),
                             child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "My bid",
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold),
-                                )),
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "My bid",
+                                style: TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
@@ -95,7 +96,7 @@ class TradesmanJobDetails extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                          'R${vm.currentBid.priceLower}  -  R${vm.currentBid.priceUpper}',
+                                          'R${vm.currentBid!.priceLower}  -  R${vm.currentBid!.priceUpper}',
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
@@ -134,6 +135,7 @@ class TradesmanJobDetails extends StatelessWidget {
                           ),
                         ],
                       )
+                    //***********************************//
                     //if this contractor hasn't already made a bid
                     : Padding(
                         padding: const EdgeInsets.only(top: 20.0),
@@ -196,7 +198,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/tradesman'),
         ),
-        currentBid: state.userBid!,
+        currentBid: state.userBid,
         advertImages: state.advertImages,
       );
 }
@@ -206,7 +208,7 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final AdvertModel advert;
   final List<BidModel> bids;
-  final BidModel currentBid;
+  final BidModel? currentBid;
   final VoidCallback pushViewBidsPage;
   final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;

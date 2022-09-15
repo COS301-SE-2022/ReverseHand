@@ -286,11 +286,6 @@
         }
       ]
     },
-    "getReportedUsersResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "notificationsResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -330,11 +325,6 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "getReportedReviewsResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "addReviewReportResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -351,6 +341,31 @@
       "service": "Lambda"
     },
     "getMessagesResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getDashboardMetricsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getBidOnAdvertsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getReportsResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "adminGetUserResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getMetricsResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

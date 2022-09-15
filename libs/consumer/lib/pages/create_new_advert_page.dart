@@ -12,6 +12,7 @@ import 'package:general/widgets/profile_image.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
+import 'package:redux_comp/actions/analytics_events/record_create_advert_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:image_picker/image_picker.dart';
@@ -157,7 +158,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                 children: [
                                   //GET THE WHOLE ADDRESS?
                                   Text(
-                                    widget.store.state.userDetails!.location!
+                                    widget.store.state.userDetails.location!
                                         .address.city,
                                     style: const TextStyle(fontSize: 18),
                                   ),
@@ -203,18 +204,23 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                               if (titleController.value.text != "" &&
                                   trade != null) {
                                 vm.dispatchCreateAdvertActions(
-                                  widget.store.state.userDetails!.id,
+                                  widget.store.state.userDetails.id,
                                   titleController.value.text,
                                   Domain(
-                                      city: widget.store.state.userDetails!
+                                      city: widget.store.state.userDetails
                                           .location!.address.city,
-                                      province: widget.store.state.userDetails!
+                                      province: widget.store.state.userDetails
                                           .location!.address.province,
                                       coordinates: widget.store.state
-                                          .userDetails!.location!.coordinates),
+                                          .userDetails.location!.coordinates),
                                   trade!,
                                   descrController.value.text,
                                 );
+                                vm.dispatchRecordCreateAdvertAction(
+                                    widget.store.state.userDetails.location!
+                                        .address.city,
+                                    widget.store.state.userDetails.location!
+                                        .address.province);
                               } else {
                                 (LightDialogHelper.display(context,
                                     const CreationPopupWidget(), 210.0));
@@ -265,6 +271,8 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
             description: description,
           ),
         ),
+        dispatchRecordCreateAdvertAction: (String city, String province) =>
+            dispatch(RecordCreateAdvertAction(city: city, province: province)),
         loading: state.wait.isWaiting,
       );
 }
@@ -274,12 +282,15 @@ class _ViewModel extends Vm {
   final void Function(
           String id, String title, Domain domanin, String trade, String? descr)
       dispatchCreateAdvertActions;
+  final void Function(String city, String province)
+      dispatchRecordCreateAdvertAction;
   final VoidCallback popPage;
   final bool loading;
 
   _ViewModel({
     required this.loading,
     required this.dispatchCreateAdvertActions,
+    required this.dispatchRecordCreateAdvertAction,
     required this.popPage,
   }) : super(equals: [loading]); // implementinf hashcode
 }

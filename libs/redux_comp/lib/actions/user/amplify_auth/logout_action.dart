@@ -21,7 +21,7 @@ class LogoutAction extends ReduxAction<AppState> {
   }
 
   @override
-  void before() {
+  void after() {
     dispatch(NavigateAction.pushNamedAndRemoveAll('/login'));
   }
 }
