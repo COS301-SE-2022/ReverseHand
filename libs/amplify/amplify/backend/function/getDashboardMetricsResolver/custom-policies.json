@@ -1,0 +1,13 @@
+[
+  {
+    "Action": [
+      "cloudwatch:GetDashboard",
+      "cloudwatch:GetMetricData",
+      "cloudwatch:GetMetricStatistics",
+      "cloudwatch:GetMetricWidgetImage"
+    ],
+    "Resource": [
+      "*"
+    ]
+  }
+]

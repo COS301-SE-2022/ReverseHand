@@ -5,10 +5,10 @@
 type Query {
   viewBids(ad_id: String!): [Bid!]! @function(name: "viewBidsResolver-${env}")
 
-  viewAdverts(user_id: String!): [Advert]!
+  viewAdverts(user_id: String!): [Advert!]!
     @function(name: "viewAdvertsResolver-${env}")
 
-  viewJobs(domains: [DomainInput!]!, types: [String!]!): [Advert]!
+  viewJobs(domains: [DomainInput!]!, types: [String!]!): [Advert!]!
     @function(name: "viewJobsResolver-${env}")
 
   viewUser(user_id: String!): User! @function(name: "viewUserResolver-${env}")
@@ -38,6 +38,12 @@ type Query {
 
   getReportedReviews: [AdminUser]!
     @function(name: "getReportedReviewsResolver-${env}")
+
+  getDBWriteDashboard: String!
+    @function(name: "getDashboardMetricsResolver-${env}")
+
+  getBidOnAdverts(tradesman_id: String!): [Advert!]!
+      @function(name:  "getBidOnAdvertsResolver-${env}")
 }
 
 type Mutation {
