@@ -17,9 +17,22 @@ class StatisticsModel {
 
   factory StatisticsModel.fromJson(obj) {
     return StatisticsModel(
-        ratingSum: obj['rating_sum'],
-        ratingCount: obj['rating_count'],
-        created: obj['created'],
-        finished: obj['finished']);
+      ratingSum: obj['rating_sum'],
+      ratingCount: obj['rating_count'],
+      created: obj['created'],
+      finished: obj['finished'],
+    );
+  }
+
+  @override
+  int get hashCode => Object.hash(ratingSum, ratingCount, created, finished);
+
+  @override
+  bool operator ==(Object other) {
+    return other is StatisticsModel &&
+        finished == other.finished &&
+        ratingCount == other.ratingCount &&
+        created == other.created &&
+        ratingSum == other.ratingSum;
   }
 }

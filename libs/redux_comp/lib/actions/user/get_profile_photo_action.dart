@@ -4,30 +4,31 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class GetProfilePhotoAction extends ReduxAction<AppState> {
-  final String? userId;
+  final String? userId; // if not null than assumed that viewing another user
 
   GetProfilePhotoAction({this.userId});
 
   @override
   Future<AppState?> reduce() async {
-    // final documentsDir = await getApplicationDocumentsDirectory();
+    final String userId = this.userId ?? state.userDetails.id;
 
-    String key = "profiles/${userId ?? state.userDetails!.id}";
-    // final String filepath = "${documentsDir.path}/${key.replaceAll("/", "-")}";
-
-    // final file = File(filepath);
+    String key = "profiles/$userId";
 
     try {
-      // final result = await Amplify.Storage.downloadFile(
-      //   key: key,
-      //   local: file,
-      //   onProgress: (progress) {
-      //     debugPrint('Fraction completed: ${progress.getFractionCompleted()}');
-      //   },
-      // );
+      // checking if image exists
+      final ListResult result = await Amplify.Storage.list(path: key);
+      if (result.items.isEmpty) return null;
+
       final imageUrl = await Amplify.Storage.getUrl(key: key);
 
-      return state.copy(userProfileImage: imageUrl.url);
+      if (this.userId != null) {
+        return state.copy(
+            otherUserDetails:
+                state.otherUserDetails.copy(profileImage: imageUrl.url));
+      } else {
+        return state.copy(
+            userDetails: state.userDetails.copy(profileImage: imageUrl.url));
+      }
     } on StorageException catch (e) {
       debugPrint('Error downloading file: $e');
       return null;

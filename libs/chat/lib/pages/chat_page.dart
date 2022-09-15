@@ -110,7 +110,7 @@ class _Factory extends VmFactory<AppState, ChatPage> {
   _ViewModel fromStore() => _ViewModel(
         dispatchSendMsgAction: (String msg) => dispatch(SendMessageAction(msg)),
         chat: state.chat,
-        currentUser: state.userDetails!.userType.toLowerCase(),
+        currentUser: state.userDetails.userType.toLowerCase(),
         messages: state.messages,
       );
 }

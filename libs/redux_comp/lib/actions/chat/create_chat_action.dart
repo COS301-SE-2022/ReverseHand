@@ -11,7 +11,7 @@ class CreateChatAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      createChat(c_id: "${state.userDetails!.id}", t_id: "$tradesmanId", c_name: "${state.userDetails!.name}", t_name: "${state.activeBid!.name}") {
+      createChat(c_id: "${state.userDetails.id}", t_id: "$tradesmanId", c_name: "${state.userDetails.name}", t_name: "${state.activeBid!.name}") {
         id
         timestamp
         consumer_name

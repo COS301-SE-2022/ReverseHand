@@ -13,7 +13,7 @@ class GetBidOnAdvertsAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    final String userId = tradesmanId ?? state.userDetails!.id;
+    final String userId = tradesmanId ?? state.userDetails.id;
 
     String graphQLDocument = '''query {
       getBidOnAdverts(tradesman_id: "$userId") {

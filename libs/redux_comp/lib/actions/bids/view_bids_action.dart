@@ -52,7 +52,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
           bids.add(bid);
         }
 
-        if (bid.userId == state.userDetails!.id) userBid = bid;
+        if (bid.userId == state.userDetails.id) userBid = bid;
       }
 
       final AdvertModel ad =
@@ -74,7 +74,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
   void before() {
     dispatch(WaitAction.add("viewBids"));
     dispatch(NavigateAction.pushNamed(
-        "/${state.userDetails!.userType.toLowerCase()}/advert_details"));
+        "/${state.userDetails.userType.toLowerCase()}/advert_details"));
   }
 
   @override

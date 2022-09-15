@@ -122,7 +122,7 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
               '/admin_users', ModalRoute.withName('/')),
         ),
         pushContentManage: () {
-          dispatch(GetReportedAdvertsAction(state.userDetails!.scope!));
+          dispatch(GetReportedAdvertsAction(state.userDetails.scope!));
           dispatch(NavigateAction.pushNamedAndRemoveUntil(
               '/admin_content', ModalRoute.withName('/')));
         },

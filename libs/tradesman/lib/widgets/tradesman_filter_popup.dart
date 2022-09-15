@@ -37,12 +37,12 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(widget),
         onInit: (store) {
-          for (String tradeType in store.state.userDetails!.tradeTypes) {
+          for (String tradeType in store.state.userDetails.tradeTypes) {
             values[tradeType] = true;
           }
 
-          for (var i = 0; i < store.state.userDetails!.domains.length; i++) {
-            domains[store.state.userDetails!.domains.elementAt(i).city] = true;
+          for (var i = 0; i < store.state.userDetails.domains.length; i++) {
+            domains[store.state.userDetails.domains.elementAt(i).city] = true;
           }
         },
         builder: (BuildContext context, _ViewModel vm) => SingleChildScrollView(
@@ -295,7 +295,7 @@ class _Factory extends VmFactory<AppState, FilterPopUpWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        userDetails: state.userDetails!,
+        userDetails: state.userDetails,
         dispatchFilterAdvertsAction: (FilterAdvertsModel filter) =>
             dispatch(FilterAdvertsAction(filter)),
       );

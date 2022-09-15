@@ -20,7 +20,7 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
           break;
       }
     }
-    switch (state.userDetails!.userType) {
+    switch (state.userDetails.userType) {
       case "Consumer":
         id = "c#$id";
         break;
@@ -33,7 +33,7 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
     }
     return state.copy(
         error: ErrorType.none,
-        userDetails: state.userDetails!.copy(
+        userDetails: state.userDetails.copy(
           id: id,
           email: email,
         ));

@@ -13,8 +13,8 @@ class ViewJobsAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    final domains = this.domains ?? state.userDetails!.domains;
-    final tradetypes = this.tradetypes ?? state.userDetails!.tradeTypes;
+    final domains = this.domains ?? state.userDetails.domains;
+    final tradetypes = this.tradetypes ?? state.userDetails.tradeTypes;
 
     List<String> domainsQuery = [];
     for (Domain domain in domains) {
