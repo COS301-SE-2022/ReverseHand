@@ -3,12 +3,15 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
+import 'package:redux_comp/models/admin/app_management/admin_app_manage_model.dart';
+import 'package:redux_comp/models/admin/app_metrics/app_metrics_model.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/review_model.dart';
 import 'package:redux_comp/models/user_models/notification_model.dart';
+import 'package:redux_comp/models/user_models/reset_password_model.dart';
 import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
@@ -22,6 +25,7 @@ import 'models/user_models/partial_user_model.dart';
 class AppState {
   // put all app state requiered here
   final CognitoAuthModel? authModel;
+  final ResetPasswordModel? resetPasswordModel;
   final UserModel userDetails;
   final UserModel otherUserDetails; // used when viewing another user
   final PartialUser? partialUser;
@@ -69,6 +73,7 @@ class AppState {
   // constructor must only take named parameters
   const AppState({
     required this.authModel,
+    required this.resetPasswordModel,
     required this.userDetails,
     required this.otherUserDetails,
     required this.partialUser,
@@ -103,6 +108,7 @@ class AppState {
   factory AppState.initial() {
     return AppState(
       authModel: null,
+      resetPasswordModel: null,
       userDetails: const UserModel(
         id: "",
         email: "",
@@ -165,7 +171,7 @@ class AppState {
       chat: null,
       messages: const [],
       messageSubscription: null,
-      admin: const AdminModel(reportedCustomers: []),
+      admin: const AdminModel(adminManage: AdminAppManageModel(), appMetrics: AppMetricsModel()),
       paystackPublicKey: "",
       paystackSecretKey: "",
       notifications: const [],
@@ -175,6 +181,7 @@ class AppState {
   // easy way to replace store wihtout specifying all paramters
   AppState copy({
     CognitoAuthModel? authModel,
+    ResetPasswordModel? resetPasswordModel,
     UserModel? userDetails,
     UserModel? otherUserDetails,
     PartialUser? partialUser,
@@ -209,6 +216,7 @@ class AppState {
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
+      resetPasswordModel: resetPasswordModel ?? this.resetPasswordModel,
       userDetails: userDetails ?? this.userDetails,
       otherUserDetails: otherUserDetails ?? this.otherUserDetails,
       partialUser: partialUser ?? this.partialUser,
