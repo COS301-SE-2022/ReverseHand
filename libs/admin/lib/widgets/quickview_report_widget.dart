@@ -21,7 +21,6 @@ class QuickviewReportWidget extends StatelessWidget {
             onTap: () => vm.pushReportManagePage(report),
             child: Card(
               margin: const EdgeInsets.all(10),
-              // color: Theme.of(context).primaryColorLight,
               color: const Color.fromARGB(255, 220, 224, 230),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(7),
