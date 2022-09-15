@@ -5,7 +5,6 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
-import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -86,7 +85,7 @@ class ConsumerProfilePage extends StatelessWidget {
                                           color: Theme.of(context).primaryColor,
                                         ),
                                         Text(
-                                          "Adverts Closed ${vm.userStatistics.finished}",
+                                          "Adverts Closed ${vm.userDetails.statistics.finished}",
                                           style: const TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -104,7 +103,7 @@ class ConsumerProfilePage extends StatelessWidget {
                                           color: Theme.of(context).primaryColor,
                                         ),
                                         Text(
-                                          "Total Adverts ${vm.userStatistics.created}",
+                                          "Total Adverts ${vm.userDetails.statistics.created}",
                                           style: const TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -332,7 +331,6 @@ class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
                 userId: userId, changed: "cellNo", cellNo: cellNo)),
         userDetails: state.userDetails,
         isWaiting: state.wait.isWaiting,
-        userStatistics: state.userDetails.statistics,
       );
 }
 
@@ -345,7 +343,6 @@ class _ViewModel extends Vm {
   final void Function(String, String) dispatchChangeCellAction;
   final VoidCallback pushLocationSearchPage;
   final bool isWaiting;
-  final StatisticsModel userStatistics;
 
   _ViewModel({
     required this.pushLocationSearchPage,
@@ -354,6 +351,5 @@ class _ViewModel extends Vm {
     required this.dispatchChangeNameAction,
     required this.dispatchChangeCellAction,
     required this.isWaiting,
-    required this.userStatistics,
-  }) : super(equals: [userDetails, isWaiting, userStatistics]);
+  }) : super(equals: [userDetails, isWaiting]);
 }
