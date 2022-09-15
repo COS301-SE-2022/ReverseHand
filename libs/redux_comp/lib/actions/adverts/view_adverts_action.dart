@@ -11,7 +11,7 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      viewAdverts(user_id: "${state.userDetails!.id}") {
+      viewAdverts(user_id: "${state.userDetails.id}") {
         date_created
         date_closed
         description

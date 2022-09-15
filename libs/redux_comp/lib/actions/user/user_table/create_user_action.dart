@@ -28,11 +28,11 @@ class CreateUserAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     //pass user information into variables
-    final id = state.userDetails!.id;
-    final email = state.userDetails!.email;
+    final id = state.userDetails.id;
+    final email = state.userDetails.email;
     // different queries for different users
     // If tradesman, DO store domains and tradetypes
-    if (state.userDetails!.userType == "Tradesman") {
+    if (state.userDetails.userType == "Tradesman") {
       if (domains == null || domains!.isEmpty) {
         return state.copy(
             error:
@@ -71,7 +71,7 @@ class CreateUserAction extends ReduxAction<AppState> {
             await Amplify.API.mutate(request: requestCreateUser).response;
         debugPrint(resp.data);
         return state.copy(
-            userDetails: state.userDetails!.copy(
+            userDetails: state.userDetails.copy(
                 name: name,
                 cellNo: cellNo,
                 tradeTypes: tradeTypes,
@@ -82,7 +82,7 @@ class CreateUserAction extends ReduxAction<AppState> {
         debugPrint(e.message);
         return state.copy(error: ErrorType.failedToCreateUser);
       }
-    } else if (state.userDetails!.userType == "Consumer") {
+    } else if (state.userDetails.userType == "Consumer") {
       if (location == null) {
         return state.copy(error: ErrorType.locationNotCaptured);
       }
@@ -111,7 +111,7 @@ class CreateUserAction extends ReduxAction<AppState> {
             await Amplify.API.mutate(request: requestCreateUser).response;
         debugPrint(resp.data);
         return state.copy(
-            userDetails: state.userDetails!.copy(
+            userDetails: state.userDetails.copy(
                 name: name,
                 cellNo: cellNo,
                 location: location,
@@ -127,6 +127,6 @@ class CreateUserAction extends ReduxAction<AppState> {
 
   @override
   Future<void> after() async {
-   dispatch(GetUserAction());
+    dispatch(GetUserAction());
   }
 }

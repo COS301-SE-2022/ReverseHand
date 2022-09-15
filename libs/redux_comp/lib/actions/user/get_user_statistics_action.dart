@@ -15,7 +15,7 @@ class GetUserStatisticsAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
       getUserStatistics(
-        user_id : "${userId ?? state.userDetails!.id}"
+        user_id : "${userId ?? state.userDetails.id}"
       ){
           num_created
           num_won

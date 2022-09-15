@@ -162,9 +162,9 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        userDetails: state.userDetails!,
+        userDetails: state.userDetails,
         isWaiting: state.wait.isWaiting,
-        userStatistics: state.userDetails!.statistics,
+        userStatistics: state.userDetails.statistics,
       );
 }
 

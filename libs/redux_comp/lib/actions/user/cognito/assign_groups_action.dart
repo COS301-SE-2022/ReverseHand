@@ -15,29 +15,29 @@ class AssignGroupsAction extends ReduxAction<AppState> {
     List<String>? groups = List<String>.from(
       (payload["cognito:groups"] == null) ? [] : payload["cognito:groups"]!,
     );
-    String userType = state.userDetails!.userType;
+    String userType = state.userDetails.userType;
     if (groups.isNotEmpty) {
       if (groups.contains("customer")) {
         userType = "Consumer";
       } else if (groups.contains("tradesman")) {
         userType = "Tradesman";
-      }else if (groups.contains("admin")) {
+      } else if (groups.contains("admin")) {
         userType = "Admin";
       } else {
         return state.copy(
             error: ErrorType.userNotInGroup,
             userDetails:
-                state.userDetails!.copy(externalUsername: externalName));
+                state.userDetails.copy(externalUsername: externalName));
       }
     } else {
       return state.copy(
           error: ErrorType.userNotInGroup,
-          userDetails: state.userDetails!.copy(externalUsername: externalName));
+          userDetails: state.userDetails.copy(externalUsername: externalName));
     }
 
     return state.copy(
         error: ErrorType.none,
-        userDetails: state.userDetails!.copy(userType: userType));
+        userDetails: state.userDetails.copy(userType: userType));
   }
 
   @override

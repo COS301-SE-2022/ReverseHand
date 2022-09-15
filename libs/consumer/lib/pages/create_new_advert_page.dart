@@ -153,7 +153,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                 children: [
                                   //GET THE WHOLE ADDRESS?
                                   Text(
-                                    widget.store.state.userDetails!.location!
+                                    widget.store.state.userDetails.location!
                                         .address.city,
                                     style: const TextStyle(fontSize: 18),
                                   ),
@@ -189,15 +189,15 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                               if (titleController.value.text != "" &&
                                   trade != null) {
                                 vm.dispatchCreateAdvertActions(
-                                  widget.store.state.userDetails!.id,
+                                  widget.store.state.userDetails.id,
                                   titleController.value.text,
                                   Domain(
-                                      city: widget.store.state.userDetails!
+                                      city: widget.store.state.userDetails
                                           .location!.address.city,
-                                      province: widget.store.state.userDetails!
+                                      province: widget.store.state.userDetails
                                           .location!.address.province,
                                       coordinates: widget.store.state
-                                          .userDetails!.location!.coordinates),
+                                          .userDetails.location!.coordinates),
                                   trade!,
                                   descrController.value.text,
                                 );

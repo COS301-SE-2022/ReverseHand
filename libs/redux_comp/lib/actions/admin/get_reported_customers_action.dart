@@ -14,7 +14,7 @@ class GetReportedCustomersAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    String province = state.userDetails!.scope!;
+    String province = state.userDetails.scope!;
     String graphQLDoc = '''query {
       getReportedCustomers(scope: "$province", city: "$city") {
         id

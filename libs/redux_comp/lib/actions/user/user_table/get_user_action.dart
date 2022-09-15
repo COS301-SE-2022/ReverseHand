@@ -21,8 +21,8 @@ class GetUserAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     // request different info for different user type
-    if (state.userDetails!.userType == "Consumer") {
-      final String id = state.userDetails!.id;
+    if (state.userDetails.userType == "Consumer") {
+      final String id = state.userDetails.id;
       String graphQLDoc = '''query  {
         viewUser(user_id: "$id") {
           id
@@ -64,7 +64,7 @@ class GetUserAction extends ReduxAction<AppState> {
         final StatisticsModel userStatistics = StatisticsModel.fromJson(user);
 
         return state.copy(
-          userDetails: state.userDetails!.copy(
+          userDetails: state.userDetails.copy(
             name: user["name"],
             cellNo: user["cellNo"],
             email: user["email"],
@@ -76,8 +76,8 @@ class GetUserAction extends ReduxAction<AppState> {
         debugPrint(e.message);
         return null;
       }
-    } else if (state.userDetails!.userType == "Tradesman") {
-      final String id = state.userDetails!.id;
+    } else if (state.userDetails.userType == "Tradesman") {
+      final String id = state.userDetails.id;
       String graphQLDoc = '''query {
         viewUser(user_id: "$id") {
           id
@@ -122,7 +122,7 @@ class GetUserAction extends ReduxAction<AppState> {
         final StatisticsModel userStatistics = StatisticsModel.fromJson(user);
 
         return state.copy(
-          userDetails: state.userDetails!.copy(
+          userDetails: state.userDetails.copy(
             name: user["name"],
             email: user["email"],
             cellNo: user["cellNo"],
@@ -135,8 +135,8 @@ class GetUserAction extends ReduxAction<AppState> {
         debugPrint(e.message);
         return null;
       }
-    } else if (state.userDetails!.userType == "Admin") {
-      final String id = state.userDetails!.id;
+    } else if (state.userDetails.userType == "Admin") {
+      final String id = state.userDetails.id;
       String graphQLDoc = '''query {
         viewUser(user_id: "$id") {
           id
@@ -156,7 +156,7 @@ class GetUserAction extends ReduxAction<AppState> {
             (await Amplify.API.query(request: request).response).data);
         final user = data["viewUser"];
         return state.copy(
-            userDetails: state.userDetails!.copy(
+            userDetails: state.userDetails.copy(
                 name: user["name"],
                 email: user["email"],
                 scope: user["scope"]));
@@ -171,7 +171,7 @@ class GetUserAction extends ReduxAction<AppState> {
 
   @override
   void after() {
-    switch (state.userDetails!.userType) {
+    switch (state.userDetails.userType) {
       case "Consumer":
         dispatch(ViewAdvertsAction());
         startupActions();

@@ -8,7 +8,7 @@ class SubscribeNotificationsAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''subscription {
-      notifyNewNotifications(user_id: "${state.userDetails!.id}") {
+      notifyNewNotifications(user_id: "${state.userDetails.id}") {
         user_id
       }
     }''';

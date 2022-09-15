@@ -16,7 +16,8 @@ import '../widgets/transparent_divider.dart';
 
 class UserTypeSelectionPage extends StatelessWidget {
   final Store<AppState> store;
-  const UserTypeSelectionPage({Key? key, required this.store}) : super(key: key);
+  const UserTypeSelectionPage({Key? key, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,8 @@ class UserTypeSelectionPage extends StatelessWidget {
               //******************************************************* */
               StoreConnector<AppState, _ViewModel>(
                 vm: () => _Factory(this),
-                builder: (BuildContext context, _ViewModel vm) => SingleChildScrollView(
+                builder: (BuildContext context, _ViewModel vm) =>
+                    SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -60,34 +62,35 @@ class UserTypeSelectionPage extends StatelessWidget {
                                 const Padding(
                                   padding: EdgeInsets.only(top: 250),
                                 ),
-              
+
                                 const Text(
                                   "Continue as:",
                                   style: TextStyle(
                                     fontSize: 20,
                                     letterSpacing: 5,
-                                    ),
+                                  ),
                                 ),
-              
+
                                 const TransparentDividerWidget(),
                                 //*****************TRADESMAN signup button**********************
                                 Align(
                                   alignment: Alignment.center,
                                   child: AuthButtonWidget(
-                                    text: "Contractor",
-                                   function: () => vm.dispatchAddUserToGroup("tradesman")
-                                  ),
+                                      text: "Contractor",
+                                      function: () => vm
+                                          .dispatchAddUserToGroup("tradesman")),
                                 ),
                                 //***************************************************/
-              
+
                                 const Padding(
                                   padding: EdgeInsets.fromLTRB(0, 20, 0, 5),
                                 ),
-              
+
                                 //*****************CONSUMER signup button**********************
                                 AuthButtonWidget(
                                   text: "Client",
-                                  function: () => vm.dispatchAddUserToGroup("customer"),
+                                  function: () =>
+                                      vm.dispatchAddUserToGroup("customer"),
                                 ),
                                 //***************************************************/
                               ],
@@ -117,10 +120,9 @@ class _Factory extends VmFactory<AppState, UserTypeSelectionPage> {
         loading: state.wait.isWaiting,
         error: state.error,
         dispatchAddUserToGroup: (String group) => dispatch(
-          AddUserToGroupAction(state.userDetails!.externalUsername! , group),
+          AddUserToGroupAction(state.userDetails.externalUsername!, group),
         ),
-        pushSignUpPage: () =>
-            dispatch(NavigateAction.pushNamed('/signup')),
+        pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/signup')),
       );
 }
 

@@ -10,7 +10,7 @@ class GetProfilePhotoAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    final String userId = this.userId ?? state.userDetails!.id;
+    final String userId = this.userId ?? state.userDetails.id;
 
     String key = "profiles/$userId";
 
@@ -21,7 +21,8 @@ class GetProfilePhotoAction extends ReduxAction<AppState> {
 
       final imageUrl = await Amplify.Storage.getUrl(key: key);
 
-      return state.copy(userProfileImage: imageUrl.url);
+      return state.copy(
+          userDetails: state.userDetails.copy(profileImage: imageUrl.url));
     } on StorageException catch (e) {
       debugPrint('Error downloading file: $e');
       return null;

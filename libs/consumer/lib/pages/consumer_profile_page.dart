@@ -330,9 +330,9 @@ class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
         dispatchChangeCellAction: (String userId, String cellNo) => dispatch(
             EditUserDetailsAction(
                 userId: userId, changed: "cellNo", cellNo: cellNo)),
-        userDetails: state.userDetails!,
+        userDetails: state.userDetails,
         isWaiting: state.wait.isWaiting,
-        userStatistics: state.userDetails!.statistics,
+        userStatistics: state.userDetails.statistics,
       );
 }
 

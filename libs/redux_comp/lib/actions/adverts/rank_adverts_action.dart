@@ -42,11 +42,11 @@ class RankAdvertsAction extends ReduxAction<AppState> {
   }
 
   double _rankTitle(AdvertModel advert) {
-    List<String>? tradeTypes = state.userDetails?.tradeTypes;
+    List<String>? tradeTypes = state.userDetails.tradeTypes;
     double ranking = 0;
 
     //First check if the title contains the tradetype of a tradesman
-    for (String trade in tradeTypes!) {
+    for (String trade in tradeTypes) {
       // if ((advert.title.toLowerCase()).contains(trade.toLowerCase())) {
       if ((trade.toLowerCase()).contains(advert.title.toLowerCase())) {
         ranking += 2;

@@ -22,7 +22,8 @@ import 'models/user_models/partial_user_model.dart';
 class AppState {
   // put all app state requiered here
   final CognitoAuthModel? authModel;
-  final UserModel? userDetails;
+  final UserModel userDetails;
+  final UserModel otherUserDetails; // used when viewing another user
   final PartialUser? partialUser;
 
   final List<BidModel> bids; // holds all of the bids
@@ -59,9 +60,6 @@ class AppState {
   //admin functionality
   final AdminModel admin;
 
-  // images
-  final String? userProfileImage;
-
   // paystack keys
   final String paystackSecretKey;
   final String paystackPublicKey;
@@ -72,6 +70,7 @@ class AppState {
   const AppState({
     required this.authModel,
     required this.userDetails,
+    required this.otherUserDetails,
     required this.partialUser,
     required this.adverts,
     required this.viewAdverts,
@@ -95,7 +94,6 @@ class AppState {
     required this.sum,
     required this.advertsWon,
     required this.admin,
-    required this.userProfileImage,
     required this.paystackSecretKey,
     required this.paystackPublicKey,
     required this.notifications,
@@ -106,6 +104,18 @@ class AppState {
     return AppState(
       authModel: null,
       userDetails: const UserModel(
+        id: "",
+        email: "",
+        userType: "",
+        externalProvider: false,
+        statistics: StatisticsModel(
+          ratingSum: 0,
+          ratingCount: 0,
+          created: 0,
+          finished: 0,
+        ),
+      ),
+      otherUserDetails: const UserModel(
         id: "",
         email: "",
         userType: "",
@@ -156,7 +166,6 @@ class AppState {
       messages: const [],
       messageSubscription: null,
       admin: const AdminModel(reportedCustomers: []),
-      userProfileImage: null,
       paystackPublicKey: "",
       paystackSecretKey: "",
       notifications: const [],
@@ -167,6 +176,7 @@ class AppState {
   AppState copy({
     CognitoAuthModel? authModel,
     UserModel? userDetails,
+    UserModel? otherUserDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
     List<AdvertModel>? viewAdverts,
@@ -200,6 +210,7 @@ class AppState {
     return AppState(
       authModel: authModel ?? this.authModel,
       userDetails: userDetails ?? this.userDetails,
+      otherUserDetails: otherUserDetails ?? this.otherUserDetails,
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,
       viewAdverts: viewAdverts ?? this.viewAdverts,
@@ -222,7 +233,6 @@ class AppState {
       admin: admin ?? this.admin,
       sum: sum ?? this.sum,
       advertsWon: advertsWon ?? this.advertsWon,
-      userProfileImage: userProfileImage ?? this.userProfileImage,
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
       notifications: notifications ?? this.notifications,

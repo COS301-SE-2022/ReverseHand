@@ -78,7 +78,7 @@ class _Factory extends VmFactory<AppState, QuickViewChatWidget> {
           dispatch(SubscribMessagesAction());
           dispatch(NavigateAction.pushNamed('/chats/chat'));
         },
-        userType: state.userDetails!.userType,
+        userType: state.userDetails.userType,
       );
 }
 

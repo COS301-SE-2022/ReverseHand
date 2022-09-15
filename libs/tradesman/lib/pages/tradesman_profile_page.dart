@@ -477,7 +477,7 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        userDetails: state.userDetails!,
+        userDetails: state.userDetails,
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchChangeNameAction: (String userId, String name) => dispatch(
             EditUserDetailsAction(userId: userId, changed: "name", name: name)),
@@ -491,7 +491,7 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
-        userStatistics: state.userDetails!.statistics,
+        userStatistics: state.userDetails.statistics,
       );
 }
 

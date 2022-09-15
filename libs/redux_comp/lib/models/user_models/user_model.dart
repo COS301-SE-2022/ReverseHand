@@ -20,6 +20,7 @@ class UserModel {
       externalUsername; //for adding to user group, usernames different :(
   final String? scope; //for the admin user province scope
   final StatisticsModel statistics;
+  final String? profileImage;
 
   const UserModel({
     required this.id,
@@ -35,6 +36,7 @@ class UserModel {
     this.externalUsername,
     this.scope,
     required this.statistics,
+    this.profileImage,
   });
 
   UserModel copy({
@@ -51,6 +53,7 @@ class UserModel {
     String? externalUsername,
     String? scope,
     StatisticsModel? statistics,
+    String? profileImage,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -66,6 +69,7 @@ class UserModel {
       externalUsername: externalUsername ?? this.externalUsername,
       scope: scope ?? this.scope,
       statistics: statistics ?? this.statistics,
+      profileImage: profileImage ?? this.profileImage,
     );
   }
 }

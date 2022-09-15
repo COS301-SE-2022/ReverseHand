@@ -77,7 +77,7 @@ class _Factory extends VmFactory<AppState, ActivityStreamPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         notifications: state.notifications,
-        currentUser: state.userDetails!.userType.toLowerCase(),
+        currentUser: state.userDetails.userType.toLowerCase(),
         loading: state.wait.isWaiting,
       );
 }

@@ -43,7 +43,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
 
           await Amplify.API.mutate(request: requestChangeName).response;
 
-          return state.copy(userDetails: state.userDetails!.copy(name: name));
+          return state.copy(userDetails: state.userDetails.copy(name: name));
         case "cellNo":
           String graphQLDoc = '''mutation  {
             editUserDetail(user_id: "$userId", cellNo: "$cellNo") {
@@ -58,7 +58,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
 
           await Amplify.API.mutate(request: requestChangeName).response;
           return state.copy(
-              userDetails: state.userDetails!.copy(cellNo: cellNo));
+              userDetails: state.userDetails.copy(cellNo: cellNo));
         case "location":
           String locationInput = location.toString();
           String graphQLDoc = '''mutation  {
@@ -73,7 +73,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
 
           await Amplify.API.mutate(request: requestChangeName).response;
           return state.copy(
-              userDetails: state.userDetails!.copy(location: location));
+              userDetails: state.userDetails.copy(location: location));
         case "domains":
           List<String> domainsQuery = [];
           for (Domain domain in domains!) {
@@ -95,9 +95,8 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
 
           await Amplify.API.mutate(request: requestChangeName).response;
           return state.copy(
-              userDetails: state.userDetails!.copy(domains: domains));
+              userDetails: state.userDetails.copy(domains: domains));
         case "tradetypes":
-          
           String graphQLDoc = '''mutation  {
             editUserDetail(user_id: "$userId", tradetypes: ${jsonEncode(tradeTypes)}) {
               id
@@ -111,7 +110,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
 
           await Amplify.API.mutate(request: requestChangeName).response;
           return state.copy(
-              userDetails: state.userDetails!.copy(tradeTypes: tradeTypes));
+              userDetails: state.userDetails.copy(tradeTypes: tradeTypes));
         default:
           return null;
       }
