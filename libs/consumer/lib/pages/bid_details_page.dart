@@ -9,7 +9,7 @@ import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_widget.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -122,7 +122,7 @@ class BidDetailsPage extends StatelessWidget {
                 Column(
                   children: [
                     Center(
-                      child: AuthButtonWidget(
+                      child: LongButtonWidget(
                           text: "Accept Bid",
                           function: () {
                             LightDialogHelper.display(

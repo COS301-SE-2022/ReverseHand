@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -63,7 +63,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 15),
                         child: Column(
                           children: [
-                            AuthButtonWidget(
+                            LongButtonWidget(
                                 text: "View Bids",
                                 function: () {
                                   vm.pushViewBidsPage();
@@ -109,7 +109,7 @@ class AdvertDetailsPage extends StatelessWidget {
                             ),
                           ),
                           const Padding(padding: EdgeInsets.only(top: 15)),
-                          AuthButtonWidget(
+                          LongButtonWidget(
                             text: "Close",
                             function: () {
                               LightDialogHelper.display(context,

@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:consumer/widgets/job_creation_popup.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:flutter/material.dart';
@@ -184,7 +184,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                     //*********CREATE JOB BUTTON******************//
                     vm.loading
                         ? const LoadingWidget(topPadding: 0, bottomPadding: 0)
-                        : AuthButtonWidget(
+                        : LongButtonWidget(
                             text: "Create Job",
                             function: () {
                               if (titleController.value.text != "" &&

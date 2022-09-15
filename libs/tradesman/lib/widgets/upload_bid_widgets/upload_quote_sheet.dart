@@ -1,4 +1,4 @@
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/upload_bid_amount_sheet.dart';
@@ -47,7 +47,7 @@ class UploadQuoteSheet extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 10, 8, 8),
-            child: AuthButtonWidget(text: "Upload Quote", function: () {}),
+            child: LongButtonWidget(text: "Upload Quote", function: () {}),
           ),
           ButtonWidget(
               text: "Proceed",

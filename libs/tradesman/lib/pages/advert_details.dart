@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
@@ -134,7 +134,7 @@ class TradesmanJobDetails extends StatelessWidget {
                     //if this contractor hasn't already made a bid
                     : Padding(
                         padding: const EdgeInsets.only(top: 20.0),
-                        child: AuthButtonWidget(
+                        child: LongButtonWidget(
                             text: "Place Bid",
                             function: () {
                               //keeping this here so that a bid can still be made while we create the last UI

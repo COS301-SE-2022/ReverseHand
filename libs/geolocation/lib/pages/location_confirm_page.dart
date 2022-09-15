@@ -7,7 +7,7 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button_bar_widget.dart';
 import 'package:uuid/uuid.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_widget.dart';
 
 class LocationConfirmPage extends StatelessWidget {
   final Store<AppState> store;
@@ -86,7 +86,7 @@ class LocationConfirmPage extends StatelessWidget {
 
                 //*******************SAVE BUTTON********************//
 
-                AuthButtonWidget(
+                LongButtonWidget(
                   text: (vm.userType == "Consumer")
                       ? "Save Location"
                       : "Add Domain",
