@@ -30,55 +30,61 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
       appBar: AppBar(
           backgroundColor: const Color.fromRGBO(243, 157, 55, 1),
           // The search area here
-        title: Container(
-        width: double.infinity,
-        height: 40,
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(5)),
-        child: Center(
-          child: TextField(
-              decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear),
-                    onPressed: () {
-                      searchController.clear();
-                      setState(() {
-                        if (searchString.isEmpty) {
-                          _searchFuture = null;
-                        }
-                      });
-                    },
-                  ),
-                  hintText: 'Search...',
-                  border: InputBorder.none),
-              controller: searchController,
-              onChanged: (text) {
-                //when the input text has changed
-                setState(() {
-                  
-                  if (searchString.isEmpty) {
-                    _searchFuture = null;
-                  }
-                  searchString = text; //assign to searchString
-                  (searchString.length % 3 ==
-                          0) //only make a request every 3 character input
-                      ? _searchFuture = searchString.length >
-                              8 //dont make a request before 8 chars
-                          ? PlaceApiSingleton.instance.placeApi.then((placeApiService) => placeApiService!.fetchSuggestions(
-                              searchString)) // ^^^ this is for cost optimisation
-                          : null
-                      : null;
-                  });
-              }),
-        ),
-      )),
+          title: Container(
+            width: double.infinity,
+            height: 40,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: TextField(
+                  cursorColor: Colors.black,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.black,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.clear),
+                        color: Colors.black,
+                        onPressed: () {
+                          searchController.clear();
+                          setState(() {
+                            if (searchString.isEmpty) {
+                              _searchFuture = null;
+                            }
+                          });
+                        },
+                      ),
+                      hintText: 'Search...',
+                      border: InputBorder.none),
+                  controller: searchController,
+                  onChanged: (text) {
+                    //when the input text has changed
+                    setState(() {
+                      if (searchString.isEmpty) {
+                        _searchFuture = null;
+                      }
+                      searchString = text; //assign to searchString
+                      (searchString.length % 3 ==
+                              0) //only make a request every 3 character input
+                          ? _searchFuture = searchString.length >
+                                  8 //dont make a request before 8 chars
+                              ? PlaceApiSingleton.instance.placeApi.then(
+                                  (placeApiService) => placeApiService!
+                                      .fetchSuggestions(
+                                          searchString)) // ^^^ this is for cost optimisation
+                              : null
+                          : null;
+                    });
+                  }),
+            ),
+          )),
       body: FutureBuilder(
         future: _searchFuture,
         builder: (BuildContext context,
@@ -106,10 +112,10 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                               style: const TextStyle(color: Colors.white),
                             ),
                             onTap: () {
-                              PlaceApiSingleton.instance.placeApi.then((placeApiService) {
-                              vm.dispatchGetPlaceAction(snapshot.data![index],
-                                  placeApiService!); //get the details of the suggestion
-
+                              PlaceApiSingleton.instance.placeApi
+                                  .then((placeApiService) {
+                                vm.dispatchGetPlaceAction(snapshot.data![index],
+                                    placeApiService!); //get the details of the suggestion
                               });
                               // when a user taps on a suggestions
                             },
