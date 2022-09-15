@@ -11,7 +11,7 @@ class AdminUserWidget extends StatelessWidget {
       children: [
         const Padding(padding: EdgeInsets.only(top: 20)),
         SizedBox(
-          height: 180,
+          height: 230,
           width: MediaQuery.of(context).size.width / 1.15,
           child: Container(
             decoration: BoxDecoration(
@@ -32,7 +32,7 @@ class AdminUserWidget extends StatelessWidget {
                     const Text(
                       "Email",
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ]),
                   const Padding(padding: EdgeInsets.only(top: 5)),
@@ -40,9 +40,15 @@ class AdminUserWidget extends StatelessWidget {
                     children: [
                       Text(
                         user.email,
-                        style: const TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 19),
                       ),
                     ],
+                  ),
+                  const Padding(padding: EdgeInsets.only(bottom: 10)),
+                  const Divider(
+                    color: Colors.white,
+                    indent: 0,
+                    endIndent: 20,
                   ),
                   //********************************************//
                   const Padding(padding: EdgeInsets.only(top: 15)),
@@ -61,23 +67,30 @@ class AdminUserWidget extends StatelessWidget {
                             const Text(
                               "Name",
                               style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
                         const Padding(padding: EdgeInsets.only(top: 5)),
                         Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
+                          padding: const EdgeInsets.only(right: 20.0),
                           child: Row(
                             children: [
                               Text(
                                 user.name,
-                                style: const TextStyle(fontSize: 20),
+                                style: const TextStyle(fontSize: 19),
                               ),
                             ],
                           ),
                         ),
                       ]),
+                  const Padding(padding: EdgeInsets.only(bottom: 10)),
+                  const Divider(
+                    color: Colors.white,
+                    indent: 0,
+                    endIndent: 20,
+                  ),
+
                   //********************************************//
                   const Padding(padding: EdgeInsets.only(top: 15)),
 
@@ -96,16 +109,16 @@ class AdminUserWidget extends StatelessWidget {
                             const Text(
                               "Warnings",
                               style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
                         const Padding(padding: EdgeInsets.only(left: 5)),
                         Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
+                          padding: const EdgeInsets.only(right: 20.0),
                           child: Text(
                             user.warnings.toString(),
-                            style: const TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 19),
                           ),
                         ),
                       ]),

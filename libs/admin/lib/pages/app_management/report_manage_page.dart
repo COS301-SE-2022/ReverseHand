@@ -3,8 +3,9 @@ import 'package:admin/widgets/report_user_descr_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/admin_get_user_action.dart';
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -64,7 +65,8 @@ class ReportManagePage extends StatelessWidget {
                         title: "Reported User",
                         name: report.reportDetails.reportedUser.name,
                         function: () {
-                          vm.dispatchGetUser(report.reportDetails.reportedUser.id);
+                          vm.dispatchGetUser(
+                              report.reportDetails.reportedUser.id);
                           vm.pushUserManagePage();
                         },
                       ),
@@ -73,17 +75,17 @@ class ReportManagePage extends StatelessWidget {
                         title: "Reporter User",
                         name: report.reportDetails.reporterUser.name,
                         function: () {
-                          vm.dispatchGetUser(report.reportDetails.reporterUser.id);
+                          vm.dispatchGetUser(
+                              report.reportDetails.reporterUser.id);
                           vm.pushUserManagePage();
                         },
                       ),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                      const Padding(padding: EdgeInsets.only(bottom: 40)),
 
-                      ButtonWidget(text: "Issue Warning", function: () {}),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                      LongButtonWidget(text: "Issue Warning", function: () {}),
 
-                      ButtonWidget(
-                          text: "Remove Report", color: "dark", function: () {})
+                      TransparentLongButtonWidget(
+                          text: "Remove Report", function: () {})
                     ],
                   );
           },
@@ -101,7 +103,8 @@ class _Factory extends VmFactory<AppState, ReportManagePage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         dispatchGetUser: (userId) => dispatch(AdminGetUserAction(userId)),
-        pushUserManagePage: () => dispatch(NavigateAction.pushNamed("/user_manage")),
+        pushUserManagePage: () =>
+            dispatch(NavigateAction.pushNamed("/user_manage")),
       );
 }
 
