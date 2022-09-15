@@ -52,7 +52,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                         child: Icon(
                           getIcon(advert.type),
                           color: Theme.of(context).primaryColor,
-                          size: 35,
+                          size: 32,
                         ),
                       )),
                       //*********************************************** */
@@ -69,7 +69,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                               maxLines: 2,
                               // overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                  fontSize: 25,
+                                  fontSize: 24,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold
                               )
@@ -81,13 +81,13 @@ class QuickViewJobCardWidget extends StatelessWidget {
                           children: [
                             Text(advert.domain.city,
                                 style: const TextStyle(
-                                    fontSize: 20, color: Colors.black)),
+                                    fontSize: 18, color: Colors.black)),
                             const Padding(padding: EdgeInsets.only(right: 10)),
                             const Icon(Icons.circle_outlined, size: 8),
                             const Padding(padding: EdgeInsets.only(left: 10)),
                             Text(advert.type,
                                 style: const TextStyle(
-                                    fontSize: 20, color: Colors.black)),
+                                    fontSize: 18, color: Colors.black)),
                           ],
                         ),
                         // Text(
