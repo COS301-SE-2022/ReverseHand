@@ -97,7 +97,7 @@ jobs:
         if: inputs.test == 'coverage'
         run: |
           node execute_script.js
-          npx nx run-many --target=test --all --skip-nx-cache --parallel
+          npx nx run-many --target=test --all --skip-nx-cache --parallel --exclude=amplify
 
     #merge the lcov files
       - name: Merge codecov reports
@@ -311,7 +311,7 @@ jobs:
 
       - name: lambda tests
         if: inputs.test == 'all'
-        run: npx nx jest
+        run: npx nx run amplify:test
 
      
 
