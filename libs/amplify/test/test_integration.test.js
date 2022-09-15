@@ -1,7 +1,5 @@
 const AWS = require("aws-sdk");
 require('dotenv').config();
-
-console.log(process.env.AWS_ACCESS_KEY_ID);
 const event = {
     arguments: {
         user_id : "c#f0fa74ae-7a4d-4674-8ba6-e9da6f6213cd"   
