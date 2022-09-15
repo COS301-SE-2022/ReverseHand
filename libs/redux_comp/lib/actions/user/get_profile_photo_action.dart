@@ -10,21 +10,15 @@ class GetProfilePhotoAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    // final documentsDir = await getApplicationDocumentsDirectory();
+    final String userId = this.userId ?? state.userDetails!.id;
 
-    String key = "profiles/${userId ?? state.userDetails!.id}";
-    // final String filepath = "${documentsDir.path}/${key.replaceAll("/", "-")}";
-
-    // final file = File(filepath);
+    String key = "profiles/$userId";
 
     try {
-      // final result = await Amplify.Storage.downloadFile(
-      //   key: key,
-      //   local: file,
-      //   onProgress: (progress) {
-      //     debugPrint('Fraction completed: ${progress.getFractionCompleted()}');
-      //   },
-      // );
+      // checking if image exists
+      final ListResult result = await Amplify.Storage.list(path: key);
+      if (result.items.isEmpty) return null;
+
       final imageUrl = await Amplify.Storage.getUrl(key: key);
 
       return state.copy(userProfileImage: imageUrl.url);
