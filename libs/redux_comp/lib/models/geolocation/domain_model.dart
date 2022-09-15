@@ -46,12 +46,13 @@ class Domain {
   }
 
   @override
-  int get hashCode => Object.hash(city, coordinates);
+  int get hashCode => Object.hash(city, coordinates, province);
 
   @override
   bool operator ==(Object other) {
     return other is Domain &&
         city == other.city &&
-        coordinates == other.coordinates;
+        coordinates == other.coordinates &&
+        province == other.province;
   }
 }

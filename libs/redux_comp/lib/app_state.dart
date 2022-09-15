@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
@@ -27,16 +26,24 @@ class AppState {
   // put all app state requiered here
   final CognitoAuthModel? authModel;
   final ResetPasswordModel? resetPasswordModel;
-  final UserModel? userDetails;
+  final UserModel userDetails;
+  final UserModel otherUserDetails; // used when viewing another user
   final PartialUser? partialUser;
-  final List<BidModel> bids; // holds all of the bids i.e viewBids ⊆ bids
-  final List<BidModel> shortlistBids;
-  final List<BidModel> viewBids; // holds the list of bids to view
-  final List<AdvertModel> adverts;
-  final List<AdvertModel> viewAdverts;
+
+  final List<BidModel> bids; // holds all of the bids
+  final List<BidModel> shortlistBids; // holds all bids that are shortlsited
+  final List<BidModel>
+      viewBids; // holds the list of bids to view i.e viewBids ⊆ bids ∪ shortlistBids
+  final BidModel? userBid; // the bid of the currently logged in user
   final BidModel?
       activeBid; // represents the current bid, used for viewing a bid
+
+  final List<AdvertModel> adverts;
+  final List<AdvertModel> viewAdverts;
+  final List<AdvertModel> bidOnAdverts; // adverts which a tradesman has bid on
   final AdvertModel? activeAd; // used for representing the current ad
+  final List<String> advertImages; // image urls for an advert
+
   final Location? locationResult;
   // both will change throughout the app
   final ErrorType error;
@@ -57,9 +64,6 @@ class AppState {
   //admin functionality
   final AdminModel admin;
 
-  // images
-  final File? userProfileImage;
-
   // paystack keys
   final String paystackSecretKey;
   final String paystackPublicKey;
@@ -71,14 +75,18 @@ class AppState {
     required this.authModel,
     required this.resetPasswordModel,
     required this.userDetails,
+    required this.otherUserDetails,
     required this.partialUser,
     required this.adverts,
     required this.viewAdverts,
+    required this.advertImages,
     required this.bids,
     required this.shortlistBids,
     required this.viewBids,
     required this.activeAd,
     required this.activeBid,
+    required this.userBid,
+    required this.bidOnAdverts,
     required this.locationResult,
     required this.error,
     required this.change,
@@ -91,7 +99,6 @@ class AppState {
     required this.sum,
     required this.advertsWon,
     required this.admin,
-    required this.userProfileImage,
     required this.paystackSecretKey,
     required this.paystackPublicKey,
     required this.notifications,
@@ -114,11 +121,24 @@ class AppState {
           finished: 0,
         ),
       ),
+      otherUserDetails: const UserModel(
+        id: "",
+        email: "",
+        userType: "",
+        externalProvider: false,
+        statistics: StatisticsModel(
+          ratingSum: 0,
+          ratingCount: 0,
+          created: 0,
+          finished: 0,
+        ),
+      ),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
       advertsWon: const [],
       sum: 0,
       viewAdverts: const [],
+      bidOnAdverts: const [],
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
@@ -133,6 +153,7 @@ class AppState {
             coordinates: Coordinates(lat: 22, lng: 21)),
         dateCreated: 0,
       ),
+      advertImages: const [],
       activeBid: const BidModel(
         id: "",
         userId: "",
@@ -141,6 +162,7 @@ class AppState {
         dateCreated: 0,
         shortlisted: false,
       ),
+      userBid: null,
       locationResult: null,
       error: ErrorType.none,
       change: false,
@@ -150,7 +172,6 @@ class AppState {
       messages: const [],
       messageSubscription: null,
       admin: const AdminModel(adminManage: AdminAppManageModel(), appMetrics: AppMetricsModel()),
-      userProfileImage: null,
       paystackPublicKey: "",
       paystackSecretKey: "",
       notifications: const [],
@@ -162,12 +183,15 @@ class AppState {
     CognitoAuthModel? authModel,
     ResetPasswordModel? resetPasswordModel,
     UserModel? userDetails,
+    UserModel? otherUserDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
     List<AdvertModel>? viewAdverts,
+    List<AdvertModel>? bidOnAdverts,
     List<BidModel>? bids,
     List<BidModel>? shortlistBids,
     List<BidModel>? viewBids,
+    BidModel? userBid,
     List<ReviewModel>? reviews,
     BidModel? activeBid,
     AdvertModel? activeAd,
@@ -184,15 +208,17 @@ class AppState {
     List<String>? advertsWon,
     int? sum,
     StatisticsModel? userStatistics,
-    File? userProfileImage,
+    String? userProfileImage,
     String? paystackPublicKey,
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
+    List<String>? advertImages,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
       resetPasswordModel: resetPasswordModel ?? this.resetPasswordModel,
       userDetails: userDetails ?? this.userDetails,
+      otherUserDetails: otherUserDetails ?? this.otherUserDetails,
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,
       viewAdverts: viewAdverts ?? this.viewAdverts,
@@ -200,8 +226,10 @@ class AppState {
       reviews: reviews ?? this.reviews,
       shortlistBids: shortlistBids ?? this.shortlistBids,
       viewBids: viewBids ?? this.viewBids,
+      bidOnAdverts: bidOnAdverts ?? this.bidOnAdverts,
       activeAd: activeAd ?? this.activeAd,
       activeBid: activeBid ?? this.activeBid,
+      userBid: userBid ?? this.userBid,
       locationResult: locationResult ?? this.locationResult,
       error: error ?? this.error,
       change: change ?? this.change,
@@ -213,10 +241,10 @@ class AppState {
       admin: admin ?? this.admin,
       sum: sum ?? this.sum,
       advertsWon: advertsWon ?? this.advertsWon,
-      userProfileImage: userProfileImage ?? this.userProfileImage,
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
       notifications: notifications ?? this.notifications,
+      advertImages: advertImages ?? this.advertImages,
     );
   }
 }

@@ -23,7 +23,7 @@ class PlaceBidAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
-      placeBid(ad_id: "$adId", tradesman_id: "$userId", name: "${state.userDetails!.name}", price_lower: $priceLower, price_upper: $priceUpper, quote: "$quote") {
+      placeBid(ad_id: "$adId", tradesman_id: "$userId", name: "${state.userDetails.name}", price_lower: $priceLower, price_upper: $priceUpper, quote: "$quote") {
         id
       }
     }''';

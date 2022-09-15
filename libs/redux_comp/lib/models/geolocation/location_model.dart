@@ -51,4 +51,14 @@ class Location {
       coordinates: Coordinates.fromJson(json['coordinates']),
     );
   }
+
+  @override
+  int get hashCode => Object.hash(address, coordinates);
+
+  @override
+  bool operator ==(Object other) {
+    return other is Location &&
+        address == other.address &&
+        coordinates == other.coordinates;
+  }
 }

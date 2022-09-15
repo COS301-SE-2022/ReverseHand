@@ -1,17 +1,22 @@
-import 'dart:async';
 import 'dart:convert';
-import 'package:redux_comp/models/advert_model.dart';
+
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
-class ViewAdvertsAction extends ReduxAction<AppState> {
-  ViewAdvertsAction();
+import '../../models/advert_model.dart';
+
+class GetBidOnAdvertsAction extends ReduxAction<AppState> {
+  final String? tradesmanId;
+
+  GetBidOnAdvertsAction({this.tradesmanId});
 
   @override
   Future<AppState?> reduce() async {
+    final String userId = tradesmanId ?? state.userDetails.id;
+
     String graphQLDocument = '''query {
-      viewAdverts(user_id: "${state.userDetails.id}") {
+      getBidOnAdverts(tradesman_id: "$userId") {
         date_created
         date_closed
         description
@@ -19,7 +24,7 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
           city
           province
           coordinates {
-            lat 
+            lat
             lng
           }
         }
@@ -35,12 +40,12 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
     try {
       final response = await Amplify.API.query(request: request).response;
 
-      List<AdvertModel> adverts = [];
-      dynamic data = jsonDecode(response.data)['viewAdverts'];
-      data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
+      List<dynamic> data = jsonDecode(response.data)['getBidOnAdverts'];
+      List<AdvertModel> adverts =
+          data.map((e) => AdvertModel.fromJson(e)).toList();
 
       return state.copy(
-        adverts: adverts,
+        bidOnAdverts: adverts,
       );
     } catch (e) {
       return null; /* On Error do not modify state */
@@ -48,8 +53,8 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
   }
 
   @override
-  void before() => dispatch(WaitAction.add("view_adverts"));
+  void before() => dispatch(WaitAction.add("get_bid_on_jobs"));
 
   @override
-  void after() => dispatch(WaitAction.remove("view_adverts"));
+  void after() => dispatch(WaitAction.remove("get_bid_on_jobs"));
 }

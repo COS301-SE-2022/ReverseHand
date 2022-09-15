@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:redux_comp/actions/adverts/get_advert_images_action.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -39,14 +40,19 @@ class ViewBidsAction extends ReduxAction<AppState> {
       List<BidModel> bids = [];
       List<BidModel> shortlistedBids = [];
 
+      BidModel? userBid;
+
       // since all bids are gotten we seperate them into two lists
       for (dynamic d in data['viewBids']) {
-        final bool shortlisted = d['shortlisted'];
-        if (shortlisted) {
-          shortlistedBids.add(BidModel.fromJson(d));
+        final BidModel bid = BidModel.fromJson(d);
+
+        if (bid.shortlisted) {
+          shortlistedBids.add(bid);
         } else {
-          bids.add(BidModel.fromJson(d));
+          bids.add(bid);
         }
+
+        if (bid.userId == state.userDetails.id) userBid = bid;
       }
 
       final AdvertModel ad =
@@ -54,6 +60,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
 
       return state.copy(
         bids: bids,
+        userBid: userBid,
         shortlistBids: shortlistedBids,
         viewBids: bids + shortlistedBids,
         activeAd: ad, // setting the active ad
@@ -67,11 +74,12 @@ class ViewBidsAction extends ReduxAction<AppState> {
   void before() {
     dispatch(WaitAction.add("viewBids"));
     dispatch(NavigateAction.pushNamed(
-        "/${state.userDetails!.userType.toLowerCase()}/advert_details"));
+        "/${state.userDetails.userType.toLowerCase()}/advert_details"));
   }
 
   @override
   void after() {
     dispatch(WaitAction.remove("viewBids"));
+    dispatch(GetAdvertImagesAction());
   } // move to page after action completes
 }

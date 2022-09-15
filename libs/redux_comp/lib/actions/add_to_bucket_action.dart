@@ -6,8 +6,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import '../models/bucket_model.dart';
 
-// files are stored as
-
 // Action to upload files to an s3 bucket
 class AddToBucketAction extends ReduxAction<AppState> {
   final FileType fileType; // type of file
@@ -27,7 +25,7 @@ class AddToBucketAction extends ReduxAction<AppState> {
     switch (fileType) {
       // <bucket>/public/profiles/<user_id>
       case FileType.profile:
-        key = "profiles/${state.userDetails!.id}";
+        key = "profiles/${state.userDetails.id}";
         break;
       // <bucket>/adverts/<advert_id>/<uuid>
       case FileType.job: // happens if consumer is logged in
@@ -57,9 +55,11 @@ class AddToBucketAction extends ReduxAction<AppState> {
           });
       debugPrint('Successfully uploaded file: ${result.key}');
 
+      final imageUrl = await Amplify.Storage.getUrl(key: key);
+
       switch (fileType) {
         case FileType.profile:
-          return state.copy(userProfileImage: file);
+          return state.copy(userProfileImage: imageUrl.url);
         case FileType.job: // happens if consumer is logged in
           break;
         case FileType.quote: // happens when tradesman is logged in

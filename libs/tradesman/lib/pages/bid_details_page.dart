@@ -73,14 +73,7 @@ class TBidDetailsPage extends StatelessWidget {
                 //******************INFO***************//
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      //name
-                      // Text('${vm.bid.name}',
-                      //     style: const TextStyle(
-                      //         fontSize: 33, color: Colors.white)),
-
-                      //keep for now - still testing if appBar stack works on other screens
-
+                    children: [
                       const Padding(padding: EdgeInsets.all(15)),
 
                       //bid range

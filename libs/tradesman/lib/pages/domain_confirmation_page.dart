@@ -74,7 +74,7 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
           NavigateAction.pushNamed('/geolocation/custom_location_search',
               arguments: const Uuid().v1()),
         ),
-        domains: state.userDetails!.domains,
+        domains: state.userDetails.domains,
         pop: () => dispatch(
           NavigateAction.pop(),
         ),

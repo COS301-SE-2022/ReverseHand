@@ -25,8 +25,8 @@ class ProfileImageWidget extends StatelessWidget {
                   radius: 80.0,
                   backgroundImage: vm.profilePhoto == null
                       ? const AssetImage("assets/images/profile.png",
-                          package: 'general') as ImageProvider
-                      : FileImage(vm.profilePhoto!),
+                          package: 'general')
+                      : Image.network(vm.profilePhoto!).image,
                 ),
                 Positioned(
                   bottom: 20.0,
@@ -112,7 +112,7 @@ class _Factory extends VmFactory<AppState, ProfileImageWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        profilePhoto: state.userProfileImage,
+        profilePhoto: state.userDetails.profileImage,
         dispatchAddtoBucketAction: (File file) => dispatch(
           AddToBucketAction(
             fileType: FileType.profile,
@@ -124,7 +124,7 @@ class _Factory extends VmFactory<AppState, ProfileImageWidget> {
 
 // view model
 class _ViewModel extends Vm {
-  final File? profilePhoto;
+  final String? profilePhoto;
   final void Function(File file) dispatchAddtoBucketAction;
 
   _ViewModel({

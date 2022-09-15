@@ -43,21 +43,22 @@ class QuickViewBidWidget extends StatelessWidget {
                       children: [
                         //***********IF BID IS SHORTLISTED********/
                         //then display a star
-                        if (bid.isShortlisted())
+                        if (bid.shortlisted)
                           Row(
                             children: [
                               (Icon(
                                 Icons.bookmark,
                                 color: Theme.of(context).primaryColor,
                               )),
-                              const Padding(padding: EdgeInsets.all(2))
+                              const Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 7, 0))
                             ],
                           ),
                         //***************************************/
 
                         //***********CONTRACTOR NAME*************/
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.3,
+                          width: MediaQuery.of(context).size.width / 2.5,
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),

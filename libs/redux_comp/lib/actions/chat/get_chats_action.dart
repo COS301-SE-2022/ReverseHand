@@ -9,7 +9,7 @@ class GetChatsAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      getChats(user_id: "${state.userDetails!.id}") {
+      getChats(user_id: "${state.userDetails.id}") {
         id
         consumer_name
         tradesman_name

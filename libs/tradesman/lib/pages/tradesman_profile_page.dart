@@ -4,13 +4,11 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
-import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:general/widgets/bottom_sheet.dart';
-
 import '../widgets/multiselect_widget.dart';
 import '../widgets/tradesman_navbar_widget.dart';
 
@@ -129,10 +127,10 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     }
                   }
 
-                  int startAmount = vm.userStatistics.ratingSum == 0
+                  int startAmount = vm.userDetails.statistics.ratingSum == 0
                       ? 0
-                      : vm.userStatistics.ratingSum ~/
-                          vm.userStatistics.ratingCount;
+                      : vm.userDetails.statistics.ratingSum ~/
+                          vm.userDetails.statistics.ratingCount;
 
                   List<Icon> stars = [];
                   for (int i = 0; i < startAmount; i++) {
@@ -212,7 +210,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         color: Theme.of(context).primaryColor,
                                       ),
                                       Text(
-                                        "${vm.userStatistics.created} Jobs Completed",
+                                        "${vm.userDetails.statistics.created} Jobs Completed",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
@@ -230,7 +228,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         color: Theme.of(context).primaryColor,
                                       ),
                                       Text(
-                                        "${vm.userStatistics.finished} Bids Made",
+                                        "${vm.userDetails.statistics.finished} Bids Made",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
@@ -477,7 +475,7 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        userDetails: state.userDetails!,
+        userDetails: state.userDetails,
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchChangeNameAction: (String userId, String name) => dispatch(
             EditUserDetailsAction(userId: userId, changed: "name", name: name)),
@@ -491,7 +489,6 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
-        userStatistics: state.userDetails!.statistics,
       );
 }
 
@@ -504,7 +501,6 @@ class _ViewModel extends Vm {
   final void Function(String, String) dispatchChangeCellAction;
   final void Function(String, List<String>) dispatchChangeTradeAction;
   final bool isWaiting;
-  final StatisticsModel userStatistics;
 
   _ViewModel({
     required this.userDetails,
@@ -514,6 +510,5 @@ class _ViewModel extends Vm {
     required this.dispatchChangeCellAction,
     required this.dispatchChangeTradeAction,
     required this.isWaiting,
-    required this.userStatistics,
-  }) : super(equals: [userDetails, isWaiting, userStatistics]);
+  }) : super(equals: [userDetails, isWaiting]);
 }

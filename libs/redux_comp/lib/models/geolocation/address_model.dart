@@ -31,4 +31,18 @@ class Address {
       zipCode: zipCode ?? this.zipCode,
     );
   }
+
+  @override
+  int get hashCode =>
+      Object.hash(streetNumber, street, city, province, zipCode);
+
+  @override
+  bool operator ==(Object other) {
+    return other is Address &&
+        streetNumber == other.streetNumber &&
+        street == other.street &&
+        city == other.city &&
+        province == other.province &&
+        zipCode == other.zipCode;
+  }
 }

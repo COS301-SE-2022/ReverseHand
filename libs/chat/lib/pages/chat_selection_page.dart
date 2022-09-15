@@ -41,8 +41,8 @@ class ChatSelectionPage extends StatelessWidget {
                           ? "There are no active chats. Accept a bid from a contractor to start a chat with them."
                           : "There are no active chats. Once a client has accepted your bid, a chat will be displayed here.",
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontSize: 20, color: Colors.white70),
+                      style:
+                          const TextStyle(fontSize: 20, color: Colors.white70),
                     ),
                   )
                 else
@@ -72,7 +72,7 @@ class _Factory extends VmFactory<AppState, ChatSelectionPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         chats: state.chats,
-        userType: state.userDetails!.userType.toLowerCase(),
+        userType: state.userDetails.userType.toLowerCase(),
         loading: state.wait.isWaiting,
       );
 }

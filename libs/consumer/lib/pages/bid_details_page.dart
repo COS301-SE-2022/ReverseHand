@@ -1,12 +1,13 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
-import 'package:consumer/widgets/shortlist_bid_popup.dart';
+import 'package:consumer/widgets/accept_bid_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
+import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:authentication/widgets/auth_button.dart';
@@ -50,13 +51,12 @@ class BidDetailsPage extends StatelessWidget {
                       //   ),
                       // ),
 
-                      //this does not currently evaluate correctly?
                       IconButton(
                           onPressed: () {
                             vm.dispatchShortListBidAction();
                           },
                           icon: Icon(
-                            vm.bid.isShortlisted()
+                            vm.bid.shortlisted
                                 ? Icons.bookmark
                                 : Icons.bookmark_outline,
                             size: 40,
@@ -128,17 +128,17 @@ class BidDetailsPage extends StatelessWidget {
                           function: () {
                             LightDialogHelper.display(
                                 context,
-                                ShortlistPopUpWidget(
+                                AcceptPopUpWidget(
                                   store: store,
                                 ),
                                 320.0);
                           }),
                     ),
                     TransparentLongButtonWidget(
-                        text: "View Contractor Profile",
-                        function: () {
-                          vm.pushLimitedProfilePage();
-                        })
+                      text: "View Contractor Profile",
+                      function: () =>
+                          vm.dispatchGetOtherUserAction(vm.bid.userId),
+                    )
                   ],
                 ),
                 //******************************************//
@@ -164,9 +164,8 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
   _ViewModel fromStore() => _ViewModel(
         dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
-        pushLimitedProfilePage: () => dispatch(
-          NavigateAction.pushNamed('/tradesman/limited_tradesman_profile_page'),
-        ),
+        dispatchGetOtherUserAction: (String userId) =>
+            dispatch(GetOtherUserAction(userId)),
         bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
@@ -177,15 +176,15 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final BidModel bid;
-  final VoidCallback pushLimitedProfilePage;
   final VoidCallback dispatchAcceptBidAction;
   final VoidCallback dispatchShortListBidAction;
   final bool change;
+  final void Function(String userId) dispatchGetOtherUserAction;
 
   _ViewModel({
     required this.dispatchAcceptBidAction,
     required this.dispatchShortListBidAction,
-    required this.pushLimitedProfilePage,
+    required this.dispatchGetOtherUserAction,
     required this.bid,
     required this.popPage,
     required this.change,
