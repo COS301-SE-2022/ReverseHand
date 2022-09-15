@@ -22,7 +22,7 @@ class ProfileImageWidget extends StatelessWidget {
             return Stack(
               children: [
                 CircleAvatar(
-                  radius: 80.0,
+                  radius: 70,
                   backgroundImage: vm.profilePhoto == null
                       ? const AssetImage("assets/images/profile.png",
                           package: 'general')
@@ -34,10 +34,15 @@ class ProfileImageWidget extends StatelessWidget {
                   child: InkWell(
                     onTap: () =>
                         bottomSheet(context, vm.dispatchAddtoBucketAction),
-                    child: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                      size: 28.0,
+                    child: Stack(
+                      children: const <Widget>[
+                        Positioned(
+                          left: 1.0,
+                          top: 2.0,
+                          child: Icon(Icons.camera_alt, color: Colors.black54),
+                        ),
+                        Icon(Icons.camera_alt, color: Colors.white),
+                      ],
                     ),
                   ),
                 ),
