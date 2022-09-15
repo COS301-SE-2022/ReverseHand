@@ -203,9 +203,9 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   descrController.value.text,
                                 );
                                 vm.dispatchRecordCreateAdvertAction(
-                                    widget.store.state.userDetails!.location!
+                                    widget.store.state.userDetails.location!
                                         .address.city,
-                                    widget.store.state.userDetails!.location!
+                                    widget.store.state.userDetails.location!
                                         .address.province);
                               } else {
                                 (LightDialogHelper.display(context,
