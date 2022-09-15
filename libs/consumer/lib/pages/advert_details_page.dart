@@ -6,6 +6,7 @@ import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
 import 'package:redux_comp/actions/adverts/get_advert_images_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -24,10 +25,6 @@ class AdvertDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //this are where we do the images
-    final List<String> images = [
-       "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-
-    ];
 
     return StoreProvider<AppState>(
       store: store,
@@ -48,13 +45,16 @@ class AdvertDetailsPage extends StatelessWidget {
                       ImageCarouselWidget(images: vm.advertImages),
                     //*******************************************//
 
-                    JobCardWidget(
-                        titleText: vm.advert.title,
-                        descText: vm.advert.description ?? "",
-                        location: vm.advert.domain.city,
-                        type: vm.advert.type,
-                        date: timestampToDate(vm.advert.dateCreated),
-                        store: store),
+                    if (vm.loading)
+                        const LoadingWidget(topPadding: 80, bottomPadding: 0)
+                    else 
+                      JobCardWidget(
+                          titleText: vm.advert.title,
+                          descText: vm.advert.description ?? "",
+                          location: vm.advert.domain.city,
+                          type: vm.advert.type,
+                          date: timestampToDate(vm.advert.dateCreated),
+                          store: store),
                     //*******************************************//
 
                     //extra padding if there is an accepted bid
@@ -168,6 +168,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         },
         test: () => dispatch(GetAdvertImagesAction()),
         advertImages: state.advertImages,
+        loading: state.wait.isWaiting,
       );
 }
 
@@ -183,6 +184,7 @@ class _ViewModel extends Vm {
       dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
   final VoidCallback test;
   final List<String> advertImages;
+  final bool loading;
 
   _ViewModel({
     required this.dispatchDeleteChatAction,
@@ -194,5 +196,6 @@ class _ViewModel extends Vm {
     required this.dispatchArchiveAdvertAction,
     required this.test,
     required this.advertImages,
-  }) : super(equals: [advert, advertImages]); // implementinf hashcode
+    required this.loading,
+  }) : super(equals: [advert, advertImages, loading]); // implementinf hashcode
 }

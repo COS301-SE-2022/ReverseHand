@@ -5,6 +5,7 @@ import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -43,13 +44,16 @@ class TradesmanJobDetails extends StatelessWidget {
                 //*******************************************//
 
                 //**********DETAILED JOB INFORMATION***********//
-                JobCardWidget(
-                    titleText: vm.advert.title,
-                    descText: vm.advert.description ?? "",
-                    date: timestampToDate(vm.advert.dateCreated),
-                    type: vm.advert.type,
-                    location: vm.advert.domain.city,
-                    store: store),
+                if (vm.loading)
+                      const LoadingWidget(topPadding: 80, bottomPadding: 0)
+                else 
+                  JobCardWidget(
+                      titleText: vm.advert.title,
+                      descText: vm.advert.description ?? "",
+                      date: timestampToDate(vm.advert.dateCreated),
+                      type: vm.advert.type,
+                      location: vm.advert.domain.city,
+                      store: store),
 
                 const Padding(padding: EdgeInsets.only(top: 25)),
 
@@ -200,6 +204,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         ),
         currentBid: state.userBid,
         advertImages: state.advertImages,
+        loading: state.wait.isWaiting,
       );
 }
 
@@ -213,6 +218,7 @@ class _ViewModel extends Vm {
   final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
   final List<String> advertImages;
+  final bool loading;
 
   _ViewModel({
     required this.advert,
@@ -223,5 +229,6 @@ class _ViewModel extends Vm {
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
     required this.advertImages,
-  }) : super(equals: [advert, advertImages]);
+    required this.loading,
+  }) : super(equals: [advert, advertImages, loading]);
 }

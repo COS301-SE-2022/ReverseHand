@@ -124,7 +124,7 @@ class JobCardWidget extends StatelessWidget {
 
             const Divider(
               height: 20,
-              thickness: 2,
+              thickness: 1.5,
               indent: 5,
               endIndent: 10,
               color: Colors.orange,
