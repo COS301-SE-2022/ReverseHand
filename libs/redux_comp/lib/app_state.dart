@@ -35,6 +35,7 @@ class AppState {
 
   final List<AdvertModel> adverts;
   final List<AdvertModel> viewAdverts;
+  final List<AdvertModel> bidOnAdverts; // adverts which a tradesman has bid on
   final AdvertModel? activeAd; // used for representing the current ad
   final List<String> advertImages; // image urls for an advert
 
@@ -81,6 +82,7 @@ class AppState {
     required this.activeAd,
     required this.activeBid,
     required this.userBid,
+    required this.bidOnAdverts,
     required this.locationResult,
     required this.error,
     required this.change,
@@ -120,6 +122,7 @@ class AppState {
       advertsWon: const [],
       sum: 0,
       viewAdverts: const [],
+      bidOnAdverts: const [],
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
@@ -167,6 +170,7 @@ class AppState {
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
     List<AdvertModel>? viewAdverts,
+    List<AdvertModel>? bidOnAdverts,
     List<BidModel>? bids,
     List<BidModel>? shortlistBids,
     List<BidModel>? viewBids,
@@ -203,6 +207,7 @@ class AppState {
       reviews: reviews ?? this.reviews,
       shortlistBids: shortlistBids ?? this.shortlistBids,
       viewBids: viewBids ?? this.viewBids,
+      bidOnAdverts: bidOnAdverts ?? this.bidOnAdverts,
       activeAd: activeAd ?? this.activeAd,
       activeBid: activeBid ?? this.activeBid,
       userBid: userBid ?? this.userBid,
