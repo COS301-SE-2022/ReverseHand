@@ -319,6 +319,8 @@ jobs:
         run: |
           ls -a 
           cat .env 
+          echo ${{ secrets.CODECOV_TOKEN }}
+          echo ${{ secrets.AWS_ACCESS_KEY_ID }}
           npx nx run amplify:test
 
         # run: |
