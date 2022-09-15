@@ -6,8 +6,6 @@ import 'package:redux_comp/actions/add_to_bucket_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bucket_model.dart';
 
-//TODO, CHECK IF CAN SELECT MULTIPLE
-
 class OpenImageWidget extends StatelessWidget {
   final Store<AppState> store;
 

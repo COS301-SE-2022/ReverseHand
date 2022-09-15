@@ -63,6 +63,7 @@ class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
             child: AuthButtonWidget(text: btnText, function: () async {
+              // ignore: unused_local_variable
               FilePickerResult? result = await FilePicker.platform.pickFiles(
                 type: FileType.custom,
                 allowedExtensions: ['pdf'],

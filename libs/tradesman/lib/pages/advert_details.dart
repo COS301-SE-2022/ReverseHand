@@ -6,7 +6,6 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -19,10 +18,6 @@ class TradesmanJobDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final List<String> images = [
-        "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-    ];
 
     return StoreProvider<AppState>(
       store: store,
