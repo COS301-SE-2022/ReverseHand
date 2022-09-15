@@ -36,27 +36,17 @@ type Query {
   getReports(type: String!): Reports!
     @function(name: "getReportsResolver-${env}")
 
-<<<<<<< HEAD
   adminGetUser(user_id: String!): AdminUser!
     @function(name: "adminGetUserResolver-${env}")
-=======
-  getReportedReviews: [AdminUser]!
-    @function(name: "getReportedReviewsResolver-${env}")
->>>>>>> 716cbc3c435895c99c73ccd48b4f131b4382abfd
 
   getDBWriteDashboard: String!
     @function(name: "getDashboardMetricsResolver-${env}")
 
-<<<<<<< HEAD
   getMetrics(params: String!): String!
     @function(name: "getMetricsResolver-${env}") 
 
   getBidOnAdverts(tradesman_id: String!): [Advert!]!
     @function(name: "getBidOnAdvertsResolver-${env}")
-=======
-  getBidOnAdverts(tradesman_id: String!): [Advert!]!
-      @function(name:  "getBidOnAdvertsResolver-${env}")
->>>>>>> 716cbc3c435895c99c73ccd48b4f131b4382abfd
 }
 
 type Mutation {
@@ -318,7 +308,13 @@ type AdminAdvert {
   customer_id: String!
   advert: Advert!
   count: Int!
-  reports: [Report!]!
+  reports: [AdvertReport!]!
+}
+
+type AdvertReport {
+  reason: String!
+  description: String!
+  reporter_user: ReportUserDetails!
 }
 
 type Reports {
@@ -330,6 +326,14 @@ type Report implements UniqueID {
   id: String!
   report_type: String!
   report_details: ReportDetails!
+  review_details: ReviewDetails
+}
+
+type ReviewDetails {
+  id: String!
+  rating: Int!
+  description: String!
+  advert_id: String!
 }
 
 type ReportDetails {

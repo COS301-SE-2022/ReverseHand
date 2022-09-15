@@ -17,6 +17,7 @@ class ReportManagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ReportModel report =
         ModalRoute.of(context)!.settings.arguments as ReportModel;
+
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -60,20 +61,29 @@ class ReportManagePage extends StatelessWidget {
                         description: report.reportDetails.description,
                       ),
 
-                      ReportUserDescrWidget(
-                        title: "Reported User",
-                        name: report.reportDetails.reportedUser.name,
-                        function: () {
-                          vm.dispatchGetUser(report.reportDetails.reportedUser.id);
-                          vm.pushUserManagePage();
-                        },
-                      ),
+                      (report.reviewDetails != null)
+                          ? ReportDetailsWidget(
+                              reason: report.reviewDetails!.description,
+                              description:
+                                  report.reviewDetails!.rating.toString())
+                          : Container(),
+                          
+                          ReportUserDescrWidget(
+                              title: "Reported User",
+                              name: report.reportDetails.reportedUser!.name,
+                              function: () {
+                                vm.dispatchGetUser(
+                                    report.reportDetails.reportedUser!.id);
+                                vm.pushUserManagePage();
+                              },
+                            ),
 
                       ReportUserDescrWidget(
                         title: "Reporter User",
                         name: report.reportDetails.reporterUser.name,
                         function: () {
-                          vm.dispatchGetUser(report.reportDetails.reporterUser.id);
+                          vm.dispatchGetUser(
+                              report.reportDetails.reporterUser.id);
                           vm.pushUserManagePage();
                         },
                       ),
@@ -101,7 +111,8 @@ class _Factory extends VmFactory<AppState, ReportManagePage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         dispatchGetUser: (userId) => dispatch(AdminGetUserAction(userId)),
-        pushUserManagePage: () => dispatch(NavigateAction.pushNamed("/user_manage")),
+        pushUserManagePage: () =>
+            dispatch(NavigateAction.pushNamed("/user_manage")),
       );
 }
 

@@ -8,10 +8,10 @@ import 'package:redux_comp/actions/admin/app_management/get_user_reports_action.
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class ViewReportsPage extends StatelessWidget {
+class ViewUserReportsPage extends StatelessWidget {
   final Store<AppState> store;
 
-  const ViewReportsPage({Key? key, required this.store}) : super(key: key);
+  const ViewUserReportsPage({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class ViewReportsPage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, ViewReportsPage> {
+class _Factory extends VmFactory<AppState, ViewUserReportsPage> {
   _Factory(widget) : super(widget);
 
   @override

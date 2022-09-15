@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
@@ -7,7 +8,7 @@ class ReportedAdvertModel {
   final String customerId;
   final int count;
   final AdvertModel advert;
-  final List<ReportModel> reports;
+  final List<ReportDetailsModel> reports;
  
 
   const ReportedAdvertModel({
@@ -18,9 +19,9 @@ class ReportedAdvertModel {
   });
 
   factory ReportedAdvertModel.fromJson(obj) {
-    List<ReportModel> reports = [];
+    List<ReportDetailsModel> reports = [];
     for(dynamic elem in obj["reports"]) {
-      reports.add(ReportModel.fromJson(elem));
+      reports.add(ReportDetailsModel.fromJson(elem));
     }
 
     return ReportedAdvertModel(

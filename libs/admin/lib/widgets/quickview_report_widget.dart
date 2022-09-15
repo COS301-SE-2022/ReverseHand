@@ -37,7 +37,7 @@ class QuickviewReportWidget extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.3,
-                          child: Text(report.reportDetails.reportedUser.name,
+                          child: Text(report.reportDetails.reportedUser!.name,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
