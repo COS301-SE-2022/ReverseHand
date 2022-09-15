@@ -25,7 +25,7 @@ class AdminUserWidget extends StatelessWidget {
                   Row(children: [
                     Icon(
                       Icons.email_outlined,
-                      size: 25,
+                      size: 24,
                       color: Theme.of(context).primaryColor,
                     ),
                     const Padding(padding: EdgeInsets.only(right: 5)),
@@ -53,7 +53,7 @@ class AdminUserWidget extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.person_outline,
+                              Icons.account_circle_outlined,
                               size: 25,
                               color: Theme.of(context).primaryColor,
                             ),
@@ -78,9 +78,9 @@ class AdminUserWidget extends StatelessWidget {
                           ),
                         ),
                       ]),
-
                   //********************************************//
                   const Padding(padding: EdgeInsets.only(top: 15)),
+
                   //*****************WARNINGS******************//
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,16 +109,7 @@ class AdminUserWidget extends StatelessWidget {
                           ),
                         ),
                       ]),
-                  // const Padding(padding: EdgeInsets.only(top: 5)),
-                  // Row(
-                  //   children: [
-                  //     Text(
-                  //       user.warnings.toString(),
-                  //       style: const TextStyle(fontSize: 20),
-                  //     ),
-                  //   ],
-                  // ),
-                  //*******************************************//
+                  //********************************************//
                 ],
               ),
             ),

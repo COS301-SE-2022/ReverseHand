@@ -2,6 +2,7 @@ import 'package:admin/widgets/admin_user_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
@@ -53,7 +54,49 @@ class UserManagePage extends StatelessWidget {
                       TransparentLongButtonWidget(
                           text: "Delete User",
                           borderColor: Colors.red,
-                          function: () {})
+                          function: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (BuildContext context) => SizedBox(
+                                      height: 180,
+                                      child: Column(
+                                        children: [
+                                          const Center(
+                                            child: Padding(
+                                              padding: EdgeInsets.all(18.0),
+                                              child: Text(
+                                                "Are you sure you want to delete this user's account?",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20),
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              ButtonWidget(
+                                                  text: "Delete",
+                                                  function: () {}),
+                                              const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 10)),
+                                              ButtonWidget(
+                                                  text: "Cancel",
+                                                  color: "light",
+                                                  border: "lightBlue",
+                                                  function: () {
+                                                    Navigator.pop(context);
+                                                  }),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ));
+                          })
                     ],
                   );
           },
