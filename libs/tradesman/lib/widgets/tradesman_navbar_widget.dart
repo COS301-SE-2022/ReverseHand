@@ -116,17 +116,17 @@ class _Factory extends VmFactory<AppState, TNavBarWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         pushProfilePage: () => dispatch(
-          NavigateAction.pushNamed('/tradesman/profile'),
+          NavigateAction.pushReplacementNamed('/tradesman/profile'),
         ),
         pushActivityStreamPage: () => dispatch(
-          NavigateAction.pushNamed('/general/activity_stream'),
+          NavigateAction.pushReplacementNamed('/general/activity_stream'),
         ),
         pushTradesmanListings: () => dispatch(
-          NavigateAction.pushNamed('/tradesman'),
+          NavigateAction.pushReplacementNamed('/tradesman'),
         ),
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         pushChatPage: () => dispatch(
-          NavigateAction.pushNamed('/chats'),
+          NavigateAction.pushReplacementNamed('/chats'),
         ),
         dispatchGetChatsAction: () => dispatch(GetChatsAction()),
       );
