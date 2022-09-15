@@ -316,7 +316,7 @@ jobs:
           echo AWS_ACCESS_KEY_ID = $AWS_ACCESS_KEY_ID >> .env
           echo AWS_SECRET_ACCESS_KEY = $AWS_SECRET_ACCESS_KEY >> .env
           ls -a
-          cat .env
+          pwd
           npx nx run amplify:test
 
      
