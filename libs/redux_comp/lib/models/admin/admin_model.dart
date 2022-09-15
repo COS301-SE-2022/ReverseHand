@@ -2,20 +2,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_management/admin_app_manage_model.dart';
+import 'package:redux_comp/models/admin/app_metrics/app_metrics_model.dart';
 
 @immutable
 class AdminModel {
   final AdminAppManageModel adminManage;
+  final AppMetricsModel appMetrics;
 
   const AdminModel({
-    required this.adminManage
+    required this.adminManage,
+    required this.appMetrics
   });
 
   AdminModel copy({
-    AdminAppManageModel? adminManage
+    AdminAppManageModel? adminManage,
+    AppMetricsModel? appMetrics
   }) {
     return AdminModel(
-      adminManage: adminManage ?? this.adminManage
+      adminManage: adminManage ?? this.adminManage,
+      appMetrics: appMetrics ?? this.appMetrics
     );
   }
 }

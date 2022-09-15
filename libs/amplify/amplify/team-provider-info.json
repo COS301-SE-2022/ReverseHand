@@ -226,6 +226,10 @@
         "adminGetUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/adminGetUserResolver-4f5069397053524d5443-build.zip"
+        },
+        "getMetricsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getMetricsResolver-7070395269676965396b-build.zip"
         }
       }
     }

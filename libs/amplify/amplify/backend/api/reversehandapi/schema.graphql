@@ -42,6 +42,9 @@ type Query {
   getDBWriteDashboard: String!
     @function(name: "getDashboardMetricsResolver-${env}")
 
+  getMetrics(params: String!): String!
+    @function(name: "getMetricsResolver-${env}") 
+
   getBidOnAdverts(tradesman_id: String!): [Advert!]!
     @function(name: "getBidOnAdvertsResolver-${env}")
 }

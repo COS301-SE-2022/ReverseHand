@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/get_db_write_metrics_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -112,10 +113,13 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushAppMetrics: () => dispatch(
-          NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_system_metrics', ModalRoute.withName('/')),
-        ),
+        pushAppMetrics: () {
+          dispatch(GetDbWriteMetricsAction());
+          dispatch(
+            NavigateAction.pushNamedAndRemoveUntil('/admin_system_metrics',
+                ModalRoute.withName('/admin_system_metrics')),
+          );
+        },
         pushUserManage: () {
           dispatch(
             NavigateAction.pushNamedAndRemoveUntil(
