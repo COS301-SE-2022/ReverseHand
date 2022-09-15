@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/admin/get_reported_adverts_action.dart';
+import 'package:redux_comp/actions/get_db_write_metrics_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -113,22 +113,26 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushAppMetrics: () => dispatch(
-          NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_metrics', ModalRoute.withName('/')),
-        ),
-        pushUserManage: () => dispatch(
-          NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_users', ModalRoute.withName('/')),
-        ),
+        pushAppMetrics: () {
+          dispatch(GetDbWriteMetricsAction());
+          dispatch(
+            NavigateAction.pushNamedAndRemoveUntil('/admin_system_metrics',
+                ModalRoute.withName('/admin_system_metrics')),
+          );
+        },
+        pushUserManage: () {
+          dispatch(
+            NavigateAction.pushNamedAndRemoveUntil(
+                '/admin_user_metrics', ModalRoute.withName('/admin_users')),
+          );
+        },
         pushContentManage: () {
-          dispatch(GetReportedAdvertsAction(state.userDetails!.scope!));
           dispatch(NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_content', ModalRoute.withName('/')));
+              '/admin_management', ModalRoute.withName('/admin_content')));
         },
         pushProfilePage: () => dispatch(
           NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_metrics', ModalRoute.withName('/')),
+              '/admin_profile', ModalRoute.withName('/')),
         ),
       );
 }

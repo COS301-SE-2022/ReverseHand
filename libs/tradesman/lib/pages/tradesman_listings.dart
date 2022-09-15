@@ -29,7 +29,7 @@ class TradesmanJobListings extends StatelessWidget {
             child: Column(
               children: [
                 //*******************APP BAR WIDGET*********************//
-                AppBarWidget(title: "JOB LISTINGS", store: store),
+                AppBarWidget(store: store, title: "Job Listing",), 
                 //********************************************************//
 
                 //*******************TAB BAR LABELS***********************//

@@ -3,12 +3,15 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
+import 'package:redux_comp/models/admin/app_management/admin_app_manage_model.dart';
+import 'package:redux_comp/models/admin/app_metrics/app_metrics_model.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/review_model.dart';
 import 'package:redux_comp/models/user_models/notification_model.dart';
+import 'package:redux_comp/models/user_models/reset_password_model.dart';
 import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'models/advert_model.dart';
 import 'models/bid_model.dart';
@@ -22,7 +25,9 @@ import 'models/user_models/partial_user_model.dart';
 class AppState {
   // put all app state requiered here
   final CognitoAuthModel? authModel;
-  final UserModel? userDetails;
+  final ResetPasswordModel? resetPasswordModel;
+  final UserModel userDetails;
+  final UserModel otherUserDetails; // used when viewing another user
   final PartialUser? partialUser;
 
   final List<BidModel> bids; // holds all of the bids
@@ -59,9 +64,6 @@ class AppState {
   //admin functionality
   final AdminModel admin;
 
-  // images
-  final String? userProfileImage;
-
   // paystack keys
   final String paystackSecretKey;
   final String paystackPublicKey;
@@ -71,7 +73,9 @@ class AppState {
   // constructor must only take named parameters
   const AppState({
     required this.authModel,
+    required this.resetPasswordModel,
     required this.userDetails,
+    required this.otherUserDetails,
     required this.partialUser,
     required this.adverts,
     required this.viewAdverts,
@@ -95,7 +99,6 @@ class AppState {
     required this.sum,
     required this.advertsWon,
     required this.admin,
-    required this.userProfileImage,
     required this.paystackSecretKey,
     required this.paystackPublicKey,
     required this.notifications,
@@ -105,7 +108,20 @@ class AppState {
   factory AppState.initial() {
     return AppState(
       authModel: null,
+      resetPasswordModel: null,
       userDetails: const UserModel(
+        id: "",
+        email: "",
+        userType: "",
+        externalProvider: false,
+        statistics: StatisticsModel(
+          ratingSum: 0,
+          ratingCount: 0,
+          created: 0,
+          finished: 0,
+        ),
+      ),
+      otherUserDetails: const UserModel(
         id: "",
         email: "",
         userType: "",
@@ -155,8 +171,7 @@ class AppState {
       chat: null,
       messages: const [],
       messageSubscription: null,
-      admin: const AdminModel(reportedCustomers: []),
-      userProfileImage: null,
+      admin: const AdminModel(adminManage: AdminAppManageModel(), appMetrics: AppMetricsModel()),
       paystackPublicKey: "",
       paystackSecretKey: "",
       notifications: const [],
@@ -166,7 +181,9 @@ class AppState {
   // easy way to replace store wihtout specifying all paramters
   AppState copy({
     CognitoAuthModel? authModel,
+    ResetPasswordModel? resetPasswordModel,
     UserModel? userDetails,
+    UserModel? otherUserDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
     List<AdvertModel>? viewAdverts,
@@ -199,7 +216,9 @@ class AppState {
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
+      resetPasswordModel: resetPasswordModel ?? this.resetPasswordModel,
       userDetails: userDetails ?? this.userDetails,
+      otherUserDetails: otherUserDetails ?? this.otherUserDetails,
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,
       viewAdverts: viewAdverts ?? this.viewAdverts,
@@ -222,7 +241,6 @@ class AppState {
       admin: admin ?? this.admin,
       sum: sum ?? this.sum,
       advertsWon: advertsWon ?? this.advertsWon,
-      userProfileImage: userProfileImage ?? this.userProfileImage,
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
       notifications: notifications ?? this.notifications,

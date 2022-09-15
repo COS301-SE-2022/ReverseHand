@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-
 import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:http/http.dart' as http;
@@ -53,7 +51,7 @@ class RefreshUserTokenAction extends ReduxAction<AppState> {
         List<String> groups = List<String>.from(payload["cognito:groups"]);
 
         String userType = "";
-        if (state.userDetails!.userType == "") {
+        if (state.userDetails.userType == "") {
           if (groups.contains("customer")) {
             userType = "Consumer";
           } else if (groups.contains("tradesman")) {
@@ -66,7 +64,7 @@ class RefreshUserTokenAction extends ReduxAction<AppState> {
         }
 
         return state.copy(
-          userDetails: state.userDetails!.copy(userType: userType),
+          userDetails: state.userDetails.copy(userType: userType),
           authModel: state.authModel!.copy(accessToken: accessToken),
           error: ErrorType.none,
         );
@@ -78,5 +76,4 @@ class RefreshUserTokenAction extends ReduxAction<AppState> {
       return state.copy(error: ErrorType.failedToRefreshToken);
     }
   }
-
 }

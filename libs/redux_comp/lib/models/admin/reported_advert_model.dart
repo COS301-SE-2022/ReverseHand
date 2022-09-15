@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/admin/advert_report_model.dart';
+import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
 @immutable
 class ReportedAdvertModel {
-  final String id;
   final String customerId;
   final int count;
   final AdvertModel advert;
-  final List<AdvertReportModel> reports;
+  final List<ReportModel> reports;
  
 
   const ReportedAdvertModel({
-    required this.id,
     required this.count,
     required this.customerId,
     required this.advert,
@@ -20,13 +18,12 @@ class ReportedAdvertModel {
   });
 
   factory ReportedAdvertModel.fromJson(obj) {
-    List<AdvertReportModel> reports = [];
+    List<ReportModel> reports = [];
     for(dynamic elem in obj["reports"]) {
-      reports.add(AdvertReportModel.fromJson(elem));
+      reports.add(ReportModel.fromJson(elem));
     }
 
     return ReportedAdvertModel(
-      id: obj['id'],
       count: obj['count'],
       customerId: obj['customer_id'],
       advert: AdvertModel.fromJson(obj["advert"]),

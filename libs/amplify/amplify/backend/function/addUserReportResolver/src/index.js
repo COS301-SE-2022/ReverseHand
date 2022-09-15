@@ -6,21 +6,26 @@ const ReverseHandTable = process.env.REVERSEHAND;
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  
-  event.arguments.report.reporter_id = event.arguments.user_id;
+  let report = event.arguments.report;
+  report.reporter_user = {
+    id: event.arguments.user_details.id,
+    name: event.arguments.user_details.name
+  };
+
   let paramsPutReport = {
     TableName: ReverseHandTable,
     Item: {
-      part_key: "user_reports#" + event.arguments.report.reported_user_id,
+      part_key: "user_reports#" + event.arguments.report.reported_user.id,
       sort_key: "report#" + AWS.util.uuid.v4(),
-      report_details: event.arguments.report,
+      report_details: report,
       report_type: "user#reports"
     }
   };
 
   await docClient.put(paramsPutReport).promise();
   
-  paramsPutReport.Item.report_details.id = paramsPutReport.Item.sort_key;
-  delete paramsPutReport.Item.sort_key;
-  return paramsPutReport.Item.report_details;
+  paramsPutReport.Item.id = paramsPutReport.Item.sort_key;
+  delete paramsPutReport.Item.sort_key; 
+  delete paramsPutReport.Item.part_key;
+  return paramsPutReport.Item;
 };

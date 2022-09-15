@@ -12,9 +12,9 @@ class RemoveDomainAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    List<Domain> domains = List.from(state.userDetails!.domains);
+    List<Domain> domains = List.from(state.userDetails.domains);
     domains.removeWhere((element) => element.city == city);
 
-    return state.copy(userDetails: state.userDetails!.copy(domains: domains));
+    return state.copy(userDetails: state.userDetails.copy(domains: domains));
   }
 }

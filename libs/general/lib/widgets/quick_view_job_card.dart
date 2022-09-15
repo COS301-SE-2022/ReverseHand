@@ -110,7 +110,7 @@ class _Factory extends VmFactory<AppState, QuickViewJobCardWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchViewBidsAction: (adId) => dispatch(
+        dispatchViewBidsAction: (String adId) => dispatch(
           ViewBidsAction(adId),
         ),
       );

@@ -190,6 +190,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                   //**************************************************//
 
                   const ProfileDividerWidget(),
+                  //********************NUMBER**********************//
                   InkWell(
                     onTap: () {
                       showModalBottomSheet(
@@ -259,16 +260,6 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
 
                   const ProfileDividerWidget(),
                   //********************TRADE**********************//
-                  // Padding(
-                  //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                  //   child: TextFieldWidget(
-                  //     label: "Trade",
-                  //     obscure: false,
-                  //     controller: tradeController,
-                  //     onTap: () => showMultiSelect(vm.userDetails!.tradeTypes),
-                  //     min: 1,
-                  //   ),
-                  // ),
                   InkWell(
                     onTap: () => showMultiSelect(selectedItems),
                     child: Padding(
@@ -426,7 +417,7 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
         dispatchEditTradesmanAction: (String? name, String? cell,
                 List<String>? tradeTypes, List<Domain>? domains) =>
             dispatch(EditUserDetailsAction(
-          userId: state.userDetails!.id,
+          userId: state.userDetails.id,
           name: name,
           cellNo: cell,
           tradeTypes: tradeTypes,
@@ -439,7 +430,7 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
-        userDetails: state.userDetails!,
+        userDetails: state.userDetails,
         dispatchToastErrorAction: (context, msg) =>
             dispatch(ToastErrorAction(context, msg)),
       );

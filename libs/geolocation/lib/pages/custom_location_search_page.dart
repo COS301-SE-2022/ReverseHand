@@ -42,7 +42,6 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                 color: Colors.white, borderRadius: BorderRadius.circular(5)),
             child: Center(
               child: TextField(
-                  cursorColor: Colors.black,
                   style: const TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                       prefixIcon: const Icon(
@@ -50,8 +49,10 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                         color: Colors.black,
                       ),
                       suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        color: Colors.black,
+                        icon: const Icon(
+                          Icons.clear,
+                          color: Colors.black,
+                        ),
                         onPressed: () {
                           searchController.clear();
                           setState(() {
@@ -62,7 +63,8 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                         },
                       ),
                       hintText: 'Search...',
-                      border: InputBorder.none),
+                      border: InputBorder.none,
+                      fillColor: Colors.black),
                   controller: searchController,
                   onChanged: (text) {
                     //when the input text has changed

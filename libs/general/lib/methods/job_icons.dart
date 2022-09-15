@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Map<String, IconData> domains = {
-  'Plumber': Icons.plumbing,
+  'Plumbing': Icons.plumbing,
   'Designer': Icons.design_services,
   'Carpenter': Icons.carpenter,
   'Landscaper': Icons.abc, //still need an icon

@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/admin/set_current_advert_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
 
@@ -25,7 +24,7 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          onTap: () => vm.dispatchViewAdvertDetails(advert.id),
+          onTap: () => {},
           child: Card(
             margin: const EdgeInsets.all(10),
             color: const Color.fromARGB(255, 220, 224, 230),
@@ -151,17 +150,12 @@ class _Factory extends VmFactory<AppState, QuickViewReportedAdvertCardWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchViewAdvertDetails: (reportId) => dispatch(
-          SetCurrentAdvertAction(reportId),
-        ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String) dispatchViewAdvertDetails;
 
-  _ViewModel({
-    required this.dispatchViewAdvertDetails,
-  });
+  _ViewModel(
+  );
 }

@@ -1,5 +1,3 @@
-import 'package:admin/pages/admin_consumer_profile_page.dart';
-import 'package:admin/pages/admin_consumer_reports_page.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
@@ -107,17 +105,13 @@ class Launch extends StatelessWidget {
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),
           //admin routes
-          '/admin_consumer_reports': (context) =>
-              AdminConsumerReportsPage(store: store),
-          '/admin_consumer_profile': (context) =>
-              AdminConsumerProfilePage(store: store),
-          '/admin_consumer_advert_reports': (context) =>
-              AdminAdvertReportsPage(store: store),
-          '/admin_consumer_advert_details': (context) =>
-              AdminAdvertDetailsPage(store: store),
-          '/admin_metrics': (context) => AdminMetricsPage(store: store),
-          '/admin_content': (context) => AdminContentPage(store: store),
-          '/admin_users': (context) => AdminUsersPage(store: store),
+         
+          '/admin_system_metrics': (context) => SystemMetricsPage(store: store),
+          '/admin_management': (context) => AdminManagePage(store: store),
+          '/user_reports_page': (context) => ViewReportsPage(store: store),
+          '/report_manage': (context) => ReportManagePage(store: store),
+          '/user_manage': (context) => UserManagePage(store: store),
+        
         },
       ),
     );

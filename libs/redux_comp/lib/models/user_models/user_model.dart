@@ -20,6 +20,7 @@ class UserModel {
       externalUsername; //for adding to user group, usernames different :(
   final String? scope; //for the admin user province scope
   final StatisticsModel statistics;
+  final String? profileImage;
 
   const UserModel({
     required this.id,
@@ -35,6 +36,7 @@ class UserModel {
     this.externalUsername,
     this.scope,
     required this.statistics,
+    this.profileImage,
   });
 
   UserModel copy({
@@ -51,6 +53,7 @@ class UserModel {
     String? externalUsername,
     String? scope,
     StatisticsModel? statistics,
+    String? profileImage,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -66,6 +69,41 @@ class UserModel {
       externalUsername: externalUsername ?? this.externalUsername,
       scope: scope ?? this.scope,
       statistics: statistics ?? this.statistics,
+      profileImage: profileImage ?? this.profileImage,
     );
+  }
+
+  // implementing hashcode
+  @override
+  int get hashCode => Object.hash(
+        id,
+        email,
+        name,
+        cellNo,
+        domains,
+        location,
+        registered,
+        externalProvider,
+        externalUsername,
+        scope,
+        statistics,
+        profileImage,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return other is UserModel &&
+        id == other.id &&
+        email == other.email &&
+        name == other.name &&
+        cellNo == other.cellNo &&
+        domains == other.domains &&
+        location == other.location &&
+        registered == other.registered &&
+        externalProvider == other.externalProvider &&
+        externalUsername == other.externalUsername &&
+        scope == other.scope &&
+        statistics == other.statistics &&
+        profileImage == other.profileImage;
   }
 }

@@ -124,7 +124,7 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
           ),
       popPage: () => dispatch(NavigateAction.pop()),
       location: (state.locationResult == null) ? null : state.locationResult,
-      userType: state.userDetails!.userType);
+      userType: state.userDetails.userType);
 }
 
 // view model
