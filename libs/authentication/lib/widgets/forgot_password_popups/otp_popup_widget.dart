@@ -65,12 +65,7 @@ class FPOTPPopupWidget extends StatelessWidget {
                       //*****************************************************
 
                       //*****************Heading **********************
-                      LinkWidget(
-                          text1: "Didn't receive OTP? ",
-                          text2: "Resend",
-                          navigate: () => LoginPage(store: store),
-                          colour: Colors.black),
-                      const Padding(padding: EdgeInsets.all(20)),
+                      const Padding(padding: EdgeInsets.only(left:20, right: 20, bottom: 20)),
                       ButtonWidget(
                           text: "Verify",
                           function: () {
