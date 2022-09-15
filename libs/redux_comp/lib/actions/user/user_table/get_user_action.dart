@@ -141,7 +141,6 @@ class GetUserAction extends ReduxAction<AppState> {
         viewUser(user_id: "$id") {
           id
           email
-          name
           scope
         }
       }
@@ -184,7 +183,7 @@ class GetUserAction extends ReduxAction<AppState> {
         dispatch(NavigateAction.pushNamed("/tradesman"));
         break;
       case "Admin":
-        dispatch(NavigateAction.pushNamed("/admin_metrics"));
+        dispatch(NavigateAction.pushNamed("/admin_system_metrics"));
         break;
     }
     // wait until error has finished before stopping loading

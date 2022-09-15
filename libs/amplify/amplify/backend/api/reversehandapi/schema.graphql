@@ -16,13 +16,13 @@ type Query {
   viewKey: String! @function(name: "getGoogleApiKeyResolver-${env}")
 
   getPayStackKeys: PayStackKeys!
-  @function(name: "getPayStackApiKeysResolver-${env}")
+    @function(name: "getPayStackApiKeysResolver-${env}")
 
   getChats(user_id: String!): [Chat!]!
-  @function(name: "getChatsResolver-${env}")
+    @function(name: "getChatsResolver-${env}")
 
   getMessages(chat_id: String!): [Message!]!
-  @function(name: "getMessagesResolver-${env}")
+    @function(name: "getMessagesResolver-${env}")
 
   getNotifications(user_id: String!): [Notification!]!
     @function(name: "getNotificationsResolver-${env}")
@@ -33,17 +33,30 @@ type Query {
   getReportedAdverts(province: String!): [AdminAdvert]!
     @function(name: "getReportedAdvertsResolver-${env}")
 
-  getReportedUsers: [AdminUser]!
-    @function(name: "getReportedUsersResolver-${env}")
+  getReports(type: String!): Reports!
+    @function(name: "getReportsResolver-${env}")
 
+<<<<<<< HEAD
+  adminGetUser(user_id: String!): AdminUser!
+    @function(name: "adminGetUserResolver-${env}")
+=======
   getReportedReviews: [AdminUser]!
     @function(name: "getReportedReviewsResolver-${env}")
+>>>>>>> 716cbc3c435895c99c73ccd48b4f131b4382abfd
 
   getDBWriteDashboard: String!
     @function(name: "getDashboardMetricsResolver-${env}")
 
+<<<<<<< HEAD
+  getMetrics(params: String!): String!
+    @function(name: "getMetricsResolver-${env}") 
+
+  getBidOnAdverts(tradesman_id: String!): [Advert!]!
+    @function(name: "getBidOnAdvertsResolver-${env}")
+=======
   getBidOnAdverts(tradesman_id: String!): [Advert!]!
       @function(name:  "getBidOnAdvertsResolver-${env}")
+>>>>>>> 716cbc3c435895c99c73ccd48b4f131b4382abfd
 }
 
 type Mutation {
@@ -127,11 +140,8 @@ type Mutation {
     t_name: String!
   ): Chat! @function(name: "createChatResolver-${env}")
 
-  sendMessage(
-    chat_id: String!
-    msg: String!
-    sender: String!
-  ): Message! @function(name: "sendMessageResolver-${env}")
+  sendMessage(chat_id: String!, msg: String!, sender: String!): Message!
+    @function(name: "sendMessageResolver-${env}")
 
   deleteChat(c_id: String!, ad_id: String!): Chat!
     @function(name: "deleteChatResolver-${env}")
@@ -145,7 +155,7 @@ type Mutation {
   archiveAdvert(ad_id: String!): Advert!  #id is the review id
     @function(name: "archiveAdvertResolver-${env}")
 
-  notification(user_id: String!): NotificationUpdate! # returns the id of the user who has a new notification
+  notification(user_id: String!): NotificationUpdate!  # returns the id of the user who has a new notification
     @function(name: "notifyNewNotificationsResolver-${env}")
 }
 
@@ -165,7 +175,7 @@ type User implements UniqueID {
   location: Location!
   domains: [Domain!]
   tradetypes: [String!]
-  scope: String!  #The scope/province that the admin can view reports from
+  scope: String! #The scope/province that the admin can view reports from
   created: Int! #number of bids/adverts made
   finished: Int! # number of adverts completed or bids won
   rating_sum: Int!
@@ -304,27 +314,44 @@ input ReviewInput {
   date_created: Int
 }
 
-type AdminUser {
-  user_id: String!
-  user: User!
-  warnings: Int!
-  review_reports: [AdminReport!]!
-  user_reports: [AdminReport!]!
-}
-
 type AdminAdvert {
   customer_id: String!
   advert: Advert!
   count: Int!
-  reports: [AdminReport!]!
+  reports: [Report!]!
 }
 
-type AdminReport {
-  reporter_id: String!
+type Reports {
+  reports: [Report!]!
+  next_token: String
+}
+
+type Report implements UniqueID {
+  id: String!
+  report_type: String!
+  report_details: ReportDetails!
+}
+
+type ReportDetails {
+  reporter_user: ReportUserDetails!
+  reported_user: ReportUserDetails!
   reason: String!
   description: String!
 }
 
+type ReportUserDetails {
+  id: String!
+  name: String!
+}
+
+type AdminUser implements UniqueID {
+  id: String!
+  cognito_username: String!
+  name: String!
+  email: String!
+  enabled: Boolean!
+  warnings: Int!
+}
 type PayStackKeys {
   secret_key: String!
   public_key: String!
