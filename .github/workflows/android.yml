@@ -11,6 +11,9 @@ on:
         description: 'Type of test (analyze, test)'
         required: false
         type: string
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
 
 jobs:
   test:
@@ -262,6 +265,54 @@ jobs:
           api-level: 29
           profile: Nexus 6
           script: npx nx run-many --target=integrationTest --all --skip-nx-cache --parallel
+
+  lambda_Integration_test:
+    name: Lambda Integration Test
+    runs-on: ubuntu-latest
+
+    steps:
+    #Checking out to develop branch
+      - name: Checking Out Develop
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+
+    #Generates the hashes for the comparison between the origin branch and the upstream development branch
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: 'develop'
+    
+    #Installs node.js
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: npm install
+
+    #cache the node modules
+      - name: Cache dependencies for node
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+
+    #Flutter Action needs java
+      - name: Installing java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+
+      - name: lambda tests
+        if: inputs.test == 'all'
+        run: npx nx jest
+
      
 
 
