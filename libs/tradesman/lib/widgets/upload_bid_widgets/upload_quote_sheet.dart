@@ -1,17 +1,30 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:authentication/widgets/auth_button.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
+import 'package:redux_comp/app_state.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/upload_bid_amount_sheet.dart';
 
-class UploadQuoteSheet extends StatelessWidget {
-  const UploadQuoteSheet({
-    Key? key,
-  }) : super(key: key);
+class UploadQuoteSheet extends StatefulWidget {
+  final Store<AppState> store;
+
+  const UploadQuoteSheet({Key? key, required this.store}) : super(key: key);
+
+  @override
+  State<UploadQuoteSheet> createState() => _UploadQuoteSheetState();
+}
+
+class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
 
   @override
   Widget build(BuildContext context) {
-    //general shape and shado
-    return SizedBox(
+    //general shape and shadow
+    var btnText = "Upload Quote";
+
+    return StoreProvider(
+      store: widget.store,
+      child: SizedBox(
       height: 350,
       child: Column(
         children: [
@@ -45,10 +58,36 @@ class UploadQuoteSheet extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.black, fontSize: 15)),
           ),
+
+          //************************ UPLOAD QUOTE ************** */
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 10, 8, 8),
-            child: AuthButtonWidget(text: "Upload Quote", function: () {}),
+            padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
+            child: AuthButtonWidget(text: btnText, function: () async {
+              // ignore: unused_local_variable
+              FilePickerResult? result = await FilePicker.platform.pickFiles(
+                type: FileType.custom,
+                allowedExtensions: ['pdf'],
+              );
+
+              //display file name once file chosen, must edit
+              // if(result != null) {
+              //   // PlatformFile file = result.files.first;
+              //   // String fileName = file.name;
+
+              //   setState(() {
+              //       btnText = "Uploaded!";
+              //   });
+              // }
+              // else {
+              //    setState(() {
+              //       btnText = "Upload Quote";
+              //   });
+              // }
+            })
           ),
+          //********************************************************** *
+
+          //**************PROCEED BUTTON ************** */
           ButtonWidget(
               text: "Proceed",
               color: "light",
@@ -64,7 +103,9 @@ class UploadQuoteSheet extends StatelessWidget {
                       return UploadAmountSheet();
                     });
               })
+          //*************************************** */
         ],
+      ),
       ),
     );
   }

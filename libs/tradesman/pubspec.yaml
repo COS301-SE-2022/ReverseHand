@@ -14,8 +14,6 @@ dependencies:
     
   file_picker: ^5.0.1
 
-  camera: ^0.10.0+1
-
   uuid: ^3.0.6
 
   geolocation:
