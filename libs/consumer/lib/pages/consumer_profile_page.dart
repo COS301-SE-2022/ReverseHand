@@ -52,7 +52,7 @@ class ConsumerProfilePage extends StatelessWidget {
                         ),
                       ),
                       //************************************/
-                      const Padding(padding: EdgeInsets.only(top: 15, bottom: 15)),
+                      const Padding(padding: EdgeInsets.only(top: 5, bottom: 15)),
                       //****************PROFILE IMAGE****************/
                       ProfileImageWidget(
                         store: store,
@@ -130,9 +130,12 @@ class ConsumerProfilePage extends StatelessWidget {
                               size: 26.0,
                             ),
                             const Padding(padding: EdgeInsets.only(right: 8)),
-                            Text(vm.userDetails.email,
+                            SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.4,
+                            child: Text(vm.userDetails.email,
                                 style: const TextStyle(
                                     fontSize: 20, color: Colors.white)),
+                            ),
                           ],
                         ),
                       ),

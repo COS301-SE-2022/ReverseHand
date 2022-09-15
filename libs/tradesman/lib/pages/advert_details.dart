@@ -51,7 +51,7 @@ class TradesmanJobDetails extends StatelessWidget {
                     location: vm.advert.domain.city,
                     store: store),
 
-                const Padding(padding: EdgeInsets.only(top: 40)),
+                const Padding(padding: EdgeInsets.only(top: 25)),
 
                 //*************BOTTOM BUTTONS**************//
                 vm.bids.contains(vm.currentBid)
@@ -156,7 +156,7 @@ class TradesmanJobDetails extends StatelessWidget {
                       ),
                 //place bid
 
-                TransparentLongButtonWidget(
+                AuthButtonWidget(
                     text: "View Bids", function: vm.pushViewBidsPage),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 // TransparentLongButtonWidget(

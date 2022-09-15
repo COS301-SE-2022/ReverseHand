@@ -103,7 +103,6 @@ class _Factory extends VmFactory<AppState, OpenImageWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        profilePhoto: state.userProfileImage,
         dispatchAddtoBucketAction: (File file) => dispatch(
           AddToBucketAction(
             fileType: FileType.profile,
@@ -115,11 +114,9 @@ class _Factory extends VmFactory<AppState, OpenImageWidget> {
 
 // view model
 class _ViewModel extends Vm {
-  final File? profilePhoto;
   final void Function(File file) dispatchAddtoBucketAction;
 
   _ViewModel({
-    required this.profilePhoto,
     required this.dispatchAddtoBucketAction,
-  }) : super(equals: [profilePhoto]); 
+  }) : super(equals: []); 
 }
