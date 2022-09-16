@@ -1,7 +1,7 @@
 const AWS = require("aws-sdk");
 
 console.log(__dirname) ;
-require('dotenv').config();
+require('dotenv').config('/Users/runner/work/ReverseHand/ReverseHand/.env');
 const event = {
     arguments: {
         user_id : "c#f0fa74ae-7a4d-4674-8ba6-e9da6f6213cd"   
