@@ -42,3 +42,20 @@ describe("Create Advert Resolver", () =>{
 
     })
 });
+
+/*   
+    *Some minor details to be deleted later
+    {
+      title: 'Lambda Test One',
+      description: 'This is a test description',
+      domain: {
+        city: 'Pretoria',
+        province: 'Gauteng',
+        coordinates: { lng: 28.2625799, lat: -25.7670289 }
+      },
+      type: 'Plumbing',
+      date_created: 1663324591768,
+      id: 'a#6ac1daf9-45a0-49c3-8a80-be34f1b2babe'
+    }
+
+*/
