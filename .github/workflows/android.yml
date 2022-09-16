@@ -267,10 +267,7 @@ jobs:
   lambda_Integration_test:
     name: Lambda Integration Test
     runs-on: ubuntu-latest
-    env: 
-      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-
+    
 
     steps:
     #Checking out to develop branch
@@ -316,8 +313,9 @@ jobs:
         uses: SpicyPizza/create-envfile@v1.3
         with: 
           envkey_DEBUG: false
-          envkey_AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-          envkey_AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+          envkey_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          envkey_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
       
       - name: lambda tests
         run: |
