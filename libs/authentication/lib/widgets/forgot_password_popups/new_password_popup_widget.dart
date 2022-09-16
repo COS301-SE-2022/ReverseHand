@@ -54,7 +54,7 @@ class NewPasswordPopupWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: AuthTextFieldLightWidget(
                         label: 'new password',
-                        obscure: false,
+                         obscure: true,
                         icon: Icons.lock_open_outlined,
                         controller: newPasswordController,
                         validator: createValidator(
@@ -78,7 +78,7 @@ class NewPasswordPopupWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: AuthTextFieldLightWidget(
                         label: 'confirm password',
-                        obscure: false,
+                         obscure: true,
                         icon: Icons.lock_outline_rounded,
                         controller: confirmPasswordController,
                         validator: createValidator(

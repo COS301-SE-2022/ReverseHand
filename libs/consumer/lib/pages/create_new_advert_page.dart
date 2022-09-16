@@ -7,12 +7,14 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/open_image_widget.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
 import 'package:redux_comp/actions/analytics_events/record_create_advert_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
+
 import '../widgets/radio_select_widget.dart';
 
 class CreateNewAdvertPage extends StatefulWidget {
@@ -173,6 +175,16 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                               ))),
                     )),
               ),
+              //*************************************************//
+
+              //add photos
+              const HintWidget(
+                  text:
+                      "Take or Choose photos related to the job",
+                  colour: Colors.white70,
+                  padding: 15),
+              const Padding(padding: EdgeInsets.only(top: 5)),
+              OpenImageWidget(store: widget.store),
               //*************************************************//
 
               StoreConnector<AppState, _ViewModel>(
