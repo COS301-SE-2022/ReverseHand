@@ -6,10 +6,10 @@ import 'package:redux_comp/actions/add_to_bucket_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bucket_model.dart';
 
-class ProfileImageWidget extends StatelessWidget {
+class OpenImageWidget extends StatelessWidget {
   final Store<AppState> store;
 
-  const ProfileImageWidget({Key? key, required this.store}) : super(key: key);
+  const OpenImageWidget({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,29 +21,13 @@ class ProfileImageWidget extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) {
             return Stack(
               children: [
-                CircleAvatar(
-                  radius: 70,
-                  backgroundImage: vm.profilePhoto == null
-                      ? const AssetImage("assets/images/profile.png",
-                          package: 'general')
-                      : Image.network(vm.profilePhoto!).image,
-                ),
-                Positioned(
-                  bottom: 20.0,
-                  right: 20.0,
-                  child: InkWell(
-                    onTap: () =>
-                        bottomSheet(context, vm.dispatchAddtoBucketAction),
-                    child: Stack(
-                      children: const <Widget>[
-                        Positioned(
-                          left: 1.0,
-                          top: 2.0,
-                          child: Icon(Icons.camera_alt, color: Colors.black54),
-                        ),
-                        Icon(Icons.camera_alt, color: Colors.white),
-                      ],
-                    ),
+                InkWell(
+                  onTap: () =>
+                      bottomSheet(context, vm.dispatchAddtoBucketAction),
+                  child: const Icon(
+                    Icons.camera_alt,
+                    color: Colors.white,
+                    size: 28.0,
                   ),
                 ),
               ],
@@ -65,7 +49,7 @@ class ProfileImageWidget extends StatelessWidget {
       child: Column(
         children: <Widget>[
           const Text(
-            "Choose Profile photo",
+            "Choose photos",
             style: TextStyle(
               fontSize: 20.0,
             ),
@@ -112,12 +96,11 @@ class ProfileImageWidget extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, ProfileImageWidget> {
+class _Factory extends VmFactory<AppState, OpenImageWidget> {
   _Factory(widget) : super(widget);
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        profilePhoto: state.userDetails.profileImage,
         dispatchAddtoBucketAction: (File file) => dispatch(
           AddToBucketAction(
             fileType: FileType.profile,
@@ -129,11 +112,9 @@ class _Factory extends VmFactory<AppState, ProfileImageWidget> {
 
 // view model
 class _ViewModel extends Vm {
-  final String? profilePhoto;
   final void Function(File file) dispatchAddtoBucketAction;
 
   _ViewModel({
-    required this.profilePhoto,
     required this.dispatchAddtoBucketAction,
-  }) : super(equals: [profilePhoto]); // implementinf hashcode
+  }) : super(equals: []); 
 }

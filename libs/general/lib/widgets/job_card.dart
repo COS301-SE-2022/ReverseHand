@@ -52,11 +52,10 @@ class JobCardWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.25,
                     child: Text(
                       titleText,
                       style: const TextStyle(
-                          fontSize: 35, fontWeight: FontWeight.bold),
+                          fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -67,14 +66,17 @@ class JobCardWidget extends StatelessWidget {
                     vm: () => _Factory(this),
                     builder: (BuildContext context, _ViewModel vm) =>
                         (vm.advert.acceptedBid == null)
-                            ? const Align(
+                            ? Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Align(
                                 alignment: Alignment.topRight,
-                                // child: IconButton(
-                                //   onPressed: vm.pushEditAdvert,
-                                //   icon: const Icon(Icons.edit),
-                                //   color: Colors.white70,
-                                // ),
+                                child: IconButton(
+                                  onPressed: vm.pushEditAdvert,
+                                  icon: const Icon(Icons.edit),
+                                  color: Colors.white70,
+                                ),
                               )
+                            )
                             : Container()),
                 //**********************************************/
               ],
@@ -85,16 +87,12 @@ class JobCardWidget extends StatelessWidget {
               padding: const EdgeInsets.only(left: 5),
               child: Row(
                 children: [
-                  // const Icon(
-                  //   Icons.location_on,
-                  //   color: Color.fromARGB(255, 186, 186, 186),
-                  //   size: 22,
-                  // ),
-
                   const Padding(padding: EdgeInsets.only(right: 1)),
 
                   Text(location,
-                      style: const TextStyle(fontSize: 20, color: Colors.grey)),
+                      style: const TextStyle(
+                        fontSize: 17, 
+                        color: Colors.grey)),
                   //*****************************************//
 
                   const Padding(
@@ -111,21 +109,25 @@ class JobCardWidget extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: Row(
                       children: [
-                        // const Icon(
-                        //   Icons.construction_outlined,
-                        //   color: Colors.white,
-                        //   size: 22,
-                        // ),
                         const Padding(padding: EdgeInsets.only(right: 1)),
                         Text(type,
                             style: const TextStyle(
-                                fontSize: 20, color: Colors.grey)),
+                              fontSize: 17, 
+                              color: Colors.grey)),
                       ],
                     ),
                   ),
                   // *****************************************//
                 ],
               ),
+            ),
+
+            const Divider(
+              height: 20,
+              thickness: 1.5,
+              indent: 5,
+              endIndent: 10,
+              color: Colors.orange,
             ),
 
             //****************DESCRIPTION*******************//

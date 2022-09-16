@@ -36,7 +36,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 //**********APPBAR*************//
-                AppBarWidget(title: "JOB INFO", store: store),
+                AppBarWidget(title: "BIDS INFO", store: store, backButton: true),
                 //******************************//
 
                 //**********DETAILED JOB INFORMATION***********//
