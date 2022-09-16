@@ -36,7 +36,8 @@ class TradesmanViewBidsPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 //**********APPBAR*************//
-                AppBarWidget(title: "BIDS INFO", store: store, backButton: true),
+                AppBarWidget(
+                    title: "BIDS INFO", store: store, backButton: true),
                 //******************************//
 
                 //**********DETAILED JOB INFORMATION***********//
@@ -54,13 +55,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   child: Column(children: [
                     if (vm.bids.isNotEmpty)
-                      const Divider(
-                        color: Colors.white,
-                        thickness: 0.5,
-                        indent: 30,
-                        endIndent: 30,
-                      ),
-                    const Padding(padding: EdgeInsets.only(top: 15)),
+                      const Padding(padding: EdgeInsets.only(top: 15)),
                     ...populateBids(vm.userId, vm.bids, store),
                     //********IF NO BIDS********************/
                     if (vm.bids.isEmpty)

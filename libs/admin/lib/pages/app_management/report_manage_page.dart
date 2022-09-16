@@ -3,8 +3,9 @@ import 'package:admin/widgets/report_user_descr_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/admin_get_user_action.dart';
 import 'package:redux_comp/actions/admin/app_management/remove_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
@@ -88,25 +89,18 @@ class ReportManagePage extends StatelessWidget {
                           vm.pushUserManagePage();
                         },
                       ),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                      const Padding(padding: EdgeInsets.only(bottom: 40)),
 
-                      ButtonWidget(
-                        text: "Issue Warning",
-                        function: () => vm.dispatchRemoveWithWarning(
+                      LongButtonWidget(text: "Issue Warning", function: () => vm.dispatchRemoveWithWarning(
                           report.id,
                           report.reportDetails.reportedUser!.id,
-                        ),
-                      ),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                        ),),
 
-                      ButtonWidget(
-                        text: "Remove Report",
-                        color: "dark",
-                        function: () => vm.dispatchRemoveWithoutWarning(
+                      TransparentLongButtonWidget(
+                          text: "Remove Report", function: ()  => vm.dispatchRemoveWithoutWarning(
                           report.id,
                           report.reportDetails.reportedUser!.id,
-                        ),
-                      ),
+                        ),)
                     ],
                   );
           },

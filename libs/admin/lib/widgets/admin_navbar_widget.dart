@@ -45,59 +45,61 @@ class AdminNavBarWidget extends StatelessWidget {
                   builder: (BuildContext context, _ViewModel vm) => Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
+                        children: [
                           //icon 1 - Advert Reports
-                          IconButton(
-                            icon: const Text(
-                              "M",
-                              style: TextStyle(fontSize: 25),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: InkWell(
+                              onTap: () {
+                                vm.pushAppMetrics();
+                              },
+                              highlightColor: Colors.orange,
+                              splashColor: Colors.white,
+                              radius: 30,
+                              child: const Text("Metrics"),
                             ),
-                            onPressed: () {
-                              vm.pushAppMetrics();
-                            },
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
                           ),
 
                           //icon 2 - chat
-                          IconButton(
-                            icon: const Text(
-                              "U",
-                              style: TextStyle(fontSize: 25),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: InkWell(
+                              onTap: () {
+                                vm.pushUserManage();
+                              },
+                              highlightColor: Colors.orange,
+                              splashColor: Colors.white,
+                              radius: 30,
+                              child: const Text("Users"),
                             ),
-                            onPressed: () {
-                              vm.pushUserManage();
-                            },
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
                           ),
 
                           //icon 3 - activity stream
-                          IconButton(
-                            icon: const Text(
-                              "C",
-                              style: TextStyle(fontSize: 25),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: InkWell(
+                              onTap: () {
+                                vm.pushContentManage();
+                              },
+                              highlightColor: Colors.orange,
+                              splashColor: Colors.white,
+                              radius: 30,
+                              child: const Text("Content"),
                             ),
-                            onPressed: () => vm.pushContentManage(),
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
                           ),
 
                           //icon 4 - profile
-                          IconButton(
-                            icon: const Text(
-                              "?",
-                              style: TextStyle(fontSize: 25),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: InkWell(
+                              onTap: () {
+                                vm.pushProfilePage();
+                              },
+                              highlightColor: Colors.orange,
+                              splashColor: Colors.white,
+                              radius: 30,
+                              child: const Text("Profile"),
                             ),
-                            onPressed: () {
-                              vm.pushProfilePage();
-                            },
-                            splashRadius: 30,
-                            highlightColor: Colors.orange,
-                            splashColor: Colors.white,
                           ),
                         ],
                       ))),
