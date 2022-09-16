@@ -28,7 +28,6 @@ describe("ShortList Bid Integration Test", ()=>{
         const handlerModule = require('../amplify/backend/function/shortListBidResolver/src/index');
         const result = await handlerModule.handler(event);
 
-        console.log(result);
         expect(result.shortlisted).toEqual(true);
         expect(result.name).toEqual('Alexander');
     })
