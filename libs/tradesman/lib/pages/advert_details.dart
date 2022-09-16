@@ -157,7 +157,7 @@ class TradesmanJobDetails extends StatelessWidget {
                       ),
                 //place bid
 
-                AuthButtonWidget(
+                LongButtonWidget(
                     text: "View Bids", function: vm.pushViewBidsPage),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 // TransparentLongButtonWidget(
