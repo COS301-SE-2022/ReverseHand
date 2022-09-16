@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
-import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
 @immutable

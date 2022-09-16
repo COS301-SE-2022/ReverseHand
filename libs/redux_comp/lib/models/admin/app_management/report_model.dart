@@ -8,7 +8,6 @@ class ReportModel {
   final String type;
   final ReportDetailsModel reportDetails;
   final ReviewDetailsModel? reviewDetails;
- 
 
   const ReportModel({
     required this.id,
@@ -18,11 +17,19 @@ class ReportModel {
   });
 
   factory ReportModel.fromJson(obj) {
-    return ReportModel(
-      id: obj['id'],
-      type: obj['report_type'],
-      reportDetails: ReportDetailsModel.fromJson(obj["report_details"]),
-      reviewDetails: ReviewDetailsModel.fromJson(obj["review_details"]),
-    );
+    if (obj["review_details"] != null) {
+      return ReportModel(
+        id: obj['id'],
+        type: obj['report_type'],
+        reportDetails: ReportDetailsModel.fromJson(obj["report_details"]),
+        reviewDetails: ReviewDetailsModel.fromJson(obj["review_details"]),
+      );
+    } else {
+      return ReportModel(
+        id: obj['id'],
+        type: obj['report_type'],
+        reportDetails: ReportDetailsModel.fromJson(obj["report_details"]),
+      );
+    }
   }
 }

@@ -48,7 +48,7 @@ class ViewUserReportsPage extends StatelessWidget {
                       appbar,
                       ListRefreshWidget(
                         widgets: reports,
-                        refreshFunction: vm.dispatchGetUserReports,
+                        refreshFunction: () => vm.dispatchGetUserReports(),
                       )
                     ],
                   );

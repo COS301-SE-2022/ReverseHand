@@ -112,6 +112,7 @@ class Launch extends StatelessWidget {
           '/review_reports_page': (context) => ViewReviewReportsPage(store: store),
           '/advert_reports_page': (context) => ViewAdvertReportsPage(store: store),
           '/report_manage': (context) => ReportManagePage(store: store),
+          '/review_report_manage': (context) => ReviewReportManagePage(store: store),
           '/user_manage': (context) => UserManagePage(store: store),
         
         },

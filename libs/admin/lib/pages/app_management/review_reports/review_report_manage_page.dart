@@ -6,13 +6,14 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/admin_get_user_action.dart';
-import 'package:redux_comp/actions/admin/app_management/remove_user_report_action.dart';
+import 'package:redux_comp/actions/admin/app_management/remove_review_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class ReportManagePage extends StatelessWidget {
+class ReviewReportManagePage extends StatelessWidget {
   final Store<AppState> store;
-  const ReportManagePage({Key? key, required this.store}) : super(key: key);
+  const ReviewReportManagePage({Key? key, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +63,9 @@ class ReportManagePage extends StatelessWidget {
                         description: report.reportDetails.description,
                       ),
 
-                      (report.reviewDetails != null)
-                          ? ReportDetailsWidget(
-                              reason: report.reviewDetails!.description,
-                              description:
-                                  report.reviewDetails!.rating.toString())
-                          : Container(),
+                      ReportDetailsWidget(
+                          reason: report.reviewDetails!.description,
+                          description: report.reviewDetails!.rating.toString()),
 
                       ReportUserDescrWidget(
                         title: "Reported User",
@@ -117,7 +115,7 @@ class ReportManagePage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, ReportManagePage> {
+class _Factory extends VmFactory<AppState, ReviewReportManagePage> {
   _Factory(widget) : super(widget);
 
   @override
@@ -127,10 +125,10 @@ class _Factory extends VmFactory<AppState, ReportManagePage> {
         pushUserManagePage: () =>
             dispatch(NavigateAction.pushNamed("/user_manage")),
         dispatchRemoveWithWarning: (reportId, userId) => dispatch(
-            RemoveUserReportAction(
+            RemoveReviewReportAction(
                 userId: userId, reportId: reportId, issueWarning: true)),
         dispatchRemoveWithoutWarning: (reportId, userId) => dispatch(
-            RemoveUserReportAction(
+            RemoveReviewReportAction(
                 userId: userId, reportId: reportId, issueWarning: false)),
       );
 }

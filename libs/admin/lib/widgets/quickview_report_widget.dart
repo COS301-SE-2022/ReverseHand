@@ -92,9 +92,13 @@ class _Factory extends VmFactory<AppState, QuickviewReportWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushReportManagePage: (report) => dispatch(
-          NavigateAction.pushNamed("/report_manage", arguments: report),
-        ),
+        pushReportManagePage: (report) => (report.type == "user#reports")
+            ? dispatch(
+                NavigateAction.pushNamed("/report_manage", arguments: report),
+              )
+            : dispatch(
+                NavigateAction.pushNamed("/review_report_manage", arguments: report),
+              ),
       );
 }
 
