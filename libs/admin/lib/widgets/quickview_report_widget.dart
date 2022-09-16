@@ -37,7 +37,7 @@ class QuickviewReportWidget extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.3,
-                          child: Text(report.reportDetails.reportedUser.name,
+                          child: Text(report.reportDetails.reportedUser!.name,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -92,9 +92,13 @@ class _Factory extends VmFactory<AppState, QuickviewReportWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushReportManagePage: (report) => dispatch(
-          NavigateAction.pushNamed("/report_manage", arguments: report),
-        ),
+        pushReportManagePage: (report) => (report.type == "user#reports")
+            ? dispatch(
+                NavigateAction.pushNamed("/report_manage", arguments: report),
+              )
+            : dispatch(
+                NavigateAction.pushNamed("/review_report_manage", arguments: report),
+              ),
       );
 }
 

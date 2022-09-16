@@ -16,8 +16,12 @@ exports.handler = async (event) => {
     }
   };
 
-  let report = await docClient.delete(paramsDeleteUserReport).promise().then(data => data.Attributes);
+  let report_item = await docClient.delete(paramsDeleteUserReport).promise().then(data => data.Attributes);
+  
+  if (report_item == undefined)
+    throw "No report found";
 
+  let report_details = report_item.report_details;
   if (event.arguments.issueWarning) {
     let paramsUpdateUser = {
       TableName: ReverseHandTable,
@@ -35,6 +39,6 @@ exports.handler = async (event) => {
 
   }
 
-  return report.report_details;
+  return report_details;
   
 };

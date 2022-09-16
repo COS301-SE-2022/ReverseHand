@@ -11,7 +11,7 @@ const ReverseHandTable = process.env.REVERSEHAND;
 // input paramter is user id
 exports.handler = async (event) => {
     const params = {
-        TableName: ReverseHandTablev, 
+        TableName: ReverseHandTable, 
         KeyConditionExpression: "part_key = :id",
         ExpressionAttributeValues: {
             ":id": "notifications#" + event.arguments.user_id,

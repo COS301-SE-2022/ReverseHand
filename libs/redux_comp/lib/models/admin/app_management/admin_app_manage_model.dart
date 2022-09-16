@@ -10,7 +10,6 @@ class AdminAppManageModel {
   final AdminUserModel? activeUser;
   final List<ReportModel>? reviewReports;
   final List<ReportModel>? userReports;
-  final ReportModel? activeReport;
   final List<ReportedAdvertModel>? advertReports;
   
 
@@ -20,7 +19,6 @@ class AdminAppManageModel {
     this.reviewReports,
     this.userReports,
     this.advertReports,
-    this.activeReport
   });
 
   AdminAppManageModel copy({
@@ -28,7 +26,6 @@ class AdminAppManageModel {
    AdminUserModel? activeUser,
    List<ReportModel>? reviewReports,
    List<ReportModel>? userReports,
-   ReportModel? activeReport,
    List<ReportedAdvertModel>? advertReports
   }) {
     return AdminAppManageModel(
@@ -36,7 +33,6 @@ class AdminAppManageModel {
       activeUser: activeUser ?? this.activeUser,
       reviewReports: reviewReports ?? this.reviewReports,
       userReports: userReports ?? this.userReports,
-      activeReport: activeReport ?? this.activeReport,
       advertReports: advertReports ?? this.advertReports
     );
   }

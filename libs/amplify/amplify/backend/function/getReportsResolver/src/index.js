@@ -21,6 +21,10 @@ exports.handler = async (event) => {
         report.id = report.sort_key;
         delete report.sort_key;
         delete report.part_key;
+        if (event.arguments.type == "review#reports") {
+            delete report.review_details.user_id;
+            delete report.review_details.date_created;
+        }
 
     });
     
