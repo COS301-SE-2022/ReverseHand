@@ -266,7 +266,7 @@ jobs:
 
   lambda_Integration_test:
     name: Lambda Integration Test
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     
 
     steps:
