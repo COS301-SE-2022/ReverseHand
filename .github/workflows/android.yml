@@ -86,7 +86,7 @@ jobs:
     #Test all which uses no cache
       - name: Execute tests
         if: inputs.test == 'all'
-        run: npx nx run-many --target=test --all --skip-nx-cache --parallel
+        run: npx nx run-many --target=test --all --skip-nx-cache --parallel --exclude=amplify
         #Amplify excluded from analyze as flutter has issues with the way amplify generates models
         #and since the models are auto generated they should not be changed
 
@@ -262,6 +262,6 @@ jobs:
         with: 
           api-level: 29
           profile: Nexus 6
-          script: npx nx run-many --target=integrationTest --all --skip-nx-cache --parallel
+          script: npx nx run-many --target=integrationTest --all --skip-nx-cache --parallel --exclude=amplify
 
      
