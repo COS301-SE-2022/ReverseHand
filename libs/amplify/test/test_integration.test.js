@@ -1,4 +1,6 @@
 const AWS = require("aws-sdk");
+
+console.log(__dirname) ;
 require('dotenv').config();
 const event = {
     arguments: {
