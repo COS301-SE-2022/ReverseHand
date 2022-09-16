@@ -177,9 +177,21 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: stars,
-                            ),
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children:
+                                    //if there is a rating - 1 is the lowest that can be given
+                                    //so not checking if rating is null
+                                    vm.userDetails.statistics.ratingCount != 0
+                                        ? stars
+                                        : [
+                                            //if no rating yet
+                                            const Text(
+                                              "No rating yet",
+                                              style: TextStyle(
+                                                  color: Colors.white70,
+                                                  fontSize: 18),
+                                            )
+                                          ]),
                           ),
                         ),
                       ),

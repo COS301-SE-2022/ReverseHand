@@ -52,6 +52,7 @@ class JobCardWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.3,
                     child: Text(
                       titleText,
                       style: const TextStyle(
