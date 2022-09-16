@@ -222,7 +222,7 @@ class LoginPage extends StatelessWidget {
                               'or login with:',
                               style: TextStyle(
                                 fontFamily: 'Segoe UI',
-                                fontSize: 12,
+                                fontSize: 15,
                                 color: Color(0x7df5fffa),
                               ),
                               softWrap: false,
@@ -231,7 +231,7 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                       //**********************************************************************/
-
+                      const Padding(padding: EdgeInsets.only(top: 10)),
                       //*******************sign in with image elements************************** */
                       StoreConnector<AppState, _ViewModel>(
                         vm: () => _Factory(this),
@@ -243,31 +243,32 @@ class LoginPage extends StatelessWidget {
                                 //Facebook
                                 GestureDetector(
                                   onTap: vm.dispatchSignInFacebook, // Image tapped
-                                  child: Align(
+                                  child: const Align(
                                     alignment: Alignment.bottomLeft,
-                                    child: Image.asset(
-                                      'assets/images/facebook.png',
-                                      height: 100,
-                                      width: 100,
-                                      package: 'authentication',
+                                    child: CircleAvatar(
+                                      radius: 20, // Image radius
+                                      backgroundImage: AssetImage(
+                                        "assets/images/facebook.png",
+                                        package: 'authentication')
                                     ),
                                   ),
                                 ),
                               ],
                             ),
+                            const Padding(padding: EdgeInsets.only(left: 25)),
                             Column(
                               children: [
                                 //Google
                                 GestureDetector(
                                   onTap:
                                       vm.dispatchSignInGoogle, // Image tapped
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Image.asset(
-                                      'assets/images/google.png',
-                                      height: 100,
-                                      width: 100,
-                                      package: 'authentication',
+                                  child: const Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: CircleAvatar(
+                                      radius: 20, // Image radius
+                                      backgroundImage: AssetImage(
+                                        "assets/images/google.png",
+                                        package: 'authentication')
                                     ),
                                   ),
                                 ),

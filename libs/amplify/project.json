@@ -1,5 +1,4 @@
 {
-  "root": "libs/amplify",
   "sourceRoot": "libs/amplify/src",
   "projectType": "library",
   "targets": {
@@ -21,13 +20,6 @@
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "flutter format libs/amplify/*",
-        "cwd": "libs/amplify"
-      }
-    },
-    "test": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "flutter test --coverage",
         "cwd": "libs/amplify"
       }
     },
@@ -92,6 +84,14 @@
       "options": {
         "command": "amplify pull",
         "cwd": "libs/amplify"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/amplify"],
+      "options": {
+        "jestConfig": "libs/amplify/jest.config.ts",
+        "passWithNoTests": true
       }
     }
   },

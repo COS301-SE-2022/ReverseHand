@@ -36,7 +36,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                 return Column(children: [
                   //*******************APP BAR WIDGET*********************//
-                  AppBarWidget(title: "JOB LISTINGS", store: store),
+                  AppBarWidget(title: "PROFILE", store: store,backButton: true),
                   //********************************************************//
 
                   //**************HEADING***************/

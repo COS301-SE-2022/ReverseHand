@@ -32,10 +32,6 @@ class ActionBarWidgetState extends State<ActionBarWidget> {
       child: SafeArea(
         child: Row(
           children: [
-            const Icon( //may need to remove
-              Icons.camera_alt,
-              color: Colors.white,
-            ),
             const SizedBox(width: 15),
             Expanded(
               child: Container(
