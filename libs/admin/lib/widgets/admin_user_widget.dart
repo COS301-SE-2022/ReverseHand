@@ -25,7 +25,7 @@ class AdminUserWidget extends StatelessWidget {
                   Row(children: [
                     Icon(
                       Icons.email_outlined,
-                      size: 24,
+                      size: 20,
                       color: Theme.of(context).primaryColor,
                     ),
                     const Padding(padding: EdgeInsets.only(right: 5)),
@@ -45,83 +45,67 @@ class AdminUserWidget extends StatelessWidget {
                     ],
                   ),
                   const Padding(padding: EdgeInsets.only(bottom: 10)),
-                  const Divider(
-                    color: Colors.white,
-                    indent: 0,
-                    endIndent: 20,
-                  ),
+
                   //********************************************//
                   const Padding(padding: EdgeInsets.only(top: 15)),
                   //*******************NAME*********************//
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(children: [
+                    Icon(
+                      Icons.account_circle_outlined,
+                      size: 20,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    const Padding(padding: EdgeInsets.only(right: 5)),
+                    const Text(
+                      "Name",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ]),
+                  const Padding(padding: EdgeInsets.only(top: 5)),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: Row(
                       children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.account_circle_outlined,
-                              size: 25,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            const Padding(padding: EdgeInsets.only(right: 5)),
-                            const Text(
-                              "Name",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        Text(
+                          user.name,
+                          style: const TextStyle(fontSize: 19),
                         ),
-                        const Padding(padding: EdgeInsets.only(top: 5)),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                user.name,
-                                style: const TextStyle(fontSize: 19),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ]),
-                  const Padding(padding: EdgeInsets.only(bottom: 10)),
-                  const Divider(
-                    color: Colors.white,
-                    indent: 0,
-                    endIndent: 20,
+                      ],
+                    ),
                   ),
+                  const Padding(padding: EdgeInsets.only(bottom: 10)),
 
                   //********************************************//
                   const Padding(padding: EdgeInsets.only(top: 15)),
 
                   //*****************WARNINGS******************//
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 20,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    const Padding(padding: EdgeInsets.only(right: 5)),
+                    const Text(
+                      "Warnings",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ]),
+                  const Padding(padding: EdgeInsets.only(top: 5)),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: Row(
                       children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.error_outline,
-                              size: 25,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            const Padding(padding: EdgeInsets.only(right: 5)),
-                            const Text(
-                              "Warnings",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        Text(
+                          user.warnings.toString(),
+                          style: const TextStyle(fontSize: 19),
                         ),
-                        const Padding(padding: EdgeInsets.only(left: 5)),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20.0),
-                          child: Text(
-                            user.warnings.toString(),
-                            style: const TextStyle(fontSize: 19),
-                          ),
-                        ),
-                      ]),
+                      ],
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.only(bottom: 10)),
                   //********************************************//
                 ],
               ),
