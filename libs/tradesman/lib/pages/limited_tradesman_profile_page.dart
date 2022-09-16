@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
-import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -36,7 +35,8 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                 return Column(children: [
                   //*******************APP BAR WIDGET*********************//
-                  AppBarWidget(title: "PROFILE", store: store,backButton: true),
+                  AppBarWidget(
+                      title: "PROFILE", store: store, backButton: true),
                   //********************************************************//
 
                   //**************HEADING***************/
@@ -53,8 +53,12 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                   //****************ICON****************/
                   const Padding(padding: EdgeInsets.only(top: 10)),
-                  ProfileImageWidget(
-                    store: store,
+                  CircleAvatar(
+                    radius: 70,
+                    backgroundImage: vm.profilePhoto == null
+                        ? const AssetImage("assets/images/profile.png",
+                            package: 'general')
+                        : Image.network(vm.profilePhoto!).image,
                   ),
                   //************************************/
 
@@ -163,16 +167,19 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
   _ViewModel fromStore() => _ViewModel(
         userDetails: state.otherUserDetails,
         isWaiting: state.wait.isWaiting,
+        profilePhoto: state.userDetails.profileImage,
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final UserModel userDetails;
+  final String? profilePhoto;
   final bool isWaiting;
 
   _ViewModel({
     required this.userDetails,
+    required this.profilePhoto,
     required this.isWaiting,
   }) : super(equals: [userDetails, isWaiting]);
 }

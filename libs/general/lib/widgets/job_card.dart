@@ -1,7 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/advert_model.dart';
+// import 'package:redux_comp/models/advert_model.dart';
 
 //used in consumer and tradesman
 
@@ -41,7 +41,7 @@ class JobCardWidget extends StatelessWidget {
               child: Text(
                 date,
                 style: const TextStyle(
-                    fontSize: 18, color: Color.fromARGB(255, 186, 186, 186)),
+                    fontSize: 17, color: Color.fromARGB(255, 186, 186, 186)),
               ),
             ),
             //****************************************//
@@ -62,41 +62,39 @@ class JobCardWidget extends StatelessWidget {
                 //*****************************************//
 
                 // //******************EDIT ICON****************//
-                StoreConnector<AppState, _ViewModel>(
-                    vm: () => _Factory(this),
-                    builder: (BuildContext context, _ViewModel vm) =>
-                        (vm.advert.acceptedBid == null)
-                            ? Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Align(
-                                alignment: Alignment.topRight,
-                                child: IconButton(
-                                  onPressed: vm.pushEditAdvert,
-                                  icon: const Icon(Icons.edit),
-                                  color: Colors.white70,
-                                ),
-                              )
-                            )
-                            : Container()),
+                // StoreConnector<AppState, _ViewModel>(
+                //     vm: () => _Factory(this),
+                //     builder: (BuildContext context, _ViewModel vm) =>
+                //         (vm.advert.acceptedBid == null)
+                //             ? Padding(
+                //                 padding: const EdgeInsets.only(left: 5),
+                //                 child: Align(
+                //                 alignment: Alignment.topRight,
+                //                 child: IconButton(
+                //                   onPressed: vm.pushEditAdvert,
+                //                   icon: const Icon(Icons.edit),
+                //                   color: Colors.white70,
+                //                 ),
+                //               )
+                //             )
+                //             : Container()),
                 //**********************************************/
               ],
             ),
 
             //****************LOCATION********************//
             Padding(
-              padding: const EdgeInsets.only(left: 5),
+              padding: const EdgeInsets.only(left: 5, top: 5),
               child: Row(
                 children: [
                   const Padding(padding: EdgeInsets.only(right: 1)),
 
                   Text(location,
-                      style: const TextStyle(
-                        fontSize: 17, 
-                        color: Colors.grey)),
+                      style: const TextStyle(fontSize: 17, color: Colors.grey)),
                   //*****************************************//
 
                   const Padding(
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                       child: Icon(
                         Icons.circle,
                         size: 8,
@@ -106,14 +104,13 @@ class JobCardWidget extends StatelessWidget {
 
                   //****************TRADE********************//
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Row(
                       children: [
                         const Padding(padding: EdgeInsets.only(right: 1)),
                         Text(type,
                             style: const TextStyle(
-                              fontSize: 17, 
-                              color: Colors.grey)),
+                                fontSize: 17, color: Colors.grey)),
                       ],
                     ),
                   ),
@@ -124,9 +121,9 @@ class JobCardWidget extends StatelessWidget {
 
             const Divider(
               height: 20,
-              thickness: 1.5,
+              thickness: 1,
               indent: 5,
-              endIndent: 10,
+              endIndent: 15,
               color: Colors.orange,
             ),
 
@@ -153,26 +150,27 @@ class JobCardWidget extends StatelessWidget {
   }
 }
 
-// factory for view model
-class _Factory extends VmFactory<AppState, JobCardWidget> {
-  _Factory(widget) : super(widget);
+//currently commented out cause unsure if editing button will be here
+// // factory for view model
+// class _Factory extends VmFactory<AppState, JobCardWidget> {
+//   _Factory(widget) : super(widget);
 
-  @override
-  _ViewModel fromStore() => _ViewModel(
-        pushEditAdvert: () => dispatch(
-          NavigateAction.pushNamed('/consumer/edit_advert_page'),
-        ),
-        advert: state.activeAd!,
-      );
-}
+//   @override
+//   _ViewModel fromStore() => _ViewModel(
+//         pushEditAdvert: () => dispatch(
+//           NavigateAction.pushNamed('/consumer/edit_advert_page'),
+//         ),
+//         advert: state.activeAd!,
+//       );
+// }
 
-// view model
-class _ViewModel extends Vm {
-  final AdvertModel advert;
-  final VoidCallback pushEditAdvert;
+// // view model
+// class _ViewModel extends Vm {
+//   final AdvertModel advert;
+//   final VoidCallback pushEditAdvert;
 
-  _ViewModel({
-    required this.advert,
-    required this.pushEditAdvert,
-  }) : super(equals: [advert]); // implementinf hashcode
-}
+//   _ViewModel({
+//     required this.advert,
+//     required this.pushEditAdvert,
+//   }) : super(equals: [advert]); // implementinf hashcode
+// }
