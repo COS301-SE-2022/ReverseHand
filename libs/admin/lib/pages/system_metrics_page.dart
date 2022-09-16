@@ -6,8 +6,6 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/models/admin/app_metrics/metric_chart_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class SystemMetricsPage extends StatefulWidget {
   final Store<AppState> store;
