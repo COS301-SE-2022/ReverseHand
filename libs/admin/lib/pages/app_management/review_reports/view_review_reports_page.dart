@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/list_refresh_widget.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/admin/app_management/get_review_reports_action.dart';
 import 'package:redux_comp/actions/admin/app_management/get_user_reports_action.dart';
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -11,7 +12,8 @@ import 'package:redux_comp/redux_comp.dart';
 class ViewReviewReportsPage extends StatelessWidget {
   final Store<AppState> store;
 
-  const ViewReviewReportsPage({Key? key, required this.store}) : super(key: key);
+  const ViewReviewReportsPage({Key? key, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +48,25 @@ class ViewReviewReportsPage extends StatelessWidget {
                     children: [
                       //**********APPBAR***********//
                       appbar,
-                      ListRefreshWidget(
-                        widgets: reports,
-                        refreshFunction: vm.dispatchGetUserReports,
-                      )
+
+                      (reports.isEmpty)
+                          ? Padding(
+                              padding: EdgeInsets.only(
+                                  top: (MediaQuery.of(context).size.height) / 4,
+                                  left: 40,
+                                  right: 40),
+                              child: (const Text(
+                                "There are no reported reviews.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white70),
+                              )),
+                            )
+                          : ListRefreshWidget(
+                              widgets: reports,
+                              refreshFunction: () =>
+                                  vm.dispatchGetReviewReports(),
+                            )
                     ],
                   );
           },
@@ -67,7 +84,7 @@ class _Factory extends VmFactory<AppState, ViewReviewReportsPage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         reports: state.admin.adminManage.reviewReports ?? [],
-        dispatchGetUserReports: () => dispatch(GetUserReportsAction()),
+        dispatchGetReviewReports: () => dispatch(GetReviewReportsAction()),
       );
 }
 
@@ -75,11 +92,11 @@ class _Factory extends VmFactory<AppState, ViewReviewReportsPage> {
 class _ViewModel extends Vm {
   final bool loading;
   final List<ReportModel> reports;
-  final void Function() dispatchGetUserReports;
+  final void Function() dispatchGetReviewReports;
 
   _ViewModel({
     required this.loading,
     required this.reports,
-    required this.dispatchGetUserReports,
+    required this.dispatchGetReviewReports,
   }) : super(equals: [loading, reports]); // implementinf hashcode;
 }

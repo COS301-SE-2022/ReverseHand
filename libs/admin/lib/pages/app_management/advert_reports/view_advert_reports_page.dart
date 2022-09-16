@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/list_refresh_widget.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/admin/app_management/get_reported_adverts_action.dart';
 import 'package:redux_comp/actions/admin/app_management/get_user_reports_action.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -11,7 +12,8 @@ import 'package:redux_comp/redux_comp.dart';
 class ViewAdvertReportsPage extends StatelessWidget {
   final Store<AppState> store;
 
-  const ViewAdvertReportsPage({Key? key, required this.store}) : super(key: key);
+  const ViewAdvertReportsPage({Key? key, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,8 @@ class ViewAdvertReportsPage extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) {
             List<Widget> reports = [];
             for (ReportedAdvertModel advert in vm.adverts) {
-              reports.add(QuickViewReportedAdvertCardWidget(store: store, advert: advert));
+              reports.add(QuickViewReportedAdvertCardWidget(
+                  store: store, advert: advert));
             }
             Widget appbar = AppBarWidget(
               title: "Advert Reports",
@@ -46,10 +49,23 @@ class ViewAdvertReportsPage extends StatelessWidget {
                     children: [
                       //**********APPBAR***********//
                       appbar,
-                      ListRefreshWidget(
-                        widgets: reports,
-                        refreshFunction: vm.dispatchGetUserReports,
-                      )
+                      (reports.isEmpty)
+                          ? Padding(
+                              padding: EdgeInsets.only(
+                                  top: (MediaQuery.of(context).size.height) / 4,
+                                  left: 40,
+                                  right: 40),
+                              child: (const Text(
+                                "There are no reported adverts.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white70),
+                              )),
+                            )
+                          : ListRefreshWidget(
+                              widgets: reports,
+                              refreshFunction: vm.dispatchGetAdvertReports,
+                            )
                     ],
                   );
           },
@@ -67,7 +83,7 @@ class _Factory extends VmFactory<AppState, ViewAdvertReportsPage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         adverts: state.admin.adminManage.advertReports ?? [],
-        dispatchGetUserReports: () => dispatch(GetUserReportsAction()),
+        dispatchGetAdvertReports: () => dispatch(GetReportedAdvertsAction()),
       );
 }
 
@@ -75,11 +91,11 @@ class _Factory extends VmFactory<AppState, ViewAdvertReportsPage> {
 class _ViewModel extends Vm {
   final bool loading;
   final List<ReportedAdvertModel> adverts;
-  final void Function() dispatchGetUserReports;
+  final void Function() dispatchGetAdvertReports;
 
   _ViewModel({
     required this.loading,
     required this.adverts,
-    required this.dispatchGetUserReports,
+    required this.dispatchGetAdvertReports,
   }) : super(equals: [loading, adverts]); // implementinf hashcode;
 }

@@ -6,6 +6,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/admin_get_user_action.dart';
+import 'package:redux_comp/actions/admin/app_management/get_review_reports_action.dart';
 import 'package:redux_comp/actions/admin/app_management/remove_review_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -90,20 +91,28 @@ class ReviewReportManagePage extends StatelessWidget {
 
                       ButtonWidget(
                         text: "Issue Warning",
-                        function: () => vm.dispatchRemoveWithWarning(
-                          report.id,
-                          report.reportDetails.reportedUser!.id,
-                        ),
+                        function: () {
+                          vm.dispatchRemoveWithWarning(
+                            report.id,
+                            report.reportDetails.reportedUser!.id,
+                          );
+                          vm.dispatchGetReviewReports();
+                          vm.popPage();
+                        },
                       ),
                       const Padding(padding: EdgeInsets.only(bottom: 25)),
 
                       ButtonWidget(
                         text: "Remove Report",
                         color: "dark",
-                        function: () => vm.dispatchRemoveWithoutWarning(
-                          report.id,
-                          report.reportDetails.reportedUser!.id,
-                        ),
+                        function: () {
+                          vm.dispatchRemoveWithoutWarning(
+                            report.id,
+                            report.reportDetails.reportedUser!.id,
+                          );
+                          vm.dispatchGetReviewReports();
+                          vm.popPage();
+                        },
                       ),
                     ],
                   );
@@ -121,9 +130,11 @@ class _Factory extends VmFactory<AppState, ReviewReportManagePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
+        dispatchGetReviewReports: () => dispatch(GetReviewReportsAction()),
         dispatchGetUser: (userId) => dispatch(AdminGetUserAction(userId)),
         pushUserManagePage: () =>
             dispatch(NavigateAction.pushNamed("/user_manage")),
+        popPage: () => dispatch(NavigateAction.pop()),
         dispatchRemoveWithWarning: (reportId, userId) => dispatch(
             RemoveReviewReportAction(
                 userId: userId, reportId: reportId, issueWarning: true)),
@@ -136,16 +147,20 @@ class _Factory extends VmFactory<AppState, ReviewReportManagePage> {
 // view model
 class _ViewModel extends Vm {
   final bool loading;
+  final void Function() dispatchGetReviewReports;
   final void Function(String) dispatchGetUser;
   final void Function(String, String) dispatchRemoveWithWarning;
   final void Function(String, String) dispatchRemoveWithoutWarning;
   final VoidCallback pushUserManagePage;
+  final VoidCallback popPage;
 
   _ViewModel({
     required this.loading,
+        required this.dispatchGetReviewReports,
     required this.dispatchGetUser,
     required this.dispatchRemoveWithWarning,
     required this.dispatchRemoveWithoutWarning,
     required this.pushUserManagePage,
+    required this.popPage,
   }) : super(equals: [loading]); // implementinf hashcode;
 }
