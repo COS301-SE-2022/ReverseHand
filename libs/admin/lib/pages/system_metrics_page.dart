@@ -13,16 +13,11 @@ class SystemMetricsPage extends StatefulWidget {
 
   @override
   State<SystemMetricsPage> createState() => _SystemMetricsPageState();
+
 }
 
 class _SystemMetricsPageState extends State<SystemMetricsPage> {
-  List<_SalesData> data = [
-    _SalesData('Jan', 35),
-    _SalesData('Feb', 28),
-    _SalesData('Mar', 34),
-    _SalesData('Apr', 32),
-    _SalesData('May', 40)
-  ];
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -84,11 +79,4 @@ class _ViewModel extends Vm {
     required this.loading,
     required this.data,
   }) : super(equals: [loading, data]); // implementinf hashcode;
-}
-
-class _SalesData {
-  _SalesData(this.year, this.sales);
-
-  final String year;
-  final double sales;
 }
