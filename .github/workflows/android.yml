@@ -308,27 +308,28 @@ jobs:
           distribution: 'temurin'
           java-version: '8'
 
-      - name: create env
-        if: inputs.test == 'all'
-        uses: SpicyPizza/create-envfile@v1.3
-        with: 
-          envkey_DEBUG: false
-          envkey_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          envkey_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # - name: create env
+      #   if: inputs.test == 'all'
+      #   uses: SpicyPizza/create-envfile@v1.3
+      #   with: 
+      #     envkey_DEBUG: false
+      #     envkey_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     envkey_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       
+      # - name: lambda tests
+      #   run: |
+      #     ls -a 
+      #     cat .env 
+      #     npx nx run amplify:test
       - name: lambda tests
         run: |
-          ls -a 
-          cat .env 
+          touch .env
+          echo AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} >> .env
+          echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .env
+          ls -a
+          cat .env
           npx nx run amplify:test
-
-        # run: |
-        #   touch .env
-        #   echo AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" >> .env
-        #   echo AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" >> .env
-        #   ls -a
-        #   npx nx run amplify:test
 
      
 
