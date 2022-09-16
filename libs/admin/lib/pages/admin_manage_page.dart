@@ -5,7 +5,9 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/appbar_popup_menu_widget.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_widget.dart';
+import 'package:redux_comp/actions/admin/app_management/get_reported_adverts_action.dart';
 import 'package:redux_comp/actions/admin/app_management/get_user_reports_action.dart';
+import 'package:redux_comp/actions/admin/app_management/get_review_reports_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class AdminManagePage extends StatelessWidget {
@@ -44,12 +46,13 @@ class AdminManagePage extends StatelessWidget {
                       appbar,
 
                       AdminContainerWidget(
-                          text: "Advert Reports", function: () {}),
+                          text: "Advert Reports", function: () => vm.pushAdvertReportsPage()),
                       AdminContainerWidget(
                           text: "User Reports",
                           function: () => vm.pushUserReportsPage()),
                       AdminContainerWidget(
-                          text: "Review Reports", function: () {}),
+                          text: "Review Reports",
+                          function: () => vm.pushReviewReportsPage()),
                     ],
                   );
           },
@@ -66,21 +69,34 @@ class _Factory extends VmFactory<AppState, AdminManagePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      loading: state.wait.isWaiting,
-      pushUserReportsPage: () {
-        dispatch(NavigateAction.pushNamed('/user_reports_page'));
-        dispatch(GetUserReportsAction());
-      });
+        loading: state.wait.isWaiting,
+        pushUserReportsPage: () {
+          dispatch(NavigateAction.pushNamed('/user_reports_page'));
+          dispatch(GetUserReportsAction());
+        },
+        pushReviewReportsPage: () {
+          dispatch(NavigateAction.pushNamed('/review_reports_page'));
+          dispatch(GetReviewReportsAction());
+        },
+        pushAdvertReportsPage: () {
+           dispatch(NavigateAction.pushNamed('/advert_reports_page'));
+          dispatch(GetReportedAdvertsAction());
+        }
+      );
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
   final VoidCallback pushUserReportsPage;
+  final VoidCallback pushReviewReportsPage;
+  final VoidCallback pushAdvertReportsPage;
 
   _ViewModel({
     required this.loading,
     required this.pushUserReportsPage,
+    required this.pushReviewReportsPage,
+    required this.pushAdvertReportsPage,
   }) : super(equals: [loading]); // implementinf hashcode;
 }
 

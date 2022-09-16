@@ -22,7 +22,7 @@ class AdminUserModel {
     return AdminUserModel(
       id: obj['id'],
       name: obj['name'],
-      warnings: obj['warnings'],
+      warnings:  obj['warnings'],
       email: obj['email'],
       cognitoUsername: obj['cognito_username'],
       enabled: obj['enabled'],

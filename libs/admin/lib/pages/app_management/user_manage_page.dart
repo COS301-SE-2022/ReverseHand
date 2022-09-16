@@ -42,13 +42,14 @@ class UserManagePage extends StatelessWidget {
                     children: [
                       //**********APPBAR***********//
                       appbar,
-                      AdminUserWidget(user: vm.activeUser),
-                      const Padding(padding: EdgeInsets.only(bottom: 50)),
+
+                      AdminUserWidget(user: vm.activeUser!),
+                      const Padding(padding: EdgeInsets.only(bottom: 25)),
                       LongButtonWidget(
-                        text: (vm.activeUser.enabled)
+                        text: (vm.activeUser!.enabled)
                             ? "Disable User"
                             : "Enable User",
-                        function: (vm.activeUser.enabled) ? () {} : () {},
+                        function: (vm.activeUser!.enabled) ? () {} : () {},
                       ),
                       const Padding(padding: EdgeInsets.only(bottom: 10)),
                       TransparentLongButtonWidget(
@@ -113,13 +114,13 @@ class _Factory extends VmFactory<AppState, UserManagePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
       loading: state.wait.isWaiting,
-      activeUser: state.admin.adminManage.activeUser!);
+      activeUser: state.admin.adminManage.activeUser);
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
-  final AdminUserModel activeUser;
+  final AdminUserModel? activeUser;
 
   _ViewModel({
     required this.loading,

@@ -53,8 +53,6 @@ class GetDbWriteMetricsAction extends ReduxAction<AppState> {
       "MaxDatapoints": 144,
       "ScanBy": "TimestampDescending"
     };
-
-    // debugPrint();
     
 
     String graphQLDoc = '''query {
@@ -67,7 +65,7 @@ class GetDbWriteMetricsAction extends ReduxAction<AppState> {
     final request = GraphQLRequest(document: graphQLDoc);
     try {
       final response = await Amplify.API.query(request: request).response;
-      final data = jsonDecode(response.data)["getMetrics"];
+      final data = jsonDecode(jsonDecode(response.data)["getMetrics"]); //resp is a json encoded json string
 
       return state.copy(
         admin: state.admin.copy(
