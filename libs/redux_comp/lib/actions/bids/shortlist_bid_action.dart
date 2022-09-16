@@ -19,6 +19,7 @@ class ShortlistBidAction extends ReduxAction<AppState> {
         quote
         date_created
         date_closed
+        shortlisted
       }
     }''';
 
