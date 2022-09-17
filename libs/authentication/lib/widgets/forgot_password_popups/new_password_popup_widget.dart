@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/toast_error.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/toast_error_action.dart';
@@ -100,20 +101,7 @@ class NewPasswordPopupWidget extends StatelessWidget {
                   StoreConnector<AppState, _ViewModel>(
                     vm: () => _Factory(this),
                     onDidChange: (context, store, vm) {
-                      final String msg;
-                      switch (store.state.error) {
-                        case ErrorType.none:
-                          msg = "Password changed";
-                          break;
-                        case ErrorType.userNotFound:
-                          msg = "User not found";
-                          break;
-                        default:
-                          msg = "Password changed";
-                          break;
-                      }
-
-                      store.dispatch(ToastErrorAction(context!, msg));
+                      displayToastError(context!, "Password Changed");
                     },
                     builder: (BuildContext context, _ViewModel vm) =>
                       ButtonWidget(

@@ -144,12 +144,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 passwordController.value.text.trim(),
                               );
 
-                              DarkDialogHelper.display(
-                                  context,
-                                  OTPPopupWidget(
-                                    store: widget.store,
-                                  ),
-                                  1000.0); //trigger OTP popup
+                             showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (BuildContext context) =>
+                                  OTPPopupWidget(store: widget.store,),
+                                );
                             },
                           ),
                         ),
