@@ -1,9 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/methods/toast_error.dart';
+import 'package:general/methods/toast_success.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/hint_widget.dart';
-import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/complete_password_reset_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:authentication/methods/validation.dart';
@@ -101,7 +100,9 @@ class NewPasswordPopupWidget extends StatelessWidget {
                   StoreConnector<AppState, _ViewModel>(
                     vm: () => _Factory(this),
                     onDidChange: (context, store, vm) {
-                      displayToastError(context!, "Password Changed");
+                      if(store.state.error == ErrorType.none) {
+                        displayToastSuccess(context!, "Password Changed"); //todo, fix
+                      }
                     },
                     builder: (BuildContext context, _ViewModel vm) =>
                       ButtonWidget(
@@ -124,7 +125,6 @@ class NewPasswordPopupWidget extends StatelessWidget {
 }
 
 // factory for view model
-// ignore: unused_element
 class _Factory extends VmFactory<AppState, NewPasswordPopupWidget> {
   _Factory(widget) : super(widget);
 
