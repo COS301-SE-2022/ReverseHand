@@ -1,3 +1,4 @@
+import 'package:admin/pages/app_management/advert_reports/review_advert_reports_page.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
@@ -113,7 +114,8 @@ class Launch extends StatelessWidget {
           '/advert_reports_page': (context) => ViewAdvertReportsPage(store: store),
           '/report_manage': (context) => ReportManagePage(store: store),
           '/review_report_manage': (context) => ReviewReportManagePage(store: store),
-          '/user_manage': (context) => UserManagePage(store: store),
+          '/user_manage': (context) => UserManagePage(store: store), 
+          '/review_advert_reports_page' : (context) => AdvertReportsManagePage(store: store)
         
         },
       ),
