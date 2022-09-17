@@ -4,7 +4,7 @@ require('dotenv').config();
 const createAdvertEvent = {
     arguments: {
         customer_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
-        title: "Lambda Test Hundred",
+        title: "Lambda Test Hundred One",
         description: "This is a test description",
         domain :{
             city: "Pretoria",
@@ -18,23 +18,13 @@ const createAdvertEvent = {
     }
 };
 
-const viewAdvertEvent = {
-    arguments : {
-        user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702"
-    }
-};
-
 jest.setTimeout(70000000);
 
-
-
-
-describe("Creation of Adverts, Bids, and deletion tests",  () =>{
+describe("Editing Bids and Adverts Integration Test", ()=>{
     beforeAll(() => {
         process.env.REVERSEHAND = 'ReverseHand';
         process.env.FUNCTION = "arn:aws:lambda:eu-west-1:727515863527:function:notificationsResolver-staging";
         process.env.ARCHIVEDREVERSEHAND = "ArchivedReverseHand";
-
 
         AWS.config.update({
             region: process.env.REGION,
@@ -49,16 +39,36 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
     var adId = "";
     var bidId = "";
 
-    test("Testing creation, deletion and bid operations", async () =>{
+    test("Editing Stuff", async ()=>{
 
         //create an advert
         var handlerModule = require('../amplify/backend/function/createAdvertResolver/src/index');
         var result = await handlerModule.handler(createAdvertEvent);
 
-        expect(result.title).toEqual('Lambda Test Hundred');
+        expect(result.title).toEqual('Lambda Test Hundred One');
         expect(result.description).toEqual('This is a test description');
         expect(result.type).toEqual('Plumbing');
         adId = result.id;
+
+        //********************************************************************************************* */
+        //edit the advert now
+        const editAdvertEvent = {
+            arguments: {
+                ad_id : adId,
+                title : "Lambda Test Two Hundred One",
+                type : "Painting",
+                description : "This is a second test description"
+            }
+        };
+
+        console.log("Changing Details of existing Advert");
+
+        handlerModule = require('../amplify/backend/function/editAdvertResolver/src/index');
+        result = await handlerModule.handler(editAdvertEvent);
+
+        expect(result.title).toEqual('Lambda Test Two Hundred One');
+        expect(result.description).toEqual('This is a second test description');
+        expect(result.type).toEqual('Painting');
 
         //********************************************************************************************* */
 
@@ -83,57 +93,29 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         expect(result.shortlisted).toEqual(false);
 
         bidId = result.id;
+        
 
-        //********************************************************************************************* */
-        //shortlisting a bid
-
-        const shortListBidEvent = {
+        //******************************************************************************************************* */
+        //edit bid
+        const editBidEvent = {
             arguments : {
+                quote: null,
+                price: 100,
                 ad_id : adId,
-                bid_id : bidId,
-                tradesman_id : "t#acff077a-8855-4165-be78-090fda375f90"
+                bid_id : bidId
             }
-        };
-        
-        console.log("Testing shortListing a bid");
+        }
 
-        handlerModule = require('../amplify/backend/function/shortListBidResolver/src/index');
-        result = await handlerModule.handler(shortListBidEvent);
+        console.log("Editing a bid");
 
-        expect(result.shortlisted).toEqual(true);
-        expect(result.name).toEqual('Alexander');
+        handlerModule = require('../amplify/backend/function/editBidResolver/src/index');
+        result = await handlerModule.handler(editBidEvent);
+
+        expect(result.price).toEqual(100);
+
 
         //********************************************************************************************* */
 
-
-        console.log("Testing to see if adverrt was indeed created");
-
-        handlerModule = require('../amplify/backend/function/viewAdvertsResolver/src/index');
-        result = await handlerModule.handler(viewAdvertEvent);
-
-        var val = result.find(element => element.title == "Lambda Test Hundred");
-        
-        expect(val.title).toEqual("Lambda Test Hundred");
-
-        const viewBidsEvent = {
-            arguments : {
-                ad_id : adId
-            }
-        };
-
-        //********************************************************************************************* */
-
-        console.log("Test to see if bid was created");
-
-        handlerModule = require('../amplify/backend/function/viewBidsResolver/src/index');
-        result = await handlerModule.handler(viewBidsEvent);
-
-        val = result.find(element => element.name == "Alexander");
-
-        expect(val.name).toEqual("Alexander");
-        expect(val.price).toEqual(500);
-
-        //Second last step: delete a bid
         const deleteBidEvent = {
             arguments : {
                 ad_id : adId,
@@ -141,24 +123,22 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
             }
         };
 
-        //********************************************************************************************* */
-
-        console.log("Testing the deletion of a bid");
+       console.log("Testing the deletion of a bid");
         handlerModule = require('../amplify/backend/function/deleteBidResolver/src/index');
         result = await handlerModule.handler(deleteBidEvent);
 
         //check to see if the bid that was returned is the deleted one
         expect(result.name).toEqual("Alexander");
-        expect(result.price).toEqual(500);
+        expect(result.price).toEqual(100);
 
+        //********************************************************************************************* */
+        //deleting advert
+        
         const deleteAdvertEvent = {
             arguments : {
                 ad_id : adId
             }
         };
-
-        //********************************************************************************************* */
-
         console.log("Testring deletion of advert");
 
 
@@ -166,7 +146,7 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         result = await handlerModule.handler(deleteAdvertEvent);
 
         //check if the returned advert is the one we expect to delete
-        expect(result.title).toEqual("Lambda Test Hundred");
+        expect(result.title).toEqual("Lambda Test Two Hundred One");
 
     });
 });
