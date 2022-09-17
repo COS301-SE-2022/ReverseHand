@@ -38,6 +38,7 @@ describe("Editing Bids and Adverts Integration Test", ()=>{
     //variables to be used in differnt parts of tests
     var adId = "";
     var bidId = "";
+    var reviewId = "";//this is for review. acquired from addReviewResolver
 
     test("Editing Stuff", async ()=>{
 
@@ -115,7 +116,7 @@ describe("Editing Bids and Adverts Integration Test", ()=>{
 
 
         //********************************************************************************************* */
-
+        //deleting Bid
         const deleteBidEvent = {
             arguments : {
                 ad_id : adId,
@@ -123,13 +124,57 @@ describe("Editing Bids and Adverts Integration Test", ()=>{
             }
         };
 
-       console.log("Testing the deletion of a bid");
+        console.log("Testing the deletion of a bid");
         handlerModule = require('../amplify/backend/function/deleteBidResolver/src/index');
         result = await handlerModule.handler(deleteBidEvent);
 
         //check to see if the bid that was returned is the deleted one
         expect(result.name).toEqual("Alexander");
         expect(result.price).toEqual(100);
+
+        //********************************************************************************************* */
+        //adding a Review to the advert
+
+        console.log("Testing Adding Review To user");
+
+        const addReviewEvent = {
+            arguments : {
+                user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                review : {
+                    id : "#ID12345",
+                    rating : 5,
+                    description : "Integration Tests",
+                    user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                    advert_id : adId,
+                    date_created : 12324345
+                }
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/addReviewResolver/src/index');
+        result = await handlerModule.handler(addReviewEvent);
+
+        expect(result.review_details.id).toEqual("#ID12345");
+        expect(result.review_details.rating).toEqual(5);
+        expect(result.review_details.description).toEqual("Integration Tests");
+
+        reviewId = result.id;
+
+        //********************************************************************************************* */
+        //Deleting a review
+        console.log("Deleting a Review");
+        const deleteReviewEvent = {
+            arguments : {
+                user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                id : reviewId
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/deleteReviewResolver/src/index');
+        result = await handlerModule.handler(deleteReviewEvent);
+
+        console.log(result);
+        //need to complete deleting a review. THe resolver needs fixing/updating
 
         //********************************************************************************************* */
         //deleting advert
