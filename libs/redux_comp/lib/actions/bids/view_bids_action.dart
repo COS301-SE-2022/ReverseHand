@@ -8,12 +8,14 @@ import '../../app_state.dart';
 
 // pass in the advert id whos bids you want to see
 class ViewBidsAction extends ReduxAction<AppState> {
-  final String adId;
+  final String? adId;
 
-  ViewBidsAction(this.adId);
+  ViewBidsAction({this.adId});
 
   @override
   Future<AppState?> reduce() async {
+    final String adId = this.adId ?? state.activeAd!.id;
+
     String graphQLDocument = '''query {
       viewBids(ad_id: "$adId") {
         id

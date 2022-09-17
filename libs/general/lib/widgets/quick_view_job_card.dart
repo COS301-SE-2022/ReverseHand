@@ -55,7 +55,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                           size: 32,
                         ),
                       )),
-                      //*********************************************** */
+                  //*********************************************** */
                   const Padding(padding: EdgeInsets.all(2)),
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
@@ -71,9 +71,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                               style: const TextStyle(
                                   fontSize: 24,
                                   color: Colors.black,
-                                  fontWeight: FontWeight.bold
-                              )
-                          ),
+                                  fontWeight: FontWeight.bold)),
                           //*********************************************** */
                         ),
                         const Padding(padding: EdgeInsets.only(top: 2)),
@@ -117,7 +115,7 @@ class _Factory extends VmFactory<AppState, QuickViewJobCardWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchViewBidsAction: (String adId) => dispatch(
-          ViewBidsAction(adId),
+          ViewBidsAction(adId: adId),
         ),
       );
 }
