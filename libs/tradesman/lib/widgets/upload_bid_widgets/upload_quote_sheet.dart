@@ -1,9 +1,7 @@
 import 'package:general/widgets/long_button_widget.dart';
-import 'package:async_redux/async_redux.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
-import 'package:redux_comp/app_state.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/upload_bid_amount_sheet.dart';
 
 class UploadQuoteSheet extends StatefulWidget {

@@ -34,8 +34,6 @@ class EditBidAction extends ReduxAction<AppState> {
 
       List<BidModel> bids = state.bids;
 
-      //get the bid being edited
-      BidModel bd = bids.firstWhere((element) => element.id == bidId);
       //remove the bid that was changed from the list
       bids.removeWhere((element) => element.id == bidId);
       bids.add(BidModel.fromJson(data));

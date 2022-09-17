@@ -1,7 +1,6 @@
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tradesman/methods/currency_formatter.dart';
 
 class UploadAmountSheet extends StatelessWidget {
   final TextEditingController bidPriceController = TextEditingController();
