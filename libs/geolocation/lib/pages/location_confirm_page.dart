@@ -1,12 +1,13 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/actions/geolocation/set_place_action.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/button_bar_widget.dart';
 import 'package:uuid/uuid.dart';
+import 'package:general/widgets/long_button_widget.dart';
 
 class LocationConfirmPage extends StatelessWidget {
   final Store<AppState> store;
@@ -30,7 +31,7 @@ class LocationConfirmPage extends StatelessWidget {
 
                 //**********************StreetNo**********************//
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
+                  padding: const EdgeInsets.fromLTRB(15, 20, 15, 30),
                   child: ButtonBarTitleWidget(
                       title: "Street No.",
                       value: (vm.location != null)
@@ -85,7 +86,7 @@ class LocationConfirmPage extends StatelessWidget {
 
                 //*******************SAVE BUTTON********************//
 
-                ButtonWidget(
+                LongButtonWidget(
                   text: (vm.userType == "Consumer")
                       ? "Save Location"
                       : "Add Domain",
@@ -96,9 +97,8 @@ class LocationConfirmPage extends StatelessWidget {
                 const Padding(padding: EdgeInsets.all(8)),
 
                 //*******************DISCARD BUTTON*****************//
-                ButtonWidget(
+                TransparentLongButtonWidget(
                   text: "Search again",
-                  color: "dark",
                   function: vm.pushCustomSearch,
                 ),
               ],

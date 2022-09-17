@@ -1,4 +1,5 @@
-import 'package:authentication/widgets/auth_button.dart';
+
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tradesman/methods/currency_formatter.dart';
@@ -88,7 +89,7 @@ class UploadAmountSheet extends StatelessWidget {
                 ),
               ),
             ),
-            AuthButtonWidget(text: "Submit Bid", function: () {})
+            LongButtonWidget(text: "Submit Bid", function: () {})
           ],
         ),
       ),

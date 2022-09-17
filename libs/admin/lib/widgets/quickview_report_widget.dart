@@ -20,58 +20,62 @@ class QuickviewReportWidget extends StatelessWidget {
           return InkWell(
             onTap: () => vm.pushReportManagePage(report),
             child: Card(
-              margin: const EdgeInsets.all(10),
-              // color: Theme.of(context).primaryColorLight,
-              color: const Color.fromARGB(255, 220, 224, 230),
+              margin: const EdgeInsets.all(12),
+              color: const Color.fromARGB(255, 232, 232, 232),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(7),
               ),
               elevation: 2,
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 25),
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
                 child: Row(
-                  children: <Widget>[
+                  children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.3,
-                          child: Text(report.reportDetails.reportedUser.name,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.list,
+                              size: 23,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            const Padding(padding: EdgeInsets.only(right: 5)),
+                            const Text("Report reason: ",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4.0),
+                          child: Text(report.reportDetails.reason,
                               style: const TextStyle(
-                                  fontSize: 30, color: Colors.black)),
+                                  fontSize: 20, color: Colors.black)),
                         ),
+                        const Padding(padding: EdgeInsets.only(top: 10)),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              Icons.numbers,
-                              color: Colors.black,
-                              size: 25.0,
+                            Icon(
+                              Icons.description_outlined,
+                              size: 23,
+                              color: Theme.of(context).primaryColor,
                             ),
-                            const Padding(
-                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0)),
-                            Text(report.reportDetails.reason,
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.black))
+                            const Padding(padding: EdgeInsets.only(right: 5)),
+                            const Text("Report description: ",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.numbers,
-                              color: Colors.black,
-                              size: 25.0,
-                            ),
-                            const Padding(
-                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0)),
-                            Text(report.reportDetails.description,
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.black))
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4.0),
+                          child: Text(report.reportDetails.description,
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.black)),
                         ),
                       ],
                     ),
@@ -92,9 +96,14 @@ class _Factory extends VmFactory<AppState, QuickviewReportWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushReportManagePage: (report) => dispatch(
-          NavigateAction.pushNamed("/report_manage", arguments: report),
-        ),
+        pushReportManagePage: (report) => (report.type == "user#reports")
+            ? dispatch(
+                NavigateAction.pushNamed("/report_manage", arguments: report),
+              )
+            : dispatch(
+                NavigateAction.pushNamed("/review_report_manage",
+                    arguments: report),
+              ),
       );
 }
 

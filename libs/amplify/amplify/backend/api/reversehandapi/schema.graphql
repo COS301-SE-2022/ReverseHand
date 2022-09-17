@@ -36,14 +36,17 @@ type Query {
   getReports(type: String!): Reports!
     @function(name: "getReportsResolver-${env}")
 
-  getReportedReviews: [AdminUser]!
-    @function(name: "getReportedReviewsResolver-${env}")
+  adminGetUser(user_id: String!): AdminUser!
+    @function(name: "adminGetUserResolver-${env}")
 
   getDBWriteDashboard: String!
     @function(name: "getDashboardMetricsResolver-${env}")
 
+  getMetrics(params: String!): String!
+    @function(name: "getMetricsResolver-${env}") 
+
   getBidOnAdverts(tradesman_id: String!): [Advert!]!
-      @function(name:  "getBidOnAdvertsResolver-${env}")
+    @function(name: "getBidOnAdvertsResolver-${env}")
 }
 
 type Mutation {
@@ -144,6 +147,12 @@ type Mutation {
 
   notification(user_id: String!): NotificationUpdate!  # returns the id of the user who has a new notification
     @function(name: "notifyNewNotificationsResolver-${env}")
+
+  removeReviewReport(user_id: String!, report_id: String!, issueWarning: Boolean!): ReportDetails!
+    @function(name: "removeReviewReportResolver-${env}")
+
+  removeUserReport(user_id: String!, report_id: String!, issueWarning: Boolean!): ReportDetails!
+    @function(name: "removeUserReportResolver-${env}")
 }
 
 type Subscription {
@@ -305,7 +314,13 @@ type AdminAdvert {
   customer_id: String!
   advert: Advert!
   count: Int!
-  reports: [Report!]!
+  reports: [AdvertReport!]!
+}
+
+type AdvertReport {
+  reason: String!
+  description: String!
+  reporter_user: ReportUserDetails!
 }
 
 type Reports {
@@ -317,6 +332,14 @@ type Report implements UniqueID {
   id: String!
   report_type: String!
   report_details: ReportDetails!
+  review_details: ReviewDetails
+}
+
+type ReviewDetails {
+  id: String!
+  rating: Int!
+  description: String!
+  advert_id: String!
 }
 
 type ReportDetails {

@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
@@ -18,7 +19,6 @@ class TradesmanJobDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -40,8 +40,8 @@ class TradesmanJobDetails extends StatelessWidget {
 
                 //**********DETAILED JOB INFORMATION***********//
                 if (vm.loading)
-                      const LoadingWidget(topPadding: 80, bottomPadding: 0)
-                else 
+                  const LoadingWidget(topPadding: 80, bottomPadding: 0)
+                else
                   JobCardWidget(
                       titleText: vm.advert.title,
                       descText: vm.advert.description ?? "",
@@ -53,7 +53,9 @@ class TradesmanJobDetails extends StatelessWidget {
                 const Padding(padding: EdgeInsets.only(top: 25)),
 
                 //*************BOTTOM BUTTONS**************//
-                vm.currentBid != null
+                vm.bids.contains(vm.currentBid)
+                    //this isn't working as expected
+                    // vm.currentBid != null
                     //if this contractor has already made a bid
                     ? Column(
                         children: [
@@ -138,7 +140,7 @@ class TradesmanJobDetails extends StatelessWidget {
                     //if this contractor hasn't already made a bid
                     : Padding(
                         padding: const EdgeInsets.only(top: 20.0),
-                        child: AuthButtonWidget(
+                        child: LongButtonWidget(
                             text: "Place Bid",
                             function: () {
                               //keeping this here so that a bid can still be made while we create the last UI
@@ -151,18 +153,21 @@ class TradesmanJobDetails extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(7.0),
                                   ),
                                   builder: (BuildContext context) {
-                                    return UploadQuoteSheet(store: store,);
+                                    return UploadQuoteSheet(
+                                      store: store,
+                                    );
                                   });
                             }),
                       ),
                 //place bid
 
-                AuthButtonWidget(
+                TransparentLongButtonWidget(
                     text: "View Bids", function: vm.pushViewBidsPage),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 // TransparentLongButtonWidget(
                 //     text: "Report this Advert", function: () {})
-
+                TransparentLongButtonWidget(
+                    text: "View Client Profile", function: () {}),
                 const Padding(padding: EdgeInsets.only(bottom: 50)),
               ],
             ),
