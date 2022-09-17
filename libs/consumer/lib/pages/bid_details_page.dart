@@ -30,7 +30,8 @@ class BidDetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //************APPBAR**************************//
-                AppBarWidget(title: "BID DETAILS", store: store, backButton: true),
+                AppBarWidget(
+                    title: "BID DETAILS", store: store, backButton: true),
                 //********************************************//
 
                 //************NAME AND ROW*******************//
@@ -91,7 +92,7 @@ class BidDetailsPage extends StatelessWidget {
                     const Padding(padding: EdgeInsets.all(3)),
                     Center(
                       child: Text(
-                        'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
+                        'R${vm.bid.price}',
                         style: const TextStyle(
                             fontSize: 40,
                             color: Colors.white,
