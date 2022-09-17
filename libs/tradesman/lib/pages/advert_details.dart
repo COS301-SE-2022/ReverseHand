@@ -1,4 +1,7 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:flutter/services.dart';
+import 'package:general/widgets/button.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,7 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
+import 'package:tradesman/methods/currency_formatter.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/upload_quote_sheet.dart';
 import '../widgets/tradesman_navbar_widget.dart';
 
@@ -64,72 +68,175 @@ class TradesmanJobDetails extends StatelessWidget {
                             padding: EdgeInsets.only(left: 45.0),
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text(
-                                "My bid",
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold),
-                              ),
+                              child: HintWidget(
+                                  text: "Click on your bid to edit it",
+                                  colour: Colors.white70,
+                                  padding: 0),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 32, right: 32, bottom: 50, top: 10),
-                            child: Container(
-                              padding: const EdgeInsets.all(12),
-                              alignment: Alignment.center,
-                              decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 232, 232, 232),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(7.0)),
-                              ),
-                              child: SizedBox(
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text(
-                                          'Amount:',
-                                          style: TextStyle(
-                                              fontSize: 22,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          'R${vm.currentBid!.priceLower}  -  R${vm.currentBid!.priceUpper}',
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black),
-                                        ),
-                                      ],
+                                left: 40, right: 40, bottom: 50, top: 10),
+                            child: InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7.0),
                                     ),
-                                    const Padding(
-                                        padding: EdgeInsets.only(top: 10)),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: const [
-                                        Text(
-                                          'Quote:',
-                                          style: TextStyle(
-                                              fontSize: 22,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
+                                    builder: (BuildContext context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.of(context).viewInsets,
+                                        child: SizedBox(
+                                          height: 300,
+                                          child: Container(
+                                            color: Colors.white70,
+                                            child: Column(
+                                              children: [
+                                                const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 10)),
+                                                const Text(
+                                                  "Edit Bid",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 25,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      20, 5, 20, 5),
+                                                  child: Text(
+                                                      "Enter the final amount for your bid.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 15)),
+                                                ),
+                                                SizedBox(
+                                                  height: 55,
+                                                  width: 180,
+                                                  child: TextFormField(
+                                                    cursorHeight: 30,
+                                                    textAlign: TextAlign.center,
+                                                    cursorColor: Theme.of(
+                                                            context)
+                                                        .scaffoldBackgroundColor,
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 23),
+                                                    // controller: bidController,
+                                                    inputFormatters: [
+                                                      // CurrencyInputFormatter()
+                                                      FilteringTextInputFormatter
+                                                          .digitsOnly,
+                                                      CurrencyInputFormatter(),
+                                                    ],
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    onTap: () {},
+                                                    decoration: InputDecoration(
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(7),
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color: Colors.black,
+                                                          width: 1.0,
+                                                        ),
+                                                      ),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(7),
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color: Colors.orange,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                ButtonWidget(
+                                                    text: "Save Changes",
+                                                    function: () {}),
+                                                ButtonWidget(
+                                                    text: "    Delete Bid    ",
+                                                    color: "light",
+                                                    border: "lightBlue",
+                                                    function: () {})
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                        Text(
-                                          'None Uploaded',
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                      );
+                                    });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(12),
+                                alignment: Alignment.center,
+                                decoration: const BoxDecoration(
+                                  color: Color.fromARGB(255, 232, 232, 232),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(7.0)),
+                                ),
+                                child: SizedBox(
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Amount:',
+                                            style: TextStyle(
+                                                fontSize: 22,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            'R${vm.currentBid!.priceLower}  -  R${vm.currentBid!.priceUpper}',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 10)),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: const [
+                                          Text(
+                                            'Quote:',
+                                            style: TextStyle(
+                                                fontSize: 22,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            'None Uploaded',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

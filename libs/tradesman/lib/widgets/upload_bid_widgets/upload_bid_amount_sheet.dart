@@ -65,7 +65,6 @@ class UploadAmountSheet extends StatelessWidget {
                 style: const TextStyle(color: Colors.black, fontSize: 23),
                 controller: bidController,
                 inputFormatters: [
-                  // CurrencyInputFormatter()
                   FilteringTextInputFormatter.digitsOnly,
                   CurrencyInputFormatter(),
                 ],

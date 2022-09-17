@@ -2,6 +2,8 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class AdvertReportsManagePage extends StatelessWidget {
@@ -25,7 +27,7 @@ class AdvertReportsManagePage extends StatelessWidget {
             return (vm.loading)
                 ? Column(
                     children: [
-                      //**********APPBAR***********//
+                      //**********APPBAR***************************//
                       appbar,
                       //*******************************************//
 
@@ -36,8 +38,14 @@ class AdvertReportsManagePage extends StatelessWidget {
                   )
                 : Column(
                     children: [
-                      //**********APPBAR***********//
+                      //**********APPBAR***************************//
                       appbar,
+                      //*******************************************//
+
+                      LongButtonWidget(text: "Issue Warning", function: () {}),
+
+                      TransparentLongButtonWidget(
+                          text: "Remove Report", function: () {}),
                     ],
                   );
           },
