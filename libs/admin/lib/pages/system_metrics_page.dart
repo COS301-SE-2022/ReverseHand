@@ -1,10 +1,10 @@
 import 'package:admin/widgets/admin_navbar_widget.dart';
-import 'package:admin/widgets/system_charts/line_chart_widget.dart';
+import 'package:admin/widgets/box_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/models/admin/app_metrics/metric_chart_model.dart';
+import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class SystemMetricsPage extends StatefulWidget {
@@ -13,45 +13,86 @@ class SystemMetricsPage extends StatefulWidget {
 
   @override
   State<SystemMetricsPage> createState() => _SystemMetricsPageState();
-
 }
 
 class _SystemMetricsPageState extends State<SystemMetricsPage> {
-
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: widget.store,
       child: Scaffold(
-        body: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) {
-            Widget appbar =
-                AppBarWidget(title: "System Metrics", store: widget.store);
-            return (vm.loading)
-                ? Column(
-                    children: [
-                      //**********APPBAR***********//
-                      appbar,
-                      //*******************************************//
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) {
+              Widget appbar =
+                  AppBarWidget(title: "System Metrics", store: widget.store);
+              return (vm.loading)
+                  ? Column(
+                      children: [
+                        //**********APPBAR***********//
+                        appbar,
+                        //*******************************************//
 
-                      LoadingWidget(
-                          topPadding: MediaQuery.of(context).size.height / 3,
-                          bottomPadding: 0)
-                    ],
-                  )
-                : Column(
-                    children: [
-                      //**********APPBAR***********//
-                      appbar,
+                        LoadingWidget(
+                            topPadding: MediaQuery.of(context).size.height / 3,
+                            bottomPadding: 0)
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        //**********APPBAR***********//
+                        appbar,
 
-                      
-                        (vm.data != null) ?
-                          LineChartWidget(data: vm.data!) : Container()
-                    
-                    ],
-                  );
-          },
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            BoxWidget(
+                              color: Colors.orangeAccent,
+                              text: "Database",
+                              icon: Icons.storage,
+                              function: () {},
+                            ),
+                            BoxWidget(
+                              color: Colors.green,
+                              text: "API",
+                              icon: Icons.network_ping,
+                              function: () {},
+                            ),
+                          ],
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            BoxWidget(
+                              color: Colors.purple,
+                              text: "Resolvers",
+                              icon: Icons.code,
+                              function: () {},
+                            ),
+                            BoxWidget(
+                              color: Colors.red,
+                              text: "Auth",
+                              icon: Icons.security,
+                              function: () {},
+                            ),
+                          ],
+                        ),
+
+                        // DisplayMetricsConatinerWidget(charts: [
+                        //   LineChartWidget(
+                        //       graphs: vm.dbWriteData!,
+                        //       chartTitle: "ReverseHand Write Capacity",
+                        //       xTitle: "xTitle",
+                        //       yTitle: "yTitle")
+                        // ]),
+                      ],
+                    );
+            },
+          ),
         ),
         bottomNavigationBar: AdminNavBarWidget(store: widget.store),
       ),
@@ -66,17 +107,24 @@ class _Factory extends VmFactory<AppState, _SystemMetricsPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
-        data: state.admin.appMetrics.dbWriteGraph,
+        dbWriteData: state.admin.appMetrics.dbWriteData,
+        dbReadData: state.admin.appMetrics.dbReadData,
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
-  final MetricChartModel? data;
+  final List<LineChartModel>? dbWriteData;
+  final List<LineChartModel>? dbReadData;
 
   _ViewModel({
     required this.loading,
-    required this.data,
-  }) : super(equals: [loading, data]); // implementinf hashcode;
+    required this.dbWriteData,
+    required this.dbReadData,
+  }) : super(equals: [
+          loading,
+          dbWriteData,
+          dbReadData,
+        ]); // implementinf hashcode;
 }

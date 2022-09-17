@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/get_db_write_metrics_action.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_db_read_metrics_action_action.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_db_write_metrics_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -48,9 +49,10 @@ class AdminNavBarWidget extends StatelessWidget {
                         children: <Widget>[
                           //icon 1 - Advert Reports
                           IconButton(
-                            icon: const Text(
-                              "M",
-                              style: TextStyle(fontSize: 25),
+                            icon: const Icon(
+                              Icons.query_stats_sharp,
+                              color: Colors.white,
+                              size: 25,
                             ),
                             onPressed: () {
                               vm.pushAppMetrics();
@@ -62,9 +64,10 @@ class AdminNavBarWidget extends StatelessWidget {
 
                           //icon 2 - chat
                           IconButton(
-                            icon: const Text(
-                              "U",
-                              style: TextStyle(fontSize: 25),
+                            icon: const Icon(
+                              Icons.analytics_outlined,
+                              color: Colors.white,
+                              size: 25,
                             ),
                             onPressed: () {
                               vm.pushUserManage();
@@ -114,7 +117,6 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         pushAppMetrics: () {
-          dispatch(GetDbWriteMetricsAction());
           dispatch(
             NavigateAction.pushNamedAndRemoveUntil('/admin_system_metrics',
                 ModalRoute.withName('/admin_system_metrics')),

@@ -1,6 +1,7 @@
 library admin;
 
 export 'pages/system_metrics_page.dart';
+export 'pages/system_metrics/database_metrics_page.dart';
 export 'pages/admin_manage_page.dart';
 export 'pages/app_management/view_user_reports_page.dart';
 export 'pages/app_management/review_reports/view_review_reports_page.dart';

@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/admin/app_metrics/metric_chart_model.dart';
+import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
 
 @immutable
 class AppMetricsModel {
-  final MetricChartModel? dbWriteGraph;
+  //Database Write charts
+  final List<LineChartModel>? dbWriteData;
+  //Database Read charts
+  final List<LineChartModel>? dbReadData;
+  //Appsync Latency
 
   const AppMetricsModel({
-    this.dbWriteGraph,
+    this.dbWriteData,
+    this.dbReadData,
   });
 
-  AppMetricsModel copy({MetricChartModel? dbWriteGraph}) {
+  AppMetricsModel copy({
+    List<LineChartModel>? dbWriteData,
+    List<LineChartModel>? dbReadData,
+  }) {
     return AppMetricsModel(
-      dbWriteGraph: dbWriteGraph ?? this.dbWriteGraph,
-    );
-  }
-
-  factory AppMetricsModel.fromJson(obj) {
-    return AppMetricsModel(
-      dbWriteGraph: MetricChartModel.fromJson(obj),
+      dbWriteData: dbWriteData ?? this.dbWriteData,
+      dbReadData: dbReadData ?? this.dbReadData,
     );
   }
 }
