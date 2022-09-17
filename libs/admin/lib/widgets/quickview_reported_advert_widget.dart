@@ -37,32 +37,6 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
               child: Row(
                 children: [
                   const Padding(padding: EdgeInsets.all(2)),
-                  Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                              width: 2, color: Theme.of(context).primaryColor)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(22),
-                        child: Icon(
-                          //Painting
-                          // Icons.imagesearch_roller,
-                          //Tiler
-                          //Carpenter
-                          // Icons.carpenter,
-                          //Cleaner
-                          // Icons.sanitizer,
-                          //Designer
-                          // Icons.design_services,
-                          //Landscaper
-                          //Electrician
-                          // Icons.bolt,
-                          //Plumbing
-                          Icons.plumbing,
-                          color: Theme.of(context).primaryColor,
-                          size: 35,
-                        ),
-                      )),
                   const Padding(padding: EdgeInsets.all(2)),
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
@@ -71,66 +45,49 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.5,
-                          child: const Text("AdvertTitle",
-                              // advert.advert.title,
+                          child: Text(advert.advert.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: 28,
+                              style: const TextStyle(
+                                  fontSize: 24,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold)),
                         ),
-
                         const Padding(padding: EdgeInsets.only(top: 4)),
                         Row(
-                          children: const [
-                            Text("Randburg",
-                                // advert.domain.city,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black)),
-                            Padding(padding: EdgeInsets.only(right: 10)),
-                            Icon(
+                          children: [
+                            Text(advert.advert.domain.city,
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.black)),
+                            const Padding(padding: EdgeInsets.only(right: 10)),
+                            const Icon(
                               Icons.circle_outlined,
                               size: 8,
                             ),
-                            Padding(padding: EdgeInsets.only(left: 10)),
-                            Text("Painter",
-                                // advert.type!,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black)),
+                            const Padding(padding: EdgeInsets.only(left: 10)),
+                            Text(advert.advert.type,
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.black)),
                           ],
                         ),
-                        const Padding(padding: EdgeInsets.only(top: 3)),
+                        const Padding(padding: EdgeInsets.only(top: 8)),
                         Row(
                           children: [
                             const Text("Report count: ",
                                 style: TextStyle(
-                                    fontSize: 20, color: Colors.black)),
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 18,
+                                    color: Colors.black)),
                             Padding(
                               padding: const EdgeInsets.only(left: 3.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(7),
-                                    color: Theme.of(context).primaryColor),
-                                child: const Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 1, 10, 1),
-                                  child: Text(
-                                      // advert.count.toString(),
-                                      "5",
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.black)),
-                                ),
-                              ),
+                              child: Text(advert.count.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ],
                         ),
-                        // Text(
-                        //   "Posted ${timestampToDate(advert.dateCreated)}",
-                        //   style: const TextStyle(
-                        //     fontSize: 18,
-                        //     color: Colors.black54,
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -149,13 +106,10 @@ class _Factory extends VmFactory<AppState, QuickViewReportedAdvertCardWidget> {
   _Factory(widget) : super(widget);
 
   @override
-  _ViewModel fromStore() => _ViewModel(
-      );
+  _ViewModel fromStore() => _ViewModel();
 }
 
 // view model
 class _ViewModel extends Vm {
-
-  _ViewModel(
-  );
+  _ViewModel();
 }
