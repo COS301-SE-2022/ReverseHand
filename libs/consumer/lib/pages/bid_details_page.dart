@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:consumer/widgets/accept_bid_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/toast_success.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
@@ -11,6 +12,7 @@ import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/long_button_widget.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -52,17 +54,27 @@ class BidDetailsPage extends StatelessWidget {
                       //   ),
                       // ),
 
-                      IconButton(
-                          onPressed: () {
-                            vm.dispatchShortListBidAction();
-                          },
-                          icon: Icon(
-                            vm.bid.shortlisted
-                                ? Icons.bookmark
-                                : Icons.bookmark_outline,
-                            size: 40,
-                            color: Theme.of(context).primaryColor,
-                          )),
+                      StoreConnector<AppState, _ViewModel>(
+                        vm: () => _Factory(this),
+                        onDidChange: (context, store, vm) {
+                          if(store.state.error == ErrorType.none) {
+                            displayToastSuccess(context!, "Bid Favourited"); //todo, fix
+                          }
+                        },
+                        builder: (BuildContext context, _ViewModel vm) =>
+                          IconButton(
+                            onPressed: () {
+                              vm.dispatchShortListBidAction();
+                            },
+                            icon: Icon(
+                              vm.bid.shortlisted
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_outline,
+                              size: 40,
+                              color: Theme.of(context).primaryColor,
+                            )
+                          ),
+                      ),
                     ],
                   ),
                 ),
