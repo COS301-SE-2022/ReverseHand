@@ -12,8 +12,8 @@ class ReportUserDetailsModel {
 
    factory ReportUserDetailsModel.fromJson(obj) {
     return ReportUserDetailsModel(
-      id: obj['id'],
-      name: obj['name'],
+      id: obj['id'] ?? "",
+      name: obj['name'] ?? "",
     );
   }
 }

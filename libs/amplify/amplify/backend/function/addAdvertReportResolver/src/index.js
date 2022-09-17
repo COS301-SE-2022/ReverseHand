@@ -18,7 +18,6 @@ exports.handler = async (event) => {
     const advert = await docClient.get(paramsGetAdvert).promise().then((resp) => resp.Item);
     
     if (advert.admin_reports == null) {
-      advert.admin_reports = [];
       const advert_details = advert.advert_details;
       let paramsUpdateReportsList = {
         TableName: ReverseHandTable,
@@ -40,7 +39,7 @@ exports.handler = async (event) => {
     } else if (advert.admin_reports.some(report => report.reporter_id == event.arguments.report.reporter_id)) {
         return "Advert already reported";
     }
-    
+    advert.admin_reports = [];
     advert.admin_reports.push(event.arguments.report);
     
     let paramsPutAdvert = {
@@ -53,6 +52,5 @@ exports.handler = async (event) => {
     if (advert.admin_reports.length > 5) {
       
     }
-    
-    return advert;
+    return event.arguments.report;
 };
