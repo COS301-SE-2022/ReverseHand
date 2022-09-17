@@ -35,105 +35,100 @@ class NewPasswordPopupWidget extends StatelessWidget {
         child: Container(
           color: const Color.fromARGB(255, 232, 232, 232),
           child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SizedBox(
-                height: 360,
-                child: Column(
-                  children: [
-                    const Text("New password",
-                        style: TextStyle(
-                            fontSize: 23,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold)),
-                    const Padding(padding: EdgeInsets.all(10)),
-                    //*****************Password text field**********************
-                    const HintWidget(
-                        text: "Enter new password",
-                        colour: Colors.black,
-                        padding: 95),
-                    Container(
-                      margin: const EdgeInsets.only(left: 25, right: 25),
-                      padding: const EdgeInsets.all(8.0),
-                      child: AuthTextFieldLightWidget(
-                        label: 'new password',
-                         obscure: true,
-                        icon: Icons.lock_open_outlined,
-                        controller: newPasswordController,
-                        validator: createValidator(
-                          'password',
-                          'must be at least 8 characters with upper and lowercase, atleast one number and special character',
-                          RegExp(
-                            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                          ),
+            padding: const EdgeInsets.all(20.0),
+            child: SizedBox(
+              height: 360,
+              child: Column(
+                children: [
+                  const Text("New password",
+                      style: TextStyle(
+                          fontSize: 23,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
+                  const Padding(padding: EdgeInsets.all(10)),
+                  //*****************Password text field**********************
+                  const HintWidget(
+                      text: "Enter new password",
+                      colour: Colors.black,
+                      padding: 95),
+                  Container(
+                    margin: const EdgeInsets.only(left: 25, right: 25),
+                    padding: const EdgeInsets.all(8.0),
+                    child: AuthTextFieldLightWidget(
+                      label: 'new password',
+                        obscure: true,
+                      icon: Icons.lock_open_outlined,
+                      controller: newPasswordController,
+                      validator: createValidator(
+                        'password',
+                        'must be at least 8 characters with upper and lowercase, atleast one number and special character',
+                        RegExp(
+                          r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
                         ),
                       ),
                     ),
-                    //*****************************************************
+                  ),
+                  //*****************************************************
 
-                    //*****************Confirm Password text field**********************
-                    const HintWidget(
-                        text: "Confirm password",
-                        colour: Colors.black,
-                        padding: 95),
-                    Container(
-                      margin: const EdgeInsets.only(left: 25, right: 25),
-                      padding: const EdgeInsets.all(8.0),
-                      child: AuthTextFieldLightWidget(
-                        label: 'confirm password',
-                         obscure: true,
-                        icon: Icons.lock_outline_rounded,
-                        controller: confirmPasswordController,
-                        validator: createValidator(
-                          'password',
-                          'must be at least 8 characters with upper and lowercase, atleast one number and special character',
-                          RegExp(
-                            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                          ),
+                  //*****************Confirm Password text field**********************
+                  const HintWidget(
+                      text: "Confirm password",
+                      colour: Colors.black,
+                      padding: 95),
+                  Container(
+                    margin: const EdgeInsets.only(left: 25, right: 25),
+                    padding: const EdgeInsets.all(8.0),
+                    child: AuthTextFieldLightWidget(
+                      label: 'confirm password',
+                        obscure: true,
+                      icon: Icons.lock_outline_rounded,
+                      controller: confirmPasswordController,
+                      validator: createValidator(
+                        'password',
+                        'must be at least 8 characters with upper and lowercase, atleast one number and special character',
+                        RegExp(
+                          r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
                         ),
                       ),
                     ),
-                    //*****************************************************
+                  ),
+                  //*****************************************************
 
-                    //*****************BUTTON**********************
-                    const Padding(padding: EdgeInsets.all(20)),
+                  //*****************BUTTON**********************
+                  const Padding(padding: EdgeInsets.all(20)),
 
-                    // ButtonWidget(
-                    //     text: "Send",
-                    //     function: () {
-                    //       vm.dispatchConfirmPasswordReset(
-                    //         newPasswordController.value.text.trim(),
-                    //       );
-                    //       vm.popPage();
-                    //     })
+                  StoreConnector<AppState, _ViewModel>(
+                    vm: () => _Factory(this),
+                    onDidChange: (context, store, vm) {
+                      final String msg;
+                      switch (store.state.error) {
+                        case ErrorType.none:
+                          msg = "Password changed";
+                          break;
+                        case ErrorType.userNotFound:
+                          msg = "User not found";
+                          break;
+                        default:
+                          msg = "Password changed";
+                          break;
+                      }
 
-                        StoreConnector<AppState, _ViewModel>(
-                        vm: () => _Factory(this),
-                        onDidChange: (context, store, vm) {
-                          final String msg;
-                          switch (store.state.error) {
-                            case ErrorType.none:
-                              return;
-                            default:
-                              msg = "Logged out";
-                              break;
-                          }
-
-                          store.dispatch(ToastErrorAction(context!, msg));
-                        },
-                        builder: (BuildContext context, _ViewModel vm) =>
-                          ButtonWidget(
-                          text: "Send",
-                          function: () {
-                            vm.dispatchConfirmPasswordReset(
-                              newPasswordController.value.text.trim(),
-                            );
-                            vm.popPage();
-                          }
-                        )
-                      ),
-                  ],
-                ),
-              )),
+                      store.dispatch(ToastErrorAction(context!, msg));
+                    },
+                    builder: (BuildContext context, _ViewModel vm) =>
+                      ButtonWidget(
+                      text: "Send",
+                      function: () {
+                        vm.dispatchConfirmPasswordReset(
+                          newPasswordController.value.text.trim(),
+                        );
+                        vm.popPage();
+                      }
+                    )
+                  ),
+                ],
+              ),
+            )),
         ),
       ),
     );

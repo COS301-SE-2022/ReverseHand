@@ -1,11 +1,11 @@
-// What is held in the toast
+// What is held in the toast for success messages
 
 import 'package:flutter/material.dart';
 
-class ToastErrorWidget extends StatelessWidget {
+class ToastSuccessWidget extends StatelessWidget {
   final String msg;
 
-  const ToastErrorWidget(this.msg, {Key? key}) : super(key: key);
+  const ToastSuccessWidget(this.msg, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
