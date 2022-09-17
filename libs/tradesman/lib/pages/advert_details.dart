@@ -274,7 +274,8 @@ class TradesmanJobDetails extends StatelessWidget {
                 // TransparentLongButtonWidget(
                 //     text: "Report this Advert", function: () {})
                 TransparentLongButtonWidget(
-                    text: "View Client Profile", function: () {}),
+                    text: "View Client Profile",
+                    function: vm.pushLimitedProfilePage),
                 const Padding(padding: EdgeInsets.only(bottom: 50)),
               ],
             ),
@@ -309,6 +310,8 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/tradesman'),
         ),
+        pushLimitedProfilePage: () => dispatch(
+            NavigateAction.pushNamed('/consumer/limited_profile_page')),
         currentBid: state.userBid,
         advertImages: state.advertImages,
         loading: state.wait.isWaiting,
@@ -324,6 +327,7 @@ class _ViewModel extends Vm {
   final VoidCallback pushViewBidsPage;
   final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
+  final VoidCallback pushLimitedProfilePage;
   final List<String> advertImages;
   final bool loading;
 
@@ -335,6 +339,7 @@ class _ViewModel extends Vm {
     required this.pushEditAdvert,
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
+    required this.pushLimitedProfilePage,
     required this.advertImages,
     required this.loading,
   }) : super(equals: [advert, advertImages, loading]);
