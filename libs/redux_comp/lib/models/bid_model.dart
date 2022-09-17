@@ -5,8 +5,7 @@ class BidModel {
   final String id;
   final String? name;
   final String userId;
-  final int priceLower;
-  final int priceUpper;
+  final int price;
   final String? quote;
   final double dateCreated; // change later to json/map object
   final double? dateClosed; // change later to json/map object
@@ -15,8 +14,7 @@ class BidModel {
   const BidModel({
     required this.id,
     required this.userId,
-    required this.priceLower,
-    required this.priceUpper,
+    required this.price,
     this.quote,
     this.name,
     required this.dateCreated,
@@ -29,8 +27,7 @@ class BidModel {
         id: obj['id'],
         userId: obj['tradesman_id'],
         name: obj['name'],
-        priceLower: obj['price_lower'],
-        priceUpper: obj['price_upper'],
+        price: obj['price'],
         quote: obj['quote'],
         dateCreated: double.parse(obj['date_created']),
         dateClosed: (obj['date_Closed'] != null)

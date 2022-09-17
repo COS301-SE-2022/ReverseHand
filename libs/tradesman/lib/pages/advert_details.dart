@@ -97,7 +97,7 @@ class TradesmanJobDetails extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                          'R${vm.currentBid!.priceLower}  -  R${vm.currentBid!.priceUpper}',
+                                          'R${vm.currentBid!.price}',
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(

@@ -17,18 +17,17 @@ exports.handler = async (event) => {
     const bid_id = "b#" + AWS.util.uuid.v4();
     
     let item = {
-                        part_key: event.arguments.ad_id,
-                        sort_key: bid_id, // prefixing but keeping same suffix
-                        tradesman_id: event.arguments.tradesman_id,
-                        bid_details: {
-                            name: event.arguments.name,
-                            price_lower: event.arguments.price_lower,
-                            price_upper:event.arguments.price_upper,
-                            quote: event.arguments.quote, //optional parameter
-                            date_created: currentDate,
-                            shortlisted: false,
-                        }
-                    };
+        part_key: event.arguments.ad_id,
+        sort_key: bid_id, // prefixing but keeping same suffix
+        tradesman_id: event.arguments.tradesman_id,
+        bid_details: {
+            name: event.arguments.name,
+            price: event.arguments.price,
+            quote: event.arguments.quote, //optional parameter
+            date_created: currentDate,
+            shortlisted: false,
+        }
+    };
 
     await docClient.transactWrite({
         TransactItems: [

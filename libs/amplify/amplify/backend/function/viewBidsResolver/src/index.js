@@ -29,8 +29,7 @@ exports.handler = async (event, context) => {
                 advert_id: event.arguments.ad_id, // since this is the advert we searched for
                 tradesman_id: item['tradesman_id'],
                 name: item['bid_details']['name'],
-                price_lower: item['bid_details']['price_lower'],
-                price_upper: item['bid_details']['price_upper'],
+                price: item['bid_details']['price'],
                 quote: item['bid_details']['quote'],
                 date_created: item['bid_details']['date_created'],
                 date_closed: item['bid_details']['date_closed'],
