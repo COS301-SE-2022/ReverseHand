@@ -124,7 +124,7 @@ class LoginPage extends StatelessWidget {
                               msg = "Please input a username and password";
                               break;
                             default:
-                              msg = "How did we get here?";
+                              msg = "Logged out";
                               break;
                           }
 

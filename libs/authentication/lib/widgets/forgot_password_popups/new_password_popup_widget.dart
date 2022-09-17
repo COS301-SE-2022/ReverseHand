@@ -2,9 +2,11 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/hint_widget.dart';
+import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/complete_password_reset_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:authentication/methods/validation.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 import '../auth_textfield_light.dart';
 
 //******************************** */
@@ -94,14 +96,41 @@ class NewPasswordPopupWidget extends StatelessWidget {
 
                     //*****************BUTTON**********************
                     const Padding(padding: EdgeInsets.all(20)),
-                    ButtonWidget(
-                        text: "Send",
-                        function: () {
-                          vm.dispatchConfirmPasswordReset(
-                            newPasswordController.value.text.trim(),
-                          );
-                          vm.popPage();
-                        })
+
+                    // ButtonWidget(
+                    //     text: "Send",
+                    //     function: () {
+                    //       vm.dispatchConfirmPasswordReset(
+                    //         newPasswordController.value.text.trim(),
+                    //       );
+                    //       vm.popPage();
+                    //     })
+
+                        StoreConnector<AppState, _ViewModel>(
+                        vm: () => _Factory(this),
+                        onDidChange: (context, store, vm) {
+                          final String msg;
+                          switch (store.state.error) {
+                            case ErrorType.none:
+                              return;
+                            default:
+                              msg = "Logged out";
+                              break;
+                          }
+
+                          store.dispatch(ToastErrorAction(context!, msg));
+                        },
+                        builder: (BuildContext context, _ViewModel vm) =>
+                          ButtonWidget(
+                          text: "Send",
+                          function: () {
+                            vm.dispatchConfirmPasswordReset(
+                              newPasswordController.value.text.trim(),
+                            );
+                            vm.popPage();
+                          }
+                        )
+                      ),
                   ],
                 ),
               )),
