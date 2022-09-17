@@ -157,8 +157,7 @@ class AppState {
       activeBid: const BidModel(
         id: "",
         userId: "",
-        priceLower: 0,
-        priceUpper: 0,
+        price: 0,
         dateCreated: 0,
         shortlisted: false,
       ),
@@ -171,7 +170,8 @@ class AppState {
       chat: null,
       messages: const [],
       messageSubscription: null,
-      admin: const AdminModel(adminManage: AdminAppManageModel(), appMetrics: AppMetricsModel()),
+      admin: const AdminModel(
+          adminManage: AdminAppManageModel(), appMetrics: AppMetricsModel()),
       paystackPublicKey: "",
       paystackSecretKey: "",
       notifications: const [],

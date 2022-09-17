@@ -109,9 +109,7 @@ class _PlaceBidPopupWidgetState extends State<PlaceBidPopupWidget> {
                     ElevatedButton(
                       onPressed: () {
                         vm.dispatchPlaceBidAction(
-                            vm.advert.id,
-                            vm.id,
-                            _currentRangeValues.start.round(),
+                            // _currentRangeValues.start.round(),
                             _currentRangeValues.end.round());
                         Navigator.pop(context);
                       },
@@ -144,15 +142,14 @@ class _Factory extends VmFactory<AppState, _PlaceBidPopupWidgetState> {
   _ViewModel fromStore() => _ViewModel(
         advert: state.activeAd!,
         id: state.userDetails.id,
-        dispatchPlaceBidAction:
-            (String adId, String userId, int priceLower, int priceUpper) =>
-                dispatch(PlaceBidAction(adId, userId, priceLower, priceUpper)),
+        dispatchPlaceBidAction: (int price) =>
+            dispatch(PlaceBidAction(price: price)),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String, String, int, int) dispatchPlaceBidAction;
+  final void Function(int) dispatchPlaceBidAction;
   final AdvertModel advert;
   final String id;
 
