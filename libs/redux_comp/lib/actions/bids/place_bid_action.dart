@@ -5,25 +5,26 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class PlaceBidAction extends ReduxAction<AppState> {
-  final String adId;
-  final String userId;
-  final int priceLower;
-  final int priceUpper;
+  final String? adId;
+  final String? userId;
+  final int price;
   final String? quote;
 
-  PlaceBidAction(
-    this.adId,
+  PlaceBidAction({
+    required this.price,
     this.userId,
-    this.priceLower,
-    this.priceUpper, {
+    this.adId,
     this.quote,
   });
 
   @override
   Future<AppState?> reduce() async {
+    final String adId = this.adId ?? state.activeAd!.id;
+    final String userId = this.userId ?? state.userDetails.id;
+
     // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
-      placeBid(ad_id: "$adId", tradesman_id: "$userId", name: "${state.userDetails.name}", price_lower: $priceLower, price_upper: $priceUpper, quote: "$quote") {
+      placeBid(ad_id: "$adId", tradesman_id: "$userId", name: "${state.userDetails.name}", price: $price, quote: "$quote") {
         id
       }
     }''';
@@ -44,5 +45,5 @@ class PlaceBidAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() => dispatch(ViewBidsAction(adId));
+  void after() => dispatch(ViewBidsAction());
 }

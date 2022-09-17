@@ -9,11 +9,9 @@ class EditBidAction extends ReduxAction<AppState> {
   final String advertId;
   final String bidId;
   final String quote;
-  final Int priceUpper;
-  final Int priceLower;
+  final Int price;
 
-  EditBidAction(
-      this.advertId, this.bidId, this.quote, this.priceUpper, this.priceLower);
+  EditBidAction(this.advertId, this.bidId, this.quote, this.price);
 
   // NB: At time of creating this code, a bid still didn't have a quote but
   // it is suppossed to have one. That can be a potential error as the code
@@ -22,7 +20,7 @@ class EditBidAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      editBid(ad_id: "$advertId", bid_id: "$bidId",quote: "$quote",price_lower: "$priceLower",price_upper: "$priceUpper" ){
+      editBid(ad_id: "$advertId", bid_id: "$bidId", quote: "$quote", price: "$price"){
         quote
         price_lower
         price_upper
@@ -36,21 +34,9 @@ class EditBidAction extends ReduxAction<AppState> {
 
       List<BidModel> bids = state.bids;
 
-      //get the bid being edited
-      BidModel bd = bids.firstWhere((element) => element.id == bidId);
       //remove the bid that was changed from the list
       bids.removeWhere((element) => element.id == bidId);
-      //update the bid as a new bid
-      bids.add(BidModel(
-        id: bd.id,
-        userId: bd.userId,
-        priceLower: data["price_lower"],
-        priceUpper: data["price_upper"],
-        dateCreated: bd.dateCreated,
-        quote: data["quote"],
-        name: bd.name,
-        shortlisted: bd.shortlisted,
-      ));
+      bids.add(BidModel.fromJson(data));
 
       return state.copy(bids: bids);
     } catch (e) {

@@ -1,11 +1,9 @@
-
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tradesman/methods/currency_formatter.dart';
 
 class UploadAmountSheet extends StatelessWidget {
-  final TextEditingController bidController = TextEditingController();
+  final TextEditingController bidPriceController = TextEditingController();
 
   UploadAmountSheet({
     Key? key,
@@ -23,7 +21,7 @@ class UploadAmountSheet extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, null);
                   },
                   icon: const Icon(Icons.arrow_back)),
             ),
@@ -34,18 +32,20 @@ class UploadAmountSheet extends StatelessWidget {
                 child: Text(
                   "Place Bid",
                   style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
             const Text(
               "Step 2:",
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -63,13 +63,12 @@ class UploadAmountSheet extends StatelessWidget {
                 textAlign: TextAlign.center,
                 cursorColor: Theme.of(context).scaffoldBackgroundColor,
                 style: const TextStyle(color: Colors.black, fontSize: 23),
-                controller: bidController,
+                controller: bidPriceController,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
-                  CurrencyInputFormatter(),
+                  // CurrencyInputFormatter(),
                 ],
                 keyboardType: TextInputType.number,
-                onTap: () {},
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
@@ -88,7 +87,18 @@ class UploadAmountSheet extends StatelessWidget {
                 ),
               ),
             ),
-            LongButtonWidget(text: "Submit Bid", function: () {})
+            LongButtonWidget(
+              text: "Submit Bid",
+              function: () {
+                final int price =
+                    int.parse(bidPriceController.value.text) * 100;
+
+                Navigator.pop(
+                  context,
+                  price,
+                );
+              },
+            )
           ],
         ),
       ),
