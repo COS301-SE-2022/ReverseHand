@@ -5,7 +5,8 @@ import 'package:redux_comp/models/bid_model.dart';
 import 'package:tradesman/widgets/quick_view_bid_widget.dart';
 
 // function to create list of bids
-List<Widget> populateBids(String userId, List<BidModel> bids, Store<AppState> store) {
+List<Widget> populateBids(
+    String userId, List<BidModel> bids, Store<AppState> store) {
   List<Widget> quickViewBidWidgets = [];
 
   for (BidModel bid in bids) {
@@ -14,7 +15,8 @@ List<Widget> populateBids(String userId, List<BidModel> bids, Store<AppState> st
       quickViewBidWidgets.insert(
         0,
         TQuickViewBidWidget(
-          bid: bid, store: store,
+          bid: bid,
+          store: store,
         ),
       );
     } else {
@@ -50,7 +52,7 @@ class QuickViewBidWidget extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(20.0)),
         ),
         child: Text(
-          '${bid.name} : ${bid.priceLower} - ${bid.priceUpper}',
+          '${bid.name} : ${bid.price}',
           style: const TextStyle(fontSize: 25, color: Colors.white),
           textAlign: TextAlign.center,
         ),

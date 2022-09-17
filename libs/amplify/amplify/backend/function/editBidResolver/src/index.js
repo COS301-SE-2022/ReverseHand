@@ -19,15 +19,9 @@ exports.handler = async (event) => {
         }
         if(event.arguments.price_lower !== undefined)
         {
-            args.push('bid_details.#price_lower = :price_lower');
-            expressionAttributeNames['#price_lower'] = 'price_lower';
+            args.push('bid_details.#price = :price');
+            expressionAttributeNames['#price'] = 'price';
         }
-        if(event.arguments.price_upper !== undefined)
-        {
-            args.push('bid_details.#price_upper = :price_upper');
-            expressionAttributeNames['#price_upper'] = 'price_upper'; 
-        }
-
 
         let updateExpression = 'set ';
         for (let i = 0; i < args.length - 1; i++)
@@ -37,8 +31,7 @@ exports.handler = async (event) => {
         let expressionAttributeValues = {};
 
         expressionAttributeValues[':quote'] = event.arguments.quote;
-        expressionAttributeValues[':price_lower'] = event.arguments.price_lower;
-        expressionAttributeValues[':price_upper'] = event.arguments.price_upper;
+        expressionAttributeValues[':price'] = event.arguments.price;
 
         let params = {
             TableName: ReverseHandTable,
