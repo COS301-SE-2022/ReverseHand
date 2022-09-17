@@ -93,7 +93,7 @@ class BidDetailsPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    //**************BID RANGE***************/
+                    //**************BID PRICE***************/
                     const Padding(padding: EdgeInsets.all(15)),
                     const Center(
                       child: Text(
@@ -135,17 +135,26 @@ class BidDetailsPage extends StatelessWidget {
                 const Padding(padding: EdgeInsets.only(top: 55)),
                 Column(
                   children: [
-                    Center(
-                      child: LongButtonWidget(
-                          text: "Accept Bid",
-                          function: () {
-                            LightDialogHelper.display(
-                                context,
-                                AcceptPopUpWidget(
-                                  store: store,
-                                ),
-                                320.0);
-                          }),
+                     StoreConnector<AppState, _ViewModel>(
+                      vm: () => _Factory(this),
+                      onDidChange: (context, store, vm) {
+                        if(store.state.error == ErrorType.none) {
+                          displayToastSuccess(context!, "Bid Accepted"); //todo, fix
+                        }
+                      },
+                      builder: (BuildContext context, _ViewModel vm) =>
+                        Center(
+                          child: LongButtonWidget(
+                              text: "Accept Bid",
+                              function: () {
+                                LightDialogHelper.display(
+                                    context,
+                                    AcceptPopUpWidget(
+                                      store: store,
+                                    ),
+                                    320.0);
+                              }),
+                        ),
                     ),
                     TransparentLongButtonWidget(
                       text: "View Contractor Profile",
