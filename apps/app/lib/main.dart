@@ -114,6 +114,8 @@ class Launch extends StatelessWidget {
           '/report_manage': (context) => ReportManagePage(store: store),
           '/review_report_manage': (context) => ReviewReportManagePage(store: store),
           '/user_manage': (context) => UserManagePage(store: store),
+          '/database_metrics': (context) => DatabaseMetricsPage(store: store),
+          '/api_metrics': (context) => ApiMetricsPage(store: store),
         
         },
       ),
