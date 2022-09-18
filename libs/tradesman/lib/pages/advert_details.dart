@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/services.dart';
+import 'package:general/widgets/appbar_popup_menu_widget.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
@@ -43,7 +44,13 @@ class TradesmanJobDetails extends StatelessWidget {
                   children: [
                     //**********APPBAR***********//
                     AppBarWidget(
-                        title: "JOB INFO", store: store, backButton: true),
+                        title: "JOB INFO",
+                        store: store,
+                        filterActions: AppbarPopUpMenuWidget(
+                            store: store, functions: {"Report Advert": () {
+                              
+                            }}),
+                        backButton: true),
                     //*******************************************//
 
                     //******************CAROUSEL ****************//
@@ -299,11 +306,11 @@ class TradesmanJobDetails extends StatelessWidget {
                     TransparentLongButtonWidget(
                         text: "View Bids", function: vm.pushViewBidsPage),
                     const Padding(padding: EdgeInsets.only(top: 20)),
-                    // TransparentLongButtonWidget(
-                    //     text: "Report this Advert", function: () {})
                     TransparentLongButtonWidget(
                         text: "View Client Profile",
                         function: vm.pushLimitedProfilePage),
+                    const Padding(padding: EdgeInsets.only(top: 35)),
+
                     const Padding(padding: EdgeInsets.only(bottom: 50)),
                   ],
                 ),
