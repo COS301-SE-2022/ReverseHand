@@ -42,6 +42,7 @@ class LineChartWidget extends StatelessWidget {
               child: Text(
                 chartTitle,
                 style: const TextStyle(
+                  color: Colors.black,
                     fontSize: 20,
                     decoration: TextDecoration.underline,
                     fontWeight: FontWeight.bold),
@@ -69,7 +70,7 @@ class LineChartWidget extends StatelessWidget {
                         const TextStyle(color: Colors.white, fontSize: 12.5)),
                 isVisible: true),
             backgroundColor: Theme.of(context).primaryColorLight,
-            borderColor: const Color.fromARGB(255, 220, 224, 230),
+            borderColor: Colors.black,
             borderWidth: 5,
             margin: const EdgeInsets.all(20),
             series: list,

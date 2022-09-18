@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 
 @immutable

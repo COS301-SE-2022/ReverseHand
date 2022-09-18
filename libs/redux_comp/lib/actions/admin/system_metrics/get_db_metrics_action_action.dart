@@ -156,13 +156,13 @@ class GetDbMetricsAction extends ReduxAction<AppState> {
             break;
           case "writeCons":
             dbWrite.add(LineChartModel(
-                data: buildData(values[0]),
+                data: buildData(data),
                 color: Colors.orange,
                 label: 'Write Capacity'));
             break;
           case "writeProv":
             dbWrite.add(LineChartModel(
-                data: buildData(values[1]),
+                data: buildData(data),
                 color: Colors.red,
                 label: 'Provisioned Capacity'));
             break;

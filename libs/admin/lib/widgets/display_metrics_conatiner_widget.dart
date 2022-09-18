@@ -13,7 +13,7 @@ class DisplayMetricsConatinerWidget extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: Colors.blueGrey.withOpacity(0.7),
+          color: Colors.white,
           border: Border.all(
             color: Colors.black,
             width: 2.0,

@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 class BoxWidget extends StatelessWidget {
   final String text;
-  final Color color;
   final IconData icon;
   final void Function() function;
 
   const BoxWidget({
     Key? key,
     required this.text,
-    required this.color,
     required this.icon,
     required this.function,
   }) : super(key: key);
@@ -21,15 +19,21 @@ class BoxWidget extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 2.75,
       width: MediaQuery.of(context).size.width / 2.25,
       decoration: BoxDecoration(
-        color: color.withOpacity(0.95),
+        color: Colors.white.withOpacity(0.95),
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextButton.icon(
-        label: Text(text, style: const TextStyle(color: Colors.white)),
+        label: Text(
+          text,
+          style: const TextStyle(
+            color: Colors.orangeAccent,
+            fontSize: 15,
+          ),
+        ),
         icon: Icon(
           icon,
-          color: Colors.white,
-          size: 50,
+          color: Colors.orangeAccent,
+          size: 40,
         ),
         onPressed: function,
       ),

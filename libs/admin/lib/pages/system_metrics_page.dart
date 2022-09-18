@@ -50,13 +50,11 @@ class _SystemMetricsPageState extends State<SystemMetricsPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             BoxWidget(
-                              color: Colors.orangeAccent,
                               text: "Database",
                               icon: Icons.storage,
                               function: vm.pushDBMetricsPage,
                             ),
                             BoxWidget(
-                              color: Colors.green,
                               text: "API",
                               icon: Icons.network_ping,
                               function: vm.pushApiMetrics,
@@ -69,13 +67,11 @@ class _SystemMetricsPageState extends State<SystemMetricsPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             BoxWidget(
-                              color: Colors.purple,
                               text: "Resolvers",
                               icon: Icons.code,
                               function: () {},
                             ),
                             BoxWidget(
-                              color: Colors.red,
                               text: "Auth",
                               icon: Icons.security,
                               function: () {},
