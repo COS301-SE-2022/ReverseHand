@@ -80,10 +80,10 @@ class ReviewReportManagePage extends StatelessWidget {
 
                       ReportUserDescrWidget(
                         title: "Reporter User",
-                        name: report.reportDetails.reporterUser.name,
+                        name: report.reportDetails.reporterUser!.name,
                         function: () {
                           vm.dispatchGetUser(
-                              report.reportDetails.reporterUser.id);
+                              report.reportDetails.reporterUser!.id);
                           vm.pushUserManagePage();
                         },
                       ),

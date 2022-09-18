@@ -9,13 +9,15 @@ class AppBarWidget extends StatelessWidget {
   final Store<AppState> store;
   final Widget? filterActions;
   final bool? backButton;
-  const AppBarWidget(
-      {Key? key,
-      required this.title,
-      required this.store,
-      this.filterActions,
-      this.backButton})
-      : super(key: key);
+  final void Function()? refreshAction;
+  const AppBarWidget({
+    Key? key,
+    required this.title,
+    required this.store,
+    this.filterActions,
+    this.backButton,
+    this.refreshAction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,17 @@ class AppBarWidget extends StatelessWidget {
                       ),
               ),
             ),
-            actions: (filterActions != null) ? [filterActions!] : [],
+            actions: (filterActions != null)
+                ? [filterActions!]
+                : (refreshAction != null)
+                    ? [
+                        Padding(
+                            padding: const EdgeInsets.only(right: 25),
+                            child: IconButton(
+                                onPressed: refreshAction,
+                                icon: const Icon(Icons.refresh)))
+                      ]
+                    : [],
           ),
         ));
   }

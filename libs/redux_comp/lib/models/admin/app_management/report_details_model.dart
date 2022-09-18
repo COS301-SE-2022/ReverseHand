@@ -6,13 +6,13 @@ class ReportDetailsModel {
   final String description;
   final String reason;
   final ReportUserDetailsModel? reportedUser;
-  final ReportUserDetailsModel reporterUser;
+  final ReportUserDetailsModel? reporterUser;
 
   const ReportDetailsModel({
     required this.description,
     required this.reason,
     this.reportedUser,
-    required this.reporterUser,
+    this.reporterUser,
   });
 
   factory ReportDetailsModel.fromJson(obj) {
@@ -30,5 +30,17 @@ class ReportDetailsModel {
         reporterUser: ReportUserDetailsModel.fromJson(obj['reporter_user']),
       );
     }
+  }
+
+  @override
+  String toString() {
+    return """{
+      reason: "$reason",
+      description: "$description",
+      reported_user: {
+        id: "${reportedUser!.id}",
+        name: "${reportedUser!.name}",
+      }
+    }""";
   }
 }
