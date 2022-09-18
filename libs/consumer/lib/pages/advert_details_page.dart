@@ -159,6 +159,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/consumer'),
         ),
+
         popPage: () => dispatch(NavigateAction.pop()),
         advert: state.activeAd!,
         dispatchDeleteChatAction: () => dispatch(DeleteChatAction()),

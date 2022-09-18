@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/admin/app_metrics/metric_chart_model.dart';
+import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 
 @immutable
 class AppMetricsModel {
-  final MetricChartModel? dbWriteGraph;
+  final MetricsModel? databaseMetrics;
+  final MetricsModel? apiMetrics;
 
   const AppMetricsModel({
-    this.dbWriteGraph,
+    this.databaseMetrics,
+    this.apiMetrics,
   });
 
-  AppMetricsModel copy({MetricChartModel? dbWriteGraph}) {
+  AppMetricsModel copy({
+    MetricsModel? databaseMetrics,
+    MetricsModel? apiMetrics,
+  }) {
     return AppMetricsModel(
-      dbWriteGraph: dbWriteGraph ?? this.dbWriteGraph,
-    );
-  }
-
-  factory AppMetricsModel.fromJson(obj) {
-    return AppMetricsModel(
-      dbWriteGraph: MetricChartModel.fromJson(obj),
+      databaseMetrics: databaseMetrics ?? this.databaseMetrics,
+      apiMetrics: apiMetrics ?? this.apiMetrics,
     );
   }
 }

@@ -136,7 +136,7 @@ class AdminUserWidget extends StatelessWidget {
                           ),
                           Text(
                             user.id[0] == "c" ? "Client" : "Contractor",
-                            style: const TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 19),
                           ),
                         ],
                       ),
@@ -153,7 +153,7 @@ class AdminUserWidget extends StatelessWidget {
                           ),
                           Text(
                             (user.enabled) ? "Enabled" : "Disabled",
-                            style: const TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 19),
                           ),
                         ],
                       ),
