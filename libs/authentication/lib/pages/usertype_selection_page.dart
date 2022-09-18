@@ -118,7 +118,6 @@ class _Factory extends VmFactory<AppState, UserTypeSelectionPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
-        error: state.error,
         dispatchAddUserToGroup: (String group) => dispatch(
           AddUserToGroupAction(state.userDetails.externalUsername!, group),
         ),
@@ -130,13 +129,11 @@ class _Factory extends VmFactory<AppState, UserTypeSelectionPage> {
 class _ViewModel extends Vm {
   final void Function(String) dispatchAddUserToGroup;
   final bool loading;
-  final ErrorType error;
   final VoidCallback pushSignUpPage;
 
   _ViewModel({
     required this.dispatchAddUserToGroup,
     required this.loading,
-    required this.error,
     required this.pushSignUpPage,
-  }) : super(equals: [loading, error]); // implementing hashcode
+  }) : super(equals: [loading]); // implementing hashcode
 }

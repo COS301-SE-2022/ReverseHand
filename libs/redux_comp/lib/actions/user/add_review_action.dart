@@ -40,7 +40,13 @@ class AddReviewAction extends ReduxAction<AppState> {
       return state.copy(reviews: data["addReview"]);
     } on ApiException catch (e) {
       debugPrint(e.message);
-      return state.copy(error: ErrorType.failedToAddReview);
+      throw const UserException("", cause: ErrorType.failedToAddReview);
     }
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

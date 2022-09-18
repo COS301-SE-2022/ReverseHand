@@ -38,7 +38,13 @@ class DeleteReviewAction extends ReduxAction<AppState> {
       return state.copy(reviews: data["deleteReview"]);
     } on ApiException catch (e) {
       debugPrint(e.message);
-      return state.copy(error: ErrorType.failedToDeleteReview);
+      throw const UserException("", cause: ErrorType.failedToDeleteReview);
     }
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

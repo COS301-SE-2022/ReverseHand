@@ -31,9 +31,3 @@ enum ErrorType {
   //userStats errors
   failedToGetUserStatistics,
 }
-
-// for use later, have each error typer return its own message
-// add optional paramters
-String errorMsg(ErrorType e) {
-  return "";
-}
