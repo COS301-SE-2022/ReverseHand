@@ -6,7 +6,6 @@ import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
-import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/login_action.dart';
 import 'package:redux_comp/actions/user/signin_facebook_action.dart';
 import 'package:redux_comp/actions/user/signin_google_action.dart';
@@ -103,7 +102,7 @@ class LoginPage extends StatelessWidget {
 
                       StoreConnector<AppState, _ViewModel>(
                         vm: () => _Factory(this),
-                        onDidChange: (context, store, vm) {
+                        /*onDidChange: (context, store, vm) {
                           final String msg;
                           switch (store.state.error) {
                             case ErrorType.none:
@@ -129,10 +128,11 @@ class LoginPage extends StatelessWidget {
                           }
 
                           store.dispatch(ToastErrorAction(context!, msg));
-                        },
+                        },*/
                         builder: (BuildContext context, _ViewModel vm) =>
                             vm.loading
-                                ? const LoadingWidget(topPadding: 5, bottomPadding: 15)
+                                ? const LoadingWidget(
+                                    topPadding: 5, bottomPadding: 15)
                                 : AuthButtonWidget(
                                     text: "Login",
                                     function: () {
@@ -147,21 +147,23 @@ class LoginPage extends StatelessWidget {
                       ),
                       //***************************************************
 
-                       //*****************Forgot password**********************
+                      //*****************Forgot password**********************
                       StoreConnector<AppState, _ViewModel>(
                         vm: () => _Factory(this),
                         builder: (BuildContext context, _ViewModel vm) =>
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 14),
-                            child: GestureDetector(
-                            onTap: () { 
+                            Padding(
+                          padding: const EdgeInsets.only(bottom: 14),
+                          child: GestureDetector(
+                            onTap: () {
                               showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,
                                 builder: (BuildContext context) =>
-                                  FPEmailPopupWidget(store: store,),
-                                );
-                            } , //forgot password popup linked here
+                                    FPEmailPopupWidget(
+                                  store: store,
+                                ),
+                              );
+                            }, //forgot password popup linked here
                             child: const Text(
                               "Forgot Password?",
                               style: TextStyle(
@@ -197,11 +199,10 @@ class LoginPage extends StatelessWidget {
                         vm: () => _Factory(this),
                         builder: (BuildContext context, _ViewModel vm) =>
                             LinkWidget(
-                          text1: "Don't have an account? ",
-                          text2: "Sign Up",
-                          navigate: () => vm.pushSignUpPage(),
-                          colour: Colors.grey
-                        ),
+                                text1: "Don't have an account? ",
+                                text2: "Sign Up",
+                                navigate: () => vm.pushSignUpPage(),
+                                colour: Colors.grey),
                       ),
                       //******************************************************* */
 
@@ -242,15 +243,15 @@ class LoginPage extends StatelessWidget {
                               children: [
                                 //Facebook
                                 GestureDetector(
-                                  onTap: vm.dispatchSignInFacebook, // Image tapped
+                                  onTap:
+                                      vm.dispatchSignInFacebook, // Image tapped
                                   child: const Align(
                                     alignment: Alignment.bottomLeft,
                                     child: CircleAvatar(
-                                      radius: 20, // Image radius
-                                      backgroundImage: AssetImage(
-                                        "assets/images/facebook.png",
-                                        package: 'authentication')
-                                    ),
+                                        radius: 20, // Image radius
+                                        backgroundImage: AssetImage(
+                                            "assets/images/facebook.png",
+                                            package: 'authentication')),
                                   ),
                                 ),
                               ],
@@ -265,11 +266,10 @@ class LoginPage extends StatelessWidget {
                                   child: const Align(
                                     alignment: Alignment.bottomRight,
                                     child: CircleAvatar(
-                                      radius: 20, // Image radius
-                                      backgroundImage: AssetImage(
-                                        "assets/images/google.png",
-                                        package: 'authentication')
-                                    ),
+                                        radius: 20, // Image radius
+                                        backgroundImage: AssetImage(
+                                            "assets/images/google.png",
+                                            package: 'authentication')),
                                   ),
                                 ),
                               ],

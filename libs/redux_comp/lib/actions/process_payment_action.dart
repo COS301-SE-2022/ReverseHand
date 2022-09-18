@@ -32,6 +32,7 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
       method: CheckoutMethod.card,
       charge: charge,
     );
+
     if (response.status) {
       _verifyOnServer(response.reference);
     } else {

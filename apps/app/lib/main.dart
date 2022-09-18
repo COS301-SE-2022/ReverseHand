@@ -3,6 +3,7 @@ import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
 import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:general/general.dart';
+import 'package:general/methods/toast_error.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
 import 'package:chat/pages/chat_page.dart';
@@ -25,6 +26,7 @@ import 'package:tradesman/pages/view_bids_page.dart';
 import 'package:tradesman/tradesman.dart';
 import 'package:admin/admin.dart';
 import 'package:general/pages/activity_stream.dart';
+import 'package:redux_comp/custom_wrap_error.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -36,6 +38,7 @@ void main() async {
     Launch(
       store: Store<AppState>(
         initialState: AppState.initial(),
+        wrapError: CustomWrapError(),
       ),
     ),
   );
@@ -52,11 +55,20 @@ class Launch extends StatelessWidget {
       store: store,
       child: MaterialApp(
         theme: CustomTheme.darkTheme,
-        initialRoute: '/',
+        home: UserExceptionDialog<AppState>(
+          onShowUserExceptionDialog: (BuildContext context,
+                  UserException userException, bool useLocalContext) =>
+              displayToastError(
+            context,
+            userException.msg!,
+          ),
+          child: LoginPage(store: store),
+        ),
+        // initialRoute: '/',
         navigatorKey: navigatorKey,
         // defining what routes look like
         routes: {
-          '/': (context) => LoginPage(store: store),
+          // '/': (context) => LoginPage(store: store),
           // consumer routes
           '/consumer': (context) => ConsumerListingsPage(store: store),
           '/consumer/create_advert': (context) =>
@@ -105,18 +117,20 @@ class Launch extends StatelessWidget {
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),
           //admin routes
-         
+
           '/admin_system_metrics': (context) => SystemMetricsPage(store: store),
           '/admin_management': (context) => AdminManagePage(store: store),
           '/user_reports_page': (context) => ViewUserReportsPage(store: store),
-          '/review_reports_page': (context) => ViewReviewReportsPage(store: store),
-          '/advert_reports_page': (context) => ViewAdvertReportsPage(store: store),
+          '/review_reports_page': (context) =>
+              ViewReviewReportsPage(store: store),
+          '/advert_reports_page': (context) =>
+              ViewAdvertReportsPage(store: store),
           '/report_manage': (context) => ReportManagePage(store: store),
-          '/review_report_manage': (context) => ReviewReportManagePage(store: store),
+          '/review_report_manage': (context) =>
+              ReviewReportManagePage(store: store),
           '/user_manage': (context) => UserManagePage(store: store),
           '/database_metrics': (context) => DatabaseMetricsPage(store: store),
           '/api_metrics': (context) => ApiMetricsPage(store: store),
-        
         },
       ),
     );
