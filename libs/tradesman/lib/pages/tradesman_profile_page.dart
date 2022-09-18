@@ -1,7 +1,10 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
@@ -9,6 +12,7 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:general/widgets/bottom_sheet.dart';
+import 'package:tradesman/widgets/reviews/review_widget.dart';
 import '../widgets/multiselect_widget.dart';
 import '../widgets/tradesman_navbar_widget.dart';
 
@@ -168,7 +172,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
                       child: SizedBox(
-                        height: 70,
+                        height: 150,
                         width: MediaQuery.of(context).size.width / 1.15,
                         child: Container(
                           decoration: BoxDecoration(
@@ -176,22 +180,69 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                               borderRadius: BorderRadius.circular(10)),
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:
-                                    //if there is a rating - 1 is the lowest that can be given
-                                    //so not checking if rating is null
-                                    vm.userDetails.statistics.ratingCount != 0
-                                        ? stars
-                                        : [
-                                            //if no rating yet
-                                            const Text(
-                                              "No rating yet",
-                                              style: TextStyle(
-                                                  color: Colors.white70,
-                                                  fontSize: 18),
-                                            )
-                                          ]),
+                            child: Column(
+                              children: [
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children:
+                                        //if there is a rating - 1 is the lowest that can be given
+                                        //so not checking if rating is null
+                                        vm.userDetails.statistics.ratingCount !=
+                                                0
+                                            ? stars
+                                            : [
+                                                //if no rating yet
+                                                const Text(
+                                                  "No rating yet",
+                                                  style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontSize: 18),
+                                                )
+                                              ]),
+                                const Padding(
+                                    padding: EdgeInsets.only(top: 20)),
+                                TransparentLongButtonWidget(
+                                    text: "See my Reviews",
+                                    function: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(7.0),
+                                          ),
+                                          builder: (BuildContext context) {
+                                            return SingleChildScrollView(
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 20.0,
+                                                            right: 8),
+                                                    child: Align(
+                                                      alignment:
+                                                          Alignment.topRight,
+                                                      child: IconButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          icon: const Icon(
+                                                            Icons.close,
+                                                            color: Colors.black,
+                                                          )),
+                                                    ),
+                                                  ),
+                                                  ReviewWidget(
+                                                      store: widget.store),
+                                                ],
+                                              ),
+                                            );
+                                          });
+                                    }),
+                              ],
+                            ),
                           ),
                         ),
                       ),
