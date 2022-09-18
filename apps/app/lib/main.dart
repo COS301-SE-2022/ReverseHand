@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
 import 'package:consumer/pages/edit_profile_page.dart';
+import 'package:consumer/pages/view_quote_page.dart';
 import 'package:general/general.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
@@ -72,6 +73,8 @@ class Launch extends StatelessWidget {
               EditAdvertPage(store: store),
           '/consumer/edit_profile_page': (context) =>
               EditConsumerProfilePage(store: store),
+          '/consumer/view_quote_page': (context) =>
+              ViewQuotePage(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>

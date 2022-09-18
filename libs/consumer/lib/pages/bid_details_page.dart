@@ -13,6 +13,7 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/models/error_type_model.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart'; 
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -115,20 +116,28 @@ class BidDetailsPage extends StatelessWidget {
 
                     //**************SEE QUOTE BUTTON***************/
                     //if quote is not uploaded
-                    const Padding(padding: EdgeInsets.only(top: 40)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          "No quote has been\n uploaded yet.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: Colors.white54),
-                        ),
-                      ],
+                    // const Padding(padding: EdgeInsets.only(top: 40)),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: const [
+                    //     Text(
+                    //       "No quote has been\n uploaded yet.",
+                    //       textAlign: TextAlign.center,
+                    //       style: TextStyle(fontSize: 20, color: Colors.white54),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const Padding(padding: EdgeInsets.only(top: 15)),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 50),
+                      child: LongButtonWidget(
+                        text: "View Quote",
+                        function: () {}
+                      ),
                     ),
-                    const Padding(padding: EdgeInsets.only(top: 15))
                   ],
                 ),
+                
 
                 //****************BOTTOM BUTTONS**************//
 
