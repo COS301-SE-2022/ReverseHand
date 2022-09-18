@@ -27,5 +27,5 @@ exports.handler = async (event) => {
   paramsPutReport.Item.id = paramsPutReport.Item.sort_key;
   delete paramsPutReport.Item.sort_key; 
   delete paramsPutReport.Item.part_key;
-  return paramsPutReport.Item;
+  return paramsPutReport.Item.report_details;
 };

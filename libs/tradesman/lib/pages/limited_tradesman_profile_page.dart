@@ -2,6 +2,9 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
+import 'package:redux_comp/actions/add_user_report_action.dart';
+import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
+import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -21,10 +24,10 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
                 //*******************STAR CALC*********************//
-                int startAmount = vm.userDetails.statistics.ratingSum == 0
+                int startAmount = vm.otherUser.statistics.ratingSum == 0
                     ? 0
-                    : vm.userDetails.statistics.ratingSum ~/
-                        vm.userDetails.statistics.ratingCount;
+                    : vm.otherUser.statistics.ratingSum ~/
+                        vm.otherUser.statistics.ratingCount;
 
                 List<Icon> stars = [];
 
@@ -44,8 +47,8 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 20)),
                   Center(
                     child: Text(
-                      vm.userDetails.name != null
-                          ? vm.userDetails.name!
+                      vm.otherUser.name != null
+                          ? vm.otherUser.name!
                           : "null",
                       style: const TextStyle(fontSize: 35),
                     ),
@@ -56,10 +59,10 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 10)),
                   CircleAvatar(
                     radius: 70,
-                    backgroundImage: vm.profilePhoto == null
+                    backgroundImage: vm.otherUser.profileImage == null
                         ? const AssetImage("assets/images/profile.png",
                             package: 'general')
-                        : Image.network(vm.profilePhoto!).image,
+                        : Image.network(vm.otherUser.profileImage!).image,
                   ),
                   //************************************/
 
@@ -78,11 +81,12 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children:
-                                //if there is a rating - 1 is the lowest that can be given
-                                //so not checking if rating is null
-                                    vm.userDetails.statistics.ratingCount != 0
+                                    //if there is a rating - 1 is the lowest that can be given
+                                    //so not checking if rating is null
+                                    vm.otherUser.statistics.ratingCount != 0
                                         ? stars
-                                        : [ //if no rating yet
+                                        : [
+                                            //if no rating yet
                                             const Text(
                                               "No rating yet",
                                               style: TextStyle(
@@ -139,7 +143,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.userDetails.statistics.finished} Bids Made",
+                                      "${vm.otherUser.statistics.finished} Bids Made",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -156,7 +160,21 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                   const Padding(padding: EdgeInsets.only(top: 15)),
                   TransparentLongButtonWidget(
-                      text: "Report Contractor", function: () {})
+                      text: "Report Contractor",
+                      function: () {
+                        ReportDetailsModel report = ReportDetailsModel(
+                          description: "description",
+                          reason: "reason",
+                          reportedUser: ReportUserDetailsModel(
+                            id: vm.otherUser.id,
+                            name: vm.otherUser.name ?? "nameNull",
+                          ),
+                        );
+                        ReportUserDetailsModel user = ReportUserDetailsModel(
+                            id: vm.userDetails.id, name: vm.userDetails.name!);
+
+                        vm.addUserReport(report, user);
+                      })
 
                   //***********************************/
                 ]);
@@ -176,21 +194,25 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        userDetails: state.otherUserDetails,
+        otherUser: state.otherUserDetails,
         isWaiting: state.wait.isWaiting,
-        profilePhoto: state.userDetails.profileImage,
+        userDetails: state.userDetails,
+        addUserReport: (report, user) =>
+            dispatch(AddUserReportAction(report: report, user: user)),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final UserModel userDetails;
-  final String? profilePhoto;
+  final UserModel otherUser;
+  final void Function(ReportDetailsModel, ReportUserDetailsModel) addUserReport;
   final bool isWaiting;
 
   _ViewModel({
     required this.userDetails,
-    required this.profilePhoto,
+    required this.otherUser,
+    required this.addUserReport,
     required this.isWaiting,
   }) : super(equals: [userDetails, isWaiting]);
 }

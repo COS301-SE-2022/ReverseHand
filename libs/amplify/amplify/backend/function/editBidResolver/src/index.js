@@ -17,7 +17,7 @@ exports.handler = async (event) => {
             args.push('bid_details.#quote = :quote');
             expressionAttributeNames['#quote'] = 'quote';
         }
-        if(event.arguments.price_lower !== undefined)
+        if(event.arguments.price !== undefined)
         {
             args.push('bid_details.#price = :price');
             expressionAttributeNames['#price'] = 'price';

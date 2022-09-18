@@ -37,33 +37,6 @@ exports.handler = async (event, context) => {
             });
         }
 
-        // params = {
-        //     TableName: ReverseHandTable,
-        //     KeyConditionExpression: "part_key = :p and begins_with(sort_key, :b)",
-        //     ExpressionAttributeValues: {
-        //         ":p": event.arguments.ad_id,
-        //         ":b": "sb#",
-        //     }
-        // };
-        // data = await docClient.query(params).promise();
-        // // console.log(data);
-        // items = data["Items"];
-        
-        // let sbids = [];
-        // for (let item of items) {
-        //     bids.push({
-        //         id: item['sort_key'],
-        //         advert_id: event.arguments.ad_id, // since this is the advert we searched for
-        //         tradesman_id: item['tradesman_id'],
-        //         name: item['bid_details']['name'],
-        //         price_lower: item['bid_details']['price_lower'],
-        //         price_upper: item['bid_details']['price_upper'],
-        //         quote: item['bid_details']['quote'],
-        //         date_created: item['bid_details']['date_created'],
-        //         date_closed: item['bid_details']['date_closed']
-        //     });
-        // }
-
         return bids;
     } catch(e) {
         console.log(e)
