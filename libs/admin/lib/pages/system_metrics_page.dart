@@ -4,7 +4,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_db_metrics_action_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class SystemMetricsPage extends StatefulWidget {
@@ -52,7 +52,7 @@ class _SystemMetricsPageState extends State<SystemMetricsPage> {
                               color: Colors.orangeAccent,
                               text: "Database",
                               icon: Icons.storage,
-                              function: () {},
+                              function: vm.pushDBMetricsPage,
                             ),
                             BoxWidget(
                               color: Colors.green,
@@ -81,14 +81,6 @@ class _SystemMetricsPageState extends State<SystemMetricsPage> {
                             ),
                           ],
                         ),
-
-                        // DisplayMetricsConatinerWidget(charts: [
-                        //   LineChartWidget(
-                        //       graphs: vm.dbWriteData!,
-                        //       chartTitle: "ReverseHand Write Capacity",
-                        //       xTitle: "xTitle",
-                        //       yTitle: "yTitle")
-                        // ]),
                       ],
                     );
             },
@@ -106,25 +98,25 @@ class _Factory extends VmFactory<AppState, _SystemMetricsPageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        loading: state.wait.isWaiting,
-        dbWriteData: state.admin.appMetrics.dbWriteData,
-        dbReadData: state.admin.appMetrics.dbReadData,
-      );
+      loading: state.wait.isWaiting,
+      pushDBMetricsPage: () {
+        dispatch(NavigateAction.pushNamed('/database_metrics'));
+        dispatch(
+          GetDbMetricsAction(
+            period: state.admin.appMetrics.databaseMetrics?.period ?? 5, //min
+            hoursAgo: state.admin.appMetrics.databaseMetrics?.time ?? 3, // hours
+          ),
+        );
+      });
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
-  final List<LineChartModel>? dbWriteData;
-  final List<LineChartModel>? dbReadData;
+  final VoidCallback pushDBMetricsPage;
 
   _ViewModel({
     required this.loading,
-    required this.dbWriteData,
-    required this.dbReadData,
-  }) : super(equals: [
-          loading,
-          dbWriteData,
-          dbReadData,
-        ]); // implementinf hashcode;
+    required this.pushDBMetricsPage,
+  }) : super(equals: [loading]); // implementinf hashcode;
 }

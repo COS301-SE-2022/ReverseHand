@@ -49,10 +49,12 @@ class LineChartWidget extends StatelessWidget {
             ),
           ),
           SfCartesianChart(
+            enableAxisAnimation: true,
             legend: Legend(
-                position: LegendPosition.bottom,
-                isVisible: true,
-                textStyle: const TextStyle(color: Colors.white)),
+              position: LegendPosition.bottom,
+              isVisible: true,
+              textStyle: const TextStyle(color: Colors.white),
+            ),
             primaryXAxis: CategoryAxis(
                 labelStyle: const TextStyle(color: Colors.white),
                 title: AxisTitle(
