@@ -66,10 +66,10 @@ class UploadAmountSheet extends StatelessWidget {
                 controller: bidPriceController,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
-                  // CurrencyInputFormatter(),
                 ],
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
+                  prefixText: "R",
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
                     borderSide: const BorderSide(
