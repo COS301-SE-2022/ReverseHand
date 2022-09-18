@@ -29,6 +29,15 @@ class CustomWrapError extends WrapError<AppState> {
       case ErrorType.noInput:
         msg = "Please input a username and password";
         break;
+      case ErrorType.paymentCancelled:
+        msg = "Payment cancelled";
+        break;
+      case ErrorType.serverVerificationFailed:
+        msg = "Verification with the server failed";
+        break;
+      case ErrorType.unknownError:
+        msg = "An unknown error occured";
+        break;
       default:
         msg = "Missing error message";
         break;

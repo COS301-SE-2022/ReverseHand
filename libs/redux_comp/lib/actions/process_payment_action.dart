@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 import '../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:http/http.dart' as http;
@@ -36,7 +37,7 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
     if (response.status) {
       _verifyOnServer(response.reference);
     } else {
-      //show error
+      throw const UserException("msg", cause: ErrorType.paymentCancelled);
     }
 
     return null;
@@ -84,11 +85,22 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
         //do something with the response. show success
         // print("success");
       } else {
-        //show error prompt
-        // print("fail");
+        throw const UserException(
+          "",
+          cause: ErrorType.serverVerificationFailed,
+        );
       }
     } catch (e) {
-      // print(e);
+      throw const UserException(
+        "",
+        cause: ErrorType.unknownError,
+      );
     }
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

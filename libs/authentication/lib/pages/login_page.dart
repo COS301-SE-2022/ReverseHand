@@ -9,7 +9,6 @@ import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/login_action.dart';
 import 'package:redux_comp/actions/user/signin_facebook_action.dart';
 import 'package:redux_comp/actions/user/signin_google_action.dart';
-import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/forgot_password_popups/email_popup_widget.dart';

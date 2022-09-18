@@ -28,6 +28,10 @@ enum ErrorType {
   localPermissionDenied,
   // generic errors
   noInput,
+  unknownError,
   //userStats errors
   failedToGetUserStatistics,
+  // payment errors
+  paymentCancelled,
+  serverVerificationFailed,
 }

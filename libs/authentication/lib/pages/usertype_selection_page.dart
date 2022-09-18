@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:general/theme.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/user/cognito/add_user_to_group_action.dart';
-import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/transparent_divider.dart';
