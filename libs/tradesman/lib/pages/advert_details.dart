@@ -31,10 +31,12 @@ class TradesmanJobDetails extends StatelessWidget {
         body: StoreConnector<AppState, _ViewModel>(
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) {
-              
               //formatting the amount
-              String v = vm.currentBid!.price.toString();
-              v = '${v.substring(0, v.length - 2)}.00';
+              String v = "null";
+              if (vm.currentBid != null) {
+                v = vm.currentBid!.price.toString();
+                v = '${v.substring(0, v.length - 2)}.00';
+              }
 
               return SingleChildScrollView(
                 child: Column(
