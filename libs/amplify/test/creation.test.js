@@ -32,6 +32,7 @@ jest.setTimeout(70000000);
 describe("Creation of Adverts, Bids, and deletion tests",  () =>{
     beforeAll(() => {
         process.env.REVERSEHAND = 'ReverseHand';
+        process.env.ReverseHandTable = 'ReverseHand';
         process.env.FUNCTION = "arn:aws:lambda:eu-west-1:727515863527:function:notificationsResolver-staging";
         process.env.ARCHIVEDREVERSEHAND = "ArchivedReverseHand";
 
@@ -149,6 +150,66 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
 
         expect(result.name).toEqual("Alexander");//verify that the bid returned is indeed the right one
         expect(result.tradesman_id).toEqual("t#acff077a-8855-4165-be78-090fda375f90");
+       
+
+        //********************************************************************************************* */
+        //createChat resolver
+        console.log("createChat integration test");
+
+        const createChatEvent = {
+            arguments : {
+                c_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                c_name : 'Alexander',
+                t_id : "t#acff077a-8855-4165-be78-090fda375f90",
+                t_name : 'Richard' 
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/createChatResolver/src/index');
+        result = await handlerModule.handler(createChatEvent);
+
+        expect(result.consumer_name).toEqual("Alexander");//verify from what was returned that the chat was created
+        expect(result.tradesman_name).toEqual('Richard');
+
+        //********************************************************************************************* */
+        //getChatsResolver
+        console.log('Get Chats Resolver');
+
+        const getChatsEvent = {
+            arguments : {
+                user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702"
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/getChatsResolver/src/index');
+        result = await handlerModule.handler(getChatsEvent);
+
+        var foundChat = false;
+
+        for(const element of result){
+            if(element.tradesman_name === 'Richard' && element.consumer_name === 'Alexander'){
+                foundChat = true;
+            }
+        };
+
+        expect(foundChat).toEqual(true);
+
+        //********************************************************************************************* */
+        /*//deleteChat resolver
+        console.log("delete chat integration test");
+        console.log(adId);
+        const deleteChatEvent = {
+            arguments : {
+                ad_id : adId,
+                c_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702"
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/deleteChatResolver/src/index');
+        result = await handlerModule.handler(deleteChatEvent);
+
+        console.log(result);*/
+
         //********************************************************************************************* */
         //DeleteBid Resolver
         const deleteBidEvent = {
