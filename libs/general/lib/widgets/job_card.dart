@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/advert_model.dart';
 // import 'package:redux_comp/models/advert_model.dart';
 
 //used in consumer and tradesman
@@ -52,7 +53,6 @@ class JobCardWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.3,
                     child: Text(
                       titleText,
                       style: const TextStyle(
@@ -63,22 +63,19 @@ class JobCardWidget extends StatelessWidget {
                 //*****************************************//
 
                 // //******************EDIT ICON****************//
-                // StoreConnector<AppState, _ViewModel>(
-                //     vm: () => _Factory(this),
-                //     builder: (BuildContext context, _ViewModel vm) =>
-                //         (vm.advert.acceptedBid == null)
-                //             ? Padding(
-                //                 padding: const EdgeInsets.only(left: 5),
-                //                 child: Align(
-                //                 alignment: Alignment.topRight,
-                //                 child: IconButton(
-                //                   onPressed: vm.pushEditAdvert,
-                //                   icon: const Icon(Icons.edit),
-                //                   color: Colors.white70,
-                //                 ),
-                //               )
-                //             )
-                //             : Container()),
+                StoreConnector<AppState, _ViewModel>(
+                    vm: () => _Factory(this),
+                    builder: (BuildContext context, _ViewModel vm) =>
+                      (vm.advert.acceptedBid == null)
+                        ? Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                              onPressed: vm.pushEditAdvert,
+                              icon: const Icon(Icons.edit),
+                              color: Colors.white70,
+                            ),
+                          )
+                        : Container()),
                 //**********************************************/
               ],
             ),
@@ -151,27 +148,27 @@ class JobCardWidget extends StatelessWidget {
   }
 }
 
-//currently commented out cause unsure if editing button will be here
-// // factory for view model
-// class _Factory extends VmFactory<AppState, JobCardWidget> {
-//   _Factory(widget) : super(widget);
 
-//   @override
-//   _ViewModel fromStore() => _ViewModel(
-//         pushEditAdvert: () => dispatch(
-//           NavigateAction.pushNamed('/consumer/edit_advert_page'),
-//         ),
-//         advert: state.activeAd!,
-//       );
-// }
+// factory for view model
+class _Factory extends VmFactory<AppState, JobCardWidget> {
+  _Factory(widget) : super(widget);
 
-// // view model
-// class _ViewModel extends Vm {
-//   final AdvertModel advert;
-//   final VoidCallback pushEditAdvert;
+  @override
+  _ViewModel fromStore() => _ViewModel(
+        pushEditAdvert: () => dispatch(
+          NavigateAction.pushNamed('/consumer/edit_advert_page'),
+        ),
+        advert: state.activeAd!,
+      );
+}
 
-//   _ViewModel({
-//     required this.advert,
-//     required this.pushEditAdvert,
-//   }) : super(equals: [advert]); // implementinf hashcode
-// }
+// view model
+class _ViewModel extends Vm {
+  final AdvertModel advert;
+  final VoidCallback pushEditAdvert;
+
+  _ViewModel({
+    required this.advert,
+    required this.pushEditAdvert,
+  }) : super(equals: [advert]); // implementinf hashcode
+}

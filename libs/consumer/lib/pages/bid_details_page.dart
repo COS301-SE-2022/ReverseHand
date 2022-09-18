@@ -116,6 +116,7 @@ class BidDetailsPage extends StatelessWidget {
 
                     //**************SEE QUOTE BUTTON***************/
                     //if quote is not uploaded
+                    //todo, add if statement back here
                     // const Padding(padding: EdgeInsets.only(top: 40)),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.center,
