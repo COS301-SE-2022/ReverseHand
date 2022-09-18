@@ -166,14 +166,14 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         expect(result.name).toEqual("Alexander");
         expect(result.price).toEqual(500);
 
+        
+        //********************************************************************************************* */
+        //deleteAdvertResolver
         const deleteAdvertEvent = {
             arguments : {
                 ad_id : adId
             }
         };
-
-        //********************************************************************************************* */
-
         console.log("Testring deletion of advert");
 
 
