@@ -26,10 +26,10 @@ class ReviewWidget extends StatelessWidget {
                           color: Theme.of(context).primaryColor, width: 2)),
                   child: Column(
                     children: [
-                      //stars here
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          //*****************STARS*****************//
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Icon(
@@ -37,6 +37,9 @@ class ReviewWidget extends StatelessWidget {
                               color: Theme.of(context).primaryColor,
                             ),
                           ),
+                          //***************************************//
+
+                          //*****************REPORT****************//
                           Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: IconButton(
@@ -46,8 +49,10 @@ class ReviewWidget extends StatelessWidget {
                                   color: Theme.of(context).primaryColorDark,
                                 )),
                           ),
+                          //***************************************//
                         ],
                       ),
+                      //******************MESSAGE*****************//
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
@@ -61,6 +66,7 @@ class ReviewWidget extends StatelessWidget {
                           ),
                         ),
                       ),
+                      //***************************************//
                     ],
                   ),
                 ),
