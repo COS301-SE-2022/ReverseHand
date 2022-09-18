@@ -132,7 +132,7 @@ class BidDetailsPage extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 50),
                       child: LongButtonWidget(
                         text: "View Quote",
-                        function: () {}
+                        function: vm.pushViewQuotePage,
                       ),
                     ),
                   ],
@@ -200,6 +200,9 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
         bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
+        pushViewQuotePage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/view_quote_page'),
+        ),
       );
 }
 
@@ -211,6 +214,7 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchShortListBidAction;
   final bool change;
   final void Function(String userId) dispatchGetOtherUserAction;
+  final VoidCallback pushViewQuotePage;
 
   _ViewModel({
     required this.dispatchAcceptBidAction,
@@ -219,5 +223,6 @@ class _ViewModel extends Vm {
     required this.bid,
     required this.popPage,
     required this.change,
+    required this.pushViewQuotePage,
   }) : super(equals: [change, bid]); // implementinf hashcode
 }
