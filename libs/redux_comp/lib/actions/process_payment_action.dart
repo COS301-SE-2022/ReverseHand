@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
+import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import '../app_state.dart';
 import 'package:async_redux/async_redux.dart';
@@ -21,7 +22,7 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
 
     // testing
     Charge charge = Charge()
-      ..amount = 600
+      ..amount = state.activeBid!.price
       ..reference = DateTime.now().millisecondsSinceEpoch.toString()
       // ..accessCode = await createAccessCode()
       ..currency = 'ZAR'
@@ -37,8 +38,10 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
     if (response.status) {
       _verifyOnServer(response.reference);
     } else {
-      throw const UserException("msg", cause: ErrorType.paymentCancelled);
+      throw const UserException("", cause: ErrorType.paymentCancelled);
     }
+
+    dispatch(AcceptBidAction());
 
     return null;
   }
@@ -51,7 +54,7 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
     };
 
     Map data = {
-      "amount": 600,
+      "amount": state.activeBid!.price,
       "email": "cachemoney.up@gmail.com",
       "reference": DateTime.now().millisecondsSinceEpoch.toString(),
     };
