@@ -25,12 +25,33 @@ class ReviewWidget extends StatelessWidget {
                       border: Border.all(
                           color: Theme.of(context).primaryColor, width: 2)),
                   child: Column(
-                    children: const [
+                    children: [
                       //stars here
-                      Align(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Icon(
+                              Icons.star,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.report_outlined,
+                                  color: Theme.of(context).primaryColorDark,
+                                )),
+                          ),
+                        ],
+                      ),
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
                           child: Text(
                             "\"Wonderful service, I would definitely use this contractor again soon\"",
                             style: TextStyle(
@@ -39,7 +60,7 @@ class ReviewWidget extends StatelessWidget {
                                 fontStyle: FontStyle.italic),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

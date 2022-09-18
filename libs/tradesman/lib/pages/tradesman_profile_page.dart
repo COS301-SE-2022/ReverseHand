@@ -215,6 +215,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                             return SingleChildScrollView(
                                               child: Column(
                                                 children: [
+                                                  //******************CLOSE*****************//
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
@@ -234,8 +235,14 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                                           )),
                                                     ),
                                                   ),
+                                                  //****************************************//
+
+                                                  //******************REVIEWS***************//
                                                   ReviewWidget(
                                                       store: widget.store),
+                                                  ReviewWidget(
+                                                      store: widget.store),
+                                                  //****************************************//
                                                 ],
                                               ),
                                             );
