@@ -74,8 +74,7 @@ exports.handler = async (event) => {
                 tradesman_id: bid['tradesman_id'],
                 bid_details: {
                     name: bid['bid_details']['name'],
-                    price_lower: bid['bid_details']['price_lower'],
-                    price_upper: bid['bid_details']['price_upper'],
+                    price: bid['bid_details']['price'],
                     quote: bid['bid_details']['quote'],
                     date_created: bid['bid_details']['date_created'],
                     date_closed: bid['bid_details']['date_closed'],

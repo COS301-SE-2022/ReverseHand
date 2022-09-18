@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/models/admin/app_management/models/admin_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
@@ -43,15 +45,59 @@ class UserManagePage extends StatelessWidget {
 
                       AdminUserWidget(user: vm.activeUser!),
                       const Padding(padding: EdgeInsets.only(bottom: 25)),
-                      ButtonWidget(
+                      LongButtonWidget(
                         text: (vm.activeUser!.enabled)
                             ? "Disable User"
                             : "Enable User",
                         function: (vm.activeUser!.enabled) ? () {} : () {},
                       ),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
-                      ButtonWidget(
-                          text: "Delete User", color: "red", function: () {})
+                      const Padding(padding: EdgeInsets.only(bottom: 10)),
+                      TransparentLongButtonWidget(
+                          text: "Delete User",
+                          borderColor: Colors.red,
+                          function: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (BuildContext context) => SizedBox(
+                                      height: 180,
+                                      child: Column(
+                                        children: [
+                                          const Center(
+                                            child: Padding(
+                                              padding: EdgeInsets.all(18.0),
+                                              child: Text(
+                                                "Are you sure you want to delete this user's account?",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20),
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              ButtonWidget(
+                                                  text: "Delete",
+                                                  function: () {}),
+                                              const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 10)),
+                                              ButtonWidget(
+                                                  text: "Cancel",
+                                                  color: "light",
+                                                  border: "lightBlue",
+                                                  function: () {
+                                                    Navigator.pop(context);
+                                                  }),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ));
+                          })
                     ],
                   );
           },

@@ -1,11 +1,13 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -18,7 +20,6 @@ class TradesmanJobDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -40,8 +41,8 @@ class TradesmanJobDetails extends StatelessWidget {
 
                 //**********DETAILED JOB INFORMATION***********//
                 if (vm.loading)
-                      const LoadingWidget(topPadding: 80, bottomPadding: 0)
-                else 
+                  const LoadingWidget(topPadding: 80, bottomPadding: 0)
+                else
                   JobCardWidget(
                       titleText: vm.advert.title,
                       descText: vm.advert.description ?? "",
@@ -53,7 +54,9 @@ class TradesmanJobDetails extends StatelessWidget {
                 const Padding(padding: EdgeInsets.only(top: 25)),
 
                 //*************BOTTOM BUTTONS**************//
-                vm.currentBid != null
+                vm.bids.contains(vm.currentBid)
+                    //this isn't working as expected
+                    // vm.currentBid != null
                     //if this contractor has already made a bid
                     ? Column(
                         children: [
@@ -95,7 +98,7 @@ class TradesmanJobDetails extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                          'R${vm.currentBid!.priceLower}  -  R${vm.currentBid!.priceUpper}',
+                                          'R${vm.currentBid!.price}',
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
@@ -138,31 +141,37 @@ class TradesmanJobDetails extends StatelessWidget {
                     //if this contractor hasn't already made a bid
                     : Padding(
                         padding: const EdgeInsets.only(top: 20.0),
-                        child: AuthButtonWidget(
-                            text: "Place Bid",
-                            function: () {
-                              //keeping this here so that a bid can still be made while we create the last UI
-                              // DarkDialogHelper.display(
-                              //     context, PlaceBidPopupWidget(store: store), 1000.0);
-                              showModalBottomSheet(
-                                  context: context,
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(7.0),
-                                  ),
-                                  builder: (BuildContext context) {
-                                    return UploadQuoteSheet(store: store,);
-                                  });
-                            }),
+                        child: LongButtonWidget(
+                          text: "Place Bid",
+                          function: () async {
+                            //keeping this here so that a bid can still be made while we create the last UI
+                            // DarkDialogHelper.display(
+                            //     context, PlaceBidPopupWidget(store: store), 1000.0);
+                            final items = await showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7.0),
+                              ),
+                              builder: (BuildContext context) {
+                                return const UploadQuoteSheet();
+                              },
+                            );
+
+                            vm.dispatchPlaceBidAction(
+                                price: items['price'], quote: items['quote']);
+                          },
+                        ),
                       ),
                 //place bid
 
-                AuthButtonWidget(
+                TransparentLongButtonWidget(
                     text: "View Bids", function: vm.pushViewBidsPage),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 // TransparentLongButtonWidget(
                 //     text: "Report this Advert", function: () {})
-
+                TransparentLongButtonWidget(
+                    text: "View Client Profile", function: () {}),
                 const Padding(padding: EdgeInsets.only(bottom: 50)),
               ],
             ),
@@ -200,6 +209,8 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         currentBid: state.userBid,
         advertImages: state.advertImages,
         loading: state.wait.isWaiting,
+        dispatchPlaceBidAction: ({required int price, String? quote}) =>
+            dispatch(PlaceBidAction(price: price, quote: quote)),
       );
 }
 
@@ -214,10 +225,13 @@ class _ViewModel extends Vm {
   final VoidCallback pushConsumerListings;
   final List<String> advertImages;
   final bool loading;
+  final void Function({required int price, String? quote})
+      dispatchPlaceBidAction;
 
   _ViewModel({
     required this.advert,
     required this.bids,
+    required this.dispatchPlaceBidAction,
     required this.currentBid,
     required this.popPage,
     required this.pushEditAdvert,

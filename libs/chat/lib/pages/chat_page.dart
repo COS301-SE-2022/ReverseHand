@@ -59,29 +59,24 @@ class ChatPage extends StatelessWidget {
 
           return Scaffold(
             body: CustomScrollView(
+              controller: scrollController,
               slivers: [
                 ChatAppBarWidget(
-                    title: vm.currentUser == "consumer"
-                        ? vm.chat!.tradesmanName
-                        : vm.chat!.consumerName,
-                    store: store),
+                  title: vm.currentUser == "consumer"
+                      ? vm.chat!.tradesmanName
+                      : vm.chat!.consumerName,
+                  store: store,
+                ),
                 SliverToBoxAdapter(
-                  child: Stack(
-                    children: <Widget>[
-                      SingleChildScrollView(
-                        controller: scrollController,
-                        child: Column(
-                          children: [
-                            // const DateLabelWidget(label: "Yesterday"), //todo michael
-                            const Padding(
-                              padding: EdgeInsets.only(top: 35),
-                            ),
-                            ...messages,
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 80),
-                            ),
-                          ],
-                        ),
+                  child: Column(
+                    children: [
+                      // const DateLabelWidget(label: "Yesterday"), //todo michael
+                      const Padding(
+                        padding: EdgeInsets.only(top: 35),
+                      ),
+                      ...messages,
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 80),
                       ),
                     ],
                   ),
@@ -89,11 +84,9 @@ class ChatPage extends StatelessWidget {
               ],
             ),
             //************************NAVBAR***********************/
-
             bottomSheet: ActionBarWidget(
               onPressed: vm.dispatchSendMsgAction,
             ),
-
             //*****************************************************/
           );
         },

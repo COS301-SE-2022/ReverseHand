@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class TransparentLongButtonWidget extends StatelessWidget {
   final String text;
+  final Color? borderColor;
   final void Function() function;
 
   const TransparentLongButtonWidget({
     Key? key,
     required this.text,
+    this.borderColor,
     required this.function,
   }) : super(key: key);
 
@@ -21,7 +23,7 @@ class TransparentLongButtonWidget extends StatelessWidget {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           shadowColor: Colors.black,
           elevation: 9,
-          side: const BorderSide(color: Colors.orange),
+          side: BorderSide(color: borderColor ?? Colors.orange),
           textStyle: const TextStyle(fontSize: 20),
           minimumSize: const Size(400, 50),
           shape: const RoundedRectangleBorder(

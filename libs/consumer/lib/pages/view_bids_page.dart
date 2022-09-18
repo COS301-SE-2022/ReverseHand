@@ -9,6 +9,7 @@ import 'package:general/widgets/appbar.dart';
 
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -34,18 +35,17 @@ class ViewBidsPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 //**********APPBAR*************//
-                AppBarWidget(title: "BIDS INFO", store: store,backButton: true),
+                AppBarWidget(title: "BIDS", store: store, backButton: true),
                 //******************************//
 
                 //**********DETAILED JOB INFORMATION***********//
                 JobCardWidget(
-                  titleText: vm.advert.title,
-                  descText: vm.advert.description ?? "",
-                  date: timestampToDate(vm.advert.dateCreated),
-                  type: vm.advert.type,
-                  location: vm.advert.domain.city,
-                  store: store
-                ),
+                    titleText: vm.advert.title,
+                    descText: vm.advert.description ?? "",
+                    date: timestampToDate(vm.advert.dateCreated),
+                    type: vm.advert.type,
+                    location: vm.advert.domain.city,
+                    store: store),
                 //*******************************************//
 
                 const Padding(padding: EdgeInsets.all(10)),
@@ -54,14 +54,18 @@ class ViewBidsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   child: Column(children: [
                     if (vm.bids.isNotEmpty)
-                      const Divider(
-                        color: Colors.white,
-                        thickness: 0.5,
-                        indent: 15,
-                        endIndent: 15,
+                      Column(
+                        children: [
+                          // const Padding(padding: EdgeInsets.only(top: 15)),
+                          const HintWidget(
+                              text:
+                                  "Click on a bid to see more detailed information",
+                              colour: Colors.white70,
+                              padding: 15),
+                          ...populateBids(vm.bids, store),
+                        ],
                       ),
-                    const Padding(padding: EdgeInsets.only(top: 15)),
-                    ...populateBids(vm.bids, store),
+
                     //********IF NO BIDS********************/
                     if (vm.bids.isEmpty)
                       const Center(

@@ -10,7 +10,7 @@ import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_widget.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -30,7 +30,8 @@ class BidDetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //************APPBAR**************************//
-                AppBarWidget(title: "BID DETAILS", store: store, backButton: true),
+                AppBarWidget(
+                    title: "BID DETAILS", store: store, backButton: true),
                 //********************************************//
 
                 //************NAME AND ROW*******************//
@@ -91,7 +92,7 @@ class BidDetailsPage extends StatelessWidget {
                     const Padding(padding: EdgeInsets.all(3)),
                     Center(
                       child: Text(
-                        'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
+                        'R${vm.bid.price}',
                         style: const TextStyle(
                             fontSize: 40,
                             color: Colors.white,
@@ -123,7 +124,7 @@ class BidDetailsPage extends StatelessWidget {
                 Column(
                   children: [
                     Center(
-                      child: AuthButtonWidget(
+                      child: LongButtonWidget(
                           text: "Accept Bid",
                           function: () {
                             LightDialogHelper.display(

@@ -78,8 +78,6 @@ PODS:
     - AWSCore (~> 2.27.0)
   - AWSS3 (2.27.15):
     - AWSCore (= 2.27.15)
-  - camera_avfoundation (0.0.1):
-    - Flutter
   - DKImagePickerController/Core (4.3.4):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
@@ -143,7 +141,6 @@ DEPENDENCIES:
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
   - amplify_flutter_ios (from `.symlinks/plugins/amplify_flutter_ios/ios`)
   - amplify_storage_s3_ios (from `.symlinks/plugins/amplify_storage_s3_ios/ios`)
-  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
@@ -188,8 +185,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/amplify_flutter_ios/ios"
   amplify_storage_s3_ios:
     :path: ".symlinks/plugins/amplify_storage_s3_ios/ios"
-  camera_avfoundation:
-    :path: ".symlinks/plugins/camera_avfoundation/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
@@ -225,7 +220,6 @@ SPEC CHECKSUMS:
   AWSPinpoint: e2ea6471c4a4efd7a4d58546f34539c9dac185a7
   AWSPluginsCore: c29c4b91c4ecd7376b85288615bb482f409a0b73
   AWSS3: 09801b290f8818f532694cabd5d503c7474eb3df
-  camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 817ab1d8cd2da9d2da412a417162deee3500fc95

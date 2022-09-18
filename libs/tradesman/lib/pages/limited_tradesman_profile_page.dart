@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
-import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
@@ -28,6 +27,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                         vm.userDetails.statistics.ratingCount;
 
                 List<Icon> stars = [];
+
                 for (int i = 0; i < startAmount; i++) {
                   stars.add(Icon(Icons.star,
                       size: 30, color: Theme.of(context).primaryColor));
@@ -36,7 +36,8 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                 return Column(children: [
                   //*******************APP BAR WIDGET*********************//
-                  AppBarWidget(title: "PROFILE", store: store,backButton: true),
+                  AppBarWidget(
+                      title: "PROFILE", store: store, backButton: true),
                   //********************************************************//
 
                   //**************HEADING***************/
@@ -53,8 +54,12 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                   //****************ICON****************/
                   const Padding(padding: EdgeInsets.only(top: 10)),
-                  ProfileImageWidget(
-                    store: store,
+                  CircleAvatar(
+                    radius: 70,
+                    backgroundImage: vm.profilePhoto == null
+                        ? const AssetImage("assets/images/profile.png",
+                            package: 'general')
+                        : Image.network(vm.profilePhoto!).image,
                   ),
                   //************************************/
 
@@ -69,12 +74,22 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                             color: Theme.of(context).primaryColorDark,
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: stars,
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children:
+                                //if there is a rating - 1 is the lowest that can be given
+                                //so not checking if rating is null
+                                    vm.userDetails.statistics.ratingCount != 0
+                                        ? stars
+                                        : [ //if no rating yet
+                                            const Text(
+                                              "No rating yet",
+                                              style: TextStyle(
+                                                  color: Colors.white70,
+                                                  fontSize: 18),
+                                            )
+                                          ])),
                       ),
                     ),
                   ),
@@ -163,16 +178,19 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
   _ViewModel fromStore() => _ViewModel(
         userDetails: state.otherUserDetails,
         isWaiting: state.wait.isWaiting,
+        profilePhoto: state.userDetails.profileImage,
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final UserModel userDetails;
+  final String? profilePhoto;
   final bool isWaiting;
 
   _ViewModel({
     required this.userDetails,
+    required this.profilePhoto,
     required this.isWaiting,
   }) : super(equals: [userDetails, isWaiting]);
 }
