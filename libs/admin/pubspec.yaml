@@ -14,7 +14,7 @@ dependencies:
     
   async_redux: ^15.0.0
 
-  syncfusion_flutter_charts: ^20.2.49
+  syncfusion_flutter_charts: ^20.2.49 
 
   redux_comp:  
     path: '../redux_comp'
