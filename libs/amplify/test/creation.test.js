@@ -104,7 +104,7 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         expect(result.name).toEqual('Alexander');
 
         //********************************************************************************************* */
-
+        //viewAdvertResolver
 
         console.log("Testing to see if adverrt was indeed created");
 
@@ -122,7 +122,7 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         };
 
         //********************************************************************************************* */
-
+        //viewBidResolver
         console.log("Test to see if bid was created");
 
         handlerModule = require('../amplify/backend/function/viewBidsResolver/src/index');
@@ -133,15 +133,30 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         expect(val.name).toEqual("Alexander");
         expect(val.price).toEqual(500);
 
-        //Second last step: delete a bid
+        //********************************************************************************************* */
+        //AcceptBidResolvver
+        console.log("Testing Accepting a bid");
+
+        const acceptBidEvent = {
+            arguments :{
+                sbid_id : bidId,
+                ad_id : adId
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/acceptBidResolver/src/index');
+        result = await handlerModule.handler(acceptBidEvent);
+
+        expect(result.name).toEqual("Alexander");//verify that the bid returned is indeed the right one
+        expect(result.tradesman_id).toEqual("t#acff077a-8855-4165-be78-090fda375f90");
+        //********************************************************************************************* */
+        //DeleteBid Resolver
         const deleteBidEvent = {
             arguments : {
                 ad_id : adId,
                 bid_id : bidId
             }
         };
-
-        //********************************************************************************************* */
 
         console.log("Testing the deletion of a bid");
         handlerModule = require('../amplify/backend/function/deleteBidResolver/src/index');

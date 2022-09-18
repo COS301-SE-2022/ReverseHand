@@ -146,6 +146,12 @@ type Mutation {
   notification(user_id: String!): NotificationUpdate!  # returns the id of the user who has a new notification
     @function(name: "notifyNewNotificationsResolver-${env}")
 
+  addUserReport(user_details: ReportUserDetailsInput!, report: ReportDetailsInput!) : ReportDetails!
+    @function(name: "addUserReportResolver-${env}")
+
+  addReviewReport(user_details: ReportUserDetailsInput!, report: ReportDetailsInput!, review_id: String!) : ReportDetails!
+    @function(name: "addReviewrReportResolver-${env}")
+
   removeReviewReport(user_id: String!, report_id: String!, issueWarning: Boolean!): ReportDetails!
     @function(name: "removeReviewReportResolver-${env}")
 
@@ -349,6 +355,17 @@ type ReportDetails {
 type ReportUserDetails {
   id: String!
   name: String!
+}
+
+input ReportUserDetailsInput {
+  id: String!
+  name: String!
+}
+
+input ReportDetailsInput {
+  reason: String!
+  description: String
+  reported_user: ReportUserDetailsInput!
 }
 
 type AdminUser implements UniqueID {
