@@ -18,7 +18,6 @@ class ListRefreshWidget extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         child: SizedBox(
           child: Column(
-          
             children: widgets,
           ),
         ),

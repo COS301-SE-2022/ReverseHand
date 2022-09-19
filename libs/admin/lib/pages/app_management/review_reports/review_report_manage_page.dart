@@ -3,8 +3,9 @@ import 'package:admin/widgets/report_user_descr_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/admin_get_user_action.dart';
 import 'package:redux_comp/actions/admin/app_management/get_review_reports_action.dart';
 import 'package:redux_comp/actions/admin/app_management/remove_review_report_action.dart';
@@ -44,77 +45,79 @@ class ReviewReportManagePage extends StatelessWidget {
                           bottomPadding: 0)
                     ],
                   )
-                : Column(
-                    children: [
-                      //**********APPBAR***********//
-                      appbar,
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        //**********APPBAR***********//
+                        appbar,
 
-                      Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: Text(
-                          report.type == "user#reports"
-                              ? "User Report"
-                              : "Review Report",
-                          style: const TextStyle(fontSize: 25),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 25),
+                          child: Text(
+                            report.type == "user#reports"
+                                ? "User Report"
+                                : "Review Report",
+                            style: const TextStyle(fontSize: 25),
+                          ),
                         ),
-                      ),
 
-                      ReportDetailsWidget(
-                        reason: report.reportDetails.reason,
-                        description: report.reportDetails.description,
-                      ),
+                        ReportDetailsWidget(
+                          reason: report.reportDetails.reason,
+                          description: report.reportDetails.description,
+                        ),
 
-                      ReportDetailsWidget(
-                          reason: report.reviewDetails!.description,
-                          description: report.reviewDetails!.rating.toString()),
+                        ReportDetailsWidget(
+                            reason: report.reviewDetails!.description,
+                            description:
+                                report.reviewDetails!.rating.toString()),
 
-                      ReportUserDescrWidget(
-                        title: "Reported User",
-                        name: report.reportDetails.reportedUser!.name,
-                        function: () {
-                          vm.dispatchGetUser(
-                              report.reportDetails.reportedUser!.id);
-                          vm.pushUserManagePage();
-                        },
-                      ),
+                        ReportUserDescrWidget(
+                          title: "Reported User",
+                          name: report.reportDetails.reportedUser!.name,
+                          function: () {
+                            vm.dispatchGetUser(
+                                report.reportDetails.reportedUser!.id);
+                            vm.pushUserManagePage();
+                          },
+                        ),
 
-                      ReportUserDescrWidget(
-                        title: "Reporter User",
-                        name: report.reportDetails.reporterUser!.name,
-                        function: () {
-                          vm.dispatchGetUser(
-                              report.reportDetails.reporterUser!.id);
-                          vm.pushUserManagePage();
-                        },
-                      ),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                        ReportUserDescrWidget(
+                          title: "Reporter User",
+                          name: report.reportDetails.reporterUser!.name,
+                          function: () {
+                            vm.dispatchGetUser(
+                                report.reportDetails.reporterUser!.id);
+                            vm.pushUserManagePage();
+                          },
+                        ),
+                        const Padding(padding: EdgeInsets.only(bottom: 25)),
 
-                      ButtonWidget(
-                        text: "Issue Warning",
-                        function: () {
-                          vm.dispatchRemoveWithWarning(
-                            report.id,
-                            report.reportDetails.reportedUser!.id,
-                          );
-                          vm.dispatchGetReviewReports();
-                          vm.popPage();
-                        },
-                      ),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                        LongButtonWidget(
+                          text: "Issue Warning",
+                          function: () {
+                            vm.dispatchRemoveWithWarning(
+                              report.id,
+                              report.reportDetails.reportedUser!.id,
+                            );
+                            vm.dispatchGetReviewReports();
+                            vm.popPage();
+                          },
+                        ),
 
-                      ButtonWidget(
-                        text: "Remove Report",
-                        color: "dark",
-                        function: () {
-                          vm.dispatchRemoveWithoutWarning(
-                            report.id,
-                            report.reportDetails.reportedUser!.id,
-                          );
-                          vm.dispatchGetReviewReports();
-                          vm.popPage();
-                        },
-                      ),
-                    ],
+                        TransparentLongButtonWidget(
+                          text: "Remove Report",
+                          function: () {
+                            vm.dispatchRemoveWithoutWarning(
+                              report.id,
+                              report.reportDetails.reportedUser!.id,
+                            );
+                            vm.dispatchGetReviewReports();
+                            vm.popPage();
+                          },
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 20))
+                      ],
+                    ),
                   );
           },
         ),
@@ -156,7 +159,7 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.loading,
-        required this.dispatchGetReviewReports,
+    required this.dispatchGetReviewReports,
     required this.dispatchGetUser,
     required this.dispatchRemoveWithWarning,
     required this.dispatchRemoveWithoutWarning,
