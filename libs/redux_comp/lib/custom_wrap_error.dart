@@ -38,6 +38,9 @@ class CustomWrapError extends WrapError<AppState> {
       case ErrorType.unknownError:
         msg = "An unknown error occured";
         break;
+      case ErrorType.reviewBadDescription:
+        msg = "A review requires a description";
+        break;
       default:
         msg = "Missing error message";
         break;

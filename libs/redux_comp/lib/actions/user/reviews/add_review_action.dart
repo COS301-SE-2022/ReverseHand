@@ -5,30 +5,28 @@ import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class AddReviewAction extends ReduxAction<AppState> {
-  final String userId;
   final String description;
   final int rating;
-  final String reviewerId;
-  final String advertId;
 
   AddReviewAction({
-    required this.userId,
     required this.description,
     required this.rating,
-    required this.reviewerId,
-    required this.advertId,
   });
 
   @override
   Future<AppState?> reduce() async {
+    if (description.trim().isEmpty) {
+      throw const UserException("", cause: ErrorType.reviewBadDescription);
+    }
+
     String graphQLDocument = '''mutation {
       addReview(
-        user_id: "$userId",
+        user_id: "${state.activeBid!.userId}",
         reviews: "{
           rating: $rating,
           description: $description
-          user_id: $reviewerId
-          advert_id: $advertId
+          user_id: ${state.userDetails.id}
+          advert_id: ${state.activeAd!.id}
         }"
       ){
         id

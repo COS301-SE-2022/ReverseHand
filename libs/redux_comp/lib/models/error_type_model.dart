@@ -34,4 +34,6 @@ enum ErrorType {
   // payment errors
   paymentCancelled,
   serverVerificationFailed,
+  // review errors
+  reviewBadDescription // description is blank
 }
