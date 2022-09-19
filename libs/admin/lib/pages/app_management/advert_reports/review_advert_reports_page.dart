@@ -47,13 +47,13 @@ class AdvertReportsManagePage extends StatelessWidget {
 
                       //put advert details here
                       //also put advert pictures here?
-                      JobCardWidget(
-                          titleText: "Job",
-                          descText: "desc",
-                          location: "pretoria",
-                          type: "painting",
-                          date: "today",
-                          store: store),
+                      const JobCardWidget(
+                        titleText: "Job",
+                        descText: "desc",
+                        location: "pretoria",
+                        type: "painting",
+                        date: "today",
+                      ),
                       //count
                       const Padding(
                         padding: EdgeInsets.only(left: 38.0, top: 20),

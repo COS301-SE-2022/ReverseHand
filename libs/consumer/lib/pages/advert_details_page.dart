@@ -46,15 +46,15 @@ class AdvertDetailsPage extends StatelessWidget {
                     //*******************************************//
 
                     if (vm.loading)
-                        const LoadingWidget(topPadding: 80, bottomPadding: 0)
-                    else 
+                      const LoadingWidget(topPadding: 80, bottomPadding: 0)
+                    else
                       JobCardWidget(
-                          titleText: vm.advert.title,
-                          descText: vm.advert.description ?? "",
-                          location: vm.advert.domain.city,
-                          type: vm.advert.type,
-                          date: timestampToDate(vm.advert.dateCreated),
-                          store: store),
+                        titleText: vm.advert.title,
+                        descText: vm.advert.description ?? "",
+                        location: vm.advert.domain.city,
+                        type: vm.advert.type,
+                        date: timestampToDate(vm.advert.dateCreated),
+                      ),
                     //*******************************************//
 
                     //extra padding if there is an accepted bid
@@ -159,7 +159,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/consumer'),
         ),
-
         popPage: () => dispatch(NavigateAction.pop()),
         advert: state.activeAd!,
         dispatchDeleteChatAction: () => dispatch(DeleteChatAction()),
