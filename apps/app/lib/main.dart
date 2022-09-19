@@ -6,6 +6,7 @@ import 'package:authentication/pages/usertype_selection_page.dart';
 import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:consumer/pages/limited_consumer_profile_page.dart';
 import 'package:general/general.dart';
+import 'package:general/pages/report_page.dart';
 import 'package:general/methods/toast_error.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
@@ -114,6 +115,9 @@ class Launch extends StatelessWidget {
           // shared routes for consumer and tradesman
           '/general/activity_stream': (context) =>
               ActivityStreamPage(store: store),
+          '/general/report_page': (context) => ReportPage(
+                store: store,
+              ),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/usertype_selection': (context) =>

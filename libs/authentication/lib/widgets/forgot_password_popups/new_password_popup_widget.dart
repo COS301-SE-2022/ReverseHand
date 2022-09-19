@@ -11,18 +11,24 @@ import '../auth_textfield_light.dart';
 // Forgot password otp popup widget
 //******************************** */
 
-class NewPasswordPopupWidget extends StatelessWidget {
-  final newPasswordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-
+class NewPasswordPopupWidget extends StatefulWidget {
   final Store<AppState> store;
   final void Function() function;
 
-  NewPasswordPopupWidget({
+  const NewPasswordPopupWidget({
     Key? key,
     required this.store,
     required this.function,
   }) : super(key: key);
+
+  @override
+  State<NewPasswordPopupWidget> createState() => _NewPasswordPopupWidgetState();
+}
+
+class _NewPasswordPopupWidgetState extends State<NewPasswordPopupWidget> {
+  final newPasswordController = TextEditingController();
+
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +60,7 @@ class NewPasswordPopupWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: AuthTextFieldLightWidget(
                         label: 'new password',
-                         obscure: true,
+                        obscure: true,
                         icon: Icons.lock_open_outlined,
                         controller: newPasswordController,
                         validator: createValidator(
@@ -78,7 +84,7 @@ class NewPasswordPopupWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: AuthTextFieldLightWidget(
                         label: 'confirm password',
-                         obscure: true,
+                        obscure: true,
                         icon: Icons.lock_outline_rounded,
                         controller: confirmPasswordController,
                         validator: createValidator(
@@ -113,7 +119,7 @@ class NewPasswordPopupWidget extends StatelessWidget {
 
 // factory for view model
 // ignore: unused_element
-class _Factory extends VmFactory<AppState, NewPasswordPopupWidget> {
+class _Factory extends VmFactory<AppState, _NewPasswordPopupWidgetState> {
   _Factory(widget) : super(widget);
 
   @override
