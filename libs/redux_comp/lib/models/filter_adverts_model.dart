@@ -1,7 +1,5 @@
 import 'dart:collection';
-
 import 'package:flutter/widgets.dart';
-import 'package:redux_comp/models/geolocation/domain_model.dart';
 
 @immutable
 class FilterAdvertsModel {
