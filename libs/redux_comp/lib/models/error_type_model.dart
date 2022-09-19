@@ -28,12 +28,12 @@ enum ErrorType {
   localPermissionDenied,
   // generic errors
   noInput,
+  unknownError,
   //userStats errors
   failedToGetUserStatistics,
-}
-
-// for use later, have each error typer return its own message
-// add optional paramters
-String errorMsg(ErrorType e) {
-  return "";
+  // payment errors
+  paymentCancelled,
+  serverVerificationFailed,
+  // review errors
+  reviewBadDescription // description is blank
 }

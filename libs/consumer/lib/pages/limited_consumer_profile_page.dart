@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/pages/report_page.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
@@ -106,10 +107,19 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                     ),
                   ),
 
-                  //ADD REVIEWS HERE
-
                   const Padding(padding: EdgeInsets.only(top: 15)),
-                  TransparentLongButtonWidget(text: "Report", function: () {})
+                  TransparentLongButtonWidget(
+                      text: "Report",
+                      function: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReportPage(
+                                    store: store,
+                                    reportType: "User",
+                                  )),
+                        );
+                      })
 
                   //***********************************/
                 ]);
@@ -132,6 +142,9 @@ class _Factory extends VmFactory<AppState, LimitedConsumerProfilePage> {
         userDetails: state.otherUserDetails,
         isWaiting: state.wait.isWaiting,
         profilePhoto: state.userDetails.profileImage,
+        pushReportPage: () {
+          dispatch(NavigateAction.pushNamed('/general/report_page'));
+        },
       );
 }
 
@@ -139,11 +152,13 @@ class _Factory extends VmFactory<AppState, LimitedConsumerProfilePage> {
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final String? profilePhoto;
+  final VoidCallback pushReportPage;
   final bool isWaiting;
 
-  _ViewModel({
-    required this.userDetails,
-    required this.profilePhoto,
-    required this.isWaiting,
-  }) : super(equals: [userDetails, isWaiting]);
+  _ViewModel(
+      {required this.userDetails,
+      required this.profilePhoto,
+      required this.isWaiting,
+      required this.pushReportPage})
+      : super(equals: [userDetails, isWaiting]);
 }

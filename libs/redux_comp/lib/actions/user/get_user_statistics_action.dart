@@ -37,7 +37,13 @@ class GetUserStatisticsAction extends ReduxAction<AppState> {
       return state.copy(userStatistics: stats);
     } on ApiException catch (e) {
       debugPrint(e.message);
-      return state.copy(error: ErrorType.failedToGetUserStatistics);
+      throw const UserException("", cause: ErrorType.failedToGetUserStatistics);
     }
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

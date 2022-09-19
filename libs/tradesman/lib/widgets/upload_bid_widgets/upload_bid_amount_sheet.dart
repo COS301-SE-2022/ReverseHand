@@ -6,12 +6,17 @@ import 'package:flutter/services.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 
-class UploadAmountSheet extends StatelessWidget {
-  final TextEditingController bidPriceController = TextEditingController();
-
-  UploadAmountSheet({
+class UploadAmountSheet extends StatefulWidget {
+  const UploadAmountSheet({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<UploadAmountSheet> createState() => _UploadAmountSheetState();
+}
+
+class _UploadAmountSheetState extends State<UploadAmountSheet> {
+  final TextEditingController bidPriceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

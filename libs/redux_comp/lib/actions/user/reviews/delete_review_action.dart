@@ -4,27 +4,26 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-import 'package:redux_comp/models/review_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class AddReviewAction extends ReduxAction<AppState> {
+class DeleteReviewAction extends ReduxAction<AppState> {
   final String userId;
-  final ReviewModel review;
+  final String id; //review id
 
-  AddReviewAction({required this.userId, required this.review});
+  DeleteReviewAction({required this.userId, required this.id});
 
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      addReview(
+      deleteReview(
         user_id: "$userId",
-        reviews: "${review.toString()}"
+        id: "$id"
       ){
         id
+        advert_id
+        description
         rating
         user_id
-        description
-        advert_id
         date_created
       }
     }''';
@@ -35,12 +34,17 @@ class AddReviewAction extends ReduxAction<AppState> {
       final response = await Amplify.API.mutate(request: request).response;
       final data = jsonDecode(response.data);
 
-      //response is a list of reviews so just replace all the
-      //current reviews with updated list from lambda
-      return state.copy(reviews: data["addReview"]);
+      //response is a list of reviews with the deleted one removed already
+      return state.copy(reviews: data["deleteReview"]);
     } on ApiException catch (e) {
       debugPrint(e.message);
-      return state.copy(error: ErrorType.failedToAddReview);
+      throw const UserException("", cause: ErrorType.failedToDeleteReview);
     }
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

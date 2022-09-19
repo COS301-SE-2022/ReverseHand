@@ -76,4 +76,10 @@ class RefreshUserTokenAction extends ReduxAction<AppState> {
       return state.copy(error: ErrorType.failedToRefreshToken);
     }
   }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
+  }
 }

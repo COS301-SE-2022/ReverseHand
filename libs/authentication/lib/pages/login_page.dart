@@ -6,11 +6,9 @@ import 'package:authentication/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/init_amplify_action.dart';
-import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/login_action.dart';
 import 'package:redux_comp/actions/user/signin_facebook_action.dart';
 import 'package:redux_comp/actions/user/signin_google_action.dart';
-import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/forgot_password_popups/email_popup_widget.dart';
@@ -103,36 +101,10 @@ class LoginPage extends StatelessWidget {
 
                       StoreConnector<AppState, _ViewModel>(
                         vm: () => _Factory(this),
-                        onDidChange: (context, store, vm) {
-                          final String msg;
-                          switch (store.state.error) {
-                            case ErrorType.none:
-                              return;
-                            case ErrorType.userNotFound:
-                              msg = "User not found";
-                              break;
-                            case ErrorType.userNotVerified:
-                              msg = "User not verified";
-                              break;
-                            case ErrorType.userInvalidPassword:
-                              msg = "Invalid login credentials";
-                              break;
-                            case ErrorType.passwordAttemptsExceeded:
-                              msg = "Max number of password attempts exceeded";
-                              break;
-                            case ErrorType.noInput:
-                              msg = "Please input a username and password";
-                              break;
-                            default:
-                              msg = "Logged out";
-                              break;
-                          }
-
-                          store.dispatch(ToastErrorAction(context!, msg));
-                        },
                         builder: (BuildContext context, _ViewModel vm) =>
                             vm.loading
-                                ? const LoadingWidget(topPadding: 5, bottomPadding: 15)
+                                ? const LoadingWidget(
+                                    topPadding: 5, bottomPadding: 15)
                                 : AuthButtonWidget(
                                     text: "Login",
                                     function: () {
@@ -147,21 +119,23 @@ class LoginPage extends StatelessWidget {
                       ),
                       //***************************************************
 
-                       //*****************Forgot password**********************
+                      //*****************Forgot password**********************
                       StoreConnector<AppState, _ViewModel>(
                         vm: () => _Factory(this),
                         builder: (BuildContext context, _ViewModel vm) =>
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 14),
-                            child: GestureDetector(
-                            onTap: () { 
+                            Padding(
+                          padding: const EdgeInsets.only(bottom: 14),
+                          child: GestureDetector(
+                            onTap: () {
                               showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,
                                 builder: (BuildContext context) =>
-                                  FPEmailPopupWidget(store: store,),
-                                );
-                            } , //forgot password popup linked here
+                                    FPEmailPopupWidget(
+                                  store: store,
+                                ),
+                              );
+                            }, //forgot password popup linked here
                             child: const Text(
                               "Forgot Password?",
                               style: TextStyle(
@@ -197,11 +171,10 @@ class LoginPage extends StatelessWidget {
                         vm: () => _Factory(this),
                         builder: (BuildContext context, _ViewModel vm) =>
                             LinkWidget(
-                          text1: "Don't have an account? ",
-                          text2: "Sign Up",
-                          navigate: () => vm.pushSignUpPage(),
-                          colour: Colors.grey
-                        ),
+                                text1: "Don't have an account? ",
+                                text2: "Sign Up",
+                                navigate: () => vm.pushSignUpPage(),
+                                colour: Colors.grey),
                       ),
                       //******************************************************* */
 
@@ -242,15 +215,15 @@ class LoginPage extends StatelessWidget {
                               children: [
                                 //Facebook
                                 GestureDetector(
-                                  onTap: vm.dispatchSignInFacebook, // Image tapped
+                                  onTap:
+                                      vm.dispatchSignInFacebook, // Image tapped
                                   child: const Align(
                                     alignment: Alignment.bottomLeft,
                                     child: CircleAvatar(
-                                      radius: 20, // Image radius
-                                      backgroundImage: AssetImage(
-                                        "assets/images/facebook.png",
-                                        package: 'authentication')
-                                    ),
+                                        radius: 20, // Image radius
+                                        backgroundImage: AssetImage(
+                                            "assets/images/facebook.png",
+                                            package: 'authentication')),
                                   ),
                                 ),
                               ],
@@ -265,11 +238,10 @@ class LoginPage extends StatelessWidget {
                                   child: const Align(
                                     alignment: Alignment.bottomRight,
                                     child: CircleAvatar(
-                                      radius: 20, // Image radius
-                                      backgroundImage: AssetImage(
-                                        "assets/images/google.png",
-                                        package: 'authentication')
-                                    ),
+                                        radius: 20, // Image radius
+                                        backgroundImage: AssetImage(
+                                            "assets/images/google.png",
+                                            package: 'authentication')),
                                   ),
                                 ),
                               ],
@@ -302,7 +274,6 @@ class _Factory extends VmFactory<AppState, LoginPage> {
         dispatchLoginAction: (String email, String password) => dispatch(
           LoginAction(email, password),
         ),
-        error: state.error,
         dispatchSignInFacebook: () => dispatch(SigninFacebookAction()),
         dispatchSignInGoogle: () => dispatch(SignInGoogleAction()),
       );
@@ -315,7 +286,6 @@ class _ViewModel extends Vm {
   final void Function() dispatchSignInGoogle;
   final VoidCallback pushSignUpPage;
   final bool loading;
-  final ErrorType error;
 
   _ViewModel({
     required this.dispatchLoginAction,
@@ -323,6 +293,5 @@ class _ViewModel extends Vm {
     required this.dispatchSignInGoogle,
     required this.loading,
     required this.pushSignUpPage,
-    required this.error,
-  }) : super(equals: [loading, error]);
+  }) : super(equals: [loading]);
 }

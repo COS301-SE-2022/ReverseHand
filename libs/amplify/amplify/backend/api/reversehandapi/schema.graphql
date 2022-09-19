@@ -47,6 +47,15 @@ type Query {
 
   getBidOnAdverts(tradesman_id: String!): [Advert!]!
     @function(name: "getBidOnAdvertsResolver-${env}")
+
+  listUsers(group: String!, next_token: String): AdminListUsers!
+    @function(name: "listUsersResolver-${env}")
+
+  adminSearchUser(email: String!, group: String!): [AdminCognitoUser!]!
+    @function(name: "adminSearchUserResolver-${env}")
+
+  getUserReviews(user_id: String!): [Review!]!
+    @function(name: "getUserReviewsResolver-${env}")
 }
 
 type Mutation {
@@ -134,10 +143,10 @@ type Mutation {
   deleteChat(c_id: String!, ad_id: String!): Chat!
     @function(name: "deleteChatResolver-${env}")
 
-  addReview(user_id: String!, review: ReviewInput!): Review!
+  addReview(user_id: String!, review: ReviewInput!): Review! # user_id is who the review is being created for
     @function(name: "addReviewResolver-${env}")
 
-  deleteReview(user_id: String!, id: String!): [Review!]!  #id is the review id
+  deleteReview(user_id: String!, id: String!): Review!  #id is the review id
     @function(name: "deleteReviewResolver-${env}")
 
   archiveAdvert(ad_id: String!): Advert!  #id is the review id
@@ -302,15 +311,14 @@ type Review implements UniqueID {
   description: String!
   user_id: String!
   advert_id: String!
-  date_created: Int
+  date_created: Float!
 }
 
 input ReviewInput {
   rating: Int!
   description: String!
-  user_id: String!
+  user_id: String! # who is making the review
   advert_id: String!
-  date_created: Int
 }
 
 type AdminAdvert {
@@ -368,6 +376,18 @@ input ReportDetailsInput {
   reported_user: ReportUserDetailsInput!
 }
 
+type AdminCognitoUser implements UniqueID {
+  id: String!
+  email: String!
+  enabled: String!
+  status: String
+}
+
+type AdminListUsers {
+  users: [AdminCognitoUser!]!
+  next_token: String
+}
+
 type AdminUser implements UniqueID {
   id: String!
   cognito_username: String!
@@ -376,6 +396,7 @@ type AdminUser implements UniqueID {
   enabled: Boolean!
   warnings: Int!
 }
+
 type PayStackKeys {
   secret_key: String!
   public_key: String!

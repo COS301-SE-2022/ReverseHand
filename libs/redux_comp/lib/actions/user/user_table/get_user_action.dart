@@ -197,4 +197,10 @@ class GetUserAction extends ReduxAction<AppState> {
     dispatch(GetProfilePhotoAction());
     dispatch(SubscribeNotificationsAction());
   }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
+  }
 }

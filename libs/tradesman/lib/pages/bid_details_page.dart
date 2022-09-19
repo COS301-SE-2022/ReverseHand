@@ -84,7 +84,7 @@ class TBidDetailsPage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.all(8)),
                   Center(
                     child: Text(
-                      'R${vm.bid.price}',
+                      vm.bid.amount(),
                       style: const TextStyle(
                           fontSize: 40,
                           color: Colors.white,

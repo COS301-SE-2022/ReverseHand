@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:general/pages/report_page.dart';
 import 'package:general/widgets/appbar_popup_menu_widget.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
@@ -31,13 +32,6 @@ class TradesmanJobDetails extends StatelessWidget {
         body: StoreConnector<AppState, _ViewModel>(
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) {
-              //formatting the amount
-              String v = "null";
-              if (vm.currentBid != null) {
-                v = vm.currentBid!.price.toString();
-                v = '${v.substring(0, v.length - 2)}.00';
-              }
-
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -45,8 +39,19 @@ class TradesmanJobDetails extends StatelessWidget {
                     AppBarWidget(
                         title: "JOB INFO",
                         store: store,
-                        filterActions: AppbarPopUpMenuWidget(
-                            store: store, functions: {"Report Advert": () {}}),
+                        filterActions:
+                            AppbarPopUpMenuWidget(store: store, functions: {
+                          "Report Advert": () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ReportPage(
+                                        store: store,
+                                        reportType: "Advert",
+                                      )),
+                            );
+                          }
+                        }),
                         backButton: true),
                     //*******************************************//
 
@@ -60,12 +65,12 @@ class TradesmanJobDetails extends StatelessWidget {
                       const LoadingWidget(topPadding: 80, bottomPadding: 0)
                     else
                       JobCardWidget(
-                          titleText: vm.advert.title,
-                          descText: vm.advert.description ?? "",
-                          date: timestampToDate(vm.advert.dateCreated),
-                          type: vm.advert.type,
-                          location: vm.advert.domain.city,
-                          store: store),
+                        titleText: vm.advert.title,
+                        descText: vm.advert.description ?? "",
+                        date: timestampToDate(vm.advert.dateCreated),
+                        type: vm.advert.type,
+                        location: vm.advert.domain.city,
+                      ),
 
                     const Padding(padding: EdgeInsets.only(top: 25)),
 
@@ -82,9 +87,10 @@ class TradesmanJobDetails extends StatelessWidget {
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: HintWidget(
-                                      text: "Click on your bid to edit it",
-                                      colour: Colors.white70,
-                                      padding: 0),
+                                    text: "Click on your bid to edit it",
+                                    colour: Colors.white70,
+                                    padding: 0,
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -93,15 +99,16 @@ class TradesmanJobDetails extends StatelessWidget {
                                 child: InkWell(
                                   onTap: () {
                                     showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(7.0),
-                                        ),
-                                        builder: (BuildContext context) {
-                                          return EditBidSheet();
-                                        });
+                                      context: context,
+                                      isScrollControlled: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(7.0),
+                                      ),
+                                      builder: (BuildContext context) {
+                                        return EditBidSheet();
+                                      },
+                                    );
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(12),
@@ -121,24 +128,25 @@ class TradesmanJobDetails extends StatelessWidget {
                                               const Text(
                                                 'Amount:',
                                                 style: TextStyle(
-                                                    fontSize: 22,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 22,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               Text(
-                                                'R$v',
+                                                vm.currentBid!.amount(),
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.black),
+                                                  fontSize: 20,
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ],
                                           ),
                                           const Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 10)),
+                                            padding: EdgeInsets.only(top: 10),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,

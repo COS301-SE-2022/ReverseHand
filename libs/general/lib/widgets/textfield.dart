@@ -30,6 +30,7 @@ class TextFieldWidget extends StatelessWidget {
       obscureText: obscure,
       controller: controller,
       onTap: onTap,
+      cursorColor: Theme.of(context).primaryColor,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white),

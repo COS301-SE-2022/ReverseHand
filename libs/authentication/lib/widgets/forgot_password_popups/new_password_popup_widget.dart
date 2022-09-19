@@ -13,18 +13,24 @@ import '../auth_textfield_light.dart';
 // Forgot password otp popup widget
 //******************************** */
 
-class NewPasswordPopupWidget extends StatelessWidget {
-  final newPasswordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-
+class NewPasswordPopupWidget extends StatefulWidget {
   final Store<AppState> store;
   final void Function() function;
 
-  NewPasswordPopupWidget({
+  const NewPasswordPopupWidget({
     Key? key,
     required this.store,
     required this.function,
   }) : super(key: key);
+
+  @override
+  State<NewPasswordPopupWidget> createState() => _NewPasswordPopupWidgetState();
+}
+
+class _NewPasswordPopupWidgetState extends State<NewPasswordPopupWidget> {
+  final newPasswordController = TextEditingController();
+
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +131,8 @@ class NewPasswordPopupWidget extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, NewPasswordPopupWidget> {
+// ignore: unused_element
+class _Factory extends VmFactory<AppState, _NewPasswordPopupWidgetState> {
   _Factory(widget) : super(widget);
 
   @override

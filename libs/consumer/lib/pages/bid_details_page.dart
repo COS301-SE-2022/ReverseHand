@@ -6,7 +6,6 @@ import 'package:general/methods/toast_success.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
-import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -55,26 +54,15 @@ class BidDetailsPage extends StatelessWidget {
                       //   ),
                       // ),
 
-                      StoreConnector<AppState, _ViewModel>(
-                        vm: () => _Factory(this),
-                        onDidChange: (context, store, vm) {
-                          if(store.state.error == ErrorType.none) {
-                            displayToastSuccess(context!, "Bid Favourited"); //todo, fix
-                          }
-                        },
-                        builder: (BuildContext context, _ViewModel vm) =>
-                          IconButton(
-                            onPressed: () {
-                              vm.dispatchShortListBidAction();
-                            },
-                            icon: Icon(
-                              vm.bid.shortlisted
-                                  ? Icons.bookmark
-                                  : Icons.bookmark_outline,
-                              size: 40,
-                              color: Theme.of(context).primaryColor,
-                            )
-                          ),
+                      IconButton(
+                        onPressed: vm.dispatchShortListBidAction,
+                        icon: Icon(
+                          vm.bid.shortlisted
+                              ? Icons.bookmark
+                              : Icons.bookmark_outline,
+                          size: 40,
+                          color: Theme.of(context).primaryColor,
+                        ),
                       ),
                     ],
                   ),
@@ -105,11 +93,12 @@ class BidDetailsPage extends StatelessWidget {
                     const Padding(padding: EdgeInsets.all(3)),
                     Center(
                       child: Text(
-                        'R${vm.bid.price}',
+                        vm.bid.amount(),
                         style: const TextStyle(
-                            fontSize: 40,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                          fontSize: 40,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     //**************************************/
@@ -194,7 +183,6 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
         dispatchGetOtherUserAction: (String userId) =>
             dispatch(GetOtherUserAction(userId)),
@@ -211,14 +199,12 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final BidModel bid;
-  final VoidCallback dispatchAcceptBidAction;
   final VoidCallback dispatchShortListBidAction;
   final bool change;
   final void Function(String userId) dispatchGetOtherUserAction;
   final VoidCallback pushViewQuotePage;
 
   _ViewModel({
-    required this.dispatchAcceptBidAction,
     required this.dispatchShortListBidAction,
     required this.dispatchGetOtherUserAction,
     required this.bid,

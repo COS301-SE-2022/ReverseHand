@@ -14,39 +14,36 @@ class JobCardWidget extends StatelessWidget {
   final String type;
   final String date;
 
-  final Store<AppState> store;
-
-  const JobCardWidget(
-      {Key? key,
-      required this.titleText,
-      required this.descText,
-      required this.location,
-      required this.type,
-      required this.date,
-      required this.store})
-      : super(key: key);
+  const JobCardWidget({
+    Key? key,
+    required this.titleText,
+    required this.descText,
+    required this.location,
+    required this.type,
+    required this.date,
+  }) : super(key: key);
 
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
   @override
   Widget build(BuildContext context) {
-    return StoreProvider<AppState>(
-      store: store,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 35),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //****************DATE*******************//
-            Padding(
-              padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
-              child: Text(
-                date,
-                style: const TextStyle(
-                    fontSize: 17, color: Color.fromARGB(255, 186, 186, 186)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 35),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //****************DATE*******************//
+          Padding(
+            padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
+            child: Text(
+              date,
+              style: const TextStyle(
+                fontSize: 17,
+                color: Color.fromARGB(255, 186, 186, 186),
               ),
             ),
-            //****************************************//
+          ),
+          //****************************************//
 
             Row(
               children: [
@@ -81,69 +78,69 @@ class JobCardWidget extends StatelessWidget {
               ],
             ),
 
-            //****************LOCATION********************//
-            Padding(
-              padding: const EdgeInsets.only(left: 5, top: 5),
-              child: Row(
-                children: [
-                  const Padding(padding: EdgeInsets.only(right: 1)),
+          //****************LOCATION********************//
+          Padding(
+            padding: const EdgeInsets.only(left: 5, top: 5),
+            child: Row(
+              children: [
+                const Padding(padding: EdgeInsets.only(right: 1)),
 
-                  Text(location,
-                      style: const TextStyle(fontSize: 17, color: Colors.grey)),
-                  //*****************************************//
+                Text(location,
+                    style: const TextStyle(fontSize: 17, color: Colors.grey)),
+                //*****************************************//
 
-                  const Padding(
-                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      child: Icon(
-                        Icons.circle,
-                        size: 8,
-                        color: Colors.grey,
-                      )),
-                  //*****************************************//
-
-                  //****************TRADE********************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Row(
-                      children: [
-                        const Padding(padding: EdgeInsets.only(right: 1)),
-                        Text(type,
-                            style: const TextStyle(
-                                fontSize: 17, color: Colors.grey)),
-                      ],
-                    ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: Icon(
+                    Icons.circle,
+                    size: 8,
+                    color: Colors.grey,
                   ),
-                  // *****************************************//
-                ],
-              ),
-            ),
+                ),
+                //*****************************************//
 
-            const Divider(
-              height: 20,
-              thickness: 1,
-              indent: 5,
-              endIndent: 15,
-              color: Colors.orange,
+                //****************TRADE********************//
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: Row(
+                    children: [
+                      const Padding(padding: EdgeInsets.only(right: 1)),
+                      Text(type,
+                          style: const TextStyle(
+                              fontSize: 17, color: Colors.grey)),
+                    ],
+                  ),
+                ),
+                // *****************************************//
+              ],
             ),
+          ),
 
-            //****************DESCRIPTION*******************//
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 5, top: 10, right: 5),
-                child: Text(descText,
-                    // textWidthBasis: TextWidthBasis.longestLine,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      // height: 1.3,
-                      // letterSpacing: 1
-                    )),
-              ),
+          const Divider(
+            height: 20,
+            thickness: 1,
+            indent: 5,
+            endIndent: 15,
+            color: Colors.orange,
+          ),
+
+          //****************DESCRIPTION*******************//
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5, top: 10, right: 5),
+              child: Text(descText,
+                  // textWidthBasis: TextWidthBasis.longestLine,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    // height: 1.3,
+                    // letterSpacing: 1
+                  )),
             ),
-            //**********************************************/
-          ],
-        ),
+          ),
+          //**********************************************/
+        ],
       ),
     );
   }
