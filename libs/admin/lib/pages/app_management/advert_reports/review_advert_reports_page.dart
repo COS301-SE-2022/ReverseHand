@@ -5,6 +5,7 @@ import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
+import 'package:redux_comp/actions/admin/app_management/accept_advert_report_action.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../../../widgets/report_details_widget.dart';
@@ -29,9 +30,9 @@ class AdvertReportsManagePage extends StatelessWidget {
               List<ReportDetailsWidget> reports = [];
               for (var report in advert.reports) {
                 reports.add(ReportDetailsWidget(
-                   reason: report.reason,
-                   description: report.description,
-                    ));
+                  reason: report.reason,
+                  description: report.description,
+                ));
               }
               Widget appbar = AppBarWidget(
                 title: "Manage Advert Report",
@@ -88,9 +89,9 @@ class AdvertReportsManagePage extends StatelessWidget {
 
                         //******************BUTTONS*********************//
                         LongButtonWidget(
-                            text: "Issue Warning", function: () {}),
+                            text: "Issue Warning", function: () => vm.dispatchRemoveWithWarning(advert.advert.id)),
                         TransparentLongButtonWidget(
-                            text: "Remove Advert", function: () {}),
+                            text: "Remove Advert", function: () => vm.dispatchRemoveWithoutWarning(advert.advert.id)),
                         //**********************************************//
                       ],
                     );
@@ -108,14 +109,24 @@ class _Factory extends VmFactory<AppState, AdvertReportsManagePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
+        dispatchRemoveWithWarning: (advertId) => dispatch(
+          AcceptAdvertReportAction(advertId: advertId, issueWarning: true),
+        ),
+        dispatchRemoveWithoutWarning: (advertId) => dispatch(
+          AcceptAdvertReportAction(advertId: advertId, issueWarning: false),
+        ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
+  final void Function(String) dispatchRemoveWithWarning;
+  final void Function(String) dispatchRemoveWithoutWarning;
 
   _ViewModel({
     required this.loading,
+    required this.dispatchRemoveWithWarning,
+    required this.dispatchRemoveWithoutWarning,
   }) : super(equals: [loading]); // implementinf hashcode;
 }
