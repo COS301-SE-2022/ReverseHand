@@ -1,21 +1,57 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:general/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/widgets/open_image_widget.dart';
 import 'package:general/widgets/textfield.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/adverts/edit_advert_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
+import '../widgets/radio_select_widget.dart';
 
-class EditAdvertPage extends StatelessWidget {
+class EditAdvertPage extends StatefulWidget {
   final Store<AppState> store;
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
 
-  EditAdvertPage({Key? key, required this.store}) : super(key: key);
+  const EditAdvertPage({Key? key, required this.store}) : super(key: key);
+
+  @override
+  State<EditAdvertPage> createState() => _EditAdvertPageState();
+}
+
+class _EditAdvertPageState extends State<EditAdvertPage> {
+  final titleController = TextEditingController();
+  final descrController = TextEditingController();
+  final tradeController = TextEditingController();
+
+  String? trade;
+
+  void showRadioSelect() async {
+    final String? result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const RadioSelectWidget();
+      },
+    );
+
+    // Update UI
+    if (result != null) {
+      setState(() {
+        trade = result;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    tradeController.dispose();
+    descrController.dispose();
+    super.dispose();
+  }
 
   double deviceHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
@@ -23,8 +59,8 @@ class EditAdvertPage extends StatelessWidget {
   //*****Calls method to create a new job*****//
   @override
   Widget build(BuildContext context) {
-    return StoreProvider<AppState>(
-      store: store,
+     return StoreProvider<AppState>(
+      store: widget.store,
       child: Scaffold(
         resizeToAvoidBottomInset:
             false, //prevents floatingActionButton appearing above keyboard
@@ -36,20 +72,51 @@ class EditAdvertPage extends StatelessWidget {
               return Column(
                 children: <Widget>[
                   //*******************APP BAR WIDGET*********************//
-                  AppBarWidget(title: "EDIT JOB", store: store),
+                  AppBarWidget(title: "EDIT JOB", store: widget.store),
                   //********************************************************//
 
-                  //***TEXTFIELDWIDGETS TO GET DATA FROM CONSUMER**//
+                  const Padding(padding: EdgeInsets.only(left: 10),
+                  child: HintWidget(
+                      text: "Edit necessary fields then save the changes", colour: Colors.white70, padding: 15),
+                  ),
+
+                  //**************** TITLE ********************** */
+                  const Padding(padding: EdgeInsets.only(top: 20)),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                     child: TextFieldWidget(
-                      initialVal: vm.advert.title,
                       label: "Title",
                       obscure: false,
-                      min: 2,
+                      min: 1,
                       controller: titleController,
+                      initialVal: vm.advert.title,
                     ),
                   ),
+                  //************************************************//
+
+                  //**************** TRADE TYPE******************** */
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                    child: InkWell(
+                      onTap: () => showRadioSelect(),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey, width: 1)),
+                            child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Text(
+                                  trade == null ? "Trade Type" : trade!,
+                                  style: const TextStyle(fontSize: 18),
+                                ))),
+                      ),
+                    )
+                  ),
+                  //************************************************//
+
+                  //**************** DESCRIPTION****************** */
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
                     child: TextFieldWidget(
@@ -57,18 +124,68 @@ class EditAdvertPage extends StatelessWidget {
                       label: "Description",
                       obscure: false,
                       min: 3,
-                      controller: descriptionController,
+                      controller: descrController,
                     ),
                   ),
                   //*************************************************//
+
+                  //**************** LOCATION ****************** */
+                  StoreConnector<AppState, _ViewModel>(
+                    vm: () => _Factory(this),
+                    builder: (BuildContext context, _ViewModel vm) => Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.grey, width: 1)),
+                              child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        widget.store.state.userDetails.location!
+                                            .address.city,
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                      InkWell(
+                                        onTap:
+                                            () {}, //should be able to change the location of the job on tap
+                                        child: const Text(
+                                          "change address",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.white70,
+                                              decoration: TextDecoration.underline),
+                                        ),
+                                      ),
+                                    ],
+                                  ))),
+                        )),
+                  ),
+                  //*************************************************//
+
+                  const Padding(padding: EdgeInsets.only(top: 5)),
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 30, right: 20), 
+                        child: Text("Select Images: ", style: TextStyle(fontSize: 18),),
+                      ),
+                      OpenImageWidget(store: widget.store),
+                    ],
+                  ),
 
                   StoreConnector<AppState, _ViewModel>(
                     vm: () => _Factory(this),
                     builder: (BuildContext context, _ViewModel vm) => Column(
                       children: [
-                        const Padding(padding: EdgeInsets.all(50)),
+                        const Padding(padding: EdgeInsets.only(right: 50, left: 50, top: 35)),
 
-                        //*********CREATE JOB BUTTON******************//
+                        //*********SAVE BUTTON******************//
                         vm.loading
                             ? const LoadingWidget(topPadding: 0, bottomPadding: 0)
                             : ButtonWidget(
@@ -77,7 +194,7 @@ class EditAdvertPage extends StatelessWidget {
                                 function: () => vm.dispatchEditAdvertAction(
                                   advertId: vm.advert.id,
                                   title: titleController.value.text,
-                                  description: descriptionController.value.text,
+                                  description: descrController.value.text,
                                   domain: vm.advert.domain,
                                 ), //need to dispatch save job action?
                               ),
@@ -90,7 +207,6 @@ class EditAdvertPage extends StatelessWidget {
                           color: "dark",
                           function: vm.popPage,
                         )
-                        //********************************************//
                       ],
                     ),
                   ),
@@ -101,7 +217,7 @@ class EditAdvertPage extends StatelessWidget {
         ),
         //************************NAVBAR***********************/
         bottomNavigationBar: NavBarWidget(
-          store: store,
+          store: widget.store,
         ),
         //*****************************************************/
       ),
@@ -109,8 +225,8 @@ class EditAdvertPage extends StatelessWidget {
   }
 }
 
-// factory for view model
-class _Factory extends VmFactory<AppState, EditAdvertPage> {
+// // factory for view model
+class _Factory extends VmFactory<AppState, _EditAdvertPageState> {
   _Factory(widget) : super(widget);
 
   @override

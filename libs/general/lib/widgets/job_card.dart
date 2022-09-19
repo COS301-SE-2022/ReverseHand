@@ -1,4 +1,9 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/advert_model.dart';
+// import 'package:redux_comp/models/advert_model.dart';
+
 //used in consumer and tradesman
 
 class JobCardWidget extends StatelessWidget {
@@ -7,6 +12,7 @@ class JobCardWidget extends StatelessWidget {
   final String location;
   final String type;
   final String date;
+  final bool? editButton;
 
   const JobCardWidget({
     Key? key,
@@ -15,6 +21,7 @@ class JobCardWidget extends StatelessWidget {
     required this.location,
     required this.type,
     required this.date,
+    this.editButton,
   }) : super(key: key);
 
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -39,42 +46,40 @@ class JobCardWidget extends StatelessWidget {
           ),
           //****************************************//
 
-          Row(
-            children: [
-              //****************TITLE********************//
-              Padding(
-                padding: const EdgeInsets.only(left: 5.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.3,
-                  child: Text(
-                    titleText,
-                    style: const TextStyle(
-                        fontSize: 32, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                //****************TITLE********************//
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: SizedBox(
+                    child: Text(
+                      titleText,
+                      style: const TextStyle(
+                          fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
-              //*****************************************//
+                //*****************************************//
 
-              // //******************EDIT ICON****************//
-              // StoreConnector<AppState, _ViewModel>(
-              //     vm: () => _Factory(this),
-              //     builder: (BuildContext context, _ViewModel vm) =>
-              //         (vm.advert.acceptedBid == null)
-              //             ? Padding(
-              //                 padding: const EdgeInsets.only(left: 5),
-              //                 child: Align(
-              //                 alignment: Alignment.topRight,
-              //                 child: IconButton(
-              //                   onPressed: vm.pushEditAdvert,
-              //                   icon: const Icon(Icons.edit),
-              //                   color: Colors.white70,
-              //                 ),
-              //               )
-              //             )
-              //             : Container()),
-              //**********************************************/
-            ],
-          ),
+                // //******************EDIT ICON****************//
+                (editButton == true)
+                  ? StoreConnector<AppState, _ViewModel>(
+                      vm: () => _Factory(this),
+                      builder: (BuildContext context, _ViewModel vm) =>
+                        (vm.advert.acceptedBid == null)
+                          ? Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                onPressed: vm.pushEditAdvert,
+                                icon: const Icon(Icons.edit),
+                                color: Colors.white70,
+                              ),
+                            )
+                          : Container())
+                  : Container()
+                // //**********************************************/
+              ],
+            ),
 
           //****************LOCATION********************//
           Padding(
@@ -128,12 +133,9 @@ class JobCardWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 5, top: 10, right: 5),
               child: Text(descText,
-                  // textWidthBasis: TextWidthBasis.longestLine,
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
-                    // height: 1.3,
-                    // letterSpacing: 1
                   )),
             ),
           ),
@@ -144,27 +146,27 @@ class JobCardWidget extends StatelessWidget {
   }
 }
 
-//currently commented out cause unsure if editing button will be here
-// // factory for view model
-// class _Factory extends VmFactory<AppState, JobCardWidget> {
-//   _Factory(widget) : super(widget);
 
-//   @override
-//   _ViewModel fromStore() => _ViewModel(
-//         pushEditAdvert: () => dispatch(
-//           NavigateAction.pushNamed('/consumer/edit_advert_page'),
-//         ),
-//         advert: state.activeAd!,
-//       );
-// }
+// factory for view model
+class _Factory extends VmFactory<AppState, JobCardWidget> {
+  _Factory(widget) : super(widget);
 
-// // view model
-// class _ViewModel extends Vm {
-//   final AdvertModel advert;
-//   final VoidCallback pushEditAdvert;
+  @override
+  _ViewModel fromStore() => _ViewModel(
+        pushEditAdvert: () => dispatch(
+          NavigateAction.pushNamed('/consumer/edit_advert_page'),
+        ),
+        advert: state.activeAd!,
+      );
+}
 
-//   _ViewModel({
-//     required this.advert,
-//     required this.pushEditAdvert,
-//   }) : super(equals: [advert]); // implementinf hashcode
-// }
+// view model
+class _ViewModel extends Vm {
+  final AdvertModel advert;
+  final VoidCallback pushEditAdvert;
+
+  _ViewModel({
+    required this.advert,
+    required this.pushEditAdvert,
+  }) : super(equals: [advert]); // implementinf hashcode
+}
