@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CognitoUserModel {
   final String id;
   final String email;
-  final bool enabled;
+  final  bool enabled;
  
 
   const CognitoUserModel({
@@ -19,7 +19,7 @@ class CognitoUserModel {
     return CognitoUserModel(
       id: obj['id'],
       email: obj['email'],
-      enabled: obj['enabled'],
+      enabled: obj['enabled'] == "true",
     );
   }
 }

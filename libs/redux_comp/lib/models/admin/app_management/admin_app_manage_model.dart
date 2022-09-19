@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_management/models/admin_user_model.dart';
-import 'package:redux_comp/models/admin/app_management/models/cognito_user_model.dart';
+import 'package:redux_comp/models/admin/app_management/models/list_users_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/models/admin/reported_advert_model.dart';
 
 @immutable
 class AdminAppManageModel {
-  final List<CognitoUserModel>? usersList;
+  final ListUsersModel? usersList;
   final AdminUserModel? activeUser;
   final List<ReportModel>? reviewReports;
   final List<ReportModel>? userReports;
@@ -22,7 +22,7 @@ class AdminAppManageModel {
   });
 
   AdminAppManageModel copy({
-   List<CognitoUserModel>? usersList,
+   ListUsersModel? usersList,
    AdminUserModel? activeUser,
    List<ReportModel>? reviewReports,
    List<ReportModel>? userReports,
