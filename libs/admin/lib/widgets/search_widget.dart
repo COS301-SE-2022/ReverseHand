@@ -1,7 +1,15 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/redux_comp.dart';
 
 class SearchWidget extends StatefulWidget {
-  const SearchWidget({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  final void Function(String, String) searchFunction;
+  const SearchWidget({
+    Key? key,
+    required this.store,
+    required this.searchFunction,
+  }) : super(key: key);
 
   @override
   State<SearchWidget> createState() => _SearchWidgetState();
@@ -45,8 +53,10 @@ class _SearchWidgetState extends State<SearchWidget> {
             border: InputBorder.none,
             fillColor: Colors.white),
         controller: searchController,
-        onChanged: (text) {
-          //when the input text has changed
+        onSubmitted: (value) {
+          if (searchController.value.text != "") {
+            widget.searchFunction(value, "customer");
+          }
         },
       ),
     );

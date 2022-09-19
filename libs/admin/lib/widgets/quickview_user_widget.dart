@@ -62,16 +62,28 @@ class QuickViewUserCardWidget extends StatelessWidget {
                         ],
                       ),
                       Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 4, 5, 2),
+                          padding: const EdgeInsets.fromLTRB(0, 4, 5, 2),
                           child: Row(children: [
                             Text(
-                              user.enabled ? "Enabled" : "Disabled",
+                              user.enabled ? "ENABLED" : "DISABLED",
                               style: const TextStyle(
                                   color: Colors.black, fontSize: 15),
                             ),
                             const Padding(padding: EdgeInsets.only(right: 5)),
                             Icon(
                               (user.enabled ? Icons.check : Icons.close),
+                              size: 15,
+                            ),
+                            const Padding(padding: EdgeInsets.only(right: 10)),
+                            Text(
+                              user.status,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 15),
+                            ),
+                            const Padding(padding: EdgeInsets.only(right: 5)),
+                            Icon(
+                              (user.status == "EXTERNAL_PROVIDER" ? Icons.arrow_forward_ios_outlined : Icons.check),
+                              // color: ,
                               size: 15,
                             ),
                           ])),

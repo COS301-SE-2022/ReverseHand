@@ -19,6 +19,7 @@ class ListUsersAction extends ReduxAction<AppState> {
         users {
           email
           enabled
+          status
           id
         }
         next_token
@@ -33,7 +34,7 @@ class ListUsersAction extends ReduxAction<AppState> {
       
       return state.copy(
         admin: state.admin.copy(
-          adminManage: state.admin.adminManage.copy(usersList: ListUsersModel.fromJson(data)),
+          adminManage: state.admin.adminManage.copy(usersList: ListUsersModel.fromJson(data, group)),
         ),
       );
     } on ApiException catch (e) {

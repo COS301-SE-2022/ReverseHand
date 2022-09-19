@@ -9,30 +9,36 @@ const func = process.env.FUNCTION;
 
 // recieves an advert as well as a bid id and adds that bid to the shortlisted bids
 exports.handler = async (event) => {
-    let bid = docClient.update({
-        TableName: ReverseHandTable,
-        ReturnValues: 'ALL_NEW',
-        Key: {
-            part_key: event.arguments.ad_id,
-            sort_key: event.arguments.bid_id
-        },
-        UpdateExpression: 'set bid_details.shortlisted = not bid_details.shortlisted',
-    }).promise().then(resp => resp.Attributes);
+    let params = {};
+    params[ReverseHandTable] = {
+        Keys: [
+            {
+                part_key: event.arguments.ad_id,
+                sort_key: event.arguments.bid_id,
+            },
+            {
+                part_key: event.arguments.ad_id,
+                sort_key: event.arguments.ad_id,
+            }
+        ]
+    };
 
-    // getting advert
-    let ad = await docClient.get({
-        TableName: ReverseHandTable,
-        Key: {
-            part_key: event.arguments.ad_id,
-            sort_key: event.arguments.ad_id
-        },
+    let items = await docClient.batchGet({
+        RequestItems: params
     }).promise();
 
-    let item = await bid;
-
+    // checking if first item is a bid or an advert
+    if (items.Responses[ReverseHandTable][0].sort_key[0] == 'a') {
+        var ad = items.Responses[ReverseHandTable][0];
+        var bid = items.Responses[ReverseHandTable][1];
+    } else {
+        var ad = items.Responses[ReverseHandTable][1];
+        var bid = items.Responses[ReverseHandTable][0];
+    }
+    
     // notification being sent out
     // getting current date
-    if (item.bid_details.shortlisted) {
+    if (!bid.bid_details.shortlisted) {
         const date = new Date();
         const currentDate = date.getTime();
     
@@ -40,23 +46,37 @@ exports.handler = async (event) => {
         var notification = lambda.invoke({
             FunctionName: func,
             Payload: JSON.stringify({
-                userId: item.tradesman_id,
+                userId: bid.tradesman_id,
                 notification: {
-                    part_key: "notifications#" + item.tradesman_id,
+                    part_key: "notifications#" + bid.tradesman_id,
                     sort_key: "notification#" + AWS.util.uuid.v4(),
                     title: "Bid Shortlisted",
-                    msg: "Your bid for " + ad.Item.advert_details.title + " has been shortlisted.",
+                    msg: "Your bid for " + ad.advert_details.title + " has been shortlisted.",
                     type: "BidShortlisted",
                     timestamp: currentDate
                 }
             })
         }).promise();
     }
+
+    await docClient.update({
+        TableName: ReverseHandTable,
+        Key: {
+            part_key: event.arguments.ad_id,
+            sort_key: event.arguments.bid_id
+        },
+        UpdateExpression: `set bid_details.shortlisted = :shortlisted`,
+        ExpressionAttributeValues: {
+        ":shortlisted": !bid.bid_details.shortlisted,
+        },
+    }).promise();
     
-    await notification;
+    if (!bid.bid_details.shortlisted)
+        await notification;
 
-    item.bid_details['id'] = item.sort_key;
-    item.bid_details['tradesman_id'] = item.tradesman_id;
+    bid.bid_details['id'] = bid.sort_key;
+    bid.bid_details['tradesman_id'] = bid.tradesman_id;
+    bid.bid_details.shortlisted = !bid.bid_details.shortlisted;
 
-    return item.bid_details;
+    return bid.bid_details;
 };

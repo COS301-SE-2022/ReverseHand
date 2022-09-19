@@ -50,6 +50,12 @@ type Query {
 
   listUsers(group: String!, next_token: String): AdminListUsers!
     @function(name: "listUsersResolver-${env}")
+
+  adminSearchUser(email: String!, group: String!): [AdminCognitoUser!]!
+    @function(name: "adminSearchUserResolver-${env}")
+
+  getUserReviews(user_id: String!): [Review!]!
+    @function(name: "getUserReviewsResolver-${env}")
 }
 
 type Mutation {
@@ -305,7 +311,7 @@ type Review implements UniqueID {
   description: String!
   user_id: String!
   advert_id: String!
-  date_created: Int
+  date_created: Int!
 }
 
 input ReviewInput {
@@ -375,6 +381,7 @@ type AdminCognitoUser implements UniqueID {
   id: String!
   email: String!
   enabled: String!
+  status: String
 }
 
 type AdminListUsers {

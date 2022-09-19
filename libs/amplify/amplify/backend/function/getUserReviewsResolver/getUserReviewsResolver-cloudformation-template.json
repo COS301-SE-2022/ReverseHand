@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.5.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "shortListBidResolver",
+            "getUserReviewsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "shortListBidResolver",
+                  "getUserReviewsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -73,8 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand",
-            "FUNCTION": "arn:aws:lambda:eu-west-1:727515863527:function:notificationsResolver-staging"
+            "REVERSEHAND": "ReverseHand"
           }
         },
         "Role": {
@@ -94,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole7788845d",
+            "reversehandLambdaRole6a43288c",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole7788845d",
+                  "reversehandLambdaRole6a43288c",
                   "-",
                   {
                     "Ref": "env"
@@ -124,10 +123,7 @@
               ]
             }
           ]
-        },
-        "ManagedPolicyArns": [
-          "arn:aws:iam::727515863527:policy/LambdaInvokeNotificationLambda"
-        ]
+        }
       }
     },
     "lambdaexecutionpolicy": {
@@ -191,8 +187,7 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:BatchGetItem",
-                "dynamodb:UpdateItem"
+                "dynamodb:Query"
               ],
               "Resource": [
                 {
