@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:consumer/widgets/edit_advert_sheet.dart';
+import 'package:consumer/pages/edit_advert_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -63,31 +63,20 @@ class JobCardWidget extends StatelessWidget {
                 ),
                 //*****************************************//
 
-                // //******************EDIT ICON****************//
+                //******************EDIT ICON****************//
                 StoreConnector<AppState, _ViewModel>(
-                    vm: () => _Factory(this),
-                    builder: (BuildContext context, _ViewModel vm) =>
-                      (vm.advert.acceptedBid == null)
-                        ? Align(
-                            alignment: Alignment.topRight,
-                            child: IconButton(
-                              onPressed: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(7.0),
-                                  ),
-                                  builder: (BuildContext context) {
-                                    return EditAdvertSheet();
-                                  });
-                              },
-                              icon: const Icon(Icons.edit),
-                              color: Colors.white70,
-                            ),
-                          )
-                        : Container()),
+                  vm: () => _Factory(this),
+                  builder: (BuildContext context, _ViewModel vm) =>
+                    (vm.advert.acceptedBid == null)
+                      ? Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            onPressed: vm.pushEditAdvert,
+                            icon: const Icon(Icons.edit),
+                            color: Colors.white70,
+                          ),
+                        )
+                      : Container()),
                 //**********************************************/
               ],
             ),
