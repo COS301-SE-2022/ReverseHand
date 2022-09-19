@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:general/pages/report_page.dart';
 import 'package:general/widgets/appbar_popup_menu_widget.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
@@ -38,8 +39,19 @@ class TradesmanJobDetails extends StatelessWidget {
                     AppBarWidget(
                         title: "JOB INFO",
                         store: store,
-                        filterActions: AppbarPopUpMenuWidget(
-                            store: store, functions: {"Report Advert": () {}}),
+                        filterActions:
+                            AppbarPopUpMenuWidget(store: store, functions: {
+                          "Report Advert": () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ReportPage(
+                                        store: store,
+                                        reportType: "Advert",
+                                      )),
+                            );
+                          }
+                        }),
                         backButton: true),
                     //*******************************************//
 

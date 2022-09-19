@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/pages/report_page.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
@@ -106,13 +107,18 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                     ),
                   ),
 
-                  //ADD REVIEWS HERE
-
                   const Padding(padding: EdgeInsets.only(top: 15)),
                   TransparentLongButtonWidget(
                       text: "Report",
                       function: () {
-                        vm.pushReportPage();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReportPage(
+                                    store: store,
+                                    reportType: "User",
+                                  )),
+                        );
                       })
 
                   //***********************************/

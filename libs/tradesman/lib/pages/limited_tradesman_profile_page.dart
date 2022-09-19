@@ -8,6 +8,7 @@ import 'package:redux_comp/models/admin/app_management/report_details_model.dart
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/pages/report_page.dart';
 
 class LimitedTradesmanProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -160,24 +161,16 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                   TransparentLongButtonWidget(
                       text: "Report Contractor",
                       function: () {
-                        vm.pushReportPage();
-                      }
-                      // function: () {
-                      //   ReportDetailsModel report = ReportDetailsModel(
-                      //     description: "description",
-                      //     reason: "reason",
-                      //     reportedUser: ReportUserDetailsModel(
-                      //       id: vm.otherUser.id,
-                      //       name: vm.otherUser.name ?? "nameNull",
-                      //     ),
-                      //   );
-                      //   ReportUserDetailsModel user = ReportUserDetailsModel(
-                      //       id: vm.userDetails.id, name: vm.userDetails.name!);
-
-                      //   vm.addUserReport(report, user);
-                      // }
-
-                      )
+                        //alternate way in view model
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReportPage(
+                                    store: store,
+                                    reportType: "User",
+                                  )),
+                        );
+                      })
 
                   //***********************************/
                 ]);
@@ -202,8 +195,13 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
         userDetails: state.userDetails,
         addUserReport: (report, user) =>
             dispatch(AddUserReportAction(report: report, user: user)),
+        //this doesn't work at the moment
         pushReportPage: () {
-          dispatch(NavigateAction.pushNamed('/general/report_page'));
+          dispatch(NavigateAction.pushNamed('/general/report_page',
+              arguments: ReportPage(
+                store: widget!.store,
+                reportType: "User",
+              )));
         },
       );
 }

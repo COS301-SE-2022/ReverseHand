@@ -117,7 +117,6 @@ class Launch extends StatelessWidget {
               ActivityStreamPage(store: store),
           '/general/report_page': (context) => ReportPage(
                 store: store,
-                passedReason: '',
               ),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
