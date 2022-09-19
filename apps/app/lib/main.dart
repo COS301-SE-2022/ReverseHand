@@ -103,9 +103,12 @@ class Launch extends StatelessWidget {
           // shared routes for consumer and tradesman
           '/general/activity_stream': (context) =>
               ActivityStreamPage(store: store),
-          '/general/report_page':(context) => ReportPage(store: store),
-              // authentication routes
-              '/signup': (context) => SignUpPage(store: store),
+          '/general/report_page': (context) => ReportPage(
+                store: store,
+                passedReason: '',
+              ),
+          // authentication routes
+          '/signup': (context) => SignUpPage(store: store),
           '/usertype_selection': (context) =>
               UserTypeSelectionPage(store: store),
           '/login': (context) => LoginPage(store: store),

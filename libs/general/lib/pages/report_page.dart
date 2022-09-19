@@ -13,10 +13,12 @@ import '../widgets/textfield.dart';
 
 class ReportPage extends StatelessWidget {
   final Store<AppState> store;
+  final String passedReason;
 
   ReportPage({
     Key? key,
     required this.store,
+    required this.passedReason,
   }) : super(key: key);
 
   final descrController = TextEditingController();
@@ -50,7 +52,9 @@ class ReportPage extends StatelessWidget {
                   ),
                 ),
                 const ProfileDividerWidget(),
-                const ReportUserSelectWidget(),
+                ReportUserSelectWidget(
+                  store: store,
+                ),
                 //**************************************//
 
                 const Padding(padding: EdgeInsets.only(top: 20)),
@@ -84,8 +88,9 @@ class ReportPage extends StatelessWidget {
                     text: "Submit Review",
                     function: () {
                       ReportDetailsModel report = ReportDetailsModel(
-                        description: "description",
-                        reason: "reason",
+                        description: descrController.value.text,
+                        //no idea if the reason will actually be passed will have to test
+                        reason: passedReason,
                         reportedUser: ReportUserDetailsModel(
                           id: vm.otherUser.id,
                           name: vm.otherUser.name ?? "nameNull",
