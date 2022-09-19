@@ -45,7 +45,9 @@ class GetUserReviewsAction extends ReduxAction<AppState> {
   void before() {
     // if there are currently chats the user may be viewing them and if a
     // new one comes in we don't want to hide everything and display a loading icon
-    if (state.chats.isEmpty) dispatch(WaitAction.add("get_user_reviews"));
+    if (state.userDetails.reviews.isEmpty) {
+      dispatch(WaitAction.add("get_user_reviews"));
+    }
   }
 
   @override
