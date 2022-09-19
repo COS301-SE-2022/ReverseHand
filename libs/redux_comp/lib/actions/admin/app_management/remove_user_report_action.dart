@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/admin/app_management/get_user_reports_action.dart';
 
 import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -47,11 +48,11 @@ class RemoveUserReportAction extends ReduxAction<AppState> {
     }
   }
 
-  @override
-  void before() => dispatch(WaitAction.add("delete_user_report"));
-
-  @override
-  void after() => dispatch(WaitAction.remove("delete_user_report"));
+   @override
+  void before() {
+    dispatch(NavigateAction.pop());
+    dispatch(GetUserReportsAction());
+  }
 }
 
 // mutation {
