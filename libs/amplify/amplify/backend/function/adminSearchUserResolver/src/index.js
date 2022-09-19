@@ -1,27 +1,18 @@
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 const UserPoolId = process.env.USERPOOLID;
+const cognitoIdentity = new AWS.CognitoIdentityServiceProvider();
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    const cognitoIdentity = new AWS.CognitoIdentityServiceProvider();
-
-    let params = (event.arguments.next_token == undefined) ? {
-        "GroupName": event.arguments.group,
-        "UserPoolId": UserPoolId,
-        "Limit": 10
-    } : {
-        "GroupName": event.arguments.group,
-        "UserPoolId": UserPoolId,
-        "NextToken": event.arguments.next_token,
-        "Limit": 10
+    let email = event.arguments.email;
+    let cognitoParams = {
+        "Filter": "email = \"" + email + "\"",
+        "UserPoolId": UserPoolId
     };
-
-    const data = await cognitoIdentity.listUsersInGroup(params).promise();
+    const data = await cognitoIdentity.listUsers(cognitoParams).promise();
     let users = data.Users;
-    let result = {};
-    result.next_token = (data.NextToken != undefined) ? data.NextToken : null;
 
     let buildUser = function (user, prefix) {
         let userResp = {};
@@ -41,11 +32,11 @@ exports.handler = async (event) => {
     };
 
 
-    result.users = [];
+    let result = [];
     let prefix = (event.arguments.group[0] == "c") ? "c#" : "t#";
 
     users.forEach(function (user) {
-        result.users.push(buildUser(user, prefix));
+        result.push(buildUser(user, prefix));
     });
 
     return result;

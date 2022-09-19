@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.5.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "shortListBidResolver",
+            "adminSearchUserResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "shortListBidResolver",
+                  "adminSearchUserResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -73,8 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand",
-            "FUNCTION": "arn:aws:lambda:eu-west-1:727515863527:function:notificationsResolver-staging"
+            "USERPOOLID": "eu-west-1_QpsSD87RL"
           }
         },
         "Role": {
@@ -94,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole7788845d",
+            "reversehandLambdaRolebef443a1",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole7788845d",
+                  "reversehandLambdaRolebef443a1",
                   "-",
                   {
                     "Ref": "env"
@@ -124,10 +123,7 @@
               ]
             }
           ]
-        },
-        "ManagedPolicyArns": [
-          "arn:aws:iam::727515863527:policy/LambdaInvokeNotificationLambda"
-        ]
+        }
       }
     },
     "lambdaexecutionpolicy": {
@@ -173,49 +169,31 @@
         }
       }
     },
-    "AccessDynamoDBApiResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
+    "CustomLambdaExecutionPolicy": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
-        "PolicyName": "amplify-lambda-execution-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
+        "PolicyName": "custom-lambda-execution-policy",
         "PolicyDocument": {
           "Version": "2012-10-17",
           "Statement": [
             {
-              "Effect": "Allow",
               "Action": [
-                "dynamodb:BatchGetItem",
-                "dynamodb:UpdateItem"
+                "cognito-idp:ListUsers"
               ],
               "Resource": [
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
-                    {
-                      "tablename": "ReverseHand"
-                    }
-                  ]
-                },
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
-                    {
-                      "tablename": "ReverseHand"
-                    }
-                  ]
-                }
-              ]
+                "arn:aws:cognito-idp:eu-west-1:727515863527:userpool/eu-west-1_QpsSD87RL"
+              ],
+              "Effect": "Allow"
             }
           ]
-        }
-      }
+        },
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ]
+      },
+      "DependsOn": "LambdaExecutionRole"
     }
   },
   "Outputs": {
