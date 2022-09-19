@@ -143,7 +143,7 @@ type Mutation {
   deleteChat(c_id: String!, ad_id: String!): Chat!
     @function(name: "deleteChatResolver-${env}")
 
-  addReview(user_id: String!, review: ReviewInput!): Review!
+  addReview(user_id: String!, review: ReviewInput!): Review! # user_id is who the review is being created for
     @function(name: "addReviewResolver-${env}")
 
   deleteReview(user_id: String!, id: String!): Review!  #id is the review id
@@ -166,6 +166,9 @@ type Mutation {
 
   removeUserReport(user_id: String!, report_id: String!, issueWarning: Boolean!): ReportDetails!
     @function(name: "removeUserReportResolver-${env}")
+
+  addAdvertReport(advert_id: String!, user_id: String!, report: ReportDetailsInput!) : AdminAdvert!
+    @function(name: "addAdvertReportResolver-${env}")
 }
 
 type Subscription {
@@ -311,15 +314,14 @@ type Review implements UniqueID {
   description: String!
   user_id: String!
   advert_id: String!
-  date_created: Int!
+  date_created: Float!
 }
 
 input ReviewInput {
   rating: Int!
   description: String!
-  user_id: String!
+  user_id: String! # who is making the review
   advert_id: String!
-  date_created: Int
 }
 
 type AdminAdvert {
@@ -373,8 +375,9 @@ input ReportUserDetailsInput {
 
 input ReportDetailsInput {
   reason: String!
-  description: String
-  reported_user: ReportUserDetailsInput!
+  description: String!
+  reported_user: ReportUserDetailsInput
+  reporter_user: ReportUserDetailsInput
 }
 
 type AdminCognitoUser implements UniqueID {

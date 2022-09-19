@@ -17,7 +17,12 @@ exports.handler = async (event) => {
     }).promise();
 
     return response.Items.map((el) => {
+        let item = {
+            id: el['sort_key'],
+            ...el.review_details
+        };
         el['id'] = el['sort_key'];
-        return el;
+        
+        return item;
     });
 };

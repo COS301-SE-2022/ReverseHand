@@ -48,8 +48,8 @@ exports.handler = async (event) => {
             Payload: JSON.stringify({
                 userId: bid.tradesman_id,
                 notification: {
-                    part_key: "notifications#" + bid.tradesman_id,
-                    sort_key: "notification#" + AWS.util.uuid.v4(),
+                    part_key: "notification#" + bid.tradesman_id,
+                    sort_key: date.toISOString(),
                     title: "Bid Shortlisted",
                     msg: "Your bid for " + ad.advert_details.title + " has been shortlisted.",
                     type: "BidShortlisted",

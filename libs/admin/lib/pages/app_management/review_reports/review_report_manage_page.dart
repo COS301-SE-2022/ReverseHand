@@ -156,7 +156,7 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.loading,
-        required this.dispatchGetReviewReports,
+    required this.dispatchGetReviewReports,
     required this.dispatchGetUser,
     required this.dispatchRemoveWithWarning,
     required this.dispatchRemoveWithoutWarning,
