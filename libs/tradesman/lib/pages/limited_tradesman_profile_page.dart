@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
-import 'package:general/widgets/report_widgets/report_widget.dart';
 import 'package:redux_comp/actions/add_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
@@ -161,18 +160,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                   TransparentLongButtonWidget(
                       text: "Report Contractor",
                       function: () {
-                        showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.0),
-                            ),
-                            builder: (BuildContext context) {
-                              return const SizedBox(
-                                height: 300,
-                                child: ReportWidget(),
-                              );
-                            });
+                        vm.pushReportPage();
                       }
                       // function: () {
                       //   ReportDetailsModel report = ReportDetailsModel(
@@ -188,6 +176,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                       //   vm.addUserReport(report, user);
                       // }
+
                       )
 
                   //***********************************/
@@ -213,6 +202,9 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
         userDetails: state.userDetails,
         addUserReport: (report, user) =>
             dispatch(AddUserReportAction(report: report, user: user)),
+        pushReportPage: () {
+          dispatch(NavigateAction.pushNamed('/general/report_page'));
+        },
       );
 }
 
@@ -220,13 +212,15 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final UserModel otherUser;
+  final VoidCallback pushReportPage;
   final void Function(ReportDetailsModel, ReportUserDetailsModel) addUserReport;
   final bool isWaiting;
 
-  _ViewModel({
-    required this.userDetails,
-    required this.otherUser,
-    required this.addUserReport,
-    required this.isWaiting,
-  }) : super(equals: [userDetails, isWaiting]);
+  _ViewModel(
+      {required this.userDetails,
+      required this.otherUser,
+      required this.addUserReport,
+      required this.isWaiting,
+      required this.pushReportPage})
+      : super(equals: [userDetails, isWaiting]);
 }
