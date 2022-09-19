@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/report_widgets/report_widget.dart';
 import 'package:redux_comp/actions/add_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
@@ -47,9 +48,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 20)),
                   Center(
                     child: Text(
-                      vm.otherUser.name != null
-                          ? vm.otherUser.name!
-                          : "null",
+                      vm.otherUser.name != null ? vm.otherUser.name! : "null",
                       style: const TextStyle(fontSize: 35),
                     ),
                   ),
@@ -162,19 +161,34 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                   TransparentLongButtonWidget(
                       text: "Report Contractor",
                       function: () {
-                        ReportDetailsModel report = ReportDetailsModel(
-                          description: "description",
-                          reason: "reason",
-                          reportedUser: ReportUserDetailsModel(
-                            id: vm.otherUser.id,
-                            name: vm.otherUser.name ?? "nameNull",
-                          ),
-                        );
-                        ReportUserDetailsModel user = ReportUserDetailsModel(
-                            id: vm.userDetails.id, name: vm.userDetails.name!);
+                        showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7.0),
+                            ),
+                            builder: (BuildContext context) {
+                              return const SizedBox(
+                                height: 300,
+                                child: ReportWidget(),
+                              );
+                            });
+                      }
+                      // function: () {
+                      //   ReportDetailsModel report = ReportDetailsModel(
+                      //     description: "description",
+                      //     reason: "reason",
+                      //     reportedUser: ReportUserDetailsModel(
+                      //       id: vm.otherUser.id,
+                      //       name: vm.otherUser.name ?? "nameNull",
+                      //     ),
+                      //   );
+                      //   ReportUserDetailsModel user = ReportUserDetailsModel(
+                      //       id: vm.userDetails.id, name: vm.userDetails.name!);
 
-                        vm.addUserReport(report, user);
-                      })
+                      //   vm.addUserReport(report, user);
+                      // }
+                      )
 
                   //***********************************/
                 ]);
