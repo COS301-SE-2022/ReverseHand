@@ -1,5 +1,6 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/admin/app_management/get_review_reports_action.dart';
 
 import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
@@ -9,7 +10,10 @@ class RemoveReviewReportAction extends ReduxAction<AppState> {
   final String userId;
   final bool issueWarning;
 
-  RemoveReviewReportAction({required this.reportId, required this.userId, required this.issueWarning});
+  RemoveReviewReportAction(
+      {required this.reportId,
+      required this.userId,
+      required this.issueWarning});
 
   @override
   Future<AppState?> reduce() async {
@@ -30,9 +34,7 @@ class RemoveReviewReportAction extends ReduxAction<AppState> {
     );
 
     try {
-       final response =  await Amplify.API
-          .mutate(request: request)
-          .response;
+      final response = await Amplify.API.mutate(request: request).response;
 
       debugPrint(response.data);
       return null;
@@ -45,9 +47,9 @@ class RemoveReviewReportAction extends ReduxAction<AppState> {
     }
   }
 
-  @override 
-  void before() => dispatch(WaitAction.add("delete_review_report"));
-
-  @override 
-  void after() => dispatch(WaitAction.remove("delete_review_report"));
- }
+  @override
+  void before() {
+    dispatch(NavigateAction.pop());
+    dispatch(GetReviewReportsAction());
+  }
+}

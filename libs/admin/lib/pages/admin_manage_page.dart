@@ -8,6 +8,7 @@ import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/get_reported_adverts_action.dart';
 import 'package:redux_comp/actions/admin/app_management/get_user_reports_action.dart';
 import 'package:redux_comp/actions/admin/app_management/get_review_reports_action.dart';
+import 'package:redux_comp/actions/admin/app_management/list_users_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class AdminManagePage extends StatelessWidget {
@@ -26,7 +27,7 @@ class AdminManagePage extends StatelessWidget {
               title: "Content Management",
               store: store,
               filterActions: AppbarPopUpMenuWidget(
-                  store: store, functions: {"Search users": () {}}),
+                  store: store, functions: {"Search users": vm.pushSearchUsersPage}),
             );
             return (vm.loading)
                 ? Column(
@@ -70,6 +71,10 @@ class _Factory extends VmFactory<AppState, AdminManagePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
+        pushSearchUsersPage: () {
+          dispatch(NavigateAction.pushNamed('/search_users'));
+          dispatch(ListUsersAction("customer"));
+        },
         pushUserReportsPage: () {
           dispatch(NavigateAction.pushNamed('/user_reports_page'));
           dispatch(GetUserReportsAction());
@@ -91,12 +96,14 @@ class _ViewModel extends Vm {
   final VoidCallback pushUserReportsPage;
   final VoidCallback pushReviewReportsPage;
   final VoidCallback pushAdvertReportsPage;
+  final VoidCallback pushSearchUsersPage;
 
   _ViewModel({
     required this.loading,
     required this.pushUserReportsPage,
     required this.pushReviewReportsPage,
     required this.pushAdvertReportsPage,
+    required this.pushSearchUsersPage,
   }) : super(equals: [loading]); // implementinf hashcode;
 }
 

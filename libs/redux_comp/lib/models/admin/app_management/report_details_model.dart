@@ -32,14 +32,22 @@ class ReportDetailsModel {
     }
   }
 
-  @override
-  String toString() {
-    return """{
+  String toJson(bool reported) {
+    return (reported == true)
+        ? """{
       reason: "$reason",
       description: "$description",
       reported_user: {
         id: "${reportedUser!.id}",
         name: "${reportedUser!.name}",
+      }
+    }"""
+        : """{
+      reason: "$reason",
+      description: "$description",
+      reporter_user: {
+        id: "${reporterUser!.id}",
+        name: "${reporterUser!.name}",
       }
     }""";
   }
