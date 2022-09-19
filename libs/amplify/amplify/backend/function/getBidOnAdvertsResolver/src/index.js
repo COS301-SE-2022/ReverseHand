@@ -40,6 +40,7 @@ exports.handler = async (event) => {
 
     return adverts.Responses[ReverseHandTable].map((el) => {
         el.advert_details['id'] = el.part_key;
+        el.advert_details['customer_id'] = el.customer_id;
         return el.advert_details;
     });
 };

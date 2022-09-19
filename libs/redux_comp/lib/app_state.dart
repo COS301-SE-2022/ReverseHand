@@ -145,6 +145,7 @@ class AppState {
       activeAd: const AdvertModel(
         id: "",
         type: "none",
+        userId: "",
         title: "",
         domain: Domain(
             city: "city",

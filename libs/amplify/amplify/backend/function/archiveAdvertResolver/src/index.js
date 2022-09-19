@@ -77,6 +77,7 @@ exports.handler = async (event) => {
 
     await docClient.put(item).promise();
     resp['advert_details']['id'] = event.arguments.ad_id;
+    resp['advert_details']['customer_id'] = resp.customer_id;
 
     return resp['advert_details'];
 };

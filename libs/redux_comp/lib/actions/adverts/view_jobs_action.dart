@@ -37,6 +37,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
         title
         type
         accepted_bid
+        customer_id
         id
       }
     }''';
@@ -46,8 +47,8 @@ class ViewJobsAction extends ReduxAction<AppState> {
     try {
       final response = await Amplify.API.query(request: request).response;
 
-      List<AdvertModel> adverts = [];
       dynamic data = jsonDecode(response.data)['viewJobs'];
+      List<AdvertModel> adverts = [];
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
       return state.copy(

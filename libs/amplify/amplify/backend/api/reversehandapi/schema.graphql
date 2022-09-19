@@ -80,6 +80,7 @@ type Mutation {
     price: Int!
     quote: String
   ): Bid! @function(name: "placeBidResolver-${env}") # quote is optional and represents a name of a file in a S3 bucket
+  
   closeAdvert(ad_id: String!): Advert!
     @function(name: "closeAdvertResolver-${env}")
 
@@ -169,6 +170,9 @@ type Mutation {
 
   addAdvertReport(advert_id: String!, user_id: String!, report: ReportDetailsInput!) : AdminAdvert!
     @function(name: "addAdvertReportResolver-${env}")
+
+  acceptAdvertReport(advert_id: String!, issueWarning: Boolean!): Advert!
+    @function(name: "acceptAdvertReportResolver-${env}") 
 }
 
 type Subscription {
@@ -326,7 +330,6 @@ input ReviewInput {
 }
 
 type AdminAdvert {
-  customer_id: String!
   advert: Advert!
   count: Int!
   reports: [AdvertReport!]!

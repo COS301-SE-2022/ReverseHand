@@ -5,6 +5,7 @@ import 'package:redux_comp/models/geolocation/domain_model.dart';
 class AdvertModel {
   final String id;
   final String title;
+  final String userId;
   final String? description;
   final String type;
   final String? acceptedBid;
@@ -16,6 +17,7 @@ class AdvertModel {
   const AdvertModel({
     required this.id,
     required this.title,
+    required this.userId,
     this.description,
     required this.type,
     this.acceptedBid,
@@ -28,6 +30,7 @@ class AdvertModel {
   AdvertModel copy({
     String? id,
     String? title,
+    String? userId,
     String? description,
     String? type,
     String? acceptedBid,
@@ -39,6 +42,7 @@ class AdvertModel {
     return AdvertModel(
       id: id ?? this.id,
       title: title ?? this.title,
+      userId: userId ?? this.userId,
       description: description ?? this.description,
       type: type ?? this.type,
       acceptedBid: acceptedBid ?? this.acceptedBid,
@@ -53,6 +57,7 @@ class AdvertModel {
     return AdvertModel(
       id: obj['id'],
       title: obj['title'],
+      userId: obj['customer_id'],
       description: obj['description'],
       type: obj['type'],
       acceptedBid: obj['accepted_bid'],

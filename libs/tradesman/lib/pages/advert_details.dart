@@ -11,6 +11,7 @@ import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
+import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -210,8 +211,9 @@ class TradesmanJobDetails extends StatelessWidget {
                         text: "View Bids", function: vm.pushViewBidsPage),
                     const Padding(padding: EdgeInsets.only(top: 20)),
                     TransparentLongButtonWidget(
-                        text: "View Client Profile",
-                        function: vm.pushLimitedProfilePage),
+                      text: "View Client Profile",
+                      function: vm.dispatchGetOtherUserAction,
+                    ),
                     const Padding(padding: EdgeInsets.only(top: 35)),
 
                     const Padding(padding: EdgeInsets.only(bottom: 50)),
@@ -242,16 +244,13 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         pushViewBidsPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/view_bids_page'),
         ),
-        pushConsumerListings: () => dispatch(
-          NavigateAction.pushNamed('/tradesman'),
-        ),
-        pushLimitedProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/consumer/limited_profile_page')),
         currentBid: state.userBid,
         advertImages: state.advertImages,
         loading: state.wait.isWaiting,
         dispatchPlaceBidAction: ({required int price, String? quote}) =>
             dispatch(PlaceBidAction(price: price, quote: quote)),
+        dispatchGetOtherUserAction: () =>
+            dispatch(GetOtherUserAction(state.activeAd!.userId)),
       );
 }
 
@@ -262,22 +261,22 @@ class _ViewModel extends Vm {
   final List<BidModel> bids;
   final BidModel? currentBid;
   final VoidCallback pushViewBidsPage;
-  final VoidCallback pushConsumerListings;
-  final VoidCallback pushLimitedProfilePage;
   final List<String> advertImages;
   final bool loading;
-  final void Function({required int price, String? quote})
-      dispatchPlaceBidAction;
+  final void Function({
+    required int price,
+    String? quote,
+  }) dispatchPlaceBidAction;
+  final VoidCallback dispatchGetOtherUserAction;
 
   _ViewModel({
     required this.advert,
     required this.bids,
     required this.dispatchPlaceBidAction,
+    required this.dispatchGetOtherUserAction,
     required this.currentBid,
     required this.popPage,
     required this.pushViewBidsPage,
-    required this.pushConsumerListings,
-    required this.pushLimitedProfilePage,
     required this.advertImages,
     required this.loading,
   }) : super(equals: [advert, advertImages, loading]);

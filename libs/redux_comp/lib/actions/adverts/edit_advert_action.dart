@@ -66,6 +66,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
       AdvertModel ad = adverts[adPos];
       adverts[adPos] = AdvertModel(
         id: ad.id,
+        userId: ad.userId,
         title: title ?? ad.title,
         dateCreated: ad.dateCreated,
         description: description ?? ad.description,
