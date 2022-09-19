@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/edit_advert_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -70,7 +71,18 @@ class JobCardWidget extends StatelessWidget {
                         ? Align(
                             alignment: Alignment.topRight,
                             child: IconButton(
-                              onPressed: vm.pushEditAdvert,
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(7.0),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    return EditAdvertSheet();
+                                  });
+                              },
                               icon: const Icon(Icons.edit),
                               color: Colors.white70,
                             ),
