@@ -255,7 +255,6 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
               const Padding(padding: EdgeInsets.all(10)),
 
               //*****************BUTTONS*******************/
-
               ButtonWidget(
                 text: "Apply",
                 function: () {
@@ -284,6 +283,15 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                                   : Direction.descending,
                             ),
                     ),
+                  );
+                  Navigator.pop(context);
+                },
+              ),
+              ButtonWidget(
+                text: "Remove All Filters",
+                function: () {
+                  vm.dispatchFilterAdvertsAction(
+                    const FilterAdvertsModel(),
                   );
                   Navigator.pop(context);
                 },
