@@ -51,7 +51,8 @@ class ConsumerProfilePage extends StatelessWidget {
                         ),
                       ),
                       //************************************/
-                      const Padding(padding: EdgeInsets.only(top: 5, bottom: 15)),
+                      const Padding(
+                          padding: EdgeInsets.only(top: 5, bottom: 15)),
                       //****************PROFILE IMAGE****************/
                       ProfileImageWidget(
                         store: store,
@@ -85,7 +86,7 @@ class ConsumerProfilePage extends StatelessWidget {
                                           color: Theme.of(context).primaryColor,
                                         ),
                                         Text(
-                                          "Adverts Closed ${vm.userDetails.statistics.finished}",
+                                          "Adverts closed ${vm.userDetails.statistics.finished}",
                                           style: const TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -103,7 +104,7 @@ class ConsumerProfilePage extends StatelessWidget {
                                           color: Theme.of(context).primaryColor,
                                         ),
                                         Text(
-                                          "Total Adverts ${vm.userDetails.statistics.created}",
+                                          "Total adverts ${vm.userDetails.statistics.created} made",
                                           style: const TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -130,10 +131,10 @@ class ConsumerProfilePage extends StatelessWidget {
                             ),
                             const Padding(padding: EdgeInsets.only(right: 8)),
                             SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
-                            child: Text(vm.userDetails.email,
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.white)),
+                              width: MediaQuery.of(context).size.width / 1.4,
+                              child: Text(vm.userDetails.email,
+                                  style: const TextStyle(
+                                      fontSize: 20, color: Colors.white)),
                             ),
                           ],
                         ),

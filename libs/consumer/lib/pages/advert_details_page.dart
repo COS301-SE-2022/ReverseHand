@@ -40,21 +40,20 @@ class AdvertDetailsPage extends StatelessWidget {
                     //*******************************************//
 
                     //******************CAROUSEL ****************//
-                    if (vm.advertImages.isNotEmpty)
-                      ImageCarouselWidget(images: vm.advertImages),
+                    if (vm.advert.images.isNotEmpty)
+                      ImageCarouselWidget(images: vm.advert.images),
                     //*******************************************//
 
                     if (vm.loading)
                       const LoadingWidget(topPadding: 80, bottomPadding: 0)
                     else
                       JobCardWidget(
-                        titleText: vm.advert.title,
-                        descText: vm.advert.description ?? "",
-                        location: vm.advert.domain.city,
-                        type: vm.advert.type,
-                        date: timestampToDate(vm.advert.dateCreated),
-                        editButton: true
-                      ),
+                          titleText: vm.advert.title,
+                          descText: vm.advert.description ?? "",
+                          location: vm.advert.domain.city,
+                          type: vm.advert.type,
+                          date: timestampToDate(vm.advert.dateCreated),
+                          editButton: true),
                     //*******************************************//
 
                     //extra padding if there is an accepted bid
@@ -174,7 +173,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           dispatch(ArchiveAdvertAction());
           dispatch(NavigateAction.pop());
         },
-        advertImages: state.advertImages,
         loading: state.wait.isWaiting,
       );
 }
@@ -189,7 +187,6 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchDeleteChatAction;
   final VoidCallback
       dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
-  final List<String> advertImages;
   final bool loading;
 
   _ViewModel({
@@ -200,7 +197,6 @@ class _ViewModel extends Vm {
     required this.pushConsumerListings,
     required this.popPage,
     required this.dispatchArchiveAdvertAction,
-    required this.advertImages,
     required this.loading,
-  }) : super(equals: [advert, advertImages, loading]); // implementinf hashcode
+  }) : super(equals: [advert, loading]); // implementinf hashcode
 }

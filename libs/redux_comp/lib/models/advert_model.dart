@@ -13,11 +13,13 @@ class AdvertModel {
   final double dateCreated;
   final double? dateClosed;
   final double? advertRank;
+  final List<String> images; // image urls for an advert
 
   const AdvertModel({
     required this.id,
     required this.title,
     required this.userId,
+    this.images = const [],
     this.description,
     required this.type,
     this.acceptedBid,
@@ -38,12 +40,14 @@ class AdvertModel {
     double? dateCreated,
     double? dateClosed,
     double? advertRank,
+    List<String>? images,
   }) {
     return AdvertModel(
       id: id ?? this.id,
       title: title ?? this.title,
       userId: userId ?? this.userId,
       description: description ?? this.description,
+      images: images ?? this.images,
       type: type ?? this.type,
       acceptedBid: acceptedBid ?? this.acceptedBid,
       domain: domain ?? this.domain,
@@ -78,7 +82,8 @@ class AdvertModel {
       domain == other.domain &&
       dateCreated == other.dateCreated &&
       dateClosed == other.dateClosed &&
-      advertRank == other.advertRank;
+      advertRank == other.advertRank &&
+      images == other.images;
 
   @override
   int get hashCode => Object.hash(
@@ -91,5 +96,6 @@ class AdvertModel {
         dateCreated,
         dateClosed,
         advertRank,
+        images,
       );
 }

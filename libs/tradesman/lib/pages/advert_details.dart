@@ -57,8 +57,8 @@ class TradesmanJobDetails extends StatelessWidget {
                     //*******************************************//
 
                     //******************CAROUSEL ****************//
-                    if (vm.advertImages.isNotEmpty)
-                      ImageCarouselWidget(images: vm.advertImages),
+                    if (vm.advert.images.isNotEmpty)
+                      ImageCarouselWidget(images: vm.advert.images),
                     //*******************************************//
 
                     //**********DETAILED JOB INFORMATION***********//
@@ -245,7 +245,6 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
           NavigateAction.pushNamed('/tradesman/view_bids_page'),
         ),
         currentBid: state.userBid,
-        advertImages: state.advertImages,
         loading: state.wait.isWaiting,
         dispatchPlaceBidAction: ({required int price, String? quote}) =>
             dispatch(PlaceBidAction(price: price, quote: quote)),
@@ -261,7 +260,6 @@ class _ViewModel extends Vm {
   final List<BidModel> bids;
   final BidModel? currentBid;
   final VoidCallback pushViewBidsPage;
-  final List<String> advertImages;
   final bool loading;
   final void Function({
     required int price,
@@ -277,7 +275,6 @@ class _ViewModel extends Vm {
     required this.currentBid,
     required this.popPage,
     required this.pushViewBidsPage,
-    required this.advertImages,
     required this.loading,
-  }) : super(equals: [advert, advertImages, loading]);
+  }) : super(equals: [advert, loading]);
 }

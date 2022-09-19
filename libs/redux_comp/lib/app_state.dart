@@ -42,7 +42,6 @@ class AppState {
   final List<AdvertModel> viewAdverts;
   final List<AdvertModel> bidOnAdverts; // adverts which a tradesman has bid on
   final AdvertModel? activeAd; // used for representing the current ad
-  final List<String> advertImages; // image urls for an advert
 
   final Location? locationResult;
   // both will change throughout the app
@@ -78,7 +77,6 @@ class AppState {
     required this.partialUser,
     required this.adverts,
     required this.viewAdverts,
-    required this.advertImages,
     required this.bids,
     required this.shortlistBids,
     required this.viewBids,
@@ -153,7 +151,6 @@ class AppState {
             coordinates: Coordinates(lat: 22, lng: 21)),
         dateCreated: 0,
       ),
-      advertImages: const [],
       activeBid: const BidModel(
         id: "",
         userId: "",
@@ -208,11 +205,9 @@ class AppState {
     List<String>? advertsWon,
     int? sum,
     StatisticsModel? userStatistics,
-    String? userProfileImage,
     String? paystackPublicKey,
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
-    List<String>? advertImages,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
@@ -243,7 +238,6 @@ class AppState {
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
       notifications: notifications ?? this.notifications,
-      advertImages: advertImages ?? this.advertImages,
     );
   }
 }

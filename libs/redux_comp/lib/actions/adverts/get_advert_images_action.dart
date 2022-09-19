@@ -26,6 +26,6 @@ class GetAdvertImagesAction extends ReduxAction<AppState> {
       debugPrint('Error listing items: $e');
     }
 
-    return state.copy(advertImages: imageUrls);
+    return state.copy(activeAd: state.activeAd!.copy(images: imageUrls));
   }
 }

@@ -76,7 +76,7 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.userDetails.statistics.created} Jobs Completed",
+                                      "Adverts closed ${vm.userDetails.statistics.finished}",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -94,7 +94,7 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.userDetails.statistics.finished} Bids Made",
+                                      "Total adverts ${vm.userDetails.statistics.created} made",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
