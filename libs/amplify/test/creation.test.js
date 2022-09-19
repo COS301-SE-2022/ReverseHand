@@ -49,6 +49,7 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
     //variables to be used in differnt parts of tests
     var adId = "";
     var bidId = "";
+    var chatId = "";
 
     test("Testing creation, deletion and bid operations", async () =>{
 
@@ -168,8 +169,43 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         handlerModule = require('../amplify/backend/function/createChatResolver/src/index');
         result = await handlerModule.handler(createChatEvent);
 
+        chatId = result.id;
         expect(result.consumer_name).toEqual("Alexander");//verify from what was returned that the chat was created
         expect(result.tradesman_name).toEqual('Richard');
+
+        //********************************************************************************************* */
+        //sendMessageResolver
+
+        console.log("Testing sending a message");
+
+        const sendMessageEvent = {
+            arguments : {
+                chat_id : chatId,
+                sender : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                msg : "Hey There!"
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/sendMessageResolver/src/index');
+        result = await handlerModule.handler(sendMessageEvent);
+
+        //verify response
+        expect(result.msg).toEqual('Hey There!');
+
+
+        //********************************************************************************************* */
+        //getMessageResolver
+
+        console.log("Testing getMessage Resolver");
+        const getMessageEvent = {
+            arguments : {
+                chat_id : chatId
+            }
+        };
+        handlerModule = require('../amplify/backend/function/getMessagesResolver/src/index');
+        result = await handlerModule.handler(getMessageEvent);
+
+        expect(result.length).toEqual(1);//there should only be one chat message for the user if all is right
 
         //********************************************************************************************* */
         //getChatsResolver
