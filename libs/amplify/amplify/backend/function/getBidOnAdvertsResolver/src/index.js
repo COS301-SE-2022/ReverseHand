@@ -17,17 +17,22 @@ exports.handler = async (event) => {
             ':id': event.arguments.tradesman_id
         }
     }).promise();
-    
 
     let items = {};
-    items[ReverseHandTable] = {
-        Keys: response.Items.map((el) => {
-            return {
-                part_key: el.part_key,
-                sort_key: el.part_key
-            };
-        }),
-    };
+    let added = {};
+    items[ReverseHandTable] = {};
+    items[ReverseHandTable]['Keys'] = [];
+    
+    // to ensure that there are not duplicates
+    for (let bid of response.Items) {
+        if (added[bid.part_key] == undefined) {
+            added[bid.part_key] = true;
+            items[ReverseHandTable]['Keys'].push({
+                part_key: bid.part_key,
+                sort_key: bid.part_key
+            });
+        }
+    }
     
     let adverts = await docClient.batchGet({
         RequestItems: items
