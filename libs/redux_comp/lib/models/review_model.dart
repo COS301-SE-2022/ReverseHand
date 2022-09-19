@@ -9,13 +9,14 @@ class ReviewModel {
   final String advertId;
   final int? dateCreated;
 
-  const ReviewModel(
-      {required this.id,
-      required this.rating,
-      required this.description,
-      required this.userId,
-      required this.advertId,
-      this.dateCreated});
+  const ReviewModel({
+    required this.id,
+    required this.rating,
+    required this.description,
+    required this.userId,
+    required this.advertId,
+    this.dateCreated,
+  });
 
   factory ReviewModel.fromJson(obj) {
     return ReviewModel(
