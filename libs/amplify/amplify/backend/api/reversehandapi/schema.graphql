@@ -47,6 +47,9 @@ type Query {
 
   getBidOnAdverts(tradesman_id: String!): [Advert!]!
     @function(name: "getBidOnAdvertsResolver-${env}")
+
+  listUsers(group: String!, next_token: String): AdminListUsers!
+    @function(name: "listUsersResolver-${env}")
 }
 
 type Mutation {
@@ -137,7 +140,7 @@ type Mutation {
   addReview(user_id: String!, review: ReviewInput!): Review!
     @function(name: "addReviewResolver-${env}")
 
-  deleteReview(user_id: String!, id: String!): [Review!]!  #id is the review id
+  deleteReview(user_id: String!, id: String!): Review!  #id is the review id
     @function(name: "deleteReviewResolver-${env}")
 
   archiveAdvert(ad_id: String!): Advert!  #id is the review id
@@ -368,6 +371,17 @@ input ReportDetailsInput {
   reported_user: ReportUserDetailsInput!
 }
 
+type AdminCognitoUser implements UniqueID {
+  id: String!
+  email: String!
+  enabled: String!
+}
+
+type AdminListUsers {
+  users: [AdminCognitoUser!]!
+  next_token: String
+}
+
 type AdminUser implements UniqueID {
   id: String!
   cognito_username: String!
@@ -376,6 +390,7 @@ type AdminUser implements UniqueID {
   enabled: Boolean!
   warnings: Int!
 }
+
 type PayStackKeys {
   secret_key: String!
   public_key: String!

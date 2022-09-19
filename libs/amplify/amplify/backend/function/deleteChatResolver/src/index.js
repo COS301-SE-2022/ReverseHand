@@ -58,7 +58,7 @@ exports.handler = async (event) => {
             },
         };
 
-        await docClient.update(params).promise();
+    await docClient.update(params).promise();
 
     return data['Item'];
 };

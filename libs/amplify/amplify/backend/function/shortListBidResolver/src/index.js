@@ -9,90 +9,54 @@ const func = process.env.FUNCTION;
 
 // recieves an advert as well as a bid id and adds that bid to the shortlisted bids
 exports.handler = async (event) => {
-    try {
-        let params = {
-            TableName: ReverseHandTable,
-            Key: {
-                part_key: event.arguments.ad_id,
-                sort_key: event.arguments.bid_id
-            }
-        };
+    let bid = docClient.update({
+        TableName: ReverseHandTable,
+        ReturnValues: 'ALL_NEW',
+        Key: {
+            part_key: event.arguments.ad_id,
+            sort_key: event.arguments.bid_id
+        },
+        UpdateExpression: 'set bid_details.shortlisted = not bid_details.shortlisted',
+    }).promise().then(resp => resp.Attributes);
 
-        const bidData = await docClient.get(params).promise();
+    // getting advert
+    let ad = await docClient.get({
+        TableName: ReverseHandTable,
+        Key: {
+            part_key: event.arguments.ad_id,
+            sort_key: event.arguments.ad_id
+        },
+    }).promise();
 
-        params = {
-            TableName: ReverseHandTable,
-            Key: {
-                part_key: event.arguments.ad_id,
-                sort_key: event.arguments.ad_id
-            }
-        };
+    let item = await bid;
 
-        const adData = await docClient.get(params).promise();
-        
-        let bid = bidData['Item'];
-        let ad = adData['Item'];
-
-        // notification being sent out
-        // getting current date
+    // notification being sent out
+    // getting current date
+    if (item.bid_details.shortlisted) {
         const date = new Date();
         const currentDate = date.getTime();
-
+    
         const lambda = new AWS.Lambda();
-        let notification = lambda.invoke({
+        var notification = lambda.invoke({
             FunctionName: func,
             Payload: JSON.stringify({
-                userId: bid.tradesman_id,
+                userId: item.tradesman_id,
                 notification: {
-                    part_key: "notifications#" + event.arguments.tradesman_id,
+                    part_key: "notifications#" + item.tradesman_id,
                     sort_key: "notification#" + AWS.util.uuid.v4(),
                     title: "Bid Shortlisted",
-                    msg: "Your bid for " + ad.advert_details.title + " has been shortlisted.",
+                    msg: "Your bid for " + ad.Item.advert_details.title + " has been shortlisted.",
                     type: "BidShortlisted",
                     timestamp: currentDate
                 }
             })
         }).promise();
-        
-        // removing from bids
-        let del = {
-            TableName: ReverseHandTable,
-            Key: {
-                part_key: event.arguments.ad_id,
-                sort_key: event.arguments.bid_id
-            },
-        }
-        await docClient.delete(del).promise();
-        
-        let shortBidId =  event.arguments.bid_id;
-        
-        let item = {
-            TableName: ReverseHandTable,
-            Item: {
-                part_key: event.arguments.ad_id,
-                sort_key: shortBidId, // prefixing but keeping same suffix
-                tradesman_id: bid['tradesman_id'],
-                bid_details: {
-                    name: bid['bid_details']['name'],
-                    price: bid['bid_details']['price'],
-                    quote: bid['bid_details']['quote'],
-                    date_created: bid['bid_details']['date_created'],
-                    date_closed: bid['bid_details']['date_closed'],
-                    shortlisted: true
-                }
-            }
-        };
-
-        await docClient.put(item).promise();
-        
-        item.Item.bid_details['tradesman_id'] = bid['tradesman_id'];
-        item.Item.bid_details['id'] = shortBidId;
-        
-        await notification;
-    
-        return item.Item.bid_details;
-    } catch(e) {
-        console.log(e)
-        return e;
     }
+    
+    await notification;
+
+    item.bid_details['id'] = item.sort_key;
+    item.bid_details['tradesman_id'] = item.tradesman_id;
+
+    return item.bid_details;
 };
