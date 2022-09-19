@@ -1,7 +1,10 @@
+import 'package:admin/pages/admin_profile_page.dart';
+import 'package:admin/pages/app_management/advert_reports/review_advert_reports_page.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
 import 'package:consumer/pages/edit_profile_page.dart';
+import 'package:consumer/pages/limited_consumer_profile_page.dart';
 import 'package:general/general.dart';
 import 'package:general/methods/toast_error.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
@@ -84,6 +87,8 @@ class Launch extends StatelessWidget {
               EditAdvertPage(store: store),
           '/consumer/edit_profile_page': (context) =>
               EditConsumerProfilePage(store: store),
+          '/consumer/limited_profile_page': (context) =>
+              LimitedConsumerProfilePage(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
@@ -131,6 +136,9 @@ class Launch extends StatelessWidget {
           '/user_manage': (context) => UserManagePage(store: store),
           '/database_metrics': (context) => DatabaseMetricsPage(store: store),
           '/api_metrics': (context) => ApiMetricsPage(store: store),
+          '/review_advert_reports_page': (context) =>
+              AdvertReportsManagePage(store: store),
+          '/admin_profile': (context) => AdminProfilePage(store: store)
         },
       ),
     );

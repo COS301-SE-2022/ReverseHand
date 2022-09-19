@@ -4,7 +4,12 @@ class ReportUserDescrWidget extends StatelessWidget {
   final String title;
   final String name;
   final void Function() function;
-  const ReportUserDescrWidget({Key? key, required this.title, required this.name, required this.function}) : super(key: key);
+  const ReportUserDescrWidget(
+      {Key? key,
+      required this.title,
+      required this.name,
+      required this.function})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +37,9 @@ class ReportUserDescrWidget extends StatelessWidget {
               const Icon(
                 Icons.person,
                 color: Colors.white70,
-                size: 26.0,
+                size: 25.0,
               ),
+              const Padding(padding: EdgeInsets.only(right: 5)),
               Text(
                 name,
                 style: const TextStyle(fontSize: 20, color: Colors.white),

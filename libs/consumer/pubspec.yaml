@@ -28,6 +28,9 @@ dependencies:
   general:
     path: '../general'
 
+  tradesman:
+    path: '../tradesman'
+
   authentication:
     path: '../authentication'
   
