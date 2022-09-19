@@ -23,7 +23,7 @@ exports.handler = async (event) => {
         },
     };
 
-    let customer_id = await docClient.update(item).promise().then(resp => resp.Attribures.customer_id);
+    let customer_id = await docClient.update(item).promise().then(resp => resp.Attributes.customer_id);
     
     // getting accepted bid
     let params = {
@@ -41,7 +41,7 @@ exports.handler = async (event) => {
     //adding the advert_id to the tradesman that won it
 
     // increase number of adverts won for a tradesman
-    await document.update({
+    await docClient.update({
         TableName: ReverseHandTable,
         Key: {
             part_key: tradesman_id,
@@ -53,7 +53,7 @@ exports.handler = async (event) => {
         }
     });
 
-    await document.update({
+    await docClient.update({
         TableName: ReverseHandTable,
         Key: {
             part_key: customer_id,

@@ -191,12 +191,7 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:GetItem",
-                "dynamodb:PutItem",
-                "dynamodb:List*",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:Delete*",
+                "dynamodb:BatchGetItem",
                 "dynamodb:UpdateItem"
               ],
               "Resource": [

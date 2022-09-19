@@ -85,7 +85,7 @@ class QuickViewBidWidget extends StatelessWidget {
                     ),
                     //**************BID RANGE********************/
                     Text(
-                      'R${bid.price}',
+                      bid.amount(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontSize: 22, color: Colors.black),

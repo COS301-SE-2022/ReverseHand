@@ -9,6 +9,7 @@ import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/profile_divider.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
+import 'package:redux_comp/actions/user/reviews/get_user_reviews_action.dart';
 import 'package:general/widgets/bottom_sheet.dart';
 import 'package:tradesman/widgets/reviews/review_widget.dart';
 import '../widgets/multiselect_widget.dart';
@@ -200,52 +201,54 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 const Padding(
                                     padding: EdgeInsets.only(top: 20)),
                                 TransparentLongButtonWidget(
-                                    text: "See my Reviews",
-                                    function: () {
-                                      showModalBottomSheet(
-                                          context: context,
-                                          isScrollControlled: true,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(7.0),
-                                          ),
-                                          builder: (BuildContext context) {
-                                            return SingleChildScrollView(
-                                              child: Column(
-                                                children: [
-                                                  //******************CLOSE*****************//
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 20.0,
-                                                            right: 8),
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.topRight,
-                                                      child: IconButton(
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          icon: const Icon(
-                                                            Icons.close,
-                                                            color: Colors.black,
-                                                          )),
-                                                    ),
-                                                  ),
-                                                  //****************************************//
+                                  text: "See my Reviews",
+                                  function: () {
+                                    vm.dispatchGetUserReviewsAction();
 
-                                                  //******************REVIEWS***************//
-                                                  ReviewWidget(
-                                                      store: widget.store),
-                                                  ReviewWidget(
-                                                      store: widget.store),
-                                                  //****************************************//
-                                                ],
+                                    List<ReviewWidget> reviews = vm
+                                        .userDetails.reviews
+                                        .map((r) => ReviewWidget(review: r))
+                                        .toList();
+
+                                    showModalBottomSheet(
+                                      context: context,
+                                      isScrollControlled: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(7.0),
+                                      ),
+                                      builder: (BuildContext context) {
+                                        return SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              //******************CLOSE*****************//
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 20.0, right: 8),
+                                                child: Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: IconButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.close,
+                                                        color: Colors.black,
+                                                      )),
+                                                ),
                                               ),
-                                            );
-                                          });
-                                    }),
+                                              //****************************************//
+
+                                              //******************REVIEWS***************//
+                                              ...reviews,
+                                              //****************************************//
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
                               ],
                             ),
                           ),
@@ -280,7 +283,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         color: Theme.of(context).primaryColor,
                                       ),
                                       Text(
-                                        "${vm.userDetails.statistics.created} Jobs Completed",
+                                        "${vm.userDetails.statistics.finished} Jobs Completed",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
@@ -298,7 +301,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         color: Theme.of(context).primaryColor,
                                       ),
                                       Text(
-                                        "${vm.userDetails.statistics.finished} Bids Made",
+                                        "${vm.userDetails.statistics.created} Bids Made",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
@@ -552,6 +555,7 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
         dispatchChangeCellAction: (String userId, String cellNo) => dispatch(
             EditUserDetailsAction(
                 userId: userId, changed: "cellNo", cellNo: cellNo)),
+        dispatchGetUserReviewsAction: () => dispatch(GetUserReviewsAction()),
         dispatchChangeTradeAction: (String userId, List<String> trades) =>
             dispatch(EditUserDetailsAction(
                 userId: userId, changed: "tradetypes", tradeTypes: trades)),
@@ -566,7 +570,8 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final VoidCallback pushDomainConfirmPage;
-  final void Function() dispatchLogoutAction;
+  final VoidCallback dispatchLogoutAction;
+  final VoidCallback dispatchGetUserReviewsAction;
   final void Function(String, String) dispatchChangeNameAction;
   final void Function(String, String) dispatchChangeCellAction;
   final void Function(String, List<String>) dispatchChangeTradeAction;
@@ -575,6 +580,7 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.userDetails,
     required this.pushDomainConfirmPage,
+    required this.dispatchGetUserReviewsAction,
     required this.dispatchLogoutAction,
     required this.dispatchChangeNameAction,
     required this.dispatchChangeCellAction,

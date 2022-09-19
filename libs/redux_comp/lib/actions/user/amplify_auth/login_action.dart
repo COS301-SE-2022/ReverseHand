@@ -19,14 +19,12 @@ class LoginAction extends ReduxAction<AppState> {
     try {
       // await Amplify.Auth.signOut();
 
-      /* SignInResult res =  */await Amplify.Auth.signIn(
+      /* SignInResult res =  */ await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
 
-      return state.copy(
-        error: ErrorType.none
-      );
+      return state.copy(error: ErrorType.none);
       /* Cognito will throw an AuthException object that is not fun to interact with */
       /* The most useful part of the AuthException is the AuthException message */
     } on AuthException catch (e) {
@@ -75,9 +73,14 @@ class LoginAction extends ReduxAction<AppState> {
   void after() async {
     if (state.error == ErrorType.none) {
       await dispatch(CheckSignedInAction());
-
     } else {
       dispatch(WaitAction.remove("flag"));
     }
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

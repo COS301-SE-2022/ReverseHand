@@ -1,8 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/toast_error.dart';
 import 'package:general/widgets/bottom_sheet.dart';
 import 'package:general/widgets/profile_divider.dart';
-import 'package:redux_comp/actions/toast_error_action.dart';
 import 'package:redux_comp/actions/user/user_table/create_user_action.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -359,7 +359,7 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                               .hasMatch(name) ||
                           name.isEmpty) {
                         // ToastErrorAction(context, "Invalid Name");
-                        vm.dispatchToastErrorAction(context, "Invalid name");
+                        displayToastError(context, "Invalid name");
                         return;
                       }
 
@@ -368,20 +368,19 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
                               .hasMatch(cell) ||
                           cell.isEmpty) {
                         // ToastErrorAction(context, "Invalid Name");
-                        vm.dispatchToastErrorAction(
-                            context, "Invalid cellphone number");
+                        displayToastError(context, "Invalid cellphone number");
                         return;
                       }
 
                       final domains = vm.userDetails.domains;
                       if (domains.isEmpty) {
-                        vm.dispatchToastErrorAction(
+                        displayToastError(
                             context, "Select at least one domain");
                         return;
                       }
 
                       if (selectedItems.isEmpty) {
-                        vm.dispatchToastErrorAction(
+                        displayToastError(
                             context, "Select at least one tradetype");
                         return;
                       }
@@ -431,8 +430,6 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
         userDetails: state.userDetails,
-        dispatchToastErrorAction: (context, msg) =>
-            dispatch(ToastErrorAction(context, msg)),
       );
 }
 
@@ -445,8 +442,6 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final VoidCallback pushDomainConfirmPage;
   final UserModel userDetails;
-  final void Function(BuildContext context, String msg)
-      dispatchToastErrorAction;
 
   _ViewModel({
     required this.dispatchCreateTradesmanAction,
@@ -454,6 +449,5 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.pushDomainConfirmPage,
     required this.userDetails,
-    required this.dispatchToastErrorAction,
   }) : super(equals: [userDetails]);
 }

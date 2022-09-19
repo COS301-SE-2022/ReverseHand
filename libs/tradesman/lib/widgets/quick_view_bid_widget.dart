@@ -65,7 +65,7 @@ class TQuickViewBidWidget extends StatelessWidget {
                   //***************************************/
                   const Padding(padding: EdgeInsets.only(right: 20)),
                   Text(
-                    'R${bid.price}',
+                    bid.amount(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 22, color: Colors.black),

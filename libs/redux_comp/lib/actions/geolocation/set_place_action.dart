@@ -40,7 +40,7 @@ class SetPlaceAction extends ReduxAction<AppState> {
           return null;
       }
     } else {
-      return state.copy(error: ErrorType.locationNotCaptured);
+      throw const UserException("", cause: ErrorType.locationNotCaptured);
     }
   }
 
@@ -48,5 +48,11 @@ class SetPlaceAction extends ReduxAction<AppState> {
   void after() {
     PlaceApiSingleton.instance.destroy();
     dispatch(NavigateAction.pop());
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }
