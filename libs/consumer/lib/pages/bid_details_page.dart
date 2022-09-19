@@ -12,7 +12,6 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/models/error_type_model.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart'; 
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;

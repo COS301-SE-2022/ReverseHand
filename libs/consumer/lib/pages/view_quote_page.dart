@@ -1,12 +1,7 @@
-import 'dart:io';
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/app_state.dart'; 
-import 'package:path_provider/path_provider.dart';
-import 'package:file_picker/file_picker.dart';
 
 class ViewQuotePage extends StatelessWidget {
   final Store<AppState> store;
@@ -18,7 +13,7 @@ class ViewQuotePage extends StatelessWidget {
     // final name = basename(widget.file.path);
     return Scaffold(
       appBar: AppBar(
-        title: Text("File Name here"),
+        title: const Text("File Name here"),
         backgroundColor: Theme.of(context).primaryColorDark,
         actions: [
           Padding(padding: const EdgeInsets.only(right: 10),
@@ -93,6 +88,7 @@ class ViewQuotePage extends StatelessWidget {
 
 
 // factory for view model
+// ignore: unused_element
 class _Factory extends VmFactory<AppState, ViewQuotePage> {
   _Factory(widget) : super(widget);
 
