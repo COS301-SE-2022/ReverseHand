@@ -8,7 +8,6 @@ import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
-import 'package:redux_comp/actions/adverts/get_advert_images_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
@@ -46,15 +45,16 @@ class AdvertDetailsPage extends StatelessWidget {
                     //*******************************************//
 
                     if (vm.loading)
-                        const LoadingWidget(topPadding: 80, bottomPadding: 0)
-                    else 
+                      const LoadingWidget(topPadding: 80, bottomPadding: 0)
+                    else
                       JobCardWidget(
-                          titleText: vm.advert.title,
-                          descText: vm.advert.description ?? "",
-                          location: vm.advert.domain.city,
-                          type: vm.advert.type,
-                          date: timestampToDate(vm.advert.dateCreated),
-                          store: store),
+                        titleText: vm.advert.title,
+                        descText: vm.advert.description ?? "",
+                        location: vm.advert.domain.city,
+                        type: vm.advert.type,
+                        date: timestampToDate(vm.advert.dateCreated),
+                        editButton: true
+                      ),
                     //*******************************************//
 
                     //extra padding if there is an accepted bid
@@ -78,12 +78,14 @@ class AdvertDetailsPage extends StatelessWidget {
                               text: "Delete",
                               function: () {
                                 LightDialogHelper.display(
-                                    context,
-                                    DeletePopUpWidget(
-                                      // action: vm.dispatchArchiveAdvertAction,
-                                      action: () => vm.test(),
-                                    ),
-                                    320.0);
+                                  context,
+                                  DeletePopUpWidget(
+                                    // action: vm.dispatchArchiveAdvertAction,
+                                    action: () =>
+                                        vm.dispatchArchiveAdvertAction(),
+                                  ),
+                                  320.0,
+                                );
                               },
                             )
                           ],
@@ -118,13 +120,19 @@ class AdvertDetailsPage extends StatelessWidget {
                           LongButtonWidget(
                             text: "Close",
                             function: () {
-                              LightDialogHelper.display(context,
-                                  RatingPopUpWidget(
-                                onPressed: () {
-                                  vm.dispatchDeleteChatAction();
-                                  vm.pushConsumerListings();
-                                },
-                              ), 1000.0);
+                              LightDialogHelper.display(
+                                context,
+                                RatingPopUpWidget(
+                                  store: store,
+                                  onPressed: () {
+                                    // reason not inside Rating popup is to make it general and reusable
+                                    // vm.dispatchDeleteChatAction();
+                                    // vm.dispatchArchiveAdvertAction();
+                                    vm.pushConsumerListings();
+                                  },
+                                ),
+                                1000.0,
+                              );
                             },
                           ),
                           const Padding(padding: EdgeInsets.only(bottom: 50)),
@@ -159,7 +167,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/consumer'),
         ),
-
         popPage: () => dispatch(NavigateAction.pop()),
         advert: state.activeAd!,
         dispatchDeleteChatAction: () => dispatch(DeleteChatAction()),
@@ -167,7 +174,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           dispatch(ArchiveAdvertAction());
           dispatch(NavigateAction.pop());
         },
-        test: () => dispatch(GetAdvertImagesAction()),
         advertImages: state.advertImages,
         loading: state.wait.isWaiting,
       );
@@ -183,7 +189,6 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchDeleteChatAction;
   final VoidCallback
       dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
-  final VoidCallback test;
   final List<String> advertImages;
   final bool loading;
 
@@ -195,7 +200,6 @@ class _ViewModel extends Vm {
     required this.pushConsumerListings,
     required this.popPage,
     required this.dispatchArchiveAdvertAction,
-    required this.test,
     required this.advertImages,
     required this.loading,
   }) : super(equals: [advert, advertImages, loading]); // implementinf hashcode

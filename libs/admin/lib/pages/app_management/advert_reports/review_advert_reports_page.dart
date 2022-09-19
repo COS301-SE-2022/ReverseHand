@@ -68,7 +68,6 @@ class AdvertReportsManagePage extends StatelessWidget {
                           date: DateTime.fromMicrosecondsSinceEpoch(
                                   advert.advert.dateCreated.floor() * 1000)
                               .toString(),
-                          store: store,
                         ),
                         //count
                         Padding(
@@ -76,7 +75,7 @@ class AdvertReportsManagePage extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Report count: ${advert.count.toString()}",
+                              "Report count: ${advert.count}",
                               style: const TextStyle(
                                 fontSize: 17,
                                 decoration: TextDecoration.underline,
@@ -89,9 +88,13 @@ class AdvertReportsManagePage extends StatelessWidget {
 
                         //******************BUTTONS*********************//
                         LongButtonWidget(
-                            text: "Issue Warning", function: () => vm.dispatchRemoveWithWarning(advert.advert.id)),
+                            text: "Issue Warning",
+                            function: () =>
+                                vm.dispatchRemoveWithWarning(advert.advert.id)),
                         TransparentLongButtonWidget(
-                            text: "Remove Advert", function: () => vm.dispatchRemoveWithoutWarning(advert.advert.id)),
+                            text: "Remove Advert",
+                            function: () => vm.dispatchRemoveWithoutWarning(
+                                advert.advert.id)),
                         //**********************************************//
                       ],
                     );

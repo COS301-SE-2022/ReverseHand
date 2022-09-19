@@ -14,13 +14,18 @@ class BidModel {
   const BidModel({
     required this.id,
     required this.userId,
-    required this.price,
+    required this.price, // in cents
     this.quote,
     this.name,
     required this.dateCreated,
     this.dateClosed,
     required this.shortlisted,
   });
+
+  // gets the amount in rands of a bid
+  String amount() {
+    return 'R${price ~/ 100}';
+  }
 
   factory BidModel.fromJson(obj) {
     return BidModel(

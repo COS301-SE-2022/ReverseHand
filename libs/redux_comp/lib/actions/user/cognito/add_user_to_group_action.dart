@@ -40,4 +40,10 @@ class AddUserToGroupAction extends ReduxAction<AppState> {
   void after() async {
     await dispatch(AssignGroupsAction());
   }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
+  }
 }

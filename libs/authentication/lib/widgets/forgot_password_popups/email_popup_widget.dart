@@ -12,20 +12,25 @@ import 'otp_popup_widget.dart';
 // Forgot password email popup widget
 //******************************** */
 
-class FPEmailPopupWidget extends StatelessWidget {
-  final emailController = TextEditingController();
-
+class FPEmailPopupWidget extends StatefulWidget {
   final Store<AppState> store;
 
-  FPEmailPopupWidget({
+  const FPEmailPopupWidget({
     Key? key,
     required this.store,
   }) : super(key: key);
 
   @override
+  State<FPEmailPopupWidget> createState() => _FPEmailPopupWidgetState();
+}
+
+class _FPEmailPopupWidgetState extends State<FPEmailPopupWidget> {
+  final emailController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => Padding(
@@ -78,12 +83,10 @@ class FPEmailPopupWidget extends StatelessWidget {
                           context: context,
                           isScrollControlled: true,
                           builder: (BuildContext context) => FPOTPPopupWidget(
-                            store: store,
+                            store: widget.store,
                             function: () => {},
                           ),
                         );
-                        
-                        
                       },
                     )
                   ],
@@ -99,14 +102,13 @@ class FPEmailPopupWidget extends StatelessWidget {
 
 // factory for view model
 // ignore: unused_element
-class _Factory extends VmFactory<AppState, FPEmailPopupWidget> {
+class _Factory extends VmFactory<AppState, _FPEmailPopupWidgetState> {
   _Factory(widget) : super(widget);
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchResetPassword: (email) => dispatch(ResetPasswordAction(email)),
-        popPage: () =>dispatch(NavigateAction.pop())
-      );
+      dispatchResetPassword: (email) => dispatch(ResetPasswordAction(email)),
+      popPage: () => dispatch(NavigateAction.pop()));
 }
 
 // view model

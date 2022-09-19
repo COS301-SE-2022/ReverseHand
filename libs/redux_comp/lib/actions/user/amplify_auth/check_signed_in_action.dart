@@ -21,10 +21,13 @@ class CheckSignedInAction extends ReduxAction<AppState> {
           authSessionWithCredentials.userPoolTokens!;
 
       return state.copy(
-          authModel: CognitoAuthModel(
-              refreshToken: tokens.refreshToken,
-              accessToken: tokens.accessToken));
+        authModel: CognitoAuthModel(
+          refreshToken: tokens.refreshToken,
+          accessToken: tokens.accessToken,
+        ),
+      );
     } else {
+      // throw const UserException("", cause: ErrorType.userNotAuthorised);
       return state.copy(error: ErrorType.userNotAuthorised);
     }
   }
@@ -39,7 +42,14 @@ class CheckSignedInAction extends ReduxAction<AppState> {
     if (state.error == ErrorType.none) {
       dispatch(AssignGroupsAction());
     } else {
-      dispatch(WaitAction.remove("auto-login")); // if there's an error don't log them in
+      dispatch(WaitAction.remove(
+          "auto-login")); // if there's an error don't log them in
     }
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

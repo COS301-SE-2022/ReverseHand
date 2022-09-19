@@ -40,12 +40,12 @@ class ViewBidsPage extends StatelessWidget {
 
                 //**********DETAILED JOB INFORMATION***********//
                 JobCardWidget(
-                    titleText: vm.advert.title,
-                    descText: vm.advert.description ?? "",
-                    date: timestampToDate(vm.advert.dateCreated),
-                    type: vm.advert.type,
-                    location: vm.advert.domain.city,
-                    store: store),
+                  titleText: vm.advert.title,
+                  descText: vm.advert.description ?? "",
+                  date: timestampToDate(vm.advert.dateCreated),
+                  type: vm.advert.type,
+                  location: vm.advert.domain.city,
+                ),
                 //*******************************************//
 
                 const Padding(padding: EdgeInsets.all(10)),

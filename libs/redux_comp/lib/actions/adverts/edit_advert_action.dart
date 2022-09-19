@@ -36,7 +36,7 @@ class EditAdvertAction extends ReduxAction<AppState> {
       if (response.errors.isNotEmpty) {
         switch (response.errors[0].message) {
           case "Advert contains bids":
-            return state.copy(error: ErrorType.advertContainsBids);
+            throw const UserException("", cause: ErrorType.advertContainsBids);
         }
       }
 
@@ -90,5 +90,11 @@ class EditAdvertAction extends ReduxAction<AppState> {
   void after() async {
     dispatch(NavigateAction.pop());
     dispatch(WaitAction.remove("edit_advert"));
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

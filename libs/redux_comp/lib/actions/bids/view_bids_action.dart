@@ -42,6 +42,10 @@ class ViewBidsAction extends ReduxAction<AppState> {
       List<BidModel> shortlistedBids = [];
 
       BidModel? userBid;
+      BidModel? activeBid;
+
+      final AdvertModel ad =
+          state.adverts.firstWhere((element) => element.id == adId);
 
       // since all bids are gotten we seperate them into two lists
       for (dynamic d in data['viewBids']) {
@@ -53,11 +57,12 @@ class ViewBidsAction extends ReduxAction<AppState> {
           bids.add(bid);
         }
 
+        // for when a user needs to view their own bid
         if (bid.userId == state.userDetails.id) userBid = bid;
-      }
 
-      final AdvertModel ad =
-          state.adverts.firstWhere((element) => element.id == adId);
+        // for when we close an advert
+        if (ad.acceptedBid != null && bid.id == ad.acceptedBid) activeBid = bid;
+      }
 
       return state.copy(
         bids: bids,
@@ -65,6 +70,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
         shortlistBids: shortlistedBids,
         viewBids: bids + shortlistedBids,
         activeAd: ad, // setting the active ad
+        activeBid: activeBid,
       );
     } catch (e) {
       return null; /* On Error do not modify state */
