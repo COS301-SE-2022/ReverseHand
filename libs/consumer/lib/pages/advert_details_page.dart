@@ -53,6 +53,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         location: vm.advert.domain.city,
                         type: vm.advert.type,
                         date: timestampToDate(vm.advert.dateCreated),
+                        editButton: true
                       ),
                     //*******************************************//
 
