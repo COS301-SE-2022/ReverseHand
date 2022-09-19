@@ -145,6 +145,7 @@ class AppState {
       reviews: const [],
       activeAd: const AdvertModel(
         id: "",
+        customerId: "",
         type: "none",
         title: "",
         domain: Domain(

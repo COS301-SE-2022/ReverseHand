@@ -276,6 +276,7 @@ input CoordinatesInput {
 
 type Advert implements UniqueID {
   id: String!
+  customer_id: String!
   title: String!
   description: String
   type: String
@@ -325,7 +326,6 @@ input ReviewInput {
 }
 
 type AdminAdvert {
-  customer_id: String!
   advert: Advert!
   count: Int!
   reports: [AdvertReport!]!

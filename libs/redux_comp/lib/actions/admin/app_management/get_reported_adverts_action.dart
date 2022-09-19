@@ -19,7 +19,6 @@ class GetReportedAdvertsAction extends ReduxAction<AppState> {
     String graphQLDoc = '''query {
       getReportedAdverts(province: "$province") {
         count
-        customer_id
         reports {
           description
           reason
@@ -38,6 +37,7 @@ class GetReportedAdvertsAction extends ReduxAction<AppState> {
             }
           }
           id
+          customer_id
           title
           type
           description

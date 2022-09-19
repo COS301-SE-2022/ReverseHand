@@ -4,6 +4,7 @@ import 'package:redux_comp/models/geolocation/domain_model.dart';
 @immutable
 class AdvertModel {
   final String id;
+  final String customerId;
   final String title;
   final String? description;
   final String type;
@@ -15,6 +16,7 @@ class AdvertModel {
 
   const AdvertModel({
     required this.id,
+    required this.customerId,
     required this.title,
     this.description,
     required this.type,
@@ -27,6 +29,7 @@ class AdvertModel {
 
   AdvertModel copy({
     String? id,
+    String? customerId,
     String? title,
     String? description,
     String? type,
@@ -38,6 +41,7 @@ class AdvertModel {
   }) {
     return AdvertModel(
       id: id ?? this.id,
+      customerId: customerId ?? this.customerId,
       title: title ?? this.title,
       description: description ?? this.description,
       type: type ?? this.type,
@@ -52,6 +56,7 @@ class AdvertModel {
   factory AdvertModel.fromJson(obj) {
     return AdvertModel(
       id: obj['id'],
+      customerId: obj['customer_id'],
       title: obj['title'],
       description: obj['description'],
       type: obj['type'],
