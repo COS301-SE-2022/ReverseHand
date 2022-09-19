@@ -23,9 +23,9 @@ class ReviewModel {
       id: obj['id'],
       rating: obj['rating'],
       description: obj['description'],
-      userId: obj['userId'],
-      advertId: obj['advertId'],
-      dateCreated: obj['dateCreated'].toDouble(),
+      userId: obj['user_id'],
+      advertId: obj['advert_id'],
+      dateCreated: obj['date_created'].toDouble(),
     );
   }
 
@@ -38,5 +38,26 @@ class ReviewModel {
         user_id : "$userId",
         advert_id : "$advertId"
     }""";
+  }
+
+  // implementing hashcode
+  @override
+  int get hashCode => Object.hash(
+        id,
+        advertId,
+        rating,
+        description,
+        userId,
+        dateCreated,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    return other is ReviewModel &&
+        id == other.id &&
+        advertId == other.advertId &&
+        rating == other.rating &&
+        description == other.description &&
+        dateCreated == other.dateCreated;
   }
 }

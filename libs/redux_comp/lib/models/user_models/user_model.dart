@@ -86,6 +86,8 @@ class UserModel {
         name,
         cellNo,
         domains,
+        tradeTypes,
+        userType,
         location,
         registered,
         externalProvider,
@@ -93,6 +95,7 @@ class UserModel {
         scope,
         statistics,
         profileImage,
+        reviews,
       );
 
   @override
@@ -103,12 +106,15 @@ class UserModel {
         name == other.name &&
         cellNo == other.cellNo &&
         domains == other.domains &&
+        tradeTypes == other.tradeTypes &&
+        userType == other.userType &&
         location == other.location &&
         registered == other.registered &&
         externalProvider == other.externalProvider &&
         externalUsername == other.externalUsername &&
         scope == other.scope &&
         statistics == other.statistics &&
-        profileImage == other.profileImage;
+        profileImage == other.profileImage &&
+        reviews == other.reviews;
   }
 }
