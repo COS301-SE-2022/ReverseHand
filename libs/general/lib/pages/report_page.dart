@@ -98,7 +98,6 @@ class ReportPage extends StatelessWidget {
                       );
                       ReportUserDetailsModel user = ReportUserDetailsModel(
                           id: vm.userDetails.id, name: vm.userDetails.name!);
-
                       vm.addUserReport(report, user);
                     })
               ],
