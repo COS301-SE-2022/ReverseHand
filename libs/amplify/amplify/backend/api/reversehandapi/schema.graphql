@@ -169,6 +169,9 @@ type Mutation {
 
   addAdvertReport(advert_id: String!, user_id: String!, report: ReportDetailsInput!) : AdminAdvert!
     @function(name: "addAdvertReportResolver-${env}")
+
+  acceptAdvertReport(advert_id: String!, issueWarning: Boolean!): Advert!
+    @function(name: "acceptAdvertReportResolver-${env}") 
 }
 
 type Subscription {

@@ -242,6 +242,10 @@
         "getUserReviewsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getUserReviewsResolver-425642674b2b35357641-build.zip"
+        },
+        "acceptAdvertReportResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/acceptAdvertReportResolver-6c4a7649724c5971496a-build.zip"
         }
       }
     }

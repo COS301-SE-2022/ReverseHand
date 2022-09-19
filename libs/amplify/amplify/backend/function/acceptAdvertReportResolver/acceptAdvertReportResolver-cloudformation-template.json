@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.5.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "acceptBidResolver",
+            "acceptAdvertReportResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "acceptBidResolver",
+                  "acceptAdvertReportResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -73,7 +73,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand"
+            "REVERSEHAND": "ReverseHand",
+            "ARCHIVEDREVERSEHAND": "ArchivedReverseHand"
           }
         },
         "Role": {
@@ -93,12 +94,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRolea49ac755",
+            "reversehandLambdaRole5ff8ce23",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRolea49ac755",
+                  "reversehandLambdaRole5ff8ce23",
                   "-",
                   {
                     "Ref": "env"
@@ -187,14 +188,10 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:BatchWriteItem",
+                "dynamodb:DeleteItem",
                 "dynamodb:PutItem",
-                "dynamodb:List*",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:Delete*",
-                "dynamodb:UpdateItem",
-                "dynamodb:GetItem"
+                "dynamodb:GetItem",
+                "dynamodb:UpdateItem"
               ],
               "Resource": [
                 {
@@ -217,7 +214,7 @@
                   "Fn::Sub": [
                     "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
                     {
-                      "tablename": "User"
+                      "tablename": "ArchivedReverseHand"
                     }
                   ]
                 }
