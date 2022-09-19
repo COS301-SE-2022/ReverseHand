@@ -49,7 +49,6 @@ class AppState {
   final ErrorType error;
   final bool change; // used to show that state changed and must rebuild
   final Wait wait; // for progress indicators
-  final List<ReviewModel> reviews; //holds the list of a users reviews.
   final int sum; //this represents the sum of a users reviews
   final List<String> advertsWon; //adverts tradesman won.
 
@@ -95,7 +94,6 @@ class AppState {
     required this.chat,
     required this.messages,
     required this.messageSubscription,
-    required this.reviews,
     required this.sum,
     required this.advertsWon,
     required this.admin,
@@ -120,6 +118,7 @@ class AppState {
           created: 0,
           finished: 0,
         ),
+        reviews: [],
       ),
       otherUserDetails: const UserModel(
         id: "",
@@ -132,6 +131,7 @@ class AppState {
           created: 0,
           finished: 0,
         ),
+        reviews: [],
       ),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
@@ -142,7 +142,6 @@ class AppState {
       bids: const [],
       shortlistBids: const [],
       viewBids: const [],
-      reviews: const [],
       activeAd: const AdvertModel(
         id: "",
         type: "none",
@@ -223,7 +222,6 @@ class AppState {
       adverts: adverts ?? this.adverts,
       viewAdverts: viewAdverts ?? this.viewAdverts,
       bids: bids ?? this.bids,
-      reviews: reviews ?? this.reviews,
       shortlistBids: shortlistBids ?? this.shortlistBids,
       viewBids: viewBids ?? this.viewBids,
       bidOnAdverts: bidOnAdverts ?? this.bidOnAdverts,

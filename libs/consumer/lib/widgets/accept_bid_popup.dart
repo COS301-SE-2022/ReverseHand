@@ -2,7 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
 import 'package:redux_comp/actions/bids/accept_bid_action.dart';
-import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
+import 'package:redux_comp/actions/process_payment_action.dart';
 import 'package:redux_comp/app_state.dart';
 
 class AcceptPopUpWidget extends StatelessWidget {
@@ -35,9 +35,9 @@ class AcceptPopUpWidget extends StatelessWidget {
                 ButtonWidget(
                   text: "Accept",
                   function: () {
-                    vm.dispatchAcceptBidAction();
-
                     Navigator.pop(context);
+                    // vm.dispatchAcceptBidAction();
+                    vm.dispatchProcessPayementAction(context);
                   },
                 ),
                 const Padding(padding: EdgeInsets.all(5)),
@@ -62,18 +62,19 @@ class _Factory extends VmFactory<AppState, AcceptPopUpWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
         dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
+        dispatchProcessPayementAction: (BuildContext context) =>
+            dispatch(ProcessPaymentAction(context)),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback dispatchShortListBidAction;
   final VoidCallback dispatchAcceptBidAction;
+  final void Function(BuildContext context) dispatchProcessPayementAction;
 
   _ViewModel({
-    required this.dispatchShortListBidAction,
     required this.dispatchAcceptBidAction,
+    required this.dispatchProcessPayementAction,
   }); // implementinf hashcode
 }
