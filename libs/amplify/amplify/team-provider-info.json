@@ -157,7 +157,7 @@
         },
         "addAdvertReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/addAdvertReportResolver-3357727a6879696d5561-build.zip"
+          "s3Key": "amplify-builds/addAdvertReportResolver-63492f4f635059796f4f-build.zip"
         },
         "archiveAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -217,7 +217,7 @@
         },
         "getBidOnAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getBidOnAdvertsResolver-44384836524d6252486d-build.zip"
+          "s3Key": "amplify-builds/getBidOnAdvertsResolver-4945797271706e583933-build.zip"
         },
         "getReportsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",

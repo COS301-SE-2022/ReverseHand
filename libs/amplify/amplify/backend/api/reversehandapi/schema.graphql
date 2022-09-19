@@ -166,6 +166,9 @@ type Mutation {
 
   removeUserReport(user_id: String!, report_id: String!, issueWarning: Boolean!): ReportDetails!
     @function(name: "removeUserReportResolver-${env}")
+
+  addAdvertReport(advert_id: String!, user_id: String!, report: ReportDetailsInput!) : AdminAdvert!
+    @function(name: "addAdvertReportResolver-${env}")
 }
 
 type Subscription {
@@ -273,6 +276,7 @@ input CoordinatesInput {
 
 type Advert implements UniqueID {
   id: String!
+  customer_id: String!
   title: String!
   description: String
   type: String
@@ -372,8 +376,9 @@ input ReportUserDetailsInput {
 
 input ReportDetailsInput {
   reason: String!
-  description: String
-  reported_user: ReportUserDetailsInput!
+  description: String!
+  reported_user: ReportUserDetailsInput
+  reporter_user: ReportUserDetailsInput
 }
 
 type AdminCognitoUser implements UniqueID {
