@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
+import 'package:redux_comp/models/review_model.dart';
 import 'package:redux_comp/models/user_models/statistics_model.dart';
 
 import '../geolocation/domain_model.dart';
@@ -21,6 +22,7 @@ class UserModel {
   final String? scope; //for the admin user province scope
   final StatisticsModel statistics;
   final String? profileImage;
+  final List<ReviewModel> reviews;
 
   const UserModel({
     required this.id,
@@ -37,6 +39,7 @@ class UserModel {
     this.scope,
     required this.statistics,
     this.profileImage,
+    required this.reviews,
   });
 
   UserModel copy({
@@ -54,6 +57,7 @@ class UserModel {
     String? scope,
     StatisticsModel? statistics,
     String? profileImage,
+    List<ReviewModel>? reviews,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -70,6 +74,7 @@ class UserModel {
       scope: scope ?? this.scope,
       statistics: statistics ?? this.statistics,
       profileImage: profileImage ?? this.profileImage,
+      reviews: reviews ?? this.reviews,
     );
   }
 

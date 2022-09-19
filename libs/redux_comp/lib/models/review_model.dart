@@ -7,7 +7,7 @@ class ReviewModel {
   final String description;
   final String userId;
   final String advertId;
-  final int? dateCreated;
+  final double dateCreated;
 
   const ReviewModel({
     required this.id,
@@ -15,17 +15,18 @@ class ReviewModel {
     required this.description,
     required this.userId,
     required this.advertId,
-    this.dateCreated,
+    required this.dateCreated,
   });
 
   factory ReviewModel.fromJson(obj) {
     return ReviewModel(
-        id: obj['id'],
-        rating: obj['rating'],
-        description: obj['description'],
-        userId: obj['userId'],
-        advertId: obj['advertId'],
-        dateCreated: obj['dateCreated']);
+      id: obj['id'],
+      rating: obj['rating'],
+      description: obj['description'],
+      userId: obj['userId'],
+      advertId: obj['advertId'],
+      dateCreated: obj['dateCreated'].toDouble(),
+    );
   }
 
   @override
