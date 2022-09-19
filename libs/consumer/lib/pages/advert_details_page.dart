@@ -126,8 +126,8 @@ class AdvertDetailsPage extends StatelessWidget {
                                   store: store,
                                   onPressed: () {
                                     // reason not inside Rating popup is to make it general and reusable
-                                    vm.dispatchDeleteChatAction();
-                                    vm.dispatchArchiveAdvertAction();
+                                    // vm.dispatchDeleteChatAction();
+                                    // vm.dispatchArchiveAdvertAction();
                                     vm.pushConsumerListings();
                                   },
                                 ),

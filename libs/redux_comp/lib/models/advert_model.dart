@@ -72,7 +72,8 @@ class AdvertModel {
       acceptedBid == other.acceptedBid &&
       domain == other.domain &&
       dateCreated == other.dateCreated &&
-      dateClosed == other.dateCreated;
+      dateClosed == other.dateClosed &&
+      advertRank == other.advertRank;
 
   @override
   int get hashCode => Object.hash(
@@ -84,5 +85,6 @@ class AdvertModel {
         domain,
         dateCreated,
         dateClosed,
+        advertRank,
       );
 }

@@ -22,12 +22,12 @@ class AddReviewAction extends ReduxAction<AppState> {
     String graphQLDocument = '''mutation {
       addReview(
         user_id: "${state.activeBid!.userId}",
-        reviews: "{
+        review: {
           rating: $rating,
-          description: $description
-          user_id: ${state.userDetails.id}
-          advert_id: ${state.activeAd!.id}
-        }"
+          description: "$description"
+          user_id: "${state.userDetails.id}"
+          advert_id: "${state.activeAd!.id}"
+        }
       ){
         id
         rating
@@ -41,7 +41,9 @@ class AddReviewAction extends ReduxAction<AppState> {
     final request = GraphQLRequest(document: graphQLDocument);
 
     try {
-      /* final response = */ Amplify.API.mutate(request: request).response;
+      /* final response = await */ Amplify.API
+          .mutate(request: request)
+          .response;
 
       return null;
     } on ApiException catch (e) {
