@@ -118,13 +118,16 @@ class AdvertDetailsPage extends StatelessWidget {
                           LongButtonWidget(
                             text: "Close",
                             function: () {
-                              LightDialogHelper.display(context,
-                                  RatingPopUpWidget(
-                                onPressed: () {
-                                  vm.dispatchDeleteChatAction();
-                                  vm.pushConsumerListings();
-                                },
-                              ), 1000.0);
+                              LightDialogHelper.display(
+                                context,
+                                RatingPopUpWidget(
+                                  onPressed: () {
+                                    vm.dispatchDeleteChatAction();
+                                    vm.pushConsumerListings();
+                                  },
+                                ),
+                                1000.0,
+                              );
                             },
                           ),
                           const Padding(padding: EdgeInsets.only(bottom: 50)),

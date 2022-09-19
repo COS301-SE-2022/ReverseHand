@@ -1,24 +1,34 @@
+import 'package:consumer/controllers/rating_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:consumer/widgets/rating_stars.dart';
 import 'package:general/widgets/button.dart';
 
 typedef RatingChangeCallback = void Function(double rating);
 
-class RatingPopUpWidget extends StatefulWidget {
-  final VoidCallback onPressed;
+// class RatingPopUpWidget extends StatefulWidget {
+// final VoidCallback onPressed;
 
-  const RatingPopUpWidget({
+// const RatingPopUpWidget({
+//   Key? key,
+//   required this.onPressed,
+// }) : super(key: key);
+
+//   @override
+//   State<RatingPopUpWidget> createState() => RatingPopUpWidgetState();
+// }
+
+@immutable
+class RatingPopUpWidget extends StatelessWidget {
+  final VoidCallback onPressed;
+  final RatingController ratingController = RatingController();
+
+  RatingPopUpWidget({
     Key? key,
     required this.onPressed,
   }) : super(key: key);
 
-  @override
-  State<RatingPopUpWidget> createState() => RatingPopUpWidgetState();
-}
-
-class RatingPopUpWidgetState extends State<RatingPopUpWidget> {
-  double rating = 0;
-  TextEditingController reviewController = TextEditingController();
+  final double rating = 0;
+  final TextEditingController reviewController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +50,7 @@ class RatingPopUpWidgetState extends State<RatingPopUpWidget> {
               const Padding(padding: EdgeInsets.all(10)),
               //*****************rating stars**********************
               StarRating(
-                rating: rating,
-                onRatingChanged: (rating) =>
-                    setState(() => this.rating = rating),
+                ratingController: ratingController,
                 color: Colors.orange,
               ),
               //*****************************************************
@@ -71,7 +79,6 @@ class RatingPopUpWidgetState extends State<RatingPopUpWidget> {
                 style: const TextStyle(color: Colors.black, fontSize: 18),
                 obscureText: false,
                 controller: reviewController,
-                onTap: () {},
                 decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                   enabledBorder: OutlineInputBorder(
@@ -99,8 +106,7 @@ class RatingPopUpWidgetState extends State<RatingPopUpWidget> {
                 children: [
                   ButtonWidget(
                     text: "Submit",
-                    function:
-                        widget.onPressed, // fix later should pass in store
+                    function: onPressed, // fix later should pass in store
                   ),
                   const Padding(padding: EdgeInsets.all(5)),
                   ButtonWidget(

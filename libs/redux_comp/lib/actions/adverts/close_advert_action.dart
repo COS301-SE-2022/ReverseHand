@@ -26,7 +26,6 @@ class CloseAdvertAction extends ReduxAction<AppState> {
     );
 
     try {
-      /* return the advert that was closed */
       await Amplify.API.mutate(request: request).response;
 
       return null; /* return null as we do not want to modify state as of now */

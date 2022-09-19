@@ -1,20 +1,23 @@
+import 'package:consumer/controllers/rating_controller.dart';
 import 'package:flutter/material.dart';
 
-typedef RatingChangeCallback = void Function(double rating);
-
-class StarRating extends StatelessWidget {
-  final int starCount;
-  final double rating;
-  final RatingChangeCallback onRatingChanged;
+class StarRating extends StatefulWidget {
   final Color color;
+  final RatingController ratingController;
 
-  const StarRating(
-      {Key? key,
-      this.starCount = 5,
-      this.rating = .0,
-      required this.onRatingChanged,
-      required this.color})
-      : super(key: key);
+  const StarRating({
+    Key? key,
+    required this.ratingController,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  State<StarRating> createState() => _StarRatingState();
+}
+
+class _StarRatingState extends State<StarRating> {
+  int starCount = 5;
+  int rating = 0;
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
@@ -38,9 +41,17 @@ class StarRating extends StatelessWidget {
       );
     }
     return InkResponse(
-      onTap:
-          // ignore: unnecessary_null_comparison
-          onRatingChanged == null ? null : () => onRatingChanged(index + 1.0),
+      onTap: () {
+        setState(() {
+          if (index == 0 && rating == 1) {
+            rating = 0;
+          } else {
+            rating = index + 1;
+          }
+
+          widget.ratingController.setRating(rating);
+        });
+      },
       child: icon,
     );
   }

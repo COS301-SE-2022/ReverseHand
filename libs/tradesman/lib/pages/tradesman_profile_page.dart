@@ -283,7 +283,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         color: Theme.of(context).primaryColor,
                                       ),
                                       Text(
-                                        "${vm.userDetails.statistics.created} Jobs Completed",
+                                        "${vm.userDetails.statistics.finished} Jobs Completed",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
@@ -301,7 +301,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                         color: Theme.of(context).primaryColor,
                                       ),
                                       Text(
-                                        "${vm.userDetails.statistics.finished} Bids Made",
+                                        "${vm.userDetails.statistics.created} Bids Made",
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
