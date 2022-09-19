@@ -129,4 +129,10 @@ class CreateUserAction extends ReduxAction<AppState> {
   Future<void> after() async {
     dispatch(GetUserAction());
   }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
+  }
 }

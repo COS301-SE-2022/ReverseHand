@@ -14,8 +14,7 @@ class ShortlistBidAction extends ReduxAction<AppState> {
         id
         name
         tradesman_id
-        price_lower
-        price_upper
+        price
         quote
         date_created
         date_closed

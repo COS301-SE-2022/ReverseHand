@@ -393,6 +393,18 @@ type AdminListUsers {
   next_token: String
 }
 
+type AdminCognitoUser implements UniqueID {
+  id: String!
+  email: String!
+  enabled: String!
+  status: String
+}
+
+type AdminListUsers {
+  users: [AdminCognitoUser!]!
+  next_token: String
+}
+
 type AdminUser implements UniqueID {
   id: String!
   cognito_username: String!

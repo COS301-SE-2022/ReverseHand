@@ -55,4 +55,10 @@ class AssignGroupsAction extends ReduxAction<AppState> {
       dispatch(NavigateAction.pushNamed('/usertype_selection'));
     }
   }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
+  }
 }
