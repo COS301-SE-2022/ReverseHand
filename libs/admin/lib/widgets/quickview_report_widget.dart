@@ -37,45 +37,39 @@ class QuickviewReportWidget extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.list,
-                              size: 23,
+                              Icons.help_outline,
                               color: Theme.of(context).primaryColor,
                             ),
                             const Padding(padding: EdgeInsets.only(right: 5)),
-                            const Text("Report reason: ",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.4,
+                              child: Text(
+                                report.reportDetails.reason,
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.black),
+                              ),
+                            ),
                           ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 4.0),
-                          child: Text(report.reportDetails.reason,
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.black)),
                         ),
                         const Padding(padding: EdgeInsets.only(top: 10)),
                         Row(
                           children: [
                             Icon(
-                              Icons.description_outlined,
-                              size: 23,
+                              Icons.text_snippet_outlined,
                               color: Theme.of(context).primaryColor,
                             ),
                             const Padding(padding: EdgeInsets.only(right: 5)),
-                            const Text("Report description: ",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.4,
+                              child: Text(
+                                report.reportDetails.description,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.black),
+                              ),
+                            ),
                           ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 4.0),
-                          child: Text(report.reportDetails.description,
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.black)),
                         ),
                       ],
                     ),

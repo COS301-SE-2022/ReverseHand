@@ -132,7 +132,7 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
         },
         pushProfilePage: () => dispatch(
           NavigateAction.pushNamedAndRemoveUntil(
-              '/admin_profile', ModalRoute.withName('/')),
+              '/admin_profile', ModalRoute.withName('/admin_profile')),
         ),
       );
 }
