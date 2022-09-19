@@ -13,6 +13,7 @@ class JobCardWidget extends StatelessWidget {
   final String location;
   final String type;
   final String date;
+  final bool? editButton;
 
   const JobCardWidget({
     Key? key,
@@ -21,6 +22,7 @@ class JobCardWidget extends StatelessWidget {
     required this.location,
     required this.type,
     required this.date,
+    this.editButton,
   }) : super(key: key);
 
   double deviceWidth(BuildContext context) => MediaQuery.of(context).size.width;
@@ -60,21 +62,23 @@ class JobCardWidget extends StatelessWidget {
                 ),
                 //*****************************************//
 
-                //******************EDIT ICON****************//
-                StoreConnector<AppState, _ViewModel>(
-                  vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) =>
-                    (vm.advert.acceptedBid == null)
-                      ? Align(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                            onPressed: vm.pushEditAdvert,
-                            icon: const Icon(Icons.edit),
-                            color: Colors.white70,
-                          ),
-                        )
-                      : Container()),
-                //**********************************************/
+                // //******************EDIT ICON****************//
+                (editButton == true)
+                  ? StoreConnector<AppState, _ViewModel>(
+                      vm: () => _Factory(this),
+                      builder: (BuildContext context, _ViewModel vm) =>
+                        (vm.advert.acceptedBid == null)
+                          ? Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                onPressed: vm.pushEditAdvert,
+                                icon: const Icon(Icons.edit),
+                                color: Colors.white70,
+                              ),
+                            )
+                          : Container())
+                  : Container()
+                // //**********************************************/
               ],
             ),
 
@@ -130,12 +134,9 @@ class JobCardWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 5, top: 10, right: 5),
               child: Text(descText,
-                  // textWidthBasis: TextWidthBasis.longestLine,
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
-                    // height: 1.3,
-                    // letterSpacing: 1
                   )),
             ),
           ),
