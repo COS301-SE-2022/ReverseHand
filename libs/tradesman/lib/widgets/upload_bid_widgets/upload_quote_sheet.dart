@@ -78,7 +78,7 @@ class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
                     borderRadius: BorderRadius.circular(7.0),
                   ),
                   builder: (BuildContext context) {
-                    return UploadAmountSheet();
+                    return const UploadAmountSheet();
                   },
                 );
 
@@ -117,7 +117,7 @@ class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
                   borderRadius: BorderRadius.circular(7.0),
                 ),
                 builder: (BuildContext context) {
-                  return UploadAmountSheet();
+                  return const UploadAmountSheet();
                 },
               );
 

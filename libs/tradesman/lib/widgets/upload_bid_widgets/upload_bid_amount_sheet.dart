@@ -2,12 +2,17 @@ import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class UploadAmountSheet extends StatelessWidget {
-  final TextEditingController bidPriceController = TextEditingController();
-
-  UploadAmountSheet({
+class UploadAmountSheet extends StatefulWidget {
+  const UploadAmountSheet({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<UploadAmountSheet> createState() => _UploadAmountSheetState();
+}
+
+class _UploadAmountSheetState extends State<UploadAmountSheet> {
+  final TextEditingController bidPriceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
