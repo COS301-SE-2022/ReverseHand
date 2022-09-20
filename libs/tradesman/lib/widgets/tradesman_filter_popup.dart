@@ -22,7 +22,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
 
   final TextEditingController distanceController = TextEditingController();
 
-  double _currentSliderValue = 20;
+  double _currentSliderValue = 0;
 
   final List<String> _dropdownValues = ["None", "Newest", "Oldest"];
 
@@ -273,7 +273,8 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                     FilterAdvertsModel(
                       domains: domains,
                       tradeTypes: tradeTypes,
-                      distance: _currentSliderValue,
+                      distance:
+                          _currentSliderValue == 0 ? null : _currentSliderValue,
                       sort: dropDownListVal == null
                           ? null
                           : Sort(

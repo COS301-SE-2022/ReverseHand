@@ -69,7 +69,7 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: Column(
                           children: [
                             LongButtonWidget(
-                                text: "View Bids",
+                                text: "View Bids (${vm.bidCount})",
                                 function: () {
                                   vm.pushViewBidsPage();
                                 }),
@@ -174,6 +174,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           dispatch(NavigateAction.pop());
         },
         loading: state.wait.isWaiting,
+        bidCount: state.bids.length,
       );
 }
 
@@ -184,6 +185,7 @@ class _ViewModel extends Vm {
   final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
+  final int bidCount;
   final VoidCallback dispatchDeleteChatAction;
   final VoidCallback
       dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
@@ -192,6 +194,7 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.dispatchDeleteChatAction,
     required this.advert,
+    required this.bidCount,
     required this.pushEditAdvert,
     required this.pushViewBidsPage,
     required this.pushConsumerListings,

@@ -17,9 +17,10 @@ exports.handler = async (event) => {
         // checking if there are existing bids
         let params = {
             TableName: ReverseHandTable,
-            KeyConditionExpression: "part_key = :p",
+            KeyConditionExpression: "part_key = :p and begins_with(:b)",
             ExpressionAttributeValues: {
                 ":p": event.arguments.ad_id,
+                ":b": "b#"
             }
         };
         let data = await docClient.query(params).promise();

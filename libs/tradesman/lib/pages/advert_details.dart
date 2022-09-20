@@ -76,9 +76,9 @@ class TradesmanJobDetails extends StatelessWidget {
                     const Padding(padding: EdgeInsets.only(top: 25)),
 
                     //*************BOTTOM BUTTONS**************//
-                    vm.bids.contains(vm.currentBid)
-                        //this isn't working as expected
-                        // vm.currentBid != null
+                    // vm.bids.contains(vm.userBid)
+                    //this isn't working as expected
+                    vm.userBid != null
                         //if this contractor has already made a bid
                         ? Column(
                             children: [
@@ -135,7 +135,7 @@ class TradesmanJobDetails extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                vm.currentBid!.amount(),
+                                                vm.userBid!.amount(),
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
@@ -208,7 +208,9 @@ class TradesmanJobDetails extends StatelessWidget {
                     //place bid
 
                     TransparentLongButtonWidget(
-                        text: "View Bids", function: vm.pushViewBidsPage),
+                      text: "View Bids (${vm.bidCount})",
+                      function: vm.pushViewBidsPage,
+                    ),
                     const Padding(padding: EdgeInsets.only(top: 20)),
                     TransparentLongButtonWidget(
                       text: "View Client Profile",
@@ -237,14 +239,14 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
   @override
   _ViewModel fromStore() => _ViewModel(
         advert: state.activeAd!,
-        bids: state.bids + state.shortlistBids,
+        bidCount: state.bids.length,
         popPage: () => dispatch(
           NavigateAction.pop(),
         ),
         pushViewBidsPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/view_bids_page'),
         ),
-        currentBid: state.userBid,
+        userBid: state.userBid,
         loading: state.wait.isWaiting,
         dispatchPlaceBidAction: ({required int price, String? quote}) =>
             dispatch(PlaceBidAction(price: price, quote: quote)),
@@ -257,8 +259,8 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final AdvertModel advert;
-  final List<BidModel> bids;
-  final BidModel? currentBid;
+  final BidModel? userBid;
+  final int bidCount;
   final VoidCallback pushViewBidsPage;
   final bool loading;
   final void Function({
@@ -269,10 +271,10 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.advert,
-    required this.bids,
+    required this.bidCount,
+    required this.userBid,
     required this.dispatchPlaceBidAction,
     required this.dispatchGetOtherUserAction,
-    required this.currentBid,
     required this.popPage,
     required this.pushViewBidsPage,
     required this.loading,
