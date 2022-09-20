@@ -22,30 +22,17 @@ class EditConsumerProfilePage extends StatefulWidget {
 }
 
 class _EditConsumerProfilePageState extends State<EditConsumerProfilePage> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController cellController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _cellController = TextEditingController();
+
+  bool _nameValid = false;
+  bool _cellValid = false;
 
   @override
   void dispose() {
-    nameController.dispose();
-    cellController.dispose();
+    _nameController.dispose();
+    _cellController.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    nameController.addListener(() {
-      setState(() {
-        nameController = nameController;
-      });
-    });
-    cellController.addListener(() {
-      setState(() {
-        cellController = cellController;
-      });
-    });
-
-    super.initState();
   }
 
   @override
@@ -72,9 +59,20 @@ class _EditConsumerProfilePageState extends State<EditConsumerProfilePage> {
                           return BottomSheetWidget(
                             text: "What name would you like to save?",
                             initialVal: "",
-                            controller: nameController,
+                            controller: _nameController,
                             function: () {
-                              Navigator.pop(context);
+                              vm.popPage();
+
+                              String name = _nameController.value.text;
+                              if (!RegExp(r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")
+                                      .hasMatch(name) ||
+                                  name.isEmpty) {
+                                _nameValid = false;
+                              } else {
+                                _nameValid = true;
+                              }
+
+                              setState(() {});
                             },
                           );
                         });
@@ -94,22 +92,22 @@ class _EditConsumerProfilePageState extends State<EditConsumerProfilePage> {
                             ),
                             const Padding(padding: EdgeInsets.only(right: 8)),
                             Text(
-                              nameController.value.text.isEmpty
+                              _nameController.value.text.isEmpty
                                   ? "Enter your name"
-                                  : nameController.value.text,
+                                  : _nameController.value.text,
                               style: const TextStyle(
                                   fontSize: 18, color: Colors.white70),
                             ),
                           ],
                         ),
-                        (nameController.value.text.isEmpty)
+                        _nameValid
                             ? const Icon(
-                                Icons.close,
+                                Icons.done,
                                 color: Colors.white,
                                 size: 20,
                               )
                             : const Icon(
-                                Icons.done,
+                                Icons.close,
                                 color: Colors.white,
                                 size: 20,
                               )
@@ -129,9 +127,20 @@ class _EditConsumerProfilePageState extends State<EditConsumerProfilePage> {
                           return BottomSheetWidget(
                             text: "What phone number ",
                             initialVal: "",
-                            controller: cellController,
+                            controller: _cellController,
                             function: () {
-                              Navigator.pop(context);
+                              vm.popPage();
+
+                              final cell = _cellController.value.text.trim();
+                              if (!RegExp(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
+                                      .hasMatch(cell) ||
+                                  cell.isEmpty) {
+                                _cellValid = false;
+                              } else {
+                                _cellValid = true;
+                              }
+
+                              setState(() {});
                             },
                           );
                         });
@@ -151,22 +160,22 @@ class _EditConsumerProfilePageState extends State<EditConsumerProfilePage> {
                             ),
                             const Padding(padding: EdgeInsets.only(right: 8)),
                             Text(
-                              cellController.value.text.isEmpty
+                              _cellController.value.text.isEmpty
                                   ? "Enter your cell"
-                                  : cellController.value.text,
+                                  : _cellController.value.text,
                               style: const TextStyle(
                                   fontSize: 18, color: Colors.white70),
                             ),
                           ],
                         ),
-                        (cellController.value.text.isEmpty)
+                        _cellValid
                             ? const Icon(
-                                Icons.close,
+                                Icons.done,
                                 color: Colors.white,
                                 size: 20,
                               )
                             : const Icon(
-                                Icons.done,
+                                Icons.close,
                                 color: Colors.white,
                                 size: 20,
                               )
@@ -229,8 +238,8 @@ class _EditConsumerProfilePageState extends State<EditConsumerProfilePage> {
                 ButtonWidget(
                     text: "Done",
                     function: () {
-                      final name = nameController.value.text.trim();
-                      final cell = cellController.value.text.trim();
+                      final name = _nameController.value.text.trim();
+                      final cell = _cellController.value.text.trim();
                       if (name.isNotEmpty &&
                           cell.isNotEmpty &&
                           vm.locationResult != null) {
@@ -267,12 +276,14 @@ class _Factory extends VmFactory<AppState, _EditConsumerProfilePageState> {
         isRegistered: state.userDetails.registered!,
         locationResult: state.locationResult,
         userDetails: state.userDetails,
+        popPage: () => dispatch(NavigateAction.pop()),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final void Function(String, String, Location) dispatchCreateConsumerAction;
+  final void Function() popPage;
   final VoidCallback pushCustomSearch;
   final bool isRegistered;
   final Location? locationResult;
@@ -281,6 +292,7 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.dispatchCreateConsumerAction,
     required this.pushCustomSearch,
+    required this.popPage,
     required this.userDetails,
     required this.locationResult,
     required this.isRegistered,
