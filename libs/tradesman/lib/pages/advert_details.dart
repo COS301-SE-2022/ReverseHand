@@ -121,7 +121,9 @@ class TradesmanJobDetails extends StatelessWidget {
                                             BorderRadius.circular(7.0),
                                       ),
                                       builder: (BuildContext context) {
-                                        return EditBidSheet();
+                                        return EditBidSheet(
+                                          store: store,
+                                        );
                                       },
                                     );
                                   },

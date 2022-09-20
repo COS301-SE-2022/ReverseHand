@@ -179,8 +179,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //add photos
               const HintWidget(
-                  text:
-                      "Take or Choose photos related to the job",
+                  text: "Take or Choose photos related to the job",
                   colour: Colors.white70,
                   padding: 15),
               const Padding(padding: EdgeInsets.only(top: 5)),
@@ -195,7 +194,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
                     //*********CREATE JOB BUTTON******************//
                     vm.loading
-                        ? const LoadingWidget(topPadding: 0, bottomPadding: 0)
+                        ? const LoadingWidget(topPadding: 0, bottomPadding: 10)
                         : LongButtonWidget(
                             text: "Create Job",
                             function: () {
