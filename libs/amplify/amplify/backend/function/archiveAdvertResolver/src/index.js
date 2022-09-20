@@ -10,7 +10,6 @@ const ArchivedReverseHandTable = process.env.ARCHIVEDREVERSEHAND;
 // archive an advert without a winning bid
 exports.handler = async (event) => {
     // archiving bids
-
     // getting bids
     let params = {
         TableName: ReverseHandTable,
@@ -23,6 +22,7 @@ exports.handler = async (event) => {
     let data = await docClient.query(params).promise();
     let items = data["Items"];
 
+    if (items.length != 0) {
     let opps = {};
     opps[ReverseHandTable] = [
         ...items.map(item => ({
@@ -51,6 +51,7 @@ exports.handler = async (event) => {
     params.RequestItems = opps;
 
     await docClient.batchWrite(params).promise();
+    }
 
     // archiving advert
     const date = new Date();
@@ -73,7 +74,6 @@ exports.handler = async (event) => {
         TableName: ArchivedReverseHandTable,
         Item: resp,
     };
-    
 
     await docClient.put(item).promise();
     resp['advert_details']['id'] = event.arguments.ad_id;

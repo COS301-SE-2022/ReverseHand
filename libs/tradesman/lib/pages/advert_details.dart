@@ -213,9 +213,12 @@ class TradesmanJobDetails extends StatelessWidget {
                                   },
                                 );
 
-                                vm.dispatchPlaceBidAction(
+                                if (items['price'] != null) {
+                                  vm.dispatchPlaceBidAction(
                                     price: items['price'],
-                                    quote: items['quote']);
+                                    quote: items['quote'],
+                                  );
+                                }
                               },
                             ),
                           ),

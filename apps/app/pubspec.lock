@@ -253,13 +253,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  example:
-    dependency: "direct main"
-    description:
-      path: "../../libs/example"
-      relative: true
-    source: path
-    version: "0.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -558,13 +551,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  notifications:
-    dependency: transitive
-    description:
-      path: "../../libs/notifications"
-      relative: true
-    source: path
-    version: "0.0.1"
   path:
     dependency: transitive
     description:

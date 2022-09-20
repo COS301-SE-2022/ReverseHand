@@ -71,7 +71,7 @@ class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
                   allowedExtensions: ['pdf'],
                 );
 
-                final price = await showModalBottomSheet(
+                final int? price = await showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   shape: RoundedRectangleBorder(
@@ -110,7 +110,7 @@ class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
             color: "light",
             border: "lightBlue",
             function: () async {
-              final price = await showModalBottomSheet(
+              final int? price = await showModalBottomSheet<int?>(
                 context: context,
                 isScrollControlled: true,
                 shape: RoundedRectangleBorder(
