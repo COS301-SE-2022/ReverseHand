@@ -200,9 +200,6 @@ class TradesmanJobDetails extends StatelessWidget {
                             child: LongButtonWidget(
                               text: "Place Bid",
                               function: () async {
-                                //keeping this here so that a bid can still be made while we create the last UI
-                                // DarkDialogHelper.display(
-                                //     context, PlaceBidPopupWidget(store: store), 1000.0);
                                 final items = await showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,

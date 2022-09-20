@@ -30,14 +30,14 @@ class QuickViewJobCardWidget extends StatelessWidget {
         builder: (BuildContext context, _ViewModel vm) => InkWell(
           onTap: () => vm.dispatchViewBidsAction(advert.id),
           child: Card(
-            margin: const EdgeInsets.fromLTRB(10, 0, 10, 7),
+            margin: const EdgeInsets.fromLTRB(12, 5, 12, 5),
             color: const Color.fromARGB(255, 232, 232, 232),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(7),
             ),
             elevation: 2,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 5),
+              padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 5),
               child: Row(
                 children: [
                   const Padding(padding: EdgeInsets.all(2)),
@@ -69,7 +69,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                               maxLines: 2,
                               // overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 23,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold)),
                           //*********************************************** */
