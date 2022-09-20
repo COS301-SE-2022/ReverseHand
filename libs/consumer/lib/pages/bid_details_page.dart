@@ -126,38 +126,36 @@ class BidDetailsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                
 
                 //****************BOTTOM BUTTONS**************//
 
                 const Padding(padding: EdgeInsets.only(top: 55)),
                 Column(
                   children: [
-                     StoreConnector<AppState, _ViewModel>(
+                    StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
                       onDidChange: (context, store, vm) {
-                        if(store.state.error == ErrorType.none) {
-                          displayToastSuccess(context!, "Bid Accepted"); //todo, fix
+                        if (store.state.error == ErrorType.none) {
+                          displayToastSuccess(
+                              context!, "Bid Accepted"); //todo, fix
                         }
                       },
-                      builder: (BuildContext context, _ViewModel vm) =>
-                        Center(
-                          child: LongButtonWidget(
-                              text: "Accept Bid",
-                              function: () {
-                                LightDialogHelper.display(
-                                    context,
-                                    AcceptPopUpWidget(
-                                      store: store,
-                                    ),
-                                    320.0);
-                              }),
-                        ),
+                      builder: (BuildContext context, _ViewModel vm) => Center(
+                        child: LongButtonWidget(
+                            text: "Accept Bid",
+                            function: () {
+                              LightDialogHelper.display(
+                                  context,
+                                  AcceptPopUpWidget(
+                                    store: store,
+                                  ),
+                                  320.0);
+                            }),
+                      ),
                     ),
                     TransparentLongButtonWidget(
                       text: "View Contractor Profile",
-                      function: () =>
-                          vm.dispatchGetOtherUserAction(vm.bid.userId),
+                      function: vm.dispatchGetOtherUserAction,
                     )
                   ],
                 ),
@@ -183,8 +181,8 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
-        dispatchGetOtherUserAction: (String userId) =>
-            dispatch(GetOtherUserAction(userId)),
+        dispatchGetOtherUserAction: () =>
+            dispatch(GetOtherUserAction(state.activeBid!.userId)),
         bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
@@ -200,7 +198,7 @@ class _ViewModel extends Vm {
   final BidModel bid;
   final VoidCallback dispatchShortListBidAction;
   final bool change;
-  final void Function(String userId) dispatchGetOtherUserAction;
+  final VoidCallback dispatchGetOtherUserAction;
   final VoidCallback pushViewQuotePage;
 
   _ViewModel({

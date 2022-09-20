@@ -30,9 +30,6 @@ dependencies:
   authentication:
     path: '../authentication'
 
-  notifications:
-    path: '../notifications'
-    
   consumer:
     path: '../consumer'
 

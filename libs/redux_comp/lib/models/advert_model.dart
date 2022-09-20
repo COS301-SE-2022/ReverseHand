@@ -4,8 +4,8 @@ import 'package:redux_comp/models/geolocation/domain_model.dart';
 @immutable
 class AdvertModel {
   final String id;
-  final String customerId;
   final String title;
+  final String userId;
   final String? description;
   final String type;
   final String? acceptedBid;
@@ -13,11 +13,13 @@ class AdvertModel {
   final double dateCreated;
   final double? dateClosed;
   final double? advertRank;
+  final List<String> images; // image urls for an advert
 
   const AdvertModel({
     required this.id,
-    required this.customerId,
     required this.title,
+    required this.userId,
+    this.images = const [],
     this.description,
     required this.type,
     this.acceptedBid,
@@ -31,6 +33,7 @@ class AdvertModel {
     String? id,
     String? customerId,
     String? title,
+    String? userId,
     String? description,
     String? type,
     String? acceptedBid,
@@ -38,12 +41,14 @@ class AdvertModel {
     double? dateCreated,
     double? dateClosed,
     double? advertRank,
+    List<String>? images,
   }) {
     return AdvertModel(
       id: id ?? this.id,
-      customerId: customerId ?? this.customerId,
       title: title ?? this.title,
+      userId: userId ?? this.userId,
       description: description ?? this.description,
+      images: images ?? this.images,
       type: type ?? this.type,
       acceptedBid: acceptedBid ?? this.acceptedBid,
       domain: domain ?? this.domain,
@@ -56,8 +61,8 @@ class AdvertModel {
   factory AdvertModel.fromJson(obj) {
     return AdvertModel(
       id: obj['id'],
-      customerId: obj['customer_id'],
       title: obj['title'],
+      userId: obj['customer_id'],
       description: obj['description'],
       type: obj['type'],
       acceptedBid: obj['accepted_bid'],
@@ -78,7 +83,8 @@ class AdvertModel {
       domain == other.domain &&
       dateCreated == other.dateCreated &&
       dateClosed == other.dateClosed &&
-      advertRank == other.advertRank;
+      advertRank == other.advertRank &&
+      images == other.images;
 
   @override
   int get hashCode => Object.hash(
@@ -91,5 +97,6 @@ class AdvertModel {
         dateCreated,
         dateClosed,
         advertRank,
+        images,
       );
 }

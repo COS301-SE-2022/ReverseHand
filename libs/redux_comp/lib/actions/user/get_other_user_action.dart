@@ -146,7 +146,17 @@ class GetOtherUserAction extends ReduxAction<AppState> {
   }
 
   @override
-  void before() => dispatch(
-        NavigateAction.pushNamed('/tradesman/limited_tradesman_profile_page'),
-      );
+  void before() {
+    dispatch(GetProfilePhotoAction(userId: userId));
+
+    final String userType =
+        userId.substring(0, 2) == 'c#' ? 'Consumer' : 'Tradesman';
+
+    if (userType == 'Consumer') {
+      dispatch(NavigateAction.pushNamed('/consumer/limited_profile_page'));
+    } else {
+      dispatch(NavigateAction.pushNamed(
+          '/tradesman/limited_tradesman_profile_page'));
+    }
+  }
 }

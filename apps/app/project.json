@@ -1,5 +1,4 @@
 {
-  "root": "apps/app",
   "sourceRoot": "apps/app/src",
   "projectType": "application",
   "targets": {
@@ -10,10 +9,10 @@
         "cwd": "apps/app"
       }
     },
-    "integrationTest" :{
+    "integrationTest": {
       "executor": "@nrwl/workspace:run-commands",
-      "options" :{
-        "command" : "flutter test integration_test",
+      "options": {
+        "command": "flutter test integration_test",
         "cwd": "apps/app"
       }
     },

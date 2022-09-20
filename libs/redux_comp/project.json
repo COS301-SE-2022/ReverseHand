@@ -1,5 +1,4 @@
 {
-  "root": "libs/redux_comp",
   "sourceRoot": "libs/redux_comp/src",
   "projectType": "library",
   "targets": {

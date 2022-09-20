@@ -116,5 +116,6 @@ exports.handler = async (event) => {
     */
 
     item.Item.advert_details['id'] = ad_id; // adding advert id to be returned
+    item.Item.advert_details['customer_id'] = event.arguments.customer_id;
     return item.Item.advert_details;
 };
