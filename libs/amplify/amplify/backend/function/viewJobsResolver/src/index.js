@@ -9,12 +9,12 @@ const ReverseHandTable = process.env.REVERSEHAND;
 exports.handler = async (event) => {
    try {
       let keys = [];
-      event.arguments.locations.forEach(function(location) {
+      event.arguments.domains.forEach(function(location) {
           event.arguments.types.forEach(function(type) {
-            keys.push({part_key: location, sort_key: type});
+            keys.push({part_key: location.city + '#' + location.province, sort_key: type});
           });
       });
-
+    // console.log(keys);
             
       let params = {
         RequestItems: {},
@@ -34,24 +34,18 @@ exports.handler = async (event) => {
           adverts.push(advert);
         });
       });
-           
-      console.log(adverts);
-      let advert_keys = [];
-      adverts.forEach(function(ad_id) {
-          advert_keys.push({part_key: ad_id, sort_key: ad_id});
-      });
-    
       
       params = {
         RequestItems: {},
       };
       
-      params.RequestItems[ReverseHandTable] = {Keys: advert_keys};
+      params.RequestItems[ReverseHandTable] = {Keys: adverts};
       
       data = await docClient.batchGet(params).promise();
       let response = [];
       data.Responses.ReverseHand.forEach(function(ad) {
         ad.advert_details["id"] = ad.part_key;
+        ad.advert_details["customer_id"] = ad.customer_id;
         response.push(
             ad.advert_details
         );
