@@ -31,6 +31,7 @@ class AdvertModel {
 
   AdvertModel copy({
     String? id,
+    String? customerId,
     String? title,
     String? userId,
     String? description,

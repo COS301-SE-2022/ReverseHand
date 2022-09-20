@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -43,9 +44,10 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     );
 
     try {
-      /* final response = */ await Amplify.API
+       /* final response = */ await Amplify.API
           .mutate(request: request)
           .response;
+
 
       // List<AdvertModel> adverts = state.adverts;
       // final data = jsonDecode(response.data);
@@ -55,7 +57,11 @@ class CreateAdvertAction extends ReduxAction<AppState> {
       //     dateCreated: data['createAdvert']['date_created'],
       //     location: 'temp location'));
       return null;
+    } on ApiException catch (e) {
+      debugPrint(e.message);
+      return null; // on error does not modify appstate
     } catch (e) {
+      debugPrint(e.toString());
       return null; // on error does not modify appstate
     }
   }

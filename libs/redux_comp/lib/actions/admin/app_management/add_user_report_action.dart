@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
-
-import '../app_state.dart';
+import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -16,7 +15,7 @@ class AddUserReportAction extends ReduxAction<AppState> {
   Future<AppState?> reduce() async {
     String graphQLDoc = '''
       mutation {
-        addUserReport(report: ${report.toString()}, user_details: ${user.toString()}) {
+        addUserReport(report: ${report.toJson(true)}, user_details: ${user.toString()}) {
           description
           reason
           reported_user {
@@ -31,17 +30,12 @@ class AddUserReportAction extends ReduxAction<AppState> {
       }
     ''';
 
-    debugPrint(graphQLDoc);
-
-    
     final request = GraphQLRequest(
       document: graphQLDoc,
     );
 
     try {
-       final response =  await Amplify.API
-          .mutate(request: request)
-          .response;
+      final response = await Amplify.API.mutate(request: request).response;
       debugPrint(response.data);
       return null;
     } on ApiException catch (e) {

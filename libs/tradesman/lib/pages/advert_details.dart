@@ -10,9 +10,11 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/admin/app_management/add_advert_report_action.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/edit_bid_sheet.dart';
@@ -43,6 +45,18 @@ class TradesmanJobDetails extends StatelessWidget {
                         filterActions:
                             AppbarPopUpMenuWidget(store: store, functions: {
                           "Report Advert": () {
+                            // vm.dispatchReportAdvertAction(
+                            //   advertId: vm.advert.id,
+                            //   userId: vm.advert.customerId,
+                            //   report: ReportDetailsModel(
+                            //     description: "testing report",
+                            //     reason: "Reason",
+                            //     reporterUser: ReportUserDetailsModel(
+                            //       id: vm.userDetails.id,
+                            //       name: vm.userDetails.name!,
+                            //     ),
+                            //   ),
+                            // );
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -252,6 +266,18 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
             dispatch(PlaceBidAction(price: price, quote: quote)),
         dispatchGetOtherUserAction: () =>
             dispatch(GetOtherUserAction(state.activeAd!.userId)),
+        dispatchReportAdvertAction: ({
+          required String advertId,
+          required String userId,
+          required ReportDetailsModel report,
+        }) =>
+            dispatch(
+          AddAdvertReportAction(
+            advertId: advertId,
+            userId: userId,
+            report: report,
+          ),
+        ),
       );
 }
 
@@ -268,12 +294,18 @@ class _ViewModel extends Vm {
     String? quote,
   }) dispatchPlaceBidAction;
   final VoidCallback dispatchGetOtherUserAction;
+  final void Function({
+    required String advertId,
+    required String userId,
+    required ReportDetailsModel report,
+  }) dispatchReportAdvertAction;
 
   _ViewModel({
     required this.advert,
     required this.bidCount,
     required this.userBid,
     required this.dispatchPlaceBidAction,
+    required this.dispatchReportAdvertAction,
     required this.dispatchGetOtherUserAction,
     required this.popPage,
     required this.pushViewBidsPage,

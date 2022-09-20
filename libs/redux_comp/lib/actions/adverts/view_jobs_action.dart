@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:flutter/material.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import '../../app_state.dart';
 import '../../models/advert_model.dart';
@@ -42,6 +43,8 @@ class ViewJobsAction extends ReduxAction<AppState> {
       }
     }''';
 
+    // debugPrint(graphQLDocument);
+
     final request = GraphQLRequest(document: graphQLDocument);
 
     try {
@@ -56,6 +59,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
         adverts: adverts,
       );
     } catch (e) {
+      debugPrint(e.toString());
       return null; /* On Error do not modify state */
     }
   }

@@ -24,7 +24,7 @@ class QuickViewReportedAdvertCardWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          onTap: () => {vm.pushAdvertReportsManagePage()},
+          onTap: () => {vm.pushAdvertReportsManagePage(advert)},
           child: Card(
             margin: const EdgeInsets.all(10),
             color: const Color.fromARGB(255, 220, 224, 230),
@@ -107,15 +107,15 @@ class _Factory extends VmFactory<AppState, QuickViewReportedAdvertCardWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushAdvertReportsManagePage: () => dispatch(
-          NavigateAction.pushNamed('/review_advert_reports_page'),
+        pushAdvertReportsManagePage: (advert) => dispatch(
+          NavigateAction.pushNamed('/review_advert_reports_page', arguments: advert),
         ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushAdvertReportsManagePage;
+  final void Function(ReportedAdvertModel) pushAdvertReportsManagePage;
   _ViewModel({
     required this.pushAdvertReportsManagePage,
   });

@@ -27,6 +27,7 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
         type
         customer_id
         accepted_bid
+        customer_id
         id
       }
     }''';
