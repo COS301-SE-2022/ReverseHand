@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/toast_error.dart';
 import 'package:general/widgets/button.dart';
 import 'package:redux_comp/actions/adverts/filter_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -273,20 +274,23 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
             builder: (BuildContext context, _ViewModel vm) => ButtonWidget(
               text: "Apply",
               function: () {
-                vm.dispatchFilterBidsAction(
-                  FilterBidsModel(
-                    includeShortlisted: showSBids,
-                    includeBids: showBids,
-                    priceRange: minController.value.text.isEmpty ||
-                            maxController.value.text.isEmpty
-                        ? null
-                        : Range(
-                            int.parse(minController.value.text),
-                            int.parse(maxController.value.text),
-                          ),
-                    sort: sort,
-                  ),
-                );
+                int.parse(minController.text) > int.parse(maxController.text)
+                    ? displayToastError(
+                        context, "Min field must be less than Max field")
+                    : vm.dispatchFilterBidsAction(
+                        FilterBidsModel(
+                          includeShortlisted: showSBids,
+                          includeBids: showBids,
+                          priceRange: minController.value.text.isEmpty ||
+                                  maxController.value.text.isEmpty
+                              ? null
+                              : Range(
+                                  int.parse(minController.value.text),
+                                  int.parse(maxController.value.text),
+                                ),
+                          sort: sort,
+                        ),
+                      );
 
                 Navigator.pop(context);
               },
