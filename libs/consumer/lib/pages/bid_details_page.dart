@@ -45,15 +45,6 @@ class BidDetailsPage extends StatelessWidget {
                       Text('${vm.bid.name}',
                           style: const TextStyle(
                               fontSize: 33, color: Colors.white)),
-                      //do we still want the date?
-                      // Text(
-                      //   timestampToDate(vm.bid.dateCreated),
-                      //   style: const TextStyle(
-                      //     fontSize: 17,
-                      //     color: Colors.white70,
-                      //   ),
-                      // ),
-
                       IconButton(
                         onPressed: vm.dispatchShortListBidAction,
                         icon: Icon(
