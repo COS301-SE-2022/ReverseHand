@@ -158,11 +158,14 @@ class ConsumerProfilePage extends StatelessWidget {
                                 ),
                                 const Padding(
                                     padding: EdgeInsets.only(right: 8)),
-                                Text(
-                                  (vm.userDetails.name != null)
-                                      ? vm.userDetails.name!
-                                      : "null",
-                                  style: const TextStyle(fontSize: 20),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 1.7,
+                                  child:Text(
+                                    (vm.userDetails.name != null)
+                                        ? vm.userDetails.name!
+                                        : "null",
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
                                 ),
                               ],
                             ),
