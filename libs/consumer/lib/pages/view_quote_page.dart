@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:redux_comp/app_state.dart';
@@ -11,35 +12,43 @@ class ViewQuotePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final name = basename(widget.file.path);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("File Name here"),
-        backgroundColor: Theme.of(context).primaryColorDark,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              // onPressed: () async {
-              //   await saveFile(widget.url, "sample.pdf");
-              //   ScaffoldMessenger.of(context).showSnackBar(
-              //     const SnackBar(
-              //       content: Text(
-              //         'success',
-              //         style: TextStyle(color: Colors.white),
-              //       ),
-              //     ),
-              //   );
-              // },
-              onPressed: () {},
-              icon: const Icon(Icons.download_rounded),
-            ),
-          ),
-        ],
-      ),
-      body: const PDFView(
-        filePath: "",
-        // filePath: name,
-      ),
+    return StoreProvider<AppState>(
+      store: store,
+      child: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Tradesman Quote"),
+                backgroundColor: Theme.of(context).primaryColorDark,
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: IconButton(
+                      // onPressed: () async {
+                      //   await saveFile(widget.url, "sample.pdf");
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     const SnackBar(
+                      //       content: Text(
+                      //         'success',
+                      //         style: TextStyle(color: Colors.white),
+                      //       ),
+                      //     ),
+                      //   );
+                      // },
+                      onPressed: () {},
+                      icon: const Icon(Icons.download_rounded),
+                    ),
+                  ),
+                ],
+              ),
+              body: vm.file == null
+                  ? null
+                  : PDFView(
+                      pdfData: vm.file,
+                    ),
+            );
+          }),
     );
   }
 }
@@ -93,10 +102,16 @@ class _Factory extends VmFactory<AppState, ViewQuotePage> {
   _Factory(widget) : super(widget);
 
   @override
-  _ViewModel fromStore() => _ViewModel();
+  _ViewModel fromStore() => _ViewModel(
+        file: state.pdfFile,
+      );
 }
 
 // view model
 class _ViewModel extends Vm {
-  _ViewModel();
+  final Uint8List? file;
+
+  _ViewModel({
+    required this.file,
+  }) : super(equals: [file]);
 }

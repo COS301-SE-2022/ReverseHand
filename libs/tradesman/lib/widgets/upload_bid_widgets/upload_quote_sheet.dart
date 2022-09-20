@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +73,7 @@ class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
                   allowedExtensions: ['pdf'],
                 );
 
-                final price = await showModalBottomSheet(
+                final int? price = await showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   shape: RoundedRectangleBorder(
@@ -83,7 +85,12 @@ class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
                 );
 
                 // ignore: use_build_context_synchronously
-                Navigator.pop(context, {'quote': result, 'price': price});
+                Navigator.pop(context, {
+                  'quote': result == null || result.files.single.path == null
+                      ? null
+                      : File(result.files.single.path!),
+                  'price': price
+                });
 
                 //display file name once file chosen, must edit
                 // if(result != null) {
@@ -110,7 +117,7 @@ class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
             color: "light",
             border: "lightBlue",
             function: () async {
-              final price = await showModalBottomSheet(
+              final int? price = await showModalBottomSheet<int?>(
                 context: context,
                 isScrollControlled: true,
                 shape: RoundedRectangleBorder(
