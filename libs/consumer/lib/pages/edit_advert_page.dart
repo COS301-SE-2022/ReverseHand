@@ -24,9 +24,8 @@ class EditAdvertPage extends StatefulWidget {
 }
 
 class _EditAdvertPageState extends State<EditAdvertPage> {
-  final titleController = TextEditingController();
-  final descrController = TextEditingController();
-  final tradeController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descrController = TextEditingController();
 
   String? trade;
 
@@ -49,18 +48,30 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
   @override
   void dispose() {
     titleController.dispose();
-    tradeController.dispose();
     descrController.dispose();
     super.dispose();
   }
 
-  double deviceHeight(BuildContext context) =>
-      MediaQuery.of(context).size.height;
+  // @override
+  // void initState() {
+  //   titleController.addListener(() {
+  //     setState(() {
+  //       titleController = titleController;
+  //     });
+  //   });
+  //   descrController.addListener(() {
+  //     setState(() {
+  //       descrController = descrController;
+  //     });
+  //   });
+
+  //   super.initState();
+  // }
 
   //*****Calls method to create a new job*****//
   @override
   Widget build(BuildContext context) {
-     return StoreProvider<AppState>(
+    return StoreProvider<AppState>(
       store: widget.store,
       child: Scaffold(
         resizeToAvoidBottomInset:
@@ -76,9 +87,12 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                   AppBarWidget(title: "EDIT JOB", store: widget.store),
                   //********************************************************//
 
-                  const Padding(padding: EdgeInsets.only(left: 10),
-                  child: HintWidget(
-                      text: "Edit necessary fields then save the changes", colour: Colors.white70, padding: 15),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: HintWidget(
+                        text: "Edit necessary fields then save the changes",
+                        colour: Colors.white70,
+                        padding: 15),
                   ),
 
                   //**************** TITLE ********************** */
@@ -86,42 +100,45 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                     child: TextFieldWidget(
-                      label: "Title",
-                      obscure: false,
-                      min: 1,
-                      controller: titleController,
-                      initialVal: vm.advert.title,
-                    ),
+                        label: "Title",
+                        obscure: false,
+                        min: 1,
+                        controller: titleController,
+                        initialVal: titleController.text.isEmpty
+                            ? vm.advert.title
+                            : titleController.text),
                   ),
                   //************************************************//
 
                   //**************** TRADE TYPE******************** */
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
-                    child: InkWell(
-                      onTap: () => showRadioSelect(),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.grey, width: 1)),
-                            child: Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Text(
-                                  trade == null ? "Trade Type" : trade!,
-                                  style: const TextStyle(fontSize: 18),
-                                ))),
-                      ),
-                    )
-                  ),
+                      padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                      child: InkWell(
+                        onTap: () => showRadioSelect(),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1)),
+                              child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Text(
+                                    trade == null ? "Trade Type" : trade!,
+                                    style: const TextStyle(fontSize: 18),
+                                  ))),
+                        ),
+                      )),
                   //************************************************//
 
                   //**************** DESCRIPTION****************** */
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
                     child: TextFieldWidget(
-                      initialVal: vm.advert.description,
+                      initialVal: descrController.text.isEmpty
+                          ? vm.advert.description
+                          : descrController.text,
                       label: "Description",
                       obscure: false,
                       min: 3,
@@ -140,7 +157,8 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                           child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: Colors.grey, width: 1)),
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1)),
                               child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Row(
@@ -160,7 +178,8 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: Colors.white70,
-                                              decoration: TextDecoration.underline),
+                                              decoration:
+                                                  TextDecoration.underline),
                                         ),
                                       ),
                                     ],
@@ -173,8 +192,11 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                   Row(
                     children: [
                       const Padding(
-                        padding: EdgeInsets.only(left: 30, right: 20), 
-                        child: Text("Select Images: ", style: TextStyle(fontSize: 18),),
+                        padding: EdgeInsets.only(left: 30, right: 20),
+                        child: Text(
+                          "Select Images: ",
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ),
                       OpenImageWidget(store: widget.store),
                     ],
@@ -184,11 +206,14 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                     vm: () => _Factory(this),
                     builder: (BuildContext context, _ViewModel vm) => Column(
                       children: [
-                        const Padding(padding: EdgeInsets.only(right: 50, left: 50, top: 35)),
+                        const Padding(
+                            padding:
+                                EdgeInsets.only(right: 50, left: 50, top: 35)),
 
                         //*********SAVE BUTTON******************//
                         vm.loading
-                            ? const LoadingWidget(topPadding: 0, bottomPadding: 0)
+                            ? const LoadingWidget(
+                                topPadding: 0, bottomPadding: 0)
                             : LongButtonWidget(
                                 text: "Save Changes",
                                 // check to make sure input is good
