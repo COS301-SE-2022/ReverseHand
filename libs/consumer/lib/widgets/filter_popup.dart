@@ -241,7 +241,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
             child: Column(
               children: [
                 CheckboxListTile(
-                  title: const Text('Shortlisted Bids'),
+                  title: const Text('Favourited Bids'),
                   value: showSBids,
                   activeColor: Theme.of(context).primaryColor,
                   onChanged: (bool? value) {
@@ -251,7 +251,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                   },
                 ),
                 CheckboxListTile(
-                  title: const Text('Non-shortlisted Bids'),
+                  title: const Text('Non-favourited Bids'),
                   value: showBids,
                   activeColor: Theme.of(context).primaryColor,
                   onChanged: (bool? value) {
@@ -274,24 +274,46 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
             builder: (BuildContext context, _ViewModel vm) => ButtonWidget(
               text: "Apply",
               function: () {
-                int.parse(minController.text) > int.parse(maxController.text)
-                    ? displayToastError(
-                        context, "Min field must be less than Max field")
-                    : vm.dispatchFilterBidsAction(
-                        FilterBidsModel(
-                          includeShortlisted: showSBids,
-                          includeBids: showBids,
-                          priceRange: minController.value.text.isEmpty ||
-                                  maxController.value.text.isEmpty
-                              ? null
-                              : Range(
-                                  int.parse(minController.value.text),
-                                  int.parse(maxController.value.text),
-                                ),
-                          sort: sort,
-                        ),
-                      );
-                Navigator.pop(context);
+                //if the min and max values are actually used
+                if (minController.text.isNotEmpty &&
+                    maxController.text.isNotEmpty) {
+                      //make sure that min <= max
+                  int.parse(minController.text) > int.parse(maxController.text)
+                      ? displayToastError(
+                          context, "Min field must be less than Max field")
+                      : vm.dispatchFilterBidsAction(
+                          FilterBidsModel(
+                            includeShortlisted: showSBids,
+                            includeBids: showBids,
+                            priceRange: minController.value.text.isEmpty ||
+                                    maxController.value.text.isEmpty
+                                ? null
+                                : Range(
+                                    int.parse(minController.value.text),
+                                    int.parse(maxController.value.text),
+                                  ),
+                            sort: sort,
+                          ),
+                        );
+                  Navigator.pop(context);
+                  //if the min and max values aren't used
+                } else {
+                  vm.dispatchFilterBidsAction(
+                    FilterBidsModel(
+                      includeShortlisted: showSBids,
+                      includeBids: showBids,
+                      priceRange: minController.value.text.isEmpty ||
+                              maxController.value.text.isEmpty
+                          ? null
+                          : Range(
+                              int.parse(minController.value.text),
+                              int.parse(maxController.value.text),
+                            ),
+                      sort: sort,
+                    ),
+                  );
+                  Navigator.pop(context);
+                }
               },
             ),
           ),
