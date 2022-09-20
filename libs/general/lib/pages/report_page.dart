@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/widgets/profile_divider.dart';
 import 'package:general/widgets/textfield.dart';
+import 'package:redux_comp/actions/admin/app_management/add_advert_report_action.dart';
 import 'package:redux_comp/actions/admin/app_management/add_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
@@ -140,7 +141,24 @@ class _RadioSelectWidgetState extends State<ReportPage> {
                                 text: "Submit Review - Rev", function: () {})
                             //IF AN ADVERT IS BEING REPORTED
                             : LongButtonWidget(
-                                text: "Submit Review - Adv", function: () {}),
+                                text: "Submit Review - Adv",
+                                function: () {
+                                  vm.popPage();
+
+                                  ReportDetailsModel report =
+                                      ReportDetailsModel(
+                                    description: descrController.value.text,
+                                    reason: _type!,
+                                    reportedUser: ReportUserDetailsModel(
+                                      id: vm.otherUser.id,
+                                      name: vm.otherUser.name ?? "nameNull",
+                                    ),
+                                  );
+
+                                  vm.dispatchAddSdvertReportAction(
+                                      vm.otherUser.id, report);
+                                },
+                              ),
               ),
             )
           ],
@@ -160,6 +178,9 @@ class _Factory extends VmFactory<AppState, _RadioSelectWidgetState> {
         userDetails: state.userDetails,
         dispatchAddUserReportAction: (report, user) =>
             dispatch(AddUserReportAction(report: report, user: user)),
+        dispatchAddSdvertReportAction:
+            (String userId, ReportDetailsModel report) =>
+                dispatch(AddAdvertReportAction(userId: userId, report: report)),
         popPage: () => dispatch(NavigateAction.pop()),
       );
 }
@@ -170,6 +191,7 @@ class _ViewModel extends Vm {
   final UserModel otherUser;
   final void Function(ReportDetailsModel, ReportUserDetailsModel)
       dispatchAddUserReportAction;
+  final void Function(String, ReportDetailsModel) dispatchAddSdvertReportAction;
   final bool isWaiting;
   final VoidCallback popPage;
 
@@ -177,6 +199,7 @@ class _ViewModel extends Vm {
     required this.userDetails,
     required this.otherUser,
     required this.dispatchAddUserReportAction,
+    required this.dispatchAddSdvertReportAction,
     required this.isWaiting,
     required this.popPage,
   }) : super(equals: [userDetails, isWaiting]);

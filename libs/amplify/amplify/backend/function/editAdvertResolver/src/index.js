@@ -17,7 +17,7 @@ exports.handler = async (event) => {
         // checking if there are existing bids
         let params = {
             TableName: ReverseHandTable,
-            KeyConditionExpression: "part_key = :p and begins_with(:b)",
+            KeyConditionExpression: "part_key = :p and begins_with(sort_key, :b)",
             ExpressionAttributeValues: {
                 ":p": event.arguments.ad_id,
                 ":b": "b#"
