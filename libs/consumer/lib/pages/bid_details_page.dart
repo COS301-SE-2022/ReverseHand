@@ -42,9 +42,12 @@ class BidDetailsPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('${vm.bid.name}',
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text('${vm.bid.name}',
                           style: const TextStyle(
                               fontSize: 33, color: Colors.white)),
+                      ),
                       //do we still want the date?
                       // Text(
                       //   timestampToDate(vm.bid.dateCreated),

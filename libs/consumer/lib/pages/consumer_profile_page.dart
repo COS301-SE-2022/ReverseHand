@@ -39,25 +39,29 @@ class ConsumerProfilePage extends StatelessWidget {
                       AppBarWidget(title: "PROFILE", store: store),
                       //********************************************************//
 
-                      const Padding(padding: EdgeInsets.only(top: 25)),
+                      const Padding(padding: EdgeInsets.only(top: 23)),
 
-                      //**************HEADING***************/
-                      Center(
-                        child: Text(
-                          vm.userDetails.name != null
-                              ? vm.userDetails.name!
-                              : "null",
-                          style: const TextStyle(fontSize: 35),
-                        ),
-                      ),
-                      //************************************/
-                      const Padding(
-                          padding: EdgeInsets.only(top: 5, bottom: 15)),
+
                       //****************PROFILE IMAGE****************/
                       ProfileImageWidget(
                         store: store,
                       ),
+                      const Padding(padding: EdgeInsets.only(top: 5, bottom: 15)),
                       //*****************************************
+
+                      //**************HEADING***************/
+                      Center(
+                        child: Padding(
+                        padding: const EdgeInsets.only(left: 25, right: 20),
+                          child: Text(
+                            vm.userDetails.name != null
+                                ? vm.userDetails.name!
+                                : "null",
+                            style: const TextStyle(fontSize: 35),
+                          ),
+                        ),
+                      ),
+                      //************************************/
 
                       //************STATS*******************/
                       //CHANGE ICONS

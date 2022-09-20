@@ -44,18 +44,8 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                       title: "PROFILE", store: store, backButton: true),
                   //********************************************************//
 
-                  //**************HEADING***************/
-                  const Padding(padding: EdgeInsets.only(top: 20)),
-                  Center(
-                    child: Text(
-                      vm.otherUser.name != null ? vm.otherUser.name! : "null",
-                      style: const TextStyle(fontSize: 35),
-                    ),
-                  ),
-                  //************************************/
-
                   //****************ICON****************/
-                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  const Padding(padding: EdgeInsets.only(top: 30)),
                   CircleAvatar(
                     radius: 70,
                     backgroundImage: vm.otherUser.profileImage == null
@@ -63,6 +53,17 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                             package: 'general')
                         : Image.network(vm.otherUser.profileImage!).image,
                   ),
+                  //************************************/
+
+                  //**************HEADING***************/
+                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  Center(
+                    child: Text(
+                      vm.otherUser.name != null ? vm.otherUser.name! : "null",
+                      style: const TextStyle(fontSize: 35),
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.only(bottom: 20)),
                   //************************************/
 
                   //****************RATING**************/

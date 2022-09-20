@@ -27,8 +27,20 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                       title: "PROFILE", store: store, backButton: true),
                   //********************************************************//
 
+                  //****************ICON****************/
+                  const Padding(padding: EdgeInsets.only(top: 30)),
+                  CircleAvatar(
+                    radius: 70,
+                    backgroundImage: vm.userDetails.profileImage == null
+                        ? const AssetImage("assets/images/profile.png",
+                            package: 'general')
+                        : Image.network(vm.userDetails.profileImage!).image,
+                  ),
+
+                  //************************************/
+
                   //**************HEADING***************/
-                  const Padding(padding: EdgeInsets.only(top: 20)),
+                  const Padding(padding: EdgeInsets.only(top: 10)),
                   Center(
                     child: Text(
                       vm.userDetails.name != null
@@ -37,17 +49,7 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                       style: const TextStyle(fontSize: 35),
                     ),
                   ),
-                  //************************************/
-
-                  //****************ICON****************/
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  CircleAvatar(
-                    radius: 70,
-                    backgroundImage: vm.userDetails.profileImage == null
-                        ? const AssetImage("assets/images/profile.png",
-                            package: 'general')
-                        : Image.network(vm.userDetails.profileImage!).image,
-                  ),
+                   const Padding(padding: EdgeInsets.only(bottom: 20)),
                   //************************************/
 
                   //************STATS*******************/
@@ -107,7 +109,7 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                     ),
                   ),
 
-                  const Padding(padding: EdgeInsets.only(top: 15)),
+                  const Padding(padding: EdgeInsets.only(top: 20)),
                   TransparentLongButtonWidget(
                       text: "Report",
                       function: () {

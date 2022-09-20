@@ -146,26 +146,30 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     AppBarWidget(store: widget.store, title: "PROFILE"),
                     //***********************************/
 
-                    const Padding(padding: EdgeInsets.only(top: 20)),
-
-                    //**************HEADING***************/
-                    Center(
-                      child: Text(
-                        vm.userDetails.name != null
-                            ? vm.userDetails.name!
-                            : "null",
-                        style: const TextStyle(fontSize: 35),
-                      ),
-                    ),
-                    //************************************/
-
-                    const Padding(padding: EdgeInsets.only(bottom: 10)),
+                    const Padding(padding: EdgeInsets.only(top: 23)),
 
                     //****************ICON****************/
                     ProfileImageWidget(
                       store: widget.store,
                     ),
+                    const Padding(padding: EdgeInsets.only(top: 5, bottom: 15)),
                     //************************************/
+
+                    //**************HEADING***************/
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25, right: 20),
+                        child: Text(
+                          vm.userDetails.name != null
+                              ? vm.userDetails.name!
+                              : "null",
+                          style: const TextStyle(fontSize: 32),
+                        ),
+                      ),
+                    ),
+                    //************************************/
+
+
 
                     //****************RATING**************/
                     Padding(
