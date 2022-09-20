@@ -36,9 +36,6 @@ dependencies:
   async_redux: ^15.0.0
 
   # import our libraries here with comment of what it is e.g. login widtget
-  example:
-    path: '../../libs/example'
-
   redux_comp:
     path: '../../libs/redux_comp'
   

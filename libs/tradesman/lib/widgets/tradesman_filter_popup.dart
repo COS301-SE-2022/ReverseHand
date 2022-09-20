@@ -22,7 +22,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
 
   final TextEditingController distanceController = TextEditingController();
 
-  double _currentSliderValue = 20;
+  double _currentSliderValue = 0;
 
   final List<String> _dropdownValues = ["None", "Newest", "Oldest"];
 
@@ -255,7 +255,6 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
               const Padding(padding: EdgeInsets.all(10)),
 
               //*****************BUTTONS*******************/
-
               ButtonWidget(
                 text: "Apply",
                 function: () {
@@ -274,7 +273,8 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                     FilterAdvertsModel(
                       domains: domains,
                       tradeTypes: tradeTypes,
-                      distance: _currentSliderValue,
+                      distance:
+                          _currentSliderValue == 0 ? null : _currentSliderValue,
                       sort: dropDownListVal == null
                           ? null
                           : Sort(
@@ -284,6 +284,15 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                                   : Direction.descending,
                             ),
                     ),
+                  );
+                  Navigator.pop(context);
+                },
+              ),
+              ButtonWidget(
+                text: "Remove All Filters",
+                function: () {
+                  vm.dispatchFilterAdvertsAction(
+                    const FilterAdvertsModel(),
                   );
                   Navigator.pop(context);
                 },

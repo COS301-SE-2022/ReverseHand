@@ -1,5 +1,4 @@
 {
-  "root": "libs/chat",
   "sourceRoot": "libs/chat/src",
   "projectType": "library",
   "targets": {
