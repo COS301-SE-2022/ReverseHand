@@ -48,12 +48,13 @@ class AdvertDetailsPage extends StatelessWidget {
                       const LoadingWidget(topPadding: 80, bottomPadding: 0)
                     else
                       JobCardWidget(
-                          titleText: vm.advert.title,
-                          descText: vm.advert.description ?? "",
-                          location: vm.advert.domain.city,
-                          type: vm.advert.type,
-                          date: timestampToDate(vm.advert.dateCreated),
-                          editButton: true),
+                        titleText: vm.advert.title,
+                        descText: vm.advert.description ?? "",
+                        location: vm.advert.domain.city,
+                        type: vm.advert.type,
+                        date: timestampToDate(vm.advert.dateCreated),
+                        editButton: true,
+                      ),
                     //*******************************************//
 
                     //extra padding if there is an accepted bid
@@ -174,7 +175,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           dispatch(NavigateAction.pop());
         },
         loading: state.wait.isWaiting,
-        bidCount: state.bids.length,
+        bidCount: state.bids.length + state.shortlistBids.length,
       );
 }
 

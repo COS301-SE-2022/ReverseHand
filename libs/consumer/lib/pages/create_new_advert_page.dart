@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:consumer/widgets/job_creation_popup.dart';
@@ -7,14 +9,15 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
-import 'package:general/widgets/open_image_widget.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:redux_comp/actions/add_to_bucket_action.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
 import 'package:redux_comp/actions/analytics_events/record_create_advert_action.dart';
+import 'package:redux_comp/models/bucket_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-
 import '../widgets/radio_select_widget.dart';
 
 class CreateNewAdvertPage extends StatefulWidget {
@@ -30,6 +33,8 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
   final titleController = TextEditingController();
   final descrController = TextEditingController();
   final tradeController = TextEditingController();
+
+  List<XFile>? _files;
 
   String? trade;
 
@@ -92,29 +97,34 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //trade type
               const HintWidget(
-                  text: "Select all relevant trade types",
-                  colour: Colors.white70,
-                  padding: 15),
+                text: "Select all relevant trade types",
+                colour: Colors.white70,
+                padding: 15,
+              ),
 
               Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
-                  child: InkWell(
-                    // tick boxes and not radio buttons?
-                    onTap: () => showRadioSelect(),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey, width: 1)),
-                          child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Text(
-                                trade == null ? "Trade Type" : trade!,
-                                style: const TextStyle(fontSize: 18),
-                              ))),
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                child: InkWell(
+                  // tick boxes and not radio buttons?
+                  onTap: () => showRadioSelect(),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey, width: 1),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          trade == null ? "Trade Type" : trade!,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ),
                     ),
-                  )),
+                  ),
+                ),
+              ),
 
               //description
               const HintWidget(
@@ -134,57 +144,72 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //location
               const HintWidget(
-                  text:
-                      "The address for the job. Only the city will be displayed",
-                  colour: Colors.white70,
-                  padding: 15),
+                text:
+                    "The address for the job. Only the city will be displayed",
+                colour: Colors.white70,
+                padding: 15,
+              ),
               StoreConnector<AppState, _ViewModel>(
                 vm: () => _Factory(this),
                 builder: (BuildContext context, _ViewModel vm) => Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey, width: 1)),
-                          child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  //GET THE WHOLE ADDRESS?
-                                  Text(
-                                    widget.store.state.userDetails.location!
-                                        .address.city,
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                  InkWell(
-                                    onTap:
-                                        () {}, //should be able to change the location of the job on tap
-                                    child: const Text(
-                                      "change address",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.white70,
-                                          decoration: TextDecoration.underline),
-                                    ),
-                                  ),
-                                ],
-                              ))),
-                    )),
+                  padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey, width: 1)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            //GET THE WHOLE ADDRESS?
+                            Text(
+                              widget.store.state.userDetails.location!.address
+                                  .city,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            InkWell(
+                              onTap:
+                                  () {}, //should be able to change the location of the job on tap
+                              child: const Text(
+                                "change address",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white70,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
               //*************************************************//
 
               //add photos
               const HintWidget(
-                  text:
-                      "Take or Choose photos related to the job",
-                  colour: Colors.white70,
-                  padding: 15),
+                text: "Choose photos related to the job",
+                colour: Colors.white70,
+                padding: 15,
+              ),
               const Padding(padding: EdgeInsets.only(top: 5)),
-              OpenImageWidget(store: widget.store),
+              IconButton(
+                onPressed: () async {
+                  ImagePicker picker = ImagePicker();
+
+                  _files = await picker.pickMultiImage();
+                },
+                icon: const Icon(
+                  Icons.camera_alt,
+                  color: Colors.white,
+                  size: 28.0,
+                ),
+              ),
               //*************************************************//
 
               StoreConnector<AppState, _ViewModel>(
@@ -205,23 +230,29 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   widget.store.state.userDetails.id,
                                   titleController.value.text,
                                   Domain(
-                                      city: widget.store.state.userDetails
-                                          .location!.address.city,
-                                      province: widget.store.state.userDetails
-                                          .location!.address.province,
-                                      coordinates: widget.store.state
-                                          .userDetails.location!.coordinates),
+                                    city: widget.store.state.userDetails
+                                        .location!.address.city,
+                                    province: widget.store.state.userDetails
+                                        .location!.address.province,
+                                    coordinates: widget.store.state.userDetails
+                                        .location!.coordinates,
+                                  ),
                                   trade!,
                                   descrController.value.text,
+                                  _files?.map((e) => File(e.path)).toList(),
                                 );
                                 vm.dispatchRecordCreateAdvertAction(
-                                    widget.store.state.userDetails.location!
-                                        .address.city,
-                                    widget.store.state.userDetails.location!
-                                        .address.province);
+                                  widget.store.state.userDetails.location!
+                                      .address.city,
+                                  widget.store.state.userDetails.location!
+                                      .address.province,
+                                );
                               } else {
-                                (LightDialogHelper.display(context,
-                                    const CreationPopupWidget(), 210.0));
+                                LightDialogHelper.display(
+                                  context,
+                                  const CreationPopupWidget(),
+                                  210.0,
+                                );
                               }
                             },
                           ),
@@ -258,8 +289,14 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         popPage: () => dispatch(NavigateAction.pop()),
-        dispatchCreateAdvertActions: (String customerId, String title,
-                Domain domain, String trade, String? description) =>
+        dispatchCreateAdvertActions: (
+          String customerId,
+          String title,
+          Domain domain,
+          String trade,
+          String? description,
+          List<File>? files,
+        ) =>
             dispatch(
           CreateAdvertAction(
             customerId,
@@ -267,6 +304,7 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
             domain,
             trade,
             description: description,
+            files: files,
           ),
         ),
         dispatchRecordCreateAdvertAction: (String city, String province) =>
@@ -277,9 +315,8 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(
-          String id, String title, Domain domanin, String trade, String? descr)
-      dispatchCreateAdvertActions;
+  final void Function(String id, String title, Domain domanin, String trade,
+      String? descr, List<File>? files) dispatchCreateAdvertActions;
   final void Function(String city, String province)
       dispatchRecordCreateAdvertAction;
   final VoidCallback popPage;

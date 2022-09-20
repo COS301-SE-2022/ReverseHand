@@ -22,23 +22,24 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) {
-                //*******************STAR CALC*********************//
-                int startAmount = vm.otherUser.statistics.ratingSum == 0
-                    ? 0
-                    : vm.otherUser.statistics.ratingSum ~/
-                        vm.otherUser.statistics.ratingCount;
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) {
+              //*******************STAR CALC*********************//
+              int startAmount = vm.otherUser.statistics.ratingSum == 0
+                  ? 0
+                  : vm.otherUser.statistics.ratingSum ~/
+                      vm.otherUser.statistics.ratingCount;
 
-                List<Icon> stars = [];
+              List<Icon> stars = [];
 
-                for (int i = 0; i < startAmount; i++) {
-                  stars.add(Icon(Icons.star,
-                      size: 30, color: Theme.of(context).primaryColor));
-                }
-                //*************************************************//
+              for (int i = 0; i < startAmount; i++) {
+                stars.add(Icon(Icons.star,
+                    size: 30, color: Theme.of(context).primaryColor));
+              }
+              //*************************************************//
 
-                return Column(children: [
+              return Column(
+                children: [
                   //*******************APP BAR WIDGET*********************//
                   AppBarWidget(
                       title: "PROFILE", store: store, backButton: true),
@@ -76,23 +77,25 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                             color: Theme.of(context).primaryColorDark,
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:
-                                    //if there is a rating - 1 is the lowest that can be given
-                                    //so not checking if rating is null
-                                    vm.otherUser.statistics.ratingCount != 0
-                                        ? stars
-                                        : [
-                                            //if no rating yet
-                                            const Text(
-                                              "No rating yet",
-                                              style: TextStyle(
-                                                  color: Colors.white70,
-                                                  fontSize: 18),
-                                            )
-                                          ])),
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:
+                                //if there is a rating - 1 is the lowest that can be given
+                                //so not checking if rating is null
+                                vm.otherUser.statistics.ratingCount != 0
+                                    ? stars
+                                    : [
+                                        //if no rating yet
+                                        const Text(
+                                          "No rating yet",
+                                          style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 18),
+                                        )
+                                      ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -124,7 +127,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.userDetails.statistics.created} Jobs Completed",
+                                      "${vm.userDetails.statistics.finished} Jobs Completed",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -142,7 +145,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.otherUser.statistics.finished} Bids Made",
+                                      "${vm.otherUser.statistics.created} Bids Made",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -159,22 +162,25 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                   const Padding(padding: EdgeInsets.only(top: 15)),
                   TransparentLongButtonWidget(
-                      text: "Report Contractor",
-                      function: () {
-                        //alternate way in view model
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ReportPage(
-                                    store: store,
-                                    reportType: "User",
-                                  )),
-                        );
-                      })
+                    text: "Report Contractor",
+                    function: () {
+                      //alternate way in view model
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ReportPage(
+                                  store: store,
+                                  reportType: "User",
+                                )),
+                      );
+                    },
+                  )
 
                   //***********************************/
-                ]);
-              }),
+                ],
+              );
+            },
+          ),
         ),
         bottomNavigationBar: NavBarWidget(
           store: store,

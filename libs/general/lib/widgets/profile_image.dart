@@ -32,8 +32,20 @@ class ProfileImageWidget extends StatelessWidget {
                   bottom: 20.0,
                   right: 20.0,
                   child: InkWell(
-                    onTap: () =>
-                        bottomSheet(context, vm.dispatchAddtoBucketAction),
+                    // onTap: () =>
+                    //     bottomSheet(context, vm.dispatchAddtoBucketAction),
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7.0),
+                      ),
+                      builder: (BuildContext context) {
+                        return bottomSheet(
+                          context,
+                          vm.dispatchAddtoBucketAction,
+                        );
+                      },
+                    ),
                     child: Stack(
                       children: const <Widget>[
                         Positioned(
@@ -77,6 +89,7 @@ class ProfileImageWidget extends StatelessWidget {
             TextButton.icon(
               icon: const Icon(Icons.camera_alt, color: Colors.black),
               onPressed: () async {
+                Navigator.pop(context);
                 XFile? file = (await takePhoto(ImageSource.camera));
                 if (file != null) func(File(file.path));
               },
@@ -85,6 +98,7 @@ class ProfileImageWidget extends StatelessWidget {
             TextButton.icon(
               icon: const Icon(Icons.image, color: Colors.black),
               onPressed: () async {
+                Navigator.pop(context);
                 XFile? file = (await takePhoto(ImageSource.gallery));
                 if (file != null) func(File(file.path));
               },

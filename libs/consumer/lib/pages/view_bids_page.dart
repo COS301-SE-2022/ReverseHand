@@ -11,7 +11,6 @@ import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import '../methods/populate_bids.dart';
 
 class ViewBidsPage extends StatelessWidget {
@@ -112,8 +111,6 @@ class _Factory extends VmFactory<AppState, ViewBidsPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         change: state.change,
-        dispatchToggleViewBidsAction: (toggleShort, activate) =>
-            dispatch(ToggleViewBidsAction(toggleShort, activate)),
         popPage: () => dispatch(NavigateAction.pop()),
         bids: state.viewBids,
         advert: state.activeAd!,
@@ -127,11 +124,9 @@ class _ViewModel extends Vm {
   final List<BidModel> bids;
   final VoidCallback popPage;
   final bool change;
-  final void Function(bool, bool) dispatchToggleViewBidsAction;
   final bool loading;
 
   _ViewModel({
-    required this.dispatchToggleViewBidsAction,
     required this.change,
     required this.popPage,
     required this.bids,
