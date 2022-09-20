@@ -55,9 +55,9 @@ fs.writeFile("./libs/consumer/test/gather_files.sh",content,function(err){
 //    if(err) throw err;
 //})*/
 
-fs.writeFile("./libs/amplify/test/gather_files.sh",content,function(err){
-    if(err) throw err;
-})
+// fs.writeFile("./libs/amplify/test/gather_files.sh",content,function(err){
+//     if(err) throw err;
+// })
 
 fs.writeFile("./libs/authentication/test/gather_files.sh",content,function(err){
     if(err) throw err;

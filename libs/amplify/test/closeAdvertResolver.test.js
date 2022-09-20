@@ -49,7 +49,61 @@ describe("Integration Test: CloseAdvertResolver", ()=>{
          expect(result.type).toEqual('Plumbing');
          adId = result.id;
 
-         //************************************************************************************************** */
+        //************************************************************************************************** */
+        //Add Advert Report Resolver
+        console.log("Testing adding Report to advert");
+
+        addReportEvent = {
+            arguments : {
+                advert_id : adId,
+                report : {
+                    id : "Report #1",
+                    reportType : "harassment",
+                    report_details : {
+                        reporter_user : {
+                            id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                            name : "Alexander"
+                        },
+                        reported_user : {
+                            id : 't#acff077a-8855-4165-be78-090fda375f90',
+                            name : "Richard"
+                        },
+                        reason : "He said some mean words",
+                        description : "That guy needs help"
+                    },
+                    review_details : {
+                        id : "Review #1",
+                        rating : 0,
+                        description : "Some description",
+                        advert_id : adId
+                    }
+                }
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/addAdvertReportResolver/src/index');
+        result = await handlerModule.handler(addReportEvent);
+
+        expect(result.reports.length).toEqual(1);//expect to find only report on the advert returned by the resolver
+
+        //************************************************************************************************** */
+        //removeAdvertReport resolver
+        console.log("Remove Advert Report");
+
+        const removeReportEvent = {
+            arguments : {
+                tradesman_id : 't#acff077a-8855-4165-be78-090fda375f90',
+                advert_id : adId
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/removeAdvertReportResolver/src/index');
+        result = await handlerModule.handler(removeReportEvent);
+
+        const r = result.admin_reports[0].id;
+
+        expect(r).toEqual("Report #1");//verify that the correct report is removed
+        //************************************************************************************************** */
         //closing the advert
 
         const closeAdvertEvent = {
