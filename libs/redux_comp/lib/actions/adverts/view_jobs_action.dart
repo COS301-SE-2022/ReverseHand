@@ -43,6 +43,8 @@ class ViewJobsAction extends ReduxAction<AppState> {
       }
     }''';
 
+    // debugPrint(graphQLDocument);
+
     final request = GraphQLRequest(document: graphQLDocument);
 
     try {
