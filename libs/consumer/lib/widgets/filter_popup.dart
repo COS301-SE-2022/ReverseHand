@@ -146,6 +146,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                     // initialValue: "0",
                     style: const TextStyle(color: Colors.white),
                     controller: minController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "min",
                       labelStyle: const TextStyle(color: Colors.white),
@@ -188,6 +189,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                   child: TextFormField(
                     style: const TextStyle(color: Colors.white),
                     controller: maxController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "max",
                       labelStyle: const TextStyle(color: Colors.white),

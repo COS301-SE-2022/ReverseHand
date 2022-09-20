@@ -57,23 +57,25 @@ class QuickViewBidWidget extends StatelessWidget {
                         //***************************************/
 
                         //***********CONTRACTOR NAME*************/
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7),
-                              border: Border.all(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
-                              child: Center(
-                                child: Text(
-                                  '${bid.name}',
-                                  style: const TextStyle(
-                                    fontSize: 22,
-                                    color: Colors.black,
+                        Center(
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7),
+                                border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
+                                child: Center(
+                                  child: Text(
+                                    '${bid.name}',
+                                    style: const TextStyle(
+                                      fontSize: 22,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),

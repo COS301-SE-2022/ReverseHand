@@ -29,7 +29,7 @@ class ReviewReportManagePage extends StatelessWidget {
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
             Widget appbar = AppBarWidget(
-              title: "Manage Report",
+              title: "Review Report",
               store: store,
               backButton: true,
             );
@@ -51,25 +51,92 @@ class ReviewReportManagePage extends StatelessWidget {
                         //**********APPBAR***********//
                         appbar,
 
-                        Padding(
-                          padding: const EdgeInsets.only(top: 25),
-                          child: Text(
-                            report.type == "user#reports"
-                                ? "User Report"
-                                : "Review Report",
-                            style: const TextStyle(fontSize: 25),
-                          ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 25),
+                        //   child: Text(
+                        //     report.type == "user#reports"
+                        //         ? "User Report"
+                        //         : "Review Report",
+                        //     style: const TextStyle(fontSize: 25),
+                        //   ),
+                        // ),
+                        const Padding(padding: EdgeInsets.only(top: 30)),
+                        const Text(
+                          "Report:",
+                          style: TextStyle(
+                              fontSize: 20,
+                              decoration: TextDecoration.underline),
                         ),
-
                         ReportDetailsWidget(
                           reason: report.reportDetails.reason,
                           description: report.reportDetails.description,
                         ),
 
-                        ReportDetailsWidget(
-                            reason: report.reviewDetails!.description,
-                            description:
-                                report.reviewDetails!.rating.toString()),
+                        const Padding(padding: EdgeInsets.only(top: 30)),
+                        const Text(
+                          "Reported review:",
+                          style: TextStyle(
+                              fontSize: 20,
+                              decoration: TextDecoration.underline),
+                        ),
+
+                        // ReportDetailsWidget(
+                        //     reason: report.reviewDetails!.description,
+                        //     description:
+                        //         report.reviewDetails!.rating.toString()),
+
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 30, 30, 10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(7)),
+                                border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2)),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    //*****************STARS*****************//
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, top: 5),
+                                      child: Icon(
+                                        Icons.star,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                    //***************************************//
+                                  ],
+                                ),
+                                const Padding(padding: EdgeInsets.only(top: 8)),
+                                //******************MESSAGE*****************//
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        10, 0, 10, 10),
+                                    child: Text(
+                                      report.reviewDetails!.description,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontStyle: FontStyle.italic),
+                                    ),
+                                  ),
+                                ),
+                                //***************************************//
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        // ReportDetailsWidget(
+                        //     reason: report.reviewDetails!.description,
+                        //     description:
+                        //         report.reviewDetails!.rating.toString()),
 
                         ReportUserDescrWidget(
                           title: "Reported User",

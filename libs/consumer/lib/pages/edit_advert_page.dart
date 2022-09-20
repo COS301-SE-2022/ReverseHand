@@ -1,9 +1,10 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:general/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/widgets/open_image_widget.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
@@ -188,7 +189,7 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                         //*********SAVE BUTTON******************//
                         vm.loading
                             ? const LoadingWidget(topPadding: 0, bottomPadding: 0)
-                            : ButtonWidget(
+                            : LongButtonWidget(
                                 text: "Save Changes",
                                 // check to make sure input is good
                                 function: () => vm.dispatchEditAdvertAction(
@@ -202,9 +203,8 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                         const Padding(padding: EdgeInsets.all(5)),
 
                         //************DISCARD BUTTON*****************//
-                        ButtonWidget(
+                        TransparentLongButtonWidget(
                           text: "Discard",
-                          color: "dark",
                           function: vm.popPage,
                         )
                       ],
