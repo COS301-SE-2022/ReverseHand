@@ -14,7 +14,7 @@ class GetPdfAction extends ReduxAction<AppState> {
 
       // checking if image exists
       final ListResult result = await Amplify.Storage.list(path: key);
-      if (result.items.isEmpty) return null;
+      if (result.items.isEmpty) return state.copy(pdfFile: null);
 
       final GetUrlResult pdfFile = await Amplify.Storage.getUrl(key: key);
 

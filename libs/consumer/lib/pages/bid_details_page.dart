@@ -118,16 +118,17 @@ class BidDetailsPage extends StatelessWidget {
                     //   ],
                     // ),
                     // const Padding(padding: EdgeInsets.only(top: 15)),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 50, top: 20),
-                      child: LongButtonWidget(
-                        text: "View Quote",
-                        function: () {
-                          vm.pushViewQuotePage();
-                          vm.dispatchGetPdfAction();
-                        },
+                    if (vm.bid.quote != null)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50, top: 20),
+                        child: LongButtonWidget(
+                          text: "View Quote",
+                          function: () {
+                            vm.pushViewQuotePage();
+                            vm.dispatchGetPdfAction();
+                          },
+                        ),
                       ),
-                    ),
                   ],
                 ),
 
