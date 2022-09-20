@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:async_redux/async_redux.dart';
 import 'package:general/pages/report_page.dart';
 import 'package:general/widgets/appbar_popup_menu_widget.dart';
@@ -10,11 +11,9 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/actions/admin/app_management/add_advert_report_action.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/edit_bid_sheet.dart';
@@ -165,8 +164,8 @@ class TradesmanJobDetails extends StatelessWidget {
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
-                                            children: const [
-                                              Text(
+                                            children: [
+                                              const Text(
                                                 'Quote:',
                                                 style: TextStyle(
                                                     fontSize: 22,
@@ -175,10 +174,12 @@ class TradesmanJobDetails extends StatelessWidget {
                                                         FontWeight.bold),
                                               ),
                                               Text(
-                                                'None Uploaded',
+                                                vm.userBid!.quote != null
+                                                    ? 'Uploaded'
+                                                    : 'None Uploaded',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 20,
                                                     color: Colors.black),
                                               ),
@@ -265,22 +266,10 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         ),
         userBid: state.userBid,
         loading: state.wait.isWaiting,
-        dispatchPlaceBidAction: ({required int price, String? quote}) =>
+        dispatchPlaceBidAction: ({required int price, File? quote}) =>
             dispatch(PlaceBidAction(price: price, quote: quote)),
         dispatchGetOtherUserAction: () =>
             dispatch(GetOtherUserAction(state.activeAd!.userId)),
-        dispatchReportAdvertAction: ({
-          required String advertId,
-          required String userId,
-          required ReportDetailsModel report,
-        }) =>
-            dispatch(
-          AddAdvertReportAction(
-            advertId: advertId,
-            userId: userId,
-            report: report,
-          ),
-        ),
       );
 }
 
@@ -294,21 +283,15 @@ class _ViewModel extends Vm {
   final bool loading;
   final void Function({
     required int price,
-    String? quote,
+    File? quote,
   }) dispatchPlaceBidAction;
   final VoidCallback dispatchGetOtherUserAction;
-  final void Function({
-    required String advertId,
-    required String userId,
-    required ReportDetailsModel report,
-  }) dispatchReportAdvertAction;
 
   _ViewModel({
     required this.advert,
     required this.bidCount,
     required this.userBid,
     required this.dispatchPlaceBidAction,
-    required this.dispatchReportAdvertAction,
     required this.dispatchGetOtherUserAction,
     required this.popPage,
     required this.pushViewBidsPage,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +85,12 @@ class _UploadQuoteSheetState extends State<UploadQuoteSheet> {
                 );
 
                 // ignore: use_build_context_synchronously
-                Navigator.pop(context, {'quote': result, 'price': price});
+                Navigator.pop(context, {
+                  'quote': result == null || result.files.single.path == null
+                      ? null
+                      : File(result.files.single.path!),
+                  'price': price
+                });
 
                 //display file name once file chosen, must edit
                 // if(result != null) {

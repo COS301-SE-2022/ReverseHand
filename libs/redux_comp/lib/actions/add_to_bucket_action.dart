@@ -20,6 +20,8 @@ class AddToBucketAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
+    final String? advertId = this.advertId ?? state.activeAd?.id;
+
     final String key;
 
     switch (fileType) {
@@ -40,7 +42,7 @@ class AddToBucketAction extends ReduxAction<AppState> {
         if (advertId == null) {
           throw "Advert ID cannot be null if FileType is quote.";
         }
-        key = "quotes/$advertId!";
+        key = "quotes/$advertId/${state.userDetails.id}";
         break;
     }
 

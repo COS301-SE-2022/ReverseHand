@@ -7,6 +7,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
+import 'package:redux_comp/actions/get_pdf_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -121,7 +122,10 @@ class BidDetailsPage extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 50, top: 20),
                       child: LongButtonWidget(
                         text: "View Quote",
-                        function: vm.pushViewQuotePage,
+                        function: () {
+                          vm.pushViewQuotePage();
+                          vm.dispatchGetPdfAction();
+                        },
                       ),
                     ),
                   ],
@@ -189,6 +193,7 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
         pushViewQuotePage: () => dispatch(
           NavigateAction.pushNamed('/consumer/view_quote_page'),
         ),
+        dispatchGetPdfAction: () => dispatch(GetPdfAction()),
       );
 }
 
@@ -200,11 +205,13 @@ class _ViewModel extends Vm {
   final bool change;
   final VoidCallback dispatchGetOtherUserAction;
   final VoidCallback pushViewQuotePage;
+  final VoidCallback dispatchGetPdfAction;
 
   _ViewModel({
     required this.dispatchShortListBidAction,
     required this.dispatchGetOtherUserAction,
     required this.bid,
+    required this.dispatchGetPdfAction,
     required this.popPage,
     required this.change,
     required this.pushViewQuotePage,

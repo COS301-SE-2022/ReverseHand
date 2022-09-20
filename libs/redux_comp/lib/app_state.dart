@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
 import 'package:redux_comp/models/admin/app_management/admin_app_manage_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/app_metrics_model.dart';
@@ -68,6 +68,8 @@ class AppState {
 
   final List<NotificationModel> notifications;
 
+  final Uint8List? pdfFile;
+
   // constructor must only take named parameters
   const AppState({
     required this.authModel,
@@ -98,6 +100,7 @@ class AppState {
     required this.paystackSecretKey,
     required this.paystackPublicKey,
     required this.notifications,
+    required this.pdfFile,
   });
 
   // this methods sets the starting state for the store
@@ -172,6 +175,7 @@ class AppState {
       paystackPublicKey: "",
       paystackSecretKey: "",
       notifications: const [],
+      pdfFile: null,
     );
   }
 
@@ -208,6 +212,7 @@ class AppState {
     String? paystackPublicKey,
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
+    Uint8List? pdfFile,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
@@ -238,6 +243,7 @@ class AppState {
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
       notifications: notifications ?? this.notifications,
+      pdfFile: pdfFile ?? this.pdfFile,
     );
   }
 }
