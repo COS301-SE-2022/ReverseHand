@@ -52,22 +52,6 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
     super.dispose();
   }
 
-  // @override
-  // void initState() {
-  //   titleController.addListener(() {
-  //     setState(() {
-  //       titleController = titleController;
-  //     });
-  //   });
-  //   descrController.addListener(() {
-  //     setState(() {
-  //       descrController = descrController;
-  //     });
-  //   });
-
-  //   super.initState();
-  // }
-
   //*****Calls method to create a new job*****//
   @override
   Widget build(BuildContext context) {
