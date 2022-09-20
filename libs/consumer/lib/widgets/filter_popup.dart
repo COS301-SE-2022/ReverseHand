@@ -291,7 +291,6 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                           sort: sort,
                         ),
                       );
-
                 Navigator.pop(context);
               },
             ),
