@@ -19,22 +19,22 @@ class ViewAdvertReportsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) {
-              List<Widget> reports = [];
-              for (ReportedAdvertModel advert in vm.adverts) {
-                reports.add(QuickViewReportedAdvertCardWidget(
-                    store: store, advert: advert));
-              }
-              Widget appbar = AppBarWidget(
-                title: "Advert Reports",
-                store: store,
-                backButton: true,
-              );
-              return (vm.loading)
-                  ? Column(
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) {
+            List<Widget> reports = [];
+            for (ReportedAdvertModel advert in vm.adverts) {
+              reports.add(QuickViewReportedAdvertCardWidget(
+                  store: store, advert: advert));
+            }
+            Widget appbar = AppBarWidget(
+              title: "Advert Reports",
+              store: store,
+              backButton: true,
+            );
+            return (vm.loading)
+                ? SingleChildScrollView(
+                    child: Column(
                       children: [
                         //**********APPBAR***********//
                         appbar,
@@ -44,8 +44,10 @@ class ViewAdvertReportsPage extends StatelessWidget {
                             topPadding: MediaQuery.of(context).size.height / 3,
                             bottomPadding: 0)
                       ],
-                    )
-                  : Column(
+                    ),
+                  )
+                : SingleChildScrollView(
+                    child: Column(
                       children: [
                         //**********APPBAR***********//
                         appbar,
@@ -68,9 +70,9 @@ class ViewAdvertReportsPage extends StatelessWidget {
                                 refreshFunction: vm.dispatchGetAdvertReports,
                               )
                       ],
-                    );
-            },
-          ),
+                    ),
+                  );
+          },
         ),
       ),
     );

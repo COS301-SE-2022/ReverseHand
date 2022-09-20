@@ -11,15 +11,23 @@ import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/profile_divider.dart';
 
-class ConsumerProfilePage extends StatelessWidget {
+class ConsumerProfilePage extends StatefulWidget {
   final Store<AppState> store;
+
+  const ConsumerProfilePage({Key? key, required this.store}) : super(key: key);
+
+  @override
+  State<ConsumerProfilePage> createState() => _ConsumerProfilePageState();
+}
+
+class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
   final nameController = TextEditingController();
-  ConsumerProfilePage({Key? key, required this.store}) : super(key: key);
+  final numController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: Scaffold(
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
@@ -27,7 +35,7 @@ class ConsumerProfilePage extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) => (vm.isWaiting)
                 ? Column(
                     children: [
-                      AppBarWidget(title: "PROFILE", store: store),
+                      AppBarWidget(title: "PROFILE", store: widget.store),
                       LoadingWidget(
                           topPadding: MediaQuery.of(context).size.height / 3,
                           bottomPadding: 0)
@@ -36,7 +44,7 @@ class ConsumerProfilePage extends StatelessWidget {
                 : Column(
                     children: [
                       //*******************APP BAR WIDGET*********************//
-                      AppBarWidget(title: "PROFILE", store: store),
+                      AppBarWidget(title: "PROFILE", store: widget.store),
                       //********************************************************//
 
                       const Padding(padding: EdgeInsets.only(top: 23)),
@@ -44,7 +52,7 @@ class ConsumerProfilePage extends StatelessWidget {
 
                       //****************PROFILE IMAGE****************/
                       ProfileImageWidget(
-                        store: store,
+                        store: widget.store,
                       ),
                       const Padding(padding: EdgeInsets.only(top: 5, bottom: 15)),
                       //*****************************************
@@ -237,11 +245,11 @@ class ConsumerProfilePage extends StatelessWidget {
                                             text:
                                                 "What cell number would you like to save?",
                                             initialVal: vm.userDetails.cellNo,
-                                            controller: nameController,
+                                            controller: numController,
                                             function: () {
                                               vm.dispatchChangeCellAction(
                                                   vm.userDetails.id,
-                                                  nameController.value.text);
+                                                  numController.value.text);
                                               Navigator.pop(context);
                                             });
                                       });
@@ -315,7 +323,7 @@ class ConsumerProfilePage extends StatelessWidget {
 
         //************************NAVBAR***********************/
         bottomNavigationBar: NavBarWidget(
-          store: store,
+          store: widget.store,
         ),
         //*************************************************//
       ),
@@ -324,7 +332,7 @@ class ConsumerProfilePage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
+class _Factory extends VmFactory<AppState, _ConsumerProfilePageState> {
   _Factory(widget) : super(widget);
 
   //Just making sure edit page is not necessary before it is removed from viewmodel

@@ -34,53 +34,63 @@ class JobCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //****************DATE*******************//
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
-            child: Text(
-              date,
-              style: const TextStyle(
-                fontSize: 17,
-                color: Color.fromARGB(255, 186, 186, 186),
-              ),
-            ),
-          ),
-          //****************************************//
-
-            Row(
-              children: [
-                //****************TITLE********************//
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    child: Text(
-                      titleText,
-                      style: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
+                child: Text(
+                  date,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    color: Color.fromARGB(255, 186, 186, 186),
                   ),
                 ),
-                //*****************************************//
-
-                // //******************EDIT ICON****************//
-                (editButton == true)
+              ),
+              // //******************EDIT ICON****************//
+              (editButton == true)
                   ? StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
                       builder: (BuildContext context, _ViewModel vm) =>
-                        (vm.advert.acceptedBid == null)
-                          ? Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                onPressed: vm.pushEditAdvert,
-                                icon: const Icon(Icons.edit),
-                                color: Colors.white70,
-                              ),
-                            )
-                          : Container())
+                          (vm.advert.acceptedBid == null)
+                              ? Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 15),
+                                    child: IconButton(
+                                      onPressed: vm.pushEditAdvert,
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        size: 20,
+                                      ),
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                )
+                              : Container())
                   : Container()
-                // //**********************************************/
-              ],
-            ),
+              // //**********************************************/
+            ],
+          ),
+          //****************************************//
+
+          Row(
+            children: [
+              //****************TITLE********************//
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.4,
+                  child: Text(
+                    titleText,
+                    style: const TextStyle(
+                        fontSize: 32, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              //*****************************************//
+            ],
+          ),
 
           //****************LOCATION********************//
           Padding(
@@ -146,7 +156,6 @@ class JobCardWidget extends StatelessWidget {
     );
   }
 }
-
 
 // factory for view model
 class _Factory extends VmFactory<AppState, JobCardWidget> {

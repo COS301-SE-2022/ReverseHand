@@ -2,7 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/pages/report_page.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/appbar_popup_menu_widget.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:tradesman/widgets/tradesman_navbar_widget.dart';
@@ -24,7 +24,22 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                 return Column(children: [
                   //*******************APP BAR WIDGET*********************//
                   AppBarWidget(
-                      title: "PROFILE", store: store, backButton: true),
+                      title: "PROFILE",
+                      store: store,
+                      filterActions:
+                          AppbarPopUpMenuWidget(store: store, functions: {
+                        "Report User": () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ReportPage(
+                                      store: store,
+                                      reportType: "User",
+                                    )),
+                          );
+                        }
+                      }),
+                      backButton: true),
                   //********************************************************//
 
                   //****************ICON****************/
@@ -108,20 +123,6 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
-
-                  const Padding(padding: EdgeInsets.only(top: 20)),
-                  TransparentLongButtonWidget(
-                      text: "Report",
-                      function: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ReportPage(
-                                    store: store,
-                                    reportType: "User",
-                                  )),
-                        );
-                      })
 
                   //***********************************/
                 ]);

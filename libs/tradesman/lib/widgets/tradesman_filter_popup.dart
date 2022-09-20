@@ -177,10 +177,9 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
+                    Scrollbar(
+                      child: SizedBox(
                         width: 200,
-                        //the height of the box should increase and be scrollable
-                        //only if more than 1 item is present
                         height: (vm.userDetails.tradeTypes.toList().length) > 1
                             ? 120
                             : 60,
@@ -196,7 +195,9 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                                   tradeTypes[key] = value!;
                                 });
                               });
-                        }).toList())),
+                        }).toList()),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -226,26 +227,29 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
-                      width: 200,
-                      //the height of the box should increase and be scrollable
-                      //only if more than 1 item is present
-                      height: (vm.userDetails.domains.toList().length) > 1
-                          ? 120
-                          : 60,
-                      child: ListView(
-                          children: vm.userDetails.domains
-                              .map((domain) => CheckboxListTile(
-                                    title: Text(domain.city),
-                                    value: domains[domain.city],
-                                    activeColor: Theme.of(context).primaryColor,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        domains[domain.city] = value!;
-                                      });
-                                    },
-                                  ))
-                              .toList()),
+                    Scrollbar(
+                      child: SizedBox(
+                        width: 200,
+                        //the height of the box should increase and be scrollable
+                        //only if more than 1 item is present
+                        height: (vm.userDetails.domains.toList().length) > 1
+                            ? 120
+                            : 60,
+                        child: ListView(
+                            children: vm.userDetails.domains
+                                .map((domain) => CheckboxListTile(
+                                      title: Text(domain.city),
+                                      value: domains[domain.city],
+                                      activeColor:
+                                          Theme.of(context).primaryColor,
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          domains[domain.city] = value!;
+                                        });
+                                      },
+                                    ))
+                                .toList()),
+                      ),
                     ),
                   ],
                 ),
@@ -289,19 +293,13 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                 },
               ),
               ButtonWidget(
-                text: "Remove All Filters",
+                text: "Reset",
+                color: "light",
+                border: "white",
                 function: () {
                   vm.dispatchFilterAdvertsAction(
                     const FilterAdvertsModel(),
                   );
-                  Navigator.pop(context);
-                },
-              ),
-              ButtonWidget(
-                text: "Cancel",
-                color: "light",
-                border: "white",
-                function: () {
                   Navigator.pop(context);
                 },
               ),
