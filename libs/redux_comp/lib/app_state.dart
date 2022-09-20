@@ -144,6 +144,7 @@ class AppState {
       viewBids: const [],
       activeAd: const AdvertModel(
         id: "",
+        customerId: "",
         type: "none",
         title: "",
         domain: Domain(

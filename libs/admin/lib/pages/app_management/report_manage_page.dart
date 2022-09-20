@@ -63,13 +63,6 @@ class ReportManagePage extends StatelessWidget {
                         description: report.reportDetails.description,
                       ),
 
-                      (report.reviewDetails != null)
-                          ? ReportDetailsWidget(
-                              reason: report.reviewDetails!.description,
-                              description:
-                                  report.reviewDetails!.rating.toString())
-                          : Container(),
-
                       ReportUserDescrWidget(
                         title: "Reported User",
                         name: report.reportDetails.reportedUser!.name,
@@ -91,16 +84,21 @@ class ReportManagePage extends StatelessWidget {
                       ),
                       const Padding(padding: EdgeInsets.only(bottom: 40)),
 
-                      LongButtonWidget(text: "Issue Warning", function: () => vm.dispatchRemoveWithWarning(
+                      LongButtonWidget(
+                        text: "Issue Warning",
+                        function: () => vm.dispatchRemoveWithWarning(
                           report.id,
                           report.reportDetails.reportedUser!.id,
-                        ),),
+                        ),
+                      ),
 
                       TransparentLongButtonWidget(
-                          text: "Remove Report", function: ()  => vm.dispatchRemoveWithoutWarning(
+                        text: "Remove Report",
+                        function: () => vm.dispatchRemoveWithoutWarning(
                           report.id,
                           report.reportDetails.reportedUser!.id,
-                        ),)
+                        ),
+                      )
                     ],
                   );
           },

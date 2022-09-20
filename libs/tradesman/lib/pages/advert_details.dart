@@ -10,10 +10,13 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/admin/app_management/add_advert_report_action.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
+import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/edit_bid_sheet.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/upload_quote_sheet.dart';
 import '../widgets/tradesman_navbar_widget.dart';
@@ -42,6 +45,18 @@ class TradesmanJobDetails extends StatelessWidget {
                         filterActions:
                             AppbarPopUpMenuWidget(store: store, functions: {
                           "Report Advert": () {
+                            // vm.dispatchReportAdvertAction(
+                            //   advertId: vm.advert.id,
+                            //   userId: vm.advert.customerId,
+                            //   report: ReportDetailsModel(
+                            //     description: "testing report",
+                            //     reason: "Reason",
+                            //     reporterUser: ReportUserDetailsModel(
+                            //       id: vm.userDetails.id,
+                            //       name: vm.userDetails.name!,
+                            //     ),
+                            //   ),
+                            // );
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -236,6 +251,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
   _ViewModel fromStore() => _ViewModel(
         advert: state.activeAd!,
         bids: state.bids + state.shortlistBids,
+        userDetails: state.userDetails,
         popPage: () => dispatch(
           NavigateAction.pop(),
         ),
@@ -252,12 +268,25 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
         loading: state.wait.isWaiting,
         dispatchPlaceBidAction: ({required int price, String? quote}) =>
             dispatch(PlaceBidAction(price: price, quote: quote)),
+        dispatchReportAdvertAction: ({
+          required String advertId,
+          required String userId,
+          required ReportDetailsModel report,
+        }) =>
+            dispatch(
+          AddAdvertReportAction(
+            advertId: advertId,
+            userId: userId,
+            report: report,
+          ),
+        ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback popPage;
+  final UserModel userDetails;
   final AdvertModel advert;
   final List<BidModel> bids;
   final BidModel? currentBid;
@@ -268,11 +297,18 @@ class _ViewModel extends Vm {
   final bool loading;
   final void Function({required int price, String? quote})
       dispatchPlaceBidAction;
+  final void Function({
+    required String advertId,
+    required String userId,
+    required ReportDetailsModel report,
+  }) dispatchReportAdvertAction;
 
   _ViewModel({
     required this.advert,
     required this.bids,
+    required this.userDetails,
     required this.dispatchPlaceBidAction,
+    required this.dispatchReportAdvertAction,
     required this.currentBid,
     required this.popPage,
     required this.pushViewBidsPage,

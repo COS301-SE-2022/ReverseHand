@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/widgets/profile_divider.dart';
 import 'package:general/widgets/textfield.dart';
-import 'package:redux_comp/actions/add_user_report_action.dart';
+import 'package:redux_comp/actions/admin/app_management/add_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
