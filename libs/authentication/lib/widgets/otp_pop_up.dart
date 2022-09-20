@@ -9,25 +9,29 @@ import '../pages/login_page.dart';
 import 'auth_textfield_light.dart';
 import 'link_widget.dart';
 
-
 //******************************** */
 // OTP popup widget
 //******************************** */
 
-class OTPPopupWidget extends StatelessWidget {
-  final otpController = TextEditingController();
-
+class OTPPopupWidget extends StatefulWidget {
   final Store<AppState> store;
 
-  OTPPopupWidget({
+  const OTPPopupWidget({
     Key? key,
     required this.store,
   }) : super(key: key);
 
   @override
+  State<OTPPopupWidget> createState() => _OTPPopupWidgetState();
+}
+
+class _OTPPopupWidgetState extends State<OTPPopupWidget> {
+  final otpController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: Container(
@@ -45,7 +49,7 @@ class OTPPopupWidget extends StatelessWidget {
                             color: Colors.black,
                             fontWeight: FontWeight.bold)),
                     const Padding(padding: EdgeInsets.all(10)),
-      
+
                     //*****************OTP text field**********************
                     const HintWidget(
                         text: "Enter OTP sent to email",
@@ -63,26 +67,27 @@ class OTPPopupWidget extends StatelessWidget {
                     ),
                     //*****************************************************
 
-                      //*****************Resend OTP **********************
-                      LinkWidget(
+                    //*****************Resend OTP **********************
+                    LinkWidget(
                         text1: "Didn't receive OTP? ",
                         text2: "Resend",
-                        navigate: () => LoginPage(store: store),
-                        colour: Colors.black
-                      ),
-                      const TransparentDividerWidget(),
+                        navigate: () => LoginPage(store: widget.store),
+                        colour: Colors.black),
+                    const TransparentDividerWidget(),
                     //*****************************************************
-                      
+
                     //*****************Button **********************
-                    const Padding(padding: EdgeInsets.only(left:20, right: 20, bottom: 20)),
+                    const Padding(
+                        padding:
+                            EdgeInsets.only(left: 20, right: 20, bottom: 20)),
                     StoreConnector<AppState, _ViewModel>(
-                      vm: () => _Factory(this),
-                      builder: (BuildContext context, _ViewModel vm) =>
-                      ButtonWidget(
-                          text: "Verify",
-                        function: () => vm.dispatchVerifyUserAction(otpController.value.text.trim()),
-                      )
-                    ),
+                        vm: () => _Factory(this),
+                        builder: (BuildContext context, _ViewModel vm) =>
+                            ButtonWidget(
+                              text: "Verify",
+                              function: () => vm.dispatchVerifyUserAction(
+                                  otpController.value.text.trim()),
+                            )),
                   ],
                 ),
               )),
@@ -93,7 +98,7 @@ class OTPPopupWidget extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, OTPPopupWidget> {
+class _Factory extends VmFactory<AppState, _OTPPopupWidgetState> {
   _Factory(widget) : super(widget);
 
   @override

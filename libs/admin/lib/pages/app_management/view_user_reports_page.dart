@@ -42,15 +42,17 @@ class ViewUserReportsPage extends StatelessWidget {
                           bottomPadding: 0)
                     ],
                   )
-                : Column(
-                    children: [
-                      //**********APPBAR***********//
-                      appbar,
-                      ListRefreshWidget(
-                        widgets: reports,
-                        refreshFunction: () => vm.dispatchGetUserReports(),
-                      )
-                    ],
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        //**********APPBAR***********//
+                        appbar,
+                        ListRefreshWidget(
+                          widgets: reports,
+                          refreshFunction: () => vm.dispatchGetUserReports(),
+                        )
+                      ],
+                    ),
                   );
           },
         ),
