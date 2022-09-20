@@ -125,7 +125,7 @@ class _UploadAmountSheetState extends State<UploadAmountSheet> {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, UploadAmountSheet> {
+class _Factory extends VmFactory<AppState, _UploadAmountSheetState> {
   _Factory(widget) : super(widget);
 
   @override
