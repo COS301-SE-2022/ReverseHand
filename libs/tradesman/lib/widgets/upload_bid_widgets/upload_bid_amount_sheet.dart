@@ -99,23 +99,23 @@ class _UploadAmountSheetState extends State<UploadAmountSheet> {
             StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
               onDidChange: (context, store, vm) {
-                if(store.state.error == ErrorType.none) {
+                if (store.state.error == ErrorType.none) {
                   displayToastSuccess(context!, "Bid Placed"); //todo, fix
                 }
               },
               builder: (BuildContext context, _ViewModel vm) =>
-                LongButtonWidget(
-                  text: "Submit Bid",
-                  function: () {
-                    final int price =
-                        int.parse(bidPriceController.value.text) * 100;
+                  LongButtonWidget(
+                text: "Submit Bid",
+                function: () {
+                  final int price =
+                      int.parse(bidPriceController.value.text) * 100;
 
-                    Navigator.pop(
-                      context,
-                      price,
-                    );
-                  },
-              )
+                  Navigator.pop(
+                    context,
+                    price,
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -134,7 +134,5 @@ class _Factory extends VmFactory<AppState, _UploadAmountSheetState> {
 
 // view model
 class _ViewModel extends Vm {
-
   _ViewModel();
 }
-

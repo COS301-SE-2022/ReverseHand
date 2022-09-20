@@ -7,6 +7,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
+import 'package:redux_comp/actions/get_pdf_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -117,47 +118,49 @@ class BidDetailsPage extends StatelessWidget {
                     //   ],
                     // ),
                     // const Padding(padding: EdgeInsets.only(top: 15)),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 50, top: 20),
-                      child: LongButtonWidget(
-                        text: "View Quote",
-                        function: vm.pushViewQuotePage,
+                    if (vm.bid.quote != null)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50, top: 20),
+                        child: LongButtonWidget(
+                          text: "View Quote",
+                          function: () {
+                            vm.pushViewQuotePage();
+                            vm.dispatchGetPdfAction();
+                          },
+                        ),
                       ),
-                    ),
                   ],
                 ),
-                
 
                 //****************BOTTOM BUTTONS**************//
 
                 const Padding(padding: EdgeInsets.only(top: 55)),
                 Column(
                   children: [
-                     StoreConnector<AppState, _ViewModel>(
+                    StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
                       onDidChange: (context, store, vm) {
-                        if(store.state.error == ErrorType.none) {
-                          displayToastSuccess(context!, "Bid Accepted"); //todo, fix
+                        if (store.state.error == ErrorType.none) {
+                          displayToastSuccess(
+                              context!, "Bid Accepted"); //todo, fix
                         }
                       },
-                      builder: (BuildContext context, _ViewModel vm) =>
-                        Center(
-                          child: LongButtonWidget(
-                              text: "Accept Bid",
-                              function: () {
-                                LightDialogHelper.display(
-                                    context,
-                                    AcceptPopUpWidget(
-                                      store: store,
-                                    ),
-                                    320.0);
-                              }),
-                        ),
+                      builder: (BuildContext context, _ViewModel vm) => Center(
+                        child: LongButtonWidget(
+                            text: "Accept Bid",
+                            function: () {
+                              LightDialogHelper.display(
+                                  context,
+                                  AcceptPopUpWidget(
+                                    store: store,
+                                  ),
+                                  320.0);
+                            }),
+                      ),
                     ),
                     TransparentLongButtonWidget(
                       text: "View Contractor Profile",
-                      function: () =>
-                          vm.dispatchGetOtherUserAction(vm.bid.userId),
+                      function: vm.dispatchGetOtherUserAction,
                     )
                   ],
                 ),
@@ -183,14 +186,15 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
-        dispatchGetOtherUserAction: (String userId) =>
-            dispatch(GetOtherUserAction(userId)),
+        dispatchGetOtherUserAction: () =>
+            dispatch(GetOtherUserAction(state.activeBid!.userId)),
         bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
         pushViewQuotePage: () => dispatch(
           NavigateAction.pushNamed('/consumer/view_quote_page'),
         ),
+        dispatchGetPdfAction: () => dispatch(GetPdfAction()),
       );
 }
 
@@ -200,13 +204,15 @@ class _ViewModel extends Vm {
   final BidModel bid;
   final VoidCallback dispatchShortListBidAction;
   final bool change;
-  final void Function(String userId) dispatchGetOtherUserAction;
+  final VoidCallback dispatchGetOtherUserAction;
   final VoidCallback pushViewQuotePage;
+  final VoidCallback dispatchGetPdfAction;
 
   _ViewModel({
     required this.dispatchShortListBidAction,
     required this.dispatchGetOtherUserAction,
     required this.bid,
+    required this.dispatchGetPdfAction,
     required this.popPage,
     required this.change,
     required this.pushViewQuotePage,

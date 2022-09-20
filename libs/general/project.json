@@ -1,5 +1,4 @@
 {
-  "root": "libs/general",
   "sourceRoot": "libs/general/src",
   "projectType": "library",
   "targets": {

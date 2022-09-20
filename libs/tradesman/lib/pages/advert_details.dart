@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:async_redux/async_redux.dart';
 import 'package:general/pages/report_page.dart';
 import 'package:general/widgets/appbar_popup_menu_widget.dart';
@@ -10,13 +11,11 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/actions/admin/app_management/add_advert_report_action.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
+import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/edit_bid_sheet.dart';
 import 'package:tradesman/widgets/upload_bid_widgets/upload_quote_sheet.dart';
 import '../widgets/tradesman_navbar_widget.dart';
@@ -71,8 +70,8 @@ class TradesmanJobDetails extends StatelessWidget {
                     //*******************************************//
 
                     //******************CAROUSEL ****************//
-                    if (vm.advertImages.isNotEmpty)
-                      ImageCarouselWidget(images: vm.advertImages),
+                    if (vm.advert.images.isNotEmpty)
+                      ImageCarouselWidget(images: vm.advert.images),
                     //*******************************************//
 
                     //**********DETAILED JOB INFORMATION***********//
@@ -90,9 +89,9 @@ class TradesmanJobDetails extends StatelessWidget {
                     const Padding(padding: EdgeInsets.only(top: 25)),
 
                     //*************BOTTOM BUTTONS**************//
-                    vm.bids.contains(vm.currentBid)
-                        //this isn't working as expected
-                        // vm.currentBid != null
+                    // vm.bids.contains(vm.userBid)
+                    //this isn't working as expected
+                    vm.userBid != null
                         //if this contractor has already made a bid
                         ? Column(
                             children: [
@@ -149,7 +148,7 @@ class TradesmanJobDetails extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                vm.currentBid!.amount(),
+                                                vm.userBid!.amount(),
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
@@ -165,8 +164,8 @@ class TradesmanJobDetails extends StatelessWidget {
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
-                                            children: const [
-                                              Text(
+                                            children: [
+                                              const Text(
                                                 'Quote:',
                                                 style: TextStyle(
                                                     fontSize: 22,
@@ -175,10 +174,12 @@ class TradesmanJobDetails extends StatelessWidget {
                                                         FontWeight.bold),
                                               ),
                                               Text(
-                                                'None Uploaded',
+                                                vm.userBid!.quote != null
+                                                    ? 'Uploaded'
+                                                    : 'None Uploaded',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 20,
                                                     color: Colors.black),
                                               ),
@@ -213,20 +214,26 @@ class TradesmanJobDetails extends StatelessWidget {
                                   },
                                 );
 
-                                vm.dispatchPlaceBidAction(
+                                if (items['price'] != null) {
+                                  vm.dispatchPlaceBidAction(
                                     price: items['price'],
-                                    quote: items['quote']);
+                                    quote: items['quote'],
+                                  );
+                                }
                               },
                             ),
                           ),
                     //place bid
 
                     TransparentLongButtonWidget(
-                        text: "View Bids", function: vm.pushViewBidsPage),
+                      text: "View Bids (${vm.bidCount})",
+                      function: vm.pushViewBidsPage,
+                    ),
                     const Padding(padding: EdgeInsets.only(top: 20)),
                     TransparentLongButtonWidget(
-                        text: "View Client Profile",
-                        function: vm.pushLimitedProfilePage),
+                      text: "View Client Profile",
+                      function: vm.dispatchGetOtherUserAction,
+                    ),
                     const Padding(padding: EdgeInsets.only(top: 35)),
 
                     const Padding(padding: EdgeInsets.only(bottom: 50)),
@@ -250,71 +257,44 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
   @override
   _ViewModel fromStore() => _ViewModel(
         advert: state.activeAd!,
-        bids: state.bids + state.shortlistBids,
-        userDetails: state.userDetails,
+        bidCount: state.bids.length,
         popPage: () => dispatch(
           NavigateAction.pop(),
         ),
         pushViewBidsPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/view_bids_page'),
         ),
-        pushConsumerListings: () => dispatch(
-          NavigateAction.pushNamed('/tradesman'),
-        ),
-        pushLimitedProfilePage: () => dispatch(
-            NavigateAction.pushNamed('/consumer/limited_profile_page')),
-        currentBid: state.userBid,
-        advertImages: state.advertImages,
+        userBid: state.userBid,
         loading: state.wait.isWaiting,
-        dispatchPlaceBidAction: ({required int price, String? quote}) =>
+        dispatchPlaceBidAction: ({required int price, File? quote}) =>
             dispatch(PlaceBidAction(price: price, quote: quote)),
-        dispatchReportAdvertAction: ({
-          required String advertId,
-          required String userId,
-          required ReportDetailsModel report,
-        }) =>
-            dispatch(
-          AddAdvertReportAction(
-            advertId: advertId,
-            userId: userId,
-            report: report,
-          ),
-        ),
+        dispatchGetOtherUserAction: () =>
+            dispatch(GetOtherUserAction(state.activeAd!.userId)),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback popPage;
-  final UserModel userDetails;
   final AdvertModel advert;
-  final List<BidModel> bids;
-  final BidModel? currentBid;
+  final BidModel? userBid;
+  final int bidCount;
   final VoidCallback pushViewBidsPage;
-  final VoidCallback pushConsumerListings;
-  final VoidCallback pushLimitedProfilePage;
-  final List<String> advertImages;
   final bool loading;
-  final void Function({required int price, String? quote})
-      dispatchPlaceBidAction;
   final void Function({
-    required String advertId,
-    required String userId,
-    required ReportDetailsModel report,
-  }) dispatchReportAdvertAction;
+    required int price,
+    File? quote,
+  }) dispatchPlaceBidAction;
+  final VoidCallback dispatchGetOtherUserAction;
 
   _ViewModel({
     required this.advert,
-    required this.bids,
-    required this.userDetails,
+    required this.bidCount,
+    required this.userBid,
     required this.dispatchPlaceBidAction,
-    required this.dispatchReportAdvertAction,
-    required this.currentBid,
+    required this.dispatchGetOtherUserAction,
     required this.popPage,
     required this.pushViewBidsPage,
-    required this.pushConsumerListings,
-    required this.pushLimitedProfilePage,
-    required this.advertImages,
     required this.loading,
-  }) : super(equals: [advert, advertImages, loading]);
+  }) : super(equals: [advert, loading]);
 }

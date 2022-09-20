@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/widgets/profile_divider.dart';
 import 'package:general/widgets/textfield.dart';
+import 'package:redux_comp/actions/admin/app_management/add_advert_report_action.dart';
 import 'package:redux_comp/actions/admin/app_management/add_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-
 import '../widgets/appbar.dart';
 
 class ReportPage extends StatefulWidget {
@@ -89,7 +89,7 @@ class _RadioSelectWidgetState extends State<ReportPage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "1. Provide a description for this report:",
+                  "2. Provide a description for this report:",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -111,35 +111,55 @@ class _RadioSelectWidgetState extends State<ReportPage> {
             StoreProvider(
               store: widget.store,
               child: StoreConnector<AppState, _ViewModel>(
-                  vm: () => _Factory(this),
-                  builder: (BuildContext context, _ViewModel vm) =>
-                      //IF A USER IS BEING REPORTED
-                      widget.reportType == "User"
-                          ? (LongButtonWidget(
-                              text: "Submit Review - User",
-                              function: () {
-                                ReportDetailsModel report = ReportDetailsModel(
-                                  description: descrController.value.text,
-                                  reason: _type!,
-                                  reportedUser: ReportUserDetailsModel(
-                                    id: vm.otherUser.id,
-                                    name: vm.otherUser.name ?? "nameNull",
-                                  ),
-                                );
-                                ReportUserDetailsModel user =
-                                    ReportUserDetailsModel(
-                                        id: vm.userDetails.id,
-                                        name: vm.userDetails.name!);
-                                vm.addUserReport(report, user);
-                              }))
-                          //IF A REVIEW IS BEING REPORTED
-                          : widget.reportType == "Review"
-                              ? LongButtonWidget(
-                                  text: "Submit Review - Rev", function: () {})
-                              //IF AN ADVERT IS BEING REPORTED
-                              : LongButtonWidget(
-                                  text: "Submit Review - Adv",
-                                  function: () {})),
+                vm: () => _Factory(this),
+                builder: (BuildContext context, _ViewModel vm) =>
+                    //IF A USER IS BEING REPORTED
+                    widget.reportType == "User"
+                        ? LongButtonWidget(
+                            text: "Submit Review - User",
+                            function: () {
+                              vm.popPage();
+
+                              ReportDetailsModel report = ReportDetailsModel(
+                                description: descrController.value.text,
+                                reason: _type!,
+                                reportedUser: ReportUserDetailsModel(
+                                  id: vm.otherUser.id,
+                                  name: vm.otherUser.name ?? "nameNull",
+                                ),
+                              );
+                              ReportUserDetailsModel user =
+                                  ReportUserDetailsModel(
+                                      id: vm.userDetails.id,
+                                      name: vm.userDetails.name!);
+                              vm.dispatchAddUserReportAction(report, user);
+                            },
+                          )
+                        //IF A REVIEW IS BEING REPORTED
+                        : widget.reportType == "Review"
+                            ? LongButtonWidget(
+                                text: "Submit Review - Rev", function: () {})
+                            //IF AN ADVERT IS BEING REPORTED
+                            : LongButtonWidget(
+                                text: "Submit Review - Adv",
+                                function: () {
+                                  vm.popPage();
+
+                                  ReportDetailsModel report =
+                                      ReportDetailsModel(
+                                    description: descrController.value.text,
+                                    reason: _type!,
+                                    reportedUser: ReportUserDetailsModel(
+                                      id: vm.otherUser.id,
+                                      name: vm.otherUser.name ?? "nameNull",
+                                    ),
+                                  );
+
+                                  vm.dispatchAddSdvertReportAction(
+                                      vm.otherUser.id, report);
+                                },
+                              ),
+              ),
             )
           ],
         ),
@@ -156,8 +176,12 @@ class _Factory extends VmFactory<AppState, _RadioSelectWidgetState> {
         otherUser: state.otherUserDetails,
         isWaiting: state.wait.isWaiting,
         userDetails: state.userDetails,
-        addUserReport: (report, user) =>
+        dispatchAddUserReportAction: (report, user) =>
             dispatch(AddUserReportAction(report: report, user: user)),
+        dispatchAddSdvertReportAction:
+            (String userId, ReportDetailsModel report) =>
+                dispatch(AddAdvertReportAction(userId: userId, report: report)),
+        popPage: () => dispatch(NavigateAction.pop()),
       );
 }
 
@@ -165,13 +189,18 @@ class _Factory extends VmFactory<AppState, _RadioSelectWidgetState> {
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final UserModel otherUser;
-  final void Function(ReportDetailsModel, ReportUserDetailsModel) addUserReport;
+  final void Function(ReportDetailsModel, ReportUserDetailsModel)
+      dispatchAddUserReportAction;
+  final void Function(String, ReportDetailsModel) dispatchAddSdvertReportAction;
   final bool isWaiting;
+  final VoidCallback popPage;
 
-  _ViewModel(
-      {required this.userDetails,
-      required this.otherUser,
-      required this.addUserReport,
-      required this.isWaiting})
-      : super(equals: [userDetails, isWaiting]);
+  _ViewModel({
+    required this.userDetails,
+    required this.otherUser,
+    required this.dispatchAddUserReportAction,
+    required this.dispatchAddSdvertReportAction,
+    required this.isWaiting,
+    required this.popPage,
+  }) : super(equals: [userDetails, isWaiting]);
 }

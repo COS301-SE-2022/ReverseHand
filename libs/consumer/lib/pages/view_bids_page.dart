@@ -1,12 +1,9 @@
-// import 'dart:html';
-
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/consumer_floating_button.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
 import 'package:general/widgets/appbar.dart';
-
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/hint_widget.dart';
@@ -15,7 +12,6 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
-
 import '../methods/populate_bids.dart';
 
 class ViewBidsPage extends StatelessWidget {

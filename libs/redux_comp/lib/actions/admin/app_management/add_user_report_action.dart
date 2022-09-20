@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
-
 import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -30,15 +29,13 @@ class AddUserReportAction extends ReduxAction<AppState> {
         }
       }
     ''';
-    
+
     final request = GraphQLRequest(
       document: graphQLDoc,
     );
 
     try {
-       final response =  await Amplify.API
-          .mutate(request: request)
-          .response;
+      final response = await Amplify.API.mutate(request: request).response;
       debugPrint(response.data);
       return null;
     } on ApiException catch (e) {

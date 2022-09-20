@@ -80,6 +80,7 @@ type Mutation {
     price: Int!
     quote: String
   ): Bid! @function(name: "placeBidResolver-${env}") # quote is optional and represents a name of a file in a S3 bucket
+  
   closeAdvert(ad_id: String!): Advert!
     @function(name: "closeAdvertResolver-${env}")
 

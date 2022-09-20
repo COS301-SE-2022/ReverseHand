@@ -30,14 +30,13 @@ dependencies:
   path_provider: ^2.0.11
   jwt_decode: ^0.3.1
   geolocator: ^9.0.1
+  http: ^0.13.5
 
   amplify:
     path: '../amplify'
   
   general:
     path: '../general'
-
-  http: ^0.13.4
 
   # payments
   flutter_paystack:

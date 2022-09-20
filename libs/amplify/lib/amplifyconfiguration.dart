@@ -104,7 +104,7 @@ const amplifyconfig = ''' {
                 },
                 "PinpointAnalytics": {
                     "Default": {
-                        "AppId": "fe811469c6cb4fd6bbfa4886a0c4c906",
+                        "AppId": "198e3b84645e4b24a1492e8b53a8f4a4",
                         "Region": "eu-west-1"
                     }
                 },
@@ -138,7 +138,7 @@ const amplifyconfig = ''' {
         "plugins": {
             "awsPinpointAnalyticsPlugin": {
                 "pinpointAnalytics": {
-                    "appId": "fe811469c6cb4fd6bbfa4886a0c4c906",
+                    "appId": "198e3b84645e4b24a1492e8b53a8f4a4",
                     "region": "eu-west-1"
                 },
                 "pinpointTargeting": {

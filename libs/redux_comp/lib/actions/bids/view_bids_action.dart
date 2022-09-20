@@ -22,10 +22,10 @@ class ViewBidsAction extends ReduxAction<AppState> {
         name
         tradesman_id
         price
-        quote
         date_created
         date_closed
         shortlisted
+        quote
       }
     }''';
 

@@ -1,5 +1,4 @@
 {
-  "root": "libs/geolocation",
   "sourceRoot": "libs/geolocation/src",
   "projectType": "library",
   "targets": {
