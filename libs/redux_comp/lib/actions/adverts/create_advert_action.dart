@@ -34,6 +34,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
         title
         type
         description
+        customer_id
       }
     }''';
 

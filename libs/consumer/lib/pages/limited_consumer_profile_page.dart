@@ -43,10 +43,10 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 10)),
                   CircleAvatar(
                     radius: 70,
-                    backgroundImage: vm.profilePhoto == null
+                    backgroundImage: vm.userDetails.profileImage == null
                         ? const AssetImage("assets/images/profile.png",
                             package: 'general')
-                        : Image.network(vm.profilePhoto!).image,
+                        : Image.network(vm.userDetails.profileImage!).image,
                   ),
                   //************************************/
 
@@ -141,7 +141,6 @@ class _Factory extends VmFactory<AppState, LimitedConsumerProfilePage> {
   _ViewModel fromStore() => _ViewModel(
         userDetails: state.otherUserDetails,
         isWaiting: state.wait.isWaiting,
-        profilePhoto: state.userDetails.profileImage,
         pushReportPage: () {
           dispatch(NavigateAction.pushNamed('/general/report_page'));
         },
@@ -151,14 +150,12 @@ class _Factory extends VmFactory<AppState, LimitedConsumerProfilePage> {
 // view model
 class _ViewModel extends Vm {
   final UserModel userDetails;
-  final String? profilePhoto;
   final VoidCallback pushReportPage;
   final bool isWaiting;
 
-  _ViewModel(
-      {required this.userDetails,
-      required this.profilePhoto,
-      required this.isWaiting,
-      required this.pushReportPage})
-      : super(equals: [userDetails, isWaiting]);
+  _ViewModel({
+    required this.userDetails,
+    required this.isWaiting,
+    required this.pushReportPage,
+  }) : super(equals: [userDetails, isWaiting]);
 }

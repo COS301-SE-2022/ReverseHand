@@ -147,6 +147,8 @@ class GetOtherUserAction extends ReduxAction<AppState> {
 
   @override
   void before() {
+    dispatch(GetProfilePhotoAction(userId: userId));
+
     final String userType =
         userId.substring(0, 2) == 'c#' ? 'Consumer' : 'Tradesman';
 
