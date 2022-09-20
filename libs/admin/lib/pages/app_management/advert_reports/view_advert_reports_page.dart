@@ -19,55 +19,58 @@ class ViewAdvertReportsPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        body: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) {
-            List<Widget> reports = [];
-            for (ReportedAdvertModel advert in vm.adverts) {
-              reports.add(QuickViewReportedAdvertCardWidget(
-                  store: store, advert: advert));
-            }
-            Widget appbar = AppBarWidget(
-              title: "Advert Reports",
-              store: store,
-              backButton: true,
-            );
-            return (vm.loading)
-                ? Column(
-                    children: [
-                      //**********APPBAR***********//
-                      appbar,
-                      //*******************************************//
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) {
+              List<Widget> reports = [];
+              for (ReportedAdvertModel advert in vm.adverts) {
+                reports.add(QuickViewReportedAdvertCardWidget(
+                    store: store, advert: advert));
+              }
+              Widget appbar = AppBarWidget(
+                title: "Advert Reports",
+                store: store,
+                backButton: true,
+              );
+              return (vm.loading)
+                  ? Column(
+                      children: [
+                        //**********APPBAR***********//
+                        appbar,
+                        //*******************************************//
 
-                      LoadingWidget(
-                          topPadding: MediaQuery.of(context).size.height / 3,
-                          bottomPadding: 0)
-                    ],
-                  )
-                : Column(
-                    children: [
-                      //**********APPBAR***********//
-                      appbar,
-                      (reports.isEmpty)
-                          ? Padding(
-                              padding: EdgeInsets.only(
-                                  top: (MediaQuery.of(context).size.height) / 4,
-                                  left: 40,
-                                  right: 40),
-                              child: (const Text(
-                                "There are no reported adverts.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white70),
-                              )),
-                            )
-                          : ListRefreshWidget(
-                              widgets: reports,
-                              refreshFunction: vm.dispatchGetAdvertReports,
-                            )
-                    ],
-                  );
-          },
+                        LoadingWidget(
+                            topPadding: MediaQuery.of(context).size.height / 3,
+                            bottomPadding: 0)
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        //**********APPBAR***********//
+                        appbar,
+                        (reports.isEmpty)
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                    top: (MediaQuery.of(context).size.height) /
+                                        4,
+                                    left: 40,
+                                    right: 40),
+                                child: (const Text(
+                                  "There are no reported adverts.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white70),
+                                )),
+                              )
+                            : ListRefreshWidget(
+                                widgets: reports,
+                                refreshFunction: vm.dispatchGetAdvertReports,
+                              )
+                      ],
+                    );
+            },
+          ),
         ),
       ),
     );

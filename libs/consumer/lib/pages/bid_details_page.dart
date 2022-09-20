@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:consumer/widgets/accept_bid_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/toast_success.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
@@ -10,6 +11,7 @@ import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/long_button_widget.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -79,7 +81,7 @@ class BidDetailsPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    //**************BID RANGE***************/
+                    //**************BID PRICE***************/
                     const Padding(padding: EdgeInsets.all(15)),
                     const Center(
                       child: Text(
@@ -102,37 +104,55 @@ class BidDetailsPage extends StatelessWidget {
 
                     //**************SEE QUOTE BUTTON***************/
                     //if quote is not uploaded
-                    const Padding(padding: EdgeInsets.only(top: 40)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          "No quote has been\n uploaded yet.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: Colors.white54),
-                        ),
-                      ],
+                    //todo, add if statement back here
+                    // const Padding(padding: EdgeInsets.only(top: 40)),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: const [
+                    //     Text(
+                    //       "No quote has been\n uploaded yet.",
+                    //       textAlign: TextAlign.center,
+                    //       style: TextStyle(fontSize: 20, color: Colors.white54),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const Padding(padding: EdgeInsets.only(top: 15)),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 50, top: 20),
+                      child: LongButtonWidget(
+                        text: "View Quote",
+                        function: vm.pushViewQuotePage,
+                      ),
                     ),
-                    const Padding(padding: EdgeInsets.only(top: 15))
                   ],
                 ),
+                
 
                 //****************BOTTOM BUTTONS**************//
 
                 const Padding(padding: EdgeInsets.only(top: 55)),
                 Column(
                   children: [
-                    Center(
-                      child: LongButtonWidget(
-                          text: "Accept Bid",
-                          function: () {
-                            LightDialogHelper.display(
-                                context,
-                                AcceptPopUpWidget(
-                                  store: store,
-                                ),
-                                320.0);
-                          }),
+                     StoreConnector<AppState, _ViewModel>(
+                      vm: () => _Factory(this),
+                      onDidChange: (context, store, vm) {
+                        if(store.state.error == ErrorType.none) {
+                          displayToastSuccess(context!, "Bid Accepted"); //todo, fix
+                        }
+                      },
+                      builder: (BuildContext context, _ViewModel vm) =>
+                        Center(
+                          child: LongButtonWidget(
+                              text: "Accept Bid",
+                              function: () {
+                                LightDialogHelper.display(
+                                    context,
+                                    AcceptPopUpWidget(
+                                      store: store,
+                                    ),
+                                    320.0);
+                              }),
+                        ),
                     ),
                     TransparentLongButtonWidget(
                       text: "View Contractor Profile",
@@ -168,6 +188,9 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
         bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
+        pushViewQuotePage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/view_quote_page'),
+        ),
       );
 }
 
@@ -178,6 +201,7 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchShortListBidAction;
   final bool change;
   final void Function(String userId) dispatchGetOtherUserAction;
+  final VoidCallback pushViewQuotePage;
 
   _ViewModel({
     required this.dispatchShortListBidAction,
@@ -185,5 +209,6 @@ class _ViewModel extends Vm {
     required this.bid,
     required this.popPage,
     required this.change,
+    required this.pushViewQuotePage,
   }) : super(equals: [change, bid]); // implementinf hashcode
 }

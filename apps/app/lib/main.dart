@@ -5,7 +5,9 @@ import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
 import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:consumer/pages/limited_consumer_profile_page.dart';
+import 'package:consumer/pages/view_quote_page.dart';
 import 'package:general/general.dart';
+import 'package:general/pages/report_page.dart';
 import 'package:general/methods/toast_error.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
 import 'package:geolocation/pages/location_confirm_page.dart';
@@ -87,8 +89,10 @@ class Launch extends StatelessWidget {
               EditAdvertPage(store: store),
           '/consumer/edit_profile_page': (context) =>
               EditConsumerProfilePage(store: store),
-          '/consumer/limited_profile_page': (context) =>
-              LimitedConsumerProfilePage(store: store),
+           '/consumer/limited_profile_page':(context) => 
+              LimitedConsumerProfilePage(store: store),   
+          '/consumer/view_quote_page': (context) =>
+              ViewQuotePage(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
@@ -114,6 +118,9 @@ class Launch extends StatelessWidget {
           // shared routes for consumer and tradesman
           '/general/activity_stream': (context) =>
               ActivityStreamPage(store: store),
+          '/general/report_page': (context) => ReportPage(
+                store: store,
+              ),
           // authentication routes
           '/signup': (context) => SignUpPage(store: store),
           '/usertype_selection': (context) =>
@@ -125,6 +132,7 @@ class Launch extends StatelessWidget {
 
           '/admin_system_metrics': (context) => SystemMetricsPage(store: store),
           '/admin_management': (context) => AdminManagePage(store: store),
+          '/search_users': (context) => SearchUsersPage(store: store),
           '/user_reports_page': (context) => ViewUserReportsPage(store: store),
           '/review_reports_page': (context) =>
               ViewReviewReportsPage(store: store),

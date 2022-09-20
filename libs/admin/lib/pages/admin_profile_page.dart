@@ -1,3 +1,4 @@
+import 'package:admin/widgets/admin_navbar_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/bottom_sheet.dart';
@@ -153,15 +154,15 @@ class AdminProfilePage extends StatelessWidget {
                                 const Padding(
                                     padding: EdgeInsets.only(right: 8)),
                                 Text(
-                                    (vm.userDetails.location != null)
-                                        ? "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}"
+                                    (vm.userDetails.scope != null)
+                                        ? "${vm.userDetails.scope}"
                                         : "null",
                                     style: const TextStyle(
                                         fontSize: 20, color: Colors.white)),
                               ],
                             ),
                             IconButton(
-                                onPressed: vm.pushLocationSearchPage,
+                                onPressed: () {},
                                 icon: const Icon(
                                   Icons.arrow_forward_ios,
                                   color: Colors.white,
@@ -191,7 +192,7 @@ class AdminProfilePage extends StatelessWidget {
                   ),
           ),
         ),
-
+        bottomNavigationBar: AdminNavBarWidget(store: store),
         //************************NAVBAR***********************/
 
         //*************************************************//
@@ -208,9 +209,6 @@ class _Factory extends VmFactory<AppState, AdminProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        pushLocationSearchPage: () => dispatch(
-          NavigateAction.pushNamed('/geolocation/custom_location_search'),
-        ),
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchChangeNameAction: (String userId, String name) => dispatch(
             EditUserDetailsAction(userId: userId, changed: "name", name: name)),
@@ -224,11 +222,9 @@ class _ViewModel extends Vm {
   final UserModel userDetails;
   final void Function() dispatchLogoutAction;
   final void Function(String, String) dispatchChangeNameAction;
-  final VoidCallback pushLocationSearchPage;
   final bool isWaiting;
 
   _ViewModel({
-    required this.pushLocationSearchPage,
     required this.userDetails,
     required this.dispatchLogoutAction,
     required this.dispatchChangeNameAction,

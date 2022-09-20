@@ -32,7 +32,7 @@ class MessageTileWidget extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
                 child: Text(message.msg,
-                    style: const TextStyle(color: Colors.black)),
+                    style: const TextStyle(color: Colors.black, fontSize: 15)),
               ),
             ),
             Padding(
@@ -79,7 +79,7 @@ class MessageOwnTileWidget extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
                 child: Text(message.msg,
-                    style: const TextStyle(color: Colors.white)),
+                    style: const TextStyle(color: Colors.white,fontSize: 15)),
               ),
             ),
             Padding(

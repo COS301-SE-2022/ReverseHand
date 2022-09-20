@@ -2,12 +2,13 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
-import 'package:redux_comp/actions/add_user_report_action.dart';
+import 'package:redux_comp/actions/admin/app_management/add_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/pages/report_page.dart';
 
 class LimitedTradesmanProfilePage extends StatelessWidget {
   final Store<AppState> store;
@@ -47,9 +48,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 20)),
                   Center(
                     child: Text(
-                      vm.otherUser.name != null
-                          ? vm.otherUser.name!
-                          : "null",
+                      vm.otherUser.name != null ? vm.otherUser.name! : "null",
                       style: const TextStyle(fontSize: 35),
                     ),
                   ),
@@ -162,18 +161,15 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                   TransparentLongButtonWidget(
                       text: "Report Contractor",
                       function: () {
-                        ReportDetailsModel report = ReportDetailsModel(
-                          description: "description",
-                          reason: "reason",
-                          reportedUser: ReportUserDetailsModel(
-                            id: vm.otherUser.id,
-                            name: vm.otherUser.name ?? "nameNull",
-                          ),
+                        //alternate way in view model
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReportPage(
+                                    store: store,
+                                    reportType: "User",
+                                  )),
                         );
-                        ReportUserDetailsModel user = ReportUserDetailsModel(
-                            id: vm.userDetails.id, name: vm.userDetails.name!);
-
-                        vm.addUserReport(report, user);
                       })
 
                   //***********************************/
@@ -199,6 +195,14 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
         userDetails: state.userDetails,
         addUserReport: (report, user) =>
             dispatch(AddUserReportAction(report: report, user: user)),
+        //this doesn't work at the moment
+        pushReportPage: () {
+          dispatch(NavigateAction.pushNamed('/general/report_page',
+              arguments: ReportPage(
+                store: widget!.store,
+                reportType: "User",
+              )));
+        },
       );
 }
 
@@ -206,13 +210,15 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final UserModel otherUser;
+  final VoidCallback pushReportPage;
   final void Function(ReportDetailsModel, ReportUserDetailsModel) addUserReport;
   final bool isWaiting;
 
-  _ViewModel({
-    required this.userDetails,
-    required this.otherUser,
-    required this.addUserReport,
-    required this.isWaiting,
-  }) : super(equals: [userDetails, isWaiting]);
+  _ViewModel(
+      {required this.userDetails,
+      required this.otherUser,
+      required this.addUserReport,
+      required this.isWaiting,
+      required this.pushReportPage})
+      : super(equals: [userDetails, isWaiting]);
 }

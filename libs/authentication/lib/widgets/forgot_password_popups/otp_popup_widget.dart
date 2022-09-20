@@ -11,22 +11,27 @@ import 'new_password_popup_widget.dart';
 // Forgot password otp popup widget
 //******************************** */
 
-class FPOTPPopupWidget extends StatelessWidget {
-  final otpController = TextEditingController();
-
+class FPOTPPopupWidget extends StatefulWidget {
   final Store<AppState> store;
   final void Function() function;
 
-  FPOTPPopupWidget({
+  const FPOTPPopupWidget({
     Key? key,
     required this.store,
     required this.function,
   }) : super(key: key);
 
   @override
+  State<FPOTPPopupWidget> createState() => _FPOTPPopupWidgetState();
+}
+
+class _FPOTPPopupWidgetState extends State<FPOTPPopupWidget> {
+  final otpController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => Padding(
@@ -63,19 +68,21 @@ class FPOTPPopupWidget extends StatelessWidget {
                       //*****************************************************
 
                       //*****************Heading **********************
-                      const Padding(padding: EdgeInsets.only(left:20, right: 20, bottom: 20)),
+                      const Padding(
+                          padding:
+                              EdgeInsets.only(left: 20, right: 20, bottom: 20)),
                       ButtonWidget(
                           text: "Verify",
                           function: () {
                             vm.dispatchStoreOtp(
                                 otpController.value.text.trim());
-                              vm.popPage();
+                            vm.popPage();
                             showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
                               builder: (BuildContext context) =>
                                   NewPasswordPopupWidget(
-                                store: store,
+                                store: widget.store,
                                 function: () {},
                               ),
                             );
@@ -92,14 +99,13 @@ class FPOTPPopupWidget extends StatelessWidget {
 
 // factory for view model
 // ignore: unused_element
-class _Factory extends VmFactory<AppState, FPOTPPopupWidget> {
+class _Factory extends VmFactory<AppState, _FPOTPPopupWidgetState> {
   _Factory(widget) : super(widget);
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchStoreOtp: (otp) => dispatch(SetOtpAction(otp)),
-        popPage: () => dispatch(NavigateAction.pop())
-      );
+      dispatchStoreOtp: (otp) => dispatch(SetOtpAction(otp)),
+      popPage: () => dispatch(NavigateAction.pop()));
 }
 
 // view model

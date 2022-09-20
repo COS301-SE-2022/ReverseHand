@@ -169,6 +169,9 @@ type Mutation {
 
   addAdvertReport(advert_id: String!, user_id: String!, report: ReportDetailsInput!) : AdminAdvert!
     @function(name: "addAdvertReportResolver-${env}")
+
+  acceptAdvertReport(advert_id: String!, issueWarning: Boolean!): Advert!
+    @function(name: "acceptAdvertReportResolver-${env}") 
 }
 
 type Subscription {
@@ -326,7 +329,6 @@ input ReviewInput {
 }
 
 type AdminAdvert {
-  customer_id: String!
   advert: Advert!
   count: Int!
   reports: [AdvertReport!]!
@@ -379,18 +381,6 @@ input ReportDetailsInput {
   description: String!
   reported_user: ReportUserDetailsInput
   reporter_user: ReportUserDetailsInput
-}
-
-type AdminCognitoUser implements UniqueID {
-  id: String!
-  email: String!
-  enabled: String!
-  status: String
-}
-
-type AdminListUsers {
-  users: [AdminCognitoUser!]!
-  next_token: String
 }
 
 type AdminCognitoUser implements UniqueID {
