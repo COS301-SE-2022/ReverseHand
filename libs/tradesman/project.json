@@ -1,5 +1,4 @@
 {
-  "root": "libs/tradesman",
   "sourceRoot": "libs/tradesman/src",
   "projectType": "library",
   "targets": {
