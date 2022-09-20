@@ -1,5 +1,4 @@
 {
-  "root": "libs/consumer",
   "sourceRoot": "libs/consumer/src",
   "projectType": "library",
   "targets": {

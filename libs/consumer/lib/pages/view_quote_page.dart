@@ -1,7 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:redux_comp/app_state.dart'; 
+import 'package:redux_comp/app_state.dart';
 
 class ViewQuotePage extends StatelessWidget {
   final Store<AppState> store;
@@ -16,22 +16,23 @@ class ViewQuotePage extends StatelessWidget {
         title: const Text("File Name here"),
         backgroundColor: Theme.of(context).primaryColorDark,
         actions: [
-          Padding(padding: const EdgeInsets.only(right: 10),
-          child: IconButton(
-            // onPressed: () async {
-            //   await saveFile(widget.url, "sample.pdf");
-            //   ScaffoldMessenger.of(context).showSnackBar(
-            //     const SnackBar(
-            //       content: Text(
-            //         'success',
-            //         style: TextStyle(color: Colors.white),
-            //       ),
-            //     ),
-            //   );
-            // },
-            onPressed: () {  },
-            icon: const Icon(Icons.download_rounded),
-          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              // onPressed: () async {
+              //   await saveFile(widget.url, "sample.pdf");
+              //   ScaffoldMessenger.of(context).showSnackBar(
+              //     const SnackBar(
+              //       content: Text(
+              //         'success',
+              //         style: TextStyle(color: Colors.white),
+              //       ),
+              //     ),
+              //   );
+              // },
+              onPressed: () {},
+              icon: const Icon(Icons.download_rounded),
+            ),
           ),
         ],
       ),
@@ -86,7 +87,6 @@ class ViewQuotePage extends StatelessWidget {
 //   }
 // }
 
-
 // factory for view model
 // ignore: unused_element
 class _Factory extends VmFactory<AppState, ViewQuotePage> {
@@ -98,5 +98,5 @@ class _Factory extends VmFactory<AppState, ViewQuotePage> {
 
 // view model
 class _ViewModel extends Vm {
-  _ViewModel(); 
+  _ViewModel();
 }

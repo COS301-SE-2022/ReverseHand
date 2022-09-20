@@ -24,6 +24,7 @@ exports.handler = async (event) => {
         for (let item of items) 
             adverts.push({
                 id: item['part_key'],
+                customer_id: item['customer_id'],
                 title: item['advert_details']['title'],
                 description: item['advert_details']['description'],
                 type: item['advert_details']['type'],

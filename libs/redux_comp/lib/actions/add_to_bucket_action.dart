@@ -59,7 +59,8 @@ class AddToBucketAction extends ReduxAction<AppState> {
 
       switch (fileType) {
         case FileType.profile:
-          return state.copy(userProfileImage: imageUrl.url);
+          return state.copy(
+              userDetails: state.userDetails.copy(profileImage: imageUrl.url));
         case FileType.job: // happens if consumer is logged in
           break;
         case FileType.quote: // happens when tradesman is logged in
