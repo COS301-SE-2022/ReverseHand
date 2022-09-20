@@ -159,6 +159,20 @@ describe("Editing Bids and Adverts Integration Test", ()=>{
         reviewId = result.id;
 
         //********************************************************************************************* */
+        //getUserReviews Resolver
+
+        console.log("getUserReviews test");
+        const getUserReviewsEvent = {
+            arguments : {
+                user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702"
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/getUserReviewsResolver/src/index');
+        result = await handlerModule.handler(getUserReviewsEvent);
+
+        expect(result.length).toBeGreaterThanOrEqual(1);//there should be at least one review
+        //********************************************************************************************* */
         //Deleting a review
         /*console.log("Deleting a Review");
         const deleteReviewEvent = {

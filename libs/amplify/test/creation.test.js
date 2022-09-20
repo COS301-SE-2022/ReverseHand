@@ -231,6 +231,21 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         expect(foundChat).toEqual(true);
 
         //********************************************************************************************* */
+        //getNotificationsResolver
+        console.log("getNotifications test");
+
+        const getNotificationEvent = {
+            arguments : {
+                user_id :  "t#acff077a-8855-4165-be78-090fda375f90"
+            }
+        };
+
+        handlerModule = require('../amplify/backend/function/getNotificationsResolver/src/index');
+        result = await handlerModule.handler(getNotificationEvent);
+
+        expect(result.length).toEqual(1);//one notification to tradesman about their bid being shortlisted
+
+        //********************************************************************************************* */
         /*//deleteChat resolver
         console.log("delete chat integration test");
         console.log(adId);
