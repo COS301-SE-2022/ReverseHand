@@ -43,7 +43,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
       }
     }''';
 
-    debugPrint(graphQLDocument);
+    // debugPrint(graphQLDocument);
 
     final request = GraphQLRequest(document: graphQLDocument);
 
@@ -70,38 +70,3 @@ class ViewJobsAction extends ReduxAction<AppState> {
   @override
   void after() => dispatch(WaitAction.remove("view_jobs"));
 }
-// 
-// query {
-//       viewJobs(domains: [{
-//       city : "Randburg",
-//       province : "Gauteng",
-//       coordinates : {
-//         lat: -26.1428403,
-//         lng: 27.9560981,
-//       }
-//     }, {
-//       city : "Pretoria",
-//       province : "Gauteng",
-//       coordinates : {
-//         lat: -25.7525129,
-//         lng: 28.2348763,
-//       }
-//     }], types: ["Painting","Plumbing","Cleaner"]) {
-//         date_created
-//         date_closed
-//         description
-//         domain {
-//           city
-//           province
-//           coordinates {
-//             lat
-//             lng
-//           }
-//         }
-//         title
-//         type
-//         accepted_bid
-//         customer_id
-//         id
-//       }
-//     }

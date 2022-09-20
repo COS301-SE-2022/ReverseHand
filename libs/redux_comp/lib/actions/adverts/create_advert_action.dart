@@ -43,7 +43,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     );
 
     try {
-       final response =  await Amplify.API
+       /* final response = */ await Amplify.API
           .mutate(request: request)
           .response;
 
