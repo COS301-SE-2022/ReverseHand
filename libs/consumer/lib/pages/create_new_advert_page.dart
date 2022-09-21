@@ -179,8 +179,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //add photos
               const HintWidget(
-                  text:
-                      "Take or Choose photos related to the job",
+                  text: "Take or Choose photos related to the job",
                   colour: Colors.white70,
                   padding: 15),
               const Padding(padding: EdgeInsets.only(top: 5)),
@@ -215,10 +214,12 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   descrController.value.text,
                                 );
                                 vm.dispatchRecordCreateAdvertAction(
-                                    widget.store.state.userDetails.location!
-                                        .address.city,
-                                    widget.store.state.userDetails.location!
-                                        .address.province);
+                                  widget.store.state.userDetails.location!
+                                      .address.city,
+                                  widget.store.state.userDetails.location!
+                                      .address.province,
+                                  trade!,
+                                );
                               } else {
                                 (LightDialogHelper.display(context,
                                     const CreationPopupWidget(), 210.0));
@@ -269,8 +270,10 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
             description: description,
           ),
         ),
-        dispatchRecordCreateAdvertAction: (String city, String province) =>
-            dispatch(RecordCreateAdvertAction(city: city, province: province)),
+        dispatchRecordCreateAdvertAction:
+            (String city, String province, String type) => dispatch(
+                RecordCreateAdvertAction(
+                    city: city, province: province, type: type)),
         loading: state.wait.isWaiting,
       );
 }
@@ -280,7 +283,7 @@ class _ViewModel extends Vm {
   final void Function(
           String id, String title, Domain domanin, String trade, String? descr)
       dispatchCreateAdvertActions;
-  final void Function(String city, String province)
+  final void Function(String city, String province, String type)
       dispatchRecordCreateAdvertAction;
   final VoidCallback popPage;
   final bool loading;

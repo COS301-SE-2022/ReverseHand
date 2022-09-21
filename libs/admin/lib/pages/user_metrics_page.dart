@@ -6,7 +6,6 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/models/admin/user_metrics/pie_chart_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UserMetricsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -20,12 +19,12 @@ class UserMetricsPage extends StatelessWidget {
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
-            final List<PieChartModel> chartData = [
+            final List<List<PieChartModel>> chartData = [[
               const PieChartModel(label: 'Kwa-Zulu Natal', value: 15),
               const PieChartModel(label: 'Western Cape',value:  38),
               const PieChartModel(label: 'Free State',value:  34),
               const PieChartModel(label: 'Gauteng',value:  52)
-            ];
+            ]];
 
             Widget appbar = AppBarWidget(
               title: "User Metrics",

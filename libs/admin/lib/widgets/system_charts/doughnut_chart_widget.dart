@@ -3,7 +3,7 @@ import 'package:redux_comp/models/admin/user_metrics/pie_chart_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DoughnutChartWidget extends StatelessWidget {
-  final List<PieChartModel> graphs;
+  final List<List<PieChartModel>> graphs;
   final String chartTitle;
   const DoughnutChartWidget({
     Key? key,
@@ -14,10 +14,10 @@ class DoughnutChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<DoughnutSeries<PieChartModel, String>> list = [];
-    for (PieChartModel data in graphs) {
+    for (List<PieChartModel> data in graphs) {
       list.add(DoughnutSeries<PieChartModel, String>(
           explode: true,
-          dataSource: graphs,
+          dataSource: data,
           legendIconType: LegendIconType.verticalLine,
           pointColorMapper: (PieChartModel obs, _) => obs.color,
           xValueMapper: (PieChartModel obs, _) => obs.label,

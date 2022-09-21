@@ -11,6 +11,7 @@ import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/add_advert_report_action.dart';
+import 'package:redux_comp/actions/analytics_events/record_place_bid_action.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
@@ -212,10 +213,16 @@ class TradesmanJobDetails extends StatelessWidget {
                                     return const UploadQuoteSheet();
                                   },
                                 );
-
+//HERE
                                 vm.dispatchPlaceBidAction(
-                                    price: items['price'],
-                                    quote: items['quote']);
+                                  price: items['price'],
+                                  quote: items['quote'],
+                                );
+
+                                vm.dispatchRecordPlaceBidAction(
+                                  vm.advert.type,
+                                  items['price'],
+                                );
                               },
                             ),
                           ),
@@ -280,6 +287,12 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
             report: report,
           ),
         ),
+        dispatchRecordPlaceBidAction: (type, amount) => dispatch(
+          RecordPlaceBidAction(
+            type: type,
+            amount: amount,
+          ),
+        ),
       );
 }
 
@@ -302,6 +315,7 @@ class _ViewModel extends Vm {
     required String userId,
     required ReportDetailsModel report,
   }) dispatchReportAdvertAction;
+  final void Function(String, double) dispatchRecordPlaceBidAction;
 
   _ViewModel({
     required this.advert,
@@ -316,5 +330,6 @@ class _ViewModel extends Vm {
     required this.pushLimitedProfilePage,
     required this.advertImages,
     required this.loading,
+    required this.dispatchRecordPlaceBidAction,
   }) : super(equals: [advert, advertImages, loading]);
 }

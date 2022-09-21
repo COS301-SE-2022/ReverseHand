@@ -4,20 +4,18 @@ import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
-class RecordCreateAdvertAction extends ReduxAction<AppState> {
-  String city;
-  String province;
+class RecordPlaceBidAction extends ReduxAction<AppState> {
   String type;
+  double amount;
 
-  RecordCreateAdvertAction({required this.city, required this.province, required this.type});
+  RecordPlaceBidAction({required this.type, required this.amount});
 
   @override
   Future<AppState?> reduce() async {
-    final event = AnalyticsEvent('CreateAdvert');
+    final event = AnalyticsEvent('PlaceBid');
 
-    event.properties.addStringProperty('city', city);
-    event.properties.addStringProperty('province', province);
     event.properties.addStringProperty('job_type', type);
+    event.properties.addDoubleProperty('amount', amount);
 
   try {
     await Amplify.Analytics.recordEvent(event: event);
