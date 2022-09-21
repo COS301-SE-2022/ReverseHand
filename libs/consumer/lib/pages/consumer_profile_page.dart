@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/bottom_sheet.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/profile_image.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
@@ -37,8 +38,9 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                     children: [
                       AppBarWidget(title: "PROFILE", store: widget.store),
                       LoadingWidget(
-                          topPadding: MediaQuery.of(context).size.height / 3,
-                          bottomPadding: 0)
+                        topPadding: MediaQuery.of(context).size.height / 3,
+                        bottomPadding: 0,
+                      )
                     ],
                   )
                 : Column(
@@ -69,60 +71,72 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                           ),
                         ),
                       ),
+                      ),
+                      ),
                       //************************************/
 
                       //************STATS*******************/
                       //CHANGE ICONS
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
-                        child: SizedBox(
-                          height: 100,
-                          width: MediaQuery.of(context).size.width / 1.15,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColorDark,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.check_circle_outline,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                        Text(
-                                          "Adverts closed ${vm.userDetails.statistics.finished}",
-                                          style: const TextStyle(fontSize: 18),
-                                        ),
-                                      ],
+                      InkWell(
+                        onLongPress: () {
+                          vm.dispatchViewAdvertsAction();
+                          vm.pushArchivedJobsPage();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
+                          child: SizedBox(
+                            height: 100,
+                            width: MediaQuery.of(context).size.width / 1.15,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColorDark,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(
+                                            Icons.check_circle_outline,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                          Text(
+                                            "Adverts closed ${vm.userDetails.statistics.finished}",
+                                            style:
+                                                const TextStyle(fontSize: 18),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, left: 10, right: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.front_hand_outlined,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                        Text(
-                                          "Total adverts ${vm.userDetails.statistics.created} made",
-                                          style: const TextStyle(fontSize: 18),
-                                        ),
-                                      ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8, left: 10, right: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(
+                                            Icons.front_hand_outlined,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                          Text(
+                                            "Total adverts ${vm.userDetails.statistics.created} made",
+                                            style:
+                                                const TextStyle(fontSize: 18),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -345,11 +359,15 @@ class _Factory extends VmFactory<AppState, _ConsumerProfilePageState> {
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchChangeNameAction: (String userId, String name) => dispatch(
             EditUserDetailsAction(userId: userId, changed: "name", name: name)),
+        pushArchivedJobsPage: () =>
+            dispatch(NavigateAction.pushNamed('/archived_jobs')),
         dispatchChangeCellAction: (String userId, String cellNo) => dispatch(
             EditUserDetailsAction(
                 userId: userId, changed: "cellNo", cellNo: cellNo)),
         userDetails: state.userDetails,
         isWaiting: state.wait.isWaiting,
+        dispatchViewAdvertsAction: () =>
+            dispatch(ViewAdvertsAction(archived: true)),
       );
 }
 
@@ -362,9 +380,13 @@ class _ViewModel extends Vm {
   final void Function(String, String) dispatchChangeCellAction;
   final VoidCallback pushLocationSearchPage;
   final bool isWaiting;
+  final VoidCallback pushArchivedJobsPage;
+  final VoidCallback dispatchViewAdvertsAction;
 
   _ViewModel({
+    required this.pushArchivedJobsPage,
     required this.pushLocationSearchPage,
+    required this.dispatchViewAdvertsAction,
     required this.userDetails,
     required this.dispatchLogoutAction,
     required this.dispatchChangeNameAction,

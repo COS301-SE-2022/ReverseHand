@@ -6,8 +6,6 @@ import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 
-// import '../methods/time.dart';
-
 //*********************************************** */
 // Job Listings card layout widget
 //*********************************************** */
@@ -15,9 +13,11 @@ import 'package:redux_comp/models/advert_model.dart';
 class QuickViewJobCardWidget extends StatelessWidget {
   final AdvertModel advert; // Current advert
   final Store<AppState> store;
+  final bool archived;
 
   const QuickViewJobCardWidget({
     Key? key,
+    this.archived = false,
     required this.advert,
     required this.store,
   }) : super(key: key);
@@ -29,7 +29,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => InkWell(
-          onTap: () => vm.dispatchViewBidsAction(advert.id),
+          onTap: () => vm.dispatchViewBidsAction(advert, archived),
           child: Card(
             margin: const EdgeInsets.fromLTRB(12, 5, 12, 5),
             color: const Color.fromARGB(255, 232, 232, 232),
@@ -96,15 +96,23 @@ class QuickViewJobCardWidget extends StatelessWidget {
                         const Padding(padding: EdgeInsets.only(top: 2)),
                         Row(
                           children: [
-                            Text(advert.domain.city,
-                                style: const TextStyle(
-                                    fontSize: 18, color: Colors.black)),
+                            Text(
+                              advert.domain.city,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                            ),
                             const Padding(padding: EdgeInsets.only(right: 10)),
                             const Icon(Icons.circle_outlined, size: 8),
                             const Padding(padding: EdgeInsets.only(left: 10)),
-                            Text(advert.type,
-                                style: const TextStyle(
-                                    fontSize: 18, color: Colors.black)),
+                            Text(
+                              advert.type,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                            ),
                           ],
                         ),
                         // SizedBox(
@@ -138,15 +146,15 @@ class _Factory extends VmFactory<AppState, QuickViewJobCardWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchViewBidsAction: (String adId) => dispatch(
-          ViewBidsAction(adId: adId),
+        dispatchViewBidsAction: (AdvertModel ad, bool archived) => dispatch(
+          ViewBidsAction(ad: ad, archived: archived),
         ),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String) dispatchViewBidsAction;
+  final void Function(AdvertModel, bool) dispatchViewBidsAction;
 
   _ViewModel({
     required this.dispatchViewBidsAction,

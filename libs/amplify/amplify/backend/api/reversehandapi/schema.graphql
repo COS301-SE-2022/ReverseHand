@@ -3,9 +3,9 @@
 # input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Query {
-  viewBids(ad_id: String!): [Bid!]! @function(name: "viewBidsResolver-${env}")
+  viewBids(ad_id: String!, archived: Boolean): [Bid!]! @function(name: "viewBidsResolver-${env}")
 
-  viewAdverts(user_id: String!): [Advert!]!
+  viewAdverts(user_id: String!, archived: Boolean): [Advert!]!
     @function(name: "viewAdvertsResolver-${env}")
 
   viewJobs(domains: [DomainInput!]!, types: [String!]!): [Advert!]!
@@ -45,7 +45,7 @@ type Query {
   getMetrics(params: String!): String!
     @function(name: "getMetricsResolver-${env}") 
 
-  getBidOnAdverts(tradesman_id: String!): [Advert!]!
+  getBidOnAdverts(tradesman_id: String!, archived: Boolean): [Advert!]!
     @function(name: "getBidOnAdvertsResolver-${env}")
 
   listUsers(group: String!, next_token: String): AdminListUsers!

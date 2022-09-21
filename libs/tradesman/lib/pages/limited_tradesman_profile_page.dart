@@ -28,10 +28,10 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
               vm: () => _Factory(this),
               builder: (BuildContext context, _ViewModel vm) {
                 //*******************STAR CALC*********************//
-                int startAmount = vm.otherUser.statistics.ratingSum == 0
+                int startAmount = vm.userDetails.statistics.ratingSum == 0
                     ? 0
-                    : vm.otherUser.statistics.ratingSum ~/
-                        vm.otherUser.statistics.ratingCount;
+                    : vm.userDetails.statistics.ratingSum ~/
+                        vm.userDetails.statistics.ratingCount;
 
                 List<Icon> stars = [];
 
@@ -62,14 +62,24 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                       backButton: true),
                   //********************************************************//
 
+                  //**************HEADING***************/
+                  const Padding(padding: EdgeInsets.only(top: 20)),
+                  Center(
+                    child: Text(
+                      vm.userDetails.name != null ? vm.userDetails.name! : "",
+                      style: const TextStyle(fontSize: 35),
+                    ),
+                  ),
+                  //************************************/
+
                   //****************ICON****************/
-                  const Padding(padding: EdgeInsets.only(top: 30)),
+                  const Padding(padding: EdgeInsets.only(top: 10)),
                   CircleAvatar(
                     radius: 70,
-                    backgroundImage: vm.otherUser.profileImage == null
+                    backgroundImage: vm.userDetails.profileImage == null
                         ? const AssetImage("assets/images/profile.png",
                             package: 'general')
-                        : Image.network(vm.otherUser.profileImage!).image,
+                        : Image.network(vm.userDetails.profileImage!).image,
                   ),
                   //************************************/
 
@@ -103,7 +113,8 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                     children:
                                         //if there is a rating - 1 is the lowest that can be given
                                         //so not checking if rating is null
-                                        vm.otherUser.statistics.ratingCount != 0
+                                        vm.userDetails.statistics.ratingCount !=
+                                                0
                                             ? stars
                                             : [
                                                 //if no rating yet
@@ -197,7 +208,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.userDetails.statistics.created} Jobs Completed",
+                                      "${vm.userDetails.statistics.finished} Jobs Completed",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -215,7 +226,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.otherUser.statistics.finished} Bids Made",
+                                      "${vm.userDetails.statistics.created} Bids Made",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -244,12 +255,10 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        otherUser: state.otherUserDetails,
         isWaiting: state.wait.isWaiting,
-        userDetails: state.userDetails,
+        userDetails: state.otherUserDetails,
         addUserReport: (report, user) =>
             dispatch(AddUserReportAction(report: report, user: user)),
-        //this doesn't work at the moment
         dispatchGetUserReviewsAction: () => dispatch(GetUserReviewsAction()),
       );
 }
@@ -257,16 +266,14 @@ class _Factory extends VmFactory<AppState, LimitedTradesmanProfilePage> {
 // view model
 class _ViewModel extends Vm {
   final UserModel userDetails;
-  final UserModel otherUser;
   final void Function(ReportDetailsModel, ReportUserDetailsModel) addUserReport;
   final VoidCallback dispatchGetUserReviewsAction;
   final bool isWaiting;
 
-  _ViewModel(
-      {required this.userDetails,
-      required this.otherUser,
-      required this.addUserReport,
-      required this.isWaiting,
-      required this.dispatchGetUserReviewsAction})
-      : super(equals: [userDetails, isWaiting]);
+  _ViewModel({
+    required this.userDetails,
+    required this.addUserReport,
+    required this.isWaiting,
+    required this.dispatchGetUserReviewsAction,
+  }) : super(equals: [userDetails, isWaiting]);
 }

@@ -48,11 +48,11 @@ class JobCardWidget extends StatelessWidget {
                 ),
               ),
               // //******************EDIT ICON****************//
-              (editButton == true)
+              editButton == true
                   ? StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
                       builder: (BuildContext context, _ViewModel vm) =>
-                          (vm.advert.acceptedBid == null)
+                          vm.advert.acceptedBid == null && vm.bidCount == 0
                               ? Align(
                                   alignment: Alignment.topRight,
                                   child: Padding(
@@ -143,11 +143,13 @@ class JobCardWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: Padding(
               padding: const EdgeInsets.only(top: 5, right: 5),
-              child: Text(descText,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  )),
+              child: Text(
+                descText,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
           //**********************************************/
@@ -167,6 +169,7 @@ class _Factory extends VmFactory<AppState, JobCardWidget> {
           NavigateAction.pushNamed('/consumer/edit_advert_page'),
         ),
         advert: state.activeAd!,
+        bidCount: state.bids.length + state.shortlistBids.length,
       );
 }
 
@@ -174,9 +177,11 @@ class _Factory extends VmFactory<AppState, JobCardWidget> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushEditAdvert;
+  final int bidCount;
 
   _ViewModel({
     required this.advert,
+    required this.bidCount,
     required this.pushEditAdvert,
   }) : super(equals: [advert]); // implementinf hashcode
 }
