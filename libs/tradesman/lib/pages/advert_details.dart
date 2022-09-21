@@ -12,7 +12,6 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/actions/admin/app_management/add_advert_report_action.dart';
 import 'package:redux_comp/actions/analytics_events/record_place_bid_action.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
