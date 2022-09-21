@@ -162,7 +162,9 @@ class AdminProfilePage extends StatelessWidget {
                               ],
                             ),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  vm.pushLocationSearchPage();
+                                },
                                 icon: const Icon(
                                   Icons.arrow_forward_ios,
                                   color: Colors.white,
@@ -205,11 +207,12 @@ class AdminProfilePage extends StatelessWidget {
 class _Factory extends VmFactory<AppState, AdminProfilePage> {
   _Factory(widget) : super(widget);
 
-  //Just making sure edit page is not necessary before it is removed from viewmodel
-
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchLogoutAction: () => dispatch(LogoutAction()),
+        pushLocationSearchPage: () => dispatch(
+          NavigateAction.pushNamed('/geolocation/custom_location_search'),
+        ),
         dispatchChangeNameAction: (String userId, String name) => dispatch(
             EditUserDetailsAction(userId: userId, changed: "name", name: name)),
         userDetails: state.userDetails,
@@ -221,12 +224,14 @@ class _Factory extends VmFactory<AppState, AdminProfilePage> {
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final void Function() dispatchLogoutAction;
+  final VoidCallback pushLocationSearchPage;
   final void Function(String, String) dispatchChangeNameAction;
   final bool isWaiting;
 
   _ViewModel({
     required this.userDetails,
     required this.dispatchLogoutAction,
+    required this.pushLocationSearchPage,
     required this.dispatchChangeNameAction,
     required this.isWaiting,
   }) : super(equals: [userDetails, isWaiting]);
