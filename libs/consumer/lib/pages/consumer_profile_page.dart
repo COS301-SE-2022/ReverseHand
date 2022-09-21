@@ -63,14 +63,12 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                       Center(
                         child: Padding(
                         padding: const EdgeInsets.only(left: 25, right: 20),
-                          child: Text(
-                            vm.userDetails.name != null
-                                ? vm.userDetails.name!
-                                : "null",
-                            style: const TextStyle(fontSize: 35),
-                          ),
+                        child: Text(
+                          vm.userDetails.name != null
+                              ? vm.userDetails.name!
+                              : "",
+                          style: const TextStyle(fontSize: 35),
                         ),
-                      ),
                       ),
                       ),
                       //************************************/
