@@ -26,6 +26,9 @@ exports.handler = async (event) => {
         }
     }).promise();
 
+    if (response.Items.length == 0)
+        return [];
+
     let items = {};
     let added = {};
     items[table] = {};

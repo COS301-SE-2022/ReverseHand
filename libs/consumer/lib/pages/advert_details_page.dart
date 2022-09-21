@@ -165,9 +165,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushViewBidsPage: () => dispatch(
           NavigateAction.pushNamed('/consumer/view_bids'),
         ),
-        pushEditAdvert: () => dispatch(
-          NavigateAction.pushNamed('/consumer/edit_advert_page'),
-        ),
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/consumer'),
         ),
@@ -187,7 +184,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushViewBidsPage;
-  final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
   final int bidCount;
@@ -200,7 +196,6 @@ class _ViewModel extends Vm {
     required this.dispatchDeleteChatAction,
     required this.advert,
     required this.bidCount,
-    required this.pushEditAdvert,
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
     required this.popPage,

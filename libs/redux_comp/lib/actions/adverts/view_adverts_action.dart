@@ -43,6 +43,9 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
       if (archived) {
+        adverts.sort(
+          (a, b) => a.dateClosed!.compareTo(b.dateClosed!),
+        );
         return state.copy(
           archivedJobs: adverts,
         );

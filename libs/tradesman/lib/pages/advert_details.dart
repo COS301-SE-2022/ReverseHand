@@ -120,7 +120,9 @@ class TradesmanJobDetails extends StatelessWidget {
                                             BorderRadius.circular(7.0),
                                       ),
                                       builder: (BuildContext context) {
-                                        return EditBidSheet();
+                                        return EditBidSheet(
+                                          store: store,
+                                        );
                                       },
                                     );
                                   },
@@ -257,7 +259,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
   @override
   _ViewModel fromStore() => _ViewModel(
         advert: state.activeAd!,
-        bidCount: state.bids.length,
+        bidCount: state.bids.length + state.shortlistBids.length,
         popPage: () => dispatch(
           NavigateAction.pop(),
         ),

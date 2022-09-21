@@ -30,8 +30,9 @@ class ConsumerProfilePage extends StatelessWidget {
                     children: [
                       AppBarWidget(title: "PROFILE", store: store),
                       LoadingWidget(
-                          topPadding: MediaQuery.of(context).size.height / 3,
-                          bottomPadding: 0)
+                        topPadding: MediaQuery.of(context).size.height / 3,
+                        bottomPadding: 0,
+                      )
                     ],
                   )
                 : Column(

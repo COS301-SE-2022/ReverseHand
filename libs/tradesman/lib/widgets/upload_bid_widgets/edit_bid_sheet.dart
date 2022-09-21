@@ -1,13 +1,17 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:general/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:general/widgets/long_button_widget.dart';
+import 'package:redux_comp/app_state.dart';
 
 class EditBidSheet extends StatelessWidget {
   final TextEditingController bidPriceController = TextEditingController();
+  final Store<AppState> store;
 
   EditBidSheet({
+    required this.store,
     Key? key,
   }) : super(key: key);
 
@@ -27,13 +31,14 @@ class EditBidSheet extends StatelessWidget {
                 children: [
                   //*****************DELETE***************//
                   IconButton(
-                      onPressed: () {
-                        //are you sure you want to delete this bid
-                      },
-                      icon: const Icon(
-                        Icons.delete_outline,
-                        color: Colors.black,
-                      )),
+                    onPressed: () {
+                      //are you sure you want to delete this bid
+                    },
+                    icon: const Icon(
+                      Icons.delete_outline,
+                      color: Colors.black,
+                    ),
+                  ),
                   //**************************************//
 
                   //*****************CLOSE****************//

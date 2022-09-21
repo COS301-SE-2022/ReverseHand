@@ -46,40 +46,41 @@ class JobCardWidget extends StatelessWidget {
           ),
           //****************************************//
 
-            Row(
-              children: [
-                //****************TITLE********************//
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: SizedBox(
-                    child: Text(
-                      titleText,
-                      style: const TextStyle(
-                          fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
+          Row(
+            children: [
+              //****************TITLE********************//
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: SizedBox(
+                  child: Text(
+                    titleText,
+                    style: const TextStyle(
+                        fontSize: 32, fontWeight: FontWeight.bold),
                   ),
                 ),
-                //*****************************************//
+              ),
+              //*****************************************//
 
-                // //******************EDIT ICON****************//
-                (editButton == true)
+              // //******************EDIT ICON****************//
+
+              editButton == true
                   ? StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
                       builder: (BuildContext context, _ViewModel vm) =>
-                        (vm.advert.acceptedBid == null)
-                          ? Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                onPressed: vm.pushEditAdvert,
-                                icon: const Icon(Icons.edit),
-                                color: Colors.white70,
-                              ),
-                            )
-                          : Container())
+                          vm.advert.acceptedBid == null && vm.bidCount == 0
+                              ? Align(
+                                  alignment: Alignment.topRight,
+                                  child: IconButton(
+                                    onPressed: vm.pushEditAdvert,
+                                    icon: const Icon(Icons.edit),
+                                    color: Colors.white70,
+                                  ),
+                                )
+                              : Container())
                   : Container()
-                // //**********************************************/
-              ],
-            ),
+              // //**********************************************/
+            ],
+          ),
 
           //****************LOCATION********************//
           Padding(
@@ -146,7 +147,6 @@ class JobCardWidget extends StatelessWidget {
   }
 }
 
-
 // factory for view model
 class _Factory extends VmFactory<AppState, JobCardWidget> {
   _Factory(widget) : super(widget);
@@ -157,6 +157,7 @@ class _Factory extends VmFactory<AppState, JobCardWidget> {
           NavigateAction.pushNamed('/consumer/edit_advert_page'),
         ),
         advert: state.activeAd!,
+        bidCount: state.bids.length + state.shortlistBids.length,
       );
 }
 
@@ -164,9 +165,11 @@ class _Factory extends VmFactory<AppState, JobCardWidget> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushEditAdvert;
+  final int bidCount;
 
   _ViewModel({
     required this.advert,
+    required this.bidCount,
     required this.pushEditAdvert,
   }) : super(equals: [advert]); // implementinf hashcode
 }
