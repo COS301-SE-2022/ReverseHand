@@ -46,9 +46,7 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 20)),
                   Center(
                     child: Text(
-                      vm.userDetails.name != null
-                          ? vm.userDetails.name!
-                          : "null",
+                      vm.userDetails.name != null ? vm.userDetails.name! : "",
                       style: const TextStyle(fontSize: 35),
                     ),
                   ),

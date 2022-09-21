@@ -48,12 +48,13 @@ class AdvertDetailsPage extends StatelessWidget {
                       const LoadingWidget(topPadding: 80, bottomPadding: 0)
                     else
                       JobCardWidget(
-                          titleText: vm.advert.title,
-                          descText: vm.advert.description ?? "",
-                          location: vm.advert.domain.city,
-                          type: vm.advert.type,
-                          date: timestampToDate(vm.advert.dateCreated),
-                          editButton: true),
+                        titleText: vm.advert.title,
+                        descText: vm.advert.description ?? "",
+                        location: vm.advert.domain.city,
+                        type: vm.advert.type,
+                        date: timestampToDate(vm.advert.dateCreated),
+                        editButton: true,
+                      ),
                     //*******************************************//
 
                     //extra padding if there is an accepted bid
@@ -69,10 +70,14 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: Column(
                           children: [
                             LongButtonWidget(
-                                text: "View Bids (${vm.bidCount})",
-                                function: () {
-                                  vm.pushViewBidsPage();
-                                }),
+                              text: "View Bids (${vm.bidCount})",
+                              backgroundColor: vm.bidCount == 0
+                                  ? Colors.grey
+                                  : Colors.orange,
+                              function: () {
+                                if (vm.bidCount != 0) vm.pushViewBidsPage();
+                              },
+                            ),
                             TransparentLongButtonWidget(
                               text: "Delete",
                               function: () {
@@ -125,8 +130,8 @@ class AdvertDetailsPage extends StatelessWidget {
                                   store: store,
                                   onPressed: () {
                                     // reason not inside Rating popup is to make it general and reusable
-                                    // vm.dispatchDeleteChatAction();
-                                    // vm.dispatchArchiveAdvertAction();
+                                    vm.dispatchDeleteChatAction();
+                                    vm.dispatchArchiveAdvertAction();
                                     vm.pushConsumerListings();
                                   },
                                 ),
@@ -160,9 +165,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushViewBidsPage: () => dispatch(
           NavigateAction.pushNamed('/consumer/view_bids'),
         ),
-        pushEditAdvert: () => dispatch(
-          NavigateAction.pushNamed('/consumer/edit_advert_page'),
-        ),
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/consumer'),
         ),
@@ -174,7 +176,7 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           dispatch(NavigateAction.pop());
         },
         loading: state.wait.isWaiting,
-        bidCount: state.bids.length,
+        bidCount: state.bids.length + state.shortlistBids.length,
       );
 }
 
@@ -182,7 +184,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushViewBidsPage;
-  final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
   final int bidCount;
@@ -195,7 +196,6 @@ class _ViewModel extends Vm {
     required this.dispatchDeleteChatAction,
     required this.advert,
     required this.bidCount,
-    required this.pushEditAdvert,
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
     required this.popPage,

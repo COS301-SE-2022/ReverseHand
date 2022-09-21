@@ -102,16 +102,18 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1)),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Text(
-                                    trade == null ? "Trade Type" : trade!,
-                                    style: const TextStyle(fontSize: 18),
-                                  ))),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border:
+                                    Border.all(color: Colors.grey, width: 1)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text(
+                                trade == null ? "Trade Type" : trade!,
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                            ),
+                          ),
                         ),
                       )),
                   //************************************************//
