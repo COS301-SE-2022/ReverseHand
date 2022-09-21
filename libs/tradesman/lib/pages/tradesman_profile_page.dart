@@ -210,51 +210,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                   text: "See my Reviews",
                                   function: () {
                                     vm.pushReviewsPage();
-                                    // vm.dispatchGetUserReviewsAction();
-
-                                    // List<ReviewWidget> reviews = vm
-                                    //     .userDetails.reviews
-                                    //     .map((r) => ReviewWidget(review: r))
-                                    //     .toList();
-
-                                    // showModalBottomSheet(
-                                    //   context: context,
-                                    //   isScrollControlled: true,
-                                    //   shape: RoundedRectangleBorder(
-                                    //     borderRadius:
-                                    //         BorderRadius.circular(7.0),
-                                    //   ),
-                                    //   builder: (BuildContext context) {
-                                    //     return SingleChildScrollView(
-                                    //       child: Column(
-                                    //         children: [
-                                    //           //******************CLOSE*****************//
-                                    //           Padding(
-                                    //             padding: const EdgeInsets.only(
-                                    //                 top: 20.0, right: 8),
-                                    //             child: Align(
-                                    //               alignment: Alignment.topRight,
-                                    //               child: IconButton(
-                                    //                 onPressed: () {
-                                    //                   Navigator.pop(context);
-                                    //                 },
-                                    //                 icon: const Icon(
-                                    //                   Icons.close,
-                                    //                   color: Colors.black,
-                                    //                 ),
-                                    //               ),
-                                    //             ),
-                                    //           ),
-                                    //           //****************************************//
-
-                                    //           //******************REVIEWS***************//
-                                    //           ...reviews,
-                                    //           //****************************************//
-                                    //         ],
-                                    //       ),
-                                    //     );
-                                    //   },
-                                    // );
+                                    vm.dispatchGetUserReviewsAction();
                                   },
                                 ),
                               ],

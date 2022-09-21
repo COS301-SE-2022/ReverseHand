@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:redux_comp/actions/user/reviews/get_user_reviews_action.dart';
+import 'package:redux_comp/models/review_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/loading_widget.dart';
 
@@ -20,15 +21,21 @@ class ReviewsPage extends StatelessWidget {
       child: Scaffold(
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) =>
-             Column(
+          builder: (BuildContext context, _ViewModel vm) {
+            List<ReviewWidget> reviews = vm
+              .reviews
+              .map((r) => ReviewWidget(review: r))
+              .toList();
+
+             return Column(
               children: [
                 //*******************APP BAR WIDGET*********************//
                 AppBarWidget(store: store,title: "Reviews", backButton: true,),
                 //********************************************************//
-              
+                ...reviews
               ],
-            ),
+            );
+          },
         ),
       ),
     );
@@ -40,17 +47,18 @@ class _Factory extends VmFactory<AppState, ReviewsPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
-        dispatchGetUserReviewsAction: () => dispatch(GetUserReviewsAction()),
+        reviews: state.userDetails.reviews,
+        
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
-  final Function dispatchGetUserReviewsAction;
+  final List<ReviewModel> reviews;
 
   _ViewModel({
     required this.loading,
-    required this.dispatchGetUserReviewsAction,
-  }) : super(equals: [loading]);
+    required this.reviews,
+  }) : super(equals: [loading, reviews]);
 }
