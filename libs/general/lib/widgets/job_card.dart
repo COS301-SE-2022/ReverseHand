@@ -38,7 +38,7 @@ class JobCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
+                padding: const EdgeInsets.only(left: 6, top: 5),
                 child: Text(
                   date,
                   style: const TextStyle(
@@ -56,7 +56,7 @@ class JobCardWidget extends StatelessWidget {
                               ? Align(
                                   alignment: Alignment.topRight,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 15),
+                                    padding: const EdgeInsets.only(top: 5),
                                     child: IconButton(
                                       onPressed: vm.pushEditAdvert,
                                       icon: const Icon(
@@ -69,7 +69,7 @@ class JobCardWidget extends StatelessWidget {
                                 )
                               : Container())
                   : Container()
-              // //**********************************************/
+              //**********************************************/
             ],
           ),
           //****************************************//
@@ -80,11 +80,11 @@ class JobCardWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.4,
+                  width: MediaQuery.of(context).size.width / 1.25,
                   child: Text(
                     titleText,
                     style: const TextStyle(
-                        fontSize: 32, fontWeight: FontWeight.bold),
+                        fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -115,7 +115,7 @@ class JobCardWidget extends StatelessWidget {
 
                 //****************TRADE********************//
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
                       const Padding(padding: EdgeInsets.only(right: 1)),
@@ -132,7 +132,7 @@ class JobCardWidget extends StatelessWidget {
 
           const Divider(
             height: 20,
-            thickness: 1,
+            thickness: 1.1,
             indent: 5,
             endIndent: 15,
             color: Colors.orange,
@@ -142,7 +142,7 @@ class JobCardWidget extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.only(left: 5, top: 10, right: 5),
+              padding: const EdgeInsets.only(left: 5, top: 5, right: 5),
               child: Text(descText,
                   style: const TextStyle(
                     fontSize: 18,
