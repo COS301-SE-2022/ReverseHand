@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.1.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "CloudWatchRule": {
       "Type": "String",
@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "deleteChatResolver",
+            "enableUserResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "deleteChatResolver",
+                  "enableUserResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -73,8 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand",
-            "ARCHIVEDREVERSEHAND": "ArchivedReverseHand"
+            "USERPOOLID": "eu-west-1_QpsSD87RL"
           }
         },
         "Role": {
@@ -94,12 +93,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRoledf5747ff",
+            "reversehandLambdaRole05a780e3",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRoledf5747ff",
+                  "reversehandLambdaRole05a780e3",
                   "-",
                   {
                     "Ref": "env"
@@ -170,60 +169,32 @@
         }
       }
     },
-    "AccessDynamoDBApiResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
+    "CustomLambdaExecutionPolicy": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
-        "PolicyName": "amplify-lambda-execution-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
+        "PolicyName": "custom-lambda-execution-policy",
         "PolicyDocument": {
           "Version": "2012-10-17",
           "Statement": [
             {
-              "Effect": "Allow",
               "Action": [
-                "dynamodb:Delete*",
-                "dynamodb:PutItem",
-                "dynamodb:BatchWriteItem",
-                "dynamodb:BatchGetItem",
-                "dynamodb:Query"
+                "cognito-idp:AdminEnableUser",
+                "cognito-idp:AdminDisableUser"
               ],
               "Resource": [
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
-                    {
-                      "tablename": "ReverseHand"
-                    }
-                  ]
-                },
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
-                    {
-                      "tablename": "ReverseHand"
-                    }
-                  ]
-                },
-                {
-                  "Fn::Sub": [
-                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
-                    {
-                      "tablename": "ArchivedReverseHand"
-                    }
-                  ]
-                }
-              ]
+                "arn:aws:cognito-idp:eu-west-1:727515863527:userpool/eu-west-1_QpsSD87RL"
+              ],
+              "Effect": "Allow"
             }
           ]
-        }
-      }
+        },
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ]
+      },
+      "DependsOn": "LambdaExecutionRole"
     }
   },
   "Outputs": {

@@ -132,16 +132,17 @@ type Mutation {
     @function(name: "removeDomainResolver-${env}")
 
   createChat(
-    c_id: String!
-    t_id: String!
-    c_name: String!
-    t_name: String!
+    c_id: String!,
+    t_id: String!,
+    ad_id: String!,
+    c_name: String!,
+    t_name: String!,
   ): Chat! @function(name: "createChatResolver-${env}")
 
   sendMessage(chat_id: String!, msg: String!, sender: String!): Message!
     @function(name: "sendMessageResolver-${env}")
 
-  deleteChat(c_id: String!, ad_id: String!): Chat!
+  deleteChat(t_id: String!, c_id: String!, ad_id: String!): Chat!
     @function(name: "deleteChatResolver-${env}")
 
   addReview(user_id: String!, review: ReviewInput!): Review! # user_id is who the review is being created for
@@ -173,6 +174,9 @@ type Mutation {
 
   acceptAdvertReport(advert_id: String!, issueWarning: Boolean!): Advert!
     @function(name: "acceptAdvertReportResolver-${env}") 
+
+  enableUser(username: String!, disable: Boolean!) : String!
+    @function(name: "enableUserResolver-${env}")
 }
 
 type Subscription {

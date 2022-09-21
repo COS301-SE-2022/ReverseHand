@@ -15,7 +15,7 @@ exports.handler = async (event) => {
 
     let putReviewItem = {
         part_key: "reviews#" + event.arguments.user_id,
-        sort_key: "review#" + AWS.util.uuid.v4(),
+        sort_key: "review#" + date.toISOString(),
         review_details: event.arguments.review
     };
 
