@@ -40,6 +40,9 @@ class SearchUsersPage extends StatelessWidget {
               userWidgets
                   .add(QuickViewUserCardWidget(store: store, user: user));
             }
+            //for tabbed view
+            // List<QuickViewUserCardWidget> clients = [];
+            // List<QuickViewUserCardWidget> contractors = [];
             return (vm.loading)
                 ? SingleChildScrollView(
                     child: Column(
@@ -55,13 +58,44 @@ class SearchUsersPage extends StatelessWidget {
                       ],
                     ),
                   )
-                : SingleChildScrollView(
+                : DefaultTabController(
+                    length: 2,
                     child: Column(
                       children: [
                         //**********APPBAR***********//
                         appbar,
-
                         search,
+                        //all these comments are for if we want a tabbed view
+                        //*******************TAB BAR LABELS***********************//
+                        // Padding(
+                        //   padding: const EdgeInsets.all(5),
+                        //   child: TabBar(
+                        //     indicatorColor: Theme.of(context).primaryColor,
+                        //     tabs: const [
+                        //       Padding(
+                        //         padding: EdgeInsets.all(15.0),
+                        //         child: Text(
+                        //           "Client",
+                        //           style: TextStyle(
+                        //               color: Colors.white,
+                        //               fontSize: 17,
+                        //               fontWeight: FontWeight.bold),
+                        //         ),
+                        //       ),
+                        //       Padding(
+                        //         padding: EdgeInsets.all(5.0),
+                        //         child: Text(
+                        //           "Contractor",
+                        //           style: TextStyle(
+                        //               color: Colors.white,
+                        //               fontSize: 17,
+                        //               fontWeight: FontWeight.bold),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        //********************************************************//
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -99,6 +133,67 @@ class SearchUsersPage extends StatelessWidget {
                                 refreshFunction: () =>
                                     vm.dispatchListUser("customer"),
                               ),
+
+                        //all these comments are for if we want a tabbed view
+                        // Expanded(
+                        //     child: TabBarView(children: [
+                        //   SingleChildScrollView(
+                        //     child: Column(
+                        //       children: [
+                        //         (userWidgets.isEmpty)
+                        //             ? Padding(
+                        //                 padding: EdgeInsets.only(
+                        //                     top: (MediaQuery.of(context)
+                        //                             .size
+                        //                             .height) /
+                        //                         4,
+                        //                     left: 40,
+                        //                     right: 40),
+                        //                 child: (const Text(
+                        //                   "No users found.",
+                        //                   textAlign: TextAlign.center,
+                        //                   style: TextStyle(
+                        //                       fontSize: 20,
+                        //                       color: Colors.white70),
+                        //                 )),
+                        //               )
+                        //             : ListRefreshWidget(
+                        //                 widgets: clients,
+                        //                 refreshFunction: () =>
+                        //                     vm.dispatchListUser("customer"),
+                        //               ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        //   SingleChildScrollView(
+                        //     child: Column(
+                        //       children: [
+                        //         (userWidgets.isEmpty)
+                        //             ? Padding(
+                        //                 padding: EdgeInsets.only(
+                        //                     top: (MediaQuery.of(context)
+                        //                             .size
+                        //                             .height) /
+                        //                         4,
+                        //                     left: 40,
+                        //                     right: 40),
+                        //                 child: (const Text(
+                        //                   "No users found.",
+                        //                   textAlign: TextAlign.center,
+                        //                   style: TextStyle(
+                        //                       fontSize: 20,
+                        //                       color: Colors.white70),
+                        //                 )),
+                        //               )
+                        //             : ListRefreshWidget(
+                        //                 widgets: contractors,
+                        //                 refreshFunction: () =>
+                        //                     vm.dispatchListUser("tradesman"),
+                        //               ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ])),
                       ],
                     ),
                   );
@@ -117,6 +212,7 @@ class _Factory extends VmFactory<AppState, SearchUsersPage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         users: state.admin.adminManage.usersList?.users ?? [],
+        currentUser: state.userDetails.userType.toLowerCase(),
         activeGroup: state.admin.adminManage.usersList?.group ?? "customer",
         dispatchSearchUser: (value, group) =>
             dispatch(AdminSearchUserAction(email: value, group: group)),
@@ -129,6 +225,7 @@ class _ViewModel extends Vm {
   final bool loading;
   final List<CognitoUserModel> users;
   final String activeGroup;
+  final String currentUser;
   final void Function(String, String) dispatchSearchUser;
   final void Function(String) dispatchListUser;
 
@@ -136,6 +233,7 @@ class _ViewModel extends Vm {
     required this.loading,
     required this.users,
     required this.activeGroup,
+    required this.currentUser,
     required this.dispatchSearchUser,
     required this.dispatchListUser,
   }) : super(equals: [loading, users]); // implementinf hashcode;
