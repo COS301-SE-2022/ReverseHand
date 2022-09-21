@@ -42,31 +42,34 @@ class TradesmanJobDetails extends StatelessWidget {
                     AppBarWidget(
                         title: "JOB INFO",
                         store: store,
-                        filterActions:
-                            AppbarPopUpMenuWidget(store: store, functions: {
-                          "Report Advert": () {
-                            // vm.dispatchReportAdvertAction(
-                            //   advertId: vm.advert.id,
-                            //   userId: vm.advert.customerId,
-                            //   report: ReportDetailsModel(
-                            //     description: "testing report",
-                            //     reason: "Reason",
-                            //     reporterUser: ReportUserDetailsModel(
-                            //       id: vm.userDetails.id,
-                            //       name: vm.userDetails.name!,
-                            //     ),
-                            //   ),
-                            // );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
+                        filterActions: AppbarPopUpMenuWidget(
+                          store: store,
+                          functions: {
+                            "Report Advert": () {
+                              // vm.dispatchReportAdvertAction(
+                              //   advertId: vm.advert.id,
+                              //   userId: vm.advert.customerId,
+                              //   report: ReportDetailsModel(
+                              //     description: "testing report",
+                              //     reason: "Reason",
+                              //     reporterUser: ReportUserDetailsModel(
+                              //       id: vm.userDetails.id,
+                              //       name: vm.userDetails.name!,
+                              //     ),
+                              //   ),
+                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
                                   builder: (context) => ReportPage(
-                                        store: store,
-                                        reportType: "Advert",
-                                      )),
-                            );
-                          }
-                        }),
+                                    store: store,
+                                    reportType: "Advert",
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                        ),
                         backButton: true),
                     //*******************************************//
 
@@ -97,17 +100,18 @@ class TradesmanJobDetails extends StatelessWidget {
                         ? Column(
                             children: [
                               //*************USER BID**************//
-                              const Padding(
-                                padding: EdgeInsets.only(left: 45.0),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: HintWidget(
-                                    text: "Click on your bid to edit it",
-                                    colour: Colors.white70,
-                                    padding: 0,
+                              if (!vm.accepted)
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 45.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: HintWidget(
+                                      text: "Click on your bid to edit it",
+                                      colour: Colors.white70,
+                                      padding: 0,
+                                    ),
                                   ),
                                 ),
-                              ),
                               Padding(
                                 padding: const EdgeInsets.only(
                                   left: 40,
@@ -117,6 +121,8 @@ class TradesmanJobDetails extends StatelessWidget {
                                 ),
                                 child: InkWell(
                                   onTap: () {
+                                    if (vm.accepted) return;
+
                                     showModalBottomSheet(
                                       context: context,
                                       isScrollControlled: true,
@@ -180,10 +186,11 @@ class TradesmanJobDetails extends StatelessWidget {
                           ),
                     //place bid
 
-                    TransparentLongButtonWidget(
-                      text: "View Bids (${vm.bidCount})",
-                      function: vm.pushViewBidsPage,
-                    ),
+                    if (!vm.accepted)
+                      TransparentLongButtonWidget(
+                        text: "View Bids (${vm.bidCount})",
+                        function: vm.pushViewBidsPage,
+                      ),
                     const Padding(padding: EdgeInsets.only(top: 20)),
                     TransparentLongButtonWidget(
                       text: "View Client Profile",
@@ -225,6 +232,11 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
             dispatch(PlaceBidAction(price: price, quote: quote)),
         dispatchGetOtherUserAction: () =>
             dispatch(GetOtherUserAction(state.activeAd!.userId)),
+        accepted: state.userBid == null
+            ? false
+            : state.activeAd!.acceptedBid == null
+                ? false
+                : state.userBid!.id == state.activeAd!.acceptedBid!,
       );
 }
 
@@ -241,6 +253,7 @@ class _ViewModel extends Vm {
     File? quote,
   }) dispatchPlaceBidAction;
   final VoidCallback dispatchGetOtherUserAction;
+  final bool accepted;
 
   _ViewModel({
     required this.advert,
@@ -251,5 +264,6 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.pushViewBidsPage,
     required this.loading,
+    required this.accepted,
   }) : super(equals: [advert, loading]);
 }
