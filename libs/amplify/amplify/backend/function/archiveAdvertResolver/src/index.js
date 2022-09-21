@@ -23,34 +23,34 @@ exports.handler = async (event) => {
     let items = data["Items"];
 
     if (items.length != 0) {
-    let opps = {};
-    opps[ReverseHandTable] = [
-        ...items.map(item => ({
-            DeleteRequest: {
-                Key: {
-                    part_key: item.part_key,
-                    sort_key: item.sort_key,
+        let opps = {};
+        opps[ReverseHandTable] = [
+            ...items.map(item => ({
+                DeleteRequest: {
+                    Key: {
+                        part_key: item.part_key,
+                        sort_key: item.sort_key,
+                    }
                 }
-            }
-        }))
-    ];
+            }))
+        ];
 
-    opps[ArchivedReverseHandTable] = [
-        ...items.map(item => ({
-            PutRequest: {
-                Item: item
-            }
-        })) 
-    ];
+        opps[ArchivedReverseHandTable] = [
+            ...items.map(item => ({
+                PutRequest: {
+                    Item: item
+                }
+            })) 
+        ];
 
-    // deleting bids
-    params = {
-        RequestItems: {}
-    };
+        // deleting bids
+        params = {
+            RequestItems: {}
+        };
 
-    params.RequestItems = opps;
+        params.RequestItems = opps;
 
-    await docClient.batchWrite(params).promise();
+        await docClient.batchWrite(params).promise();
     }
 
     // archiving advert
