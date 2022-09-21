@@ -13,6 +13,7 @@ import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
 import 'package:redux_comp/actions/analytics_events/record_create_advert_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 import '../widgets/radio_select_widget.dart';
@@ -156,13 +157,13 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                 children: [
                                   //GET THE WHOLE ADDRESS?
                                   Text(
-                                    widget.store.state.userDetails.location!
-                                        .address.city,
+                                    (vm.locationResult == null)
+                                        ? vm.userLocation.address.city
+                                        : vm.locationResult!.address.city,
                                     style: const TextStyle(fontSize: 18),
                                   ),
                                   InkWell(
-                                    onTap:
-                                        () {}, //should be able to change the location of the job on tap
+                                    onTap: vm.pushLocationPage,
                                     child: const Text(
                                       "change address",
                                       style: TextStyle(
@@ -203,13 +204,19 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                 vm.dispatchCreateAdvertActions(
                                   widget.store.state.userDetails.id,
                                   titleController.value.text,
-                                  Domain(
-                                      city: widget.store.state.userDetails
-                                          .location!.address.city,
-                                      province: widget.store.state.userDetails
-                                          .location!.address.province,
-                                      coordinates: widget.store.state
-                                          .userDetails.location!.coordinates),
+                                  (vm.locationResult == null)
+                                      ? Domain(
+                                          city: vm.userLocation.address.city,
+                                          province:
+                                              vm.userLocation.address.province,
+                                          coordinates:
+                                              vm.userLocation.coordinates)
+                                      : Domain(
+                                          city: vm.locationResult!.address.city,
+                                          province: vm
+                                              .locationResult!.address.province,
+                                          coordinates:
+                                              vm.locationResult!.coordinates),
                                   trade!,
                                   descrController.value.text,
                                 );
@@ -275,6 +282,11 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
                 RecordCreateAdvertAction(
                     city: city, province: province, type: type)),
         loading: state.wait.isWaiting,
+        locationResult: state.locationResult,
+        userLocation: state.userDetails.location!,
+        pushLocationPage: () => dispatch(NavigateAction.pushNamed(
+            "/geolocation/custom_location_search",
+            arguments: false)),
       );
 }
 
@@ -285,13 +297,23 @@ class _ViewModel extends Vm {
       dispatchCreateAdvertActions;
   final void Function(String city, String province, String type)
       dispatchRecordCreateAdvertAction;
+  final VoidCallback pushLocationPage;
   final VoidCallback popPage;
   final bool loading;
+  final Location userLocation;
+  final Location? locationResult;
 
   _ViewModel({
     required this.loading,
     required this.dispatchCreateAdvertActions,
     required this.dispatchRecordCreateAdvertAction,
+    required this.pushLocationPage,
+    required this.userLocation,
+    required this.locationResult,
     required this.popPage,
-  }) : super(equals: [loading]); // implementinf hashcode
+  }) : super(equals: [
+          loading,
+          userLocation,
+          locationResult
+        ]); // implementinf hashcode
 }

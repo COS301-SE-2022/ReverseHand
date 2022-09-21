@@ -30,6 +30,7 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bool confirm = ModalRoute.of(context)!.settings.arguments as bool;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(18, 26, 34, 1),
       appBar: AppBar(
@@ -116,8 +117,10 @@ class _CustomLocationSearchPageState extends State<CustomLocationSearchPage> {
                             onTap: () {
                               PlaceApiSingleton.instance.placeApi
                                   .then((placeApiService) {
-                                vm.dispatchGetPlaceAction(snapshot.data![index],
-                                    placeApiService!); //get the details of the suggestion
+                                vm.dispatchGetPlaceAction(
+                                    snapshot.data![index],
+                                    placeApiService!,
+                                    confirm); //get the details of the suggestion
                               });
                               // when a user taps on a suggestions
                             },
@@ -142,13 +145,13 @@ class _Factory extends VmFactory<AppState, _CustomLocationSearchPageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      dispatchGetPlaceAction: (input, placeApi) =>
-          dispatch(GetPlaceAction(input, placeApi)));
+      dispatchGetPlaceAction: (input, placeApi, confirm) =>
+          dispatch(GetPlaceAction(input, placeApi, confirm)));
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(Suggestion, PlaceApiService) dispatchGetPlaceAction;
+  final void Function(Suggestion, PlaceApiService, bool) dispatchGetPlaceAction;
 
   _ViewModel({
     required this.dispatchGetPlaceAction,

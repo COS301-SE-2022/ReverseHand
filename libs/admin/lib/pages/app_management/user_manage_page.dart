@@ -6,6 +6,7 @@ import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
+import 'package:redux_comp/actions/admin/app_management/enable_user_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/admin_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
@@ -49,7 +50,15 @@ class UserManagePage extends StatelessWidget {
                         text: (vm.activeUser!.enabled)
                             ? "Disable User"
                             : "Enable User",
-                        function: (vm.activeUser!.enabled) ? () {} : () {},
+                        function: (vm.activeUser!.enabled)
+                            ? () => vm.dispatchEnableUser(
+                                  vm.activeUser!.cognitoUsername,
+                                  true,
+                                )
+                            : () => vm.dispatchEnableUser(
+                                  vm.activeUser!.cognitoUsername,
+                                  false,
+                                ),
                       ),
                       const Padding(padding: EdgeInsets.only(bottom: 10)),
                       TransparentLongButtonWidget(
@@ -113,17 +122,23 @@ class _Factory extends VmFactory<AppState, UserManagePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      loading: state.wait.isWaiting,
-      activeUser: state.admin.adminManage.activeUser);
+        loading: state.wait.isWaiting,
+        activeUser: state.admin.adminManage.activeUser,
+        dispatchEnableUser: (username, disable) => dispatch(
+          EnableUserAction(username: username, disable: disable),
+        ),
+      );
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
   final AdminUserModel? activeUser;
+  final void Function(String, bool) dispatchEnableUser;
 
   _ViewModel({
     required this.loading,
     required this.activeUser,
+    required this.dispatchEnableUser,
   }) : super(equals: [loading, activeUser]); // implementinf hashcode;
 }

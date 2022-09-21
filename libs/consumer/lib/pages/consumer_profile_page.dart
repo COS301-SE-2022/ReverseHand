@@ -324,7 +324,7 @@ class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         pushLocationSearchPage: () => dispatch(
-          NavigateAction.pushNamed('/geolocation/custom_location_search'),
+          NavigateAction.pushNamed('/geolocation/custom_location_search', arguments: true),
         ),
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchChangeNameAction: (String userId, String name) => dispatch(
