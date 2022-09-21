@@ -24,7 +24,7 @@ class ReviewsPage extends StatelessWidget {
           builder: (BuildContext context, _ViewModel vm) {
             List<ReviewWidget> reviews = vm
               .reviews
-              .map((r) => ReviewWidget(review: r))
+              .map((r) => ReviewWidget(review: r, store: store))
               .toList();
 
              return Column(
@@ -32,6 +32,8 @@ class ReviewsPage extends StatelessWidget {
                 //*******************APP BAR WIDGET*********************//
                 AppBarWidget(store: store,title: "Reviews", backButton: true,),
                 //********************************************************//
+
+                const Padding(padding: EdgeInsets.only(top: 15),),
                 ...reviews
               ],
             );

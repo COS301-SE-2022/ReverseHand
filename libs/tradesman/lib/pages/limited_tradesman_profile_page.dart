@@ -124,7 +124,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                                     List<ReviewWidget> reviews = vm
                                         .userDetails.reviews
-                                        .map((r) => ReviewWidget(review: r))
+                                        .map((r) => ReviewWidget(review: r, store: store))
                                         .toList();
 
                                     showModalBottomSheet(

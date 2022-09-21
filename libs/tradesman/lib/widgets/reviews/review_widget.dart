@@ -1,24 +1,29 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/pages/report_page.dart';
+import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/review_model.dart';
 
 class ReviewWidget extends StatelessWidget {
   final ReviewModel review;
+  final Store<AppState> store;
 
   const ReviewWidget({
     required this.review,
+    required this.store,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
       child: Container(
         width: MediaQuery.of(context).size.width / 1.1,
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(7)),
-            border:
-                Border.all(color: Theme.of(context).primaryColor, width: 2)),
+        decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 232, 232, 232),
+            borderRadius: BorderRadius.all(Radius.circular(7)),
+        ),
         child: Column(
           children: [
             Row(
@@ -38,7 +43,17 @@ class ReviewWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                         Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReportPage(
+                                    store: store,
+                                    reportType: "Review",
+                                  )
+                            ),
+                          );
+                      },
                       icon: Icon(
                         Icons.report_outlined,
                         color: Theme.of(context).primaryColorDark,
