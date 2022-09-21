@@ -43,8 +43,8 @@ class _EditBidSheetState extends State<EditBidSheet> {
                   children: [
                     //*****************DELETE***************//
                     IconButton(
-                      onPressed: () {
-                        showModalBottomSheet(
+                      onPressed: () async {
+                        await showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
                           builder: (BuildContext context) {
@@ -94,6 +94,8 @@ class _EditBidSheetState extends State<EditBidSheet> {
                             );
                           },
                         );
+
+                        Navigator.pop(context);
                       },
                       icon: const Icon(
                         Icons.delete_outline,
@@ -231,8 +233,7 @@ class _Factory extends VmFactory<AppState, _EditBidSheetState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchDeleteBidAction: () =>
-            dispatch(DeleteBidAction(state.activeAd!.id, state.activeBid!.id)),
+        dispatchDeleteBidAction: () => dispatch(DeleteBidAction()),
         popPage: () => dispatch(NavigateAction.pop()),
         dispatchEditBidAction: ({int? price, String? quote}) =>
             dispatch(EditBidAction(price: price, quote: quote)),

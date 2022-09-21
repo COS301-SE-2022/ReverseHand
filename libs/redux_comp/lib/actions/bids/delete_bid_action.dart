@@ -4,16 +4,19 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class DeleteBidAction extends ReduxAction<AppState> {
-  final String advertId;
-  final String bidId;
+  final String? advertId;
+  final String? bidId;
 
-  DeleteBidAction(this.advertId, this.bidId);
+  DeleteBidAction({this.advertId, this.bidId});
 
   @override
   Future<AppState?> reduce() async {
+    String advertId = this.advertId ?? state.activeAd!.id;
+    String bidId = this.bidId ?? state.userBid!.id;
+
     String graphQLDocument = ''' mutation {
-      deleteBid(ad_id: "$advertId",bid_id:"$bidId"){
-        name
+      deleteBid(ad_id: "$advertId", bid_id:"$bidId") {
+        id
       }
     }''';
 
