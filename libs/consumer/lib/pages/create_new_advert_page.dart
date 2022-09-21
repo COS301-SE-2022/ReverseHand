@@ -101,7 +101,6 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                 child: InkWell(
-                  // tick boxes and not radio buttons?
                   onTap: () => showRadioSelect(),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -160,7 +159,6 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //GET THE WHOLE ADDRESS?
                             Text(
                               widget.store.state.userDetails.location!.address
                                   .city,
@@ -190,21 +188,35 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //add photos
               const HintWidget(
-                text: "Choose photos related to the job",
+                text: "Select photos related to the job",
                 colour: Colors.white70,
                 padding: 15,
               ),
-              const Padding(padding: EdgeInsets.only(top: 5)),
-              IconButton(
-                onPressed: () async {
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                child: InkWell(
+                  onTap: () async {
                   ImagePicker picker = ImagePicker();
 
                   _files = await picker.pickMultiImage();
                 },
-                icon: const Icon(
-                  Icons.camera_alt,
-                  color: Colors.white,
-                  size: 28.0,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey, width: 1),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          "Select Photos",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               //*************************************************//
