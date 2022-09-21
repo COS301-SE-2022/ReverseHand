@@ -30,6 +30,7 @@ import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_bid_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/limited_tradesman_profile_page.dart';
+import 'package:tradesman/pages/reviews_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
 import 'package:tradesman/tradesman.dart';
@@ -114,6 +115,8 @@ class Launch extends StatelessWidget {
               DomainConfirmPage(store: store),
           '/tradesman/view_bids': (context) =>
               TradesmanViewBidsPage(store: store),
+          '/tradesman/reviews': (context) =>
+              ReviewsPage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
           '/tradesman/limited_tradesman_profile_page': (context) =>

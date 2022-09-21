@@ -189,71 +189,72 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children:
-                                      //if there is a rating - 1 is the lowest that can be given
-                                      //so not checking if rating is null
-                                      vm.userDetails.statistics.ratingCount != 0
-                                          ? stars
-                                          : [
-                                              //if no rating yet
-                                              const Text(
-                                                "No rating yet",
-                                                style: TextStyle(
-                                                  color: Colors.white70,
-                                                  fontSize: 18,
-                                                ),
-                                              )
-                                            ],
+                                    //if there is a rating - 1 is the lowest that can be given
+                                    //so not checking if rating is null
+                                    vm.userDetails.statistics.ratingCount != 0
+                                      ? stars
+                                      : [
+                                          //if no rating yet
+                                          const Text(
+                                            "No rating yet",
+                                            style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 18,
+                                            ),
+                                          )
+                                        ],
                                 ),
                                 const Padding(
                                     padding: EdgeInsets.only(top: 20)),
                                 TransparentLongButtonWidget(
                                   text: "See my Reviews",
                                   function: () {
-                                    vm.dispatchGetUserReviewsAction();
+                                    vm.pushReviewsPage();
+                                    // vm.dispatchGetUserReviewsAction();
 
-                                    List<ReviewWidget> reviews = vm
-                                        .userDetails.reviews
-                                        .map((r) => ReviewWidget(review: r))
-                                        .toList();
+                                    // List<ReviewWidget> reviews = vm
+                                    //     .userDetails.reviews
+                                    //     .map((r) => ReviewWidget(review: r))
+                                    //     .toList();
 
-                                    showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(7.0),
-                                      ),
-                                      builder: (BuildContext context) {
-                                        return SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              //******************CLOSE*****************//
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 20.0, right: 8),
-                                                child: Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: IconButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.close,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              //****************************************//
+                                    // showModalBottomSheet(
+                                    //   context: context,
+                                    //   isScrollControlled: true,
+                                    //   shape: RoundedRectangleBorder(
+                                    //     borderRadius:
+                                    //         BorderRadius.circular(7.0),
+                                    //   ),
+                                    //   builder: (BuildContext context) {
+                                    //     return SingleChildScrollView(
+                                    //       child: Column(
+                                    //         children: [
+                                    //           //******************CLOSE*****************//
+                                    //           Padding(
+                                    //             padding: const EdgeInsets.only(
+                                    //                 top: 20.0, right: 8),
+                                    //             child: Align(
+                                    //               alignment: Alignment.topRight,
+                                    //               child: IconButton(
+                                    //                 onPressed: () {
+                                    //                   Navigator.pop(context);
+                                    //                 },
+                                    //                 icon: const Icon(
+                                    //                   Icons.close,
+                                    //                   color: Colors.black,
+                                    //                 ),
+                                    //               ),
+                                    //             ),
+                                    //           ),
+                                    //           //****************************************//
 
-                                              //******************REVIEWS***************//
-                                              ...reviews,
-                                              //****************************************//
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
+                                    //           //******************REVIEWS***************//
+                                    //           ...reviews,
+                                    //           //****************************************//
+                                    //         ],
+                                    //       ),
+                                    //     );
+                                    //   },
+                                    // );
                                   },
                                 ),
                               ],
@@ -579,17 +580,23 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
+        pushReviewsPage: () => dispatch(
+          NavigateAction.pushNamed('/tradesman/reviews'),
+        ),
         pushArchivedJobsPage: () =>
             dispatch(NavigateAction.pushNamed('/archived_jobs')),
         dispatchGetBidOnAdvertsAction: () =>
             dispatch(GetBidOnAdvertsAction(archived: true)),
       );
+
+      
 }
 
 // view model
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final VoidCallback pushDomainConfirmPage;
+  final VoidCallback pushReviewsPage;
   final VoidCallback dispatchLogoutAction;
   final VoidCallback dispatchGetUserReviewsAction;
   final void Function(String, String) dispatchChangeNameAction;
@@ -602,6 +609,7 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.userDetails,
     required this.pushDomainConfirmPage,
+    required this.pushReviewsPage,
     required this.dispatchGetBidOnAdvertsAction,
     required this.dispatchGetUserReviewsAction,
     required this.dispatchLogoutAction,
