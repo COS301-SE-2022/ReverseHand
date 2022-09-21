@@ -3,14 +3,20 @@ import 'package:redux_comp/models/review_model.dart';
 
 class ReviewWidget extends StatelessWidget {
   final ReviewModel review;
+  final List<Icon> stars = [];
 
-  const ReviewWidget({
+  ReviewWidget({
     required this.review,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    for (int i = 0; i < review.rating; i++) {
+      stars.add(
+          Icon(Icons.star, size: 30, color: Theme.of(context).primaryColor));
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -27,10 +33,7 @@ class ReviewWidget extends StatelessWidget {
                 //*****************STARS*****************//
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: Icon(
-                    Icons.star,
-                    color: Theme.of(context).primaryColor,
-                  ),
+                  child: Row(children: stars),
                 ),
                 //***************************************//
 
