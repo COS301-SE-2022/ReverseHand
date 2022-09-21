@@ -1,0 +1,19 @@
+[
+  {
+    "Action": [
+      "kinesis:GetShardIterator",
+      "kinesis:GetRecords",
+      "kinesis:DescribeStream"
+    ],
+    "Resource": [
+      "arn:aws:kinesis:eu-west-1:727515863527:stream/ReversehandKinesis"
+    ]
+  },
+  {
+    "Action": [
+      "kinesis:ListStreams",
+      "kinesis:ListShards"
+    ],
+    "Resource" : ["*"]
+  }
+]

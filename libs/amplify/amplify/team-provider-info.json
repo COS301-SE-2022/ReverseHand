@@ -246,6 +246,10 @@
         "acceptAdvertReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/acceptAdvertReportResolver-706961664c6739544c36-build.zip"
+        },
+        "processKinesisStreamResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/processKinesisStreamResolver-794d3035745953617258-build.zip"
         }
       }
     }
