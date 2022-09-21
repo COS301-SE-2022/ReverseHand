@@ -82,7 +82,7 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                   //**************** TITLE ********************** */
                   const Padding(padding: EdgeInsets.only(top: 20)),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
                     child: TextFieldWidget(
                         label: "Title",
                         obscure: false,
@@ -197,7 +197,7 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                         //*********SAVE BUTTON******************//
                         vm.loading
                             ? const LoadingWidget(
-                                topPadding: 0, bottomPadding: 0)
+                                topPadding: 0, bottomPadding: 15)
                             : LongButtonWidget(
                                 text: "Save Changes",
                                 // check to make sure input is good
@@ -209,7 +209,6 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                                 ), //need to dispatch save job action?
                               ),
                         //********************************************//
-                        const Padding(padding: EdgeInsets.all(5)),
 
                         //************DISCARD BUTTON*****************//
                         TransparentLongButtonWidget(

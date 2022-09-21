@@ -34,25 +34,12 @@ class ViewBidsPage extends StatelessWidget {
                 AppBarWidget(title: "BIDS", store: store, backButton: true),
                 //******************************//
 
-                //**********DETAILED JOB INFORMATION***********//
-                JobCardWidget(
-                  titleText: vm.advert.title,
-                  descText: vm.advert.description ?? "",
-                  date: timestampToDate(vm.advert.dateCreated),
-                  type: vm.advert.type,
-                  location: vm.advert.domain.city,
-                ),
-                //*******************************************//
-
-                const Padding(padding: EdgeInsets.all(10)),
-
                 Container(
                   padding: const EdgeInsets.all(8),
                   child: Column(children: [
                     if (vm.bids.isNotEmpty)
                       Column(
                         children: [
-                          // const Padding(padding: EdgeInsets.only(top: 15)),
                           const HintWidget(
                               text:
                                   "Click on a bid to see more detailed information",
