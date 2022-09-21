@@ -100,7 +100,9 @@ class TradesmanJobDetails extends StatelessWidget {
                         ? Column(
                             children: [
                               //*************USER BID**************//
-                              if (!vm.accepted)
+                              if ((vm.userBid != null &&
+                                      vm.userBid!.shortlisted) ||
+                                  !vm.accepted)
                                 const Padding(
                                   padding: EdgeInsets.only(left: 45.0),
                                   child: Align(
@@ -121,6 +123,8 @@ class TradesmanJobDetails extends StatelessWidget {
                                 ),
                                 child: InkWell(
                                   onTap: () {
+                                    if (vm.userBid != null &&
+                                        vm.userBid!.shortlisted) return;
                                     if (vm.accepted) return;
 
                                     showModalBottomSheet(
