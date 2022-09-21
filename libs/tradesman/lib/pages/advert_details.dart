@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:async_redux/async_redux.dart';
 import 'package:general/pages/report_page.dart';
 import 'package:general/widgets/appbar_popup_menu_widget.dart';
+import 'package:general/widgets/user_bid_details_widget.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
@@ -109,7 +110,11 @@ class TradesmanJobDetails extends StatelessWidget {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 40, right: 40, bottom: 50, top: 10),
+                                  left: 40,
+                                  right: 40,
+                                  bottom: 50,
+                                  top: 10,
+                                ),
                                 child: InkWell(
                                   onTap: () {
                                     showModalBottomSheet(
@@ -134,61 +139,9 @@ class TradesmanJobDetails extends StatelessWidget {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(7.0)),
                                     ),
-                                    child: SizedBox(
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                'Amount:',
-                                                style: TextStyle(
-                                                  fontSize: 22,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                vm.userBid!.amount(),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.only(top: 10),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                'Quote:',
-                                                style: TextStyle(
-                                                    fontSize: 22,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
-                                                vm.userBid!.quote != null
-                                                    ? 'Uploaded'
-                                                    : 'None Uploaded',
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.black),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                    child: UserBidDetailsWidget(
+                                      amount: vm.userBid!.amount(),
+                                      quote: vm.userBid!.quote != null,
                                     ),
                                   ),
                                 ),

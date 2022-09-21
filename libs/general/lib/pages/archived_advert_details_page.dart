@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
@@ -7,7 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
+import 'package:redux_comp/models/bid_model.dart';
+import 'package:tradesman/widgets/tradesman_navbar_widget.dart';
+import '../widgets/long_button_transparent.dart';
 import '../widgets/long_button_widget.dart';
+import '../widgets/user_bid_details_widget.dart';
+import 'package:redux_comp/actions/user/get_other_user_action.dart';
 
 class ArchivedAdvertDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -21,12 +27,12 @@ class ArchivedAdvertDetailsPage extends StatelessWidget {
 
     return StoreProvider<AppState>(
       store: store,
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) {
-              return Column(
+      child: StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
                 children: [
                   //**********APPBAR***********//
                   AppBarWidget(
@@ -50,7 +56,30 @@ class ArchivedAdvertDetailsPage extends StatelessWidget {
                       editButton: false,
                     ),
                   //*******************************************//
-
+                  //*******************************************//
+                  // User/Won bid
+                  if (vm.bid != null)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 40,
+                        right: 40,
+                        bottom: 50,
+                        top: 10,
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 232, 232, 232),
+                          borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                        ),
+                        child: UserBidDetailsWidget(
+                          amount: vm.bid!.amount(),
+                          quote: vm.bid!.quote != null,
+                        ),
+                      ),
+                    ),
+                  //*******************************************//
                   Padding(
                     padding: const EdgeInsets.only(top: 15),
                     child: LongButtonWidget(
@@ -62,11 +91,21 @@ class ArchivedAdvertDetailsPage extends StatelessWidget {
                       },
                     ),
                   ),
+
+                  const Padding(padding: EdgeInsets.only(top: 20)),
+                  if (vm.isTradsman)
+                    TransparentLongButtonWidget(
+                      text: "View Client Profile",
+                      function: vm.dispatchGetOtherUserAction,
+                    ),
                 ],
-              );
-            },
-          ),
-        ),
+              ),
+            ),
+            bottomNavigationBar: vm.isTradsman
+                ? TNavBarWidget(store: store)
+                : NavBarWidget(store: store),
+          );
+        },
       ),
     );
   }
@@ -79,12 +118,16 @@ class _Factory extends VmFactory<AppState, ArchivedAdvertDetailsPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         pushViewBidsPage: () => dispatch(
-          NavigateAction.pushNamed('/consumer/view_bids'),
+          NavigateAction.pushNamed('/archived_view_bids', arguments: true),
         ),
         popPage: () => dispatch(NavigateAction.pop()),
         advert: state.activeAd!,
         loading: state.wait.isWaiting,
         bidCount: state.bids.length + state.shortlistBids.length,
+        bid: state.userBid ?? state.activeBid,
+        isTradsman: state.userDetails.userType == 'Tradesman',
+        dispatchGetOtherUserAction: () =>
+            dispatch(GetOtherUserAction(state.activeAd!.userId)),
       );
 }
 
@@ -95,12 +138,18 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final int bidCount;
   final bool loading;
+  final BidModel? bid;
+  final bool isTradsman;
+  final VoidCallback dispatchGetOtherUserAction;
 
   _ViewModel({
+    required this.bid,
     required this.advert,
     required this.bidCount,
     required this.pushViewBidsPage,
     required this.popPage,
     required this.loading,
+    required this.isTradsman,
+    required this.dispatchGetOtherUserAction,
   }) : super(equals: [advert, loading]); // implementinf hashcode
 }

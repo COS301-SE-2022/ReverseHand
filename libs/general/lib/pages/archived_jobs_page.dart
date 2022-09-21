@@ -1,10 +1,12 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/quick_view_job_card.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:tradesman/widgets/tradesman_navbar_widget.dart';
 
 class ArchivedJobsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -15,21 +17,21 @@ class ArchivedJobsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: Scaffold(
-        body: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) {
-            List<Widget> advertWidgets = vm.adverts
-                .map(
-                  (a) => QuickViewJobCardWidget(
-                    advert: a,
-                    store: store,
-                    archived: true,
-                  ),
-                )
-                .toList();
+      child: StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) {
+          List<Widget> advertWidgets = vm.adverts
+              .map(
+                (a) => QuickViewJobCardWidget(
+                  advert: a,
+                  store: store,
+                  archived: true,
+                ),
+              )
+              .toList();
 
-            return Column(
+          return Scaffold(
+            body: Column(
               children: [
                 //*******************APP BAR WIDGET*********************//
                 AppBarWidget(title: "MY PAST JOBS", store: store),
@@ -64,9 +66,12 @@ class ArchivedJobsPage extends StatelessWidget {
                 ),
                 //********************************************************//
               ],
-            );
-          },
-        ),
+            ),
+            bottomNavigationBar: vm.isTradsman
+                ? TNavBarWidget(store: store)
+                : NavBarWidget(store: store),
+          );
+        },
         //*****************************************************/
       ),
     );
@@ -81,6 +86,7 @@ class _Factory extends VmFactory<AppState, ArchivedJobsPage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         adverts: state.archivedJobs,
+        isTradsman: state.userDetails.userType == 'Tradesman',
       );
 }
 
@@ -88,9 +94,11 @@ class _Factory extends VmFactory<AppState, ArchivedJobsPage> {
 class _ViewModel extends Vm {
   final List<AdvertModel> adverts;
   final bool loading;
+  final bool isTradsman;
 
   _ViewModel({
     required this.loading,
     required this.adverts,
+    required this.isTradsman,
   }) : super(equals: [adverts, loading]); // implementinf hashcode
 }

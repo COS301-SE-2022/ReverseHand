@@ -16,8 +16,4 @@ class SetActiveBidAction extends ReduxAction<AppState> {
 
     return store.state.copy(activeBid: bid);
   }
-
-  @override
-  void after() => dispatch(NavigateAction.pushNamed(
-      "/${state.userDetails.userType.toLowerCase()}/advert_details/bid_details")); // move to page after action completes
 }
