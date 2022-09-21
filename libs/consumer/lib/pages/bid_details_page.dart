@@ -75,7 +75,8 @@ class BidDetailsPage extends StatelessWidget {
                 //****************************//
 
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     //**************BID PRICE***************/
                     const Padding(padding: EdgeInsets.all(15)),
@@ -99,23 +100,9 @@ class BidDetailsPage extends StatelessWidget {
                     //**************************************/
 
                     //**************SEE QUOTE BUTTON***************/
-                    //if quote is not uploaded
-                    //todo, add if statement back here
-                    // const Padding(padding: EdgeInsets.only(top: 40)),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: const [
-                    //     Text(
-                    //       "No quote has been\n uploaded yet.",
-                    //       textAlign: TextAlign.center,
-                    //       style: TextStyle(fontSize: 20, color: Colors.white54),
-                    //     ),
-                    //   ],
-                    // ),
-                    // const Padding(padding: EdgeInsets.only(top: 15)),
-                    if (vm.bid.quote != null)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50, top: 20),
+                    (vm.bid.quote == null) 
+                      ? Padding(
+                        padding: const EdgeInsets.only(top: 20),
                         child: LongButtonWidget(
                           text: "View Quote",
                           function: () {
@@ -123,13 +110,37 @@ class BidDetailsPage extends StatelessWidget {
                             vm.dispatchGetPdfAction();
                           },
                         ),
+                      )
+                      //if quote is not uploaded
+                      : Padding(
+                        padding: const EdgeInsets.only(top: 40),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              "No quote has been\n uploaded yet.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 20, color: Colors.white54),
+                            ),
+                          ],
+                        ),
                       ),
+
                   ],
                 ),
 
-                //****************BOTTOM BUTTONS**************//
+                //**********DIVIDER***********//
+                Divider(
+                  height: 20,
+                  thickness: 1.3,
+                  indent: 15,
+                  endIndent: 15,
+                  color: Theme.of(context).primaryColorLight,
+                ),
+                //****************************//
 
-                const Padding(padding: EdgeInsets.only(top: 55)),
+                //****************BOTTOM BUTTONS**************//
+                const Padding(padding: EdgeInsets.only(top: 20)),
                 Column(
                   children: [
                     StoreConnector<AppState, _ViewModel>(

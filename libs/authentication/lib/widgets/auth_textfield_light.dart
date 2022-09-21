@@ -35,7 +35,7 @@ class AuthTextFieldLightWidget extends StatelessWidget {
     OutlineInputBorder unfocused = OutlineInputBorder(
       borderRadius: BorderRadius.circular(30),
       borderSide: const BorderSide(
-        color: Colors.orange,
+        color: Colors.grey,
         width: 2,
       ),
     );
