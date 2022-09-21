@@ -54,7 +54,6 @@ class AddToBucketAction extends ReduxAction<AppState> {
           key = "";
           for (File _ in files!) {
             String uuid = const Uuid().v1(); // unique id of image
-            print("UUID: $uuid");
             keys.add("adverts/$advertId!/$uuid");
           }
         }
