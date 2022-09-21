@@ -1,9 +1,10 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:general/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/widgets/open_image_widget.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
@@ -23,9 +24,8 @@ class EditAdvertPage extends StatefulWidget {
 }
 
 class _EditAdvertPageState extends State<EditAdvertPage> {
-  final titleController = TextEditingController();
-  final descrController = TextEditingController();
-  final tradeController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descrController = TextEditingController();
 
   String? trade;
 
@@ -48,13 +48,9 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
   @override
   void dispose() {
     titleController.dispose();
-    tradeController.dispose();
     descrController.dispose();
     super.dispose();
   }
-
-  double deviceHeight(BuildContext context) =>
-      MediaQuery.of(context).size.height;
 
   //*****Calls method to create a new job*****//
   @override
@@ -88,12 +84,13 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                     child: TextFieldWidget(
-                      label: "Title",
-                      obscure: false,
-                      min: 1,
-                      controller: titleController,
-                      initialVal: vm.advert.title,
-                    ),
+                        label: "Title",
+                        obscure: false,
+                        min: 1,
+                        controller: titleController,
+                        initialVal: titleController.text.isEmpty
+                            ? vm.advert.title
+                            : titleController.text),
                   ),
                   //************************************************//
 
@@ -125,7 +122,9 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 20, 15, 5),
                     child: TextFieldWidget(
-                      initialVal: vm.advert.description,
+                      initialVal: descrController.text.isEmpty
+                          ? vm.advert.description
+                          : descrController.text,
                       label: "Description",
                       obscure: false,
                       min: 3,
@@ -201,7 +200,7 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                         vm.loading
                             ? const LoadingWidget(
                                 topPadding: 0, bottomPadding: 0)
-                            : ButtonWidget(
+                            : LongButtonWidget(
                                 text: "Save Changes",
                                 // check to make sure input is good
                                 function: () => vm.dispatchEditAdvertAction(
@@ -215,9 +214,8 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                         const Padding(padding: EdgeInsets.all(5)),
 
                         //************DISCARD BUTTON*****************//
-                        ButtonWidget(
+                        TransparentLongButtonWidget(
                           text: "Discard",
-                          color: "dark",
                           function: vm.popPage,
                         )
                       ],

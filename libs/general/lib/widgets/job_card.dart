@@ -34,35 +34,20 @@ class JobCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //****************DATE*******************//
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
-            child: Text(
-              date,
-              style: const TextStyle(
-                fontSize: 17,
-                color: Color.fromARGB(255, 186, 186, 186),
-              ),
-            ),
-          ),
-          //****************************************//
-
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              //****************TITLE********************//
               Padding(
-                padding: const EdgeInsets.only(left: 5.0),
-                child: SizedBox(
-                  child: Text(
-                    titleText,
-                    style: const TextStyle(
-                        fontSize: 32, fontWeight: FontWeight.bold),
+                padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
+                child: Text(
+                  date,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    color: Color.fromARGB(255, 186, 186, 186),
                   ),
                 ),
               ),
-              //*****************************************//
-
               // //******************EDIT ICON****************//
-
               editButton == true
                   ? StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
@@ -70,10 +55,16 @@ class JobCardWidget extends StatelessWidget {
                           vm.advert.acceptedBid == null && vm.bidCount == 0
                               ? Align(
                                   alignment: Alignment.topRight,
-                                  child: IconButton(
-                                    onPressed: vm.pushEditAdvert,
-                                    icon: const Icon(Icons.edit),
-                                    color: Colors.white70,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 15),
+                                    child: IconButton(
+                                      onPressed: vm.pushEditAdvert,
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        size: 20,
+                                      ),
+                                      color: Colors.white70,
+                                    ),
                                   ),
                                 )
                               : Container())

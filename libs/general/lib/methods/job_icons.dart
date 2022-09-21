@@ -4,10 +4,10 @@ const Map<String, IconData> domains = {
   'Plumbing': Icons.plumbing,
   'Designer': Icons.design_services,
   'Carpenter': Icons.carpenter,
-  'Landscaper': Icons.abc, //still need an icon
+  'Landscaper': Icons.park, 
   'Painting': Icons.imagesearch_roller,
   'Cleaner': Icons.cleaning_services,
-  'Tiler': Icons.abc, //still need an icon
+  'Tiler': Icons.grid_view, 
   'Electrician': Icons.bolt
 };
 
