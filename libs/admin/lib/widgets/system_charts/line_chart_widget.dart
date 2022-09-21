@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
-import 'package:redux_comp/models/admin/observation_model.dart';
+import 'package:redux_comp/models/admin/app_metrics/observation_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LineChartWidget extends StatelessWidget {

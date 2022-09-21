@@ -4,7 +4,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
-import 'package:redux_comp/models/admin/observation_model.dart';
+import 'package:redux_comp/models/admin/app_metrics/observation_model.dart';
 
 import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';

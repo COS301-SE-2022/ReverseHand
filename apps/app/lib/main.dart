@@ -89,10 +89,9 @@ class Launch extends StatelessWidget {
               EditAdvertPage(store: store),
           '/consumer/edit_profile_page': (context) =>
               EditConsumerProfilePage(store: store),
-           '/consumer/limited_profile_page':(context) => 
-              LimitedConsumerProfilePage(store: store),   
-          '/consumer/view_quote_page': (context) =>
-              ViewQuotePage(store: store),
+          '/consumer/limited_profile_page': (context) =>
+              LimitedConsumerProfilePage(store: store),
+          '/consumer/view_quote_page': (context) => ViewQuotePage(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
@@ -146,7 +145,8 @@ class Launch extends StatelessWidget {
           '/api_metrics': (context) => ApiMetricsPage(store: store),
           '/review_advert_reports_page': (context) =>
               AdvertReportsManagePage(store: store),
-          '/admin_profile': (context) => AdminProfilePage(store: store)
+          '/admin_profile': (context) => AdminProfilePage(store: store),
+          '/user_metrics': (context) => UserMetricsPage(store: store)
         },
       ),
     );

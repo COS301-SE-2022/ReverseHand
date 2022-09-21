@@ -3,6 +3,7 @@ library admin;
 export 'pages/system_metrics_page.dart';
 export 'pages/system_metrics/database_metrics_page.dart';
 export 'pages/system_metrics/api_metrics_page.dart';
+export 'pages/user_metrics_page.dart';
 export 'pages/admin_manage_page.dart';
 export 'pages/app_management/users/search_users_page.dart';
 export 'pages/app_management/view_user_reports_page.dart';

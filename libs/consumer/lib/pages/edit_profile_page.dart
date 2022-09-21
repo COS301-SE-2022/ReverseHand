@@ -22,8 +22,8 @@ class EditConsumerProfilePage extends StatefulWidget {
 }
 
 class _EditConsumerProfilePageState extends State<EditConsumerProfilePage> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _cellController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _cellController = TextEditingController();
 
   bool _nameValid = false;
   bool _cellValid = false;
