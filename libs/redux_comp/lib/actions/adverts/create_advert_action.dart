@@ -9,6 +9,7 @@ import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../app_state.dart';
+import '../analytics_events/record_create_advert_action.dart';
 
 // creates an advert
 // requires the customerdId and a title the rest is optional
@@ -49,6 +50,9 @@ class CreateAdvertAction extends ReduxAction<AppState> {
         dispatch(AddToBucketAction(
             fileType: FileType.job, advertId: id, files: files));
       }
+
+      dispatch(RecordCreateAdvertAction(
+          city: domain.city, province: domain.province));
 
       return null;
     } on ApiException catch (e) {

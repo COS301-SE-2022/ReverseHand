@@ -238,12 +238,6 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   descrController.value.text,
                                   _files?.map((e) => File(e.path)).toList(),
                                 );
-                                vm.dispatchRecordCreateAdvertAction(
-                                  widget.store.state.userDetails.location!
-                                      .address.city,
-                                  widget.store.state.userDetails.location!
-                                      .address.province,
-                                );
                               } else {
                                 LightDialogHelper.display(
                                   context,
@@ -304,8 +298,6 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
             files: files,
           ),
         ),
-        dispatchRecordCreateAdvertAction: (String city, String province) =>
-            dispatch(RecordCreateAdvertAction(city: city, province: province)),
         loading: state.wait.isWaiting,
       );
 }
@@ -314,15 +306,12 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
 class _ViewModel extends Vm {
   final void Function(String id, String title, Domain domanin, String trade,
       String? descr, List<File>? files) dispatchCreateAdvertActions;
-  final void Function(String city, String province)
-      dispatchRecordCreateAdvertAction;
   final VoidCallback popPage;
   final bool loading;
 
   _ViewModel({
     required this.loading,
     required this.dispatchCreateAdvertActions,
-    required this.dispatchRecordCreateAdvertAction,
     required this.popPage,
   }) : super(equals: [loading]); // implementinf hashcode
 }

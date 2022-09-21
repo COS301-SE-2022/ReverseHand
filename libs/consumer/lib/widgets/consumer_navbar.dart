@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
+import 'package:redux_comp/actions/analytics_events/record_create_advert_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import 'package:redux_comp/actions/user/get_notifications_action.dart';
@@ -99,7 +100,8 @@ class NavBarWidget extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      vm.pushProfilePage();
+                      // vm.pushProfilePage();
+                      vm.test('Pretoria', 'Gauteng');
                     },
                     splashRadius: 30,
                     highlightColor: Colors.orange,
@@ -139,6 +141,8 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
         dispatchGetNotificationsAction: () =>
             dispatch(GetNotificationsAction()),
         dispatchViewAdvertsAction: () => dispatch(ViewAdvertsAction()),
+        test: (p0, p1) =>
+            dispatch(RecordCreateAdvertAction(city: p0, province: p1)),
       );
 }
 
@@ -152,10 +156,12 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchGetChatsAction;
   final VoidCallback dispatchGetNotificationsAction;
   final VoidCallback dispatchViewAdvertsAction;
+  final void Function(String, String) test;
 
   _ViewModel({
     required this.pushProfilePage,
     required this.pushChatPage,
+    required this.test,
     required this.dispatchViewAdvertsAction,
     required this.dispatchGetChatsAction,
     required this.pushConsumerListings,
