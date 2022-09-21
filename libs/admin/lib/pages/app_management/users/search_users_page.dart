@@ -99,6 +99,7 @@ class SearchUsersPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            //tabbed view can be done if i can get two lists
                             const Text("//lowkey want a tabbed view//"),
                             DropDownOptionsWidget(
                                 title: "Group",
