@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/job_icons.dart';
+import 'package:general/methods/time.dart';
 import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -62,17 +63,35 @@ class QuickViewJobCardWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          //*******************ADVERT TITLE *************** */
-                          child: Text(advert.title,
-                              maxLines: 2,
-                              // overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 23,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                          //*********************************************** */
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.15,
+                              //*******************ADVERT TITLE *************** */
+                              child: Text(advert.title,
+                                  maxLines: 2,
+                                  style: const TextStyle(
+                                      fontSize: 23,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                              //*********************************************** */
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 20),
+                              child: SizedBox(
+                                width: 100,
+                                //*******************ADVERT POST DATE *************** */
+                                child: Text(
+                                  "${timestampToDate(advert.dateCreated)}",
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                //*********************************************** */
+                              ),
+                            ),
+                          ],
                         ),
                         const Padding(padding: EdgeInsets.only(top: 2)),
                         Row(
@@ -88,12 +107,17 @@ class QuickViewJobCardWidget extends StatelessWidget {
                                     fontSize: 18, color: Colors.black)),
                           ],
                         ),
-                        // Text(
-                        //   "Posted ${timestampToDate(advert.dateCreated)}",
-                        //   style: const TextStyle(
-                        //     fontSize: 18,
-                        //     color: Colors.black54,
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width / 1.5,
+                        //   //*******************ADVERT POST DATE *************** */
+                        //   child: Text(
+                        //     "Posted ${timestampToDate(advert.dateCreated)}",
+                        //     style: const TextStyle(
+                        //       fontSize: 18,
+                        //       color: Colors.black54,
+                        //     ),
                         //   ),
+                        //   //*********************************************** */
                         // ),
                       ],
                     ),
