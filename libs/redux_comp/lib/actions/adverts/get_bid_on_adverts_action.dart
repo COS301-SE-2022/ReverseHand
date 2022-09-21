@@ -8,15 +8,16 @@ import '../../models/advert_model.dart';
 
 class GetBidOnAdvertsAction extends ReduxAction<AppState> {
   final String? tradesmanId;
+  final bool archived;
 
-  GetBidOnAdvertsAction({this.tradesmanId});
+  GetBidOnAdvertsAction({this.tradesmanId, this.archived = false});
 
   @override
   Future<AppState?> reduce() async {
     final String userId = tradesmanId ?? state.userDetails.id;
 
     String graphQLDocument = '''query {
-      getBidOnAdverts(tradesman_id: "$userId") {
+      getBidOnAdverts(tradesman_id: "$userId", archived: $archived) {
         date_created
         date_closed
         description
@@ -45,9 +46,15 @@ class GetBidOnAdvertsAction extends ReduxAction<AppState> {
       List<AdvertModel> adverts =
           data.map((e) => AdvertModel.fromJson(e)).toList();
 
-      return state.copy(
-        bidOnAdverts: adverts,
-      );
+      if (archived) {
+        return state.copy(
+          archivedJobs: adverts,
+        );
+      } else {
+        return state.copy(
+          bidOnAdverts: adverts,
+        );
+      }
     } catch (e) {
       return null; /* On Error do not modify state */
     }

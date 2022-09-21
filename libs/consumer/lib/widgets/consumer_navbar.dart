@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import 'package:redux_comp/actions/user/get_notifications_action.dart';
@@ -53,6 +54,7 @@ class NavBarWidget extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
+                      vm.dispatchViewAdvertsAction();
                       vm.pushConsumerListings();
                     },
                     splashRadius: 30,
@@ -136,6 +138,7 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
         dispatchGetChatsAction: () => dispatch(GetChatsAction()),
         dispatchGetNotificationsAction: () =>
             dispatch(GetNotificationsAction()),
+        dispatchViewAdvertsAction: () => dispatch(ViewAdvertsAction()),
       );
 }
 
@@ -148,10 +151,12 @@ class _ViewModel extends Vm {
   final VoidCallback dispatchLogoutAction;
   final VoidCallback dispatchGetChatsAction;
   final VoidCallback dispatchGetNotificationsAction;
+  final VoidCallback dispatchViewAdvertsAction;
 
   _ViewModel({
     required this.pushProfilePage,
     required this.pushChatPage,
+    required this.dispatchViewAdvertsAction,
     required this.dispatchGetChatsAction,
     required this.pushConsumerListings,
     required this.dispatchLogoutAction,

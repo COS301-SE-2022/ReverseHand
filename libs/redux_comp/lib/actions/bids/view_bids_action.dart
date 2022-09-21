@@ -8,16 +8,17 @@ import '../../app_state.dart';
 
 // pass in the advert id whos bids you want to see
 class ViewBidsAction extends ReduxAction<AppState> {
-  final String? adId;
+  final AdvertModel? ad;
+  final bool archived;
 
-  ViewBidsAction({this.adId});
+  ViewBidsAction({this.ad, this.archived = false});
 
   @override
   Future<AppState?> reduce() async {
-    final String adId = this.adId ?? state.activeAd!.id;
+    final AdvertModel ad = this.ad ?? state.activeAd!;
 
     String graphQLDocument = '''query {
-      viewBids(ad_id: "$adId") {
+      viewBids(ad_id: "${ad.id}", archived: $archived) {
         id
         name
         tradesman_id
@@ -43,9 +44,6 @@ class ViewBidsAction extends ReduxAction<AppState> {
 
       BidModel? userBid;
       BidModel? activeBid;
-
-      final AdvertModel ad =
-          state.adverts.firstWhere((element) => element.id == adId);
 
       // since all bids are gotten we seperate them into two lists
       for (dynamic d in data['viewBids']) {
@@ -80,8 +78,12 @@ class ViewBidsAction extends ReduxAction<AppState> {
   @override
   void before() {
     dispatch(WaitAction.add("viewBids"));
-    dispatch(NavigateAction.pushNamed(
-        "/${state.userDetails.userType.toLowerCase()}/advert_details"));
+    if (archived) {
+      dispatch(NavigateAction.pushNamed("/archived_advert_details"));
+    } else {
+      dispatch(NavigateAction.pushNamed(
+          "/${state.userDetails.userType.toLowerCase()}/advert_details"));
+    }
   }
 
   @override

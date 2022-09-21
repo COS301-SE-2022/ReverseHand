@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/adverts/view_jobs_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
@@ -54,6 +55,7 @@ class TNavBarWidget extends StatelessWidget {
                               color: Colors.white,
                             ),
                             onPressed: () {
+                              vm.dispatchViewJobsAction();
                               vm.pushTradesmanListings();
                             },
                             splashRadius: 30,
@@ -129,6 +131,7 @@ class _Factory extends VmFactory<AppState, TNavBarWidget> {
           NavigateAction.pushReplacementNamed('/chats'),
         ),
         dispatchGetChatsAction: () => dispatch(GetChatsAction()),
+        dispatchViewJobsAction: () => dispatch(ViewJobsAction()),
       );
 }
 
@@ -140,10 +143,12 @@ class _ViewModel extends Vm {
   final void Function() dispatchLogoutAction;
   final VoidCallback pushChatPage;
   final void Function() dispatchGetChatsAction;
+  final VoidCallback dispatchViewJobsAction;
 
   _ViewModel({
     required this.pushProfilePage,
     required this.pushActivityStreamPage,
+    required this.dispatchViewJobsAction,
     required this.pushTradesmanListings,
     required this.dispatchLogoutAction,
     required this.pushChatPage,

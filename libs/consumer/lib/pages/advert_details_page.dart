@@ -70,10 +70,14 @@ class AdvertDetailsPage extends StatelessWidget {
                         child: Column(
                           children: [
                             LongButtonWidget(
-                                text: "View Bids (${vm.bidCount})",
-                                function: () {
-                                  vm.pushViewBidsPage();
-                                }),
+                              text: "View Bids (${vm.bidCount})",
+                              backgroundColor: vm.bidCount == 0
+                                  ? Colors.grey
+                                  : Colors.orange,
+                              function: () {
+                                if (vm.bidCount != 0) vm.pushViewBidsPage();
+                              },
+                            ),
                             TransparentLongButtonWidget(
                               text: "Delete",
                               function: () {

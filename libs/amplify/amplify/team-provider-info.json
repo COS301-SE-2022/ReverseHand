@@ -73,11 +73,11 @@
         },
         "viewAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/viewAdvertsResolver-64437647595370444542-build.zip"
+          "s3Key": "amplify-builds/viewAdvertsResolver-4d7735575245624e7151-build.zip"
         },
         "viewBidsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/viewBidsResolver-2b75536853365341462f-build.zip"
+          "s3Key": "amplify-builds/viewBidsResolver-784b6f426d6a74626c4f-build.zip"
         },
         "viewJobsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -161,7 +161,7 @@
         },
         "archiveAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/archiveAdvertResolver-395634364f48374b4b59-build.zip"
+          "s3Key": "amplify-builds/archiveAdvertResolver-4a6576415642452f4477-build.zip"
         },
         "getReportedAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -217,7 +217,7 @@
         },
         "getBidOnAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getBidOnAdvertsResolver-55556a35654a73396270-build.zip"
+          "s3Key": "amplify-builds/getBidOnAdvertsResolver-536b444b787651742b6f-build.zip"
         },
         "getReportsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -245,7 +245,11 @@
         },
         "acceptAdvertReportResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/acceptAdvertReportResolver-6c4a7649724c5971496a-build.zip"
+          "s3Key": "amplify-builds/acceptAdvertReportResolver-706961664c6739544c36-build.zip"
+        },
+        "processKinesisStreamResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/processKinesisStreamResolver-794d3035745953617258-build.zip"
         }
       }
     }

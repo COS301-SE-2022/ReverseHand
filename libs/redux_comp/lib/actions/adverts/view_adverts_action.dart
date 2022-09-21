@@ -6,12 +6,14 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class ViewAdvertsAction extends ReduxAction<AppState> {
-  ViewAdvertsAction();
+  final bool archived;
+
+  ViewAdvertsAction({this.archived = false});
 
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      viewAdverts(user_id: "${state.userDetails.id}") {
+      viewAdverts(user_id: "${state.userDetails.id}", archived: $archived) {
         date_created
         date_closed
         description
@@ -25,7 +27,6 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
         }
         title
         type
-        customer_id
         accepted_bid
         customer_id
         id
@@ -41,9 +42,15 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
       dynamic data = jsonDecode(response.data)['viewAdverts'];
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
-      return state.copy(
-        adverts: adverts,
-      );
+      if (archived) {
+        return state.copy(
+          archivedJobs: adverts,
+        );
+      } else {
+        return state.copy(
+          adverts: adverts,
+        );
+      }
     } catch (e) {
       return null; /* On Error do not modify state */
     }

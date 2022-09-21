@@ -2,6 +2,7 @@ const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
 const TradesmanViewIndex = process.env.TRADESMAN;
+const ArchivedReverseHandTable = process.env.ARCHIVEDREVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -9,8 +10,15 @@ const TradesmanViewIndex = process.env.TRADESMAN;
 
 // get all the adverts which a tradesman has bid on
 exports.handler = async (event) => {
+    // deciding where to get adverts from
+    let table;
+    if (event.arguments.archived)
+        table = ArchivedReverseHandTable;
+    else
+        table = ReverseHandTable;
+
     let response = await docClient.query({
-        TableName: ReverseHandTable,
+        TableName: table,
         IndexName: TradesmanViewIndex,
         KeyConditionExpression: 'tradesman_id = :id',
         ExpressionAttributeValues: {
@@ -20,14 +28,14 @@ exports.handler = async (event) => {
 
     let items = {};
     let added = {};
-    items[ReverseHandTable] = {};
-    items[ReverseHandTable]['Keys'] = [];
+    items[table] = {};
+    items[table]['Keys'] = [];
     
     // to ensure that there are not duplicates
     for (let bid of response.Items) {
         if (added[bid.part_key] == undefined) {
             added[bid.part_key] = true;
-            items[ReverseHandTable]['Keys'].push({
+            items[table]['Keys'].push({
                 part_key: bid.part_key,
                 sort_key: bid.part_key
             });
