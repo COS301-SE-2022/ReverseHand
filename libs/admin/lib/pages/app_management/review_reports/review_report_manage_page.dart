@@ -28,6 +28,11 @@ class ReviewReportManagePage extends StatelessWidget {
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
+            List<Icon> stars = [];
+            for (int i = 0; i < report.reviewDetails!.rating; i++) {
+              stars.add(Icon(Icons.star,
+                  size: 30, color: Theme.of(context).primaryColor));
+            }
             Widget appbar = AppBarWidget(
               title: "Review Report",
               store: store,
@@ -98,19 +103,21 @@ class ReviewReportManagePage extends StatelessWidget {
                             child: Column(
                               children: [
                                 Row(
-                                  children: [
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: stars
+
                                     //*****************STARS*****************//
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, top: 5),
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(
+                                    //       left: 8.0, top: 5),
+                                    //   child: Icon(
+                                    //     Icons.star,
+                                    //     color: Theme.of(context).primaryColor,
+                                    //   ),
+                                    // ),
                                     //***************************************//
-                                  ],
-                                ),
+
+                                    ),
                                 const Padding(padding: EdgeInsets.only(top: 8)),
                                 //******************MESSAGE*****************//
                                 Align(

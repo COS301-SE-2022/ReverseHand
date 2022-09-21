@@ -94,10 +94,9 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //trade type
               const HintWidget(
-                text: "Select all relevant trade types",
-                colour: Colors.white70,
-                padding: 15,
-              ),
+                  text: "Select the relevant trade type",
+                  colour: Colors.white70,
+                  padding: 15),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
@@ -168,8 +167,9 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                               style: const TextStyle(fontSize: 18),
                             ),
                             InkWell(
-                              onTap:
-                                  () {}, //should be able to change the location of the job on tap
+                              onTap: () {
+                                vm.pushLocationSearchPage();
+                              }, 
                               child: const Text(
                                 "change address",
                                 style: TextStyle(
@@ -286,6 +286,9 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         popPage: () => dispatch(NavigateAction.pop()),
+        pushLocationSearchPage: () => dispatch(
+          NavigateAction.pushNamed('/geolocation/custom_location_search'),
+        ),
         dispatchCreateAdvertActions: (
           String customerId,
           String title,
@@ -316,6 +319,7 @@ class _ViewModel extends Vm {
       String? descr, List<File>? files) dispatchCreateAdvertActions;
   final void Function(String city, String province)
       dispatchRecordCreateAdvertAction;
+  final VoidCallback pushLocationSearchPage;
   final VoidCallback popPage;
   final bool loading;
 
@@ -323,6 +327,7 @@ class _ViewModel extends Vm {
     required this.loading,
     required this.dispatchCreateAdvertActions,
     required this.dispatchRecordCreateAdvertAction,
+    required this.pushLocationSearchPage,
     required this.popPage,
   }) : super(equals: [loading]); // implementinf hashcode
 }
