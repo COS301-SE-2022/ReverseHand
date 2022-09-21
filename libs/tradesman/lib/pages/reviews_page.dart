@@ -1,11 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:redux_comp/actions/user/reviews/get_user_reviews_action.dart';
 import 'package:redux_comp/models/review_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:general/widgets/loading_widget.dart';
-
 import '../widgets/reviews/review_widget.dart';
 
 

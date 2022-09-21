@@ -12,7 +12,6 @@ import 'package:general/widgets/profile_divider.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/actions/user/reviews/get_user_reviews_action.dart';
 import 'package:general/widgets/bottom_sheet.dart';
-import 'package:tradesman/widgets/reviews/review_widget.dart';
 import '../widgets/multiselect_widget.dart';
 import '../widgets/tradesman_navbar_widget.dart';
 

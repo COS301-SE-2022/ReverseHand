@@ -77,12 +77,12 @@ class QuickViewJobCardWidget extends StatelessWidget {
                               //*********************************************** */
                             ),
                             Padding(
-                              padding: EdgeInsets.only(bottom: 20),
+                              padding: const EdgeInsets.only(bottom: 20),
                               child: SizedBox(
                                 width: 100,
                                 //*******************ADVERT POST DATE *************** */
                                 child: Text(
-                                  "${timestampToDate(advert.dateCreated)}",
+                                  timestampToDate(advert.dateCreated),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black54,

@@ -97,7 +97,7 @@ class QuickViewBidWidget extends StatelessWidget {
                               width: 2),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(left: 5),
+                          padding: const EdgeInsets.only(left: 5),
                           child: Text(
                             bid.amount(),
                             maxLines: 1,
