@@ -38,7 +38,7 @@ class JobCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
+                padding: const EdgeInsets.only(left: 1, top: 10),
                 child: Text(
                   date,
                   style: const TextStyle(
@@ -48,15 +48,15 @@ class JobCardWidget extends StatelessWidget {
                 ),
               ),
               // //******************EDIT ICON****************//
-              (editButton == true)
+              editButton == true
                   ? StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
                       builder: (BuildContext context, _ViewModel vm) =>
-                          (vm.advert.acceptedBid == null)
+                          vm.advert.acceptedBid == null && vm.bidCount == 0
                               ? Align(
                                   alignment: Alignment.topRight,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 15),
+                                    padding: const EdgeInsets.only(top: 10),
                                     child: IconButton(
                                       onPressed: vm.pushEditAdvert,
                                       icon: const Icon(
@@ -69,7 +69,7 @@ class JobCardWidget extends StatelessWidget {
                                 )
                               : Container())
                   : Container()
-              // //**********************************************/
+              //**********************************************/
             ],
           ),
           //****************************************//
@@ -78,13 +78,13 @@ class JobCardWidget extends StatelessWidget {
             children: [
               //****************TITLE********************//
               Padding(
-                padding: const EdgeInsets.only(left: 5.0),
+                padding: const EdgeInsets.only(left: 0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.4,
+                  width: MediaQuery.of(context).size.width / 1.25,
                   child: Text(
                     titleText,
                     style: const TextStyle(
-                        fontSize: 32, fontWeight: FontWeight.bold),
+                        fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -94,7 +94,7 @@ class JobCardWidget extends StatelessWidget {
 
           //****************LOCATION********************//
           Padding(
-            padding: const EdgeInsets.only(left: 5, top: 5),
+            padding: const EdgeInsets.only(left: 0, top: 5),
             child: Row(
               children: [
                 const Padding(padding: EdgeInsets.only(right: 1)),
@@ -115,7 +115,7 @@ class JobCardWidget extends StatelessWidget {
 
                 //****************TRADE********************//
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
                       const Padding(padding: EdgeInsets.only(right: 1)),
@@ -132,8 +132,8 @@ class JobCardWidget extends StatelessWidget {
 
           const Divider(
             height: 20,
-            thickness: 1,
-            indent: 5,
+            thickness: 1.1,
+            indent: 0,
             endIndent: 15,
             color: Colors.orange,
           ),
@@ -142,12 +142,14 @@ class JobCardWidget extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.only(left: 5, top: 10, right: 5),
-              child: Text(descText,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  )),
+              padding: const EdgeInsets.only(top: 5, right: 5),
+              child: Text(
+                descText,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
           //**********************************************/
@@ -167,6 +169,7 @@ class _Factory extends VmFactory<AppState, JobCardWidget> {
           NavigateAction.pushNamed('/consumer/edit_advert_page'),
         ),
         advert: state.activeAd!,
+        bidCount: state.bids.length + state.shortlistBids.length,
       );
 }
 
@@ -174,9 +177,11 @@ class _Factory extends VmFactory<AppState, JobCardWidget> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushEditAdvert;
+  final int bidCount;
 
   _ViewModel({
     required this.advert,
+    required this.bidCount,
     required this.pushEditAdvert,
   }) : super(equals: [advert]); // implementinf hashcode
 }

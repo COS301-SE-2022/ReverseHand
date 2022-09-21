@@ -10,10 +10,11 @@ class RemoveUserReportAction extends ReduxAction<AppState> {
   final String userId;
   final bool issueWarning;
 
-  RemoveUserReportAction(
-      {required this.reportId,
-      required this.userId,
-      required this.issueWarning});
+  RemoveUserReportAction({
+    required this.reportId,
+    required this.userId,
+    required this.issueWarning,
+  });
 
   @override
   Future<AppState?> reduce() async {
@@ -48,7 +49,7 @@ class RemoveUserReportAction extends ReduxAction<AppState> {
     }
   }
 
-   @override
+  @override
   void before() {
     dispatch(NavigateAction.pop());
     dispatch(GetUserReportsAction());

@@ -11,12 +11,13 @@ import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:general/methods/populate_bids.dart';
+import 'package:tradesman/widgets/tradesman_navbar_widget.dart';
+import '../methods/populate_bids.dart';
 
-class ViewBidsPage extends StatelessWidget {
+class ArchivedViewBidsPage extends StatelessWidget {
   final Store<AppState> store;
 
-  const ViewBidsPage({
+  const ArchivedViewBidsPage({
     Key? key,
     required this.store,
   }) : super(key: key);
@@ -25,11 +26,10 @@ class ViewBidsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: Scaffold(
-        body: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) =>
-              SingleChildScrollView(
+      child: StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) => Scaffold(
+          body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 //**********APPBAR*************//
@@ -61,7 +61,7 @@ class ViewBidsPage extends StatelessWidget {
                             colour: Colors.white70,
                             padding: 15,
                           ),
-                          ...populateBids(vm.bids, store),
+                          ...populateBids(vm.bids, store, archived: true),
                         ],
                       ),
 
@@ -84,32 +84,33 @@ class ViewBidsPage extends StatelessWidget {
               ],
             ),
           ),
+          floatingActionButton: ConsumerFloatingButtonWidget(
+            function: () {
+              DarkDialogHelper.display(
+                  context,
+                  FilterPopUpWidget(
+                    store: store,
+                  ),
+                  600.0);
+            },
+            type: "filter",
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: vm.isTradsman
+              ? TNavBarWidget(store: store)
+              : NavBarWidget(store: store),
         ),
-
-        //************************NAVBAR***********************/
-        floatingActionButton: ConsumerFloatingButtonWidget(
-          function: () {
-            DarkDialogHelper.display(
-                context,
-                FilterPopUpWidget(
-                  store: store,
-                ),
-                600.0);
-          },
-          type: "filter",
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: NavBarWidget(
-          store: store,
-        ),
-        //*************************************************//
       ),
+
+      //************************NAVBAR***********************/
+      //*************************************************//
     );
   }
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, ViewBidsPage> {
+class _Factory extends VmFactory<AppState, ArchivedViewBidsPage> {
   _Factory(widget) : super(widget);
 
   @override
@@ -119,6 +120,7 @@ class _Factory extends VmFactory<AppState, ViewBidsPage> {
         bids: state.viewBids,
         advert: state.activeAd!,
         loading: state.wait.isWaiting,
+        isTradsman: state.userDetails.userType == 'Tradesman',
       );
 }
 
@@ -127,6 +129,7 @@ class _ViewModel extends Vm {
   final AdvertModel advert;
   final List<BidModel> bids;
   final VoidCallback popPage;
+  final bool isTradsman;
   final bool change;
   final bool loading;
 
@@ -135,6 +138,7 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.bids,
     required this.advert,
+    required this.isTradsman,
     required this.loading,
   }) : super(equals: [change, bids]); // implementing hashcode
 }

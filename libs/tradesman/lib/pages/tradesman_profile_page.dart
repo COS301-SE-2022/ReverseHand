@@ -4,6 +4,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/profile_image.dart';
+import 'package:redux_comp/actions/adverts/get_bid_on_adverts_action.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -182,22 +183,23 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                             child: Column(
                               children: [
                                 Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children:
-                                        //if there is a rating - 1 is the lowest that can be given
-                                        //so not checking if rating is null
-                                        vm.userDetails.statistics.ratingCount !=
-                                                0
-                                            ? stars
-                                            : [
-                                                //if no rating yet
-                                                const Text(
-                                                  "No rating yet",
-                                                  style: TextStyle(
-                                                      color: Colors.white70,
-                                                      fontSize: 18),
-                                                )
-                                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:
+                                      //if there is a rating - 1 is the lowest that can be given
+                                      //so not checking if rating is null
+                                      vm.userDetails.statistics.ratingCount != 0
+                                          ? stars
+                                          : [
+                                              //if no rating yet
+                                              const Text(
+                                                "No rating yet",
+                                                style: TextStyle(
+                                                  color: Colors.white70,
+                                                  fontSize: 18,
+                                                ),
+                                              )
+                                            ],
+                                ),
                                 const Padding(
                                     padding: EdgeInsets.only(top: 20)),
                                 TransparentLongButtonWidget(
@@ -228,13 +230,14 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                                 child: Align(
                                                   alignment: Alignment.topRight,
                                                   child: IconButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.close,
-                                                        color: Colors.black,
-                                                      )),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons.close,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                               //****************************************//
@@ -258,56 +261,62 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     //************************************/
 
                     //************STATS*******************/
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 100,
-                        width: MediaQuery.of(context).size.width / 1.15,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColorDark,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Icon(
-                                        Icons.check_circle_outline,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      Text(
-                                        "${vm.userDetails.statistics.finished} Jobs Completed",
-                                        style: const TextStyle(fontSize: 18),
-                                      ),
-                                    ],
+                    InkWell(
+                      onLongPress: () {
+                        vm.dispatchGetBidOnAdvertsAction();
+                        vm.pushArchivedJobsPage();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width / 1.15,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColorDark,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          Icons.check_circle_outline,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        Text(
+                                          "${vm.userDetails.statistics.finished} Jobs Completed",
+                                          style: const TextStyle(fontSize: 18),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8, left: 10, right: 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Icon(
-                                        Icons.front_hand_outlined,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      Text(
-                                        "${vm.userDetails.statistics.created} Bids Made",
-                                        style: const TextStyle(fontSize: 18),
-                                      ),
-                                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8, left: 10, right: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          Icons.front_hand_outlined,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        Text(
+                                          "${vm.userDetails.statistics.created} Bids Made",
+                                          style: const TextStyle(fontSize: 18),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -563,6 +572,10 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
+        pushArchivedJobsPage: () =>
+            dispatch(NavigateAction.pushNamed('/archived_jobs')),
+        dispatchGetBidOnAdvertsAction: () =>
+            dispatch(GetBidOnAdvertsAction(archived: true)),
       );
 }
 
@@ -576,15 +589,19 @@ class _ViewModel extends Vm {
   final void Function(String, String) dispatchChangeCellAction;
   final void Function(String, List<String>) dispatchChangeTradeAction;
   final bool isWaiting;
+  final VoidCallback pushArchivedJobsPage;
+  final VoidCallback dispatchGetBidOnAdvertsAction;
 
   _ViewModel({
     required this.userDetails,
     required this.pushDomainConfirmPage,
+    required this.dispatchGetBidOnAdvertsAction,
     required this.dispatchGetUserReviewsAction,
     required this.dispatchLogoutAction,
     required this.dispatchChangeNameAction,
     required this.dispatchChangeCellAction,
     required this.dispatchChangeTradeAction,
+    required this.pushArchivedJobsPage,
     required this.isWaiting,
   }) : super(equals: [userDetails, isWaiting]);
 }

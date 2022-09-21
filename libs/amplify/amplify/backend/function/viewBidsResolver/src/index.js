@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+const ArchivedReverseHandTable = process.env.ARCHIVEDREVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -9,9 +10,15 @@ exports.handler = async (event, context) => {
     // console.log(event.arguments.advert_id);
     // console.log(context);
 
+    let table;
+    if (event.arguments.archived)
+        table = ArchivedReverseHandTable;
+    else
+        table = ReverseHandTable;
+
     try {
         let params = {
-            TableName: ReverseHandTable,
+            TableName: table,
             KeyConditionExpression: "part_key = :p and begins_with(sort_key, :b)",
             ExpressionAttributeValues: {
                 ":p": event.arguments.ad_id,

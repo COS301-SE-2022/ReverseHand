@@ -14,8 +14,7 @@ class AcceptBidAction extends ReduxAction<AppState> {
         id
         tradesman_id
         name
-        price_lower
-        price_upper
+        price
         quote
         date_created
         date_closed
