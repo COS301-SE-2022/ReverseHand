@@ -173,6 +173,9 @@ type Mutation {
 
   acceptAdvertReport(advert_id: String!, issueWarning: Boolean!): Advert!
     @function(name: "acceptAdvertReportResolver-${env}") 
+
+  enableUser(username: String!, disable: Boolean!) : String!
+    @function(name: "enableUserResolver-${env}")
 }
 
 type Subscription {

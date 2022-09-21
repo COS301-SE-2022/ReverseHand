@@ -14,7 +14,7 @@ exports.handler = async (event) => {
         TableName: ReverseHandTable, 
         KeyConditionExpression: "part_key = :id",
         ExpressionAttributeValues: {
-            ":id": "notifications#" + event.arguments.user_id,
+            ":id": "notification#" + event.arguments.user_id,
         }
     };
 
