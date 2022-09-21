@@ -55,7 +55,7 @@ class BidDetailsPage extends StatelessWidget {
                           vm.bid.shortlisted
                               ? Icons.bookmark
                               : Icons.bookmark_outline,
-                          size: 40,
+                          size: 30,
                           color: Theme.of(context).primaryColor,
                         ),
                       ),
