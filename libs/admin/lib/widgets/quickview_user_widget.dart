@@ -31,7 +31,6 @@ class QuickViewUserCardWidget extends StatelessWidget {
           },
           child: Card(
             margin: const EdgeInsets.all(10),
-            // color: Theme.of(context).primaryColorLight,
             color: const Color.fromARGB(255, 220, 224, 230),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(7),
@@ -39,7 +38,7 @@ class QuickViewUserCardWidget extends StatelessWidget {
             elevation: 2,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 25),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
               child: Row(
                 children: <Widget>[
                   Column(
@@ -82,7 +81,9 @@ class QuickViewUserCardWidget extends StatelessWidget {
                             ),
                             const Padding(padding: EdgeInsets.only(right: 5)),
                             Icon(
-                              (user.status == "EXTERNAL_PROVIDER" ? Icons.arrow_forward_ios_outlined : Icons.check),
+                              (user.status == "EXTERNAL_PROVIDER"
+                                  ? Icons.arrow_forward_ios_outlined
+                                  : Icons.check),
                               // color: ,
                               size: 15,
                             ),
@@ -105,17 +106,13 @@ class _Factory extends VmFactory<AppState, QuickViewUserCardWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-    pushUserManage: () =>  dispatch(NavigateAction.pushNamed("/user_manage")),
-    dispatchGetUser: (userId) => dispatch(AdminGetUserAction(userId))
-  );
+      pushUserManage: () => dispatch(NavigateAction.pushNamed("/user_manage")),
+      dispatchGetUser: (userId) => dispatch(AdminGetUserAction(userId)));
 }
 
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushUserManage;
   final void Function(String) dispatchGetUser;
-  _ViewModel({
-    required this.pushUserManage,
-    required this.dispatchGetUser
-  });
+  _ViewModel({required this.pushUserManage, required this.dispatchGetUser});
 }

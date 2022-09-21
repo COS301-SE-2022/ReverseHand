@@ -41,60 +41,66 @@ class SearchUsersPage extends StatelessWidget {
                   .add(QuickViewUserCardWidget(store: store, user: user));
             }
             return (vm.loading)
-                ? Column(
-                    children: [
-                      //**********APPBAR***********//
-                      appbar,
-                      //*******************************************//
-                      search,
+                ? SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        //**********APPBAR***********//
+                        appbar,
+                        //*******************************************//
+                        search,
 
-                      LoadingWidget(
-                          topPadding: MediaQuery.of(context).size.height / 3,
-                          bottomPadding: 0)
-                    ],
+                        LoadingWidget(
+                            topPadding: MediaQuery.of(context).size.height / 3,
+                            bottomPadding: 0)
+                      ],
+                    ),
                   )
-                : Column(
-                    children: [
-                      //**********APPBAR***********//
-                      appbar,
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        //**********APPBAR***********//
+                        appbar,
 
-                      search,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("//lowkey want a tabbed view//"),
-                          DropDownOptionsWidget(
-                              title: "Group",
-                              functions: {
-                                "Client": () => vm.dispatchListUser("customer"),
-                                "Contractor": () =>
-                                    vm.dispatchListUser("tradesman"),
-                              },
-                              currentItem: (vm.activeGroup == "customer")
-                                  ? "Client"
-                                  : "Contractor"),
-                        ],
-                      ),
+                        search,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("//lowkey want a tabbed view//"),
+                            DropDownOptionsWidget(
+                                title: "Group",
+                                functions: {
+                                  "Client": () =>
+                                      vm.dispatchListUser("customer"),
+                                  "Contractor": () =>
+                                      vm.dispatchListUser("tradesman"),
+                                },
+                                currentItem: (vm.activeGroup == "customer")
+                                    ? "Client"
+                                    : "Contractor"),
+                          ],
+                        ),
 
-                      (userWidgets.isEmpty)
-                          ? Padding(
-                              padding: EdgeInsets.only(
-                                  top: (MediaQuery.of(context).size.height) / 4,
-                                  left: 40,
-                                  right: 40),
-                              child: (const Text(
-                                "No users found.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white70),
-                              )),
-                            )
-                          : ListRefreshWidget(
-                              widgets: userWidgets,
-                              refreshFunction: () =>
-                                  vm.dispatchListUser("customer"),
-                            ),
-                    ],
+                        (userWidgets.isEmpty)
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                    top: (MediaQuery.of(context).size.height) /
+                                        4,
+                                    left: 40,
+                                    right: 40),
+                                child: (const Text(
+                                  "No users found.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white70),
+                                )),
+                              )
+                            : ListRefreshWidget(
+                                widgets: userWidgets,
+                                refreshFunction: () =>
+                                    vm.dispatchListUser("customer"),
+                              ),
+                      ],
+                    ),
                   );
           },
         ),

@@ -144,7 +144,6 @@ class _RadioSelectWidgetState extends State<ReportPage> {
                                 text: "Submit Review - Adv",
                                 function: () {
                                   vm.popPage();
-
                                   ReportDetailsModel report =
                                       ReportDetailsModel(
                                     description: descrController.value.text,
