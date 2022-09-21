@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
 import 'package:redux_comp/models/admin/app_management/admin_app_manage_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/app_metrics_model.dart';
@@ -39,10 +39,10 @@ class AppState {
       activeBid; // represents the current bid, used for viewing a bid
 
   final List<AdvertModel> adverts;
+  final List<AdvertModel> archivedJobs; // history of users jobs made/bid on
   final List<AdvertModel> viewAdverts;
   final List<AdvertModel> bidOnAdverts; // adverts which a tradesman has bid on
   final AdvertModel? activeAd; // used for representing the current ad
-  final List<String> advertImages; // image urls for an advert
 
   final Location? locationResult;
   // both will change throughout the app
@@ -69,6 +69,8 @@ class AppState {
 
   final List<NotificationModel> notifications;
 
+  final Uint8List? pdfFile;
+
   // constructor must only take named parameters
   const AppState({
     required this.authModel,
@@ -78,7 +80,7 @@ class AppState {
     required this.partialUser,
     required this.adverts,
     required this.viewAdverts,
-    required this.advertImages,
+    required this.archivedJobs,
     required this.bids,
     required this.shortlistBids,
     required this.viewBids,
@@ -100,6 +102,7 @@ class AppState {
     required this.paystackSecretKey,
     required this.paystackPublicKey,
     required this.notifications,
+    required this.pdfFile,
   });
 
   // this methods sets the starting state for the store
@@ -135,6 +138,7 @@ class AppState {
       ),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
+      archivedJobs: const [],
       advertsWon: const [],
       sum: 0,
       viewAdverts: const [],
@@ -144,8 +148,8 @@ class AppState {
       viewBids: const [],
       activeAd: const AdvertModel(
         id: "",
-        customerId: "",
         type: "none",
+        userId: "",
         title: "",
         domain: Domain(
             city: "city",
@@ -153,7 +157,6 @@ class AppState {
             coordinates: Coordinates(lat: 22, lng: 21)),
         dateCreated: 0,
       ),
-      advertImages: const [],
       activeBid: const BidModel(
         id: "",
         userId: "",
@@ -175,6 +178,7 @@ class AppState {
       paystackPublicKey: "",
       paystackSecretKey: "",
       notifications: const [],
+      pdfFile: null,
     );
   }
 
@@ -186,6 +190,7 @@ class AppState {
     UserModel? otherUserDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
+    List<AdvertModel>? archivedJobs,
     List<AdvertModel>? viewAdverts,
     List<AdvertModel>? bidOnAdverts,
     List<BidModel>? bids,
@@ -208,11 +213,10 @@ class AppState {
     List<String>? advertsWon,
     int? sum,
     StatisticsModel? userStatistics,
-    String? userProfileImage,
     String? paystackPublicKey,
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
-    List<String>? advertImages,
+    Uint8List? pdfFile,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
@@ -221,6 +225,7 @@ class AppState {
       otherUserDetails: otherUserDetails ?? this.otherUserDetails,
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,
+      archivedJobs: archivedJobs ?? this.archivedJobs,
       viewAdverts: viewAdverts ?? this.viewAdverts,
       bids: bids ?? this.bids,
       shortlistBids: shortlistBids ?? this.shortlistBids,
@@ -243,7 +248,7 @@ class AppState {
       paystackPublicKey: paystackPublicKey ?? this.paystackPublicKey,
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
       notifications: notifications ?? this.notifications,
-      advertImages: advertImages ?? this.advertImages,
+      pdfFile: pdfFile ?? this.pdfFile,
     );
   }
 }

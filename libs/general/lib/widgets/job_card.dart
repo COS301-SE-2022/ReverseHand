@@ -34,56 +34,67 @@ class JobCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //****************DATE*******************//
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
-            child: Text(
-              date,
-              style: const TextStyle(
-                fontSize: 17,
-                color: Color.fromARGB(255, 186, 186, 186),
-              ),
-            ),
-          ),
-          //****************************************//
-
-            Row(
-              children: [
-                //****************TITLE********************//
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: SizedBox(
-                    child: Text(
-                      titleText,
-                      style: const TextStyle(
-                          fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 1, top: 10),
+                child: Text(
+                  date,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    color: Color.fromARGB(255, 186, 186, 186),
                   ),
                 ),
-                //*****************************************//
-
-                // //******************EDIT ICON****************//
-                (editButton == true)
+              ),
+              // //******************EDIT ICON****************//
+              editButton == true
                   ? StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
                       builder: (BuildContext context, _ViewModel vm) =>
-                        (vm.advert.acceptedBid == null)
-                          ? Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                onPressed: vm.pushEditAdvert,
-                                icon: const Icon(Icons.edit),
-                                color: Colors.white70,
-                              ),
-                            )
-                          : Container())
+                          vm.advert.acceptedBid == null && vm.bidCount == 0
+                              ? Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: IconButton(
+                                      onPressed: vm.pushEditAdvert,
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        size: 20,
+                                      ),
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                )
+                              : Container())
                   : Container()
-                // //**********************************************/
-              ],
-            ),
+              //**********************************************/
+            ],
+          ),
+          //****************************************//
+
+          Row(
+            children: [
+              //****************TITLE********************//
+              Padding(
+                padding: const EdgeInsets.only(left: 0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.25,
+                  child: Text(
+                    titleText,
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              //*****************************************//
+            ],
+          ),
 
           //****************LOCATION********************//
           Padding(
-            padding: const EdgeInsets.only(left: 5, top: 5),
+            padding: const EdgeInsets.only(left: 0, top: 5),
             child: Row(
               children: [
                 const Padding(padding: EdgeInsets.only(right: 1)),
@@ -104,7 +115,7 @@ class JobCardWidget extends StatelessWidget {
 
                 //****************TRADE********************//
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
                       const Padding(padding: EdgeInsets.only(right: 1)),
@@ -121,8 +132,8 @@ class JobCardWidget extends StatelessWidget {
 
           const Divider(
             height: 20,
-            thickness: 1,
-            indent: 5,
+            thickness: 1.1,
+            indent: 0,
             endIndent: 15,
             color: Colors.orange,
           ),
@@ -131,12 +142,14 @@ class JobCardWidget extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding: const EdgeInsets.only(left: 5, top: 10, right: 5),
-              child: Text(descText,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  )),
+              padding: const EdgeInsets.only(top: 5, right: 5),
+              child: Text(
+                descText,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
           //**********************************************/
@@ -145,7 +158,6 @@ class JobCardWidget extends StatelessWidget {
     );
   }
 }
-
 
 // factory for view model
 class _Factory extends VmFactory<AppState, JobCardWidget> {
@@ -157,6 +169,7 @@ class _Factory extends VmFactory<AppState, JobCardWidget> {
           NavigateAction.pushNamed('/consumer/edit_advert_page'),
         ),
         advert: state.activeAd!,
+        bidCount: state.bids.length + state.shortlistBids.length,
       );
 }
 
@@ -164,9 +177,11 @@ class _Factory extends VmFactory<AppState, JobCardWidget> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushEditAdvert;
+  final int bidCount;
 
   _ViewModel({
     required this.advert,
+    required this.bidCount,
     required this.pushEditAdvert,
   }) : super(equals: [advert]); // implementinf hashcode
 }

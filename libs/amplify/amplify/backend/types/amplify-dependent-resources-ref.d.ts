@@ -325,12 +325,15 @@ export type AmplifyDependentResourcesAttributes = {
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
+<<<<<<< HEAD
         },
         "enableUserResolver": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
+=======
+>>>>>>> 9d2c53dfd204cf57a5ce154cc2f8f39e3d5f39d2
         }
     },
     "analytics": {

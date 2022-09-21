@@ -41,6 +41,9 @@ class CustomWrapError extends WrapError<AppState> {
       case ErrorType.reviewBadDescription:
         msg = "A review requires a description";
         break;
+      case ErrorType.advertContainsBids:
+        msg = "Cannot edit and advert that contains bids";
+        break;
       default:
         msg = "Missing error message";
         break;

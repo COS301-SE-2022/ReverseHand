@@ -3,8 +3,9 @@ import 'package:admin/widgets/report_user_descr_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/admin_get_user_action.dart';
 import 'package:redux_comp/actions/admin/app_management/get_review_reports_action.dart';
 import 'package:redux_comp/actions/admin/app_management/remove_review_report_action.dart';
@@ -28,7 +29,7 @@ class ReviewReportManagePage extends StatelessWidget {
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
             Widget appbar = AppBarWidget(
-              title: "Manage Report",
+              title: "Review Report",
               store: store,
               backButton: true,
             );
@@ -44,77 +45,146 @@ class ReviewReportManagePage extends StatelessWidget {
                           bottomPadding: 0)
                     ],
                   )
-                : Column(
-                    children: [
-                      //**********APPBAR***********//
-                      appbar,
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        //**********APPBAR***********//
+                        appbar,
 
-                      Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: Text(
-                          report.type == "user#reports"
-                              ? "User Report"
-                              : "Review Report",
-                          style: const TextStyle(fontSize: 25),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 25),
+                        //   child: Text(
+                        //     report.type == "user#reports"
+                        //         ? "User Report"
+                        //         : "Review Report",
+                        //     style: const TextStyle(fontSize: 25),
+                        //   ),
+                        // ),
+                        const Padding(padding: EdgeInsets.only(top: 30)),
+                        const Text(
+                          "Report:",
+                          style: TextStyle(
+                              fontSize: 20,
+                              decoration: TextDecoration.underline),
                         ),
-                      ),
+                        ReportDetailsWidget(
+                          reason: report.reportDetails.reason,
+                          description: report.reportDetails.description,
+                        ),
 
-                      ReportDetailsWidget(
-                        reason: report.reportDetails.reason,
-                        description: report.reportDetails.description,
-                      ),
+                        const Padding(padding: EdgeInsets.only(top: 30)),
+                        const Text(
+                          "Reported review:",
+                          style: TextStyle(
+                              fontSize: 20,
+                              decoration: TextDecoration.underline),
+                        ),
 
-                      ReportDetailsWidget(
-                          reason: report.reviewDetails!.description,
-                          description: report.reviewDetails!.rating.toString()),
+                        // ReportDetailsWidget(
+                        //     reason: report.reviewDetails!.description,
+                        //     description:
+                        //         report.reviewDetails!.rating.toString()),
 
-                      ReportUserDescrWidget(
-                        title: "Reported User",
-                        name: report.reportDetails.reportedUser!.name,
-                        function: () {
-                          vm.dispatchGetUser(
-                              report.reportDetails.reportedUser!.id);
-                          vm.pushUserManagePage();
-                        },
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 30, 30, 10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(7)),
+                                border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2)),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    //*****************STARS*****************//
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, top: 5),
+                                      child: Icon(
+                                        Icons.star,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                    //***************************************//
+                                  ],
+                                ),
+                                const Padding(padding: EdgeInsets.only(top: 8)),
+                                //******************MESSAGE*****************//
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        10, 0, 10, 10),
+                                    child: Text(
+                                      report.reviewDetails!.description,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontStyle: FontStyle.italic),
+                                    ),
+                                  ),
+                                ),
+                                //***************************************//
+                              ],
+                            ),
+                          ),
+                        ),
 
-                      ReportUserDescrWidget(
-                        title: "Reporter User",
-                        name: report.reportDetails.reporterUser!.name,
-                        function: () {
-                          vm.dispatchGetUser(
-                              report.reportDetails.reporterUser!.id);
-                          vm.pushUserManagePage();
-                        },
-                      ),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                        // ReportDetailsWidget(
+                        //     reason: report.reviewDetails!.description,
+                        //     description:
+                        //         report.reviewDetails!.rating.toString()),
 
-                      ButtonWidget(
-                        text: "Issue Warning",
-                        function: () {
-                          vm.dispatchRemoveWithWarning(
-                            report.id,
-                            report.reportDetails.reportedUser!.id,
-                          );
-                          vm.dispatchGetReviewReports();
-                          vm.popPage();
-                        },
-                      ),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                        ReportUserDescrWidget(
+                          title: "Reported User",
+                          name: report.reportDetails.reportedUser!.name,
+                          function: () {
+                            vm.dispatchGetUser(
+                                report.reportDetails.reportedUser!.id);
+                            vm.pushUserManagePage();
+                          },
+                        ),
 
-                      ButtonWidget(
-                        text: "Remove Report",
-                        color: "dark",
-                        function: () {
-                          vm.dispatchRemoveWithoutWarning(
-                            report.id,
-                            report.reportDetails.reportedUser!.id,
-                          );
-                          vm.dispatchGetReviewReports();
-                          vm.popPage();
-                        },
-                      ),
-                    ],
+                        ReportUserDescrWidget(
+                          title: "Reporter User",
+                          name: report.reportDetails.reporterUser!.name,
+                          function: () {
+                            vm.dispatchGetUser(
+                                report.reportDetails.reporterUser!.id);
+                            vm.pushUserManagePage();
+                          },
+                        ),
+                        const Padding(padding: EdgeInsets.only(bottom: 25)),
+
+                        LongButtonWidget(
+                          text: "Issue Warning",
+                          function: () {
+                            vm.dispatchRemoveWithWarning(
+                              report.id,
+                              report.reportDetails.reportedUser!.id,
+                            );
+                            vm.dispatchGetReviewReports();
+                            vm.popPage();
+                          },
+                        ),
+
+                        TransparentLongButtonWidget(
+                          text: "Remove Report",
+                          function: () {
+                            vm.dispatchRemoveWithoutWarning(
+                              report.id,
+                              report.reportDetails.reportedUser!.id,
+                            );
+                            vm.dispatchGetReviewReports();
+                            vm.popPage();
+                          },
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 20))
+                      ],
+                    ),
                   );
           },
         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/bottom_sheet.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/profile_image.dart';
+import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
@@ -11,15 +12,23 @@ import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/profile_divider.dart';
 
-class ConsumerProfilePage extends StatelessWidget {
+class ConsumerProfilePage extends StatefulWidget {
   final Store<AppState> store;
+
+  const ConsumerProfilePage({Key? key, required this.store}) : super(key: key);
+
+  @override
+  State<ConsumerProfilePage> createState() => _ConsumerProfilePageState();
+}
+
+class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
   final nameController = TextEditingController();
-  ConsumerProfilePage({Key? key, required this.store}) : super(key: key);
+  final numController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: Scaffold(
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
@@ -27,16 +36,17 @@ class ConsumerProfilePage extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) => (vm.isWaiting)
                 ? Column(
                     children: [
-                      AppBarWidget(title: "PROFILE", store: store),
+                      AppBarWidget(title: "PROFILE", store: widget.store),
                       LoadingWidget(
-                          topPadding: MediaQuery.of(context).size.height / 3,
-                          bottomPadding: 0)
+                        topPadding: MediaQuery.of(context).size.height / 3,
+                        bottomPadding: 0,
+                      )
                     ],
                   )
                 : Column(
                     children: [
                       //*******************APP BAR WIDGET*********************//
-                      AppBarWidget(title: "PROFILE", store: store),
+                      AppBarWidget(title: "PROFILE", store: widget.store),
                       //********************************************************//
 
                       const Padding(padding: EdgeInsets.only(top: 25)),
@@ -46,70 +56,81 @@ class ConsumerProfilePage extends StatelessWidget {
                         child: Text(
                           vm.userDetails.name != null
                               ? vm.userDetails.name!
-                              : "null",
+                              : "",
                           style: const TextStyle(fontSize: 35),
                         ),
                       ),
                       //************************************/
-                      const Padding(padding: EdgeInsets.only(top: 5, bottom: 15)),
+                      const Padding(
+                          padding: EdgeInsets.only(top: 5, bottom: 15)),
                       //****************PROFILE IMAGE****************/
                       ProfileImageWidget(
-                        store: store,
+                        store: widget.store,
                       ),
                       //*****************************************
 
                       //************STATS*******************/
                       //CHANGE ICONS
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
-                        child: SizedBox(
-                          height: 100,
-                          width: MediaQuery.of(context).size.width / 1.15,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColorDark,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.check_circle_outline,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                        Text(
-                                          "Adverts Closed ${vm.userDetails.statistics.finished}",
-                                          style: const TextStyle(fontSize: 18),
-                                        ),
-                                      ],
+                      InkWell(
+                        onLongPress: () {
+                          vm.dispatchViewAdvertsAction();
+                          vm.pushArchivedJobsPage();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
+                          child: SizedBox(
+                            height: 100,
+                            width: MediaQuery.of(context).size.width / 1.15,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColorDark,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(
+                                            Icons.check_circle_outline,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                          Text(
+                                            "Adverts closed ${vm.userDetails.statistics.finished}",
+                                            style:
+                                                const TextStyle(fontSize: 18),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, left: 10, right: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.front_hand_outlined,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                        Text(
-                                          "Total Adverts ${vm.userDetails.statistics.created}",
-                                          style: const TextStyle(fontSize: 18),
-                                        ),
-                                      ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8, left: 10, right: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(
+                                            Icons.front_hand_outlined,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                          Text(
+                                            "Total adverts ${vm.userDetails.statistics.created} made",
+                                            style:
+                                                const TextStyle(fontSize: 18),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -130,10 +151,10 @@ class ConsumerProfilePage extends StatelessWidget {
                             ),
                             const Padding(padding: EdgeInsets.only(right: 8)),
                             SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
-                            child: Text(vm.userDetails.email,
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.white)),
+                              width: MediaQuery.of(context).size.width / 1.4,
+                              child: Text(vm.userDetails.email,
+                                  style: const TextStyle(
+                                      fontSize: 20, color: Colors.white)),
                             ),
                           ],
                         ),
@@ -229,11 +250,11 @@ class ConsumerProfilePage extends StatelessWidget {
                                             text:
                                                 "What cell number would you like to save?",
                                             initialVal: vm.userDetails.cellNo,
-                                            controller: nameController,
+                                            controller: numController,
                                             function: () {
                                               vm.dispatchChangeCellAction(
                                                   vm.userDetails.id,
-                                                  nameController.value.text);
+                                                  numController.value.text);
                                               Navigator.pop(context);
                                             });
                                       });
@@ -307,7 +328,7 @@ class ConsumerProfilePage extends StatelessWidget {
 
         //************************NAVBAR***********************/
         bottomNavigationBar: NavBarWidget(
-          store: store,
+          store: widget.store,
         ),
         //*************************************************//
       ),
@@ -316,7 +337,7 @@ class ConsumerProfilePage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
+class _Factory extends VmFactory<AppState, _ConsumerProfilePageState> {
   _Factory(widget) : super(widget);
 
   //Just making sure edit page is not necessary before it is removed from viewmodel
@@ -329,11 +350,15 @@ class _Factory extends VmFactory<AppState, ConsumerProfilePage> {
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchChangeNameAction: (String userId, String name) => dispatch(
             EditUserDetailsAction(userId: userId, changed: "name", name: name)),
+        pushArchivedJobsPage: () =>
+            dispatch(NavigateAction.pushNamed('/archived_jobs')),
         dispatchChangeCellAction: (String userId, String cellNo) => dispatch(
             EditUserDetailsAction(
                 userId: userId, changed: "cellNo", cellNo: cellNo)),
         userDetails: state.userDetails,
         isWaiting: state.wait.isWaiting,
+        dispatchViewAdvertsAction: () =>
+            dispatch(ViewAdvertsAction(archived: true)),
       );
 }
 
@@ -346,9 +371,13 @@ class _ViewModel extends Vm {
   final void Function(String, String) dispatchChangeCellAction;
   final VoidCallback pushLocationSearchPage;
   final bool isWaiting;
+  final VoidCallback pushArchivedJobsPage;
+  final VoidCallback dispatchViewAdvertsAction;
 
   _ViewModel({
+    required this.pushArchivedJobsPage,
     required this.pushLocationSearchPage,
+    required this.dispatchViewAdvertsAction,
     required this.userDetails,
     required this.dispatchLogoutAction,
     required this.dispatchChangeNameAction,

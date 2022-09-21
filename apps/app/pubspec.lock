@@ -253,13 +253,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  example:
-    dependency: "direct main"
-    description:
-      path: "../../libs/example"
-      relative: true
-    source: path
-    version: "0.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -433,7 +426,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.4"
+    version: "0.13.5"
   http_parser:
     dependency: transitive
     description:
@@ -456,12 +449,12 @@ packages:
     source: hosted
     version: "0.8.5+3"
   image_picker_android:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: image_picker_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.5+2"
+    version: "0.8.4+13"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -558,13 +551,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  notifications:
-    dependency: transitive
-    description:
-      path: "../../libs/notifications"
-      relative: true
-    source: path
-    version: "0.0.1"
   path:
     dependency: transitive
     description:

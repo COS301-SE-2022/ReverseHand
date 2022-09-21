@@ -250,6 +250,7 @@
         "processKinesisStreamResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/processKinesisStreamResolver-794d3035745953617258-build.zip"
+<<<<<<< HEAD
         },
         "disableUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -258,6 +259,8 @@
         "enableUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/enableUserResolver-574d447a756641714352-build.zip"
+=======
+>>>>>>> 9d2c53dfd204cf57a5ce154cc2f8f39e3d5f39d2
         }
       }
     }

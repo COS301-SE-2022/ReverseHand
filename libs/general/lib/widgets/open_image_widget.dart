@@ -22,8 +22,18 @@ class OpenImageWidget extends StatelessWidget {
             return Stack(
               children: [
                 InkWell(
-                  onTap: () =>
-                      bottomSheet(context, vm.dispatchAddtoBucketAction),
+                  onTap: () => showModalBottomSheet(
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7.0),
+                    ),
+                    builder: (BuildContext context) {
+                      return bottomSheet(
+                        context,
+                        vm.dispatchAddtoBucketAction,
+                      );
+                    },
+                  ),
                   child: const Icon(
                     Icons.camera_alt,
                     color: Colors.white,
@@ -61,7 +71,8 @@ class OpenImageWidget extends StatelessWidget {
             TextButton.icon(
               icon: const Icon(Icons.camera_alt, color: Colors.black),
               onPressed: () async {
-                XFile? file = (await takePhoto(ImageSource.camera));
+                Navigator.pop(context);
+                XFile? file = await takePhoto(ImageSource.camera);
                 if (file != null) func(File(file.path));
               },
               label: const Text("Camera"),
@@ -69,7 +80,8 @@ class OpenImageWidget extends StatelessWidget {
             TextButton.icon(
               icon: const Icon(Icons.image, color: Colors.black),
               onPressed: () async {
-                XFile? file = (await takePhoto(ImageSource.gallery));
+                Navigator.pop(context);
+                XFile? file = await takePhoto(ImageSource.gallery);
                 if (file != null) func(File(file.path));
               },
               label: const Text(
@@ -103,7 +115,7 @@ class _Factory extends VmFactory<AppState, OpenImageWidget> {
   _ViewModel fromStore() => _ViewModel(
         dispatchAddtoBucketAction: (File file) => dispatch(
           AddToBucketAction(
-            fileType: FileType.profile,
+            fileType: FileType.job,
             file: file,
           ),
         ),
@@ -116,5 +128,5 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.dispatchAddtoBucketAction,
-  }) : super(equals: []); 
+  }) : super(equals: []);
 }

@@ -7,6 +7,10 @@ import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:consumer/pages/limited_consumer_profile_page.dart';
 import 'package:consumer/pages/view_quote_page.dart';
 import 'package:general/general.dart';
+import 'package:general/pages/archived_jobs_page.dart';
+import 'package:general/pages/archived_advert_details_page.dart';
+import 'package:general/pages/archived_bid_details_page.dart';
+import 'package:general/pages/archived_view_bids_page.dart';
 import 'package:general/pages/report_page.dart';
 import 'package:general/methods/toast_error.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
@@ -127,8 +131,14 @@ class Launch extends StatelessWidget {
           '/login': (context) => LoginPage(store: store),
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),
+          '/archived_jobs': (context) => ArchivedJobsPage(store: store),
+          '/archived_advert_details/archived_bid_details': (context) =>
+              ArchivedBidDetailsPage(store: store),
+          '/archived_advert_details': (context) =>
+              ArchivedAdvertDetailsPage(store: store),
+          '/archived_view_bids': (context) =>
+              ArchivedViewBidsPage(store: store),
           //admin routes
-
           '/admin_system_metrics': (context) => SystemMetricsPage(store: store),
           '/admin_management': (context) => AdminManagePage(store: store),
           '/search_users': (context) => SearchUsersPage(store: store),

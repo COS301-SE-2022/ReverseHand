@@ -3,7 +3,7 @@ import 'package:general/widgets/button.dart';
 
 //used in consumer and tradesman
 
-class BottomSheetWidget extends StatelessWidget {
+class BottomSheetWidget extends StatefulWidget {
   final TextEditingController controller;
   final String text;
   final String? initialVal;
@@ -17,10 +17,15 @@ class BottomSheetWidget extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<BottomSheetWidget> createState() => _BottomSheetWidgetState();
+}
+
+class _BottomSheetWidgetState extends State<BottomSheetWidget> {
+  @override
   Widget build(BuildContext context) {
-    if (initialVal != null) {
-      controller.text = initialVal!;
-    }
+    // if (widget.initialVal != null) {
+    //   widget.controller.text = widget.initialVal!;
+    // }
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Container(
@@ -32,7 +37,7 @@ class BottomSheetWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    text,
+                    widget.text,
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 20, color: Colors.black),
                   ),
@@ -44,7 +49,7 @@ class BottomSheetWidget extends StatelessWidget {
                       minLines: 1,
                       style: const TextStyle(color: Colors.black, fontSize: 18),
                       obscureText: false,
-                      controller: controller,
+                      controller: widget.controller,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                         enabledBorder: OutlineInputBorder(
@@ -65,7 +70,7 @@ class BottomSheetWidget extends StatelessWidget {
                     ),
                   ),
                   const Padding(padding: EdgeInsets.all(5)),
-                  ButtonWidget(text: "Save", function: function)
+                  ButtonWidget(text: "Save", function: widget.function)
                 ],
               ),
             )),

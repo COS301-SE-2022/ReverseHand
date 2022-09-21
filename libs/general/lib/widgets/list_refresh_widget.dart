@@ -11,16 +11,14 @@ class ListRefreshWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: RefreshIndicator(
-        onRefresh: () async => refreshFunction(),
-        color: Colors.orange,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: SizedBox(
-            child: Column(
-              children: widgets,
-            ),
+    return RefreshIndicator(
+      onRefresh: () async => refreshFunction(),
+      color: Colors.orange,
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: SizedBox(
+          child: Column(
+            children: widgets,
           ),
         ),
       ),
