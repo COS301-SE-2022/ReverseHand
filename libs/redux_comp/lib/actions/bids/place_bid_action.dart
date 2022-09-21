@@ -22,8 +22,11 @@ class PlaceBidAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
+    String quoteInput = '';
     if (quote != null) {
       dispatch(AddToBucketAction(fileType: FileType.quote, file: quote!));
+      quoteInput =
+          ''', quote: "quotes/${state.activeAd!.id}/${state.userDetails.id}"''';
     }
 
     final String adId = this.adId ?? state.activeAd!.id;
@@ -31,7 +34,7 @@ class PlaceBidAction extends ReduxAction<AppState> {
 
     // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
-      placeBid(ad_id: "$adId", tradesman_id: "$userId", name: "${state.userDetails.name}", price: $price, quote: ${quote != null ? "quotes/${state.activeAd!.id}/${state.userDetails.id}" : null}) {
+      placeBid(ad_id: "$adId", tradesman_id: "$userId", name: "${state.userDetails.name}", price: $price$quoteInput) {
         id
       }
     }''';

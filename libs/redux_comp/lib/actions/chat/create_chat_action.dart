@@ -11,7 +11,7 @@ class CreateChatAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      createChat(c_id: "${state.userDetails.id}", t_id: "$tradesmanId", c_name: "${state.userDetails.name}", t_name: "${state.activeBid!.name}") {
+      createChat(c_id: "${state.userDetails.id}", t_id: "$tradesmanId", c_name: "${state.userDetails.name}", t_name: "${state.activeBid!.name}", ad_id: "${state.activeAd!.id}") {
         id
         timestamp
         consumer_name
@@ -25,7 +25,7 @@ class CreateChatAction extends ReduxAction<AppState> {
 
     try {
       // getting the bid which has beena accepted is just a graphql convention
-      /* dynamic response = */ await Amplify.API
+      dynamic response = await Amplify.API
           .mutate(request: request)
           .response; // in future may want to do something with accepted advert
 

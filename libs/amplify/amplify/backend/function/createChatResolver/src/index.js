@@ -3,14 +3,13 @@
 
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-const ReverseHandTable = process.env.REVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
     const timestamp = (new Date()).getTime();
-    const chatId = AWS.util.uuid.v4()
+    const chatId = event.arguments.ad_id
 
     await docClient.batchWrite({
       RequestItems: {
