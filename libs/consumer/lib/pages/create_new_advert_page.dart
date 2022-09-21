@@ -92,7 +92,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //trade type
               const HintWidget(
-                  text: "Select all relevant trade types",
+                  text: "Select the relevant trade type",
                   colour: Colors.white70,
                   padding: 15),
 
