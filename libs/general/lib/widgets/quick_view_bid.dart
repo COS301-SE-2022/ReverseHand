@@ -88,21 +88,23 @@ class QuickViewBidWidget extends StatelessWidget {
                     ),
                     //**************BID RANGE********************/
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 5.8,
+                      width: MediaQuery.of(context).size.width / 4.5,
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
                           border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 2),
+                              color: Theme.of(context).primaryColor, width: 2),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text(
-                            bid.amount(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontSize: 22, color: Colors.black),
+                          padding: const EdgeInsets.all(2),
+                          child: Center(
+                            child: Text(
+                              bid.amount(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 22, color: Colors.black),
+                            ),
                           ),
                         ),
                       ),
