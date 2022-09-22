@@ -58,7 +58,7 @@ class AdvertDetailsPage extends StatelessWidget {
 
                     //extra padding if there is an accepted bid
                     if (vm.advert.acceptedBid != null)
-                      (const Padding(padding: EdgeInsets.all(40))),
+                      (const Padding(padding: EdgeInsets.all(30))),
 
                     const Padding(padding: EdgeInsets.only(top: 20)),
 
@@ -109,6 +109,7 @@ class AdvertDetailsPage extends StatelessWidget {
                                   color: Colors.white70,
                                   size: 20,
                                 ),
+                                
                                 Padding(padding: EdgeInsets.all(2)),
                                 Text(
                                   "Close the job once all contractor\nservices have been completed",

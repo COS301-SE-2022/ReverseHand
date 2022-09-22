@@ -44,7 +44,7 @@ class TQuickViewBidWidget extends StatelessWidget {
                   //***********CONTRACTOR NAME*************/
                   Center(
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.8,
+                      width: MediaQuery.of(context).size.width / 2,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
                         child: Center(
@@ -62,7 +62,7 @@ class TQuickViewBidWidget extends StatelessWidget {
                 
                   //***************************************/
                   SizedBox(
-                    width: MediaQuery.of(context).size.width / 4,
+                    width: MediaQuery.of(context).size.width / 4.2,
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7),
