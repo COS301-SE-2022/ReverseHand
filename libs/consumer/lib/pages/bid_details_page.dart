@@ -100,7 +100,7 @@ class BidDetailsPage extends StatelessWidget {
                     //**************************************/
 
                     //**************SEE QUOTE BUTTON***************/
-                    (vm.bid.quote == null) 
+                    (vm.bid.quote != null) 
                       ? Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: LongButtonWidget(

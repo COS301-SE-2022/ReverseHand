@@ -46,18 +46,6 @@ class TradesmanJobDetails extends StatelessWidget {
                           store: store,
                           functions: {
                             "Report Advert": () {
-                              // vm.dispatchReportAdvertAction(
-                              //   advertId: vm.advert.id,
-                              //   userId: vm.advert.customerId,
-                              //   report: ReportDetailsModel(
-                              //     description: "testing report",
-                              //     reason: "Reason",
-                              //     reporterUser: ReportUserDetailsModel(
-                              //       id: vm.userDetails.id,
-                              //       name: vm.userDetails.name!,
-                              //     ),
-                              //   ),
-                              // );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -90,11 +78,9 @@ class TradesmanJobDetails extends StatelessWidget {
                         location: vm.advert.domain.city,
                       ),
 
-                    const Padding(padding: EdgeInsets.only(top: 25)),
+                    const Padding(padding: EdgeInsets.only(top: 17)),
 
                     //*************BOTTOM BUTTONS**************//
-                    // vm.bids.contains(vm.userBid)
-                    //this isn't working as expected
                     vm.userBid != null
                         //if this contractor has already made a bid
                         ? Column(
@@ -118,7 +104,7 @@ class TradesmanJobDetails extends StatelessWidget {
                                 padding: const EdgeInsets.only(
                                   left: 40,
                                   right: 40,
-                                  bottom: 50,
+                                  bottom: 40,
                                   top: 10,
                                 ),
                                 child: InkWell(
@@ -185,8 +171,8 @@ class TradesmanJobDetails extends StatelessWidget {
                               },
                             ),
                           ),
-                    //place bid
 
+                    //place bid
                     if (!vm.accepted)
                       TransparentLongButtonWidget(
                         text: "View Bids (${vm.bidCount})",

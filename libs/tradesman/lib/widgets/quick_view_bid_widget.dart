@@ -27,7 +27,7 @@ class TQuickViewBidWidget extends StatelessWidget {
       child: StoreConnector<AppState, _ViewModel>(
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) => Padding(
-          padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
           child: Material(
             elevation: 3,
             borderRadius: const BorderRadius.all(Radius.circular(7)),
@@ -42,21 +42,16 @@ class TQuickViewBidWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   //***********CONTRACTOR NAME*************/
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 3,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        border: Border.all(
-                            color: Theme.of(context).primaryColor, width: 2),
-                      ),
+                  Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width / 1.8,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
                         child: Center(
                           child: Text(
                             '${bid.name}',
                             style: const TextStyle(
-                              fontSize: 22,
+                              fontSize: 20,
                               color: Colors.black,
                             ),
                           ),
@@ -64,13 +59,27 @@ class TQuickViewBidWidget extends StatelessWidget {
                       ),
                     ),
                   ),
+                
                   //***************************************/
-                  const Padding(padding: EdgeInsets.only(right: 20)),
-                  Text(
-                    bid.amount(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 22, color: Colors.black),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 5.8,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                            width: 2),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(
+                          bid.amount(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontSize: 22, color: Colors.black),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

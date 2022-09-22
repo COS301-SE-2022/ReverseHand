@@ -40,22 +40,11 @@ class TradesmanViewBidsPage extends StatelessWidget {
                     title: "BIDS INFO", store: store, backButton: true),
                 //******************************//
 
-                //**********DETAILED JOB INFORMATION***********//
-                JobCardWidget(
-                  titleText: vm.advert.title,
-                  descText: vm.advert.description ?? "",
-                  date: timestampToDate(vm.advert.dateCreated),
-                  type: vm.advert.type,
-                  location: vm.advert.domain.city,
-                ),
-                //*******************************************//
-
                 const Padding(padding: EdgeInsets.all(10)),
                 Container(
                   padding: const EdgeInsets.all(8),
                   child: Column(children: [
                     if (vm.bids.isNotEmpty)
-                      const Padding(padding: EdgeInsets.only(top: 15)),
                     ...populateBids(vm.userId, vm.bids, store),
                     //********IF NO BIDS********************/
                     if (vm.bids.isEmpty)

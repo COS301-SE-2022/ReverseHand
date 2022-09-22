@@ -23,7 +23,6 @@ class AdvertDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //this are where we do the images
 
     return StoreProvider<AppState>(
       store: store,
@@ -84,7 +83,6 @@ class AdvertDetailsPage extends StatelessWidget {
                                 LightDialogHelper.display(
                                   context,
                                   DeletePopUpWidget(
-                                    // action: vm.dispatchArchiveAdvertAction,
                                     action: () =>
                                         vm.dispatchArchiveAdvertAction(),
                                   ),
