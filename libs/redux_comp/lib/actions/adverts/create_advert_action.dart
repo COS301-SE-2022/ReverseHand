@@ -9,6 +9,7 @@ import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../app_state.dart';
+import '../analytics_events/record_create_advert_action.dart';
 
 // creates an advert
 // requires the customerdId and a title the rest is optional
@@ -31,8 +32,10 @@ class CreateAdvertAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
+    int fileCount = files?.length ?? 0;
+
     String graphQLDocument = '''mutation {
-      createAdvert(customer_id: "$customerId", title: "$title", description: "$description", domain: ${domain.toString()}, type: "$type") {
+      createAdvert(customer_id: "$customerId", title: "$title", description: "$description", domain: ${domain.toString()}, type: "$type", images: $fileCount) {
         id
       }
     }''';
@@ -49,6 +52,9 @@ class CreateAdvertAction extends ReduxAction<AppState> {
         dispatch(AddToBucketAction(
             fileType: FileType.job, advertId: id, files: files));
       }
+
+      dispatch(RecordCreateAdvertAction(
+          city: domain.city, province: domain.province));
 
       return null;
     } on ApiException catch (e) {

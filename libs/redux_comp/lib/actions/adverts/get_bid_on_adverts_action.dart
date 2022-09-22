@@ -34,6 +34,7 @@ class GetBidOnAdvertsAction extends ReduxAction<AppState> {
         accepted_bid
         customer_id
         id
+        images
       }
     }''';
 

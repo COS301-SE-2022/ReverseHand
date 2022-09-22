@@ -39,6 +39,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
         type
         accepted_bid
         customer_id
+        images
         id
       }
     }''';
@@ -55,13 +56,18 @@ class ViewJobsAction extends ReduxAction<AppState> {
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
       return state.copy(
-        viewAdverts: List.from(adverts),
+        viewAdverts: _sortAdverts(List.from(adverts)),
         adverts: adverts,
       );
     } catch (e) {
       debugPrint(e.toString());
       return null; /* On Error do not modify state */
     }
+  }
+
+  List<AdvertModel> _sortAdverts(List<AdvertModel> adverts) {
+    adverts.sort((a, b) => b.advertRank!.compareTo(a.advertRank!));
+    return adverts;
   }
 
   @override
