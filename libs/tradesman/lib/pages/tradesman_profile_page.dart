@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/actions/adverts/get_bid_on_adverts_action.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';

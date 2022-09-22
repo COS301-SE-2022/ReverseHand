@@ -1,11 +1,6 @@
-// import 'dart:html';
-
 import 'package:async_redux/async_redux.dart';
-import 'package:general/methods/time.dart';
-// ignore: depend_on_referenced_packages
 import 'package:general/widgets/appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -21,10 +16,6 @@ class TradesmanViewBidsPage extends StatelessWidget {
       : super(key: key);
 
   @override
-
-  // creating bid widgets
-  // ...populateBids(vm.bids, store)
-
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
@@ -109,27 +100,3 @@ class _ViewModel extends Vm {
     required this.advert,
   }) : super(equals: [change, bids]);
 }
-
-/*
-  "domains" : [
-     {
-      city : "Pretoria",
-      coords : {
-        lat : 20,
-        lng: 10
-      },
-     {
-      city : "Pretoria",
-      coords : {
-        lat : 20,
-        lng: 10
-      },
-     {
-      city : "Pretoria",
-      coords : {
-        lat : 20,
-        lng: 10
-      },
-
-  ]
-*/

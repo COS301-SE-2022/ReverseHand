@@ -5,7 +5,6 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
-import 'package:general/widgets/open_image_widget.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,6 +28,7 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
   TextEditingController descrController = TextEditingController();
 
   String? trade;
+  // ignore: unused_field
   List<XFile>? _files;
 
   void showRadioSelect() async {
