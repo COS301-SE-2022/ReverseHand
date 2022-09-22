@@ -7,6 +7,10 @@ import 'package:consumer/pages/edit_profile_page.dart';
 import 'package:consumer/pages/limited_consumer_profile_page.dart';
 import 'package:consumer/pages/view_quote_page.dart';
 import 'package:general/general.dart';
+import 'package:general/pages/archived_jobs_page.dart';
+import 'package:general/pages/archived_advert_details_page.dart';
+import 'package:general/pages/archived_bid_details_page.dart';
+import 'package:general/pages/archived_view_bids_page.dart';
 import 'package:general/pages/report_page.dart';
 import 'package:general/methods/toast_error.dart';
 import 'package:geolocation/pages/custom_location_search_page.dart';
@@ -26,6 +30,7 @@ import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_bid_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
 import 'package:tradesman/pages/limited_tradesman_profile_page.dart';
+import 'package:tradesman/pages/reviews_page.dart';
 import 'package:tradesman/pages/tradesman_profile_page.dart';
 import 'package:tradesman/pages/view_bids_page.dart';
 import 'package:tradesman/tradesman.dart';
@@ -89,10 +94,9 @@ class Launch extends StatelessWidget {
               EditAdvertPage(store: store),
           '/consumer/edit_profile_page': (context) =>
               EditConsumerProfilePage(store: store),
-           '/consumer/limited_profile_page':(context) => 
-              LimitedConsumerProfilePage(store: store),   
-          '/consumer/view_quote_page': (context) =>
-              ViewQuotePage(store: store),
+          '/consumer/limited_profile_page': (context) =>
+              LimitedConsumerProfilePage(store: store),
+          '/consumer/view_quote_page': (context) => ViewQuotePage(store: store),
           // tradesman routes
           '/tradesman': (context) => TradesmanJobListings(store: store),
           '/tradesman/advert_details': (context) =>
@@ -111,6 +115,8 @@ class Launch extends StatelessWidget {
               DomainConfirmPage(store: store),
           '/tradesman/view_bids': (context) =>
               TradesmanViewBidsPage(store: store),
+          '/tradesman/reviews': (context) =>
+              ReviewsPage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
           '/tradesman/limited_tradesman_profile_page': (context) =>
@@ -128,8 +134,14 @@ class Launch extends StatelessWidget {
           '/login': (context) => LoginPage(store: store),
           '/chats': (context) => ChatSelectionPage(store: store),
           '/chats/chat': (context) => ChatPage(store: store),
+          '/archived_jobs': (context) => ArchivedJobsPage(store: store),
+          '/archived_advert_details/archived_bid_details': (context) =>
+              ArchivedBidDetailsPage(store: store),
+          '/archived_advert_details': (context) =>
+              ArchivedAdvertDetailsPage(store: store),
+          '/archived_view_bids': (context) =>
+              ArchivedViewBidsPage(store: store),
           //admin routes
-
           '/admin_system_metrics': (context) => SystemMetricsPage(store: store),
           '/admin_management': (context) => AdminManagePage(store: store),
           '/search_users': (context) => SearchUsersPage(store: store),

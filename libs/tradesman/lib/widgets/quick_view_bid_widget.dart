@@ -11,10 +11,12 @@ import 'package:redux_comp/models/bid_model.dart';
 class TQuickViewBidWidget extends StatelessWidget {
   final BidModel bid;
   final Store<AppState> store;
+  final bool archived;
 
   const TQuickViewBidWidget({
     Key? key,
     required this.store,
+    this.archived = false,
     required this.bid,
   }) : super(key: key);
 
@@ -87,14 +89,18 @@ class _Factory extends VmFactory<AppState, TQuickViewBidWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         dispatchSetActiveBid: (bid) => dispatch(SetActiveBidAction(bid)),
+        pushBidDetailsPage: () => dispatch(NavigateAction.pushNamed(
+            "/${state.userDetails.userType.toLowerCase()}/advert_details/bid_details")),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
   final void Function(BidModel) dispatchSetActiveBid;
+  final VoidCallback pushBidDetailsPage;
 
   _ViewModel({
+    required this.pushBidDetailsPage,
     required this.dispatchSetActiveBid,
   }); // implementinf hashcode
 }

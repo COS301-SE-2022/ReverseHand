@@ -16,11 +16,11 @@ dependencies:
     path: ../geolocation
 
   # amplify
-  amplify_flutter: ^0.6.0
-  amplify_auth_cognito: ^0.6.0
-  amplify_api: ^0.6.0
-  amplify_storage_s3: ^0.6.0
-  amplify_analytics_pinpoint: ^0.6.0
+  amplify_flutter: ^0.6.8
+  amplify_auth_cognito: ^0.6.8
+  amplify_api: ^0.6.8
+  amplify_storage_s3: ^0.6.8
+  amplify_analytics_pinpoint: ^0.6.8
 
   # redux
   async_redux: ^15.0.0

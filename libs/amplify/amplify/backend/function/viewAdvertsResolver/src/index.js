@@ -1,15 +1,23 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
-// this function is used to retrieve the bids for a specific consumer
+const ArchivedReverseHandTable = process.env.ARCHIVEDREVERSEHAND;
 
+// this function is used to retrieve the bids for a specific consumer
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
+    // deciding where to get adverts from
+    let table;
+    if (event.arguments.archived)
+        table = ArchivedReverseHandTable;
+    else
+        table = ReverseHandTable;
+
     try {
         let params = {
-            TableName: ReverseHandTable,
+            TableName: table,
             IndexName: "customer_view",
             KeyConditionExpression: "customer_id = :p",
             ExpressionAttributeValues: {
@@ -35,6 +43,7 @@ exports.handler = async (event) => {
                 domain: item['advert_details']['domain'],
                 date_created: item['advert_details']['date_created'],
                 date_closed: item['advert_details']['date_closed'],
+                images: item['advert_details']['images'],
             });
 
         return adverts;

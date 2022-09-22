@@ -389,10 +389,20 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "processKinesisStreamResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "enableUserResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "analytics": {
-    "ReversehandPinpoint": {
+    "ReverseHandPinpoint": {
       "service": "Pinpoint",
       "providerPlugin": "awscloudformation"
     }

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:async_redux/async_redux.dart';
 import 'package:general/pages/report_page.dart';
 import 'package:general/widgets/appbar_popup_menu_widget.dart';
+import 'package:general/widgets/user_bid_details_widget.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
@@ -41,31 +42,34 @@ class TradesmanJobDetails extends StatelessWidget {
                     AppBarWidget(
                         title: "JOB INFO",
                         store: store,
-                        filterActions:
-                            AppbarPopUpMenuWidget(store: store, functions: {
-                          "Report Advert": () {
-                            // vm.dispatchReportAdvertAction(
-                            //   advertId: vm.advert.id,
-                            //   userId: vm.advert.customerId,
-                            //   report: ReportDetailsModel(
-                            //     description: "testing report",
-                            //     reason: "Reason",
-                            //     reporterUser: ReportUserDetailsModel(
-                            //       id: vm.userDetails.id,
-                            //       name: vm.userDetails.name!,
-                            //     ),
-                            //   ),
-                            // );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
+                        filterActions: AppbarPopUpMenuWidget(
+                          store: store,
+                          functions: {
+                            "Report Advert": () {
+                              // vm.dispatchReportAdvertAction(
+                              //   advertId: vm.advert.id,
+                              //   userId: vm.advert.customerId,
+                              //   report: ReportDetailsModel(
+                              //     description: "testing report",
+                              //     reason: "Reason",
+                              //     reporterUser: ReportUserDetailsModel(
+                              //       id: vm.userDetails.id,
+                              //       name: vm.userDetails.name!,
+                              //     ),
+                              //   ),
+                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
                                   builder: (context) => ReportPage(
-                                        store: store,
-                                        reportType: "Advert",
-                                      )),
-                            );
-                          }
-                        }),
+                                    store: store,
+                                    reportType: "Advert",
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                        ),
                         backButton: true),
                     //*******************************************//
 
@@ -96,22 +100,33 @@ class TradesmanJobDetails extends StatelessWidget {
                         ? Column(
                             children: [
                               //*************USER BID**************//
-                              const Padding(
-                                padding: EdgeInsets.only(left: 45.0),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: HintWidget(
-                                    text: "Click on your bid to edit it",
-                                    colour: Colors.white70,
-                                    padding: 0,
+                              if ((vm.userBid != null &&
+                                      vm.userBid!.shortlisted) ||
+                                  !vm.accepted)
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 45.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: HintWidget(
+                                      text: "Click on your bid to edit it",
+                                      colour: Colors.white70,
+                                      padding: 0,
+                                    ),
                                   ),
                                 ),
-                              ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 40, right: 40, bottom: 50, top: 10),
+                                  left: 40,
+                                  right: 40,
+                                  bottom: 50,
+                                  top: 10,
+                                ),
                                 child: InkWell(
                                   onTap: () {
+                                    if (vm.userBid != null &&
+                                        vm.userBid!.shortlisted) return;
+                                    if (vm.accepted) return;
+
                                     showModalBottomSheet(
                                       context: context,
                                       isScrollControlled: true,
@@ -134,61 +149,9 @@ class TradesmanJobDetails extends StatelessWidget {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(7.0)),
                                     ),
-                                    child: SizedBox(
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                'Amount:',
-                                                style: TextStyle(
-                                                  fontSize: 22,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                vm.userBid!.amount(),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.only(top: 10),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                'Quote:',
-                                                style: TextStyle(
-                                                    fontSize: 22,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
-                                                vm.userBid!.quote != null
-                                                    ? 'Uploaded'
-                                                    : 'None Uploaded',
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.black),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                    child: UserBidDetailsWidget(
+                                      amount: vm.userBid!.amount(),
+                                      quote: vm.userBid!.quote != null,
                                     ),
                                   ),
                                 ),
@@ -202,9 +165,6 @@ class TradesmanJobDetails extends StatelessWidget {
                             child: LongButtonWidget(
                               text: "Place Bid",
                               function: () async {
-                                //keeping this here so that a bid can still be made while we create the last UI
-                                // DarkDialogHelper.display(
-                                //     context, PlaceBidPopupWidget(store: store), 1000.0);
                                 final items = await showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,
@@ -227,10 +187,11 @@ class TradesmanJobDetails extends StatelessWidget {
                           ),
                     //place bid
 
-                    TransparentLongButtonWidget(
-                      text: "View Bids (${vm.bidCount})",
-                      function: vm.pushViewBidsPage,
-                    ),
+                    if (!vm.accepted)
+                      TransparentLongButtonWidget(
+                        text: "View Bids (${vm.bidCount})",
+                        function: vm.pushViewBidsPage,
+                      ),
                     const Padding(padding: EdgeInsets.only(top: 20)),
                     TransparentLongButtonWidget(
                       text: "View Client Profile",
@@ -259,7 +220,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
   @override
   _ViewModel fromStore() => _ViewModel(
         advert: state.activeAd!,
-        bidCount: state.bids.length,
+        bidCount: state.bids.length + state.shortlistBids.length,
         popPage: () => dispatch(
           NavigateAction.pop(),
         ),
@@ -272,6 +233,12 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
             dispatch(PlaceBidAction(price: price, quote: quote)),
         dispatchGetOtherUserAction: () =>
             dispatch(GetOtherUserAction(state.activeAd!.userId)),
+        accepted: state.userBid == null
+            ? false
+            : state.activeAd!.acceptedBid == null
+                ? false
+                : state.userBid!.id == state.activeAd!.acceptedBid!,
+        change: state.change,
       );
 }
 
@@ -288,9 +255,12 @@ class _ViewModel extends Vm {
     File? quote,
   }) dispatchPlaceBidAction;
   final VoidCallback dispatchGetOtherUserAction;
+  final bool accepted;
+  final bool change;
 
   _ViewModel({
     required this.advert,
+    required this.change,
     required this.bidCount,
     required this.userBid,
     required this.dispatchPlaceBidAction,
@@ -298,5 +268,6 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.pushViewBidsPage,
     required this.loading,
-  }) : super(equals: [advert, loading]);
+    required this.accepted,
+  }) : super(equals: [advert, loading, userBid, change]);
 }

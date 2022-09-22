@@ -39,6 +39,7 @@ class AppState {
       activeBid; // represents the current bid, used for viewing a bid
 
   final List<AdvertModel> adverts;
+  final List<AdvertModel> archivedJobs; // history of users jobs made/bid on
   final List<AdvertModel> viewAdverts;
   final List<AdvertModel> bidOnAdverts; // adverts which a tradesman has bid on
   final AdvertModel? activeAd; // used for representing the current ad
@@ -79,6 +80,7 @@ class AppState {
     required this.partialUser,
     required this.adverts,
     required this.viewAdverts,
+    required this.archivedJobs,
     required this.bids,
     required this.shortlistBids,
     required this.viewBids,
@@ -136,6 +138,7 @@ class AppState {
       ),
       partialUser: const PartialUser(email: "", group: "", verified: ""),
       adverts: const [],
+      archivedJobs: const [],
       advertsWon: const [],
       sum: 0,
       viewAdverts: const [],
@@ -153,6 +156,7 @@ class AppState {
             province: "province",
             coordinates: Coordinates(lat: 22, lng: 21)),
         dateCreated: 0,
+        imageCount: 0,
       ),
       activeBid: const BidModel(
         id: "",
@@ -187,6 +191,7 @@ class AppState {
     UserModel? otherUserDetails,
     PartialUser? partialUser,
     List<AdvertModel>? adverts,
+    List<AdvertModel>? archivedJobs,
     List<AdvertModel>? viewAdverts,
     List<AdvertModel>? bidOnAdverts,
     List<BidModel>? bids,
@@ -221,6 +226,7 @@ class AppState {
       otherUserDetails: otherUserDetails ?? this.otherUserDetails,
       partialUser: partialUser ?? this.partialUser,
       adverts: adverts ?? this.adverts,
+      archivedJobs: archivedJobs ?? this.archivedJobs,
       viewAdverts: viewAdverts ?? this.viewAdverts,
       bids: bids ?? this.bids,
       shortlistBids: shortlistBids ?? this.shortlistBids,

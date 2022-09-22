@@ -1,64 +1,108 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+const ArchivedReverseHandTable = process.env.ARCHIVEDREVERSEHAND;
 
-// function gets tradesman id from bid and deletes chat
-// this must be changed later
-
-// takes consumer_id and sbid id and ad_id
-
+// archives a caht by recieving the advert, consumer and tradesman id's
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    let params = {
+    let data = await docClient.query({
         TableName: ReverseHandTable,
-        Key: {
-            part_key: event.arguments.ad_id,
-            sort_key: event.arguments.ad_id
-        },
-    };
+        KeyConditionExpression: "part_key = :a", // filtering by bids
+        ExpressionAttributeValues: {
+            ":a": "chat#"+ event.arguments.ad_id,
+        }
+    }).promise();
 
-    let data = await docClient.get(params).promise();
-    
-    params = {
-        TableName: ReverseHandTable,
-        Key: {
-            part_key: event.arguments.ad_id,
-            sort_key: data['Item']['advert_details']['accepted_bid'],
-        },
-    };
-    
-    data = await docClient.get(params).promise();
+    let items = data["Items"];
+    let params = {};
+    let opps = {};
+    opps[ReverseHandTable] = [];
+    opps[ArchivedReverseHandTable] = [];
+    params.RequestItems = opps;
 
-    params = {
-        TableName: ReverseHandTable,
-        Key: {
-            part_key: event.arguments.c_id,
-            sort_key: data['Item']['bid_details']['tradesman_id'],
-        },
-    }
+    if (items.length != 0) {
+        opps[ReverseHandTable] = [
+            ...items.map(item => ({
+                DeleteRequest: {
+                    Key: {
+                        part_key: item.part_key,
+                        sort_key: item.sort_key,
+                    }
+                }
+            }))
+        ];
 
-    data = await docClient.get(params).promise();
+        opps[ArchivedReverseHandTable] = [
+            ...items.map(item => ({
+                PutRequest: {
+                    Item: item
+                }
+            })) 
+        ];
 
-    await docClient.delete(params).promise();
-    
-    params = {
-            TableName: ReverseHandTable,
-            Key: {
-                part_key: event.arguments.ad_id,
-                sort_key: event.arguments.ad_id
-            },
-            UpdateExpression: 'set advert_details.#date_closed = :d',
-            ExpressionAttributeValues: {
-                ':d': 'closed',
-            },
-            ExpressionAttributeNames: {
-                '#date_closed': 'date_closed',
-            },
+        // deleting bids
+        params = {
+            RequestItems: {}
         };
 
-    await docClient.update(params).promise();
+        params.RequestItems = opps;
+    }
 
-    return data['Item'];
+    // getting root items
+    let chats = {};
+    chats[ReverseHandTable] = {
+        Keys: [
+            {
+                part_key: "chats#" + event.arguments.c_id,
+                sort_key: "chat#" + event.arguments.ad_id,
+            },
+            {
+                part_key: "chats#" + event.arguments.t_id,
+                sort_key: "chat#" + event.arguments.ad_id,
+            }
+        ]
+    };
+
+    chats = await docClient.batchGet({
+        RequestItems: chats,
+    }).promise();
+    
+    let chatItems = chats['Responses'][ReverseHandTable];
+
+    // deleting root items
+    params["RequestItems"][ReverseHandTable].push({
+        DeleteRequest: {
+            Key: {
+                part_key: "chats#" + event.arguments.c_id,
+                sort_key: "chat#" + event.arguments.ad_id,
+            }
+        }
+    });
+    params["RequestItems"][ReverseHandTable].push({
+        DeleteRequest: {
+            Key: {
+                part_key: "chats#" + event.arguments.t_id,
+                sort_key: "chat#" + event.arguments.ad_id,
+            }
+        }
+    });
+
+    // adding root items
+    params["RequestItems"][ArchivedReverseHandTable].push({
+        PutRequest: {
+            Item: chatItems[0]
+        }
+    });
+    params["RequestItems"][ArchivedReverseHandTable].push({
+        PutRequest: {
+            Item: chatItems[1]
+        }
+    });
+
+    await docClient.batchWrite(params).promise();
+
+    return chatItems[0];
 };

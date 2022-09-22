@@ -40,4 +40,26 @@ class BidModel {
             : null,
         shortlisted: obj['shortlisted']);
   }
+
+  @override
+  operator ==(Object other) =>
+      other is BidModel &&
+      id == other.id &&
+      userId == other.userId &&
+      name == other.name &&
+      quote == other.quote &&
+      shortlisted == other.shortlisted &&
+      dateCreated == other.dateCreated &&
+      dateClosed == other.dateClosed;
+
+  @override
+  int get hashCode => Object.hash(
+        id,
+        userId,
+        name,
+        quote,
+        shortlisted,
+        dateCreated,
+        dateClosed,
+      );
 }

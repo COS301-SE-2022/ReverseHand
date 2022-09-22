@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 //******************************** */
 //  login and signup long button
 //******************************** */
@@ -10,14 +9,16 @@ class LongButtonWidget extends StatelessWidget {
   final void Function() function;
   final double width;
   final double height;
+  final Color backgroundColor;
 
-  const LongButtonWidget(
-      {Key? key,
-      required this.text,
-      required this.function,
-      this.width = 290,
-      this.height = 70})
-      : super(key: key);
+  const LongButtonWidget({
+    Key? key,
+    required this.text,
+    required this.function,
+    this.backgroundColor = Colors.orange,
+    this.width = 290,
+    this.height = 70,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +29,8 @@ class LongButtonWidget extends StatelessWidget {
         children: <Widget>[
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white, 
-              backgroundColor: Colors.orange,
+              foregroundColor: Colors.white,
+              backgroundColor: backgroundColor,
               shadowColor: Colors.black,
               elevation: 9,
               textStyle: const TextStyle(fontSize: 20),

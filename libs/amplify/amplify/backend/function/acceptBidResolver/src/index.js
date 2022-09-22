@@ -47,11 +47,11 @@ exports.handler = async (event) => {
             part_key: tradesman_id,
             sort_key: tradesman_id
         },
-        UpdateExpression: "set finished = :finished + :value",
+        UpdateExpression: "set finished = finished + :value",
         ExpressionAttributeValues: {
             ":value": 1,
         }
-    });
+    }).promise();
 
     await docClient.update({
         TableName: ReverseHandTable,
@@ -59,13 +59,14 @@ exports.handler = async (event) => {
             part_key: customer_id,
             sort_key: customer_id
         },
-        UpdateExpression: "set finished = :finished + :value",
+        UpdateExpression: "set finished = finished + :value",
         ExpressionAttributeValues: {
             ":value": 1,
         }
-    });
+    }).promise();
 
     sbid['tradesman_id'] = tradesman_id;
+    sbid['id'] = data["Item"]['sort_key'];
 
     return sbid;
 };

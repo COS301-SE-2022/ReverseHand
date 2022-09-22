@@ -73,7 +73,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand"
+            "REVERSEHAND": "ReverseHand",
+            "ARCHIVEDREVERSEHAND": "ArchivedReverseHand"
           }
         },
         "Role": {
@@ -187,9 +188,11 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:UpdateItem",
-                "dynamodb:GetItem",
-                "dynamodb:Delete*"
+                "dynamodb:Delete*",
+                "dynamodb:PutItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:BatchGetItem",
+                "dynamodb:Query"
               ],
               "Resource": [
                 {
@@ -205,6 +208,14 @@
                     "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/index/*",
                     {
                       "tablename": "ReverseHand"
+                    }
+                  ]
+                },
+                {
+                  "Fn::Sub": [
+                    "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
+                    {
+                      "tablename": "ArchivedReverseHand"
                     }
                   ]
                 }

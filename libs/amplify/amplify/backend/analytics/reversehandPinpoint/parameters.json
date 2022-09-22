@@ -1,11 +1,11 @@
 {
     "appName": "ReversehandPinpoint",
-    "roleName": "pinpointLambdaRoledbbab8a7",
-    "cloudformationPolicyName": "cloudformationPolicydbbab8a7",
-    "cloudWatchPolicyName": "cloudWatchPolicydbbab8a7",
-    "pinpointPolicyName": "pinpointPolicydbbab8a7",
-    "authPolicyName": "pinpoint_amplify_dbbab8a7",
-    "unauthPolicyName": "pinpoint_amplify_dbbab8a7",
+    "roleName": "pinpointLambdaRoledda7520f",
+    "cloudformationPolicyName": "cloudformationPolicydda7520f",
+    "cloudWatchPolicyName": "cloudWatchPolicydda7520f",
+    "pinpointPolicyName": "pinpointPolicydda7520f",
+    "authPolicyName": "pinpoint_amplify_dda7520f",
+    "unauthPolicyName": "pinpoint_amplify_dda7520f",
     "authRoleName": {
         "Ref": "AuthRoleName"
     },

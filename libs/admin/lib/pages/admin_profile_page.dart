@@ -1,4 +1,5 @@
 import 'package:admin/widgets/admin_navbar_widget.dart';
+import 'package:admin/widgets/provinces_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/bottom_sheet.dart';
@@ -11,15 +12,39 @@ import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/profile_divider.dart';
 
-class AdminProfilePage extends StatelessWidget {
+class AdminProfilePage extends StatefulWidget {
   final Store<AppState> store;
+
+  const AdminProfilePage({Key? key, required this.store}) : super(key: key);
+
+  @override
+  State<AdminProfilePage> createState() => _AdminProfilePageState();
+}
+
+class _AdminProfilePageState extends State<AdminProfilePage> {
   final nameController = TextEditingController();
-  AdminProfilePage({Key? key, required this.store}) : super(key: key);
+  String? trade;
+
+  void showRadioSelect() async {
+    final String? result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const ProvinceSelectWidget();
+      },
+    );
+
+    // Update UI
+    if (result != null) {
+      setState(() {
+        trade = result;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: Scaffold(
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
@@ -27,7 +52,7 @@ class AdminProfilePage extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) => (vm.isWaiting)
                 ? Column(
                     children: [
-                      AppBarWidget(title: "PROFILE", store: store),
+                      AppBarWidget(title: "PROFILE", store: widget.store),
                       LoadingWidget(
                           topPadding: MediaQuery.of(context).size.height / 3,
                           bottomPadding: 0)
@@ -36,7 +61,7 @@ class AdminProfilePage extends StatelessWidget {
                 : Column(
                     children: [
                       //*******************APP BAR WIDGET*********************//
-                      AppBarWidget(title: "PROFILE", store: store),
+                      AppBarWidget(title: "PROFILE", store: widget.store),
                       //********************************************************//
 
                       const Padding(padding: EdgeInsets.only(top: 25)),
@@ -55,7 +80,7 @@ class AdminProfilePage extends StatelessWidget {
                           padding: EdgeInsets.only(top: 5, bottom: 15)),
                       //****************PROFILE IMAGE****************/
                       ProfileImageWidget(
-                        store: store,
+                        store: widget.store,
                       ),
                       //*****************************************
 
@@ -162,7 +187,7 @@ class AdminProfilePage extends StatelessWidget {
                               ],
                             ),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () => showRadioSelect(),
                                 icon: const Icon(
                                   Icons.arrow_forward_ios,
                                   color: Colors.white,
@@ -192,7 +217,7 @@ class AdminProfilePage extends StatelessWidget {
                   ),
           ),
         ),
-        bottomNavigationBar: AdminNavBarWidget(store: store),
+        bottomNavigationBar: AdminNavBarWidget(store: widget.store),
         //************************NAVBAR***********************/
 
         //*************************************************//
@@ -202,10 +227,8 @@ class AdminProfilePage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, AdminProfilePage> {
+class _Factory extends VmFactory<AppState, _AdminProfilePageState> {
   _Factory(widget) : super(widget);
-
-  //Just making sure edit page is not necessary before it is removed from viewmodel
 
   @override
   _ViewModel fromStore() => _ViewModel(

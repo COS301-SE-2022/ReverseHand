@@ -26,7 +26,7 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
       ..reference = DateTime.now().millisecondsSinceEpoch.toString()
       // ..accessCode = await createAccessCode()
       ..currency = 'ZAR'
-      ..email = 'mdp0101@gmail.com';
+      ..email = state.userDetails.email;
 
     // ignore: use_build_context_synchronously
     CheckoutResponse response = await paystackPlugin.checkout(

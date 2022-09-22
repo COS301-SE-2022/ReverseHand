@@ -3,9 +3,9 @@
 # input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Query {
-  viewBids(ad_id: String!): [Bid!]! @function(name: "viewBidsResolver-${env}")
+  viewBids(ad_id: String!, archived: Boolean): [Bid!]! @function(name: "viewBidsResolver-${env}")
 
-  viewAdverts(user_id: String!): [Advert!]!
+  viewAdverts(user_id: String!, archived: Boolean): [Advert!]!
     @function(name: "viewAdvertsResolver-${env}")
 
   viewJobs(domains: [DomainInput!]!, types: [String!]!): [Advert!]!
@@ -45,7 +45,7 @@ type Query {
   getMetrics(params: String!): String!
     @function(name: "getMetricsResolver-${env}") 
 
-  getBidOnAdverts(tradesman_id: String!): [Advert!]!
+  getBidOnAdverts(tradesman_id: String!, archived: Boolean): [Advert!]!
     @function(name: "getBidOnAdvertsResolver-${env}")
 
   listUsers(group: String!, next_token: String): AdminListUsers!
@@ -71,6 +71,7 @@ type Mutation {
     description: String
     domain: DomainInput!
     type: String!
+    images: Int! # number of images uploaded
   ): Advert! @function(name: "createAdvertResolver-${env}")
 
   placeBid(
@@ -132,16 +133,17 @@ type Mutation {
     @function(name: "removeDomainResolver-${env}")
 
   createChat(
-    c_id: String!
-    t_id: String!
-    c_name: String!
-    t_name: String!
+    c_id: String!,
+    t_id: String!,
+    ad_id: String!,
+    c_name: String!,
+    t_name: String!,
   ): Chat! @function(name: "createChatResolver-${env}")
 
   sendMessage(chat_id: String!, msg: String!, sender: String!): Message!
     @function(name: "sendMessageResolver-${env}")
 
-  deleteChat(c_id: String!, ad_id: String!): Chat!
+  deleteChat(t_id: String!, c_id: String!, ad_id: String!): Chat!
     @function(name: "deleteChatResolver-${env}")
 
   addReview(user_id: String!, review: ReviewInput!): Review! # user_id is who the review is being created for
@@ -173,6 +175,9 @@ type Mutation {
 
   acceptAdvertReport(advert_id: String!, issueWarning: Boolean!): Advert!
     @function(name: "acceptAdvertReportResolver-${env}") 
+
+  enableUser(username: String!, disable: Boolean!) : String!
+    @function(name: "enableUserResolver-${env}")
 }
 
 type Subscription {
@@ -288,6 +293,7 @@ type Advert implements UniqueID {
   domain: Domain!
   date_created: Float!
   date_closed: Float
+  images: Int! # number of images uploaded
 }
 
 type Bid implements UniqueID {
