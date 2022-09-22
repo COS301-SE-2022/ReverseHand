@@ -71,31 +71,29 @@ class TBidDetailsPage extends StatelessWidget {
                 //****************************//
 
                 //******************INFO***************//
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(padding: EdgeInsets.all(15)),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const Padding(padding: EdgeInsets.all(15)),
 
-                      //bid range
-                      const Center(
-                        child: Text(
-                          'Quoted price',
-                          style: TextStyle(fontSize: 20, color: Colors.white70),
-                        ),
-                      ),
-                      const Padding(padding: EdgeInsets.all(8)),
-                      Center(
-                        child: Text(
-                          'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
-                          style: const TextStyle(
-                              fontSize: 40,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
+                  //bid range
+                  const Center(
+                    child: Text(
+                      'Quoted price',
+                      style: TextStyle(fontSize: 20, color: Colors.white70),
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.all(8)),
+                  Center(
+                    child: Text(
+                      vm.bid.amount(),
+                      style: const TextStyle(
+                          fontSize: 40,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
 
-                      const Padding(padding: EdgeInsets.all(40)),
-                    ]),
+                  const Padding(padding: EdgeInsets.all(40)),
+                ]),
                 //*************************************//
 
                 //****************BOTTOM BUTTONS**************//

@@ -1,13 +1,13 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/adverts/archive_advert_action.dart';
-import 'package:redux_comp/actions/adverts/get_advert_images_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/actions/chat/delete_chat_action.dart';
@@ -23,6 +23,8 @@ class AdvertDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //this are where we do the images
+
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -38,17 +40,21 @@ class AdvertDetailsPage extends StatelessWidget {
                     //*******************************************//
 
                     //******************CAROUSEL ****************//
-                    if (vm.advertImages.isNotEmpty)
-                      ImageCarouselWidget(images: vm.advertImages),
+                    if (vm.advert.images.isNotEmpty)
+                      ImageCarouselWidget(images: vm.advert.images),
                     //*******************************************//
 
-                    JobCardWidget(
+                    if (vm.loading)
+                      const LoadingWidget(topPadding: 80, bottomPadding: 0)
+                    else
+                      JobCardWidget(
                         titleText: vm.advert.title,
                         descText: vm.advert.description ?? "",
                         location: vm.advert.domain.city,
                         type: vm.advert.type,
                         date: timestampToDate(vm.advert.dateCreated),
-                        store: store),
+                        editButton: true,
+                      ),
                     //*******************************************//
 
                     //extra padding if there is an accepted bid
@@ -63,21 +69,27 @@ class AdvertDetailsPage extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 15),
                         child: Column(
                           children: [
-                            AuthButtonWidget(
-                                text: "View Bids",
-                                function: () {
-                                  vm.pushViewBidsPage();
-                                }),
+                            LongButtonWidget(
+                              text: "View Bids (${vm.bidCount})",
+                              backgroundColor: vm.bidCount == 0
+                                  ? Colors.grey
+                                  : Colors.orange,
+                              function: () {
+                                if (vm.bidCount != 0) vm.pushViewBidsPage();
+                              },
+                            ),
                             TransparentLongButtonWidget(
                               text: "Delete",
                               function: () {
                                 LightDialogHelper.display(
-                                    context,
-                                    DeletePopUpWidget(
-                                      // action: vm.dispatchArchiveAdvertAction,
-                                      action: () => vm.test(),
-                                    ),
-                                    320.0);
+                                  context,
+                                  DeletePopUpWidget(
+                                    // action: vm.dispatchArchiveAdvertAction,
+                                    action: () =>
+                                        vm.dispatchArchiveAdvertAction(),
+                                  ),
+                                  320.0,
+                                );
                               },
                             )
                           ],
@@ -109,18 +121,25 @@ class AdvertDetailsPage extends StatelessWidget {
                             ),
                           ),
                           const Padding(padding: EdgeInsets.only(top: 15)),
-                          AuthButtonWidget(
+                          LongButtonWidget(
                             text: "Close",
                             function: () {
-                              LightDialogHelper.display(context,
-                                  RatingPopUpWidget(
-                                onPressed: () {
-                                  vm.dispatchDeleteChatAction();
-                                  vm.pushConsumerListings();
-                                },
-                              ), 1000.0);
+                              LightDialogHelper.display(
+                                context,
+                                RatingPopUpWidget(
+                                  store: store,
+                                  onPressed: () {
+                                    // reason not inside Rating popup is to make it general and reusable
+                                    vm.dispatchDeleteChatAction();
+                                    vm.dispatchArchiveAdvertAction();
+                                    vm.pushConsumerListings();
+                                  },
+                                ),
+                                1000.0,
+                              );
                             },
                           ),
+                          const Padding(padding: EdgeInsets.only(bottom: 50)),
                         ],
                       ),
                   ],
@@ -146,9 +165,6 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
         pushViewBidsPage: () => dispatch(
           NavigateAction.pushNamed('/consumer/view_bids'),
         ),
-        pushEditAdvert: () => dispatch(
-          NavigateAction.pushNamed('/consumer/edit_advert_page'),
-        ),
         pushConsumerListings: () => dispatch(
           NavigateAction.pushNamed('/consumer'),
         ),
@@ -159,8 +175,8 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
           dispatch(ArchiveAdvertAction());
           dispatch(NavigateAction.pop());
         },
-        test: () => dispatch(GetAdvertImagesAction()),
-        advertImages: state.advertImages,
+        loading: state.wait.isWaiting,
+        bidCount: state.bids.length + state.shortlistBids.length,
       );
 }
 
@@ -168,24 +184,22 @@ class _Factory extends VmFactory<AppState, AdvertDetailsPage> {
 class _ViewModel extends Vm {
   final AdvertModel advert;
   final VoidCallback pushViewBidsPage;
-  final VoidCallback pushEditAdvert;
   final VoidCallback pushConsumerListings;
   final VoidCallback popPage;
+  final int bidCount;
   final VoidCallback dispatchDeleteChatAction;
   final VoidCallback
       dispatchArchiveAdvertAction; // the buttonn says delete but we are in actual fact archiving
-  final VoidCallback test;
-  final List<String> advertImages;
+  final bool loading;
 
   _ViewModel({
     required this.dispatchDeleteChatAction,
     required this.advert,
-    required this.pushEditAdvert,
+    required this.bidCount,
     required this.pushViewBidsPage,
     required this.pushConsumerListings,
     required this.popPage,
     required this.dispatchArchiveAdvertAction,
-    required this.test,
-    required this.advertImages,
-  }) : super(equals: [advert, advertImages]); // implementinf hashcode
+    required this.loading,
+  }) : super(equals: [advert, loading]); // implementinf hashcode
 }

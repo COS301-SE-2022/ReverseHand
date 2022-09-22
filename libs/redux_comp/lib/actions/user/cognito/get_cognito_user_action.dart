@@ -47,4 +47,10 @@ class GetCognitoUserAction extends ReduxAction<AppState> {
       dispatch(WaitAction.remove("auto-login"));
     }
   }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
+  }
 }

@@ -1,5 +1,4 @@
 {
-  "root": "libs/admin",
   "sourceRoot": "libs/admin/src",
   "projectType": "library",
   "targets": {

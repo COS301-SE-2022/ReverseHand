@@ -26,7 +26,7 @@ class GetNotificationsAction extends ReduxAction<AppState> {
       data.forEach((el) => notifications.add(NotificationModel.fromJson(el)));
 
       return state.copy(
-        notifications: notifications,
+        notifications: notifications.reversed.toList(),
       );
     } catch (e) {
       return null; /* On Error do not modify state */

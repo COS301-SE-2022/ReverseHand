@@ -36,6 +36,7 @@ exports.handler = async (event) => {
                 description: event.arguments.description,
                 domain: event.arguments.domain,
                 type: event.arguments.type,
+                images: event.arguments.images,
                 date_created: currentDate // automatically generating the date
             }
         }
@@ -116,5 +117,6 @@ exports.handler = async (event) => {
     */
 
     item.Item.advert_details['id'] = ad_id; // adding advert id to be returned
+    item.Item.advert_details['customer_id'] = event.arguments.customer_id;
     return item.Item.advert_details;
 };

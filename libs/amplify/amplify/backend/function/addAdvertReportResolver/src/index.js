@@ -37,7 +37,7 @@ exports.handler = async (event) => {
         
       await docClient.update(paramsUpdateReportsList).promise().then((resp) => resp.Attributes);
       
-    } else if (advert.admin_reports.some(report => report.reporter_id == event.arguments.report.reporter_id)) {
+    } else if (advert.admin_reports.some(report => report.reporter_user.id == event.arguments.report.reporter_user.id)) {
         return "Advert already reported";
     }
     
@@ -54,5 +54,13 @@ exports.handler = async (event) => {
       
     }
     
-    return advert;
+    let obj = {};
+    obj.id = advert.part_key;
+    obj.advert = advert.advert_details;
+    obj.advert.id = advert.part_key;
+    obj.customer_id = advert.customer_id;
+    obj.reports = advert.admin_reports;
+    obj.count = obj.reports.length;
+    
+    return obj;
 };

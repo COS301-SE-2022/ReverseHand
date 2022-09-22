@@ -17,9 +17,7 @@ class ListRefreshWidget extends StatelessWidget {
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: SizedBox(
-          height: MediaQuery.of(context).size.height /2,
           child: Column(
-          
             children: widgets,
           ),
         ),

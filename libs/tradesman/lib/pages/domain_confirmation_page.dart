@@ -4,7 +4,6 @@ import 'package:tradesman/widgets/tradesman_floating_button.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:tradesman/methods/populate_domains.dart';
 import 'package:uuid/uuid.dart';
 
@@ -25,12 +24,11 @@ class DomainConfirmPage extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) => Column(
               children: [
                 //*******************APP BAR WIDGET******************//
-                AppBarWidget(title: "DOMAINS DISPLAY", store: store),
+                AppBarWidget(title: "MY DOMAINS", store: store, backButton: true,),
                 //***************************************************//
 
                 //**************** Domain Location Cards*************//
-                // CardWidget(store: store, title: 'Pretoria'),
-                // CardWidget(store: store, title: 'Centurion'),
+                const Padding(padding: EdgeInsets.only(top: 15)),
                 ...populateDomains(store, vm.domains),
                 //***************************************************//
 
@@ -39,7 +37,7 @@ class DomainConfirmPage extends StatelessWidget {
                   const Padding(padding: EdgeInsets.all(8)),
 
                 //*******************DISCARD BUTTON*****************//
-                ButtonWidget(text: "Back", color: "dark", function: vm.pop)
+                // ButtonWidget(text: "Back", color: "dark", function: vm.pop)
                 //**********************NAME************************//
               ],
             ),
@@ -48,10 +46,12 @@ class DomainConfirmPage extends StatelessWidget {
         //************************NAVBAR***********************/
         floatingActionButton: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) =>
-              TradesmanFloatingButtonWidget(
-            function: vm.pushCustomSearch,
-            type: "add",
+          builder: (BuildContext context, _ViewModel vm) => Padding(
+            padding: const EdgeInsets.only(bottom: 30.0),
+            child: TradesmanFloatingButtonWidget(
+              function: vm.pushCustomSearch,
+              type: "add",
+            ),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

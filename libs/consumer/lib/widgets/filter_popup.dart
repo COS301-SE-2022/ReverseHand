@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/toast_error.dart';
 import 'package:general/widgets/button.dart';
 import 'package:redux_comp/actions/adverts/filter_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
@@ -146,6 +147,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                     // initialValue: "0",
                     style: const TextStyle(color: Colors.white),
                     controller: minController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "min",
                       labelStyle: const TextStyle(color: Colors.white),
@@ -188,6 +190,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                   child: TextFormField(
                     style: const TextStyle(color: Colors.white),
                     controller: maxController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "max",
                       labelStyle: const TextStyle(color: Colors.white),
@@ -238,7 +241,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
             child: Column(
               children: [
                 CheckboxListTile(
-                  title: const Text('Shortlisted Bids'),
+                  title: const Text('Favourited Bids'),
                   value: showSBids,
                   activeColor: Theme.of(context).primaryColor,
                   onChanged: (bool? value) {
@@ -248,7 +251,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                   },
                 ),
                 CheckboxListTile(
-                  title: const Text('Non-shortlisted Bids'),
+                  title: const Text('Non-favourited Bids'),
                   value: showBids,
                   activeColor: Theme.of(context).primaryColor,
                   onChanged: (bool? value) {
@@ -271,22 +274,46 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
             builder: (BuildContext context, _ViewModel vm) => ButtonWidget(
               text: "Apply",
               function: () {
-                vm.dispatchFilterBidsAction(
-                  FilterBidsModel(
-                    includeShortlisted: showSBids,
-                    includeBids: showBids,
-                    priceRange: minController.value.text.isEmpty ||
-                            maxController.value.text.isEmpty
-                        ? null
-                        : Range(
-                            int.parse(minController.value.text),
-                            int.parse(maxController.value.text),
+                //if the min and max values are actually used
+                if (minController.text.isNotEmpty &&
+                    maxController.text.isNotEmpty) {
+                      //make sure that min <= max
+                  int.parse(minController.text) > int.parse(maxController.text)
+                      ? displayToastError(
+                          context, "Min field must be less than Max field")
+                      : vm.dispatchFilterBidsAction(
+                          FilterBidsModel(
+                            includeShortlisted: showSBids,
+                            includeBids: showBids,
+                            priceRange: minController.value.text.isEmpty ||
+                                    maxController.value.text.isEmpty
+                                ? null
+                                : Range(
+                                    int.parse(minController.value.text),
+                                    int.parse(maxController.value.text),
+                                  ),
+                            sort: sort,
                           ),
-                    sort: sort,
-                  ),
-                );
-
-                Navigator.pop(context);
+                        );
+                  Navigator.pop(context);
+                  //if the min and max values aren't used
+                } else {
+                  vm.dispatchFilterBidsAction(
+                    FilterBidsModel(
+                      includeShortlisted: showSBids,
+                      includeBids: showBids,
+                      priceRange: minController.value.text.isEmpty ||
+                              maxController.value.text.isEmpty
+                          ? null
+                          : Range(
+                              int.parse(minController.value.text),
+                              int.parse(maxController.value.text),
+                            ),
+                      sort: sort,
+                    ),
+                  );
+                  Navigator.pop(context);
+                }
               },
             ),
           ),

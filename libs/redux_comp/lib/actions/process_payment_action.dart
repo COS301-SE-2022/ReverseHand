@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
+import 'package:redux_comp/actions/bids/accept_bid_action.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 import '../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:http/http.dart' as http;
@@ -20,11 +22,11 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
 
     // testing
     Charge charge = Charge()
-      ..amount = 600
+      ..amount = state.activeBid!.price
       ..reference = DateTime.now().millisecondsSinceEpoch.toString()
       // ..accessCode = await createAccessCode()
       ..currency = 'ZAR'
-      ..email = 'mdp0101@gmail.com';
+      ..email = state.userDetails.email;
 
     // ignore: use_build_context_synchronously
     CheckoutResponse response = await paystackPlugin.checkout(
@@ -32,11 +34,14 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
       method: CheckoutMethod.card,
       charge: charge,
     );
+
     if (response.status) {
       _verifyOnServer(response.reference);
     } else {
-      //show error
+      throw const UserException("", cause: ErrorType.paymentCancelled);
     }
+
+    dispatch(AcceptBidAction());
 
     return null;
   }
@@ -49,7 +54,7 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
     };
 
     Map data = {
-      "amount": 600,
+      "amount": state.activeBid!.price,
       "email": "cachemoney.up@gmail.com",
       "reference": DateTime.now().millisecondsSinceEpoch.toString(),
     };
@@ -83,11 +88,22 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
         //do something with the response. show success
         // print("success");
       } else {
-        //show error prompt
-        // print("fail");
+        throw const UserException(
+          "",
+          cause: ErrorType.serverVerificationFailed,
+        );
       }
     } catch (e) {
-      // print(e);
+      throw const UserException(
+        "",
+        cause: ErrorType.unknownError,
+      );
     }
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

@@ -8,23 +8,25 @@ import '../../app_state.dart';
 
 // pass in the advert id whos bids you want to see
 class ViewBidsAction extends ReduxAction<AppState> {
-  final String adId;
+  final AdvertModel? ad;
+  final bool archived;
 
-  ViewBidsAction(this.adId);
+  ViewBidsAction({this.ad, this.archived = false});
 
   @override
   Future<AppState?> reduce() async {
+    final AdvertModel ad = this.ad ?? state.activeAd!;
+
     String graphQLDocument = '''query {
-      viewBids(ad_id: "$adId") {
+      viewBids(ad_id: "${ad.id}", archived: $archived) {
         id
         name
         tradesman_id
-        price_lower
-        price_upper
-        quote
+        price
         date_created
         date_closed
         shortlisted
+        quote
       }
     }''';
 
@@ -41,6 +43,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
       List<BidModel> shortlistedBids = [];
 
       BidModel? userBid;
+      BidModel? activeBid;
 
       // since all bids are gotten we seperate them into two lists
       for (dynamic d in data['viewBids']) {
@@ -52,11 +55,12 @@ class ViewBidsAction extends ReduxAction<AppState> {
           bids.add(bid);
         }
 
+        // for when a user needs to view their own bid
         if (bid.userId == state.userDetails.id) userBid = bid;
-      }
 
-      final AdvertModel ad =
-          state.adverts.firstWhere((element) => element.id == adId);
+        // for when we close an advert
+        if (ad.acceptedBid != null && bid.id == ad.acceptedBid) activeBid = bid;
+      }
 
       return state.copy(
         bids: bids,
@@ -64,6 +68,7 @@ class ViewBidsAction extends ReduxAction<AppState> {
         shortlistBids: shortlistedBids,
         viewBids: bids + shortlistedBids,
         activeAd: ad, // setting the active ad
+        activeBid: activeBid,
       );
     } catch (e) {
       return null; /* On Error do not modify state */
@@ -73,8 +78,12 @@ class ViewBidsAction extends ReduxAction<AppState> {
   @override
   void before() {
     dispatch(WaitAction.add("viewBids"));
-    dispatch(NavigateAction.pushNamed(
-        "/${state.userDetails.userType.toLowerCase()}/advert_details"));
+    if (archived) {
+      dispatch(NavigateAction.pushNamed("/archived_advert_details"));
+    } else {
+      dispatch(NavigateAction.pushNamed(
+          "/${state.userDetails.userType.toLowerCase()}/advert_details"));
+    }
   }
 
   @override

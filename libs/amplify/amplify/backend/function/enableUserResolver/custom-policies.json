@@ -1,0 +1,11 @@
+[
+  {
+    "Action": [
+      "cognito-idp:AdminEnableUser",
+      "cognito-idp:AdminDisableUser"
+    ],
+    "Resource": [
+      "arn:aws:cognito-idp:eu-west-1:727515863527:userpool/eu-west-1_QpsSD87RL"
+    ]
+  }
+]

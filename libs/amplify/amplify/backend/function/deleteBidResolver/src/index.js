@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+const ArchivedReverseHandTable = process.env.ARCHIVEDREVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -9,25 +10,26 @@ const ReverseHandTable = process.env.REVERSEHAND;
 //Bid id and perhaps advert id necessary to delete a bid?
 
 exports.handler = async (event) => {
-    try {
-        let params = {
-            TableName: ReverseHandTable,
-            Key: {
-                part_key: event.arguments.ad_id,
-                sort_key: event.arguments.bid_id
-            },
-        };
+    let params = {
+        TableName: ReverseHandTable,
+        ReturnValues: "ALL_OLD",
+        Key: {
+            part_key: event.arguments.ad_id,
+            sort_key: event.arguments.bid_id
+        },
+    };
 
-        //get the bid
-        const data = await docClient.get(params).promise();
+    //deleting the bid
+    let item = await docClient.delete(params).promise().then(data => data.Attributes);
 
-        //delete the bid
+    // archiving the bid
+    await docClient.put({
+        TableName: ArchivedReverseHandTable,
+        Item: item
+    }).promise();
 
-        await docClient.delete(params).promise();
+    item['bid_details']['id'] = item['sort_key'];
+    item['bid_details']['tradesman_id'] = item['tradesman_id'];
 
-        return data['bid_details'];
-        
-    } catch (error) {
-        console.log(error);
-    }
+    return item['bid_details'];
 };

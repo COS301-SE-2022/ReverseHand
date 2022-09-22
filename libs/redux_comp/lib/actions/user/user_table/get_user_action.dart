@@ -141,6 +141,7 @@ class GetUserAction extends ReduxAction<AppState> {
         viewUser(user_id: "$id") {
           id
           email
+          name
           scope
         }
       }
@@ -169,21 +170,21 @@ class GetUserAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() {
+  void after() async {
     switch (state.userDetails.userType) {
       case "Consumer":
         dispatch(ViewAdvertsAction());
         startupActions();
-        dispatch(NavigateAction.pushNamed("/consumer"));
+        dispatch(NavigateAction.pushReplacementNamed("/consumer"));
         break;
       case "Tradesman":
         dispatch(ViewJobsAction());
         dispatch(GetBidOnAdvertsAction());
         startupActions();
-        dispatch(NavigateAction.pushNamed("/tradesman"));
+        dispatch(NavigateAction.pushReplacementNamed("/tradesman"));
         break;
       case "Admin":
-        dispatch(NavigateAction.pushNamed("/admin_system_metrics"));
+        dispatch(NavigateAction.pushReplacementNamed("/admin_system_metrics"));
         break;
     }
     // wait until error has finished before stopping loading
@@ -196,5 +197,11 @@ class GetUserAction extends ReduxAction<AppState> {
     dispatch(GetPaystackSecretsAction());
     dispatch(GetProfilePhotoAction());
     dispatch(SubscribeNotificationsAction());
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

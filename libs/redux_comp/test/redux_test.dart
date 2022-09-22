@@ -44,6 +44,7 @@ void main() {
       created: 0,
       finished: 0,
     ),
+    reviews: [],
   );
 
   test('Test to get UserId', () {

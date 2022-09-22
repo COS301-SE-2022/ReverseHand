@@ -29,7 +29,10 @@ class TradesmanJobListings extends StatelessWidget {
             child: Column(
               children: [
                 //*******************APP BAR WIDGET*********************//
-                AppBarWidget(store: store, title: "Job Listing",), 
+                AppBarWidget(
+                  store: store,
+                  title: "Job Listing",
+                ),
                 //********************************************************//
 
                 //*******************TAB BAR LABELS***********************//
@@ -99,6 +102,7 @@ class TradesmanJobListings extends StatelessWidget {
                               ),
                             //else populate the jobs
                             ...populateAdverts(vm.adverts, store),
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),
@@ -118,7 +122,7 @@ class TradesmanJobListings extends StatelessWidget {
                                   right: 40,
                                 ),
                                 child: (const Text(
-                                  "There are no jobs to display.",
+                                  "There are no jobs to display.\n Bid on an advert to see it here.",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 20, color: Colors.white70),
@@ -126,6 +130,7 @@ class TradesmanJobListings extends StatelessWidget {
                               ),
                             //else populate the jobs
                             ...populateAdverts(vm.bidOnAdverts, store),
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),

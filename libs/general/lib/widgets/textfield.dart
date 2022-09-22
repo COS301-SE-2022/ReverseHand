@@ -24,12 +24,14 @@ class TextFieldWidget extends StatelessWidget {
       controller.text = initialVal!;
     }
     return TextFormField(
+      key: Key(controller.toString()),
       minLines: min,
       maxLines: 5,
       style: const TextStyle(color: Colors.white, fontSize: 18),
       obscureText: obscure,
       controller: controller,
       onTap: onTap,
+      cursorColor: Theme.of(context).primaryColor,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white),
@@ -48,10 +50,6 @@ class TextFieldWidget extends StatelessWidget {
             width: 2.0,
           ),
         ),
-        // prefixIcon: const Icon(
-        //   Icons.mail_outline_rounded,
-        //   color: Colors.white,
-        // ),
       ),
     );
   }

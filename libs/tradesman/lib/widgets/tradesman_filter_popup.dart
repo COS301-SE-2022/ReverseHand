@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
@@ -20,14 +22,11 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
 
   final TextEditingController distanceController = TextEditingController();
 
-  double _currentSliderValue = 20;
+  double _currentSliderValue = 0;
 
-  final List<String> _dropdownValues1 = [
-    "None",
-    "Date added",
-  ];
+  final List<String> _dropdownValues = ["None", "Newest", "Oldest"];
 
-  final Map<String, bool> values = {};
+  final Map<String, bool> tradeTypes = {};
   final Map<String, bool> domains = {};
 
   @override
@@ -38,7 +37,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
         vm: () => _Factory(widget),
         onInit: (store) {
           for (String tradeType in store.state.userDetails.tradeTypes) {
-            values[tradeType] = true;
+            tradeTypes[tradeType] = true;
           }
 
           for (var i = 0; i < store.state.userDetails.domains.length; i++) {
@@ -80,8 +79,10 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                 ),
                 child: DropdownButton(
                   dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+                  //borderRadius for dropdownMenu
                   borderRadius: BorderRadius.circular(
-                      20.0), //borderRadius for dropdownMenu
+                    20.0,
+                  ),
                   isExpanded: true,
                   underline: const SizedBox.shrink(),
                   value: dropDownListVal,
@@ -92,7 +93,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                       color: Colors.white,
                     ),
                   ),
-                  items: _dropdownValues1
+                  items: _dropdownValues
                       .map((value) => DropdownMenuItem(
                             value: value,
                             child: Text(value),
@@ -108,13 +109,13 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
               //******************************************/
 
               //*********SECOND FILTER: HEADING***********/
-              const Padding(
-                padding: EdgeInsets.only(left: 45, top: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 45, top: 20),
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "Distance (km):",
-                    style: TextStyle(fontSize: 20),
+                    "Distance (km): ${_currentSliderValue.ceil()}",
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
               ),
@@ -176,10 +177,9 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
+                    Scrollbar(
+                      child: SizedBox(
                         width: 200,
-                        //the height of the box should increase and be scrollable
-                        //only if more than 1 item is present
                         height: (vm.userDetails.tradeTypes.toList().length) > 1
                             ? 120
                             : 60,
@@ -188,14 +188,16 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                                 vm.userDetails.tradeTypes.map((String key) {
                           return CheckboxListTile(
                               title: Text(key),
-                              value: values[key],
+                              value: tradeTypes[key],
                               activeColor: Theme.of(context).primaryColor,
                               onChanged: (bool? value) {
                                 setState(() {
-                                  values[key] = value!;
+                                  tradeTypes[key] = value!;
                                 });
                               });
-                        }).toList())),
+                        }).toList()),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -225,26 +227,29 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
-                      width: 200,
-                      //the height of the box should increase and be scrollable
-                      //only if more than 1 item is present
-                      height: (vm.userDetails.domains.toList().length) > 1
-                          ? 120
-                          : 60,
-                      child: ListView(
-                          children: vm.userDetails.domains
-                              .map((domain) => CheckboxListTile(
-                                    title: Text(domain.city),
-                                    value: domains[domain.city],
-                                    activeColor: Theme.of(context).primaryColor,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        domains[domain.city] = value!;
-                                      });
-                                    },
-                                  ))
-                              .toList()),
+                    Scrollbar(
+                      child: SizedBox(
+                        width: 200,
+                        //the height of the box should increase and be scrollable
+                        //only if more than 1 item is present
+                        height: (vm.userDetails.domains.toList().length) > 1
+                            ? 120
+                            : 60,
+                        child: ListView(
+                            children: vm.userDetails.domains
+                                .map((domain) => CheckboxListTile(
+                                      title: Text(domain.city),
+                                      value: domains[domain.city],
+                                      activeColor:
+                                          Theme.of(context).primaryColor,
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          domains[domain.city] = value!;
+                                        });
+                                      },
+                                    ))
+                                .toList()),
+                      ),
                     ),
                   ],
                 ),
@@ -254,31 +259,50 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
               const Padding(padding: EdgeInsets.all(10)),
 
               //*****************BUTTONS*******************/
-
               ButtonWidget(
                 text: "Apply",
                 function: () {
+                  HashSet<String> domains = HashSet<String>();
+                  for (MapEntry<String, bool> entry in this.domains.entries) {
+                    if (entry.value) domains.add(entry.key);
+                  }
+
+                  HashSet<String> tradeTypes = HashSet<String>();
+                  for (MapEntry<String, bool> entry
+                      in this.tradeTypes.entries) {
+                    if (entry.value) tradeTypes.add(entry.key);
+                  }
+
                   vm.dispatchFilterAdvertsAction(
-                    const FilterAdvertsModel(
-                        // distance: minDistanceController.value.text.isEmpty ||
-                        //         maxDistanceController.value.text.isEmpty
-                        //     ? null
-                        //     : Range(
-                        //         int.parse(minDistanceController.value.text),
-                        //         int.parse(maxDistanceController.value.text),
-                        //       ),
-                        ),
+                    FilterAdvertsModel(
+                      domains: domains,
+                      tradeTypes: tradeTypes,
+                      distance:
+                          _currentSliderValue == 0 ? null : _currentSliderValue,
+                      sort: dropDownListVal == null
+                          ? null
+                          : Sort(
+                              Kind.date,
+                              dropDownListVal == "Newest"
+                                  ? Direction.ascending
+                                  : Direction.descending,
+                            ),
+                    ),
                   );
                   Navigator.pop(context);
                 },
               ),
               ButtonWidget(
-                  text: "Cancel",
-                  color: "light",
-                  border: "white",
-                  function: () {
-                    Navigator.pop(context);
-                  }),
+                text: "Reset",
+                color: "light",
+                border: "white",
+                function: () {
+                  vm.dispatchFilterAdvertsAction(
+                    const FilterAdvertsModel(),
+                  );
+                  Navigator.pop(context);
+                },
+              ),
 
               //*******************************************/
               const Padding(padding: EdgeInsets.all(20))

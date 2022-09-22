@@ -22,7 +22,7 @@ class ProfileImageWidget extends StatelessWidget {
             return Stack(
               children: [
                 CircleAvatar(
-                  radius: 80.0,
+                  radius: 70,
                   backgroundImage: vm.profilePhoto == null
                       ? const AssetImage("assets/images/profile.png",
                           package: 'general')
@@ -32,12 +32,30 @@ class ProfileImageWidget extends StatelessWidget {
                   bottom: 20.0,
                   right: 20.0,
                   child: InkWell(
-                    onTap: () =>
-                        bottomSheet(context, vm.dispatchAddtoBucketAction),
-                    child: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                      size: 28.0,
+                    // onTap: () =>
+                    //     bottomSheet(context, vm.dispatchAddtoBucketAction),
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      backgroundColor: Theme.of(context).primaryColorDark,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7.0),
+                      ),
+                      builder: (BuildContext context) {
+                        return bottomSheet(
+                          context,
+                          vm.dispatchAddtoBucketAction,
+                        );
+                      },
+                    ),
+                    child: Stack(
+                      children: const <Widget>[
+                        Positioned(
+                          left: 1.0,
+                          top: 2.0,
+                          child: Icon(Icons.camera_alt, color: Colors.black54),
+                        ),
+                        Icon(Icons.camera_alt, color: Colors.white),
+                      ],
                     ),
                   ),
                 ),
@@ -52,6 +70,7 @@ class ProfileImageWidget extends StatelessWidget {
   Widget bottomSheet(BuildContext context, dynamic func) {
     return Container(
       height: 100.0,
+      color: Theme.of(context).primaryColorDark,
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(
         horizontal: 20,
@@ -70,22 +89,31 @@ class ProfileImageWidget extends StatelessWidget {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             TextButton.icon(
-              icon: const Icon(Icons.camera_alt, color: Colors.black),
+              icon: const Icon(Icons.camera_alt, color: Colors.white, size: 30),
               onPressed: () async {
+                Navigator.pop(context);
                 XFile? file = (await takePhoto(ImageSource.camera));
                 if (file != null) func(File(file.path));
               },
-              label: const Text("Camera"),
-            ),
-            TextButton.icon(
-              icon: const Icon(Icons.image, color: Colors.black),
-              onPressed: () async {
-                XFile? file = (await takePhoto(ImageSource.gallery));
-                if (file != null) func(File(file.path));
-              },
               label: const Text(
-                "Gallery",
-                style: TextStyle(color: Colors.black),
+                "Camera",
+                style: TextStyle(color: Colors.white, fontSize: 15)
+              ),
+              
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: TextButton.icon(
+                icon: const Icon(Icons.image, color: Colors.white, size: 30),
+                onPressed: () async {
+                  Navigator.pop(context);
+                  XFile? file = (await takePhoto(ImageSource.gallery));
+                  if (file != null) func(File(file.path));
+                },
+                label: const Text(
+                  "Gallery",
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
               ),
             ),
           ])

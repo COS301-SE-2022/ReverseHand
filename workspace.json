@@ -1,17 +1,15 @@
 {
   "version": 2,
   "projects": {
-    "app": "apps/app",
-    "example": "libs/example",
-    "redux_comp": "libs/redux_comp",
-    "general": "libs/general",
+    "admin": "libs/admin",
     "amplify": "libs/amplify",
-    "tradesman": "libs/tradesman",
-    "consumer": "libs/consumer",
+    "app": "apps/app",
     "authentication": "libs/authentication",
-    "geolocation": "libs/geolocation",
-    "notifications": "libs/notifications",
     "chat": "libs/chat",
-    "admin": "libs/admin"
+    "consumer": "libs/consumer",
+    "general": "libs/general",
+    "geolocation": "libs/geolocation",
+    "redux_comp": "libs/redux_comp",
+    "tradesman": "libs/tradesman"
   }
 }

@@ -10,10 +10,18 @@ class ReportUserDetailsModel {
     required this.name,
   });
 
-   factory ReportUserDetailsModel.fromJson(obj) {
+  factory ReportUserDetailsModel.fromJson(obj) {
     return ReportUserDetailsModel(
-      id: obj['id'],
-      name: obj['name'],
+      id: obj['id'] ?? "",
+      name: obj['name'] ?? "",
     );
+  }
+
+  @override
+  String toString() {
+    return """{
+      id : "$id",
+      name : "$name",
+    }""";
   }
 }

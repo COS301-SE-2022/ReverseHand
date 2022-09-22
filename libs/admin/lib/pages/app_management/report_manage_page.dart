@@ -3,9 +3,11 @@ import 'package:admin/widgets/report_user_descr_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:general/widgets/long_button_transparent.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/admin_get_user_action.dart';
+import 'package:redux_comp/actions/admin/app_management/remove_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
@@ -17,6 +19,7 @@ class ReportManagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ReportModel report =
         ModalRoute.of(context)!.settings.arguments as ReportModel;
+
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -62,28 +65,40 @@ class ReportManagePage extends StatelessWidget {
 
                       ReportUserDescrWidget(
                         title: "Reported User",
-                        name: report.reportDetails.reportedUser.name,
+                        name: report.reportDetails.reportedUser!.name,
                         function: () {
-                          vm.dispatchGetUser(report.reportDetails.reportedUser.id);
+                          vm.dispatchGetUser(
+                              report.reportDetails.reportedUser!.id);
                           vm.pushUserManagePage();
                         },
                       ),
 
                       ReportUserDescrWidget(
                         title: "Reporter User",
-                        name: report.reportDetails.reporterUser.name,
+                        name: report.reportDetails.reporterUser!.name,
                         function: () {
-                          vm.dispatchGetUser(report.reportDetails.reporterUser.id);
+                          vm.dispatchGetUser(
+                              report.reportDetails.reporterUser!.id);
                           vm.pushUserManagePage();
                         },
                       ),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                      const Padding(padding: EdgeInsets.only(bottom: 40)),
 
-                      ButtonWidget(text: "Issue Warning", function: () {}),
-                      const Padding(padding: EdgeInsets.only(bottom: 25)),
+                      LongButtonWidget(
+                        text: "Issue Warning",
+                        function: () => vm.dispatchRemoveWithWarning(
+                          report.id,
+                          report.reportDetails.reportedUser!.id,
+                        ),
+                      ),
 
-                      ButtonWidget(
-                          text: "Remove Report", color: "dark", function: () {})
+                      TransparentLongButtonWidget(
+                        text: "Remove Report",
+                        function: () => vm.dispatchRemoveWithoutWarning(
+                          report.id,
+                          report.reportDetails.reportedUser!.id,
+                        ),
+                      )
                     ],
                   );
           },
@@ -101,7 +116,14 @@ class _Factory extends VmFactory<AppState, ReportManagePage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         dispatchGetUser: (userId) => dispatch(AdminGetUserAction(userId)),
-        pushUserManagePage: () => dispatch(NavigateAction.pushNamed("/user_manage")),
+        pushUserManagePage: () =>
+            dispatch(NavigateAction.pushNamed("/user_manage")),
+        dispatchRemoveWithWarning: (reportId, userId) => dispatch(
+            RemoveUserReportAction(
+                userId: userId, reportId: reportId, issueWarning: true)),
+        dispatchRemoveWithoutWarning: (reportId, userId) => dispatch(
+            RemoveUserReportAction(
+                userId: userId, reportId: reportId, issueWarning: false)),
       );
 }
 
@@ -109,11 +131,15 @@ class _Factory extends VmFactory<AppState, ReportManagePage> {
 class _ViewModel extends Vm {
   final bool loading;
   final void Function(String) dispatchGetUser;
+  final void Function(String, String) dispatchRemoveWithWarning;
+  final void Function(String, String) dispatchRemoveWithoutWarning;
   final VoidCallback pushUserManagePage;
 
   _ViewModel({
     required this.loading,
     required this.dispatchGetUser,
+    required this.dispatchRemoveWithWarning,
+    required this.dispatchRemoveWithoutWarning,
     required this.pushUserManagePage,
   }) : super(equals: [loading]); // implementinf hashcode;
 }

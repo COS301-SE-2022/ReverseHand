@@ -42,10 +42,9 @@ exports.handler = async (event) => {
     let result = [];
     adverts.forEach(function (advert) {
         let obj = {};
-        obj.id = advert.part_key;
         obj.advert = advert.advert_details;
         obj.advert.id = advert.part_key;
-        obj.customer_id = advert.customer_id;
+        obj.advert.customer_id = advert.customer_id;
         obj.reports = advert.admin_reports;
         obj.count = obj.reports.length;
         result.push(obj);

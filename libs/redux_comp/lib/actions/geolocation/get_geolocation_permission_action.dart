@@ -16,21 +16,27 @@ class GetGeolocationPermissionAction extends ReduxAction<AppState> {
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return state.copy(error: ErrorType.localPermissionDenied);
+      throw const UserException("", cause: ErrorType.localPermissionDenied);
     }
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return state.copy(error: ErrorType.localPermissionDenied);
+        throw const UserException("", cause: ErrorType.localPermissionDenied);
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return state.copy(error: ErrorType.localPermissionDenied);
+      throw const UserException("", cause: ErrorType.localPermissionDenied);
     }
 
     return null;
+  }
+
+  // sends error messages to CustomWrapError
+  @override
+  Object wrapError(error) {
+    return error;
   }
 }

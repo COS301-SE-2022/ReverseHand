@@ -1,19 +1,24 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+const func = process.env.FUNCTION;
+
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 
 exports.handler = async (event) => {
     
-    const currentDate = new Date().getTime();
-    event.arguments.review.date_created = currentDate;
+    const date = new Date()
+    const currentDate = date.getTime();
+    event.arguments.review['date_created'] = currentDate;
+
     let putReviewItem = {
         part_key: "reviews#" + event.arguments.user_id,
-        sort_key: "review#" + AWS.util.uuid.v4(),
+        sort_key: "review#" + date.toISOString(),
         review_details: event.arguments.review
     };
+
     const transactParams = [
         {
             Put: {
@@ -36,13 +41,33 @@ exports.handler = async (event) => {
             },
         }
     ];
-    docClient.transactWrite({
+
+    let transaction = docClient.transactWrite({
         TransactItems: transactParams
     }).promise();
+
+    const lambda = new AWS.Lambda();
+    let notification = lambda.invoke({
+        FunctionName: func,
+        Payload: JSON.stringify({
+            userId: event.arguments.user_id,
+            notification: {
+                part_key: "notification#" + event.arguments.user_id,
+                sort_key: date.toISOString(),
+                title: "New Review",
+                msg: "You have recieved a new review of " + event.arguments.review.rating + "stars",
+                type: "ReviewAdded",
+                timestamp: currentDate,
+            }
+        })
+    }).promise();
     
-    putReviewItem.id = putReviewItem.sort_key;
-    delete putReviewItem.part_key;
-    delete putReviewItem.sort_key;
+    let item = {
+        id: putReviewItem.sort_key,
+        ...putReviewItem.review
+    };
+
+    await Promise.all([transaction, notification]);
     
-    return putReviewItem;
+    return item;
 };

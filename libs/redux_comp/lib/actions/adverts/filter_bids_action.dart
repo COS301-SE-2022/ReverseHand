@@ -25,12 +25,12 @@ class FilterBidsAction extends ReduxAction<AppState> {
     }
 
     // filter by price
-    if (filter.priceRange != null) {
-      bids.removeWhere(
-        (bid) => !(bid.priceLower >= filter.priceRange!.low &&
-            bid.priceUpper <= filter.priceRange!.high),
-      );
-    }
+    // if (filter.priceRange != null) {
+    //   bids.removeWhere(
+    //     (bid) => !(bid.priceLower >= filter.priceRange!.low &&
+    //         bid.priceUpper <= filter.priceRange!.high),
+    //   );
+    // }
 
     // if (filter.ratingLower != null) {
     //   bids.removeWhere(
@@ -44,10 +44,10 @@ class FilterBidsAction extends ReduxAction<AppState> {
         case Kind.price:
           switch (filter.sort!.direction) {
             case Direction.descending:
-              bids.sort((a, b) => a.priceLower.compareTo(b.priceLower));
+              // bids.sort((a, b) => a.priceLower.compareTo(b.priceLower));
               break;
             case Direction.ascending:
-              bids.sort((a, b) => b.priceUpper.compareTo(a.priceUpper));
+              // bids.sort((a, b) => b.priceUpper.compareTo(a.priceUpper));
               break;
           }
           break;

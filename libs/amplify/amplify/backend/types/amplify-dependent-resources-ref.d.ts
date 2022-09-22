@@ -296,13 +296,37 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "getDashboardMetricsResolver": {
+        "listUsersResolver": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
         },
-        "getBidOnAdvertsResolver": {
+        "adminSearchUserResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "getUserReviewsResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "acceptAdvertReportResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "processKinesisStreamResolver": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "enableUserResolver": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
@@ -328,10 +352,9 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "analytics": {
-        "reversehandPinpoint": {
+        "ReversehandPinpoint": {
             "Region": "string",
-            "Id": "string",
-            "appName": "string"
+            "LambdaExecutionRole": "string"
         }
     }
 }

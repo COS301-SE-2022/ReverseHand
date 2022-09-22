@@ -2,15 +2,17 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:consumer/widgets/accept_bid_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/toast_success.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
-import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/bids/shortlist_bid_action.dart';
+import 'package:redux_comp/actions/get_pdf_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:general/widgets/long_button_widget.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -30,7 +32,8 @@ class BidDetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //************APPBAR**************************//
-                AppBarWidget(title: "BID DETAILS", store: store),
+                AppBarWidget(
+                    title: "BID DETAILS", store: store, backButton: true),
                 //********************************************//
 
                 //************NAME AND ROW*******************//
@@ -39,29 +42,23 @@ class BidDetailsPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('${vm.bid.name}',
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text('${vm.bid.name}',
                           style: const TextStyle(
-                              fontSize: 33, color: Colors.white)),
-                      //do we still want the date?
-                      // Text(
-                      //   timestampToDate(vm.bid.dateCreated),
-                      //   style: const TextStyle(
-                      //     fontSize: 17,
-                      //     color: Colors.white70,
-                      //   ),
-                      // ),
-
+                              fontSize: 33, color: Colors.white)
+                              ),
+                      ),
                       IconButton(
-                          onPressed: () {
-                            vm.dispatchShortListBidAction();
-                          },
-                          icon: Icon(
-                            vm.bid.shortlisted
-                                ? Icons.bookmark
-                                : Icons.bookmark_outline,
-                            size: 40,
-                            color: Theme.of(context).primaryColor,
-                          )),
+                        onPressed: vm.dispatchShortListBidAction,
+                        icon: Icon(
+                          vm.bid.shortlisted
+                              ? Icons.bookmark
+                              : Icons.bookmark_outline,
+                          size: 30,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -78,9 +75,10 @@ class BidDetailsPage extends StatelessWidget {
                 //****************************//
 
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    //**************BID RANGE***************/
+                    //**************BID PRICE***************/
                     const Padding(padding: EdgeInsets.all(15)),
                     const Center(
                       child: Text(
@@ -91,53 +89,84 @@ class BidDetailsPage extends StatelessWidget {
                     const Padding(padding: EdgeInsets.all(3)),
                     Center(
                       child: Text(
-                        'R${vm.bid.priceLower} - R${vm.bid.priceUpper}',
+                        vm.bid.amount(),
                         style: const TextStyle(
-                            fontSize: 40,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                          fontSize: 40,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     //**************************************/
 
                     //**************SEE QUOTE BUTTON***************/
-                    //if quote is not uploaded
-                    const Padding(padding: EdgeInsets.only(top: 40)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          "No quote has been\n uploaded yet.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: Colors.white54),
+                    (vm.bid.quote == null) 
+                      ? Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: LongButtonWidget(
+                          text: "View Quote",
+                          function: () {
+                            vm.pushViewQuotePage();
+                            vm.dispatchGetPdfAction();
+                          },
                         ),
-                      ],
-                    ),
-                    const Padding(padding: EdgeInsets.only(top: 15))
+                      )
+                      //if quote is not uploaded
+                      : Padding(
+                        padding: const EdgeInsets.only(top: 40),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              "No quote has been\n uploaded yet.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 20, color: Colors.white54),
+                            ),
+                          ],
+                        ),
+                      ),
+
                   ],
                 ),
 
-                //****************BOTTOM BUTTONS**************//
+                //**********DIVIDER***********//
+                Divider(
+                  height: 20,
+                  thickness: 1.3,
+                  indent: 15,
+                  endIndent: 15,
+                  color: Theme.of(context).primaryColorLight,
+                ),
+                //****************************//
 
-                const Padding(padding: EdgeInsets.only(top: 55)),
+                //****************BOTTOM BUTTONS**************//
+                const Padding(padding: EdgeInsets.only(top: 20)),
                 Column(
                   children: [
-                    Center(
-                      child: AuthButtonWidget(
-                          text: "Accept Bid",
-                          function: () {
-                            LightDialogHelper.display(
-                                context,
-                                AcceptPopUpWidget(
-                                  store: store,
-                                ),
-                                320.0);
-                          }),
+                    StoreConnector<AppState, _ViewModel>(
+                      vm: () => _Factory(this),
+                      onDidChange: (context, store, vm) {
+                        if (store.state.error == ErrorType.none) {
+                          displayToastSuccess(
+                              context!, "Bid Accepted"); //todo, fix
+                        }
+                      },
+                      builder: (BuildContext context, _ViewModel vm) => Center(
+                        child: LongButtonWidget(
+                            text: "Accept Bid",
+                            function: () {
+                              LightDialogHelper.display(
+                                  context,
+                                  AcceptPopUpWidget(
+                                    store: store,
+                                  ),
+                                  320.0);
+                            }),
+                      ),
                     ),
                     TransparentLongButtonWidget(
                       text: "View Contractor Profile",
-                      function: () =>
-                          vm.dispatchGetOtherUserAction(vm.bid.userId),
+                      function: vm.dispatchGetOtherUserAction,
                     )
                   ],
                 ),
@@ -162,13 +191,16 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        dispatchAcceptBidAction: () => dispatch(AcceptBidAction()),
         dispatchShortListBidAction: () => dispatch(ShortlistBidAction()),
-        dispatchGetOtherUserAction: (String userId) =>
-            dispatch(GetOtherUserAction(userId)),
+        dispatchGetOtherUserAction: () =>
+            dispatch(GetOtherUserAction(state.activeBid!.userId)),
         bid: state.activeBid!,
         popPage: () => dispatch(NavigateAction.pop()),
         change: state.change,
+        pushViewQuotePage: () => dispatch(
+          NavigateAction.pushNamed('/consumer/view_quote_page'),
+        ),
+        dispatchGetPdfAction: () => dispatch(GetPdfAction()),
       );
 }
 
@@ -176,17 +208,19 @@ class _Factory extends VmFactory<AppState, BidDetailsPage> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final BidModel bid;
-  final VoidCallback dispatchAcceptBidAction;
   final VoidCallback dispatchShortListBidAction;
   final bool change;
-  final void Function(String userId) dispatchGetOtherUserAction;
+  final VoidCallback dispatchGetOtherUserAction;
+  final VoidCallback pushViewQuotePage;
+  final VoidCallback dispatchGetPdfAction;
 
   _ViewModel({
-    required this.dispatchAcceptBidAction,
     required this.dispatchShortListBidAction,
     required this.dispatchGetOtherUserAction,
     required this.bid,
+    required this.dispatchGetPdfAction,
     required this.popPage,
     required this.change,
+    required this.pushViewQuotePage,
   }) : super(equals: [change, bid]); // implementinf hashcode
 }

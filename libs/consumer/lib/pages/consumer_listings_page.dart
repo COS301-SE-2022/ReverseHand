@@ -110,7 +110,8 @@ class ConsumerListingsPage extends StatelessWidget {
                                 )),
                               ),
                             //else populate the jobs
-                            ...open
+                            ...open,
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),
@@ -133,7 +134,8 @@ class ConsumerListingsPage extends StatelessWidget {
                                 )),
                               ),
                             //else display in progress jobs
-                            ...inProgress
+                            ...inProgress,
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),

@@ -17,12 +17,7 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
   },
@@ -34,7 +29,10 @@
       }
     ]
   },
-  "plugins": [
-    "@nxrocks/nx-flutter"
-  ]
+  "plugins": ["@nxrocks/nx-flutter"],
+  "targetDefaults": {
+    "test": {
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+    }
+  }
 }

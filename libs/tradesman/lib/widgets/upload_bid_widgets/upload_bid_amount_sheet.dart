@@ -1,14 +1,22 @@
-import 'package:authentication/widgets/auth_button.dart';
+import 'package:async_redux/async_redux.dart';
+import 'package:general/methods/toast_success.dart';
+import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tradesman/methods/currency_formatter.dart';
+import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 
-class UploadAmountSheet extends StatelessWidget {
-  final TextEditingController bidController = TextEditingController();
-
-  UploadAmountSheet({
+class UploadAmountSheet extends StatefulWidget {
+  const UploadAmountSheet({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<UploadAmountSheet> createState() => _UploadAmountSheetState();
+}
+
+class _UploadAmountSheetState extends State<UploadAmountSheet> {
+  final TextEditingController bidPriceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +30,7 @@ class UploadAmountSheet extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: IconButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, null);
                   },
                   icon: const Icon(Icons.arrow_back)),
             ),
@@ -33,18 +41,20 @@ class UploadAmountSheet extends StatelessWidget {
                 child: Text(
                   "Place Bid",
                   style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
             const Text(
               "Step 2:",
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -62,15 +72,13 @@ class UploadAmountSheet extends StatelessWidget {
                 textAlign: TextAlign.center,
                 cursorColor: Theme.of(context).scaffoldBackgroundColor,
                 style: const TextStyle(color: Colors.black, fontSize: 23),
-                controller: bidController,
+                controller: bidPriceController,
                 inputFormatters: [
-                  // CurrencyInputFormatter()
                   FilteringTextInputFormatter.digitsOnly,
-                  CurrencyInputFormatter(),
                 ],
                 keyboardType: TextInputType.number,
-                onTap: () {},
                 decoration: InputDecoration(
+                  prefixText: "R",
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
                     borderSide: const BorderSide(
@@ -88,10 +96,43 @@ class UploadAmountSheet extends StatelessWidget {
                 ),
               ),
             ),
-            AuthButtonWidget(text: "Submit Bid", function: () {})
+            StoreConnector<AppState, _ViewModel>(
+              vm: () => _Factory(this),
+              onDidChange: (context, store, vm) {
+                if (store.state.error == ErrorType.none) {
+                  displayToastSuccess(context!, "Bid Placed"); //todo, fix
+                }
+              },
+              builder: (BuildContext context, _ViewModel vm) =>
+                  LongButtonWidget(
+                text: "Submit Bid",
+                function: () {
+                  final int price =
+                      int.parse(bidPriceController.value.text) * 100;
+
+                  Navigator.pop(
+                    context,
+                    price,
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+// factory for view model
+class _Factory extends VmFactory<AppState, _UploadAmountSheetState> {
+  _Factory(widget) : super(widget);
+
+  @override
+  _ViewModel fromStore() => _ViewModel();
+}
+
+// view model
+class _ViewModel extends Vm {
+  _ViewModel();
 }

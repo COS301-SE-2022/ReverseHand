@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -12,18 +11,17 @@ class RecordCreateAdvertAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    final event = AnalyticsEvent('CreateAdvert');
+    final AnalyticsEvent event = AnalyticsEvent('CreateAdvert');
 
     event.properties.addStringProperty('city', city);
     event.properties.addStringProperty('province', province);
 
-  try {
-    await Amplify.Analytics.recordEvent(event: event);
-    await Amplify.Analytics.flushEvents();
-
-  } catch(e) {
-    debugPrint(e.toString());
-  }
+    try {
+      await Amplify.Analytics.recordEvent(event: event);
+      await Amplify.Analytics.flushEvents();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
 
     return null;
   }
