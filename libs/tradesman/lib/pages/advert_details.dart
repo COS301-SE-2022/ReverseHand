@@ -78,8 +78,6 @@ class TradesmanJobDetails extends StatelessWidget {
                         location: vm.advert.domain.city,
                       ),
 
-                    const Padding(padding: EdgeInsets.only(top: 10)),
-
                     //*************BOTTOM BUTTONS**************//
                     vm.userBid != null
                         //if this contractor has already made a bid
@@ -104,7 +102,7 @@ class TradesmanJobDetails extends StatelessWidget {
                                 padding: const EdgeInsets.only(
                                   left: 40,
                                   right: 40,
-                                  bottom: 40,
+                                  bottom: 30,
                                   top: 10,
                                 ),
                                 child: InkWell(
@@ -145,6 +143,7 @@ class TradesmanJobDetails extends StatelessWidget {
                             ],
                           )
                         //***********************************//
+
                         //if this contractor hasn't already made a bid
                         : Padding(
                             padding: const EdgeInsets.only(top: 20.0),
