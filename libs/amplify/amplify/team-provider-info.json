@@ -48,7 +48,8 @@
           "partitionKeyType": "S",
           "sortKeyName": "sort_key",
           "sortKeyType": "S"
-        }
+        },
+        "S3ReverseHand": {}
       },
       "function": {
         "acceptBidResolver": {

@@ -42,18 +42,8 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                       backButton: true),
                   //********************************************************//
 
-                  //**************HEADING***************/
-                  const Padding(padding: EdgeInsets.only(top: 20)),
-                  Center(
-                    child: Text(
-                      vm.userDetails.name != null ? vm.userDetails.name! : "",
-                      style: const TextStyle(fontSize: 35),
-                    ),
-                  ),
-                  //************************************/
-
                   //****************ICON****************/
-                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  const Padding(padding: EdgeInsets.only(top: 30)),
                   CircleAvatar(
                     radius: 70,
                     backgroundImage: vm.userDetails.profileImage == null
@@ -61,6 +51,18 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                             package: 'general')
                         : Image.network(vm.userDetails.profileImage!).image,
                   ),
+
+                  //************************************/
+
+                  //**************HEADING***************/
+                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  Center(
+                    child: Text(
+                      vm.userDetails.name != null ? vm.userDetails.name! : "",
+                      style: const TextStyle(fontSize: 35),
+                    ),
+                  ),
+                   const Padding(padding: EdgeInsets.only(bottom: 20)),
                   //************************************/
 
                   //************STATS*******************/

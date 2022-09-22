@@ -93,15 +93,13 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //trade type
               const HintWidget(
-                text: "Select all relevant trade types",
-                colour: Colors.white70,
-                padding: 15,
-              ),
+                  text: "Select the relevant trade type",
+                  colour: Colors.white70,
+                  padding: 15),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                 child: InkWell(
-                  // tick boxes and not radio buttons?
                   onTap: () => showRadioSelect(),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -160,15 +158,15 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //GET THE WHOLE ADDRESS?
                             Text(
                               widget.store.state.userDetails.location!.address
                                   .city,
                               style: const TextStyle(fontSize: 18),
                             ),
                             InkWell(
-                              onTap:
-                                  () {}, //should be able to change the location of the job on tap
+                              onTap: () {
+                                vm.pushLocationSearchPage();
+                              },
                               child: const Text(
                                 "change address",
                                 style: TextStyle(
@@ -189,21 +187,35 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //add photos
               const HintWidget(
-                text: "Choose photos related to the job",
+                text: "Select photos related to the job",
                 colour: Colors.white70,
                 padding: 15,
               ),
-              const Padding(padding: EdgeInsets.only(top: 5)),
-              IconButton(
-                onPressed: () async {
-                  ImagePicker picker = ImagePicker();
 
-                  _files = await picker.pickMultiImage();
-                },
-                icon: const Icon(
-                  Icons.camera_alt,
-                  color: Colors.white,
-                  size: 28.0,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                child: InkWell(
+                  onTap: () async {
+                    ImagePicker picker = ImagePicker();
+
+                    _files = await picker.pickMultiImage();
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey, width: 1),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          "Select Photos",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               //*************************************************//
@@ -279,6 +291,9 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         popPage: () => dispatch(NavigateAction.pop()),
+        pushLocationSearchPage: () => dispatch(
+          NavigateAction.pushNamed('/geolocation/custom_location_search'),
+        ),
         dispatchCreateAdvertActions: (
           String customerId,
           String title,
@@ -305,12 +320,14 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
 class _ViewModel extends Vm {
   final void Function(String id, String title, Domain domanin, String trade,
       String? descr, List<File>? files) dispatchCreateAdvertActions;
+  final VoidCallback pushLocationSearchPage;
   final VoidCallback popPage;
   final bool loading;
 
   _ViewModel({
     required this.loading,
     required this.dispatchCreateAdvertActions,
+    required this.pushLocationSearchPage,
     required this.popPage,
   }) : super(equals: [loading]); // implementinf hashcode
 }

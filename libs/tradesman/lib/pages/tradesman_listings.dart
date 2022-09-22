@@ -102,6 +102,7 @@ class TradesmanJobListings extends StatelessWidget {
                               ),
                             //else populate the jobs
                             ...populateAdverts(vm.adverts, store),
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),
@@ -129,6 +130,7 @@ class TradesmanJobListings extends StatelessWidget {
                               ),
                             //else populate the jobs
                             ...populateAdverts(vm.bidOnAdverts, store),
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),

@@ -1,13 +1,11 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/consumer_floating_button.dart';
-import 'package:general/methods/time.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 import 'package:consumer/widgets/filter_popup.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/hint_widget.dart';
-import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -36,25 +34,12 @@ class ViewBidsPage extends StatelessWidget {
                 AppBarWidget(title: "BIDS", store: store, backButton: true),
                 //******************************//
 
-                //**********DETAILED JOB INFORMATION***********//
-                JobCardWidget(
-                  titleText: vm.advert.title,
-                  descText: vm.advert.description ?? "",
-                  date: timestampToDate(vm.advert.dateCreated),
-                  type: vm.advert.type,
-                  location: vm.advert.domain.city,
-                ),
-                //*******************************************//
-
-                const Padding(padding: EdgeInsets.all(10)),
-
                 Container(
                   padding: const EdgeInsets.all(8),
                   child: Column(children: [
                     if (vm.bids.isNotEmpty)
                       Column(
                         children: [
-                          // const Padding(padding: EdgeInsets.only(top: 15)),
                           const HintWidget(
                             text:
                                 "Click on a bid to see more detailed information",

@@ -49,10 +49,20 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                       AppBarWidget(title: "PROFILE", store: widget.store),
                       //********************************************************//
 
-                      const Padding(padding: EdgeInsets.only(top: 25)),
+                      const Padding(padding: EdgeInsets.only(top: 23)),
+
+
+                      //****************PROFILE IMAGE****************/
+                      ProfileImageWidget(
+                        store: widget.store,
+                      ),
+                      const Padding(padding: EdgeInsets.only(top: 5, bottom: 15)),
+                      //*****************************************
 
                       //**************HEADING***************/
                       Center(
+                        child: Padding(
+                        padding: const EdgeInsets.only(left: 25, right: 20),
                         child: Text(
                           vm.userDetails.name != null
                               ? vm.userDetails.name!
@@ -60,14 +70,8 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                           style: const TextStyle(fontSize: 35),
                         ),
                       ),
-                      //************************************/
-                      const Padding(
-                          padding: EdgeInsets.only(top: 5, bottom: 15)),
-                      //****************PROFILE IMAGE****************/
-                      ProfileImageWidget(
-                        store: widget.store,
                       ),
-                      //*****************************************
+                      //************************************/
 
                       //************STATS*******************/
                       //CHANGE ICONS
@@ -178,11 +182,14 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                                 ),
                                 const Padding(
                                     padding: EdgeInsets.only(right: 8)),
-                                Text(
-                                  (vm.userDetails.name != null)
-                                      ? vm.userDetails.name!
-                                      : "null",
-                                  style: const TextStyle(fontSize: 20),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 1.7,
+                                  child:Text(
+                                    (vm.userDetails.name != null)
+                                        ? vm.userDetails.name!
+                                        : "null",
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
                                 ),
                               ],
                             ),
