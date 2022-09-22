@@ -12,7 +12,6 @@ import 'package:general/widgets/profile_divider.dart';
 import 'package:redux_comp/actions/user/amplify_auth/logout_action.dart';
 import 'package:redux_comp/actions/user/reviews/get_user_reviews_action.dart';
 import 'package:general/widgets/bottom_sheet.dart';
-import 'package:tradesman/widgets/reviews/review_widget.dart';
 import '../widgets/multiselect_widget.dart';
 import '../widgets/tradesman_navbar_widget.dart';
 
@@ -147,26 +146,30 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     AppBarWidget(store: widget.store, title: "PROFILE"),
                     //***********************************/
 
-                    const Padding(padding: EdgeInsets.only(top: 20)),
-
-                    //**************HEADING***************/
-                    Center(
-                      child: Text(
-                        vm.userDetails.name != null
-                            ? vm.userDetails.name!
-                            : "null",
-                        style: const TextStyle(fontSize: 35),
-                      ),
-                    ),
-                    //************************************/
-
-                    const Padding(padding: EdgeInsets.only(bottom: 10)),
+                    const Padding(padding: EdgeInsets.only(top: 23)),
 
                     //****************ICON****************/
                     ProfileImageWidget(
                       store: widget.store,
                     ),
+                    const Padding(padding: EdgeInsets.only(top: 5, bottom: 15)),
                     //************************************/
+
+                    //**************HEADING***************/
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25, right: 20),
+                        child: Text(
+                          vm.userDetails.name != null
+                              ? vm.userDetails.name!
+                              : "null",
+                          style: const TextStyle(fontSize: 32),
+                        ),
+                      ),
+                    ),
+                    //************************************/
+
+
 
                     //****************RATING**************/
                     Padding(
@@ -185,71 +188,28 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children:
-                                      //if there is a rating - 1 is the lowest that can be given
-                                      //so not checking if rating is null
-                                      vm.userDetails.statistics.ratingCount != 0
-                                          ? stars
-                                          : [
-                                              //if no rating yet
-                                              const Text(
-                                                "No rating yet",
-                                                style: TextStyle(
-                                                  color: Colors.white70,
-                                                  fontSize: 18,
-                                                ),
-                                              )
-                                            ],
+                                    //if there is a rating - 1 is the lowest that can be given
+                                    //so not checking if rating is null
+                                    vm.userDetails.statistics.ratingCount != 0
+                                      ? stars
+                                      : [
+                                          //if no rating yet
+                                          const Text(
+                                            "No rating yet",
+                                            style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 18,
+                                            ),
+                                          )
+                                        ],
                                 ),
                                 const Padding(
                                     padding: EdgeInsets.only(top: 20)),
                                 TransparentLongButtonWidget(
                                   text: "See my Reviews",
                                   function: () {
+                                    vm.pushReviewsPage();
                                     vm.dispatchGetUserReviewsAction();
-
-                                    List<ReviewWidget> reviews = vm
-                                        .userDetails.reviews
-                                        .map((r) => ReviewWidget(review: r))
-                                        .toList();
-
-                                    showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(7.0),
-                                      ),
-                                      builder: (BuildContext context) {
-                                        return SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              //******************CLOSE*****************//
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 20.0, right: 8),
-                                                child: Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: IconButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.close,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              //****************************************//
-
-                                              //******************REVIEWS***************//
-                                              ...reviews,
-                                              //****************************************//
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
                                   },
                                 ),
                               ],
@@ -363,11 +323,14 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 size: 26.0,
                               ),
                               const Padding(padding: EdgeInsets.only(right: 8)),
-                              Text(
-                                (vm.userDetails.name != null)
-                                    ? vm.userDetails.name!
-                                    : "null",
-                                style: const TextStyle(fontSize: 20),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 1.7,
+                                child: Text(
+                                    (vm.userDetails.name != null)
+                                      ? vm.userDetails.name!
+                                      : "null",
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
                               ),
                             ],
                           ),
@@ -572,17 +535,23 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
+        pushReviewsPage: () => dispatch(
+          NavigateAction.pushNamed('/tradesman/reviews'),
+        ),
         pushArchivedJobsPage: () =>
             dispatch(NavigateAction.pushNamed('/archived_jobs')),
         dispatchGetBidOnAdvertsAction: () =>
             dispatch(GetBidOnAdvertsAction(archived: true)),
       );
+
+      
 }
 
 // view model
 class _ViewModel extends Vm {
   final UserModel userDetails;
   final VoidCallback pushDomainConfirmPage;
+  final VoidCallback pushReviewsPage;
   final VoidCallback dispatchLogoutAction;
   final VoidCallback dispatchGetUserReviewsAction;
   final void Function(String, String) dispatchChangeNameAction;
@@ -595,6 +564,7 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.userDetails,
     required this.pushDomainConfirmPage,
+    required this.pushReviewsPage,
     required this.dispatchGetBidOnAdvertsAction,
     required this.dispatchGetUserReviewsAction,
     required this.dispatchLogoutAction,

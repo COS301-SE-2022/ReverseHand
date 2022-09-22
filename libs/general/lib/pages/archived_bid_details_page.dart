@@ -34,14 +34,14 @@ class ArchivedBidDetailsPage extends StatelessWidget {
 
                 //************NAME AND ROW*******************//
                 Padding(
-                  padding: const EdgeInsets.only(right: 15, top: 30, left: 15),
+                  padding: const EdgeInsets.only(right: 15, top: 30, left: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         '${vm.bid.name}',
                         style: const TextStyle(
-                          fontSize: 33,
+                          fontSize: 30,
                           color: Colors.white,
                         ),
                       ),
@@ -99,11 +99,13 @@ class ArchivedBidDetailsPage extends StatelessWidget {
                 ),
 
                 //****************BOTTOM BUTTON**************//
-                const Padding(padding: EdgeInsets.only(top: 55)),
-                TransparentLongButtonWidget(
-                  text: "View Contractor Profile",
-                  function: vm.dispatchGetOtherUserAction,
-                )
+                Padding(
+                  padding: const EdgeInsets.only(left: 50, top: 55),
+                  child: TransparentLongButtonWidget(
+                    text: "View Contractor Profile",
+                    function: vm.dispatchGetOtherUserAction,
+                  ),
+                ),
                 //******************************************//
               ],
             ),

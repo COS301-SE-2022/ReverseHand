@@ -325,13 +325,12 @@ export type AmplifyDependentResourcesAttributes = {
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
-        }
-    },
-    "analytics": {
-        "ReversehandPinpoint": {
+        },
+        "enableUserResolver": {
+            "Name": "string",
+            "Arn": "string",
             "Region": "string",
-            "Id": "string",
-            "appName": "string"
+            "LambdaExecutionRole": "string"
         }
     }
 }

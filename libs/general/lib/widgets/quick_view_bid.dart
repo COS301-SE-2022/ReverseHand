@@ -68,23 +68,15 @@ class QuickViewBidWidget extends StatelessWidget {
                         //***********CONTRACTOR NAME*************/
                         Center(
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.5,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7),
-                                border: Border.all(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
-                                child: Center(
-                                  child: Text(
-                                    '${bid.name}',
-                                    style: const TextStyle(
-                                      fontSize: 22,
-                                      color: Colors.black,
-                                    ),
+                            width: MediaQuery.of(context).size.width / 1.8,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
+                              child: Center(
+                                child: Text(
+                                  '${bid.name}',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
                                   ),
                                 ),
                               ),
@@ -95,11 +87,25 @@ class QuickViewBidWidget extends StatelessWidget {
                       ],
                     ),
                     //**************BID RANGE********************/
-                    Text(
-                      bid.amount(),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 22, color: Colors.black),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 5.8,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                              width: 2),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            bid.amount(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 22, color: Colors.black),
+                          ),
+                        ),
+                      ),
                     ),
                     //***************************************/
                   ],

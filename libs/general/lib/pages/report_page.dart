@@ -116,7 +116,7 @@ class _RadioSelectWidgetState extends State<ReportPage> {
                     //IF A USER IS BEING REPORTED
                     widget.reportType == "User"
                         ? LongButtonWidget(
-                            text: "Submit Review - User",
+                            text: "Submit User Report",
                             function: () {
                               vm.popPage();
 
@@ -138,10 +138,10 @@ class _RadioSelectWidgetState extends State<ReportPage> {
                         //IF A REVIEW IS BEING REPORTED
                         : widget.reportType == "Review"
                             ? LongButtonWidget(
-                                text: "Submit Review - Rev", function: () {})
+                                text: "Submit Review Report", function: () {})
                             //IF AN ADVERT IS BEING REPORTED
                             : LongButtonWidget(
-                                text: "Submit Review - Adv",
+                                text: "Submit Job Report",
                                 function: () {
                                   vm.popPage();
                                   ReportDetailsModel report =

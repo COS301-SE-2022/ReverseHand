@@ -62,6 +62,18 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                       backButton: true),
                   //********************************************************//
 
+
+                  //****************ICON****************/
+                  const Padding(padding: EdgeInsets.only(top: 30)),
+                  CircleAvatar(
+                    radius: 70,
+                    backgroundImage: vm.userDetails.profileImage == null
+                        ? const AssetImage("assets/images/profile.png",
+                            package: 'general')
+                        : Image.network(vm.userDetails.profileImage!).image,
+                  ),
+                  //************************************/
+
                   //**************HEADING***************/
                   const Padding(padding: EdgeInsets.only(top: 20)),
                   Center(
@@ -69,17 +81,6 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                       vm.userDetails.name != null ? vm.userDetails.name! : "",
                       style: const TextStyle(fontSize: 35),
                     ),
-                  ),
-                  //************************************/
-
-                  //****************ICON****************/
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  CircleAvatar(
-                    radius: 70,
-                    backgroundImage: vm.userDetails.profileImage == null
-                        ? const AssetImage("assets/images/profile.png",
-                            package: 'general')
-                        : Image.network(vm.userDetails.profileImage!).image,
                   ),
                   //************************************/
 
@@ -123,7 +124,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
 
                                     List<ReviewWidget> reviews = vm
                                         .userDetails.reviews
-                                        .map((r) => ReviewWidget(review: r))
+                                        .map((r) => ReviewWidget(review: r, store: store))
                                         .toList();
 
                                     showModalBottomSheet(
