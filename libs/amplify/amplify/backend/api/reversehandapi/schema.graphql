@@ -71,6 +71,7 @@ type Mutation {
     description: String
     domain: DomainInput!
     type: String!
+    images: Int! # number of images uploaded
   ): Advert! @function(name: "createAdvertResolver-${env}")
 
   placeBid(
@@ -292,6 +293,7 @@ type Advert implements UniqueID {
   domain: Domain!
   date_created: Float!
   date_closed: Float
+  images: Int! # number of images uploaded
 }
 
 type Bid implements UniqueID {

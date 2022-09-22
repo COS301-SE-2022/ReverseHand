@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -25,9 +26,10 @@ class ArchiveAdvertAction extends ReduxAction<AppState> {
 
     try {
       // getting the bid which has beena accepted is just a graphql convention
-      /* final response = */ await Amplify.API
+      final response = await Amplify.API
           .mutate(request: request)
           .response; // in future may want to do something with accepted advert
+      debugPrint(response.data);
 
       return null;
     } catch (e) {
