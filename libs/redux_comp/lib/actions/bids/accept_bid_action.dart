@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/chat/create_chat_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -30,6 +31,8 @@ class AcceptBidAction extends ReduxAction<AppState> {
       dynamic response = await Amplify.API
           .mutate(request: request)
           .response; // in future may want to do something with accepted advert
+
+      debugPrint(response.data);
 
       // dispatching action to create chat
       dispatch(CreateChatAction(state.activeBid!.userId));

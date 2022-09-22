@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:async_redux/async_redux.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:general/widgets/button.dart';
@@ -95,6 +93,7 @@ class _EditBidSheetState extends State<EditBidSheet> {
                           },
                         );
 
+                        // ignore: use_build_context_synchronously
                         Navigator.pop(context);
                       },
                       icon: const Icon(

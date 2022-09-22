@@ -12,7 +12,6 @@ import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
-import 'package:redux_comp/actions/analytics_events/record_create_advert_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/radio_select_widget.dart';

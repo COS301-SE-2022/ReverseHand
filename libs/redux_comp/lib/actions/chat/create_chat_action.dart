@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -28,6 +29,8 @@ class CreateChatAction extends ReduxAction<AppState> {
       dynamic response = await Amplify.API
           .mutate(request: request)
           .response; // in future may want to do something with accepted advert
+
+      debugPrint(response.data);
 
       return null;
     } catch (e) {
