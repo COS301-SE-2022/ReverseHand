@@ -20,4 +20,3 @@ class DividerWidget extends StatelessWidget {
   }
 }
 
-//check if this can be deleted

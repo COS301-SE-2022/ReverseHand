@@ -20,7 +20,6 @@ class DateLabelWidget extends StatelessWidget {
             label,
             style: const TextStyle(
               fontSize: 12,
-              // fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
