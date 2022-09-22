@@ -51,7 +51,7 @@ class QuickViewBidWidget extends StatelessWidget {
                     Row(
                       children: [
                         //***********IF BID IS SHORTLISTED********/
-                        //then display a star
+                        //then display a bookmark
                         if (bid.shortlisted)
                           Row(
                             children: [
@@ -88,7 +88,7 @@ class QuickViewBidWidget extends StatelessWidget {
                     ),
                     //**************BID RANGE********************/
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 5.8,
+                      width: MediaQuery.of(context).size.width / 4,
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),

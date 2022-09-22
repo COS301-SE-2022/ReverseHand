@@ -78,7 +78,7 @@ class TradesmanJobDetails extends StatelessWidget {
                         location: vm.advert.domain.city,
                       ),
 
-                    const Padding(padding: EdgeInsets.only(top: 17)),
+                    const Padding(padding: EdgeInsets.only(top: 10)),
 
                     //*************BOTTOM BUTTONS**************//
                     vm.userBid != null
@@ -87,8 +87,8 @@ class TradesmanJobDetails extends StatelessWidget {
                             children: [
                               //*************USER BID**************//
                               if ((vm.userBid != null &&
-                                      vm.userBid!.shortlisted) ||
-                                  !vm.accepted)
+                                vm.userBid!.shortlisted) ||
+                                !vm.accepted)
                                 const Padding(
                                   padding: EdgeInsets.only(left: 45.0),
                                   child: Align(
@@ -184,7 +184,6 @@ class TradesmanJobDetails extends StatelessWidget {
                       function: vm.dispatchGetOtherUserAction,
                     ),
                     const Padding(padding: EdgeInsets.only(top: 35)),
-
                     const Padding(padding: EdgeInsets.only(bottom: 50)),
                   ],
                 ),

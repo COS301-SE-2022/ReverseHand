@@ -62,7 +62,7 @@ class TQuickViewBidWidget extends StatelessWidget {
                 
                   //***************************************/
                   SizedBox(
-                    width: MediaQuery.of(context).size.width / 5.8,
+                    width: MediaQuery.of(context).size.width / 4,
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7),
