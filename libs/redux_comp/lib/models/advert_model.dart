@@ -13,6 +13,7 @@ class AdvertModel {
   final double dateCreated;
   final double? dateClosed;
   final double? advertRank;
+  final int imageCount;
   final List<String> images; // image urls for an advert
 
   const AdvertModel({
@@ -25,6 +26,7 @@ class AdvertModel {
     this.acceptedBid,
     required this.domain,
     required this.dateCreated,
+    required this.imageCount,
     this.dateClosed,
     this.advertRank,
   });
@@ -42,6 +44,7 @@ class AdvertModel {
     double? dateClosed,
     double? advertRank,
     List<String>? images,
+    int? imageCount,
   }) {
     return AdvertModel(
       id: id ?? this.id,
@@ -55,6 +58,7 @@ class AdvertModel {
       dateCreated: dateCreated ?? this.dateCreated,
       dateClosed: dateClosed ?? this.dateClosed,
       advertRank: advertRank ?? this.advertRank,
+      imageCount: imageCount ?? this.imageCount,
     );
   }
 
@@ -69,6 +73,7 @@ class AdvertModel {
       domain: Domain.fromJson(obj['domain']),
       dateCreated: obj['date_created'].toDouble(),
       dateClosed: obj['date_closed']?.toDouble(),
+      imageCount: obj['images'],
     );
   }
 
@@ -84,7 +89,8 @@ class AdvertModel {
       dateCreated == other.dateCreated &&
       dateClosed == other.dateClosed &&
       advertRank == other.advertRank &&
-      images == other.images;
+      images == other.images &&
+      imageCount == other.imageCount;
 
   @override
   int get hashCode => Object.hash(
@@ -97,6 +103,7 @@ class AdvertModel {
         dateCreated,
         dateClosed,
         advertRank,
-        images,
+        Object.hashAll(images),
+        imageCount,
       );
 }

@@ -32,8 +32,10 @@ class CreateAdvertAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
+    int fileCount = files?.length ?? 0;
+
     String graphQLDocument = '''mutation {
-      createAdvert(customer_id: "$customerId", title: "$title", description: "$description", domain: ${domain.toString()}, type: "$type") {
+      createAdvert(customer_id: "$customerId", title: "$title", description: "$description", domain: ${domain.toString()}, type: "$type", images: $fileCount) {
         id
       }
     }''';

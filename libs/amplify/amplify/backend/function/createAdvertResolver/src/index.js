@@ -36,6 +36,7 @@ exports.handler = async (event) => {
                 description: event.arguments.description,
                 domain: event.arguments.domain,
                 type: event.arguments.type,
+                images: event.arguments.images,
                 date_created: currentDate // automatically generating the date
             }
         }

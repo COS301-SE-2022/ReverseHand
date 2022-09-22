@@ -39,6 +39,7 @@ class ViewJobsAction extends ReduxAction<AppState> {
         type
         accepted_bid
         customer_id
+        images
         id
       }
     }''';

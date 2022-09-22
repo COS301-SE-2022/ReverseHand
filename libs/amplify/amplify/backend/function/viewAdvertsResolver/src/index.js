@@ -43,6 +43,7 @@ exports.handler = async (event) => {
                 domain: item['advert_details']['domain'],
                 date_created: item['advert_details']['date_created'],
                 date_closed: item['advert_details']['date_closed'],
+                images: item['advert_details']['images'],
             });
 
         return adverts;

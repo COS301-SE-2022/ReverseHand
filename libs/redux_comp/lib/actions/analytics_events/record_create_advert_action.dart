@@ -16,7 +16,7 @@ class RecordCreateAdvertAction extends ReduxAction<AppState> {
     event.properties.addStringProperty('city', city);
     event.properties.addStringProperty('province', province);
 
-    // print(event.properties.);
+    print(event.properties.getAllProperties());
     try {
       await Amplify.Analytics.recordEvent(event: event);
       await Amplify.Analytics.flushEvents();

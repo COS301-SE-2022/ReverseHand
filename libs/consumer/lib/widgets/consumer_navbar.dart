@@ -100,8 +100,8 @@ class NavBarWidget extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      // vm.pushProfilePage();
-                      vm.test('Pretoria', 'Gauteng');
+                      vm.pushProfilePage();
+                      // vm.test('Pretoria', 'Gauteng');
                     },
                     splashRadius: 30,
                     highlightColor: Colors.orange,
