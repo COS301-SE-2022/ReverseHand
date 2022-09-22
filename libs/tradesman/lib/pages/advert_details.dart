@@ -238,6 +238,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
             : state.activeAd!.acceptedBid == null
                 ? false
                 : state.userBid!.id == state.activeAd!.acceptedBid!,
+        change: state.change,
       );
 }
 
@@ -255,9 +256,11 @@ class _ViewModel extends Vm {
   }) dispatchPlaceBidAction;
   final VoidCallback dispatchGetOtherUserAction;
   final bool accepted;
+  final bool change;
 
   _ViewModel({
     required this.advert,
+    required this.change,
     required this.bidCount,
     required this.userBid,
     required this.dispatchPlaceBidAction,
@@ -266,5 +269,5 @@ class _ViewModel extends Vm {
     required this.pushViewBidsPage,
     required this.loading,
     required this.accepted,
-  }) : super(equals: [advert, loading]);
+  }) : super(equals: [advert, loading, userBid, change]);
 }

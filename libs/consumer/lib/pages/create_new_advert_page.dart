@@ -12,7 +12,6 @@ import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
-import 'package:redux_comp/actions/analytics_events/record_create_advert_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/radio_select_widget.dart';
@@ -167,7 +166,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                             InkWell(
                               onTap: () {
                                 vm.pushLocationSearchPage();
-                              }, 
+                              },
                               child: const Text(
                                 "change address",
                                 style: TextStyle(
@@ -197,10 +196,10 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                 child: InkWell(
                   onTap: () async {
-                  ImagePicker picker = ImagePicker();
+                    ImagePicker picker = ImagePicker();
 
-                  _files = await picker.pickMultiImage();
-                },
+                    _files = await picker.pickMultiImage();
+                  },
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Container(
@@ -249,12 +248,6 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   trade!,
                                   descrController.value.text,
                                   _files?.map((e) => File(e.path)).toList(),
-                                );
-                                vm.dispatchRecordCreateAdvertAction(
-                                  widget.store.state.userDetails.location!
-                                      .address.city,
-                                  widget.store.state.userDetails.location!
-                                      .address.province,
                                 );
                               } else {
                                 LightDialogHelper.display(
@@ -319,8 +312,6 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
             files: files,
           ),
         ),
-        dispatchRecordCreateAdvertAction: (String city, String province) =>
-            dispatch(RecordCreateAdvertAction(city: city, province: province)),
         loading: state.wait.isWaiting,
       );
 }
@@ -329,8 +320,6 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
 class _ViewModel extends Vm {
   final void Function(String id, String title, Domain domanin, String trade,
       String? descr, List<File>? files) dispatchCreateAdvertActions;
-  final void Function(String city, String province)
-      dispatchRecordCreateAdvertAction;
   final VoidCallback pushLocationSearchPage;
   final VoidCallback popPage;
   final bool loading;
@@ -338,7 +327,6 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.loading,
     required this.dispatchCreateAdvertActions,
-    required this.dispatchRecordCreateAdvertAction,
     required this.pushLocationSearchPage,
     required this.popPage,
   }) : super(equals: [loading]); // implementinf hashcode
