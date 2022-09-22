@@ -147,24 +147,44 @@ class _RadioSelectWidgetState extends State<ReportPage> {
                         //IF A REVIEW IS BEING REPORTED
                         : widget.reportType == "Review"
                             ? LongButtonWidget(
-                                text: "Submit Review Report", function: () {})
+                                text: "Submit Review Report",
+                                function: () {
+                                  if (descrController.value.text.isNotEmpty &&
+                                      _type != null) {
+                                    displayToastSuccess(context,
+                                        "Your report has been submitted");
+                                    vm.popPage();
+                                    //some more stuff should happen here
+                                  } else {
+                                    displayToastError(context,
+                                        "Reason and description must be included.");
+                                  }
+                                })
                             //IF AN ADVERT IS BEING REPORTED
                             : LongButtonWidget(
                                 text: "Submit Job Report",
                                 function: () {
-                                  vm.popPage();
-                                  ReportDetailsModel report =
-                                      ReportDetailsModel(
-                                    description: descrController.value.text,
-                                    reason: _type!,
-                                    reportedUser: ReportUserDetailsModel(
-                                      id: vm.otherUser.id,
-                                      name: vm.otherUser.name ?? "nameNull",
-                                    ),
-                                  );
+                                  if (descrController.value.text.isNotEmpty &&
+                                      _type != null) {
+                                    displayToastSuccess(context,
+                                        "Your report has been submitted");
+                                    vm.popPage();
+                                    ReportDetailsModel report =
+                                        ReportDetailsModel(
+                                      description: descrController.value.text,
+                                      reason: _type!,
+                                      reportedUser: ReportUserDetailsModel(
+                                        id: vm.otherUser.id,
+                                        name: vm.otherUser.name ?? "nameNull",
+                                      ),
+                                    );
 
-                                  vm.dispatchAddSdvertReportAction(
-                                      vm.otherUser.id, report);
+                                    vm.dispatchAddSdvertReportAction(
+                                        vm.otherUser.id, report);
+                                  } else {
+                                    displayToastError(context,
+                                        "Reason and description must be included.");
+                                  }
                                 },
                               ),
               ),
