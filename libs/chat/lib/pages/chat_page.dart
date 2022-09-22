@@ -70,7 +70,6 @@ class ChatPage extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      // const DateLabelWidget(label: "Yesterday"), //todo michael
                       const Padding(
                         padding: EdgeInsets.only(top: 35),
                       ),
@@ -120,5 +119,5 @@ class _ViewModel extends Vm {
     required this.chat,
     required this.currentUser,
     required this.messages,
-  }) : super(equals: [chat, messages]); // implementinf hashcode
+  }) : super(equals: [chat, messages]); 
 }

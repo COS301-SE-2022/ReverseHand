@@ -64,6 +64,6 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.popPage,
-  }); // implementinf hashcode
+  });
 
 }

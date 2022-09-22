@@ -112,8 +112,6 @@ class LoginPage extends StatelessWidget {
                                         emailController.value.text.trim(),
                                         passwordController.value.text.trim(),
                                       );
-                                      // Location l = const Location(address: Address(streetNumber: "1",street: "2", city: "3", province: "4", zipCode: "6"), coordinates: Coordinates(lat: 1, lng: 1));
-                                      // vm.dispatchEditUserAction("Richard", l);
                                     },
                                   ),
                       ),

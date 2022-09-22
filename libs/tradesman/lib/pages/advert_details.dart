@@ -80,11 +80,7 @@ class TradesmanJobDetails extends StatelessWidget {
                         location: vm.advert.domain.city,
                       ),
 
-                    const Padding(padding: EdgeInsets.only(top: 25)),
-
                     //*************BOTTOM BUTTONS**************//
-                    // vm.bids.contains(vm.userBid)
-                    //this isn't working as expected
                     vm.userBid != null
                         //if this contractor has already made a bid
                         ? Column(
@@ -108,7 +104,7 @@ class TradesmanJobDetails extends StatelessWidget {
                                 padding: const EdgeInsets.only(
                                   left: 40,
                                   right: 40,
-                                  bottom: 50,
+                                  bottom: 30,
                                   top: 10,
                                 ),
                                 child: InkWell(
@@ -154,6 +150,7 @@ class TradesmanJobDetails extends StatelessWidget {
                             ],
                           )
                         //***********************************//
+
                         //if this contractor hasn't already made a bid
                         : Padding(
                             padding: const EdgeInsets.only(top: 20.0),
@@ -180,8 +177,8 @@ class TradesmanJobDetails extends StatelessWidget {
                               },
                             ),
                           ),
-                    //place bid
 
+                    //place bid
                     if (!vm.accepted)
                       TransparentLongButtonWidget(
                         text: "View Bids (${vm.bidCount})",
