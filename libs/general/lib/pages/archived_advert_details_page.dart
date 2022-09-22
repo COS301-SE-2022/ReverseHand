@@ -64,7 +64,8 @@ class ArchivedAdvertDetailsPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(40, 30, 40, 30),
                       child: Container(
-                        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
+                        padding: const EdgeInsets.only(
+                            left: 12, right: 12, bottom: 12),
                         alignment: Alignment.center,
                         decoration: const BoxDecoration(
                           color: Color.fromARGB(255, 232, 232, 232),
@@ -75,10 +76,9 @@ class ArchivedAdvertDetailsPage extends StatelessWidget {
                             const Padding(
                               padding: EdgeInsets.only(bottom: 10),
                               child: HintWidget(
-                                text: "Accepted Bid",
-                                colour: Colors.black,
-                                padding: 0
-                              ),
+                                  text: "Accepted Bid",
+                                  colour: Colors.black,
+                                  padding: 0),
                             ),
                             UserBidDetailsWidget(
                               amount: vm.bid!.amount(),

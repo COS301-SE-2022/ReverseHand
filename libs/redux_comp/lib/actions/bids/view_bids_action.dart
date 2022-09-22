@@ -62,14 +62,25 @@ class ViewBidsAction extends ReduxAction<AppState> {
         if (ad.acceptedBid != null && bid.id == ad.acceptedBid) activeBid = bid;
       }
 
-      return state.copy(
-        bids: bids,
-        userBid: userBid,
-        shortlistBids: shortlistedBids,
-        viewBids: bids + shortlistedBids,
-        activeAd: ad, // setting the active ad
-        activeBid: activeBid,
-      );
+      if (userBid == null) {
+        return state.copy(
+          bids: bids,
+          makeUserBidNull: true,
+          shortlistBids: shortlistedBids,
+          viewBids: bids + shortlistedBids,
+          activeAd: ad, // setting the active ad
+          activeBid: activeBid,
+        );
+      } else {
+        return state.copy(
+          bids: bids,
+          userBid: userBid,
+          shortlistBids: shortlistedBids,
+          viewBids: bids + shortlistedBids,
+          activeAd: ad, // setting the active ad
+          activeBid: activeBid,
+        );
+      }
     } catch (e) {
       return null; /* On Error do not modify state */
     }

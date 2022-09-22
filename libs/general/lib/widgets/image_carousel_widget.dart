@@ -25,12 +25,13 @@ class ImageCarouselWidget extends StatelessWidget {
 //the actual container for the carousel
   Widget buildImage(String firstImage, int index, BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(left: 5, right: 5),
-        color: Colors.grey,
-        child: Image.network(
-          firstImage,
-          fit: BoxFit.cover,
-          width: MediaQuery.of(context).size.width,
-        ));
+      margin: const EdgeInsets.only(left: 5, right: 5),
+      color: Colors.grey,
+      child: Image.network(
+        firstImage,
+        fit: BoxFit.cover,
+        width: MediaQuery.of(context).size.width,
+      ),
+    );
   }
 }

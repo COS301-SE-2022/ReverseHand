@@ -37,10 +37,10 @@ Future<void> _configureAmplify() async {
 
     // add Amplify plugins
     await Amplify.addPlugins([
+      analyticsPlugin,
       api,
       authPlugin,
       storage,
-      analyticsPlugin,
     ]);
 
     // configure Amplify

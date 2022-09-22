@@ -145,6 +145,8 @@ class AdvertModel {
   }
 
   static double _rankDescription(AdvertModel advert) {
+    if (advert.description == null) return 0;
+
     String description = advert.description!.trim();
     double ranking = 0;
 
