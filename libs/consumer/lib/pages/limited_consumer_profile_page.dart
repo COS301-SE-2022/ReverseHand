@@ -62,7 +62,7 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                       style: const TextStyle(fontSize: 35),
                     ),
                   ),
-                   const Padding(padding: EdgeInsets.only(bottom: 20)),
+                  const Padding(padding: EdgeInsets.only(bottom: 20)),
                   //************************************/
 
                   //************STATS*******************/
@@ -91,7 +91,7 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "Adverts closed ${vm.userDetails.statistics.finished}",
+                                      "Total adverts closed: ${vm.userDetails.statistics.finished}",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -109,7 +109,7 @@ class LimitedConsumerProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "Total adverts ${vm.userDetails.statistics.created} made",
+                                      "Total adverts made: ${vm.userDetails.statistics.created}",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],

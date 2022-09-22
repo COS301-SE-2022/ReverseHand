@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/bottom_sheet.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
@@ -51,37 +52,41 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
 
                       const Padding(padding: EdgeInsets.only(top: 23)),
 
-
                       //****************PROFILE IMAGE****************/
                       ProfileImageWidget(
                         store: widget.store,
                       ),
-                      const Padding(padding: EdgeInsets.only(top: 5, bottom: 15)),
+                      const Padding(
+                          padding: EdgeInsets.only(top: 5, bottom: 15)),
                       //*****************************************
 
                       //**************HEADING***************/
                       Center(
                         child: Padding(
-                        padding: const EdgeInsets.only(left: 25, right: 20),
-                        child: Text(
-                          vm.userDetails.name != null
-                              ? vm.userDetails.name!
-                              : "",
-                          style: const TextStyle(fontSize: 35),
+                          padding: const EdgeInsets.only(
+                              left: 25, right: 20, bottom: 10),
+                          child: Text(
+                            vm.userDetails.name != null
+                                ? vm.userDetails.name!
+                                : "",
+                            style: const TextStyle(fontSize: 35),
+                          ),
                         ),
-                      ),
                       ),
                       //************************************/
 
                       //************STATS*******************/
-                      //CHANGE ICONS
+                      const HintWidget(
+                          text: "Press and hold to see past jobs",
+                          colour: Colors.white70,
+                          padding: 30),
                       InkWell(
                         onLongPress: () {
                           vm.dispatchViewAdvertsAction();
                           vm.pushArchivedJobsPage();
                         },
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
+                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                           child: SizedBox(
                             height: 100,
                             width: MediaQuery.of(context).size.width / 1.15,
@@ -106,7 +111,7 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                                                 Theme.of(context).primaryColor,
                                           ),
                                           Text(
-                                            "Adverts closed ${vm.userDetails.statistics.finished}",
+                                            "Total adverts closed: ${vm.userDetails.statistics.finished}",
                                             style:
                                                 const TextStyle(fontSize: 18),
                                           ),
@@ -126,7 +131,7 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                                                 Theme.of(context).primaryColor,
                                           ),
                                           Text(
-                                            "Total adverts ${vm.userDetails.statistics.created} made",
+                                            "Total adverts made: ${vm.userDetails.statistics.created}",
                                             style:
                                                 const TextStyle(fontSize: 18),
                                           ),
@@ -183,8 +188,9 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                                 const Padding(
                                     padding: EdgeInsets.only(right: 8)),
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width / 1.7,
-                                  child:Text(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.7,
+                                  child: Text(
                                     (vm.userDetails.name != null)
                                         ? vm.userDetails.name!
                                         : "null",

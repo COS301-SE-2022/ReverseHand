@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:async_redux/async_redux.dart';
+import 'package:general/methods/toast_error.dart';
 import 'package:general/widgets/long_button_widget.dart';
-import 'package:consumer/widgets/job_creation_popup.dart';
-import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
@@ -167,7 +166,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                             InkWell(
                               onTap: () {
                                 vm.pushLocationSearchPage();
-                              }, 
+                              },
                               child: const Text(
                                 "change address",
                                 style: TextStyle(
@@ -197,10 +196,10 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                 child: InkWell(
                   onTap: () async {
-                  ImagePicker picker = ImagePicker();
+                    ImagePicker picker = ImagePicker();
 
-                  _files = await picker.pickMultiImage();
-                },
+                    _files = await picker.pickMultiImage();
+                  },
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Container(
@@ -257,11 +256,12 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                       .address.province,
                                 );
                               } else {
-                                LightDialogHelper.display(
-                                  context,
-                                  const CreationPopupWidget(),
-                                  210.0,
-                                );
+                                // LightDialogHelper.display(
+                                //   context,
+                                //   const CreationPopupWidget(),
+                                //   210.0,
+                                displayToastError(context,
+                                    "Title and Trade Type must be included");
                               }
                             },
                           ),
