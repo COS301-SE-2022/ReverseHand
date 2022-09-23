@@ -15,5 +15,9 @@
       "kinesis:ListShards"
     ],
     "Resource" : ["*"]
+  }, 
+  {
+    "Action": ["cloudwatch:PutMetricData"],
+    "Resource": ["*"]
   }
 ]

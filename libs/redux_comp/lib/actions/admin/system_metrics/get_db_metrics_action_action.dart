@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/admin/system_metrics/build_data.dart';
 import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
-import 'package:redux_comp/models/admin/app_metrics/observation_model.dart';
 
 import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';

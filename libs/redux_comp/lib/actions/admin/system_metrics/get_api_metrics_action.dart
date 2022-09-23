@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/admin/system_metrics/build_data.dart';
 import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
-import 'package:redux_comp/models/admin/app_metrics/observation_model.dart';
 
 import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
@@ -74,7 +74,7 @@ class GetApiMetricsAction extends ReduxAction<AppState> {
         switch (data["Id"]) {
           case "apiLatency":
             apiLatency.add(LineChartModel(
-                data: buildData(data),
+                data: buildData(data, start, end, period),
                 color: Colors.orange,
                 label: 'Latency'));
             break;
@@ -122,18 +122,4 @@ class GetApiMetricsAction extends ReduxAction<AppState> {
 
   // @override
   // void after() => dispatch(WaitAction.remove("load_db_read"));
-}
-
-List<ObservationModel> buildData(obj) {
-  int length = obj["Values"].length;
-
-  List<ObservationModel> data = [];
-  int i = length;
-  while (i > 0) {
-    i--;
-    data.add(ObservationModel(
-        time: (obj["Timestamps"][i]).substring(11, 16),
-        value: obj['Values'][i]));
-  }
-  return data;
 }

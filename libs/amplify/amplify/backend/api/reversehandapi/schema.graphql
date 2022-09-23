@@ -71,6 +71,7 @@ type Mutation {
     description: String
     domain: DomainInput!
     type: String!
+    images: Int! # number of images uploaded
   ): Advert! @function(name: "createAdvertResolver-${env}")
 
   placeBid(
@@ -104,6 +105,7 @@ type Mutation {
     type: String
     domain: DomainInput
     date_closed: String
+    images: Int
   ): Advert! @function(name: "editAdvertResolver-${env}")
 
   deleteAdvert(ad_id: String!): Advert!
@@ -132,16 +134,17 @@ type Mutation {
     @function(name: "removeDomainResolver-${env}")
 
   createChat(
-    c_id: String!
-    t_id: String!
-    c_name: String!
-    t_name: String!
+    c_id: String!,
+    t_id: String!,
+    ad_id: String!,
+    c_name: String!,
+    t_name: String!,
   ): Chat! @function(name: "createChatResolver-${env}")
 
   sendMessage(chat_id: String!, msg: String!, sender: String!): Message!
     @function(name: "sendMessageResolver-${env}")
 
-  deleteChat(c_id: String!, ad_id: String!): Chat!
+  deleteChat(t_id: String!, c_id: String!, ad_id: String!): Chat!
     @function(name: "deleteChatResolver-${env}")
 
   addReview(user_id: String!, review: ReviewInput!): Review! # user_id is who the review is being created for
@@ -291,6 +294,7 @@ type Advert implements UniqueID {
   domain: Domain!
   date_created: Float!
   date_closed: Float
+  images: Int! # number of images uploaded
 }
 
 type Bid implements UniqueID {
