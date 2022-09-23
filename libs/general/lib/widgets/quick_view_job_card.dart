@@ -65,32 +65,38 @@ class QuickViewJobCardWidget extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2.3,
-                              //*******************ADVERT TITLE *************** */
-                              child: Text(advert.title,
-                                  maxLines: 2,
-                                  style: const TextStyle(
-                                      fontSize: 23,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold)),
-                              //*********************************************** */
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: SizedBox(
-                                width: 110,
-                                //*******************ADVERT POST DATE *************** */
-                                child: Text(
-                                  timestampToDate(advert.dateCreated),
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black54,
-                                  ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.8,
+                                  //*******************ADVERT TITLE *************** */
+                                  child: Text(advert.title,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: 23,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold)),
+                                  //*********************************************** */
                                 ),
-                                //*********************************************** */
-                              ),
+                              ],
                             ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(bottom: 20),
+                            //   child: SizedBox(
+                            //     width: 120,
+                            //     //*******************ADVERT POST DATE *************** */
+                            //     child: Text(
+                            //       timestampToDate(advert.dateCreated),
+                            //       style: const TextStyle(
+                            //         fontSize: 18,
+                            //         color: Colors.black54,
+                            //       ),
+                            //     ),
+                            //     //*********************************************** */
+                            //   ),
+                            // ),
                           ],
                         ),
                         const Padding(padding: EdgeInsets.only(top: 2)),

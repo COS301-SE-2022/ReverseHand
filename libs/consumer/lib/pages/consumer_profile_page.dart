@@ -160,10 +160,10 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                             ),
                             const Padding(padding: EdgeInsets.only(right: 8)),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.4,
+                              width: MediaQuery.of(context).size.width / 1.3,
                               child: Text(vm.userDetails.email,
                                   style: const TextStyle(
-                                      fontSize: 20, color: Colors.white)),
+                                      fontSize: 18, color: Colors.white)),
                             ),
                           ],
                         ),
@@ -187,15 +187,11 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                                 ),
                                 const Padding(
                                     padding: EdgeInsets.only(right: 8)),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.7,
-                                  child: Text(
-                                    (vm.userDetails.name != null)
-                                        ? vm.userDetails.name!
-                                        : "null",
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
+                                Text(
+                                  (vm.userDetails.name != null)
+                                      ? vm.userDetails.name!
+                                      : "null",
+                                  style: const TextStyle(fontSize: 18),
                                 ),
                               ],
                             ),
@@ -250,7 +246,7 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                                         ? vm.userDetails.cellNo!
                                         : "null",
                                     style: const TextStyle(
-                                        fontSize: 20, color: Colors.white)),
+                                        fontSize: 18, color: Colors.white)),
                               ],
                             ),
                             IconButton(
@@ -304,7 +300,7 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                                         ? "${vm.userDetails.location!.address.city}, ${vm.userDetails.location!.address.province}"
                                         : "null",
                                     style: const TextStyle(
-                                        fontSize: 20, color: Colors.white)),
+                                        fontSize: 18, color: Colors.white)),
                               ],
                             ),
                             IconButton(

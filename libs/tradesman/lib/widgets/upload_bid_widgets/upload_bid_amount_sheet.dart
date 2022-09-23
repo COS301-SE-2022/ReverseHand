@@ -24,7 +24,7 @@ class _UploadAmountSheetState extends State<UploadAmountSheet> {
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: SizedBox(
-        height: 370,
+        height: 390,
         child: Column(
           children: [
             Align(
@@ -66,7 +66,7 @@ class _UploadAmountSheetState extends State<UploadAmountSheet> {
             ),
             const Padding(padding: EdgeInsets.only(top: 15)),
             SizedBox(
-              height: 100,
+              height: 110,
               width: 250,
               child: TextFormField(
                 cursorHeight: 30,
