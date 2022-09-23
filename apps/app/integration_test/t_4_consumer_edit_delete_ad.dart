@@ -163,7 +163,7 @@ void main() {
 • UC3: Leave Review
 • UC4: Register
 • UC5: Find Jobs
-• UC6: Place Bids
+• UC6: Place Bids - Done
 • UC7: Notifications
 • UC8: Choose Bid
 • UC9: View Bids
