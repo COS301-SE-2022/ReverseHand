@@ -237,5 +237,5 @@ class _ViewModel extends Vm {
     required this.dispatchSignUpAction,
     required this.pushLoginPage,
     required this.pushLocationPage,
-  }); // implementing hashcode
+  });
 }

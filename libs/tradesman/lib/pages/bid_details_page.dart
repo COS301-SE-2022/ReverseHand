@@ -179,5 +179,5 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.change,
     required this.pushEditBidsPage,
-  }) : super(equals: [change]); // implementinf hashcode
+  }) : super(equals: [change]);
 }

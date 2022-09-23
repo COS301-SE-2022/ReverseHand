@@ -98,7 +98,6 @@ class _FPOTPPopupWidgetState extends State<FPOTPPopupWidget> {
 }
 
 // factory for view model
-// ignore: unused_element
 class _Factory extends VmFactory<AppState, _FPOTPPopupWidgetState> {
   _Factory(widget) : super(widget);
 

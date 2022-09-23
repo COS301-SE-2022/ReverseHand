@@ -66,7 +66,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                         Row(
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width / 2.15,
+                              width: MediaQuery.of(context).size.width / 2.3,
                               //*******************ADVERT TITLE *************** */
                               child: Text(advert.title,
                                   maxLines: 2,
@@ -79,7 +79,7 @@ class QuickViewJobCardWidget extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 20),
                               child: SizedBox(
-                                width: 100,
+                                width: 110,
                                 //*******************ADVERT POST DATE *************** */
                                 child: Text(
                                   timestampToDate(advert.dateCreated),

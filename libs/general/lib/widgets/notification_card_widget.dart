@@ -25,9 +25,9 @@ class NotificationCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-      color: Theme.of(context).primaryColorLight,
+      color: const Color.fromARGB(255, 232, 232, 232),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(7),
       ),
       elevation: 2,
       child: Padding(
@@ -43,14 +43,14 @@ class NotificationCardWidget extends StatelessWidget {
                   child: Text(titleText,
                       style: const TextStyle(
                           fontSize: 20,
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 15),
                   child: Text(date,
                       style:
-                          const TextStyle(fontSize: 18, color: Colors.white70)),
+                          const TextStyle(fontSize: 18, color: Colors.grey)),
                 ),
               ],
             ),
@@ -60,14 +60,14 @@ class NotificationCardWidget extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 1.3,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                    padding: const EdgeInsets.only(top: 2),
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 3),
                         child: Text(
                           msg,
                           style: const TextStyle(
-                              fontSize: 20, color: Colors.white),
+                              fontSize: 20, color: Colors.black),
                         ),
                       ),
                     ),

@@ -2,7 +2,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/actions/adverts/get_bid_on_adverts_action.dart';
 import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
@@ -162,7 +161,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                         child: Text(
                           vm.userDetails.name != null
                               ? vm.userDetails.name!
-                              : "null",
+                              : "",
                           style: const TextStyle(fontSize: 32),
                         ),
                       ),
@@ -172,47 +171,44 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
 
 
                     //****************RATING**************/
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
-                      child: SizedBox(
-                        height: 150,
-                        width: MediaQuery.of(context).size.width / 1.15,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColorDark,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children:
-                                    //if there is a rating - 1 is the lowest that can be given
-                                    //so not checking if rating is null
-                                    vm.userDetails.statistics.ratingCount != 0
-                                      ? stars
-                                      : [
-                                          //if no rating yet
-                                          const Text(
-                                            "No rating yet",
-                                            style: TextStyle(
-                                              color: Colors.white70,
-                                              fontSize: 18,
-                                            ),
-                                          )
-                                        ],
-                                ),
-                                const Padding(
-                                    padding: EdgeInsets.only(top: 20)),
-                                TransparentLongButtonWidget(
-                                  text: "See my Reviews",
-                                  function: () {
-                                    vm.pushReviewsPage();
-                                    vm.dispatchGetUserReviewsAction();
-                                  },
-                                ),
-                              ],
+                    InkWell(
+                      onLongPress: () {
+                        vm.pushReviewsPage();
+                        vm.dispatchGetUserReviewsAction();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 25, 8, 8),
+                        child: SizedBox(
+                          height: 70,
+                          width: MediaQuery.of(context).size.width / 1.15,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColorDark,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children:
+                                      //if there is a rating - 1 is the lowest that can be given
+                                      //so not checking if rating is null
+                                      vm.userDetails.statistics.ratingCount != 0
+                                        ? stars
+                                        : [
+                                            //if no rating yet
+                                            const Text(
+                                              "No rating yet",
+                                              style: TextStyle(
+                                                color: Colors.white70,
+                                                fontSize: 18,
+                                              ),
+                                            )
+                                          ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

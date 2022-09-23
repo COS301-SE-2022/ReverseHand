@@ -62,7 +62,7 @@ class ArchivedAdvertDetailsPage extends StatelessWidget {
                   // User/Won bid
                   if (vm.bid != null)
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(40, 30, 40, 30),
+                      padding: const EdgeInsets.fromLTRB(40, 15, 40, 20),
                       child: Container(
                         padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
                         alignment: Alignment.center,

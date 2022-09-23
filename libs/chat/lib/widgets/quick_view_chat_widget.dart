@@ -54,7 +54,6 @@ class QuickViewChatWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      //todo add message preview and time sent and chat notification to card
                     ],
                   ),
                 ),
@@ -90,5 +89,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.userType,
     required this.dispatchGetMessagesAction,
-  }); // implementinf hashcode
+  });
 }
