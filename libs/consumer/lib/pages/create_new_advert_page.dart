@@ -138,7 +138,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               //location
               const HintWidget(
                 text:
-                    "The address for the job. Only the city will be displayed",
+                    "The address for the job.\nOnly the city will be displayed",
                 colour: Colors.white70,
                 padding: 15,
               ),
