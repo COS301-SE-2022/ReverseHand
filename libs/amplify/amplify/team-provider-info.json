@@ -249,7 +249,7 @@
         },
         "processKinesisStreamResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/processKinesisStreamResolver-6a4931316d676c6f6131-build.zip"
+          "s3Key": "amplify-builds/processKinesisStreamResolver-35476f37324a6c767972-build.zip"
         },
         "disableUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
