@@ -13,7 +13,7 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 class InitAmplifyAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
-    await _configureAmplify();
+    if (!Amplify.isConfigured) await _configureAmplify();
 
     return null;
   }
@@ -39,14 +39,13 @@ Future<void> _configureAmplify() async {
     await Amplify.addPlugins([
       api,
       authPlugin,
-      storage, 
-      analyticsPlugin
+      storage,
+      analyticsPlugin,
     ]);
 
     // configure Amplify
     // note that Amplify cannot be configured more than once!
-    await Amplify.configure(
-        amplifyconfig); // uncomment this line and add your amplify config package
+    await Amplify.configure(amplifyconfig);
 
     debugPrint('Amplify Successfully Configured 🎉');
   } catch (e) {

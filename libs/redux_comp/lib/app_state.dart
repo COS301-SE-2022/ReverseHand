@@ -156,6 +156,7 @@ class AppState {
             province: "province",
             coordinates: Coordinates(lat: 22, lng: 21)),
         dateCreated: 0,
+        imageCount: 0,
       ),
       activeBid: const BidModel(
         id: "",

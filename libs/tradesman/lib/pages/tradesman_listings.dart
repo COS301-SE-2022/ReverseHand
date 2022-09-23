@@ -84,7 +84,7 @@ class TradesmanJobListings extends StatelessWidget {
                             //display loading icon
                             if (vm.loading)
                               const LoadingWidget(
-                                  topPadding: 80, bottomPadding: 0)
+                                  topPadding: 50, bottomPadding: 20)
                             //a message if no jobs
                             else if (vm.adverts.isEmpty)
                               Padding(
@@ -102,6 +102,7 @@ class TradesmanJobListings extends StatelessWidget {
                               ),
                             //else populate the jobs
                             ...populateAdverts(vm.adverts, store),
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),
@@ -129,6 +130,7 @@ class TradesmanJobListings extends StatelessWidget {
                               ),
                             //else populate the jobs
                             ...populateAdverts(vm.bidOnAdverts, store),
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),

@@ -34,7 +34,7 @@ class ArchivedJobsPage extends StatelessWidget {
             body: Column(
               children: [
                 //*******************APP BAR WIDGET*********************//
-                AppBarWidget(title: "MY PAST JOBS", store: store),
+                AppBarWidget(title: "MY PAST JOBS", store: store, backButton: true),
                 //********************************************************//
 
                 Expanded(
@@ -59,6 +59,7 @@ class ArchivedJobsPage extends StatelessWidget {
                             )),
                           ),
                         //else populate the jobs
+                        const Padding(padding: EdgeInsets.only(top: 15),),
                         ...advertWidgets
                       ],
                     ),

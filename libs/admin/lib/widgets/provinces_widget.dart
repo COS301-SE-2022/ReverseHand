@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:general/widgets/button.dart';
 
-class RadioSelectWidget extends StatefulWidget {
-  const RadioSelectWidget({Key? key}) : super(key: key);
+class ProvinceSelectWidget extends StatefulWidget {
+  const ProvinceSelectWidget({Key? key}) : super(key: key);
 
-  final List<String> tradeTypes = const [
-    "Painting",
-    "Tiler",
-    "Carpenter",
-    "Cleaner",
-    "Designer",
-    "Landscaper",
-    "Electrician",
-    "Plumbing",
+  final List<String> provinces = const [
+    "Eastern Cape",
+    "Free State",
+    "Gauteng",
+    "KwaZulu-Natal",
+    "Limpopo",
+    "Mpumalanga",
+    "Northern Cape",
+    "North West",
+    "Western Cape"
   ];
   @override
-  State<RadioSelectWidget> createState() => _RadioSelectWidgetState();
+  State<ProvinceSelectWidget> createState() => _RadioSelectWidgetState();
 }
 
-class _RadioSelectWidgetState extends State<RadioSelectWidget> {
+class _RadioSelectWidgetState extends State<ProvinceSelectWidget> {
   String? _trade;
 
   //**************Button methods**************** */
@@ -36,7 +37,7 @@ class _RadioSelectWidgetState extends State<RadioSelectWidget> {
     return AlertDialog(
       title: const Center(
         child: Text(
-          'Select Trade Type:',
+          'Select a Province:',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
@@ -47,23 +48,26 @@ class _RadioSelectWidgetState extends State<RadioSelectWidget> {
       backgroundColor: const Color.fromRGBO(35, 47, 62, 1),
       content: SingleChildScrollView(
         child: ListBody(
-          children: widget.tradeTypes
+          children: widget.provinces
               //**********************select options *************** */
-              .map((tradeType) => RadioListTile(
+              .map((tradeType) => ListTile(
                     title: Text(
                       tradeType,
                       style: const TextStyle(
                         color: Colors.white,
                       ),
                     ),
-                    groupValue: _trade,
-                    onChanged: (String? value) {
-                      setState(() {
-                        _trade = value;
-                      });
-                    },
-                    value: tradeType,
-                    activeColor: Theme.of(context).primaryColor,
+                    leading: Radio<String>(
+                      value: tradeType,
+                      groupValue: _trade,
+                      fillColor: MaterialStateColor.resolveWith(
+                          (states) => Colors.orange),
+                      onChanged: (String? value) {
+                        setState(() {
+                          _trade = value;
+                        });
+                      },
+                    ),
                   ))
               .toList(),
           //********************************************** */
@@ -75,13 +79,7 @@ class _RadioSelectWidgetState extends State<RadioSelectWidget> {
           child: Column(
             children: [
               ButtonWidget(text: "Submit", function: _submit),
-              const Padding(padding: EdgeInsets.all(5)),
-              ButtonWidget(
-                text: "Cancel",
-                function: _cancel,
-                color: "light",
-                border: "lightBlue",
-              )
+              ButtonWidget(text: "Cancel", color: "light", function: _cancel)
             ],
           ),
         ),

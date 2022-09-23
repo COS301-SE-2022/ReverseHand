@@ -12,7 +12,7 @@ class RecordCreateAdvertAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    final event = AnalyticsEvent('CreateAdvert');
+    final AnalyticsEvent event = AnalyticsEvent('CreateAdvert');
 
     event.properties.addStringProperty('city', city);
     event.properties.addStringProperty('province', province);

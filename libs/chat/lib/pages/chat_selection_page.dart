@@ -87,5 +87,5 @@ class _ViewModel extends Vm {
     required this.chats,
     required this.userType,
     required this.loading,
-  }) : super(equals: [chats, userType, loading]); // implementinf hashcode
+  }) : super(equals: [chats, userType, loading]);
 }

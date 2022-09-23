@@ -35,8 +35,6 @@ class DomainConfirmPage extends StatelessWidget {
                 if (vm.domains.isNotEmpty)
                   const Padding(padding: EdgeInsets.all(8)),
 
-                //*******************DISCARD BUTTON*****************//
-                // ButtonWidget(text: "Back", color: "dark", function: vm.pop)
                 //**********************NAME************************//
               ],
             ),

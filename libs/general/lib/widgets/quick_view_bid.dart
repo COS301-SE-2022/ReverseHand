@@ -51,7 +51,7 @@ class QuickViewBidWidget extends StatelessWidget {
                     Row(
                       children: [
                         //***********IF BID IS SHORTLISTED********/
-                        //then display a star
+                        //then display a bookmark
                         if (bid.shortlisted)
                           Row(
                             children: [
@@ -68,23 +68,15 @@ class QuickViewBidWidget extends StatelessWidget {
                         //***********CONTRACTOR NAME*************/
                         Center(
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.5,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7),
-                                border: Border.all(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
-                                child: Center(
-                                  child: Text(
-                                    '${bid.name}',
-                                    style: const TextStyle(
-                                      fontSize: 22,
-                                      color: Colors.black,
-                                    ),
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 3, 5, 3),
+                              child: Center(
+                                child: Text(
+                                  '${bid.name}',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
                                   ),
                                 ),
                               ),
@@ -95,11 +87,27 @@ class QuickViewBidWidget extends StatelessWidget {
                       ],
                     ),
                     //**************BID RANGE********************/
-                    Text(
-                      bid.amount(),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 22, color: Colors.black),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 4.5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: Theme.of(context).primaryColor, width: 2),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: Center(
+                            child: Text(
+                              bid.amount(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 22, color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     //***************************************/
                   ],

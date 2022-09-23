@@ -93,7 +93,7 @@ class ConsumerListingsPage extends StatelessWidget {
                             //display loading icon
                             if (vm.loading)
                               const LoadingWidget(
-                                  topPadding: 80, bottomPadding: 0)
+                                  topPadding: 50, bottomPadding: 20)
                             //a message if no jobs
                             else if (open.isEmpty)
                               Padding(
@@ -110,7 +110,8 @@ class ConsumerListingsPage extends StatelessWidget {
                                 )),
                               ),
                             //else populate the jobs
-                            ...open
+                            ...open,
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),
@@ -133,7 +134,8 @@ class ConsumerListingsPage extends StatelessWidget {
                                 )),
                               ),
                             //else display in progress jobs
-                            ...inProgress
+                            ...inProgress,
+                            const Padding(padding: EdgeInsets.only(bottom: 33))
                           ],
                         ),
                       ),

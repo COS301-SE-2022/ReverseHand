@@ -75,7 +75,7 @@ dev_dependencies:
   flutter_lints: ^2.0.1
 
 dependency_overrides:
-  image_picker_android: 0.8.4+13
+  image_picker_android: 0.8.5+3
 
 # Splash screen settings
 flutter_native_splash:

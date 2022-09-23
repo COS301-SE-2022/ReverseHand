@@ -25,9 +25,9 @@ class QuickViewChatWidget extends StatelessWidget {
           onTap: () => vm.dispatchGetMessagesAction(chat),
           child: SizedBox(
             width: 400,
-            height: 130,
+            height: 110,
             child: Padding(
-              padding: const EdgeInsets.only(top: 25),
+              padding: const EdgeInsets.only(top: 5),
               child: Card(
                 margin: const EdgeInsets.all(10),
                 color: const Color.fromARGB(255, 220, 224, 230),
@@ -54,7 +54,6 @@ class QuickViewChatWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      //todo add message preview and time sent and chat notification to card
                     ],
                   ),
                 ),
@@ -90,5 +89,5 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.userType,
     required this.dispatchGetMessagesAction,
-  }); // implementinf hashcode
+  });
 }

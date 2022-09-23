@@ -131,7 +131,6 @@ class _NewPasswordPopupWidgetState extends State<NewPasswordPopupWidget> {
 }
 
 // factory for view model
-// ignore: unused_element
 class _Factory extends VmFactory<AppState, _NewPasswordPopupWidgetState> {
   _Factory(widget) : super(widget);
 

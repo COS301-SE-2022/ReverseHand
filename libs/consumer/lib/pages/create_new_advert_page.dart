@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:async_redux/async_redux.dart';
+import 'package:general/methods/toast_error.dart';
 import 'package:general/widgets/long_button_widget.dart';
-import 'package:consumer/widgets/job_creation_popup.dart';
-import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
@@ -95,15 +94,13 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //trade type
               const HintWidget(
-                text: "Select all relevant trade types",
-                colour: Colors.white70,
-                padding: 15,
-              ),
+                  text: "Select the relevant trade type",
+                  colour: Colors.white70,
+                  padding: 15),
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                 child: InkWell(
-                  // tick boxes and not radio buttons?
                   onTap: () => showRadioSelect(),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -143,7 +140,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               //location
               const HintWidget(
                 text:
-                    "The address for the job. Only the city will be displayed",
+                    "The address for the job.\nOnly the city will be displayed",
                 colour: Colors.white70,
                 padding: 15,
               ),
@@ -188,21 +185,35 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
 
               //add photos
               const HintWidget(
-                text: "Choose photos related to the job",
+                text: "Select photos related to the job",
                 colour: Colors.white70,
                 padding: 15,
               ),
-              const Padding(padding: EdgeInsets.only(top: 5)),
-              IconButton(
-                onPressed: () async {
-                  ImagePicker picker = ImagePicker();
 
-                  _files = await picker.pickMultiImage();
-                },
-                icon: const Icon(
-                  Icons.camera_alt,
-                  color: Colors.white,
-                  size: 28.0,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                child: InkWell(
+                  onTap: () async {
+                    ImagePicker picker = ImagePicker();
+
+                    _files = await picker.pickMultiImage();
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey, width: 1),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          "Select Photos",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               //*************************************************//
@@ -249,11 +260,12 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   trade!,
                                 );
                               } else {
-                                LightDialogHelper.display(
-                                  context,
-                                  const CreationPopupWidget(),
-                                  210.0,
-                                );
+                                // LightDialogHelper.display(
+                                //   context,
+                                //   const CreationPopupWidget(),
+                                //   210.0,
+                                displayToastError(context,
+                                    "Title and Trade Type must be included");
                               }
                             },
                           ),

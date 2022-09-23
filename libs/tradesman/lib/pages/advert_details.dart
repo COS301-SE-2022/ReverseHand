@@ -47,18 +47,6 @@ class TradesmanJobDetails extends StatelessWidget {
                           store: store,
                           functions: {
                             "Report Advert": () {
-                              // vm.dispatchReportAdvertAction(
-                              //   advertId: vm.advert.id,
-                              //   userId: vm.advert.customerId,
-                              //   report: ReportDetailsModel(
-                              //     description: "testing report",
-                              //     reason: "Reason",
-                              //     reporterUser: ReportUserDetailsModel(
-                              //       id: vm.userDetails.id,
-                              //       name: vm.userDetails.name!,
-                              //     ),
-                              //   ),
-                              // );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -91,19 +79,15 @@ class TradesmanJobDetails extends StatelessWidget {
                         location: vm.advert.domain.city,
                       ),
 
-                    const Padding(padding: EdgeInsets.only(top: 25)),
-
                     //*************BOTTOM BUTTONS**************//
-                    // vm.bids.contains(vm.userBid)
-                    //this isn't working as expected
                     vm.userBid != null
                         //if this contractor has already made a bid
                         ? Column(
                             children: [
                               //*************USER BID**************//
                               if ((vm.userBid != null &&
-                                      vm.userBid!.shortlisted) ||
-                                  !vm.accepted)
+                                vm.userBid!.shortlisted) ||
+                                !vm.accepted)
                                 const Padding(
                                   padding: EdgeInsets.only(left: 45.0),
                                   child: Align(
@@ -119,7 +103,7 @@ class TradesmanJobDetails extends StatelessWidget {
                                 padding: const EdgeInsets.only(
                                   left: 40,
                                   right: 40,
-                                  bottom: 50,
+                                  bottom: 30,
                                   top: 10,
                                 ),
                                 child: InkWell(
@@ -127,7 +111,6 @@ class TradesmanJobDetails extends StatelessWidget {
                                     if (vm.userBid != null &&
                                         vm.userBid!.shortlisted) return;
                                     if (vm.accepted) return;
-
                                     showModalBottomSheet(
                                       context: context,
                                       isScrollControlled: true,
@@ -160,15 +143,13 @@ class TradesmanJobDetails extends StatelessWidget {
                             ],
                           )
                         //***********************************//
+
                         //if this contractor hasn't already made a bid
                         : Padding(
                             padding: const EdgeInsets.only(top: 20.0),
                             child: LongButtonWidget(
                               text: "Place Bid",
                               function: () async {
-                                //keeping this here so that a bid can still be made while we create the last UI
-                                // DarkDialogHelper.display(
-                                //     context, PlaceBidPopupWidget(store: store), 1000.0);
                                 final items = await showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,
@@ -194,8 +175,8 @@ class TradesmanJobDetails extends StatelessWidget {
                               },
                             ),
                           ),
-                    //place bid
 
+                    //place bid
                     if (!vm.accepted)
                       TransparentLongButtonWidget(
                         text: "View Bids (${vm.bidCount})",
@@ -207,7 +188,6 @@ class TradesmanJobDetails extends StatelessWidget {
                       function: vm.dispatchGetOtherUserAction,
                     ),
                     const Padding(padding: EdgeInsets.only(top: 35)),
-
                     const Padding(padding: EdgeInsets.only(bottom: 50)),
                   ],
                 ),
@@ -253,6 +233,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
             : state.activeAd!.acceptedBid == null
                 ? false
                 : state.userBid!.id == state.activeAd!.acceptedBid!,
+        change: state.change,
       );
 }
 
@@ -271,9 +252,11 @@ class _ViewModel extends Vm {
   }) dispatchPlaceBidAction;
   final VoidCallback dispatchGetOtherUserAction;
   final bool accepted;
+  final bool change;
 
   _ViewModel({
     required this.advert,
+    required this.change,
     required this.bidCount,
     required this.userBid,
     required this.dispatchPlaceBidAction,
@@ -283,5 +266,5 @@ class _ViewModel extends Vm {
     required this.loading,
     required this.dispatchRecordPlaceBidAction,
     required this.accepted,
-  }) : super(equals: [advert, loading]);
+  }) : super(equals: [advert, loading, userBid, change]);
 }

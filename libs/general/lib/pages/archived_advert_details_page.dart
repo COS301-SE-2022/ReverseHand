@@ -2,6 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/methods/time.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:flutter/material.dart';
@@ -56,32 +57,40 @@ class ArchivedAdvertDetailsPage extends StatelessWidget {
                       editButton: false,
                     ),
                   //*******************************************//
+
                   //*******************************************//
                   // User/Won bid
                   if (vm.bid != null)
                     Padding(
-                      padding: const EdgeInsets.only(
-                        left: 40,
-                        right: 40,
-                        bottom: 50,
-                        top: 10,
-                      ),
+                      padding: const EdgeInsets.fromLTRB(40, 15, 40, 20),
                       child: Container(
-                        padding: const EdgeInsets.all(12),
+                        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
                         alignment: Alignment.center,
                         decoration: const BoxDecoration(
                           color: Color.fromARGB(255, 232, 232, 232),
                           borderRadius: BorderRadius.all(Radius.circular(7.0)),
                         ),
-                        child: UserBidDetailsWidget(
-                          amount: vm.bid!.amount(),
-                          quote: vm.bid!.quote != null,
+                        child: Column(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: HintWidget(
+                                text: "Accepted Bid",
+                                colour: Colors.black,
+                                padding: 0
+                              ),
+                            ),
+                            UserBidDetailsWidget(
+                              amount: vm.bid!.amount(),
+                              quote: vm.bid!.quote != null,
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   //*******************************************//
                   Padding(
-                    padding: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(top: 5),
                     child: LongButtonWidget(
                       text: "View Bids (${vm.bidCount})",
                       backgroundColor:
@@ -92,7 +101,6 @@ class ArchivedAdvertDetailsPage extends StatelessWidget {
                     ),
                   ),
 
-                  const Padding(padding: EdgeInsets.only(top: 20)),
                   if (vm.isTradsman)
                     TransparentLongButtonWidget(
                       text: "View Client Profile",
