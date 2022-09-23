@@ -4,6 +4,7 @@ import 'package:general/widgets/toast_error_widget.dart';
 
 void displayToastError(BuildContext context, String msg) {
   SnackBar snackBar = SnackBar(
+    // behavior: SnackBarBehavior.floating,
     backgroundColor: Colors.orange,
     content: ToastErrorWidget(msg),
     duration: const Duration(milliseconds: 1000),

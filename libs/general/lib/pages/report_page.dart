@@ -1,5 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:general/methods/toast_error.dart';
+import 'package:general/methods/toast_success.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/widgets/profile_divider.dart';
 import 'package:general/widgets/textfield.dart';
@@ -118,44 +120,71 @@ class _RadioSelectWidgetState extends State<ReportPage> {
                         ? LongButtonWidget(
                             text: "Submit User Report",
                             function: () {
-                              vm.popPage();
-
-                              ReportDetailsModel report = ReportDetailsModel(
-                                description: descrController.value.text,
-                                reason: _type!,
-                                reportedUser: ReportUserDetailsModel(
-                                  id: vm.otherUser.id,
-                                  name: vm.otherUser.name ?? "nameNull",
-                                ),
-                              );
-                              ReportUserDetailsModel user =
-                                  ReportUserDetailsModel(
-                                      id: vm.userDetails.id,
-                                      name: vm.userDetails.name!);
-                              vm.dispatchAddUserReportAction(report, user);
+                              if (descrController.value.text.isNotEmpty &&
+                                  _type != null) {
+                                displayToastSuccess(
+                                    context, "Your report has been submitted");
+                                vm.popPage();
+                                ReportDetailsModel report = ReportDetailsModel(
+                                  description: descrController.value.text,
+                                  reason: _type!,
+                                  reportedUser: ReportUserDetailsModel(
+                                    id: vm.otherUser.id,
+                                    name: vm.otherUser.name ?? "nameNull",
+                                  ),
+                                );
+                                ReportUserDetailsModel user =
+                                    ReportUserDetailsModel(
+                                        id: vm.userDetails.id,
+                                        name: vm.userDetails.name!);
+                                vm.dispatchAddUserReportAction(report, user);
+                              } else {
+                                displayToastError(context,
+                                    "Reason and description must be included.");
+                              }
                             },
                           )
                         //IF A REVIEW IS BEING REPORTED
                         : widget.reportType == "Review"
                             ? LongButtonWidget(
-                                text: "Submit Review Report", function: () {})
+                                text: "Submit Review Report",
+                                function: () {
+                                  if (descrController.value.text.isNotEmpty &&
+                                      _type != null) {
+                                    displayToastSuccess(context,
+                                        "Your report has been submitted");
+                                    vm.popPage();
+                                    //some more stuff should happen here
+                                  } else {
+                                    displayToastError(context,
+                                        "Reason and description must be included.");
+                                  }
+                                })
                             //IF AN ADVERT IS BEING REPORTED
                             : LongButtonWidget(
                                 text: "Submit Job Report",
                                 function: () {
-                                  vm.popPage();
-                                  ReportDetailsModel report =
-                                      ReportDetailsModel(
-                                    description: descrController.value.text,
-                                    reason: _type!,
-                                    reportedUser: ReportUserDetailsModel(
-                                      id: vm.otherUser.id,
-                                      name: vm.otherUser.name ?? "nameNull",
-                                    ),
-                                  );
+                                  if (descrController.value.text.isNotEmpty &&
+                                      _type != null) {
+                                    displayToastSuccess(context,
+                                        "Your report has been submitted");
+                                    vm.popPage();
+                                    ReportDetailsModel report =
+                                        ReportDetailsModel(
+                                      description: descrController.value.text,
+                                      reason: _type!,
+                                      reportedUser: ReportUserDetailsModel(
+                                        id: vm.otherUser.id,
+                                        name: vm.otherUser.name ?? "nameNull",
+                                      ),
+                                    );
 
-                                  vm.dispatchAddSdvertReportAction(
-                                      vm.otherUser.id, report);
+                                    vm.dispatchAddSdvertReportAction(
+                                        vm.otherUser.id, report);
+                                  } else {
+                                    displayToastError(context,
+                                        "Reason and description must be included.");
+                                  }
                                 },
                               ),
               ),

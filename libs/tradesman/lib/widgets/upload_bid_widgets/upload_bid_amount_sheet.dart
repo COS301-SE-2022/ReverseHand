@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:general/methods/toast_error.dart';
 import 'package:general/methods/toast_success.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -107,13 +108,16 @@ class _UploadAmountSheetState extends State<UploadAmountSheet> {
                   LongButtonWidget(
                 text: "Submit Bid",
                 function: () {
-                  final int price =
-                      int.parse(bidPriceController.value.text) * 100;
-
-                  Navigator.pop(
-                    context,
-                    price,
-                  );
+                  if (bidPriceController.value.text.isNotEmpty) {
+                    final int price =
+                        int.parse(bidPriceController.value.text) * 100;
+                    Navigator.pop(
+                      context,
+                      price,
+                    );
+                  } else {
+                    displayToastError(context, "Amount must be entered");
+                  }
                 },
               ),
             ),
