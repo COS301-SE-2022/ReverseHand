@@ -110,7 +110,6 @@ class TradesmanJobDetails extends StatelessWidget {
                                     if (vm.userBid != null &&
                                         vm.userBid!.shortlisted) return;
                                     if (vm.accepted) return;
-
                                     showModalBottomSheet(
                                       context: context,
                                       isScrollControlled: true,

@@ -160,7 +160,7 @@ class _ConsumerProfilePageState extends State<ConsumerProfilePage> {
                             ),
                             const Padding(padding: EdgeInsets.only(right: 8)),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.3,
+                              width: MediaQuery.of(context).size.width / 1.5,
                               child: Text(vm.userDetails.email,
                                   style: const TextStyle(
                                       fontSize: 18, color: Colors.white)),
