@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:general/widgets/button.dart';
 
 class RadioSelectWidget extends StatefulWidget {
   const RadioSelectWidget({Key? key}) : super(key: key);
@@ -48,24 +49,21 @@ class _RadioSelectWidgetState extends State<RadioSelectWidget> {
         child: ListBody(
           children: widget.tradeTypes
               //**********************select options *************** */
-              .map((tradeType) => ListTile(
+              .map((tradeType) => RadioListTile(
                     title: Text(
                       tradeType,
                       style: const TextStyle(
                         color: Colors.white,
                       ),
                     ),
-                    leading: Radio<String>(
-                      value: tradeType,
-                      groupValue: _trade,
-                      fillColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.orange),
-                      onChanged: (String? value) {
-                        setState(() {
-                          _trade = value;
-                        });
-                      },
-                    ),
+                    groupValue: _trade,
+                    onChanged: (String? value) {
+                      setState(() {
+                        _trade = value;
+                      });
+                    },
+                    value: tradeType,
+                    activeColor: Theme.of(context).primaryColor,
                   ))
               .toList(),
           //********************************************** */
@@ -76,24 +74,14 @@ class _RadioSelectWidgetState extends State<RadioSelectWidget> {
         Center(
           child: Column(
             children: [
-              ElevatedButton(
-                onPressed: _submit,
-                style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, 
-                    backgroundColor: Theme.of(context).primaryColorDark, // Text Color (Foreground color)
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      side: const BorderSide(color: Colors.orange, width: 1),
-                    )),
-                child: const Text('Submit'),
-              ),
-              TextButton(
-                onPressed: _cancel,
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.orange,
-                ),
-                child: const Text('Cancel'),
-              ),
+              ButtonWidget(text: "Submit", function: _submit),
+              const Padding(padding: EdgeInsets.all(5)),
+              ButtonWidget(
+                text: "Cancel",
+                function: _cancel,
+                color: "light",
+                border: "lightBlue",
+              )
             ],
           ),
         ),

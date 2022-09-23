@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:async_redux/async_redux.dart';
+import 'package:general/methods/toast_error.dart';
 import 'package:general/widgets/long_button_widget.dart';
-import 'package:consumer/widgets/job_creation_popup.dart';
-import 'package:consumer/widgets/light_dialog_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
@@ -250,11 +249,12 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   _files?.map((e) => File(e.path)).toList(),
                                 );
                               } else {
-                                LightDialogHelper.display(
-                                  context,
-                                  const CreationPopupWidget(),
-                                  210.0,
-                                );
+                                // LightDialogHelper.display(
+                                //   context,
+                                //   const CreationPopupWidget(),
+                                //   210.0,
+                                displayToastError(context,
+                                    "Title and Trade Type must be included");
                               }
                             },
                           ),
