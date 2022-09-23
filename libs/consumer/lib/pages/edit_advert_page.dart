@@ -5,9 +5,9 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
-import 'package:general/widgets/open_image_widget.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:redux_comp/actions/adverts/edit_advert_action.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
@@ -28,6 +28,8 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
   TextEditingController descrController = TextEditingController();
 
   String? trade;
+  // ignore: unused_field
+  List<XFile>? _files;
 
   void showRadioSelect() async {
     final String? result = await showDialog(
@@ -174,19 +176,37 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                   ),
                   //*************************************************//
 
-                  const Padding(padding: EdgeInsets.only(top: 5)),
-                  Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 30, right: 20),
+                 const HintWidget(
+                text: "Select photos related to the job",
+                colour: Colors.white70,
+                padding: 15,
+              ),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                child: InkWell(
+                  onTap: () async {
+                    ImagePicker picker = ImagePicker();
+                    _files = await picker.pickMultiImage();
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey, width: 1),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(20.0),
                         child: Text(
-                          "Select Images: ",
+                          "Select Photos",
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
-                      OpenImageWidget(store: widget.store),
-                    ],
+                    ),
                   ),
+                ),
+              ),
 
                   StoreConnector<AppState, _ViewModel>(
                     vm: () => _Factory(this),

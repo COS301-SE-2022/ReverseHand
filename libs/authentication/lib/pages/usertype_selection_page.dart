@@ -20,7 +20,7 @@ class UserTypeSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // confugures amplify
+    // configures amplify
     if (!Amplify.isConfigured) {
       store.dispatch(InitAmplifyAction());
     }
@@ -134,5 +134,5 @@ class _ViewModel extends Vm {
     required this.dispatchAddUserToGroup,
     required this.loading,
     required this.pushSignUpPage,
-  }) : super(equals: [loading]); // implementing hashcode
+  }) : super(equals: [loading]); 
 }

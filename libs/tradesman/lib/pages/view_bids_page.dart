@@ -1,11 +1,6 @@
-// import 'dart:html';
-
 import 'package:async_redux/async_redux.dart';
-import 'package:general/methods/time.dart';
-// ignore: depend_on_referenced_packages
 import 'package:general/widgets/appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:general/widgets/job_card.dart';
 import 'package:redux_comp/actions/bids/toggle_view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
@@ -21,10 +16,6 @@ class TradesmanViewBidsPage extends StatelessWidget {
       : super(key: key);
 
   @override
-
-  // creating bid widgets
-  // ...populateBids(vm.bids, store)
-
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
@@ -40,22 +31,11 @@ class TradesmanViewBidsPage extends StatelessWidget {
                     title: "BIDS INFO", store: store, backButton: true),
                 //******************************//
 
-                //**********DETAILED JOB INFORMATION***********//
-                JobCardWidget(
-                  titleText: vm.advert.title,
-                  descText: vm.advert.description ?? "",
-                  date: timestampToDate(vm.advert.dateCreated),
-                  type: vm.advert.type,
-                  location: vm.advert.domain.city,
-                ),
-                //*******************************************//
-
                 const Padding(padding: EdgeInsets.all(10)),
                 Container(
                   padding: const EdgeInsets.all(8),
                   child: Column(children: [
                     if (vm.bids.isNotEmpty)
-                      const Padding(padding: EdgeInsets.only(top: 15)),
                     ...populateBids(vm.userId, vm.bids, store),
                     //********IF NO BIDS********************/
                     if (vm.bids.isEmpty)
@@ -120,27 +100,3 @@ class _ViewModel extends Vm {
     required this.advert,
   }) : super(equals: [change, bids]);
 }
-
-/*
-  "domains" : [
-     {
-      city : "Pretoria",
-      coords : {
-        lat : 20,
-        lng: 10
-      },
-     {
-      city : "Pretoria",
-      coords : {
-        lat : 20,
-        lng: 10
-      },
-     {
-      city : "Pretoria",
-      coords : {
-        lat : 20,
-        lng: 10
-      },
-
-  ]
-*/
