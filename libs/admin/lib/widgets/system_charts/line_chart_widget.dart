@@ -46,7 +46,7 @@ class LineChartWidget extends StatelessWidget {
               child: Text(
                 chartTitle,
                 style: const TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 20,
                     decoration: TextDecoration.underline,
                     fontWeight: FontWeight.bold),

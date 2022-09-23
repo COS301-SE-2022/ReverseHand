@@ -1,4 +1,3 @@
-import 'package:admin/widgets/display_metrics_conatiner_widget.dart';
 import 'package:admin/widgets/drop_down_options_widget.dart';
 import 'package:admin/widgets/system_charts/line_chart_widget.dart';
 import 'package:async_redux/async_redux.dart';
@@ -31,7 +30,8 @@ class _ApiMetricsPageState extends State<ApiMetricsPage> {
                 store: widget.store,
                 title: "API Metrics",
                 backButton: true,
-                refreshAction: () => vm.refresh(vm.apiMetrics.period, vm.apiMetrics.time),
+                refreshAction: () =>
+                    vm.refresh(vm.apiMetrics.period, vm.apiMetrics.time),
               );
               return (vm.loading)
                   ? Column(
@@ -54,34 +54,39 @@ class _ApiMetricsPageState extends State<ApiMetricsPage> {
                               title: "Period",
                               currentItem: "${vm.apiMetrics.period} min",
                               functions: {
-                                "1 min": () => vm.refresh(  1, vm.apiMetrics.time),
-                                "5 min": () => vm.refresh(  5, vm.apiMetrics.time),
-                                "15 min": () => vm.refresh( 15, vm.apiMetrics.time),
-                                "30 min": () => vm.refresh( 30, vm.apiMetrics.time),
-                                "60 min": () => vm.refresh( 60, vm.apiMetrics.time),
+                                "1 min": () =>
+                                    vm.refresh(1, vm.apiMetrics.time),
+                                "5 min": () =>
+                                    vm.refresh(5, vm.apiMetrics.time),
+                                "15 min": () =>
+                                    vm.refresh(15, vm.apiMetrics.time),
+                                "30 min": () =>
+                                    vm.refresh(30, vm.apiMetrics.time),
+                                "60 min": () =>
+                                    vm.refresh(60, vm.apiMetrics.time),
                               },
                             ),
                             DropDownOptionsWidget(
                               title: "Time",
                               currentItem: "${vm.apiMetrics.time}hr ago",
                               functions: {
-                                "3hr ago": () => vm.refresh(vm.apiMetrics.period, 3),
-                                "6hr ago": () => vm.refresh(vm.apiMetrics.period, 6),
-                                "12hr ago": () => vm.refresh( vm.apiMetrics.period, 12),
-                                "24hr ago": () => vm.refresh( vm.apiMetrics.period, 24),
+                                "3hr ago": () =>
+                                    vm.refresh(vm.apiMetrics.period, 3),
+                                "6hr ago": () =>
+                                    vm.refresh(vm.apiMetrics.period, 6),
+                                "12hr ago": () =>
+                                    vm.refresh(vm.apiMetrics.period, 12),
+                                "24hr ago": () =>
+                                    vm.refresh(vm.apiMetrics.period, 24),
                               },
                             ),
                           ],
                         ),
-                        DisplayMetricsConatinerWidget(
-                          charts: [
-                            LineChartWidget(
-                                graphs: vm.apiMetrics.graphs["apiLatency"] ?? [],
-                                chartTitle: "API Latency",
-                                xTitle: "Time",
-                                yTitle: "Miliseconds"),
-                          ],
-                        )
+                        LineChartWidget(
+                            graphs: vm.apiMetrics.graphs["apiLatency"] ?? [],
+                            chartTitle: "API Latency",
+                            xTitle: "Time",
+                            yTitle: "Miliseconds"),
                       ],
                     );
             },

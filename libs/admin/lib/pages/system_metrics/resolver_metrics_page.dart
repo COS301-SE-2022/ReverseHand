@@ -1,4 +1,3 @@
-import 'package:admin/widgets/display_metrics_conatiner_widget.dart';
 import 'package:admin/widgets/drop_down_options_widget.dart';
 import 'package:admin/widgets/system_charts/line_chart_widget.dart';
 import 'package:async_redux/async_redux.dart';
@@ -83,17 +82,12 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
                             ),
                           ],
                         ),
-                        DisplayMetricsConatinerWidget(
-                          charts: [
-                            LineChartWidget(
-                              graphs:
-                                  vm.adminResolvers.graphs["adminData"] ?? [],
-                              chartTitle: "Admin Resolvers Invocations",
-                              xTitle: "Time",
-                              yTitle: "Count",
-                            ),
-                          ],
-                        )
+                        LineChartWidget(
+                          graphs: vm.adminResolvers.graphs["adminData"] ?? [],
+                          chartTitle: "Admin Resolvers Invocations",
+                          xTitle: "Time",
+                          yTitle: "Count",
+                        ),
                       ],
                     );
             },

@@ -13,15 +13,27 @@ class DoughnutChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<DoughnutSeries<PieChartModel, String>> list = [];
+    List<SfCircularChart> list = [];
     for (List<PieChartModel> data in graphs) {
-      list.add(DoughnutSeries<PieChartModel, String>(
-          explode: true,
-          dataSource: data,
-          legendIconType: LegendIconType.verticalLine,
-          pointColorMapper: (PieChartModel obs, _) => obs.color,
-          xValueMapper: (PieChartModel obs, _) => obs.label,
-          yValueMapper: (PieChartModel obs, _) => obs.value));
+      list.add(SfCircularChart(
+              legend: Legend(
+                isVisible: true,
+                isResponsive: true,
+                textStyle: const TextStyle(fontSize: 10, color: Colors.white),
+              ),
+              backgroundColor: Theme.of(context).primaryColorLight,
+              borderColor: Colors.black,
+              borderWidth: 5,
+              margin: const EdgeInsets.all(20),
+              series: [
+                DoughnutSeries<PieChartModel, String>(
+                    explode: true,
+                    dataSource: data,
+                    legendIconType: LegendIconType.verticalLine,
+                    pointColorMapper: (PieChartModel obs, _) => obs.color,
+                    xValueMapper: (PieChartModel obs, _) => obs.label,
+                    yValueMapper: (PieChartModel obs, _) => obs.value)
+              ]),);
     }
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
@@ -42,17 +54,7 @@ class DoughnutChartWidget extends StatelessWidget {
               ),
             ),
           ),
-          SfCircularChart(
-              legend: Legend(
-                  isVisible: true,
-                  isResponsive: true,
-                  textStyle: const TextStyle(fontSize: 10,color: Colors.white),
-                  ),
-              backgroundColor: Theme.of(context).primaryColorLight,
-              borderColor: Colors.black,
-              borderWidth: 5,
-              margin: const EdgeInsets.all(20),
-              series: list),
+         ...list
         ],
       ),
     );
