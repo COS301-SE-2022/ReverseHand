@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
-//Command to run test: flutter test integration_test/consumer_login_test.dart
+//Command to run test: flutter test integration_test/2_consumer_view_profile.dart
 //This integration test goes the Login Route to using the app
 void main() {
   //make sure service is initialized first to run on device
@@ -12,12 +12,12 @@ void main() {
   //Note: When entering text into fields or tapping buttons
   //you have to use the .pumpAndSettel();
 
-  testWidgets("Login as a  Consumer", (WidgetTester tester) async {
+  testWidgets("View Profile as consumer", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
     //storing constants used to login as consumer
-    const email = "consumer.cachemoney@gmail.com";
+    const email = "lastrucci61@gmail.com";
     const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
@@ -45,13 +45,17 @@ void main() {
     await tester.pumpAndSettle();
 
     await Future.delayed(const Duration(seconds: 3), () {});
+
+    //**************************************************************** */
+    //Homepage
+    var profileIcon = find.widgetWithIcon(IconButton, Icons.person);
+    expect(profileIcon, findsOneWidget);
+
+    await tester.tap(profileIcon);
+    await tester.pumpAndSettle();
+
+    //verify correct page is loaded
+    var logoutIcon = find.widgetWithIcon(IconButton, Icons.logout);
+    expect(logoutIcon, findsOneWidget);
   });
 }
-
-//**  Do not delete this list **
-//1. Login
-//2. view ads
-//3. filter bids
-//4. view and bid and shortlist/accept it
-//5. edit an advert
-//6. create a job
