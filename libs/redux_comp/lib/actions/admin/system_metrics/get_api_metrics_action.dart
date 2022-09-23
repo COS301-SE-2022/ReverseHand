@@ -53,7 +53,7 @@ class GetApiMetricsAction extends ReduxAction<AppState> {
       "LabelOptions": {
         "Timezone": "+0200",
       },
-      "ScanBy": "TimestampDescending"
+      "ScanBy": "TimestampAscending"
     };
 
     String graphQLDoc = '''query {

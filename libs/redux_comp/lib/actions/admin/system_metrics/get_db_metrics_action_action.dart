@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/admin/system_metrics/build_data.dart';
 import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/observation_model.dart';
@@ -122,7 +124,7 @@ class GetDbMetricsAction extends ReduxAction<AppState> {
       "LabelOptions": {
         "Timezone": "+0200",
       },
-      "ScanBy": "TimestampDescending"
+      "ScanBy": "TimestampAscending"
     };
 
     String graphQLDoc = '''query {
@@ -144,25 +146,25 @@ class GetDbMetricsAction extends ReduxAction<AppState> {
         switch (data["Id"]) {
           case "readCons":
             dbRead.add(LineChartModel(
-                data: buildData(data),
+                data: buildData(data, start, end, period),
                 color: Colors.orange,
                 label: 'Read Capacity'));
             break;
           case "readProv":
             dbRead.add(LineChartModel(
-                data: buildData(data),
+                data: buildData(data, start, end, period),
                 color: Colors.red,
                 label: 'Provisioned Capacity'));
             break;
           case "writeCons":
             dbWrite.add(LineChartModel(
-                data: buildData(data),
+                data: buildData(data, start, end, period),
                 color: Colors.orange,
                 label: 'Write Capacity'));
             break;
           case "writeProv":
             dbWrite.add(LineChartModel(
-                data: buildData(data),
+                data: buildData(data, start, end, period),
                 color: Colors.red,
                 label: 'Provisioned Capacity'));
             break;
@@ -213,18 +215,4 @@ class GetDbMetricsAction extends ReduxAction<AppState> {
 
   // @override
   // void after() => dispatch(WaitAction.remove("load_db_read"));
-}
-
-List<ObservationModel> buildData(obj) {
-  int length = obj["Values"].length;
-
-  List<ObservationModel> data = [];
-  int i = length;
-  while (i > 0) {
-    i--;
-    data.add(ObservationModel(
-        time: (obj["Timestamps"][i]).substring(11, 16),
-        value: obj['Values'][i]));
-  }
-  return data;
 }
