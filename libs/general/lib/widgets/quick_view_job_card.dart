@@ -1,7 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/methods/job_icons.dart';
-import 'package:general/methods/time.dart';
+// import 'package:general/methods/time.dart';
 import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';

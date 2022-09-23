@@ -25,9 +25,9 @@ class QuickViewChatWidget extends StatelessWidget {
           onTap: () => vm.dispatchGetMessagesAction(chat),
           child: SizedBox(
             width: 400,
-            height: 130,
+            height: 110,
             child: Padding(
-              padding: const EdgeInsets.only(top: 25),
+              padding: const EdgeInsets.only(top: 5),
               child: Card(
                 margin: const EdgeInsets.all(10),
                 color: const Color.fromARGB(255, 220, 224, 230),
