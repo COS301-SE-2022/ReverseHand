@@ -302,10 +302,10 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                           ),
                           const Padding(padding: EdgeInsets.only(right: 8)),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.6,
                             child: Text(vm.userDetails.email,
                                 style: const TextStyle(
-                                    fontSize: 20, color: Colors.white)),
+                                    fontSize: 18, color: Colors.white)),
                           ),
                         ],
                       ),
@@ -329,12 +329,12 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                               ),
                               const Padding(padding: EdgeInsets.only(right: 8)),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.7,
+                                width: MediaQuery.of(context).size.width / 1.8,
                                 child: Text(
                                   (vm.userDetails.name != null)
                                       ? vm.userDetails.name!
                                       : "null",
-                                  style: const TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 18),
                                 ),
                               ),
                             ],
@@ -390,7 +390,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                       ? vm.userDetails.cellNo!
                                       : "null",
                                   style: const TextStyle(
-                                      fontSize: 20, color: Colors.white)),
+                                      fontSize: 18, color: Colors.white)),
                             ],
                           ),
                           IconButton(
@@ -436,7 +436,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 color: Colors.white70,
                                 size: 26.0,
                               ),
-                              const Padding(padding: EdgeInsets.only(right: 8)),
+                              const Padding(padding: EdgeInsets.only(right: 1)),
                               Column(
                                 children: [...trades],
                               )
@@ -471,7 +471,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 color: Colors.white70,
                                 size: 26.0,
                               ),
-                              const Padding(padding: EdgeInsets.only(right: 8)),
+                              const Padding(padding: EdgeInsets.only(right: 1)),
                               Column(
                                 children: [...domains],
                               )
