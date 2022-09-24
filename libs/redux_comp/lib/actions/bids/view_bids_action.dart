@@ -10,8 +10,13 @@ import '../../app_state.dart';
 class ViewBidsAction extends ReduxAction<AppState> {
   final AdvertModel? ad;
   final bool archived;
+  final bool pushPage; // whether the advert_details page should be pushed
 
-  ViewBidsAction({this.ad, this.archived = false});
+  ViewBidsAction({
+    this.ad,
+    this.archived = false,
+    this.pushPage = true,
+  });
 
   @override
   Future<AppState?> reduce() async {
@@ -89,11 +94,13 @@ class ViewBidsAction extends ReduxAction<AppState> {
   @override
   void before() {
     dispatch(WaitAction.add("viewBids"));
-    if (archived) {
-      dispatch(NavigateAction.pushNamed("/archived_advert_details"));
-    } else {
-      dispatch(NavigateAction.pushNamed(
-          "/${state.userDetails.userType.toLowerCase()}/advert_details"));
+    if (pushPage) {
+      if (archived) {
+        dispatch(NavigateAction.pushNamed("/archived_advert_details"));
+      } else {
+        dispatch(NavigateAction.pushNamed(
+            "/${state.userDetails.userType.toLowerCase()}/advert_details"));
+      }
     }
   }
 

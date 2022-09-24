@@ -55,5 +55,5 @@ class PlaceBidAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() => dispatch(ViewBidsAction());
+  void after() => dispatch(ViewBidsAction(pushPage: false));
 }

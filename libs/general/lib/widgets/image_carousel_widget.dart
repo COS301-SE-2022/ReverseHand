@@ -29,6 +29,11 @@ class ImageCarouselWidget extends StatelessWidget {
       color: Colors.grey,
       child: Image.network(
         firstImage,
+        errorBuilder:
+            (BuildContext context, Object error, StackTrace? stackTrace) {
+          print(error);
+          return Container();
+        },
         fit: BoxFit.cover,
         width: MediaQuery.of(context).size.width,
       ),
