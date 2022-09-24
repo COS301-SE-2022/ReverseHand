@@ -1,13 +1,13 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+const func = process.env.FUNCTION;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
 */
 
 // places a bid on an advert, requires the bid to place as well as the id the advert to place the bid
-// created_date will be made in resolver whereas UUID of a bid will be passed in
 // the tradesmans id should also be passed in
 exports.handler = async (event) => {
     // getting current date
@@ -28,6 +28,32 @@ exports.handler = async (event) => {
             shortlisted: false,
         }
     };
+
+    let data = await docClient.get({
+        TableName: ReverseHandTable,
+        Key: {
+            part_key: event.arguments.ad_id,
+            sort_key: event.arguments.ad_id, // id is the Partition Key, '123' is the value of it
+        },
+    }).promise();
+
+    let advert = data['Item'];
+
+    const lambda = new AWS.Lambda();
+    var notification = lambda.invoke({
+        FunctionName: func,
+        Payload: JSON.stringify({
+            userId: advert.customer_id,
+            notification: {
+                part_key: "notification#" + advert.customer_id,
+                sort_key: date.toISOString(),
+                title: "Bid Placed",
+                msg: "A bid has been placed on " + advert.advert_details.title,
+                type: "BidPlaced",
+                timestamp: currentDate
+            }
+        })
+    }).promise();
 
     await docClient.transactWrite({
         TransactItems: [
@@ -55,5 +81,8 @@ exports.handler = async (event) => {
 
     item.bid_details['id'] = bid_id; // bids id to be returned
     item.bid_details['tradesman_id'] = item.tradesman_id;
+
+    await notification;
+
     return item.bid_details;
 };

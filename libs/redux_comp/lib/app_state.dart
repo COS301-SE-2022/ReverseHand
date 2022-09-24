@@ -218,6 +218,7 @@ class AppState {
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
     Uint8List? pdfFile,
+    bool makeUserBidNull = false,
   }) {
     return AppState(
       authModel: authModel ?? this.authModel,
@@ -234,7 +235,7 @@ class AppState {
       bidOnAdverts: bidOnAdverts ?? this.bidOnAdverts,
       activeAd: activeAd ?? this.activeAd,
       activeBid: activeBid ?? this.activeBid,
-      userBid: userBid ?? this.userBid,
+      userBid: makeUserBidNull ? null : userBid ?? this.userBid,
       locationResult: locationResult ?? this.locationResult,
       error: error ?? this.error,
       change: change ?? this.change,

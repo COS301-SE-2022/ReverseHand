@@ -14,6 +14,7 @@ import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
+import 'package:redux_comp/actions/user/open_in_maps_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -40,25 +41,26 @@ class TradesmanJobDetails extends StatelessWidget {
                   children: [
                     //**********APPBAR***********//
                     AppBarWidget(
-                        title: "JOB INFO",
+                      title: "JOB INFO",
+                      store: store,
+                      filterActions: AppbarPopUpMenuWidget(
                         store: store,
-                        filterActions: AppbarPopUpMenuWidget(
-                          store: store,
-                          functions: {
-                            "Report Advert": () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ReportPage(
-                                    store: store,
-                                    reportType: "Advert",
-                                  ),
+                        functions: {
+                          "Report Advert": () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ReportPage(
+                                  store: store,
+                                  reportType: "Advert",
                                 ),
-                              );
-                            }
-                          },
-                        ),
-                        backButton: true),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                      backButton: true,
+                    ),
                     //*******************************************//
 
                     //******************CAROUSEL ****************//
@@ -85,8 +87,8 @@ class TradesmanJobDetails extends StatelessWidget {
                             children: [
                               //*************USER BID**************//
                               if ((vm.userBid != null &&
-                                vm.userBid!.shortlisted) ||
-                                !vm.accepted)
+                                      vm.userBid!.shortlisted) ||
+                                  !vm.accepted)
                                 const Padding(
                                   padding: EdgeInsets.only(left: 45.0),
                                   child: Align(
@@ -135,6 +137,11 @@ class TradesmanJobDetails extends StatelessWidget {
                                     child: UserBidDetailsWidget(
                                       amount: vm.userBid!.amount(),
                                       quote: vm.userBid!.quote != null,
+                                      status: vm.advert.acceptedBid != null
+                                          ? 'Accepted'
+                                          : vm.userBid!.shortlisted
+                                              ? 'Favourited'
+                                              : 'Pending',
                                     ),
                                   ),
                                 ),
@@ -181,8 +188,15 @@ class TradesmanJobDetails extends StatelessWidget {
                       text: "View Client Profile",
                       function: vm.dispatchGetOtherUserAction,
                     ),
-                    const Padding(padding: EdgeInsets.only(top: 35)),
-                    const Padding(padding: EdgeInsets.only(bottom: 50)),
+                    if (vm.accepted) ...[
+                      const Padding(padding: EdgeInsets.only(top: 35)),
+                      TransparentLongButtonWidget(
+                        text: "View Client Location",
+                        function: () async {
+                          await vm.dispatchOpenInMapsAction();
+                        },
+                      ),
+                    ],
                   ],
                 ),
               );
@@ -222,6 +236,8 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
                 ? false
                 : state.userBid!.id == state.activeAd!.acceptedBid!,
         change: state.change,
+        dispatchOpenInMapsAction: () async =>
+            await dispatch(OpenInMapsAction()),
       );
 }
 
@@ -238,6 +254,7 @@ class _ViewModel extends Vm {
     File? quote,
   }) dispatchPlaceBidAction;
   final VoidCallback dispatchGetOtherUserAction;
+  final Future<void> Function() dispatchOpenInMapsAction;
   final bool accepted;
   final bool change;
 
@@ -252,5 +269,6 @@ class _ViewModel extends Vm {
     required this.pushViewBidsPage,
     required this.loading,
     required this.accepted,
+    required this.dispatchOpenInMapsAction,
   }) : super(equals: [advert, loading, userBid, change]);
 }
