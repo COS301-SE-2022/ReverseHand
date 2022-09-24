@@ -197,7 +197,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                   onTap: () async {
                     ImagePicker picker = ImagePicker();
 
-                    _files = await picker.pickMultiImage();
+                    _files = await picker.pickMultiImage(imageQuality: 50);
                   },
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
