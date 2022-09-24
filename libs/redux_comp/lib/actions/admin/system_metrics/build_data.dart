@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_metrics/observation_model.dart';
 
 List<ObservationModel> buildData(obj, start, DateTime end, period) {
   int length = obj["Values"].length;
 
-  debugPrint("$start  $end $period");
   List<ObservationModel> data = [];
   int i = 0;
   while (start != end.add(Duration(minutes: period)) && i < length) {

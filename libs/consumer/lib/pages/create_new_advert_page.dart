@@ -11,7 +11,6 @@ import 'package:general/widgets/textfield.dart';
 import 'package:general/widgets/hint_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
-import 'package:redux_comp/actions/analytics_events/record_create_advert_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -252,13 +251,6 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   descrController.value.text,
                                   _files?.map((e) => File(e.path)).toList(),
                                 );
-                                vm.dispatchRecordCreateAdvertAction(
-                                  widget.store.state.userDetails.location!
-                                      .address.city,
-                                  widget.store.state.userDetails.location!
-                                      .address.province,
-                                  trade!,
-                                );
                               } else {
                                 // LightDialogHelper.display(
                                 //   context,
@@ -320,10 +312,6 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
             files: files,
           ),
         ),
-        dispatchRecordCreateAdvertAction:
-            (String city, String province, String type) => dispatch(
-                RecordCreateAdvertAction(
-                    city: city, province: province, type: type)),
         loading: state.wait.isWaiting,
         locationResult: state.locationResult,
         userLocation: state.userDetails.location!,
@@ -337,8 +325,6 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
 class _ViewModel extends Vm {
   final void Function(String id, String title, Domain domanin, String trade,
       String? descr, List<File>? files) dispatchCreateAdvertActions;
-  final void Function(String city, String province, String type)
-      dispatchRecordCreateAdvertAction;
   final VoidCallback pushLocationPage;
   final VoidCallback popPage;
   final bool loading;
@@ -348,7 +334,6 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.loading,
     required this.dispatchCreateAdvertActions,
-    required this.dispatchRecordCreateAdvertAction,
     required this.pushLocationPage,
     required this.userLocation,
     required this.locationResult,
