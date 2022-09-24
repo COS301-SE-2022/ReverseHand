@@ -57,6 +57,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       reportType: "User",
                                     )),
                           );
+                          
                         }
                       }),
                       backButton: true),
@@ -198,7 +199,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.userDetails.statistics.finished} Jobs Completed",
+                                      "Jobs Completed: ${vm.userDetails.statistics.finished}",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -216,7 +217,7 @@ class LimitedTradesmanProfilePage extends StatelessWidget {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                     Text(
-                                      "${vm.userDetails.statistics.created} Bids Made",
+                                      "Bids Made: ${vm.userDetails.statistics.created}",
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],

@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/hint_widget.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/profile_image.dart';
 import 'package:redux_comp/actions/adverts/get_bid_on_adverts_action.dart';
@@ -157,7 +158,8 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     //**************HEADING***************/
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 25, right: 20),
+                        padding: const EdgeInsets.only(
+                            left: 25, right: 20, bottom: 10),
                         child: Text(
                           vm.userDetails.name != null
                               ? vm.userDetails.name!
@@ -168,9 +170,11 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     ),
                     //************************************/
 
-
-
                     //****************RATING**************/
+                    const HintWidget(
+                        text: "Press and hold to see your reviews",
+                        colour: Colors.white70,
+                        padding: 30),
                     InkWell(
                       onLongPress: () {
                         vm.pushReviewsPage();
@@ -192,20 +196,21 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children:
-                                      //if there is a rating - 1 is the lowest that can be given
-                                      //so not checking if rating is null
-                                      vm.userDetails.statistics.ratingCount != 0
-                                        ? stars
-                                        : [
-                                            //if no rating yet
-                                            const Text(
-                                              "No rating yet",
-                                              style: TextStyle(
-                                                color: Colors.white70,
-                                                fontSize: 18,
-                                              ),
-                                            )
-                                          ],
+                                        //if there is a rating - 1 is the lowest that can be given
+                                        //so not checking if rating is null
+                                        vm.userDetails.statistics.ratingCount !=
+                                                0
+                                            ? stars
+                                            : [
+                                                //if no rating yet
+                                                const Text(
+                                                  "No rating yet",
+                                                  style: TextStyle(
+                                                    color: Colors.white70,
+                                                    fontSize: 18,
+                                                  ),
+                                                )
+                                              ],
                                   ),
                                 ],
                               ),
@@ -217,6 +222,10 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                     //************************************/
 
                     //************STATS*******************/
+                    const HintWidget(
+                        text: "Press and hold to see past jobs",
+                        colour: Colors.white70,
+                        padding: 30),
                     InkWell(
                       onLongPress: () {
                         vm.dispatchGetBidOnAdvertsAction();
@@ -247,7 +256,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                           color: Theme.of(context).primaryColor,
                                         ),
                                         Text(
-                                          "${vm.userDetails.statistics.finished} Jobs Completed",
+                                          "Jobs Completed: ${vm.userDetails.statistics.finished}",
                                           style: const TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -265,7 +274,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                           color: Theme.of(context).primaryColor,
                                         ),
                                         Text(
-                                          "${vm.userDetails.statistics.created} Bids Made",
+                                          "Bids Made: ${vm.userDetails.statistics.created}",
                                           style: const TextStyle(fontSize: 18),
                                         ),
                                       ],
@@ -293,10 +302,10 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                           ),
                           const Padding(padding: EdgeInsets.only(right: 8)),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.6,
                             child: Text(vm.userDetails.email,
                                 style: const TextStyle(
-                                    fontSize: 20, color: Colors.white)),
+                                    fontSize: 18, color: Colors.white)),
                           ),
                         ],
                       ),
@@ -320,13 +329,13 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                               ),
                               const Padding(padding: EdgeInsets.only(right: 8)),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.7,
+                                width: MediaQuery.of(context).size.width / 1.8,
                                 child: Text(
-                                    (vm.userDetails.name != null)
+                                  (vm.userDetails.name != null)
                                       ? vm.userDetails.name!
                                       : "null",
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
+                                  style: const TextStyle(fontSize: 18),
+                                ),
                               ),
                             ],
                           ),
@@ -381,7 +390,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                       ? vm.userDetails.cellNo!
                                       : "null",
                                   style: const TextStyle(
-                                      fontSize: 20, color: Colors.white)),
+                                      fontSize: 18, color: Colors.white)),
                             ],
                           ),
                           IconButton(
@@ -427,7 +436,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 color: Colors.white70,
                                 size: 26.0,
                               ),
-                              const Padding(padding: EdgeInsets.only(right: 8)),
+                              const Padding(padding: EdgeInsets.only(right: 1)),
                               Column(
                                 children: [...trades],
                               )
@@ -462,7 +471,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 color: Colors.white70,
                                 size: 26.0,
                               ),
-                              const Padding(padding: EdgeInsets.only(right: 8)),
+                              const Padding(padding: EdgeInsets.only(right: 1)),
                               Column(
                                 children: [...domains],
                               )
@@ -539,8 +548,6 @@ class _Factory extends VmFactory<AppState, _TradesmanProfilePageState> {
         dispatchGetBidOnAdvertsAction: () =>
             dispatch(GetBidOnAdvertsAction(archived: true)),
       );
-
-      
 }
 
 // view model

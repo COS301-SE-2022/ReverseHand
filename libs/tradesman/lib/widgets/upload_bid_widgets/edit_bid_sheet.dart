@@ -31,7 +31,7 @@ class _EditBidSheetState extends State<EditBidSheet> {
       child: Padding(
         padding: MediaQuery.of(context).viewInsets,
         child: SizedBox(
-          height: 370,
+          height: 390,
           child: Container(
             color: Colors.white70,
             child: Column(
