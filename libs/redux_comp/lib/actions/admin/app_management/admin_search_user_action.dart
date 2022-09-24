@@ -34,12 +34,20 @@ class AdminSearchUserAction extends ReduxAction<AppState> {
       for (var user in data) {
         result.add(CognitoUserModel.fromJson(user));
       }
-      
-      return state.copy(
-        admin: state.admin.copy(
-          adminManage: state.admin.adminManage.copy(usersList: ListUsersModel(users: result, group: group)),
-        ),
-      );
+
+      return (group == "customer")
+          ? state.copy(
+              admin: state.admin.copy(
+                adminManage: state.admin.adminManage.copy(
+                    customers: ListUsersModel(users: result, group: group)),
+              ),
+            )
+          : state.copy(
+              admin: state.admin.copy(
+                adminManage: state.admin.adminManage.copy(
+                    tradesman: ListUsersModel(users: result, group: group)),
+              ),
+            );
     } on ApiException catch (e) {
       debugPrint(e.message);
       return null;
@@ -49,9 +57,9 @@ class AdminSearchUserAction extends ReduxAction<AppState> {
     }
   }
 
-  @override 
+  @override
   before() => dispatch(WaitAction.add("list_users"));
 
-  @override 
+  @override
   after() => dispatch(WaitAction.remove("list_users"));
 }

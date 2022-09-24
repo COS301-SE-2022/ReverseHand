@@ -1,4 +1,3 @@
-import 'package:admin/widgets/drop_down_options_widget.dart';
 import 'package:admin/widgets/quickview_user_widget.dart';
 import 'package:admin/widgets/search_widget.dart';
 import 'package:async_redux/async_redux.dart';
@@ -28,17 +27,19 @@ class SearchUsersPage extends StatelessWidget {
               title: "List Users",
               store: store,
               backButton: true,
-              refreshAction: () => vm.dispatchListUser(vm.activeGroup),
             );
             Widget search = SearchWidget(
                 store: store,
                 searchFunction: (value, group) {
                   vm.dispatchSearchUser(value, group);
                 });
-            List<QuickViewUserCardWidget> userWidgets = [];
-            for (var user in vm.users) {
-              userWidgets
-                  .add(QuickViewUserCardWidget(store: store, user: user));
+            List<QuickViewUserCardWidget> customer = [];
+            List<QuickViewUserCardWidget> tradesman = [];
+            for (var user in vm.customers) {
+              customer.add(QuickViewUserCardWidget(store: store, user: user));
+            }
+            for (var user in vm.tradesman) {
+              tradesman.add(QuickViewUserCardWidget(store: store, user: user));
             }
             //for tabbed view
             // List<QuickViewUserCardWidget> clients = [];
@@ -65,136 +66,101 @@ class SearchUsersPage extends StatelessWidget {
                         //**********APPBAR***********//
                         appbar,
                         search,
-                        //all these comments are for if we want a tabbed view
-                        //*******************TAB BAR LABELS***********************//
-                        // Padding(
-                        //   padding: const EdgeInsets.all(5),
-                        //   child: TabBar(
-                        //     indicatorColor: Theme.of(context).primaryColor,
-                        //     tabs: const [
-                        //       Padding(
-                        //         padding: EdgeInsets.all(15.0),
-                        //         child: Text(
-                        //           "Client",
-                        //           style: TextStyle(
-                        //               color: Colors.white,
-                        //               fontSize: 17,
-                        //               fontWeight: FontWeight.bold),
-                        //         ),
-                        //       ),
-                        //       Padding(
-                        //         padding: EdgeInsets.all(5.0),
-                        //         child: Text(
-                        //           "Contractor",
-                        //           style: TextStyle(
-                        //               color: Colors.white,
-                        //               fontSize: 17,
-                        //               fontWeight: FontWeight.bold),
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        //********************************************************//
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            //tabbed view can be done if i can get two lists
-                            const Text("//lowkey want a tabbed view//"),
-                            DropDownOptionsWidget(
-                                title: "Group",
-                                functions: {
-                                  "Client": () =>
-                                      vm.dispatchListUser("customer"),
-                                  "Contractor": () =>
-                                      vm.dispatchListUser("tradesman"),
-                                },
-                                currentItem: (vm.activeGroup == "customer")
-                                    ? "Client"
-                                    : "Contractor"),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: TabBar(
+                            indicatorColor: Theme.of(context).primaryColor,
+                            tabs: const [
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: Text(
+                                  "Client",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Text(
+                                  "Contractor",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
 
-                        (userWidgets.isEmpty)
-                            ? Padding(
-                                padding: EdgeInsets.only(
-                                    top: (MediaQuery.of(context).size.height) /
-                                        4,
-                                    left: 40,
-                                    right: 40),
-                                child: (const Text(
-                                  "No users found.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white70),
-                                )),
-                              )
-                            : ListRefreshWidget(
-                                widgets: userWidgets,
-                                refreshFunction: () =>
-                                    vm.dispatchListUser("customer"),
-                              ),
-
                         //all these comments are for if we want a tabbed view
-                        // Expanded(
-                        //     child: TabBarView(children: [
-                        //   SingleChildScrollView(
-                        //     child: Column(
-                        //       children: [
-                        //         (userWidgets.isEmpty)
-                        //             ? Padding(
-                        //                 padding: EdgeInsets.only(
-                        //                     top: (MediaQuery.of(context)
-                        //                             .size
-                        //                             .height) /
-                        //                         4,
-                        //                     left: 40,
-                        //                     right: 40),
-                        //                 child: (const Text(
-                        //                   "No users found.",
-                        //                   textAlign: TextAlign.center,
-                        //                   style: TextStyle(
-                        //                       fontSize: 20,
-                        //                       color: Colors.white70),
-                        //                 )),
-                        //               )
-                        //             : ListRefreshWidget(
-                        //                 widgets: clients,
-                        //                 refreshFunction: () =>
-                        //                     vm.dispatchListUser("customer"),
-                        //               ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        //   SingleChildScrollView(
-                        //     child: Column(
-                        //       children: [
-                        //         (userWidgets.isEmpty)
-                        //             ? Padding(
-                        //                 padding: EdgeInsets.only(
-                        //                     top: (MediaQuery.of(context)
-                        //                             .size
-                        //                             .height) /
-                        //                         4,
-                        //                     left: 40,
-                        //                     right: 40),
-                        //                 child: (const Text(
-                        //                   "No users found.",
-                        //                   textAlign: TextAlign.center,
-                        //                   style: TextStyle(
-                        //                       fontSize: 20,
-                        //                       color: Colors.white70),
-                        //                 )),
-                        //               )
-                        //             : ListRefreshWidget(
-                        //                 widgets: contractors,
-                        //                 refreshFunction: () =>
-                        //                     vm.dispatchListUser("tradesman"),
-                        //               ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ])),
+                        // *******************TAB BAR LABELS***********************//
+
+                        Expanded(
+                            child: TabBarView(children: [
+                          //display loading icon
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                //a message if no in progress jobs
+                                if (customer.isEmpty)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: (MediaQuery.of(context)
+                                                .size
+                                                .height) /
+                                            4,
+                                        left: 40,
+                                        right: 40),
+                                    child: (const Text(
+                                      "No customer user's found",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white70),
+                                    )),
+                                  ),
+                                //else display in progress jobs
+                                ListRefreshWidget(
+                                    widgets: customer,
+                                    refreshFunction: () =>
+                                        vm.dispatchListUser("customer")),
+                                const Padding(
+                                    padding: EdgeInsets.only(bottom: 33))
+                              ],
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                if (tradesman.isEmpty)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: (MediaQuery.of(context)
+                                                .size
+                                                .height) /
+                                            4,
+                                        left: 40,
+                                        right: 40),
+                                    child: (const Text(
+                                      "No tradesman user's found",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white70),
+                                    )),
+                                  ),
+                                ListRefreshWidget(
+                                    widgets: tradesman,
+                                    refreshFunction: () =>
+                                        vm.dispatchListUser("tradesman")),
+                                const Padding(
+                                    padding: EdgeInsets.only(bottom: 33))
+                              ],
+                            ),
+                          ),
+                        ])),
+                        // ********************************************************//
                       ],
                     ),
                   );
@@ -212,9 +178,9 @@ class _Factory extends VmFactory<AppState, SearchUsersPage> {
   @override
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
-        users: state.admin.adminManage.usersList?.users ?? [],
+        customers: state.admin.adminManage.customers?.users ?? [],
+        tradesman: state.admin.adminManage.tradesman?.users ?? [],
         currentUser: state.userDetails.userType.toLowerCase(),
-        activeGroup: state.admin.adminManage.usersList?.group ?? "customer",
         dispatchSearchUser: (value, group) =>
             dispatch(AdminSearchUserAction(email: value, group: group)),
         dispatchListUser: (group) => dispatch(ListUsersAction(group)),
@@ -224,18 +190,18 @@ class _Factory extends VmFactory<AppState, SearchUsersPage> {
 // view model
 class _ViewModel extends Vm {
   final bool loading;
-  final List<CognitoUserModel> users;
-  final String activeGroup;
+  final List<CognitoUserModel> customers;
+  final List<CognitoUserModel> tradesman;
   final String currentUser;
   final void Function(String, String) dispatchSearchUser;
   final void Function(String) dispatchListUser;
 
   _ViewModel({
     required this.loading,
-    required this.users,
-    required this.activeGroup,
+    required this.customers,
+    required this.tradesman,
     required this.currentUser,
     required this.dispatchSearchUser,
     required this.dispatchListUser,
-  }) : super(equals: [loading, users]); // implementinf hashcode;
+  }) : super(equals: [loading, customers, tradesman]); // implementinf hashcode;
 }

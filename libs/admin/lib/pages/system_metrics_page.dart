@@ -6,6 +6,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/system_metrics/get_api_metrics_action.dart';
 import 'package:redux_comp/actions/admin/system_metrics/get_db_metrics_action_action.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_lambda_metrics_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class SystemMetricsPage extends StatefulWidget {
@@ -69,7 +70,7 @@ class _SystemMetricsPageState extends State<SystemMetricsPage> {
                             BoxWidget(
                               text: "Resolvers",
                               icon: Icons.code,
-                              function: () {},
+                              function: vm.pushResolverMetrics,
                             ),
                             BoxWidget(
                               text: "Auth",
@@ -114,6 +115,15 @@ class _Factory extends VmFactory<AppState, _SystemMetricsPageState> {
                 state.admin.appMetrics.databaseMetrics?.time ?? 3, // hours
           ),
         );
+      },
+      pushResolverMetrics: () {
+        dispatch(NavigateAction.pushNamed('/resolver_metrics'));
+        dispatch(
+          GetLambdaMetricsAction(
+            period: state.admin.appMetrics.databaseMetrics?.period ?? 5, //min
+            hoursAgo: state.admin.appMetrics.databaseMetrics?.time ?? 3,
+          ),
+        );
       });
 }
 
@@ -122,10 +132,12 @@ class _ViewModel extends Vm {
   final bool loading;
   final VoidCallback pushDBMetricsPage;
   final VoidCallback pushApiMetrics;
+  final VoidCallback pushResolverMetrics;
 
   _ViewModel({
     required this.loading,
     required this.pushDBMetricsPage,
     required this.pushApiMetrics,
+    required this.pushResolverMetrics,
   }) : super(equals: [loading]); // implementinf hashcode;
 }

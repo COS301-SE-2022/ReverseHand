@@ -6,7 +6,8 @@ import 'package:redux_comp/models/admin/reported_advert_model.dart';
 
 @immutable
 class AdminAppManageModel {
-  final ListUsersModel? usersList;
+  final ListUsersModel? customers;
+  final ListUsersModel? tradesman;
   final AdminUserModel? activeUser;
   final List<ReportModel>? reviewReports;
   final List<ReportModel>? userReports;
@@ -14,7 +15,8 @@ class AdminAppManageModel {
   
 
   const AdminAppManageModel({
-    this.usersList,
+    this.customers,
+    this.tradesman,
     this.activeUser,
     this.reviewReports,
     this.userReports,
@@ -22,14 +24,16 @@ class AdminAppManageModel {
   });
 
   AdminAppManageModel copy({
-   ListUsersModel? usersList,
+   ListUsersModel? customers,
+   ListUsersModel? tradesman,
    AdminUserModel? activeUser,
    List<ReportModel>? reviewReports,
    List<ReportModel>? userReports,
    List<ReportedAdvertModel>? advertReports
   }) {
     return AdminAppManageModel(
-      usersList: usersList ?? this.usersList,
+      customers: customers ?? this.customers,
+      tradesman: tradesman ?? this.tradesman,
       activeUser: activeUser ?? this.activeUser,
       reviewReports: reviewReports ?? this.reviewReports,
       userReports: userReports ?? this.userReports,

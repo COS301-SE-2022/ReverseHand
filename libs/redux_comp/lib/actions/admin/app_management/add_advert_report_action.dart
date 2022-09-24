@@ -26,8 +26,6 @@ class AddAdvertReportAction extends ReduxAction<AppState> {
       }
     }''';
 
-    debugPrint(graphQLDoc);
-
     final request = GraphQLRequest(
       document: graphQLDoc,
     );
