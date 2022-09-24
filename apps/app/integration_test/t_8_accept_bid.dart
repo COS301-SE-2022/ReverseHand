@@ -1,15 +1,12 @@
-import 'package:consumer/widgets/consumer_floating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:general/widgets/button.dart';
-import 'package:general/widgets/long_button_widget.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets("Shortlist Bid", (WidgetTester tester) async {
+  testWidgets("Accept Bid", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 

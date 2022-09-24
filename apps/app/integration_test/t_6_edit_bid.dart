@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:general/widgets/user_bid_details_widget.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
-import 'package:tradesman/widgets/upload_bid_widgets/edit_bid_sheet.dart';
 
 //Command to run test: flutter test integration_test/1_consumer_login.dart
 //This integration test goes the Login Route to using the app
@@ -14,7 +13,7 @@ void main() {
   //Note: When entering text into fields or tapping buttons
   //you have to use the .pumpAndSettel();
 
-  testWidgets("Login as a  Consumer", (WidgetTester tester) async {
+  testWidgets("Tradesman Edit Bid", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 

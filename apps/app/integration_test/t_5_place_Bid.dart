@@ -12,7 +12,7 @@ void main() {
   //Note: When entering text into fields or tapping buttons
   //you have to use the .pumpAndSettel();
 
-  testWidgets("Login as a  Consumer", (WidgetTester tester) async {
+  testWidgets("Tradesman Place Bid", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 

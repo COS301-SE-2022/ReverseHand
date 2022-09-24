@@ -18,7 +18,7 @@ void main() {
   //Note: When entering text into fields or tapping buttons
   //you have to use the .pumpAndSettel();
 
-  testWidgets("Create Job As Consumer", (WidgetTester tester) async {
+  testWidgets("Edit and Delete Advert", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
