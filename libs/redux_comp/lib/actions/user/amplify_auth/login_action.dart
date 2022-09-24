@@ -3,8 +3,10 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
 import 'package:redux_comp/actions/user/amplify_auth/check_signed_in_action.dart';
+import 'package:redux_comp/actions/user/amplify_auth/resend_verification_otp_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/error_type_model.dart';
+import 'package:redux_comp/models/user_models/partial_user_model.dart';
 
 class LoginAction extends ReduxAction<AppState> {
   final String email;
@@ -19,7 +21,7 @@ class LoginAction extends ReduxAction<AppState> {
     try {
       // await Amplify.Auth.signOut();
 
-      /* SignInResult res =  */ await Amplify.Auth.signIn(
+      SignInResult res =  await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -30,9 +32,10 @@ class LoginAction extends ReduxAction<AppState> {
     } on AuthException catch (e) {
       switch (e.message) {
         case "User is not confirmed.":
-          // print(e.message);
+          dispatch(ResendVerificationOtpAction(email));
           return state.copy(
-            error: ErrorType.userNotFound,
+            partialUser: PartialUser(email: email, group: "", verified: "", password: password),
+            error: ErrorType.userNotVerified,
           );
         case "Username is required to signIn":
           // print(e.message);

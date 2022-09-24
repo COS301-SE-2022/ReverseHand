@@ -9,10 +9,12 @@ import 'package:redux_comp/actions/init_amplify_action.dart';
 import 'package:redux_comp/actions/user/amplify_auth/login_action.dart';
 import 'package:redux_comp/actions/user/signin_facebook_action.dart';
 import 'package:redux_comp/actions/user/signin_google_action.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/forgot_password_popups/email_popup_widget.dart';
 import '../widgets/link_widget.dart';
+import '../widgets/otp_pop_up.dart';
 
 class LoginPage extends StatelessWidget {
   final Store<AppState> store;
@@ -116,6 +118,16 @@ class LoginPage extends StatelessWidget {
                                   ),
                       ),
                       //***************************************************
+
+                      StoreConnector<AppState, _ViewModel>(
+                        vm: () => _Factory(this),
+                        builder: (BuildContext context, _ViewModel vm) =>
+                            (vm.error == ErrorType.userNotVerified)
+                                ? OTPPopupWidget(
+                                    store: store,
+                                  )
+                                : Container(),
+                      ),
 
                       //*****************Forgot password**********************
                       StoreConnector<AppState, _ViewModel>(
@@ -267,6 +279,7 @@ class _Factory extends VmFactory<AppState, LoginPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+        error: state.error,
         loading: state.wait.isWaiting,
         pushSignUpPage: () => dispatch(NavigateAction.pushNamed('/signup')),
         dispatchLoginAction: (String email, String password) => dispatch(
@@ -284,12 +297,14 @@ class _ViewModel extends Vm {
   final void Function() dispatchSignInGoogle;
   final VoidCallback pushSignUpPage;
   final bool loading;
+  final ErrorType error;
 
   _ViewModel({
     required this.dispatchLoginAction,
     required this.dispatchSignInFacebook,
     required this.dispatchSignInGoogle,
     required this.loading,
+    required this.error,
     required this.pushSignUpPage,
   }) : super(equals: [loading]);
 }
