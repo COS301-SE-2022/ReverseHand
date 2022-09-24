@@ -5,46 +5,53 @@ import 'package:redux_comp/app_state.dart';
 class ChatAppBarWidget extends StatelessWidget {
   final String title;
   final Store<AppState> store;
-  const ChatAppBarWidget({Key? key, required this.title, required this.store}) : super(key: key);
+  const ChatAppBarWidget({Key? key, required this.title, required this.store})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-     return StoreProvider<AppState>(
-        store: store,
-        child: StoreConnector<AppState, _ViewModel>(
-          vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) => SliverAppBar(
-              pinned: true,
-              backgroundColor: Theme.of(context).primaryColorDark,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Row(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(top: 40,),
-                        child: GestureDetector(
-                        onTap: () { }, //todo, link profile
-                        child: const CircleAvatar(
-                          radius: 15,
-                          backgroundImage: AssetImage("assets/images/profile.png",
-                                  package: 'general'),
-                        ),
+    return StoreProvider<AppState>(
+      store: store,
+      child: StoreConnector<AppState, _ViewModel>(
+        vm: () => _Factory(this),
+        builder: (BuildContext context, _ViewModel vm) => SliverAppBar(
+          pinned: true,
+          backgroundColor: Theme.of(context).primaryColorDark,
+          flexibleSpace: FlexibleSpaceBar(
+            title: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 40,
+                    left: 70,
+                  ),
+                  child: GestureDetector(
+                    onTap: () {}, //todo, link profile
+                    child: const CircleAvatar(
+                      radius: 15,
+                      backgroundImage: AssetImage(
+                        "assets/images/profile.png",
+                        package: 'general',
                       ),
                     ),
-                    Padding(padding: const EdgeInsets.only(left: 10, top: 40),
-                      child: Text(
-                        title, 
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                        )
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, top: 40),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 23,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        );
+        ),
+      ),
+    );
   }
 }
 
@@ -65,5 +72,4 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.popPage,
   });
-
 }

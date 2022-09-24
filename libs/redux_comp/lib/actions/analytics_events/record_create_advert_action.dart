@@ -12,6 +12,8 @@ class RecordCreateAdvertAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
+    Amplify.Analytics.enable();
+
     final AnalyticsEvent event = AnalyticsEvent('CreateAdvert');
 
     event.properties.addStringProperty('city', city);

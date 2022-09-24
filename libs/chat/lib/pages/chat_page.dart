@@ -1,5 +1,3 @@
-// the actual chat between 2 user
-
 import 'package:async_redux/async_redux.dart';
 import 'package:chat/widgets/chat_appbar_widget.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +7,8 @@ import 'package:redux_comp/actions/chat/send_message_action.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 import '../widgets/action_bar_widget.dart';
 import '../widgets/message_tile_widget.dart';
+
+// the actual chat between 2 user
 
 class ChatPage extends StatelessWidget {
   final Store<AppState> store;
@@ -119,5 +119,5 @@ class _ViewModel extends Vm {
     required this.chat,
     required this.currentUser,
     required this.messages,
-  }) : super(equals: [chat, messages]); 
+  }) : super(equals: [chat, messages]);
 }

@@ -53,10 +53,15 @@ class ViewJobsAction extends ReduxAction<AppState> {
 
       dynamic data = jsonDecode(response.data)['viewJobs'];
       List<AdvertModel> adverts = [];
-      data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
+      data.forEach((el) {
+        final AdvertModel ad = AdvertModel.fromJson(el);
+        adverts.add(ad);
+      });
+
+      adverts = _sortAdverts(adverts);
 
       return state.copy(
-        viewAdverts: _sortAdverts(List.from(adverts)),
+        viewAdverts: List.from(adverts),
         adverts: adverts,
       );
     } catch (e) {

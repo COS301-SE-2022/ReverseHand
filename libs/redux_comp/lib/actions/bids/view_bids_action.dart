@@ -10,8 +10,13 @@ import '../../app_state.dart';
 class ViewBidsAction extends ReduxAction<AppState> {
   final AdvertModel? ad;
   final bool archived;
+  final bool pushPage; // whether the advert_details page should be pushed
 
-  ViewBidsAction({this.ad, this.archived = false});
+  ViewBidsAction({
+    this.ad,
+    this.archived = false,
+    this.pushPage = true,
+  });
 
   @override
   Future<AppState?> reduce() async {
@@ -62,14 +67,25 @@ class ViewBidsAction extends ReduxAction<AppState> {
         if (ad.acceptedBid != null && bid.id == ad.acceptedBid) activeBid = bid;
       }
 
-      return state.copy(
-        bids: bids,
-        userBid: userBid,
-        shortlistBids: shortlistedBids,
-        viewBids: bids + shortlistedBids,
-        activeAd: ad, // setting the active ad
-        activeBid: activeBid,
-      );
+      if (userBid == null) {
+        return state.copy(
+          bids: bids,
+          makeUserBidNull: true,
+          shortlistBids: shortlistedBids,
+          viewBids: bids + shortlistedBids,
+          activeAd: ad, // setting the active ad
+          activeBid: activeBid,
+        );
+      } else {
+        return state.copy(
+          bids: bids,
+          userBid: userBid,
+          shortlistBids: shortlistedBids,
+          viewBids: bids + shortlistedBids,
+          activeAd: ad, // setting the active ad
+          activeBid: activeBid,
+        );
+      }
     } catch (e) {
       return null; /* On Error do not modify state */
     }
@@ -78,11 +94,13 @@ class ViewBidsAction extends ReduxAction<AppState> {
   @override
   void before() {
     dispatch(WaitAction.add("viewBids"));
-    if (archived) {
-      dispatch(NavigateAction.pushNamed("/archived_advert_details"));
-    } else {
-      dispatch(NavigateAction.pushNamed(
-          "/${state.userDetails.userType.toLowerCase()}/advert_details"));
+    if (pushPage) {
+      if (archived) {
+        dispatch(NavigateAction.pushNamed("/archived_advert_details"));
+      } else {
+        dispatch(NavigateAction.pushNamed(
+            "/${state.userDetails.userType.toLowerCase()}/advert_details"));
+      }
     }
   }
 
