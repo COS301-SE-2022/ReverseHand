@@ -141,8 +141,8 @@ class _Factory extends VmFactory<AppState, NavBarWidget> {
         dispatchGetNotificationsAction: () =>
             dispatch(GetNotificationsAction()),
         dispatchViewAdvertsAction: () => dispatch(ViewAdvertsAction()),
-        test: (p0, p1) =>
-            dispatch(RecordCreateAdvertAction(city: p0, province: p1)),
+        test: (p0, p1) => dispatch(RecordCreateAdvertAction(
+            city: 'Pretoria', province: 'Gauteng', name: 'DoesPinpointWork')),
       );
 }
 

@@ -13,7 +13,7 @@ PODS:
     - AmplifyPlugins/AWSAPIPlugin (= 1.28.0)
     - Flutter
     - SwiftFormat/CLI
-    - SwiftLint (= 0.48.0)
+    - SwiftLint
   - amplify_auth_cognito_ios (0.0.1):
     - Amplify (= 1.28.0)
     - amplify_core
@@ -23,7 +23,7 @@ PODS:
   - amplify_core (0.0.1):
     - Flutter
     - SwiftFormat/CLI
-    - SwiftLint (= 0.48.0)
+    - SwiftLint
   - amplify_flutter_ios (0.0.1):
     - Amplify (= 1.28.0)
     - amplify_core
@@ -31,7 +31,7 @@ PODS:
     - AWSPluginsCore (= 1.28.0)
     - Flutter
     - SwiftFormat/CLI
-    - SwiftLint (= 0.48.0)
+    - SwiftLint
   - amplify_storage_s3_ios (0.0.1):
     - Amplify (= 1.28.0)
     - amplify_core
@@ -125,6 +125,8 @@ PODS:
     - Flutter
   - integration_test (0.0.1):
     - Flutter
+  - maps_launcher (0.0.1):
+    - Flutter
   - ObjectMapper (4.2.0)
   - path_provider_ios (0.0.1):
     - Flutter
@@ -133,8 +135,10 @@ PODS:
   - SDWebImage/Core (5.13.3)
   - Starscream (4.0.4)
   - SwiftFormat/CLI (0.49.18)
-  - SwiftLint (0.48.0)
+  - SwiftLint (0.49.1)
   - SwiftyGif (5.4.3)
+  - url_launcher_ios (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - amplify_analytics_pinpoint_ios (from `.symlinks/plugins/amplify_analytics_pinpoint_ios/ios`)
@@ -151,7 +155,9 @@ DEPENDENCIES:
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - maps_launcher (from `.symlinks/plugins/maps_launcher/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -204,16 +210,20 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
+  maps_launcher:
+    :path: ".symlinks/plugins/maps_launcher/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   Amplify: dfa12fad1609b1388d0b2fb6f99b3140cd942d09
   amplify_analytics_pinpoint_ios: 6dba746203804011da7b7292fc0b487440532a3c
-  amplify_api_ios: eadebd57661eed0430302700037b401a943fd686
+  amplify_api_ios: 69ba9f6eb6097c99ce26d3d3047607d72078f50f
   amplify_auth_cognito_ios: a2a37adcedf38b8b3e5a2b564ff0432d875654ad
-  amplify_core: 0876b2fbbcec7619f5b58b20c59ecc0118f65a47
-  amplify_flutter_ios: 268040e5c74a116ee8d532c33ac5b4b405692b1a
+  amplify_core: e67fe0c53845db08aced670bfc7370b1329d2798
+  amplify_flutter_ios: c6c8baa4e1f89073458acbad13c46acaf9fd97ed
   amplify_storage_s3_ios: e2f56398531a6355e7350a2b7c4c621ba5279d05
   AmplifyPlugins: 1bac66d0349fa307008f6f7711b09d0f80e78c30
   AppSyncRealTimeClient: 937360221f2b664c4c33ae142a60643e64f480cd
@@ -235,14 +245,16 @@ SPEC CHECKSUMS:
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
+  maps_launcher: 2e5b6a2d664ec6c27f82ffa81b74228d770ab203
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   SDWebImage: af5bbffef2cde09f148d826f9733dcde1a9414cd
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
-  SwiftLint: 284cea64b6187c5d6bd83e9a548a64104d546447
+  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
+  url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
 
-PODFILE CHECKSUM: 7368163408c647b7eb699d0d788ba6718e18fb8d
+PODFILE CHECKSUM: 0a7cb8df82e8de2c7707c399c8e9309150c941ed
 
 COCOAPODS: 1.11.3

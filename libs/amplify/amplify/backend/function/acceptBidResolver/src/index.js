@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+const func = process.env.FUNCTION;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -23,7 +24,8 @@ exports.handler = async (event) => {
         },
     };
 
-    let customer_id = await docClient.update(item).promise().then(resp => resp.Attributes.customer_id);
+    let ad = await docClient.update(item).promise().then(resp => resp.Attributes);
+    let customer_id = ad.customer_id;
     
     // getting accepted bid
     let params = {
@@ -37,6 +39,27 @@ exports.handler = async (event) => {
     const data = await docClient.get(params).promise();
     let tradesman_id = data["Item"]["tradesman_id"];
     let sbid = data["Item"]['bid_details'];
+
+    // sending out notification
+    // getting current date
+    const date = new Date();
+    const currentDate = date.getTime();
+
+    const lambda = new AWS.Lambda();
+    var notification = lambda.invoke({
+        FunctionName: func,
+        Payload: JSON.stringify({
+            userId: tradesman_id,
+            notification: {
+                part_key: "notification#" + tradesman_id,
+                sort_key: date.toISOString(),
+                title: "Bid Accepted",
+                msg: "Your bid for " + ad.advert_details.title + " has been shortlisted.",
+                type: "BidAccepted",
+                timestamp: currentDate
+            }
+        })
+    }).promise();
 
     //adding the advert_id to the tradesman that won it
 
@@ -67,6 +90,8 @@ exports.handler = async (event) => {
 
     sbid['tradesman_id'] = tradesman_id;
     sbid['id'] = data["Item"]['sort_key'];
+
+    await notification;
 
     return sbid;
 };

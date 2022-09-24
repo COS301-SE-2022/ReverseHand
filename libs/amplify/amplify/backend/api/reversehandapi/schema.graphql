@@ -105,6 +105,7 @@ type Mutation {
     type: String
     domain: DomainInput
     date_closed: String
+    images: Int
   ): Advert! @function(name: "editAdvertResolver-${env}")
 
   deleteAdvert(ad_id: String!): Advert!

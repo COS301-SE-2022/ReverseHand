@@ -54,7 +54,7 @@ class CreateAdvertAction extends ReduxAction<AppState> {
       }
 
       dispatch(RecordCreateAdvertAction(
-          city: domain.city, province: domain.province));
+          city: domain.city, province: domain.province, name: title));
 
       return null;
     } on ApiException catch (e) {

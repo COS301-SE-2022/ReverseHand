@@ -52,6 +52,10 @@ exports.handler = async (event) => {
             args.push('advert_details.#date_closed = :date_closed');
             expressionAttributeNames['#date_closed'] = 'date_closed';
         }
+        if (event.arguments.images !== undefined) {
+            args.push('advert_details.#images = :images');
+            expressionAttributeNames['#images'] = 'images';
+        }
             
         let updateExpression = 'set ';
         for (let i = 0; i < args.length - 1; i++)
@@ -66,6 +70,7 @@ exports.handler = async (event) => {
         expressionAttributeValues[':type'] = event.arguments.type;
         expressionAttributeValues[':location'] = event.arguments.location;
         expressionAttributeValues[':date_closed'] = event.arguments.date_closed;
+        expressionAttributeValues[':images'] = event.arguments.images;
 
         params = {
             TableName: ReverseHandTable,
