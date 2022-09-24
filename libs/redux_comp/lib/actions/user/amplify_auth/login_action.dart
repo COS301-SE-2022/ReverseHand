@@ -21,7 +21,7 @@ class LoginAction extends ReduxAction<AppState> {
     try {
       // await Amplify.Auth.signOut();
 
-      SignInResult res =  await Amplify.Auth.signIn(
+      /*SignInResult res =  */await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
