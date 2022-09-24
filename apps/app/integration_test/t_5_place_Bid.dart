@@ -79,55 +79,5 @@ void main() {
 
     await tester.tap(find.text("Submit Bid"));
     await tester.pumpAndSettle();
-/*
-    //var workBtn = find.widgetWithIcon(IconButton, Icons.work);
-    //expect(workBtn, findsOneWidget);
-
-    //await tester.tap(workBtn);
-    //await tester.pumpAndSettle();
-
-    //await tester.tap(find.text("MY BIDS")); //go to your bids
-    //await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 3), () {});
-
-    //await tester.tap(find.text("OPEN JOBS"));
-    //await tester.pumpAndSettle();
-
-    await Future.delayed(const Duration(seconds: 1), () {});
-
-    //await tester.tap(find.text("MY BIDS")); //go to your bids
-    //await tester.pumpAndSettle();
-    var workBtn = find.widgetWithIcon(IconButton, Icons.work);
-    expect(workBtn, findsOneWidget);
-
-    await tester.tap(workBtn);
-    await tester.pumpAndSettle();
-
-    await Future.delayed(const Duration(seconds: 3), () {});
-
-    //await tester.tap(find.text("Integration Test"));
-    //await tester.pumpAndSettle();
-
-    /////////////////////////////////////////////////////////////////
-    //Edit bid
-
-    await tester.tap(find.bySemanticsLabel("Click on your bid to edit it"));
-    await tester.pumpAndSettle();
-
-    await tester.enterText(
-        find.byType(TextFormField), "1200"); //enter new amount
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.text("Save"));
-    await tester.pumpAndSettle();
-    */
   });
 }
-
-//**  Do not delete this list **
-//1. Login
-//2. view ads
-//3. filter bids
-//4. view and bid and shortlist/accept it
-//5. edit an advert
-//6. create a job
