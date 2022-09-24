@@ -34,7 +34,6 @@ class ImageCarouselWidget extends StatelessWidget {
         firstImage,
         errorBuilder:
             (BuildContext context, Object error, StackTrace? stackTrace) {
-          print(error);
           return Container();
         },
         fit: BoxFit.cover,
