@@ -1,9 +1,9 @@
-import 'package:async_redux/async_redux.dart';
+// import 'package:async_redux/async_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:redux_comp/actions/adverts/filter_bids_action.dart';
-import 'package:redux_comp/models/bid_model.dart';
-import 'package:redux_comp/models/filter_bids_model.dart';
-import 'package:redux_comp/redux_comp.dart';
+// import 'package:redux_comp/actions/adverts/filter_bids_action.dart';
+// import 'package:redux_comp/models/bid_model.dart';
+// import 'package:redux_comp/models/filter_bids_model.dart';
+// import 'package:redux_comp/redux_comp.dart';
 
 void main() async {
   // var store = Store<AppState>(initialState: AppState.initial());
