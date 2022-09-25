@@ -41,15 +41,14 @@ class LineChartWidget extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(5),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 chartTitle,
                 style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
-                    decoration: TextDecoration.underline,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
             ),

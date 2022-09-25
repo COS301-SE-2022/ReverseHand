@@ -95,16 +95,30 @@ class _DatabaseMetricsPageState extends State<DatabaseMetricsPage> {
                             ),
                           ],
                         ),
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "ReverseHand Table",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                         LineChartWidget(
                           graphs: vm.dbMetrics.graphs["dbReadData"] ?? [],
-                          chartTitle: "ReverseHand Read Capacity",
+                          chartTitle: "Read Capacity",
                           xTitle: "Time",
                           yTitle: "RCU",
                           zoomPanBehavior: _zoomingPanBehavior,
                         ),
                         LineChartWidget(
                             graphs: vm.dbMetrics.graphs["dbWriteData"] ?? [],
-                            chartTitle: "ReverseHand Write Capacity",
+                            chartTitle: "Write Capacity",
                             xTitle: "Time",
                             yTitle: "WCU",
                             zoomPanBehavior: _zoomingPanBehavior,),

@@ -4,7 +4,8 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/actions/admin/system_metrics/get_lambda_metrics_action.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_resolver_errors_action.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_resolver_invocations_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -97,9 +98,62 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
                             ),
                           ],
                         ),
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Admin Resolvers",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                         LineChartWidget(
-                          graphs: vm.adminResolvers.graphs["adminData"] ?? [],
-                          chartTitle: "Admin Resolvers Invocations",
+                          graphs:
+                              vm.adminResolvers.graphs["adminInvokeData"] ?? [],
+                          chartTitle: "Invocations",
+                          xTitle: "Time",
+                          yTitle: "Count",
+                          zoomPanBehavior: _zoomingPanBehavior,
+                        ),
+                        LineChartWidget(
+                          graphs:
+                              vm.adminResolvers.graphs["adminErrorData"] ?? [],
+                          chartTitle: "Errors",
+                          xTitle: "Time",
+                          yTitle: "Count",
+                          zoomPanBehavior: _zoomingPanBehavior,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "User Resolvers",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        LineChartWidget(
+                          graphs:
+                              vm.adminResolvers.graphs["userInvokeData"] ?? [],
+                          chartTitle: "Invocations",
+                          xTitle: "Time",
+                          yTitle: "Count",
+                          zoomPanBehavior: _zoomingPanBehavior,
+                        ),
+                        LineChartWidget(
+                          graphs:
+                              vm.adminResolvers.graphs["userErrorData"] ?? [],
+                          chartTitle: "Errors",
                           xTitle: "Time",
                           yTitle: "Count",
                           zoomPanBehavior: _zoomingPanBehavior,
@@ -121,7 +175,18 @@ class _Factory extends VmFactory<AppState, _ResolverMetricsPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         refresh: (period, time) {
-          dispatch(GetLambdaMetricsAction(period: period, hoursAgo: time));
+          dispatch(
+            GetResolverInvocationsAction(
+              period: state.admin.appMetrics.databaseMetrics?.period ?? 5, //min
+              hoursAgo: state.admin.appMetrics.databaseMetrics?.time ?? 3,
+            ),
+          );
+          dispatch(
+            GetResolverErrorsAction(
+              period: state.admin.appMetrics.databaseMetrics?.period ?? 5, //min
+              hoursAgo: state.admin.appMetrics.databaseMetrics?.time ?? 3,
+            ),
+          );
         },
         loading: state.wait.isWaiting,
         adminResolvers: state.admin.appMetrics.adminResolvers ??
