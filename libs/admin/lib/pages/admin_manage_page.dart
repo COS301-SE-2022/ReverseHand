@@ -26,8 +26,6 @@ class AdminManagePage extends StatelessWidget {
             Widget appbar = AppBarWidget(
               title: "Content Management",
               store: store,
-              filterActions: AppbarPopUpMenuWidget(
-                  store: store, functions: {"Search users": vm.pushSearchUsersPage}),
             );
             return (vm.loading)
                 ? Column(
@@ -47,7 +45,8 @@ class AdminManagePage extends StatelessWidget {
                       appbar,
 
                       AdminContainerWidget(
-                          text: "Advert Reports", function: () => vm.pushAdvertReportsPage()),
+                          text: "Advert Reports",
+                          function: () => vm.pushAdvertReportsPage()),
                       AdminContainerWidget(
                           text: "User Reports",
                           function: () => vm.pushUserReportsPage()),
@@ -70,25 +69,19 @@ class _Factory extends VmFactory<AppState, AdminManagePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        loading: state.wait.isWaiting,
-        pushSearchUsersPage: () {
-          dispatch(NavigateAction.pushNamed('/search_users'));
-          dispatch(ListUsersAction("customer"));
-          dispatch(ListUsersAction("tradesman"));
-        },
-        pushUserReportsPage: () {
-          dispatch(NavigateAction.pushNamed('/user_reports_page'));
-          dispatch(GetUserReportsAction());
-        },
-        pushReviewReportsPage: () {
-          dispatch(NavigateAction.pushNamed('/review_reports_page'));
-          dispatch(GetReviewReportsAction());
-        },
-        pushAdvertReportsPage: () {
-           dispatch(NavigateAction.pushNamed('/advert_reports_page'));
-          dispatch(GetReportedAdvertsAction());
-        }
-      );
+      loading: state.wait.isWaiting,
+      pushUserReportsPage: () {
+        dispatch(NavigateAction.pushNamed('/user_reports_page'));
+        dispatch(GetUserReportsAction());
+      },
+      pushReviewReportsPage: () {
+        dispatch(NavigateAction.pushNamed('/review_reports_page'));
+        dispatch(GetReviewReportsAction());
+      },
+      pushAdvertReportsPage: () {
+        dispatch(NavigateAction.pushNamed('/advert_reports_page'));
+        dispatch(GetReportedAdvertsAction());
+      });
 }
 
 // view model
@@ -97,14 +90,12 @@ class _ViewModel extends Vm {
   final VoidCallback pushUserReportsPage;
   final VoidCallback pushReviewReportsPage;
   final VoidCallback pushAdvertReportsPage;
-  final VoidCallback pushSearchUsersPage;
 
   _ViewModel({
     required this.loading,
     required this.pushUserReportsPage,
     required this.pushReviewReportsPage,
     required this.pushAdvertReportsPage,
-    required this.pushSearchUsersPage,
   }) : super(equals: [loading]); // implementinf hashcode;
 }
 

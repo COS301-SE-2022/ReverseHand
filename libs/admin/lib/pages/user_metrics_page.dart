@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/admin/app_management/list_users_action.dart';
 import 'package:redux_comp/actions/admin/user_metrics/get_session_metrics_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -97,7 +98,7 @@ class _UserMetricsPageState extends State<UserMetricsPage> {
                         ButtonWidget(
                             text: "Search Users",
                             color: "dark",
-                            function: () {}),
+                            function: vm.pushSearchUsersPage),
                       ],
                     ),
                   );
@@ -115,12 +116,18 @@ class _Factory extends VmFactory<AppState, _UserMetricsPageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      loading: state.wait.isWaiting,
-      sessions: state.admin.userMetrics.sessionMetrics ??
-          const MetricsModel(period: 60, time: 3, graphs: {}),
-      refresh: (period, time) =>
-          dispatch(GetSessionMetricsAction(period: period, hoursAgo: time)),
-      activeSessions: state.admin.userMetrics.activeSessions ?? 0);
+        loading: state.wait.isWaiting,
+        sessions: state.admin.userMetrics.sessionMetrics ??
+            const MetricsModel(period: 60, time: 3, graphs: {}),
+        refresh: (period, time) =>
+            dispatch(GetSessionMetricsAction(period: period, hoursAgo: time)),
+        activeSessions: state.admin.userMetrics.activeSessions ?? 0,
+        pushSearchUsersPage: () {
+          dispatch(NavigateAction.pushNamed('/search_users'));
+          dispatch(ListUsersAction("customer"));
+          dispatch(ListUsersAction("tradesman"));
+        },
+      );
 }
 
 // view model
@@ -129,12 +136,14 @@ class _ViewModel extends Vm {
   final MetricsModel sessions;
   final void Function(int, int) refresh;
   final int activeSessions;
+  final VoidCallback pushSearchUsersPage;
 
   _ViewModel({
     required this.loading,
     required this.sessions,
     required this.activeSessions,
     required this.refresh,
+    required this.pushSearchUsersPage,
   }) : super(equals: [
           loading,
           sessions,
