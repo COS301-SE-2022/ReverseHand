@@ -5,7 +5,6 @@ import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:tradesman/methods/populate_domains.dart';
-import 'package:uuid/uuid.dart';
 
 class DomainConfirmPage extends StatelessWidget {
   final Store<AppState> store;
@@ -70,7 +69,7 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
   _ViewModel fromStore() => _ViewModel(
         pushCustomSearch: () => dispatch(
           NavigateAction.pushNamed('/geolocation/custom_location_search',
-              arguments: const Uuid().v1()),
+              arguments: true),
         ),
         domains: state.userDetails.domains,
         pop: () => dispatch(

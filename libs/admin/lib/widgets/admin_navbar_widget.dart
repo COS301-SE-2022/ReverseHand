@@ -55,7 +55,7 @@ class AdminNavBarWidget extends StatelessWidget {
                               highlightColor: Colors.orange,
                               splashColor: Colors.white,
                               radius: 30,
-                              child: const Text("Metrics"),
+                              child: const Text("System"),
                             ),
                           ),
 
@@ -64,12 +64,12 @@ class AdminNavBarWidget extends StatelessWidget {
                             padding: const EdgeInsets.all(15.0),
                             child: InkWell(
                               onTap: () {
-                                vm.pushUserManage();
+                                vm.pushUserMetrics();
                               },
                               highlightColor: Colors.orange,
                               splashColor: Colors.white,
                               radius: 30,
-                              child: const Text("Users"),
+                              child: const Text("User"),
                             ),
                           ),
 
@@ -120,10 +120,10 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
                 ModalRoute.withName('/admin_system_metrics')),
           );
         },
-        pushUserManage: () {
+        pushUserMetrics: () {
           dispatch(
             NavigateAction.pushNamedAndRemoveUntil(
-                '/admin_user_metrics', ModalRoute.withName('/admin_users')),
+                '/user_metrics', ModalRoute.withName('/user_metrics')),
           );
         },
         pushContentManage: () {
@@ -140,13 +140,13 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
 // view model
 class _ViewModel extends Vm {
   final VoidCallback pushAppMetrics;
-  final VoidCallback pushUserManage;
+  final VoidCallback pushUserMetrics;
   final VoidCallback pushContentManage;
   final VoidCallback pushProfilePage;
 
   _ViewModel({
     required this.pushAppMetrics,
-    required this.pushUserManage,
+    required this.pushUserMetrics,
     required this.pushContentManage,
     required this.pushProfilePage,
   });

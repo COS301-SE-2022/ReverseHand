@@ -12,6 +12,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/image_carousel_widget.dart';
 import 'package:general/widgets/job_card.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/analytics_events/record_place_bid_action.dart';
 import 'package:redux_comp/actions/bids/place_bid_action.dart';
 import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/actions/user/open_in_maps_action.dart';
@@ -172,6 +173,11 @@ class TradesmanJobDetails extends StatelessWidget {
                                     price: items['price'],
                                     quote: items['quote'],
                                   );
+
+                                  vm.dispatchRecordPlaceBidAction(
+                                    vm.advert.type,
+                                    items['price'],
+                                  );
                                 }
                               },
                             ),
@@ -230,6 +236,12 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
             dispatch(PlaceBidAction(price: price, quote: quote)),
         dispatchGetOtherUserAction: () =>
             dispatch(GetOtherUserAction(state.activeAd!.userId)),
+        dispatchRecordPlaceBidAction: (type, amount) => dispatch(
+          RecordPlaceBidAction(
+            type: type,
+            amount: amount,
+          ),
+        ),
         accepted: state.userBid == null
             ? false
             : state.activeAd!.acceptedBid == null
@@ -249,6 +261,7 @@ class _ViewModel extends Vm {
   final int bidCount;
   final VoidCallback pushViewBidsPage;
   final bool loading;
+  final void Function(String, double) dispatchRecordPlaceBidAction;
   final void Function({
     required int price,
     File? quote,
@@ -268,6 +281,7 @@ class _ViewModel extends Vm {
     required this.popPage,
     required this.pushViewBidsPage,
     required this.loading,
+    required this.dispatchRecordPlaceBidAction,
     required this.accepted,
     required this.dispatchOpenInMapsAction,
   }) : super(equals: [advert, loading, userBid, change]);

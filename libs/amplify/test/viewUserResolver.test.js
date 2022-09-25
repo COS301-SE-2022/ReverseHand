@@ -3,7 +3,7 @@ const AWS = require("aws-sdk");
 require('dotenv').config();
 const event = {
     arguments: {
-        user_id : "c#f0fa74ae-7a4d-4674-8ba6-e9da6f6213cd"   
+        user_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5"   
     }
 };
 
@@ -29,9 +29,8 @@ describe("ViewUserResolver Integration Test", () =>{
         const result = await handlerModule.handler(event);
 
         //check that some known values of the user are correctly returned
-        expect(result.cellNo).toEqual('0832721014');
         expect(result.email).toEqual('lastrucci61@gmail.com');
-        expect(result.id).toEqual('c#f0fa74ae-7a4d-4674-8ba6-e9da6f6213cd');
+        expect(result.id).toEqual('c#983b506a-8ac3-4ca0-9844-79ed15291cd5');
         expect(result.location.address.province).toEqual('Gauteng');
     })
 });

@@ -6,9 +6,10 @@ import '../../models/geolocation/suggestion_model.dart';
 
 class GetPlaceAction extends ReduxAction<AppState> {
   Suggestion input;
+  bool confirm;
   PlaceApiService placeApi;
 
-  GetPlaceAction(this.input, this.placeApi);
+  GetPlaceAction(this.input, this.placeApi, this.confirm);
 
   @override
   Future<AppState?> reduce() async {
@@ -23,6 +24,7 @@ class GetPlaceAction extends ReduxAction<AppState> {
 
   @override
   void after() {
-    dispatch(NavigateAction.pushReplacementNamed('/geolocation/location_confirm'));
+    (confirm) ? 
+    dispatch(NavigateAction.pushReplacementNamed('/geolocation/location_confirm')) : dispatch(NavigateAction.pop());
   }
 }

@@ -26,13 +26,13 @@ class BoxWidget extends StatelessWidget {
         label: Text(
           text,
           style: const TextStyle(
-            color: Colors.orangeAccent,
+            color: Colors.black,
             fontSize: 15,
           ),
         ),
         icon: Icon(
           icon,
-          color: Colors.orangeAccent,
+          color: Colors.orange,
           size: 40,
         ),
         onPressed: function,

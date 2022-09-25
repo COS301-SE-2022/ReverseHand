@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
-import 'package:redux_comp/models/admin/observation_model.dart';
+import 'package:redux_comp/models/admin/app_metrics/observation_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LineChartWidget extends StatelessWidget {
@@ -22,13 +22,17 @@ class LineChartWidget extends StatelessWidget {
     for (LineChartModel data in graphs) {
       list.add(
         LineSeries<ObservationModel, String>(
-            dataSource: data.data,
-            color: data.color,
-            xValueMapper: (ObservationModel obs, _) => obs.time,
-            yValueMapper: (ObservationModel obs, _) => obs.value,
-            name: data.label),
+          dataSource: data.data,
+          color: data.color,
+          xValueMapper: (ObservationModel obs, _) => obs.time,
+          yValueMapper: (ObservationModel obs, _) => obs.value,
+          markerSettings: MarkerSettings(
+              isVisible: true, color: data.color, height: 5, width: 5),
+          name: data.label,
+          emptyPointSettings: EmptyPointSettings(mode: EmptyPointMode.gap)
+        ),
       );
-    }
+    }  
 
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
@@ -42,7 +46,7 @@ class LineChartWidget extends StatelessWidget {
               child: Text(
                 chartTitle,
                 style: const TextStyle(
-                  color: Colors.black,
+                    color: Colors.white,
                     fontSize: 20,
                     decoration: TextDecoration.underline,
                     fontWeight: FontWeight.bold),
@@ -51,6 +55,7 @@ class LineChartWidget extends StatelessWidget {
           ),
           SfCartesianChart(
             enableAxisAnimation: true,
+            tooltipBehavior: TooltipBehavior(enable: true),
             legend: Legend(
               position: LegendPosition.bottom,
               isVisible: true,

@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const createAdvertEvent = {
     arguments: {
-        customer_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+        customer_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5",
         title: "Lambda Test Hundred One",
         description: "This is a test description",
         domain :{
@@ -139,12 +139,12 @@ describe("Editing Bids and Adverts Integration Test", ()=>{
 
         const addReviewEvent = {
             arguments : {
-                user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                user_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5",
                 review : {
                     id : "#ID12345",
                     rating : 5,
                     description : "Integration Tests",
-                    user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                    user_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5",
                     advert_id : adId,
                     date_created : 12324345
                 }
@@ -164,7 +164,7 @@ describe("Editing Bids and Adverts Integration Test", ()=>{
         console.log("getUserReviews test");
         const getUserReviewsEvent = {
             arguments : {
-                user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702"
+                user_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5"
             }
         };
 
@@ -177,7 +177,7 @@ describe("Editing Bids and Adverts Integration Test", ()=>{
         /*console.log("Deleting a Review");
         const deleteReviewEvent = {
             arguments : {
-                user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                user_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5",
                 id : reviewId
             }
         };

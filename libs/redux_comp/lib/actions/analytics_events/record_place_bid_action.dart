@@ -1,29 +1,30 @@
-// import 'package:flutter/material.dart';
-// import '../../app_state.dart';
-// import 'package:amplify_flutter/amplify_flutter.dart';
-// import 'package:async_redux/async_redux.dart';
+import 'package:flutter/material.dart';
 
-// class RecordPlaceBid extends ReduxAction<AppState> {
-//   String city;
-//   String province;
+import '../../app_state.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:async_redux/async_redux.dart';
 
-//   RecordPlaceBid({required this.city, required this.province});
+class RecordPlaceBidAction extends ReduxAction<AppState> {
+  String type;
+  double amount;
 
-//   @override
-//   Future<AppState?> reduce() async {
-//     Amplify.Analytics.enable();
+  RecordPlaceBidAction({required this.type, required this.amount});
 
-//     final AnalyticsEvent event = AnalyticsEvent('CreateAdvert');
+  @override
+  Future<AppState?> reduce() async {
+    final event = AnalyticsEvent('PlaceBid');
 
-//     event.properties.addStringProperty('city', city);
-//     event.properties.addStringProperty('province', province);
+    event.properties.addStringProperty('job_type', type);
+    event.properties.addDoubleProperty('amount', amount);
 
-//     try {
-//       await Amplify.Analytics.recordEvent(event: event);
-//       await Amplify.Analytics.flushEvents();
-//     } catch (e) {
-//       debugPrint(e.toString());
-//     }
+  try {
+    await Amplify.Analytics.recordEvent(event: event);
+    await Amplify.Analytics.flushEvents();
 
-//     return null;
-//   }
+  } catch(e) {
+    debugPrint(e.toString());
+  }
+
+    return null;
+  }
+}
