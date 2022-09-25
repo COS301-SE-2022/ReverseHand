@@ -9,9 +9,10 @@ void main() async {
   var store = Store<AppState>(initialState: AppState.initial());
 
   FilterBidsModel filter = const FilterBidsModel(
-      includeShortlisted: true,
-      includeBids: true,
-      priceRange: Range(500, 1000));
+    includeShortlisted: true,
+    includeBids: true,
+    price: 500,
+  );
 
   FilterBidsAction action = FilterBidsAction(filter);
 

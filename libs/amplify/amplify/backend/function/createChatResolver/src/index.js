@@ -29,6 +29,7 @@ exports.handler = async (event) => {
                 neutralMessages: 0,
                 positive: 0,
                 negative: 0,
+                sentiment: 'sentiment',
               }
             }
           },

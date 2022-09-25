@@ -277,41 +277,41 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                 //if the min and max values are actually used
                 if (minController.text.isNotEmpty &&
                     maxController.text.isNotEmpty) {
-                      //make sure that min <= max
-                  int.parse(minController.text) > int.parse(maxController.text)
-                      ? displayToastError(
-                          context, "Min field must be less than Max field")
-                      : vm.dispatchFilterBidsAction(
-                          FilterBidsModel(
-                            includeShortlisted: showSBids,
-                            includeBids: showBids,
-                            priceRange: minController.value.text.isEmpty ||
-                                    maxController.value.text.isEmpty
-                                ? null
-                                : Range(
-                                    int.parse(minController.value.text),
-                                    int.parse(maxController.value.text),
-                                  ),
-                            sort: sort,
-                          ),
-                        );
+                  //make sure that min <= max
+                  // int.parse(minController.text) > int.parse(maxController.text)
+                  //     ? displayToastError(
+                  //         context, "Min field must be less than Max field")
+                  //     : vm.dispatchFilterBidsAction(
+                  //         FilterBidsModel(
+                  //           includeShortlisted: showSBids,
+                  //           includeBids: showBids,
+                  //           priceRange: minController.value.text.isEmpty ||
+                  //                   maxController.value.text.isEmpty
+                  //               ? null
+                  //               : Range(
+                  //                   int.parse(minController.value.text),
+                  //                   int.parse(maxController.value.text),
+                  //                 ),
+                  //           sort: sort,
+                  //         ),
+                  //       );
                   Navigator.pop(context);
                   //if the min and max values aren't used
                 } else {
-                  vm.dispatchFilterBidsAction(
-                    FilterBidsModel(
-                      includeShortlisted: showSBids,
-                      includeBids: showBids,
-                      priceRange: minController.value.text.isEmpty ||
-                              maxController.value.text.isEmpty
-                          ? null
-                          : Range(
-                              int.parse(minController.value.text),
-                              int.parse(maxController.value.text),
-                            ),
-                      sort: sort,
-                    ),
-                  );
+                  // vm.dispatchFilterBidsAction(
+                  //   FilterBidsModel(
+                  //     includeShortlisted: showSBids,
+                  //     includeBids: showBids,
+                  //     priceRange: minController.value.text.isEmpty ||
+                  //             maxController.value.text.isEmpty
+                  //         ? null
+                  //         : Range(
+                  //             int.parse(minController.value.text),
+                  //             int.parse(maxController.value.text),
+                  //           ),
+                  //     sort: sort,
+                  //   ),
+                  // );
                   Navigator.pop(context);
                 }
               },
