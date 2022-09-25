@@ -141,7 +141,7 @@ type Mutation {
     t_name: String!,
   ): Chat! @function(name: "createChatResolver-${env}")
 
-  sendMessage(chat_id: String!, msg: String!, sender: String!): Message!
+  sendMessage(chat_id: String!, msg: String!, sender: String!, sender_id: String!, reciever_id: String!, sentiment: Float!): Message!
     @function(name: "sendMessageResolver-${env}")
 
   deleteChat(t_id: String!, c_id: String!, ad_id: String!): Chat!
@@ -223,6 +223,7 @@ type TradesmanStats {
 
 type Chat implements UniqueID {
   id: String!
+  other_user_id: String!
   consumer_name: String!
   tradesman_name: String!
   timestamp: Float!

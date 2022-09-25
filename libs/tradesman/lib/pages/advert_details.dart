@@ -261,7 +261,7 @@ class _ViewModel extends Vm {
   final int bidCount;
   final VoidCallback pushViewBidsPage;
   final bool loading;
-  final void Function(String, double) dispatchRecordPlaceBidAction;
+  final void Function(String, int) dispatchRecordPlaceBidAction;
   final void Function({
     required int price,
     File? quote,

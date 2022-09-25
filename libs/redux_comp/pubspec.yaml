@@ -28,11 +28,11 @@ dependencies:
 
   # other
   uuid: ^3.0.6
-  path_provider: ^2.0.11
   jwt_decode: ^0.3.1
   geolocator: ^9.0.1
   http: ^0.13.5
   maps_launcher: ^2.0.1
+  sentiment_dart: ^0.0.5
 
   amplify:
     path: '../amplify'
