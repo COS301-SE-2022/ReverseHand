@@ -65,22 +65,19 @@ class _RadioSelectWidgetState extends State<ReportPage> {
               padding: const EdgeInsets.only(left: 10.0),
               child: ListBody(
                 children: widget.items
-                    .map((tradeType) => ListTile(
+                    .map((tradeType) => RadioListTile(
                           title: Text(
                             tradeType,
                             style: const TextStyle(fontSize: 17.5),
                           ),
-                          leading: Radio<String>(
-                            value: tradeType,
-                            groupValue: _type,
-                            fillColor: MaterialStateColor.resolveWith(
-                                (states) => Colors.orange),
-                            onChanged: (String? value) {
-                              setState(() {
-                                _type = value;
-                              });
-                            },
-                          ),
+                          value: tradeType,
+                          activeColor: Theme.of(context).primaryColor,
+                          groupValue: _type,
+                          onChanged: (String? value) {
+                            setState(() {
+                              _type = value;
+                            });
+                          },
                         ))
                     .toList(),
               ),
@@ -202,17 +199,16 @@ class _Factory extends VmFactory<AppState, _RadioSelectWidgetState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        otherUser: state.otherUserDetails,
-        isWaiting: state.wait.isWaiting,
-        userDetails: state.userDetails,
-        dispatchAddUserReportAction: (report, user) =>
-            dispatch(AddUserReportAction(report: report, user: user)),
-        dispatchAddSdvertReportAction:
-            (String userId, ReportDetailsModel report) =>
-                dispatch(AddAdvertReportAction(userId: userId, report: report)),
-        popPage: () => dispatch(NavigateAction.pop()),
-        activeAd: state.activeAd
-      );
+      otherUser: state.otherUserDetails,
+      isWaiting: state.wait.isWaiting,
+      userDetails: state.userDetails,
+      dispatchAddUserReportAction: (report, user) =>
+          dispatch(AddUserReportAction(report: report, user: user)),
+      dispatchAddSdvertReportAction:
+          (String userId, ReportDetailsModel report) =>
+              dispatch(AddAdvertReportAction(userId: userId, report: report)),
+      popPage: () => dispatch(NavigateAction.pop()),
+      activeAd: state.activeAd);
 }
 
 // view model
