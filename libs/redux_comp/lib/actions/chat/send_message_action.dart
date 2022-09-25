@@ -19,7 +19,7 @@ class SendMessageAction extends ReduxAction<AppState> {
     debugPrint(analysis.toString());
 
     String graphQLDocument = '''mutation {
-      sendMessage(chat_id: "${state.chat!.id}", msg: "$msg", sender: "${state.userDetails.userType.toLowerCase()}") {
+      sendMessage(chat_id: "${state.chat!.id}", msg: "$msg", sender: "${state.userDetails.userType.toLowerCase()}", sender_id: "${state.userDetails.id}", reciever_id: "${state.chat!.otherUserId}", sentiment: ${analysis.score}) {
         id
         chat_id
         msg
@@ -48,3 +48,15 @@ class SendMessageAction extends ReduxAction<AppState> {
 
   // in after dispatch action to create subscription
 }
+
+/*
+mutation {
+      sendMessage(chat_id: "chat#a#d52e5cf2-7855-48d2-b9a2-83c03494ed2d", msg: "I love this idea", sender: "consumer", sender_id: "c#983b506a-8ac3-4ca0-9844-79ed15291cd5", reciever_id: "t#acff077a-8855-4165-be78-090fda375f90", sentiment: 3.0) {
+        id
+        chat_id
+        msg
+        sender
+        timestamp
+      }
+    }
+    */

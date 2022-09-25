@@ -21,8 +21,14 @@ exports.handler = async (event) => {
                 part_key: "chats#" + event.arguments.c_id,
                 sort_key: "chat#" + chatId,
                 timestamp: timestamp,
+                other_user_id: event.arguments.t_id,
                 consumer_name: event.arguments.c_name,
                 tradesman_name: event.arguments.t_name,
+                negativeMessages: 0,
+                positiveMessages: 0,
+                neutralMessages: 0,
+                positive: 0,
+                negative: 0,
               }
             }
           },
@@ -33,8 +39,14 @@ exports.handler = async (event) => {
                 part_key: "chats#" + event.arguments.t_id,
                 sort_key: "chat#" + chatId,
                 timestamp: timestamp,
+                other_user_id: event.arguments.c_id,
                 consumer_name: event.arguments.c_name,
                 tradesman_name: event.arguments.t_name,
+                negativeMessages: 0,
+                positiveMessages: 0,
+                neutralMessages: 0,
+                positive: 0,
+                negative: 0,
               }
             }
           }

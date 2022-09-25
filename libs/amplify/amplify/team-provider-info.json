@@ -130,11 +130,11 @@
         },
         "createChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/createChatResolver-37687a6b416b63624873-build.zip"
+          "s3Key": "amplify-builds/createChatResolver-786553446d355075624c-build.zip"
         },
         "sendMessageResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/sendMessageResolver-53632b4b386c44353039-build.zip"
+          "s3Key": "amplify-builds/sendMessageResolver-475272456a4d61495464-build.zip"
         },
         "deleteChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",

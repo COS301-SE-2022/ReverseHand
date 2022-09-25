@@ -11,6 +11,7 @@ class GetChatsAction extends ReduxAction<AppState> {
     String graphQLDocument = '''query {
       getChats(user_id: "${state.userDetails.id}") {
         id
+        other_user_id
         consumer_name
         tradesman_name
         timestamp
