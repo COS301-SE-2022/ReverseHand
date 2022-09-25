@@ -6,7 +6,7 @@ import 'package:async_redux/async_redux.dart';
 
 class RecordPlaceBidAction extends ReduxAction<AppState> {
   String type;
-  double amount;
+  int amount;
 
   RecordPlaceBidAction({required this.type, required this.amount});
 
@@ -15,15 +15,14 @@ class RecordPlaceBidAction extends ReduxAction<AppState> {
     final event = AnalyticsEvent('PlaceBid');
 
     event.properties.addStringProperty('job_type', type);
-    event.properties.addDoubleProperty('amount', amount);
+    event.properties.addIntProperty('amount', amount);
 
-  try {
-    await Amplify.Analytics.recordEvent(event: event);
-    await Amplify.Analytics.flushEvents();
-
-  } catch(e) {
-    debugPrint(e.toString());
-  }
+    try {
+      await Amplify.Analytics.recordEvent(event: event);
+      await Amplify.Analytics.flushEvents();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
 
     return null;
   }
