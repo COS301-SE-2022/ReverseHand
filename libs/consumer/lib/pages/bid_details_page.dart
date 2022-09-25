@@ -54,9 +54,9 @@ class BidDetailsPage extends StatelessWidget {
                           vm.dispatchShortListBidAction();
                           vm.bid.shortlisted
                           ? displayToastSuccess(
-                            context, "Bid Favourited!")
+                              context, "Bid Unfavourited!")
                           : displayToastSuccess(
-                                    context, "Bid Unfavourited!");
+                            context, "Bid Favourited!");
                         },
                         icon: Icon(
                           vm.bid.shortlisted
@@ -162,8 +162,6 @@ class BidDetailsPage extends StatelessWidget {
                                     store: store,
                                   ),
                                   320.0);
-                              displayToastSuccess(
-                                context, "Bid Accepted!");
                             }),
                       ),
                     ),
