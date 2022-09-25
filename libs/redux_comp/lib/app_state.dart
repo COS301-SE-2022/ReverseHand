@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:redux_comp/models/admin/admin_model.dart';
 import 'package:redux_comp/models/admin/app_management/admin_app_manage_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/app_metrics_model.dart';
+import 'package:redux_comp/models/admin/user_metrics/user_metrics_model.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
@@ -175,7 +176,9 @@ class AppState {
       messages: const [],
       messageSubscription: null,
       admin: const AdminModel(
-          adminManage: AdminAppManageModel(), appMetrics: AppMetricsModel()),
+          adminManage: AdminAppManageModel(),
+          appMetrics: AppMetricsModel(),
+          userMetrics: UserMetricsModel()),
       paystackPublicKey: "",
       paystackSecretKey: "",
       notifications: const [],

@@ -1,7 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/admin/reported_advert_model.dart';
+import 'package:redux_comp/models/admin/app_management/reported_advert_model.dart';
 
 //*********************************************** */
 // Reported Advert card layout widget

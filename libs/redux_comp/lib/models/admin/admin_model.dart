@@ -3,24 +3,29 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_management/admin_app_manage_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/app_metrics_model.dart';
+import 'package:redux_comp/models/admin/user_metrics/user_metrics_model.dart';
 
 @immutable
 class AdminModel {
   final AdminAppManageModel adminManage;
   final AppMetricsModel appMetrics;
+  final UserMetricsModel userMetrics;
 
   const AdminModel({
     required this.adminManage,
-    required this.appMetrics
+    required this.appMetrics,
+    required this.userMetrics
   });
 
   AdminModel copy({
     AdminAppManageModel? adminManage,
-    AppMetricsModel? appMetrics
+    AppMetricsModel? appMetrics,
+    UserMetricsModel? userMetrics
   }) {
     return AdminModel(
       adminManage: adminManage ?? this.adminManage,
-      appMetrics: appMetrics ?? this.appMetrics
+      appMetrics: appMetrics ?? this.appMetrics,
+      userMetrics: userMetrics ?? this.userMetrics
     );
   }
 }

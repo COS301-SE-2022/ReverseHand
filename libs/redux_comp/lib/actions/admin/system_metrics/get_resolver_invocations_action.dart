@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/admin/system_metrics/build_lambda_metric_query.dart';
+import 'package:redux_comp/actions/admin/helper_functions/build_data.dart';
+import 'package:redux_comp/actions/admin/helper_functions/build_lambda_metric_query.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../../models/admin/app_metrics/line_chart_model.dart';
-import 'build_data.dart';
 
 class GetResolverInvocationsAction extends ReduxAction<AppState> {
   final int hoursAgo;

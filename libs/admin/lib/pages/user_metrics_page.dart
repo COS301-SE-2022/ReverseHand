@@ -1,53 +1,53 @@
 import 'package:admin/widgets/admin_navbar_widget.dart';
-import 'package:admin/widgets/system_charts/doughnut_chart_widget.dart';
+import 'package:admin/widgets/drop_down_options_widget.dart';
+import 'package:admin/widgets/system_charts/line_chart_widget.dart';
 import 'package:admin/widgets/text_row_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/models/admin/user_metrics/pie_chart_model.dart';
+import 'package:redux_comp/actions/admin/user_metrics/get_session_metrics_action.dart';
+import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
-class UserMetricsPage extends StatelessWidget {
+class UserMetricsPage extends StatefulWidget {
   final Store<AppState> store;
   const UserMetricsPage({Key? key, required this.store}) : super(key: key);
 
   @override
+  State<UserMetricsPage> createState() => _UserMetricsPageState();
+}
+
+class _UserMetricsPageState extends State<UserMetricsPage> {
+  late ZoomPanBehavior _zoomingPanBehavior;
+  @override
+  void initState() {
+    _zoomingPanBehavior = ZoomPanBehavior(
+        enablePanning: true,
+        enableSelectionZooming: true,
+        selectionRectBorderColor: Colors.orange,
+        selectionRectBorderWidth: 1,
+        selectionRectColor: Colors.grey);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: Scaffold(
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
-            final List<List<PieChartModel>> chartData = [
-              [
-                const PieChartModel(label: 'Kwa-Zulu Natal', value: 15),
-                const PieChartModel(label: 'Western Cape', value: 38),
-                const PieChartModel(label: 'Free State', value: 34),
-                const PieChartModel(label: 'Gauteng', value: 52)
-              ]
-            ];
-            final List<List<PieChartModel>> chartsData = [
-              [
-                const PieChartModel(label: 'Kwa-Zulu Natal', value: 15),
-                const PieChartModel(label: 'Western Cape', value: 38),
-                const PieChartModel(label: 'Free State', value: 34),
-                const PieChartModel(label: 'Gauteng', value: 52)
-              ],
-              [
-                const PieChartModel(label: 'Kwa-Zulu Natal', value: 15),
-                const PieChartModel(label: 'Western Cape', value: 38),
-                const PieChartModel(label: 'Free State', value: 34),
-                const PieChartModel(label: 'Gauteng', value: 52)
-              ]
-            ];
-
             Widget appbar = AppBarWidget(
-              title: "User Metrics",
-              store: store,
-            );
+                title: "User Metrics",
+                store: widget.store,
+                refreshAction: () {
+                  vm.refresh(vm.sessions.period, vm.sessions.time);
+                  _zoomingPanBehavior.reset();
+                });
             return (vm.loading)
                 ? Column(
                     children: [
@@ -65,12 +65,15 @@ class UserMetricsPage extends StatelessWidget {
                       children: [
                         //**********APPBAR***********//
                         appbar,
-
-                        const TextRowWidget(
-                            text: "Daily Active Endpoints", value: "0"),
-                        const TextRowWidget(
-                            text: "Montly Active Endpoints", value: "0"),
-                        const TextRowWidget(text: "New Endpoints", value: "0"),
+                        TextRowWidget(
+                            text: "Active Sessions",
+                            value: vm.activeSessions.toString()),
+                        LineChartWidget(
+                            graphs: vm.sessions.graphs["sessions"] ?? [],
+                            chartTitle: "Sessions over the last 12 hours",
+                            xTitle: "Time",
+                            yTitle: "Count",
+                            zoomPanBehavior: _zoomingPanBehavior),
                         Divider(
                           height: 20,
                           thickness: 0.5,
@@ -78,7 +81,12 @@ class UserMetricsPage extends StatelessWidget {
                           endIndent: 15,
                           color: Theme.of(context).primaryColorLight,
                         ),
-                        const TextRowWidget(text: "Sessions", value: "0"),
+                        ButtonWidget(
+                            text: "View Custom Metrics", function: () {}),
+                        ButtonWidget(
+                            text: "View Chat Sentiment",
+                            color: "dark",
+                            function: () {}),
                         Divider(
                           height: 20,
                           thickness: 0.5,
@@ -86,40 +94,52 @@ class UserMetricsPage extends StatelessWidget {
                           endIndent: 15,
                           color: Theme.of(context).primaryColorLight,
                         ),
-                        ButtonWidget(text: "View Custom Metrics", color: "dark",function: () {}),
-                        DoughnutChartWidget(
-                            graphs: chartsData,
-                            chartTitle: "User's Platform & Device"),
-                        DoughnutChartWidget(
-                            graphs: chartData, chartTitle: "Users Location"),
+                        ButtonWidget(
+                            text: "Search Users",
+                            color: "dark",
+                            function: () {}),
                       ],
                     ),
                   );
           },
         ),
-        bottomNavigationBar: AdminNavBarWidget(store: store),
+        bottomNavigationBar: AdminNavBarWidget(store: widget.store),
       ),
     );
   }
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, UserMetricsPage> {
+class _Factory extends VmFactory<AppState, _UserMetricsPageState> {
   _Factory(widget) : super(widget);
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        loading: state.wait.isWaiting,
-      );
+      loading: state.wait.isWaiting,
+      sessions: state.admin.userMetrics.sessionMetrics ??
+          const MetricsModel(period: 60, time: 3, graphs: {}),
+      refresh: (period, time) =>
+          dispatch(GetSessionMetricsAction(period: period, hoursAgo: time)),
+      activeSessions: state.admin.userMetrics.activeSessions ?? 0);
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
+  final MetricsModel sessions;
+  final void Function(int, int) refresh;
+  final int activeSessions;
 
   _ViewModel({
     required this.loading,
-  }) : super(equals: [loading]); // implementinf hashcode;
+    required this.sessions,
+    required this.activeSessions,
+    required this.refresh,
+  }) : super(equals: [
+          loading,
+          sessions,
+          activeSessions
+        ]); // implementinf hashcode;
 }
 
 class ChartData {
