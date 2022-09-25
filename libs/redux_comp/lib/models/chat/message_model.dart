@@ -23,4 +23,22 @@ class MessageModel {
         sender: json['sender'],
         timestamp: json['timestamp'].toDouble(),
       );
+
+  @override
+  operator ==(Object other) =>
+      other is MessageModel &&
+      id == other.id &&
+      chatId == other.chatId &&
+      msg == other.msg &&
+      sender == other.sender &&
+      timestamp == other.timestamp;
+
+  @override
+  int get hashCode => Object.hash(
+        id,
+        chatId,
+        msg,
+        sender,
+        timestamp,
+      );
 }
