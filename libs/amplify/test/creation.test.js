@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const createAdvertEvent = {
     arguments: {
-        customer_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+        customer_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5",
         title: "Lambda Test Hundred",
         description: "This is a test description",
         domain :{
@@ -20,7 +20,7 @@ const createAdvertEvent = {
 
 const viewAdvertEvent = {
     arguments : {
-        user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702"
+        user_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5"
     }
 };
 
@@ -159,10 +159,11 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
 
         const createChatEvent = {
             arguments : {
-                c_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                c_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5",
                 c_name : 'Alexander',
                 t_id : "t#acff077a-8855-4165-be78-090fda375f90",
-                t_name : 'Richard' 
+                t_name : 'Richard',
+                ad_id: adId
             }
         };
 
@@ -181,7 +182,7 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         const sendMessageEvent = {
             arguments : {
                 chat_id : chatId,
-                sender : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+                sender : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5",
                 msg : "Hey There!"
             }
         };
@@ -205,7 +206,7 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         handlerModule = require('../amplify/backend/function/getMessagesResolver/src/index');
         result = await handlerModule.handler(getMessageEvent);
 
-        expect(result.length).toEqual(1);//there should only be one chat message for the user if all is right
+        expect(result.length).toBeGreaterThanOrEqual(1);
 
         //********************************************************************************************* */
         //getChatsResolver
@@ -213,7 +214,7 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
 
         const getChatsEvent = {
             arguments : {
-                user_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702"
+                user_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5"
             }
         };
 
@@ -243,7 +244,7 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         handlerModule = require('../amplify/backend/function/getNotificationsResolver/src/index');
         result = await handlerModule.handler(getNotificationEvent);
 
-        expect(result.length).toEqual(1);//one notification to tradesman about their bid being shortlisted
+        expect(result.length).toBeGreaterThanOrEqual(1);//one notification to tradesman about their bid being shortlisted
 
         //********************************************************************************************* */
         /*//deleteChat resolver
@@ -252,7 +253,7 @@ describe("Creation of Adverts, Bids, and deletion tests",  () =>{
         const deleteChatEvent = {
             arguments : {
                 ad_id : adId,
-                c_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702"
+                c_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5"
             }
         };
 
