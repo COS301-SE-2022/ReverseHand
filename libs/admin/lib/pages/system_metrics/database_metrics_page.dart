@@ -1,5 +1,5 @@
 import 'package:admin/widgets/drop_down_options_widget.dart';
-import 'package:admin/widgets/system_charts/line_chart_widget.dart';
+import 'package:admin/widgets/line_chart_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
@@ -7,6 +7,7 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/system_metrics/get_db_metrics_action_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DatabaseMetricsPage extends StatefulWidget {
   final Store<AppState> store;
@@ -17,6 +18,18 @@ class DatabaseMetricsPage extends StatefulWidget {
 }
 
 class _DatabaseMetricsPageState extends State<DatabaseMetricsPage> {
+  late ZoomPanBehavior _zoomingPanBehavior;
+  @override
+  void initState() {
+    _zoomingPanBehavior = ZoomPanBehavior(
+        enablePanning: true,
+        enableSelectionZooming: true,
+        selectionRectBorderColor: Colors.orange,
+        selectionRectBorderWidth: 1,
+        selectionRectColor: Colors.grey);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -30,8 +43,10 @@ class _DatabaseMetricsPageState extends State<DatabaseMetricsPage> {
                 store: widget.store,
                 title: "Database Metrics",
                 backButton: true,
-                refreshAction: () =>
-                    vm.refresh(vm.dbMetrics.period, vm.dbMetrics.time),
+                refreshAction: () {
+                  vm.refresh(vm.dbMetrics.period, vm.dbMetrics.time);
+                  _zoomingPanBehavior.reset();
+                },
               );
               return (vm.loading)
                   ? Column(
@@ -80,16 +95,33 @@ class _DatabaseMetricsPageState extends State<DatabaseMetricsPage> {
                             ),
                           ],
                         ),
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "ReverseHand Table",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                         LineChartWidget(
-                            graphs: vm.dbMetrics.graphs["dbReadData"] ?? [],
-                            chartTitle: "ReverseHand Read Capacity",
-                            xTitle: "Time",
-                            yTitle: "RCU"),
+                          graphs: vm.dbMetrics.graphs["dbReadData"] ?? [],
+                          chartTitle: "Read Capacity",
+                          xTitle: "Time",
+                          yTitle: "RCU",
+                          zoomPanBehavior: _zoomingPanBehavior,
+                        ),
                         LineChartWidget(
                             graphs: vm.dbMetrics.graphs["dbWriteData"] ?? [],
-                            chartTitle: "ReverseHand Write Capacity",
+                            chartTitle: "Write Capacity",
                             xTitle: "Time",
-                            yTitle: "WCU"),
+                            yTitle: "WCU",
+                            zoomPanBehavior: _zoomingPanBehavior,),
                       ],
                     );
             },

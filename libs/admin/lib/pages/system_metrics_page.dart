@@ -6,7 +6,8 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/system_metrics/get_api_metrics_action.dart';
 import 'package:redux_comp/actions/admin/system_metrics/get_db_metrics_action_action.dart';
-import 'package:redux_comp/actions/admin/system_metrics/get_lambda_metrics_action.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_resolver_errors_action.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_resolver_invocations_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class SystemMetricsPage extends StatefulWidget {
@@ -119,7 +120,13 @@ class _Factory extends VmFactory<AppState, _SystemMetricsPageState> {
       pushResolverMetrics: () {
         dispatch(NavigateAction.pushNamed('/resolver_metrics'));
         dispatch(
-          GetLambdaMetricsAction(
+          GetResolverInvocationsAction(
+            period: state.admin.appMetrics.databaseMetrics?.period ?? 5, //min
+            hoursAgo: state.admin.appMetrics.databaseMetrics?.time ?? 3,
+          ),
+        );
+        dispatch(
+          GetResolverErrorsAction(
             period: state.admin.appMetrics.databaseMetrics?.period ?? 5, //min
             hoursAgo: state.admin.appMetrics.databaseMetrics?.time ?? 3,
           ),
