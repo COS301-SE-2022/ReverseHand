@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:general/widgets/user_bid_details_widget.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
@@ -7,14 +8,12 @@ void main() {
   //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  //Command: flutter test integration_test/tradesman_login_test.dart
-
-  testWidgets("Tradesman logging in route", (WidgetTester tester) async {
+  testWidgets("Tradesman Edit Bid", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
-    //storing constants used to login as consumer
-    const email = "tradesman.cachemoney@gmail.com";
+    //storing constants used to login as tradesman
+    const email = "yojeja5123@edxplus.com";
     const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
@@ -42,10 +41,24 @@ void main() {
     await tester.pumpAndSettle();
 
     await Future.delayed(const Duration(seconds: 3), () {});
+
+    await tester.tap(find.text("MY BIDS")); //go to your bids
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Integration Test"));
+    await tester.pumpAndSettle();
+    /////////////////////////////////////////////////////////////////
+    //Edit bid
+    await Future.delayed(const Duration(seconds: 3), () {});
+
+    await tester.tap(find.byType(UserBidDetailsWidget));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(
+        find.byType(TextFormField), "1200"); //enter new amount
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Save"));
+    await tester.pumpAndSettle();
   });
 }
-
-//** Don't delete below list **//
-//1. login
-//2. view jobs
-//3. place bids

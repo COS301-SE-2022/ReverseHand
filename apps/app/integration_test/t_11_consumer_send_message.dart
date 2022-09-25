@@ -1,23 +1,20 @@
+import 'package:chat/widgets/action_button_widget.dart';
+import 'package:chat/widgets/quick_view_chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
-//Command to run test: flutter test integration_test/consumer_login_test.dart
-//This integration test goes the Login Route to using the app
 void main() {
   //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  //Note: When entering text into fields or tapping buttons
-  //you have to use the .pumpAndSettel();
-
-  testWidgets("Login as a  Consumer", (WidgetTester tester) async {
+  testWidgets("Consumer Send Message", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
     //storing constants used to login as consumer
-    const email = "consumer.cachemoney@gmail.com";
+    const email = "fiwij93949@orlydns.com";
     const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
@@ -45,13 +42,30 @@ void main() {
     await tester.pumpAndSettle();
 
     await Future.delayed(const Duration(seconds: 3), () {});
+
+    //Go to chat
+    await tester.tap(find.widgetWithIcon(IconButton, Icons.forum));
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 3), () {});
+
+    await tester.tap(find.widgetWithText(QuickViewChatWidget, "Peter"));
+    await tester.pumpAndSettle();
+
+    await Future.delayed(const Duration(seconds: 3), () {});
+    await tester.tapAt(const Offset(10, 10));
+    // await tester.tap(find.widgetWithText(QuickViewChatWidget, "Peter"));
+    await tester.pumpAndSettle();
+
+    await tester.tapAt(const Offset(10, 10));
+    await Future.delayed(const Duration(seconds: 3), () {});
+    await tester.tapAt(const Offset(10, 10));
+
+    await tester.enterText(
+        find.bySemanticsLabel("Type message"), "Hey Tradesman");
+    await tester.pumpAndSettle();
+
+    await tester
+        .tap(find.widgetWithIcon(ActionButtonWidget, Icons.send_rounded));
+    await tester.pumpAndSettle();
   });
 }
-
-//**  Do not delete this list **
-//1. Login
-//2. view ads
-//3. filter bids
-//4. view and bid and shortlist/accept it
-//5. edit an advert
-//6. create a job
