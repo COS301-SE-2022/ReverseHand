@@ -2,10 +2,9 @@ import 'package:admin/widgets/doughnut_chart_widget.dart';
 import 'package:admin/widgets/drop_down_options_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/models/admin/user_metrics/pie_chart_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class CustomMetricsPage extends StatelessWidget {
@@ -15,6 +14,18 @@ class CustomMetricsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<PieChartModel> placeData = [
+      const PieChartModel(label: 'Pretoria',value: 25,   color: Colors.redAccent),
+      const PieChartModel(label: 'Centurion',value: 38,  color: Colors.orangeAccent),
+      const PieChartModel(label: 'Randburg',value: 34,   color: Colors.blueAccent),
+      const PieChartModel(label: 'Johannesburg',value: 5,color: Colors.greenAccent),
+    ];
+    final List<PieChartModel> typeData = [
+      const PieChartModel(label: 'Plumbing',value: 5, color: Colors.redAccent),
+      const PieChartModel(label: 'Painting',value: 7, color: Colors.orangeAccent),
+      const PieChartModel(label: 'Electrician',value: 11, color: Colors.blueAccent),
+      const PieChartModel(label: 'Cleaner',value: 5, color: Colors.greenAccent),
+    ];
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -100,7 +111,8 @@ class CustomMetricsPage extends StatelessWidget {
                             )
                           ],
                         ),
-
+                        DoughnutChartWidget(graphs: [typeData], chartTitle: "Job Type"),
+                        DoughnutChartWidget(graphs: [placeData], chartTitle: "Location")
                       ],
                     ),
                   );
@@ -128,4 +140,11 @@ class _ViewModel extends Vm {
   _ViewModel({
     required this.loading,
   }) : super(equals: [loading]); // implementinf hashcode;
+}
+
+class ChartData {
+  ChartData({required this.x, required this.y, this.color});
+  final String x;
+  final double y;
+  final Color? color;
 }
