@@ -12,7 +12,6 @@ import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 import 'package:general/widgets/long_button_widget.dart';
-import 'package:redux_comp/models/error_type_model.dart';
 
 class BidDetailsPage extends StatelessWidget {
   final Store<AppState> store;
@@ -50,7 +49,14 @@ class BidDetailsPage extends StatelessWidget {
                               ),
                       ),
                       IconButton(
-                        onPressed: vm.dispatchShortListBidAction,
+                        onPressed: () {
+                          vm.dispatchShortListBidAction();
+                          vm.bid.shortlisted
+                          ? displayToastSuccess(
+                              context, "Bid Unfavourited!")
+                          : displayToastSuccess(
+                            context, "Bid Favourited!");
+                        },
                         icon: Icon(
                           vm.bid.shortlisted
                               ? Icons.bookmark
@@ -145,12 +151,6 @@ class BidDetailsPage extends StatelessWidget {
                   children: [
                     StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
-                      onDidChange: (context, store, vm) {
-                        if (store.state.error == ErrorType.none) {
-                          displayToastSuccess(
-                              context!, "Bid Accepted"); //todo, fix
-                        }
-                      },
                       builder: (BuildContext context, _ViewModel vm) => Center(
                         child: LongButtonWidget(
                             text: "Accept Bid",

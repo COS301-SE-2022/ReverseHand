@@ -6,7 +6,6 @@ import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/user/amplify_auth/complete_password_reset_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:authentication/methods/validation.dart';
-import 'package:redux_comp/models/error_type_model.dart';
 import '../auth_textfield_light.dart';
 
 //******************************** */
@@ -105,11 +104,6 @@ class _NewPasswordPopupWidgetState extends State<NewPasswordPopupWidget> {
 
                   StoreConnector<AppState, _ViewModel>(
                     vm: () => _Factory(this),
-                    onDidChange: (context, store, vm) {
-                      if(store.state.error == ErrorType.none) {
-                        displayToastSuccess(context!, "Password Changed"); //todo, fix
-                      }
-                    },
                     builder: (BuildContext context, _ViewModel vm) =>
                       ButtonWidget(
                       text: "Send",
@@ -117,6 +111,7 @@ class _NewPasswordPopupWidgetState extends State<NewPasswordPopupWidget> {
                         vm.dispatchConfirmPasswordReset(
                           newPasswordController.value.text.trim(),
                         );
+                        displayToastSuccess(context, "Password changedd");
                         vm.popPage();
                       }
                     )
