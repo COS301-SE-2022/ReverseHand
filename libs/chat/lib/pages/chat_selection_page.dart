@@ -74,6 +74,7 @@ class _Factory extends VmFactory<AppState, ChatSelectionPage> {
         chats: state.chats,
         userType: state.userDetails.userType.toLowerCase(),
         loading: state.wait.isWaiting,
+        change: state.change,
       );
 }
 
@@ -82,10 +83,12 @@ class _ViewModel extends Vm {
   final List<ChatModel> chats;
   final String userType;
   final bool loading;
+  final bool change;
 
   _ViewModel({
     required this.chats,
     required this.userType,
     required this.loading,
-  }) : super(equals: [chats, userType, loading]);
+    required this.change,
+  }) : super(equals: [chats, userType, loading, change]);
 }
