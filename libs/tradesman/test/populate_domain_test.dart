@@ -28,5 +28,8 @@ void main() {
 
   test("populateDomains unit tests", () {
     expect(2, result.length);
+
+    domains = [];
+    expect(0, populateDomains(store, domains).length);
   });
 }

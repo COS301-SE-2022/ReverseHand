@@ -11,15 +11,13 @@ void main() {
   const bidOne = BidModel(
       id: "b#001",
       userId: "u12345",
-      priceLower: 10,
-      priceUpper: 20,
+      price: 10,
       dateCreated: 123456,
       shortlisted: false);
   const bidTwo = BidModel(
       id: "b#002",
       userId: "u12346",
-      priceLower: 12,
-      priceUpper: 100,
+      price: 12,
       dateCreated: 989999989,
       shortlisted: true);
 
@@ -32,5 +30,9 @@ void main() {
 
   test("populate bids unit test", () {
     expect(2, result.length);
+
+    bids = [];
+
+    expect(0, (populateBids("u12345", bids, store)).length);
   });
 }

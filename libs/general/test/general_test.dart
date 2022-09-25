@@ -14,13 +14,14 @@ import 'package:general/methods/time.dart';
 
 void main() {
   test("getIcon unit test", () {
-    expect(Icons.bolt, getIcon("Electrician"));
-    expect(Icons.plumbing, getIcon("Plumber"));
-
-    expect(Icons.sanitizer, getIcon("Cleaner"));
-    expect(Icons.carpenter, getIcon("Carpenter"));
-
+    expect(Icons.plumbing, getIcon("Plumbing"));
     expect(Icons.design_services, getIcon("Designer"));
+    expect(Icons.carpenter, getIcon("Carpenter"));
+    expect(Icons.park, getIcon("Landscaper"));
+    expect(Icons.imagesearch_roller, getIcon("Painting"));
+    expect(Icons.cleaning_services, getIcon("Cleaner"));
+    expect(Icons.grid_view, getIcon("Tiler"));
+    expect(Icons.bolt, getIcon("Electrician"));
   });
 
   var timestamp = 1662987291649.0;

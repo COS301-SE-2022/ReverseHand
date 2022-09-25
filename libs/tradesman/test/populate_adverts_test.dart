@@ -18,17 +18,21 @@ void main() {
   const adOne = AdvertModel(
     id: "test",
     title: "Test",
+    userId: "User123",
+    type: "Painting",
     domain: domain,
     dateCreated: 1246546,
-    type: "Painting",
+    imageCount: 2,
   );
 
   const adTwo = AdvertModel(
     id: "id",
     title: "title123",
+    userId: "User12345",
     type: "Carpenter",
     domain: domain,
     dateCreated: 12345,
+    imageCount: 0,
   );
 
   adverts.add(adOne);
@@ -40,5 +44,8 @@ void main() {
 
   test("populateAdverts unit test", () {
     expect(2, result.length);
+
+    adverts = [];
+    expect(0, (populateAdverts(adverts, store)).length);
   });
 }
