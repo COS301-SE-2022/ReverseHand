@@ -50,7 +50,14 @@ class BidDetailsPage extends StatelessWidget {
                               ),
                       ),
                       IconButton(
-                        onPressed: vm.dispatchShortListBidAction,
+                        onPressed: () {
+                          vm.dispatchShortListBidAction();
+                          vm.bid.shortlisted
+                          ? displayToastSuccess(
+                            context, "Bid Favourited!")
+                          : displayToastSuccess(
+                                    context, "Bid Unfavourited!");
+                        },
                         icon: Icon(
                           vm.bid.shortlisted
                               ? Icons.bookmark
@@ -145,12 +152,6 @@ class BidDetailsPage extends StatelessWidget {
                   children: [
                     StoreConnector<AppState, _ViewModel>(
                       vm: () => _Factory(this),
-                      onDidChange: (context, store, vm) {
-                        if (store.state.error == ErrorType.none) {
-                          displayToastSuccess(
-                              context!, "Bid Accepted"); //todo, fix
-                        }
-                      },
                       builder: (BuildContext context, _ViewModel vm) => Center(
                         child: LongButtonWidget(
                             text: "Accept Bid",
@@ -161,6 +162,8 @@ class BidDetailsPage extends StatelessWidget {
                                     store: store,
                                   ),
                                   320.0);
+                              displayToastSuccess(
+                                context, "Bid Accepted!");
                             }),
                       ),
                     ),

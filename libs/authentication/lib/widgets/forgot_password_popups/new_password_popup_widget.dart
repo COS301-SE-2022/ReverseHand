@@ -105,11 +105,6 @@ class _NewPasswordPopupWidgetState extends State<NewPasswordPopupWidget> {
 
                   StoreConnector<AppState, _ViewModel>(
                     vm: () => _Factory(this),
-                    onDidChange: (context, store, vm) {
-                      if(store.state.error == ErrorType.none) {
-                        displayToastSuccess(context!, "Password Changed"); //todo, fix
-                      }
-                    },
                     builder: (BuildContext context, _ViewModel vm) =>
                       ButtonWidget(
                       text: "Send",
@@ -117,6 +112,7 @@ class _NewPasswordPopupWidgetState extends State<NewPasswordPopupWidget> {
                         vm.dispatchConfirmPasswordReset(
                           newPasswordController.value.text.trim(),
                         );
+                        displayToastSuccess(context, "Password changedd");
                         vm.popPage();
                       }
                     )

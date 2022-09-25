@@ -99,11 +99,6 @@ class _UploadAmountSheetState extends State<UploadAmountSheet> {
             ),
             StoreConnector<AppState, _ViewModel>(
               vm: () => _Factory(this),
-              onDidChange: (context, store, vm) {
-                if (store.state.error == ErrorType.none) {
-                  displayToastSuccess(context!, "Bid Placed"); //todo, fix
-                }
-              },
               builder: (BuildContext context, _ViewModel vm) =>
                   LongButtonWidget(
                 text: "Submit Bid",
@@ -111,6 +106,8 @@ class _UploadAmountSheetState extends State<UploadAmountSheet> {
                   if (bidPriceController.value.text.isNotEmpty) {
                     final int price =
                         int.parse(bidPriceController.value.text) * 100;
+                    displayToastSuccess(
+                            context, "Bid Placed!");
                     Navigator.pop(
                       context,
                       price,
