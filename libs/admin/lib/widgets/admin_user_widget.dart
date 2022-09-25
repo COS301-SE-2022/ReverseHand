@@ -11,7 +11,7 @@ class AdminUserWidget extends StatelessWidget {
       children: [
         const Padding(padding: EdgeInsets.only(top: 20)),
         SizedBox(
-          height: 230,
+          height: 260,
           width: MediaQuery.of(context).size.width / 1.15,
           child: Container(
             decoration: BoxDecoration(
@@ -38,9 +38,12 @@ class AdminUserWidget extends StatelessWidget {
                   const Padding(padding: EdgeInsets.only(top: 5)),
                   Row(
                     children: [
-                      Text(
-                        user.email,
-                        style: const TextStyle(fontSize: 19),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width/1.25,
+                        child: Text(
+                          user.email,
+                          style: const TextStyle(fontSize: 18),
+                        ),
                       ),
                     ],
                   ),
@@ -69,7 +72,7 @@ class AdminUserWidget extends StatelessWidget {
                       children: [
                         Text(
                           user.name,
-                          style: const TextStyle(fontSize: 19),
+                          style: const TextStyle(fontSize: 18),
                         ),
                       ],
                     ),
@@ -100,7 +103,7 @@ class AdminUserWidget extends StatelessWidget {
                       children: [
                         Text(
                           user.warnings.toString(),
-                          style: const TextStyle(fontSize: 19),
+                          style: const TextStyle(fontSize: 18),
                         ),
                       ],
                     ),
