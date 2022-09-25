@@ -3,21 +3,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
-//Command to run test: flutter test integration_test/1_consumer_login.dart
-//This integration test goes the Login Route to using the app
 void main() {
   //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
-  //Note: When entering text into fields or tapping buttons
-  //you have to use the .pumpAndSettel();
 
   testWidgets("Login as a  Consumer", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
     //storing constants used to login as consumer
-    const email = "lastrucci61@gmail.com";
+    const email = "fiwij93949@orlydns.com";
     const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button

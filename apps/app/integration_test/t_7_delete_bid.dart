@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:general/widgets/user_bid_details_widget.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
 void main() {
+  //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets("Accept Bid", (WidgetTester tester) async {
+  testWidgets("Tradesman Place Bid", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
-    //storing constants used to login as consumer
-    // const email = "lastrucci61@gmail.com";
-    const email = "fiwij93949@orlydns.com";
+    //storing constants used to login as tradesman
+    const email = "yojeja5123@edxplus.com";
     const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
@@ -41,38 +42,55 @@ void main() {
 
     await Future.delayed(const Duration(seconds: 3), () {});
 
-    //**************************************************************** */
-    //Homepage
+    ////////////////////////////////////////////////////////////////
+    //Job Listings Page
 
-    await tester.tap(find.text("Integration Test")); //click advert
+    var jobOne = find.text("Integration Test");
+    expect(jobOne, findsOneWidget);
+
+    await tester.tap(jobOne);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text("View Bids (1)"));
-    await tester.pumpAndSettle();
+    //////////////////////////////////////////////////////////////
+    //Job Info Page
 
-    await tester.tap(find.text("Peter"));
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.text("Accept Bid")); //click the accept button
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.text("Accept"));
-    await tester.pumpAndSettle();
-
+    //attempt to delete the bid
     await Future.delayed(const Duration(seconds: 3), () {});
 
-    await tester.enterText(
-        find.widgetWithText(TextFormField, "CARD NUMBER"), "4084084084084081");
+    await tester.tap(find.byType(UserBidDetailsWidget));
     await tester.pumpAndSettle();
 
-    await tester.enterText(
-        find.widgetWithText(TextFormField, "CARD EXPIRY"), "09/23");
+    await tester.tap(find.widgetWithIcon(IconButton, Icons.delete_outline));
     await tester.pumpAndSettle();
 
-    await tester.enterText(find.widgetWithText(TextFormField, "CVV"), "408");
+    await tester.tap(find.text("Delete"));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text("Pay ZAR 1,200.00"));
+    await Future.delayed(const Duration(seconds: 5), () {});
+    await tester.tapAt(const Offset(10, 10));
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 3), () {});
+
+    //recreate the bid
+    var placeBid = find.text("Place Bid");
+    expect(placeBid, findsOneWidget);
+
+    await tester.tap(placeBid);
+    await tester.pumpAndSettle();
+
+    var proceedBtn = find.text("Proceed");
+    expect(proceedBtn, findsOneWidget);
+
+    await tester.tap(proceedBtn);
+    await tester.pumpAndSettle();
+
+    var form = find.byType(TextFormField);
+    expect(form, findsOneWidget);
+
+    await tester.enterText(form, "1000");
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Submit Bid"));
     await tester.pumpAndSettle();
   });
 }

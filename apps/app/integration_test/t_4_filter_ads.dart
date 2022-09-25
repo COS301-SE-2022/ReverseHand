@@ -7,15 +7,12 @@ void main() {
   //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  //Note: When entering text into fields or tapping buttons
-  //you have to use the .pumpAndSettel();
-
-  testWidgets("View Profile as consumer", (WidgetTester tester) async {
+  testWidgets("Filter Ad", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
-    //storing constants used to login as consumer
-    const email = "fiwij93949@orlydns.com";
+    //storing constants used to login as tradesman
+    const email = "yojeja5123@edxplus.com";
     const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
@@ -44,16 +41,19 @@ void main() {
 
     await Future.delayed(const Duration(seconds: 3), () {});
 
-    //**************************************************************** */
-    //Homepage
-    var profileIcon = find.widgetWithIcon(IconButton, Icons.person);
-    expect(profileIcon, findsOneWidget);
-
-    await tester.tap(profileIcon);
+    ////////////////////////////////////////////////////////////////
+    await tester
+        .tap(find.widgetWithIcon(FloatingActionButton, Icons.filter_alt));
     await tester.pumpAndSettle();
 
-    //verify correct page is loaded
-    var logoutIcon = find.widgetWithIcon(IconButton, Icons.logout);
-    expect(logoutIcon, findsOneWidget);
+    await tester.tap(
+        find.widgetWithText(CheckboxListTile, "Painting")); //filer out painting
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Apply"));
+    await tester.pumpAndSettle();
+
+    expect(find.text("Integration Test"),
+        findsNothing); //verify ad was filtered out correctly
   });
 }

@@ -1,14 +1,14 @@
-import 'package:chat/widgets/action_button_widget.dart';
-import 'package:chat/widgets/quick_view_chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:general/widgets/user_bid_details_widget.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
 void main() {
+  //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets("Tradesman Send Message", (WidgetTester tester) async {
+  testWidgets("Tradesman Edit Bid", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
@@ -42,29 +42,23 @@ void main() {
 
     await Future.delayed(const Duration(seconds: 3), () {});
 
-    //Go to chat
-    await tester.tap(find.widgetWithIcon(IconButton, Icons.forum));
-    await tester.pumpAndSettle();
-    await Future.delayed(const Duration(seconds: 3), () {});
-
-    await tester.tap(find.widgetWithText(QuickViewChatWidget, "John"));
+    await tester.tap(find.text("MY BIDS")); //go to your bids
     await tester.pumpAndSettle();
 
-    await Future.delayed(const Duration(seconds: 3), () {});
-    await tester.tapAt(const Offset(10, 10));
-    // await tester.tap(find.widgetWithText(QuickViewChatWidget, "Peter"));
+    await tester.tap(find.text("Integration Test"));
     await tester.pumpAndSettle();
-
-    await tester.tapAt(const Offset(10, 10));
+    /////////////////////////////////////////////////////////////////
+    //Edit bid
     await Future.delayed(const Duration(seconds: 3), () {});
-    await tester.tapAt(const Offset(10, 10));
+
+    await tester.tap(find.byType(UserBidDetailsWidget));
+    await tester.pumpAndSettle();
 
     await tester.enterText(
-        find.bySemanticsLabel("Type message"), "Hey Consumer");
+        find.byType(TextFormField), "1200"); //enter new amount
     await tester.pumpAndSettle();
 
-    await tester
-        .tap(find.widgetWithIcon(ActionButtonWidget, Icons.send_rounded));
+    await tester.tap(find.text("Save"));
     await tester.pumpAndSettle();
   });
 }

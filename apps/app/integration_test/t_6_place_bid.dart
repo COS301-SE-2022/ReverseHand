@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:general/widgets/user_bid_details_widget.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
@@ -7,15 +8,12 @@ void main() {
   //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  //Note: When entering text into fields or tapping buttons
-  //you have to use the .pumpAndSettel();
-
-  testWidgets("View Profile as consumer", (WidgetTester tester) async {
+  testWidgets("Tradesman Place Bid", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
-    //storing constants used to login as consumer
-    const email = "fiwij93949@orlydns.com";
+    //storing constants used to login as tradesman
+    const email = "yojeja5123@edxplus.com";
     const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
@@ -44,16 +42,38 @@ void main() {
 
     await Future.delayed(const Duration(seconds: 3), () {});
 
-    //**************************************************************** */
-    //Homepage
-    var profileIcon = find.widgetWithIcon(IconButton, Icons.person);
-    expect(profileIcon, findsOneWidget);
+    ////////////////////////////////////////////////////////////////
+    //Job Listings Page
 
-    await tester.tap(profileIcon);
+    var jobOne = find.text("Integration Test");
+    expect(jobOne, findsOneWidget);
+
+    await tester.tap(jobOne);
     await tester.pumpAndSettle();
 
-    //verify correct page is loaded
-    var logoutIcon = find.widgetWithIcon(IconButton, Icons.logout);
-    expect(logoutIcon, findsOneWidget);
+    //////////////////////////////////////////////////////////////
+    //Job Info Page
+
+    var placeBid = find.text("Place Bid");
+    expect(placeBid, findsOneWidget);
+
+    await tester.tap(placeBid);
+    await tester.pumpAndSettle();
+
+    var proceedBtn = find.text("Proceed");
+    expect(proceedBtn, findsOneWidget);
+
+    await tester.tap(proceedBtn);
+    await tester.pumpAndSettle();
+
+    //Step 2 for entering amount
+    var form = find.byType(TextFormField);
+    expect(form, findsOneWidget);
+
+    await tester.enterText(form, "1000");
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Submit Bid"));
+    await tester.pumpAndSettle();
   });
 }

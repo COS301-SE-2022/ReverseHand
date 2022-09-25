@@ -1,21 +1,19 @@
-import 'package:consumer/widgets/rating_stars.dart';
+import 'package:chat/widgets/action_button_widget.dart';
+import 'package:chat/widgets/quick_view_chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
-//Command to run test: flutter test integration_test/1_consumer_login.dart
-//This integration test goes the Login Route to using the app
 void main() {
-  //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets("Consumer Close Job", (WidgetTester tester) async {
+  testWidgets("Tradesman Send Message", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
-    //storing constants used to login as consumer
-    const email = "fiwij93949@orlydns.com";
+    //storing constants used to login as tradesman
+    const email = "yojeja5123@edxplus.com";
     const passowrd = "@Aa12345";
 
     //get the widgets to enter text and login button
@@ -44,28 +42,28 @@ void main() {
 
     await Future.delayed(const Duration(seconds: 3), () {});
 
-    await tester.tap(find.text("IN PROGRESS"));
+    //Go to chat
+    await tester.tap(find.widgetWithIcon(IconButton, Icons.forum));
+    await tester.pumpAndSettle();
+    await Future.delayed(const Duration(seconds: 3), () {});
+
+    await tester.tap(find.widgetWithText(QuickViewChatWidget, "John"));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text("Integration Test"));
+    await Future.delayed(const Duration(seconds: 3), () {});
+    await tester.tapAt(const Offset(10, 10));
     await tester.pumpAndSettle();
 
-    //close the job as complete and give review
-    await tester.tap(find.text("Close"));
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byType(StarRating)); //rate tradesman
-    await tester.pumpAndSettle();
+    await tester.tapAt(const Offset(10, 10));
+    await Future.delayed(const Duration(seconds: 3), () {});
+    await tester.tapAt(const Offset(10, 10));
 
     await tester.enterText(
-        find.byType(TextFormField), "Nice Job!"); //give a description
+        find.bySemanticsLabel("Type message"), "Hey Consumer");
     await tester.pumpAndSettle();
 
-    await tester.dragUntilVisible(
-        find.text("Submit"), find.byType(Scaffold), const Offset(0.0, 300));
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.text("Submit"));
+    await tester
+        .tap(find.widgetWithIcon(ActionButtonWidget, Icons.send_rounded));
     await tester.pumpAndSettle();
   });
 }

@@ -4,13 +4,9 @@ import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
 void main() {
-  //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  //Note: When entering text into fields or tapping buttons
-  //you have to use the .pumpAndSettel();
-
-  testWidgets("View Profile as consumer", (WidgetTester tester) async {
+  testWidgets("Accept Bid", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
@@ -46,14 +42,36 @@ void main() {
 
     //**************************************************************** */
     //Homepage
-    var profileIcon = find.widgetWithIcon(IconButton, Icons.person);
-    expect(profileIcon, findsOneWidget);
 
-    await tester.tap(profileIcon);
+    await tester.tap(find.text("Integration Test")); //click advert
     await tester.pumpAndSettle();
 
-    //verify correct page is loaded
-    var logoutIcon = find.widgetWithIcon(IconButton, Icons.logout);
-    expect(logoutIcon, findsOneWidget);
+    await tester.tap(find.text("View Bids (1)"));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Peter"));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Accept Bid")); //click the accept button
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Accept"));
+    await tester.pumpAndSettle();
+
+    await Future.delayed(const Duration(seconds: 3), () {});
+
+    await tester.enterText(
+        find.widgetWithText(TextFormField, "CARD NUMBER"), "4084084084084081");
+    await tester.pumpAndSettle();
+
+    await tester.enterText(
+        find.widgetWithText(TextFormField, "CARD EXPIRY"), "09/23");
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.widgetWithText(TextFormField, "CVV"), "408");
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Pay ZAR 1,200.00"));
+    await tester.pumpAndSettle();
   });
 }

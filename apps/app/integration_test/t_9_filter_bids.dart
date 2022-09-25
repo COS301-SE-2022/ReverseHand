@@ -6,12 +6,11 @@ import 'package:app/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets("ShortList Bid", (WidgetTester tester) async {
+  testWidgets("Filter Bid", (WidgetTester tester) async {
     app.main(); //start the app from the main function
     await tester.pumpAndSettle();
 
     //storing constants used to login as consumer
-    // const email = "lastrucci61@gmail.com";
     const email = "fiwij93949@orlydns.com";
     const passowrd = "@Aa12345";
 
@@ -50,10 +49,17 @@ void main() {
     await tester.tap(find.text("View Bids (1)"));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text("Peter"));
+    await tester
+        .tap(find.widgetWithIcon(FloatingActionButton, Icons.filter_alt));
+    await tester.pumpAndSettle(); //filter button
+
+    await tester
+        .tap(find.widgetWithText(CheckboxListTile, 'Non-favourited Bids'));
+    await tester.pumpAndSettle(); //filter by non favourited
+
+    await tester.tap(find.text("Apply"));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.widgetWithIcon(IconButton, Icons.bookmark_outline));
-    await tester.pumpAndSettle();
+    expect(find.text("Peter"), findsNothing); //verify bid is gone
   });
 }

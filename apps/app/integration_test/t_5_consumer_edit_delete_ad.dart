@@ -9,14 +9,9 @@ import 'package:general/widgets/textfield.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
-//Command to run test: flutter test integration_test/consumer_4_edit_delete_ad.dart
-//This integration test goes the Login Route to using the app
 void main() {
   //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
-  //Note: When entering text into fields or tapping buttons
-  //you have to use the .pumpAndSettel();
 
   testWidgets("Edit and Delete Advert", (WidgetTester tester) async {
     app.main(); //start the app from the main function

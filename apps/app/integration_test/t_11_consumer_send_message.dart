@@ -5,8 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:app/main.dart' as app;
 
-//Command to run test: flutter test integration_test/1_consumer_login.dart
-//This integration test goes the Login Route to using the app
 void main() {
   //make sure service is initialized first to run on device
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
