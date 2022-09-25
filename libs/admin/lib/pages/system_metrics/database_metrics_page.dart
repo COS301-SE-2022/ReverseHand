@@ -1,4 +1,3 @@
-import 'package:admin/widgets/display_metrics_conatiner_widget.dart';
 import 'package:admin/widgets/drop_down_options_widget.dart';
 import 'package:admin/widgets/system_charts/line_chart_widget.dart';
 import 'package:async_redux/async_redux.dart';
@@ -31,7 +30,8 @@ class _DatabaseMetricsPageState extends State<DatabaseMetricsPage> {
                 store: widget.store,
                 title: "Database Metrics",
                 backButton: true,
-                refreshAction: () => vm.refresh(vm.dbMetrics.period, vm.dbMetrics.time),
+                refreshAction: () =>
+                    vm.refresh(vm.dbMetrics.period, vm.dbMetrics.time),
               );
               return (vm.loading)
                   ? Column(
@@ -54,39 +54,42 @@ class _DatabaseMetricsPageState extends State<DatabaseMetricsPage> {
                               title: "Period",
                               currentItem: "${vm.dbMetrics.period} min",
                               functions: {
-                                "1 min": () => vm.refresh(  1, vm.dbMetrics.time),
-                                "5 min": () => vm.refresh(  5, vm.dbMetrics.time),
-                                "15 min": () => vm.refresh( 15, vm.dbMetrics.time),
-                                "30 min": () => vm.refresh( 30, vm.dbMetrics.time),
-                                "60 min": () => vm.refresh( 60, vm.dbMetrics.time),
+                                "1 min": () => vm.refresh(1, vm.dbMetrics.time),
+                                "5 min": () => vm.refresh(5, vm.dbMetrics.time),
+                                "15 min": () =>
+                                    vm.refresh(15, vm.dbMetrics.time),
+                                "30 min": () =>
+                                    vm.refresh(30, vm.dbMetrics.time),
+                                "60 min": () =>
+                                    vm.refresh(60, vm.dbMetrics.time),
                               },
                             ),
                             DropDownOptionsWidget(
                               title: "Time",
                               currentItem: "${vm.dbMetrics.time}hr ago",
                               functions: {
-                                "3hr ago": () => vm.refresh(vm.dbMetrics.period, 3),
-                                "6hr ago": () => vm.refresh(vm.dbMetrics.period, 6),
-                                "12hr ago": () => vm.refresh( vm.dbMetrics.period, 12),
-                                "24hr ago": () => vm.refresh( vm.dbMetrics.period, 24),
+                                "3hr ago": () =>
+                                    vm.refresh(vm.dbMetrics.period, 3),
+                                "6hr ago": () =>
+                                    vm.refresh(vm.dbMetrics.period, 6),
+                                "12hr ago": () =>
+                                    vm.refresh(vm.dbMetrics.period, 12),
+                                "24hr ago": () =>
+                                    vm.refresh(vm.dbMetrics.period, 24),
                               },
                             ),
                           ],
                         ),
-                        DisplayMetricsConatinerWidget(
-                          charts: [
-                            LineChartWidget(
-                                graphs: vm.dbMetrics.graphs["dbReadData"] ?? [],
-                                chartTitle: "ReverseHand Read Capacity",
-                                xTitle: "Time",
-                                yTitle: "RCU"),
-                            LineChartWidget(
-                                graphs: vm.dbMetrics.graphs["dbWriteData"] ?? [],
-                                chartTitle: "ReverseHand Write Capacity",
-                                xTitle: "Time",
-                                yTitle: "WCU"),
-                          ],
-                        )
+                        LineChartWidget(
+                            graphs: vm.dbMetrics.graphs["dbReadData"] ?? [],
+                            chartTitle: "ReverseHand Read Capacity",
+                            xTitle: "Time",
+                            yTitle: "RCU"),
+                        LineChartWidget(
+                            graphs: vm.dbMetrics.graphs["dbWriteData"] ?? [],
+                            chartTitle: "ReverseHand Write Capacity",
+                            xTitle: "Time",
+                            yTitle: "WCU"),
                       ],
                     );
             },

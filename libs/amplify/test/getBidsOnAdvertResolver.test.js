@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const createAdvertEvent = {
     arguments: {
-        customer_id : "c#fbf7af5d-4820-4b36-a90c-53cad977a702",
+        customer_id : "c#983b506a-8ac3-4ca0-9844-79ed15291cd5",
         title: "Lambda Test Hundred",
         description: "This is a test description",
         domain :{

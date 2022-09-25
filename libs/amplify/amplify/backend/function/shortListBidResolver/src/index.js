@@ -37,8 +37,8 @@ exports.handler = async (event) => {
     }
     
     // notification being sent out
-    // getting current date
     if (!bid.bid_details.shortlisted) {
+        // getting current date
         const date = new Date();
         const currentDate = date.getTime();
     

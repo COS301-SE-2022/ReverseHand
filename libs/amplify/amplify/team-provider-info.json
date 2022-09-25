@@ -54,7 +54,7 @@
       "function": {
         "acceptBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/acceptBidResolver-36627571684b686e4850-build.zip"
+          "s3Key": "amplify-builds/acceptBidResolver-57397a576a7a74643161-build.zip"
         },
         "closeAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -66,11 +66,11 @@
         },
         "placeBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/placeBidResolver-6b7a5631613747793366-build.zip"
+          "s3Key": "amplify-builds/placeBidResolver-354e4c766e6d2b347163-build.zip"
         },
         "shortListBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/shortListBidResolver-6c306a312b57787a5777-build.zip"
+          "s3Key": "amplify-builds/shortListBidResolver-794a33336c566c2b4149-build.zip"
         },
         "viewAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -90,7 +90,7 @@
         },
         "editAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/editAdvertResolver-2f587265396944626631-build.zip"
+          "s3Key": "amplify-builds/editAdvertResolver-4a3242676f496d623167-build.zip"
         },
         "createUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -250,7 +250,11 @@
         },
         "processKinesisStreamResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/processKinesisStreamResolver-794d3035745953617258-build.zip"
+          "s3Key": "amplify-builds/processKinesisStreamResolver-545a4457693877613474-build.zip"
+        },
+        "disableUserResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/disableUserResolver-527079716b592f667253-build.zip"
         },
         "enableUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",

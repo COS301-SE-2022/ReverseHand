@@ -12,6 +12,7 @@ import 'package:general/widgets/hint_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:redux_comp/actions/adverts/create_advert_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
+import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/radio_select_widget.dart';
 
@@ -145,42 +146,39 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
               StoreConnector<AppState, _ViewModel>(
                 vm: () => _Factory(this),
                 builder: (BuildContext context, _ViewModel vm) => Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.grey, width: 1)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              widget.store.state.userDetails.location!.address
-                                  .city,
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                vm.pushLocationSearchPage();
-                              },
-                              child: const Text(
-                                "change address",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white70,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.grey, width: 1)),
+                          child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //GET THE WHOLE ADDRESS?
+                                  Text(
+                                    (vm.locationResult == null)
+                                        ? vm.userLocation.address.city
+                                        : vm.locationResult!.address.city,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                  InkWell(
+                                    onTap: vm.pushLocationPage,
+                                    child: const Text(
+                                      "change address",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.white70,
+                                          decoration: TextDecoration.underline),
+                                    ),
+                                  ),
+                                ],
+                              ))),
+                    )),
               ),
               //*************************************************//
 
@@ -197,7 +195,7 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                   onTap: () async {
                     ImagePicker picker = ImagePicker();
 
-                    _files = await picker.pickMultiImage();
+                    _files = await picker.pickMultiImage(imageQuality: 50);
                   },
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -236,14 +234,19 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                 vm.dispatchCreateAdvertActions(
                                   widget.store.state.userDetails.id,
                                   titleController.value.text,
-                                  Domain(
-                                    city: widget.store.state.userDetails
-                                        .location!.address.city,
-                                    province: widget.store.state.userDetails
-                                        .location!.address.province,
-                                    coordinates: widget.store.state.userDetails
-                                        .location!.coordinates,
-                                  ),
+                                  (vm.locationResult == null)
+                                      ? Domain(
+                                          city: vm.userLocation.address.city,
+                                          province:
+                                              vm.userLocation.address.province,
+                                          coordinates:
+                                              vm.userLocation.coordinates)
+                                      : Domain(
+                                          city: vm.locationResult!.address.city,
+                                          province: vm
+                                              .locationResult!.address.province,
+                                          coordinates:
+                                              vm.locationResult!.coordinates),
                                   trade!,
                                   descrController.value.text,
                                   _files?.map((e) => File(e.path)).toList(),
@@ -291,9 +294,6 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         popPage: () => dispatch(NavigateAction.pop()),
-        pushLocationSearchPage: () => dispatch(
-          NavigateAction.pushNamed('/geolocation/custom_location_search'),
-        ),
         dispatchCreateAdvertActions: (
           String customerId,
           String title,
@@ -313,21 +313,40 @@ class _Factory extends VmFactory<AppState, _CreateNewAdvertPageState> {
           ),
         ),
         loading: state.wait.isWaiting,
+        locationResult: state.locationResult,
+        userLocation: state.userDetails.location!,
+        pushLocationPage: () => dispatch(NavigateAction.pushNamed(
+            "/geolocation/custom_location_search",
+            arguments: false)),
       );
 }
 
 // view model
 class _ViewModel extends Vm {
-  final void Function(String id, String title, Domain domanin, String trade,
-      String? descr, List<File>? files) dispatchCreateAdvertActions;
-  final VoidCallback pushLocationSearchPage;
+  final void Function(
+    String id,
+    String title,
+    Domain domanin,
+    String trade,
+    String? descr,
+    List<File>? files,
+  ) dispatchCreateAdvertActions;
+  final VoidCallback pushLocationPage;
   final VoidCallback popPage;
   final bool loading;
+  final Location userLocation;
+  final Location? locationResult;
 
   _ViewModel({
     required this.loading,
     required this.dispatchCreateAdvertActions,
-    required this.pushLocationSearchPage,
+    required this.pushLocationPage,
+    required this.userLocation,
+    required this.locationResult,
     required this.popPage,
-  }) : super(equals: [loading]); // implementinf hashcode
+  }) : super(equals: [
+          loading,
+          userLocation,
+          locationResult
+        ]); // implementinf hashcode
 }

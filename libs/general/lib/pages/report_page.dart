@@ -9,6 +9,7 @@ import 'package:redux_comp/actions/admin/app_management/add_advert_report_action
 import 'package:redux_comp/actions/admin/app_management/add_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
+import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/appbar.dart';
@@ -64,22 +65,19 @@ class _RadioSelectWidgetState extends State<ReportPage> {
               padding: const EdgeInsets.only(left: 10.0),
               child: ListBody(
                 children: widget.items
-                    .map((tradeType) => ListTile(
+                    .map((tradeType) => RadioListTile(
                           title: Text(
                             tradeType,
                             style: const TextStyle(fontSize: 17.5),
                           ),
-                          leading: Radio<String>(
-                            value: tradeType,
-                            groupValue: _type,
-                            fillColor: MaterialStateColor.resolveWith(
-                                (states) => Colors.orange),
-                            onChanged: (String? value) {
-                              setState(() {
-                                _type = value;
-                              });
-                            },
-                          ),
+                          value: tradeType,
+                          activeColor: Theme.of(context).primaryColor,
+                          groupValue: _type,
+                          onChanged: (String? value) {
+                            setState(() {
+                              _type = value;
+                            });
+                          },
                         ))
                     .toList(),
               ),
@@ -201,16 +199,16 @@ class _Factory extends VmFactory<AppState, _RadioSelectWidgetState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        otherUser: state.otherUserDetails,
-        isWaiting: state.wait.isWaiting,
-        userDetails: state.userDetails,
-        dispatchAddUserReportAction: (report, user) =>
-            dispatch(AddUserReportAction(report: report, user: user)),
-        dispatchAddSdvertReportAction:
-            (String userId, ReportDetailsModel report) =>
-                dispatch(AddAdvertReportAction(userId: userId, report: report)),
-        popPage: () => dispatch(NavigateAction.pop()),
-      );
+      otherUser: state.otherUserDetails,
+      isWaiting: state.wait.isWaiting,
+      userDetails: state.userDetails,
+      dispatchAddUserReportAction: (report, user) =>
+          dispatch(AddUserReportAction(report: report, user: user)),
+      dispatchAddSdvertReportAction:
+          (String userId, ReportDetailsModel report) =>
+              dispatch(AddAdvertReportAction(userId: userId, report: report)),
+      popPage: () => dispatch(NavigateAction.pop()),
+      activeAd: state.activeAd);
 }
 
 // view model
@@ -221,10 +219,12 @@ class _ViewModel extends Vm {
       dispatchAddUserReportAction;
   final void Function(String, ReportDetailsModel) dispatchAddSdvertReportAction;
   final bool isWaiting;
+  final AdvertModel? activeAd;
   final VoidCallback popPage;
 
   _ViewModel({
     required this.userDetails,
+    required this.activeAd,
     required this.otherUser,
     required this.dispatchAddUserReportAction,
     required this.dispatchAddSdvertReportAction,

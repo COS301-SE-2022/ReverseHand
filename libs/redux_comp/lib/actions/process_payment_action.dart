@@ -20,7 +20,6 @@ class ProcessPaymentAction extends ReduxAction<AppState> {
       publicKey: state.paystackPublicKey,
     );
 
-    // testing
     Charge charge = Charge()
       ..amount = state.activeBid!.price
       ..reference = DateTime.now().millisecondsSinceEpoch.toString()

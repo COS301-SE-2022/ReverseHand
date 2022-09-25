@@ -6,7 +6,6 @@ import 'package:redux_comp/models/geolocation/location_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button_bar_widget.dart';
-import 'package:uuid/uuid.dart';
 import 'package:general/widgets/long_button_widget.dart';
 
 class LocationConfirmPage extends StatelessWidget {
@@ -116,11 +115,12 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
+      dispatchChangePlaceAction: () => dispatch(SetPlaceAction()),
       dispatchSetPlaceAction: () => dispatch(SetPlaceAction()),
       pushCustomSearch: () => dispatch(
             NavigateAction.pushReplacementNamed(
                 '/geolocation/custom_location_search',
-                arguments: const Uuid().v1()),
+                arguments: true),
           ),
       popPage: () => dispatch(NavigateAction.pop()),
       location: (state.locationResult == null) ? null : state.locationResult,
@@ -129,6 +129,7 @@ class _Factory extends VmFactory<AppState, LocationConfirmPage> {
 
 // view model
 class _ViewModel extends Vm {
+  final void Function() dispatchChangePlaceAction;
   final void Function() dispatchSetPlaceAction;
   final Location? location;
   final VoidCallback pushCustomSearch;
@@ -136,6 +137,7 @@ class _ViewModel extends Vm {
   final String userType;
 
   _ViewModel({
+    required this.dispatchChangePlaceAction,
     required this.dispatchSetPlaceAction,
     required this.pushCustomSearch,
     required this.popPage,

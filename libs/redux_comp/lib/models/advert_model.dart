@@ -141,10 +141,19 @@ class AdvertModel {
   }
 
   static double _photoRank(AdvertModel advert) {
-    return 0.0; //stub for now
+    if (advert.imageCount == 0) {
+      return 0.0;
+    } else if (advert.imageCount == 1) {
+      return 1.0;
+    } else if (advert.imageCount >= 2) {
+      return 2.0;
+    }
+    return 0.0; //default
   }
 
   static double _rankDescription(AdvertModel advert) {
+    if (advert.description == null) return 0;
+
     String description = advert.description!.trim();
     double ranking = 0;
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
@@ -139,40 +141,41 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                   StoreConnector<AppState, _ViewModel>(
                     vm: () => _Factory(this),
                     builder: (BuildContext context, _ViewModel vm) => Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1)),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        widget.store.state.userDetails.location!
-                                            .address.city,
-                                        style: const TextStyle(fontSize: 18),
-                                      ),
-                                      InkWell(
-                                        onTap:
-                                            () {}, //should be able to change the location of the job on tap
-                                        child: const Text(
-                                          "change address",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.white70,
-                                              decoration:
-                                                  TextDecoration.underline),
-                                        ),
-                                      ),
-                                    ],
-                                  ))),
-                        )),
+                      padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.grey, width: 1)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  widget.store.state.userDetails.location!
+                                      .address.city,
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                InkWell(
+                                  onTap:
+                                      () {}, //should be able to change the location of the job on tap
+                                  child: const Text(
+                                    "change address",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white70,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   //*************************************************//
 
@@ -270,6 +273,7 @@ class _Factory extends VmFactory<AppState, _EditAdvertPageState> {
           Domain? domain,
           String? description,
           String? type,
+          List<File>? files,
         }) =>
             dispatch(
           EditAdvertAction(
@@ -278,6 +282,7 @@ class _Factory extends VmFactory<AppState, _EditAdvertPageState> {
             type: type,
             domain: domain,
             title: title,
+            files: files,
           ),
         ),
       );
@@ -293,6 +298,7 @@ class _ViewModel extends Vm {
     Domain? domain,
     String? description,
     String? type,
+    List<File>? files,
   }) dispatchEditAdvertAction;
   final bool loading;
 

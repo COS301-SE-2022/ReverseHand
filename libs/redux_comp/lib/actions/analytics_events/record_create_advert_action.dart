@@ -6,15 +6,19 @@ import 'package:async_redux/async_redux.dart';
 class RecordCreateAdvertAction extends ReduxAction<AppState> {
   String city;
   String province;
+  String type;
 
-  RecordCreateAdvertAction({required this.city, required this.province});
+  RecordCreateAdvertAction({required this.city, required this.province, required this.type});
 
   @override
   Future<AppState?> reduce() async {
+    Amplify.Analytics.enable();
+
     final AnalyticsEvent event = AnalyticsEvent('CreateAdvert');
 
     event.properties.addStringProperty('city', city);
     event.properties.addStringProperty('province', province);
+    event.properties.addStringProperty('job_type', type);
 
     try {
       await Amplify.Analytics.recordEvent(event: event);

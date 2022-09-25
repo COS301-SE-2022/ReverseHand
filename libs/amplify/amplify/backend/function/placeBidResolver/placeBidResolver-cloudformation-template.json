@@ -73,7 +73,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "REVERSEHAND": "ReverseHand"
+            "REVERSEHAND": "ReverseHand",
+            "FUNCTION": "arn:aws:lambda:eu-west-1:727515863527:function:notificationsResolver-staging"
           }
         },
         "Role": {
@@ -123,7 +124,10 @@
               ]
             }
           ]
-        }
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::727515863527:policy/LambdaInvokeNotificationLambda"
+        ]
       }
     },
     "lambdaexecutionpolicy": {
@@ -189,6 +193,7 @@
               "Action": [
                 "dynamodb:BatchWriteItem",
                 "dynamodb:PutItem",
+                "dynamodb:GetItem",
                 "dynamodb:List*",
                 "dynamodb:Query",
                 "dynamodb:Scan",
