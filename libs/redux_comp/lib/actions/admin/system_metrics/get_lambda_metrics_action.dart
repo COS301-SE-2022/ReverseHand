@@ -43,47 +43,234 @@ class GetLambdaMetricsAction extends ReduxAction<AppState> {
             "Unit": 'Count',
           },
         },
-        // {
-        //   "Id": 'getReportedUsersResolver',
-        //   /* required */
-        //   "MetricStat": {
-        //     "Metric": {
-        //       /* required */
-        //       "Dimensions": [
-        //         {
-        //           "Name": 'FunctionName',
-        //           /* required */
-        //           "Value": 'getReportedUsersResolver-staging' /* required */
-        //         },
-        //         /* more items */
-        //       ],
-        //       "MetricName": 'Invocations',
-        //       "Namespace": 'AWS/Lambda'
-        //     },
-        //     "Period": '$paramsPeriod',
-        //     /* required */
-        //     "Stat": 'Sum', /* required */
-        //   },
-        // }
-//         },
-        // {
-        //   "Id": "m1",
-        //   "Label": "Unhealthy Behind Load Balancer",
-        //   "MetricStat": {
-        //     "Metric": {
-        //       "Namespace": "AWS/Lambda",
-        //       "MetricName": "Invocations",
-        //       "Dimensions": [
-        //         {
-        //           "Name": "FunctionName",
-        //           "Value": "adminSearchUserResolver-staging"
-        //         }
-        //       ]
-        //     },
-        //     "Period": 300,
-        //     "Stat": "Average"
-        //   }
-        // }
+        {
+          "Id": 'removeReviewReportResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "removeReviewReportResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'addReviewReportResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "addReviewReportResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'addUserReportResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "addUserReportResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'addAdvertReportResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "addAdvertReportResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'removeUserReportResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "removeUserReportResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'acceptAdvertReportResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "acceptAdvertReportResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'getReportsResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "getReportsResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'getReportedAdvertsResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "getReportedAdvertsResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'adminGetUserResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "adminGetUserResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'adminSearchUserResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "adminSearchUserResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'listUsersResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "listUsersResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
+        {
+          "Id": 'processKinesisStreamResolver',
+          "Label": 'Invocations',
+          "MetricStat": {
+            "Metric": {
+              "Dimensions": [
+                {
+                  "Name": 'FunctionName',
+                  "Value": "processKinesisStreamResolver-staging",
+                }
+              ],
+              "MetricName": 'Invocations',
+              "Namespace": 'AWS/Lambda'
+            },
+            "Period": paramsPeriod, // day
+            "Stat": 'Sum',
+            "Unit": 'Count',
+          },
+        },
       ],
       "StartTime": "${start.toIso8601String()}Z",
       /* required */
@@ -151,227 +338,48 @@ class GetLambdaMetricsAction extends ReduxAction<AppState> {
     }
   }
 }
-// {"AWS/Lambda", "Invocations", "FunctionName", "adminGetUserResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "adminSearchUserResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "listUsersResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "acceptAdvertReportResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "removeUserReportResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "getReportedAdvertsResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "addUserReportResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "addReviewReportResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "getReportedUsersResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "getReportsResolver-staging", { "period": 300, "stat": "Sum" } ],
-
-// {"AWS/Lambda", "Invocations", "FunctionName", "notificationsResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "addReviewResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "getBidOnAdvertsResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "archiveAdvertResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "acceptBidResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "getUserReviewsResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "shortListBidResolver-staging", { "period": 300, "stat": "Sum" } ],
-
-// {"AWS/Lambda", "Invocations", "FunctionName", "viewUserResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "getMessagesResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "getNotificationsResolver-staging", { "period": 300, "stat": "Sum" } ],
-
-// {"AWS/Lambda", "Invocations", "FunctionName", "viewAdvertsResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "viewJobsResolver-staging", { "period": 300, "stat": "Sum" } ],
-
-// {"AWS/Lambda", "Invocations", "FunctionName", "viewBidsResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "placeBidResolver-staging", { "period": 300, "stat": "Sum" } ],
-
-// {"AWS/Lambda", "Invocations", "FunctionName", "createAdvertResolver-staging", { "period": 300, "stat": "Sum" } ],
-// {"AWS/Lambda", "Invocations", "FunctionName", "addAdvertReportResolver-staging", { "period": 300, "stat": "Sum" } ],
 
 
+// [ "AWS/Lambda", "Invocations", "FunctionName", "removeReviewReportResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "addReviewReportResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "addUserReportResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "addAdvertReportResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "removeUserReportResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "acceptAdvertReportResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "getReportsResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "getReportedAdvertsResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "adminGetUserResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "adminSearchUserResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "listUsersResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "processKinesisStreamResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "getMetricsResolver-staging", { "period": 300, "stat": "Sum" } ],
 
-// {
-//           "Id": 'adminSearchUserResolver',
-//           /* required */
-//           "MetricStat": {
-//             "Metric": {
-//               /* required */
-//               "Dimensions": [
-//                 {
-//                   "Name": 'FunctionName',
-//                   /* required */
-//                   "Value": 'adminSearchUserResolver-staging' /* required */
-//                 },
-//                 /* more items */
-//               ],
-//               "MetricName": 'Invocations',
-//               "Namespace": 'AWS/Lambda'
-//             },
-//             "Period": '$paramsPeriod',
-//             /* required */
-//             "Stat": 'Sum', /* required */
-//           },
-//           "ReturnData": true
-//         },
-//         {
-//           "Id": 'listUsersResolver',
-//           /* required */
-//           "MetricStat": {
-//             "Metric": {
-//               /* required */
-//               "Dimensions": [
-//                 {
-//                   "Name": 'FunctionName',
-//                   /* required */
-//                   "Value": 'listUsersResolver-staging' /* required */
-//                 },
-//                 /* more items */
-//               ],
-//               "MetricName": 'Invocations',
-//               "Namespace": 'AWS/Lambda'
-//             },
-//             "Period": '$paramsPeriod',
-//             /* required */
-//             "Stat": 'Sum', /* required */
-//           },
-//           "ReturnData": true
-//         },
-//         {
-//           "Id": 'acceptAdvertReportResolver',
-//           /* required */
-//           "MetricStat": {
-//             "Metric": {
-//               /* required */
-//               "Dimensions": [
-//                 {
-//                   "Name": 'FunctionName',
-//                   /* required */
-//                   "Value": 'acceptAdvertReportResolver-staging' /* required */
-//                 },
-//                 /* more items */
-//               ],
-//               "MetricName": 'Invocations',
-//               "Namespace": 'AWS/Lambda'
-//             },
-//             "Period": '$paramsPeriod',
-//             /* required */
-//             "Stat": 'Average', /* required */
-//           },
-//           "ReturnData": true
-//         },
-//         {
-//           "Id": 'removeUserReportResolver',
-//           /* required */
-//           "MetricStat": {
-//             "Metric": {
-//               /* required */
-//               "Dimensions": [
-//                 {
-//                   "Name": 'FunctionName',
-//                   /* required */
-//                   "Value": 'removeUserReportResolver-staging' /* required */
-//                 },
-//                 /* more items */
-//               ],
-//               "MetricName": 'Invocations',
-//               "Namespace": 'AWS/Lambda'
-//             },
-//             "Period": '$paramsPeriod',
-//             /* required */
-//             "Stat": 'Sum', /* required */
-//           },
-//           "ReturnData": true
-//         },
-//         {
-//           "Id": 'getReportedAdvertsResolver',
-//           /* required */
-//           "MetricStat": {
-//             "Metric": {
-//               /* required */
-//               "Dimensions": [
-//                 {
-//                   "Name": 'FunctionName',
-//                   /* required */
-//                   "Value": 'getReportedAdvertsResolver-staging' /* required */
-//                 },
-//                 /* more items */
-//               ],
-//               "MetricName": 'Invocations',
-//               "Namespace": 'AWS/Lambda'
-//             },
-//             "Period": '$paramsPeriod',
-//             /* required */
-//             "Stat": 'Sum', /* required */
-//           },
-//           "ReturnData": true
-//         },
-//         {
-//           "Id": 'addUserReportResolver',
-//           /* required */
-//           "MetricStat": {
-//             "Metric": {
-//               /* required */
-//               "Dimensions": [
-//                 {
-//                   "Name": 'FunctionName',
-//                   /* required */
-//                   "Value": 'addUserReportResolver-staging' /* required */
-//                 },
-//                 /* more items */
-//               ],
-//               "MetricName": 'Invocations',
-//               "Namespace": 'AWS/Lambda'
-//             },
-//             "Period": '$paramsPeriod',
-//             /* required */
-//             "Stat": 'Sum', /* required */
-//           },
-//           "ReturnData": true
-//         },
-//         {
-//           "Id": 'addReviewReportResolver',
-//           /* required */
-//           "MetricStat": {
-//             "Metric": {
-//               /* required */
-//               "Dimensions": [
-//                 {
-//                   "Name": 'FunctionName',
-//                   /* required */
-//                   "Value": 'addReviewReportResolver-staging' /* required */
-//                 },
-//                 /* more items */
-//               ],
-//               "MetricName": 'Invocations',
-//               "Namespace": 'AWS/Lambda'
-//             },
-//             "Period": '$paramsPeriod',
-//             /* required */
-//             "Stat": 'Sum', /* required */
-//           },
-//           "ReturnData": true
-//         },
+// [ "AWS/Lambda", "Invocations", "FunctionName", "getChatsResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "createChatResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "deleteChatResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "getMessagesResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "sendMessageResolver-staging", { "period": 300, "stat": "Sum" } ],
 
-//         {
-//           "Id": 'getReportsResolver',
-//           /* required */
-//           "MetricStat": {
-//             "Metric": {
-//               /* required */
-//               "Dimensions": [
-//                 {
-//                   "Name": 'FunctionName',
-//                   /* required */
-//                   "Value": 'getReportsResolver-staging' /* required */
-//                 },
-//                 /* more items */
-//               ],
-//               "MetricName": 'Invocations',
-//               "Namespace": 'AWS/Lambda'
-//             },
-//             "Period": '$paramsPeriod',
-//             /* required */
-//             "Stat": 'Sum', /* required */
-//           },
-//           "ReturnData": true
-//         }
+// [ "AWS/Lambda", "Invocations", "FunctionName", "acceptBidResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "shortListBidResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "getBidOnAdvertsResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "viewBidsResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "deleteBidResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "placeBidResolver-staging", { "period": 300, "stat": "Sum" } ],
 
 
+// [ "AWS/Lambda", "Invocations", "FunctionName", "addReviewResolver-staging", { "period": 300, "stat": "Sum" } ],
+
+// [ "AWS/Lambda", "Invocations", "FunctionName", "createUserResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "viewUserResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "editUserDetailResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "getUserReviewsResolver-staging", { "period": 300, "stat": "Sum" } ],
 
 
+// [ "AWS/Lambda", "Invocations", "FunctionName", "viewJobsResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "viewAdvertsResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "createAdvertResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "archiveAdvertResolver-staging", { "period": 300, "stat": "Sum" } ],
 
+// [ "AWS/Lambda", "Invocations", "FunctionName", "notifyNewNotificationsResolver-staging", { "period": 300, "stat": "Sum" } ],
+// [ "AWS/Lambda", "Invocations", "FunctionName", "getNotificationsResolver-staging", { "period": 300, "stat": "Sum" } ],

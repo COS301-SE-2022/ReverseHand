@@ -7,6 +7,7 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/system_metrics/get_api_metrics_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ApiMetricsPage extends StatefulWidget {
   final Store<AppState> store;
@@ -17,6 +18,18 @@ class ApiMetricsPage extends StatefulWidget {
 }
 
 class _ApiMetricsPageState extends State<ApiMetricsPage> {
+   late ZoomPanBehavior _zoomingPanBehavior;
+  @override
+  void initState() {
+    _zoomingPanBehavior = ZoomPanBehavior(
+        enablePanning: true,
+        enableSelectionZooming: true,
+        selectionRectBorderColor: Colors.orange,
+        selectionRectBorderWidth: 1,
+        selectionRectColor: Colors.grey);
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -30,8 +43,10 @@ class _ApiMetricsPageState extends State<ApiMetricsPage> {
                 store: widget.store,
                 title: "API Metrics",
                 backButton: true,
-                refreshAction: () =>
-                    vm.refresh(vm.apiMetrics.period, vm.apiMetrics.time),
+                refreshAction: () {
+                    vm.refresh(vm.apiMetrics.period, vm.apiMetrics.time);
+                    _zoomingPanBehavior.reset();
+                }
               );
               return (vm.loading)
                   ? Column(
@@ -86,7 +101,8 @@ class _ApiMetricsPageState extends State<ApiMetricsPage> {
                             graphs: vm.apiMetrics.graphs["apiLatency"] ?? [],
                             chartTitle: "API Latency",
                             xTitle: "Time",
-                            yTitle: "Miliseconds"),
+                            yTitle: "Miliseconds",
+                            zoomPanBehavior: _zoomingPanBehavior,),
                       ],
                     );
             },

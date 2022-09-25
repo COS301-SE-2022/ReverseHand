@@ -7,6 +7,7 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/system_metrics/get_lambda_metrics_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ResolverMetricsPage extends StatefulWidget {
   final Store<AppState> store;
@@ -17,6 +18,18 @@ class ResolverMetricsPage extends StatefulWidget {
 }
 
 class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
+  late ZoomPanBehavior _zoomingPanBehavior;
+  @override
+  void initState() {
+    _zoomingPanBehavior = ZoomPanBehavior(
+        enablePanning: true,
+        enableSelectionZooming: true,
+        selectionRectBorderColor: Colors.orange,
+        selectionRectBorderWidth: 1,
+        selectionRectColor: Colors.grey);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -27,12 +40,14 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) {
               Widget appBar = AppBarWidget(
-                store: widget.store,
-                title: "Resolver Metrics",
-                backButton: true,
-                refreshAction: () => vm.refresh(
-                    vm.adminResolvers.period, vm.adminResolvers.time),
-              );
+                  store: widget.store,
+                  title: "Resolver Metrics",
+                  backButton: true,
+                  refreshAction: () {
+                    vm.refresh(
+                        vm.adminResolvers.period, vm.adminResolvers.time);
+                    _zoomingPanBehavior.reset();
+                  });
               return (vm.loading)
                   ? Column(
                       children: [
@@ -87,6 +102,7 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
                           chartTitle: "Admin Resolvers Invocations",
                           xTitle: "Time",
                           yTitle: "Count",
+                          zoomPanBehavior: _zoomingPanBehavior,
                         ),
                       ],
                     );
