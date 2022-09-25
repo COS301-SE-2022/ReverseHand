@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 
 class TextRowWidget extends StatelessWidget {
-  final String text;
-  final String value;
-  const TextRowWidget({Key? key, required this.text, required this.value})
-      : super(key: key);
+  final Map<String, String> textValMap;
+  const TextRowWidget({Key? key, required this.textValMap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.all(10),
-      child: Row(
+    List<Row> rowTextWidgets = [];
+    textValMap.forEach((key, value) {
+      rowTextWidgets.add(Row(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15, top: 5, bottom: 5),
             child: Text(
-              text,
+              key,
               style: const TextStyle(fontSize: 18, color: Colors.black),
             ),
           ),
@@ -32,7 +26,16 @@ class TextRowWidget extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
+      ));
+    });
+    return Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: rowTextWidgets,
+        ));
   }
 }

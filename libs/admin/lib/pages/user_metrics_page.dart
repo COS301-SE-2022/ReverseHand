@@ -1,5 +1,4 @@
 import 'package:admin/widgets/admin_navbar_widget.dart';
-import 'package:admin/widgets/drop_down_options_widget.dart';
 import 'package:admin/widgets/system_charts/line_chart_widget.dart';
 import 'package:admin/widgets/text_row_widget.dart';
 import 'package:async_redux/async_redux.dart';
@@ -66,28 +65,22 @@ class _UserMetricsPageState extends State<UserMetricsPage> {
                       children: [
                         //**********APPBAR***********//
                         appbar,
-                        TextRowWidget(
-                            text: "Active Sessions",
-                            value: vm.activeSessions.toString()),
+                        TextRowWidget(textValMap: {
+                          "Active Sessions": vm.activeSessions.toString()
+                        }),
                         LineChartWidget(
                             graphs: vm.sessions.graphs["sessions"] ?? [],
                             chartTitle: "Sessions over the last 12 hours",
                             xTitle: "Time",
                             yTitle: "Count",
                             zoomPanBehavior: _zoomingPanBehavior),
-                        Divider(
-                          height: 20,
-                          thickness: 0.5,
-                          indent: 15,
-                          endIndent: 15,
-                          color: Theme.of(context).primaryColorLight,
-                        ),
+                     
                         ButtonWidget(
                             text: "View Custom Metrics", function: () {}),
                         ButtonWidget(
                             text: "View Chat Sentiment",
                             color: "dark",
-                            function: () {}),
+                            function: vm.pushSentimentPage),
                         Divider(
                           height: 20,
                           thickness: 0.5,
@@ -116,18 +109,20 @@ class _Factory extends VmFactory<AppState, _UserMetricsPageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        loading: state.wait.isWaiting,
-        sessions: state.admin.userMetrics.sessionMetrics ??
-            const MetricsModel(period: 60, time: 3, graphs: {}),
-        refresh: (period, time) =>
-            dispatch(GetSessionMetricsAction(period: period, hoursAgo: time)),
-        activeSessions: state.admin.userMetrics.activeSessions ?? 0,
-        pushSearchUsersPage: () {
-          dispatch(NavigateAction.pushNamed('/search_users'));
-          dispatch(ListUsersAction("customer"));
-          dispatch(ListUsersAction("tradesman"));
-        },
-      );
+      loading: state.wait.isWaiting,
+      sessions: state.admin.userMetrics.sessionMetrics ??
+          const MetricsModel(period: 60, time: 3, graphs: {}),
+      refresh: (period, time) =>
+          dispatch(GetSessionMetricsAction(period: period, hoursAgo: time)),
+      activeSessions: state.admin.userMetrics.activeSessions ?? 0,
+      pushSearchUsersPage: () {
+        dispatch(NavigateAction.pushNamed('/search_users'));
+        dispatch(ListUsersAction("customer"));
+        dispatch(ListUsersAction("tradesman"));
+      },
+      pushSentimentPage: () {
+        dispatch(NavigateAction.pushNamed("/admin/sentiment"));
+      });
 }
 
 // view model
@@ -137,6 +132,7 @@ class _ViewModel extends Vm {
   final void Function(int, int) refresh;
   final int activeSessions;
   final VoidCallback pushSearchUsersPage;
+  final VoidCallback pushSentimentPage;
 
   _ViewModel({
     required this.loading,
@@ -144,16 +140,10 @@ class _ViewModel extends Vm {
     required this.activeSessions,
     required this.refresh,
     required this.pushSearchUsersPage,
+    required this.pushSentimentPage,
   }) : super(equals: [
           loading,
           sessions,
           activeSessions
         ]); // implementinf hashcode;
-}
-
-class ChartData {
-  ChartData(this.x, this.y, [this.color]);
-  final String x;
-  final double y;
-  final Color? color;
 }

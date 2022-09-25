@@ -2,13 +2,11 @@ import 'package:admin/widgets/admin_navbar_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/appbar_popup_menu_widget.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/get_reported_adverts_action.dart';
 import 'package:redux_comp/actions/admin/app_management/get_user_reports_action.dart';
 import 'package:redux_comp/actions/admin/app_management/get_review_reports_action.dart';
-import 'package:redux_comp/actions/admin/app_management/list_users_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class AdminManagePage extends StatelessWidget {
