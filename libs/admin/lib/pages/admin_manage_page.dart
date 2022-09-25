@@ -74,6 +74,7 @@ class _Factory extends VmFactory<AppState, AdminManagePage> {
         pushSearchUsersPage: () {
           dispatch(NavigateAction.pushNamed('/search_users'));
           dispatch(ListUsersAction("customer"));
+          dispatch(ListUsersAction("tradesman"));
         },
         pushUserReportsPage: () {
           dispatch(NavigateAction.pushNamed('/user_reports_page'));

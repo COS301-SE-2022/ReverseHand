@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:redux_comp/actions/user/amplify_auth/login_action.dart';
+import 'package:redux_comp/models/error_type_model.dart';
 import '../../../app_state.dart';
 
 class VerifyUserAction extends ReduxAction<AppState> {
@@ -16,6 +17,7 @@ class VerifyUserAction extends ReduxAction<AppState> {
           confirmationCode: confirmationCode);
 
       return state.copy(
+        error: ErrorType.none,
         partialUser: state.partialUser!.copy(
           // id: (state.partialUser!.group == "customer") ? "c#${user.userId}" : "t#${user.userId}",
           verified: res.nextStep.signUpStep,

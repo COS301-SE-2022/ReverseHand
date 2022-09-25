@@ -12,8 +12,8 @@ class ListUsersAction extends ReduxAction<AppState> {
 
   ListUsersAction(this.group);
 
-	@override
-	Future<AppState?> reduce() async {
+  @override
+  Future<AppState?> reduce() async {
     String graphQLDoc = '''query {
       listUsers(group: "$group") {
         users {
@@ -27,16 +27,25 @@ class ListUsersAction extends ReduxAction<AppState> {
     }
   ''';
 
-  final request = GraphQLRequest(document: graphQLDoc);
+    final request = GraphQLRequest(document: graphQLDoc);
     try {
       final response = await Amplify.API.query(request: request).response;
       final data = jsonDecode(response.data)["listUsers"];
-      
-      return state.copy(
-        admin: state.admin.copy(
-          adminManage: state.admin.adminManage.copy(usersList: ListUsersModel.fromJson(data, group)),
-        ),
-      );
+      return (group == "customer")
+          ? state.copy(
+              admin: state.admin.copy(
+                adminManage: state.admin.adminManage.copy(
+                  customers: ListUsersModel.fromJson(data, group),
+                ),
+              ),
+            )
+          : state.copy(
+              admin: state.admin.copy(
+                adminManage: state.admin.adminManage.copy(
+                  tradesman: ListUsersModel.fromJson(data, group),
+                ),
+              ),
+            );
     } on ApiException catch (e) {
       debugPrint(e.message);
       return null;
@@ -46,9 +55,9 @@ class ListUsersAction extends ReduxAction<AppState> {
     }
   }
 
-  @override 
+  @override
   before() => dispatch(WaitAction.add("list_users"));
 
-  @override 
+  @override
   after() => dispatch(WaitAction.remove("list_users"));
 }

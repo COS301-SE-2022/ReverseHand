@@ -9,6 +9,7 @@ import 'package:redux_comp/actions/admin/app_management/add_advert_report_action
 import 'package:redux_comp/actions/admin/app_management/add_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
+import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/appbar.dart';
@@ -210,6 +211,7 @@ class _Factory extends VmFactory<AppState, _RadioSelectWidgetState> {
             (String userId, ReportDetailsModel report) =>
                 dispatch(AddAdvertReportAction(userId: userId, report: report)),
         popPage: () => dispatch(NavigateAction.pop()),
+        activeAd: state.activeAd
       );
 }
 
@@ -221,10 +223,12 @@ class _ViewModel extends Vm {
       dispatchAddUserReportAction;
   final void Function(String, ReportDetailsModel) dispatchAddSdvertReportAction;
   final bool isWaiting;
+  final AdvertModel? activeAd;
   final VoidCallback popPage;
 
   _ViewModel({
     required this.userDetails,
+    required this.activeAd,
     required this.otherUser,
     required this.dispatchAddUserReportAction,
     required this.dispatchAddSdvertReportAction,
