@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/appbar_popup_menu_widget.dart';
 import 'package:general/widgets/hint_widget.dart';
-import 'package:general/widgets/long_button_transparent.dart';
 import 'package:redux_comp/actions/admin/app_management/add_user_report_action.dart';
 import 'package:redux_comp/actions/user/reviews/get_user_reviews_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
@@ -12,7 +11,6 @@ import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:general/pages/report_page.dart';
-import 'package:tradesman/widgets/reviews/review_widget.dart';
 
 class LimitedTradesmanProfilePage extends StatelessWidget {
   final Store<AppState> store;

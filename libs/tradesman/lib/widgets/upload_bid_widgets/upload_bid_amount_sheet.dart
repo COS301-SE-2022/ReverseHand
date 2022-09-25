@@ -5,7 +5,6 @@ import 'package:general/widgets/long_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:redux_comp/app_state.dart';
-import 'package:redux_comp/models/error_type_model.dart';
 
 class UploadAmountSheet extends StatefulWidget {
   const UploadAmountSheet({

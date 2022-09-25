@@ -6,7 +6,6 @@ import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/actions/user/amplify_auth/complete_password_reset_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:authentication/methods/validation.dart';
-import 'package:redux_comp/models/error_type_model.dart';
 import '../auth_textfield_light.dart';
 
 //******************************** */
