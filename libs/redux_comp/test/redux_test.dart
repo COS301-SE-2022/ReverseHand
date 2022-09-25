@@ -1,15 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:redux_comp/models/geolocation/address_model.dart';
 import 'package:redux_comp/models/user_models/partial_user_model.dart';
 import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
-// import 'package:redux_comp/app_state.dart';
-// import 'package:redux_comp/models/user_models/consumer_model.dart';
 
 void main() {
-  test("Mock Test Redux", () {
-    expect(true, true);
-  });
-
   PartialUser partUser = const PartialUser(
     email: 'someone@example.com',
     group: "test",
@@ -58,5 +53,42 @@ void main() {
 
   test('Test to get UserType', () {
     expect('Consumer', user.userType);
+  });
+
+  UserModel copy = user.copy();
+
+  test("Testing copy method of UserModel", () {
+    expect(user.id, copy.id);
+    expect(user.email, copy.email);
+    expect(user.name, copy.name);
+    expect(user.cellNo, copy.cellNo);
+    expect(user.userType, copy.userType);
+    expect(user.externalProvider, copy.externalProvider);
+    expect(user.registered, copy.registered);
+    expect(user.externalUsername, copy.externalUsername);
+    expect(copy.scope, user.scope);
+  });
+
+  Address adrr = const Address(
+    streetNumber: "256",
+    street: "forbidden",
+    city: "Pretoria",
+    province: "G",
+    zipCode: "111",
+  );
+
+  Address adr = adrr.replace(
+      streetNumber: "333",
+      street: "yes",
+      city: "cape",
+      province: "q",
+      zipCode: "222");
+
+  test("Testing replace method of address", () {
+    expect("333", adr.streetNumber);
+    expect("yes", adr.street);
+    expect("cape", adr.city);
+    expect("q", adr.province);
+    expect("222", adr.zipCode);
   });
 }

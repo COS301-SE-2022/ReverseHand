@@ -402,7 +402,7 @@
     }
   },
   "analytics": {
-    "ReversehandPinpoint": {
+    "ReverseHandPinpoint": {
       "service": "Pinpoint",
       "providerPlugin": "awscloudformation"
     }
