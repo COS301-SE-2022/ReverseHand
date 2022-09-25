@@ -161,7 +161,8 @@ class Launch extends StatelessWidget {
               AdvertReportsManagePage(store: store),
           '/admin_profile': (context) => AdminProfilePage(store: store),
           '/user_metrics': (context) => UserMetricsPage(store: store),
-          '/admin/sentiment': (context) => SentimentAnalysisPage(store: store)
+          '/admin/sentiment': (context) => SentimentAnalysisPage(store: store),
+          '/admin/custom_metrics': (context) => CustomMetricsPage(store: store)
         },
       ),
     );

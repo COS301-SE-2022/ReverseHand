@@ -1,5 +1,5 @@
 import 'package:admin/widgets/drop_down_options_widget.dart';
-import 'package:admin/widgets/system_charts/line_chart_widget.dart';
+import 'package:admin/widgets/line_chart_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
@@ -177,14 +177,14 @@ class _Factory extends VmFactory<AppState, _ResolverMetricsPageState> {
         refresh: (period, time) {
           dispatch(
             GetResolverInvocationsAction(
-              period: state.admin.appMetrics.databaseMetrics?.period ?? 5, //min
-              hoursAgo: state.admin.appMetrics.databaseMetrics?.time ?? 3,
+              period: period, //min
+              hoursAgo: time,
             ),
           );
           dispatch(
             GetResolverErrorsAction(
-              period: state.admin.appMetrics.databaseMetrics?.period ?? 5, //min
-              hoursAgo: state.admin.appMetrics.databaseMetrics?.time ?? 3,
+              period: period, //min
+              hoursAgo: time,
             ),
           );
         },

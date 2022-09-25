@@ -1,5 +1,5 @@
 import 'package:admin/widgets/admin_navbar_widget.dart';
-import 'package:admin/widgets/system_charts/line_chart_widget.dart';
+import 'package:admin/widgets/line_chart_widget.dart';
 import 'package:admin/widgets/text_row_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +76,7 @@ class _UserMetricsPageState extends State<UserMetricsPage> {
                             zoomPanBehavior: _zoomingPanBehavior),
                      
                         ButtonWidget(
-                            text: "View Custom Metrics", function: () {}),
+                            text: "View Custom Metrics", function: vm.pushCustomMetricsPage),
                         ButtonWidget(
                             text: "View Chat Sentiment",
                             color: "dark",
@@ -122,7 +122,10 @@ class _Factory extends VmFactory<AppState, _UserMetricsPageState> {
       },
       pushSentimentPage: () {
         dispatch(NavigateAction.pushNamed("/admin/sentiment"));
-      });
+      }, 
+      pushCustomMetricsPage: () {
+        dispatch(NavigateAction.pushNamed('/admin/custom_metrics'));
+      },);
 }
 
 // view model
@@ -133,6 +136,7 @@ class _ViewModel extends Vm {
   final int activeSessions;
   final VoidCallback pushSearchUsersPage;
   final VoidCallback pushSentimentPage;
+  final VoidCallback pushCustomMetricsPage;
 
   _ViewModel({
     required this.loading,
@@ -141,6 +145,7 @@ class _ViewModel extends Vm {
     required this.refresh,
     required this.pushSearchUsersPage,
     required this.pushSentimentPage,
+    required this.pushCustomMetricsPage,
   }) : super(equals: [
           loading,
           sessions,
