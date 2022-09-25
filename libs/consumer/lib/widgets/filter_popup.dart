@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/methods/toast_error.dart';
 import 'package:general/widgets/button.dart';
 import 'package:redux_comp/actions/adverts/filter_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
