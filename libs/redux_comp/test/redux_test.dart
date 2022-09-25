@@ -5,10 +5,6 @@ import 'package:redux_comp/models/user_models/statistics_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 
 void main() {
-  test("Mock Test Redux", () {
-    expect(true, true);
-  });
-
   PartialUser partUser = const PartialUser(
     email: 'someone@example.com',
     group: "test",

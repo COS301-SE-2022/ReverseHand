@@ -17,15 +17,19 @@ void main() async {
   AdvertModel adOne = AdvertModel(
       id: "id1",
       title: "title1",
+      userId: "u1234",
       type: "type1",
       domain: domain,
-      dateCreated: 54424545);
+      dateCreated: 54424545,
+      imageCount: 5);
   AdvertModel adTwo = AdvertModel(
       id: "id2",
       title: "title",
+      userId: "u12345",
       type: "PAinter",
       domain: domain,
-      dateCreated: 23432423);
+      dateCreated: 23432423,
+      imageCount: 2);
 
   List<AdvertModel> adverts = [adOne, adTwo];
 

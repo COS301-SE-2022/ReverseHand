@@ -12,6 +12,7 @@ void main() {
   const ad = AdvertModel(
     id: "a#001",
     title: "Test",
+    userId: "u12345",
     domain: domain,
     dateCreated: 123546,
     description: "A description",
@@ -19,6 +20,7 @@ void main() {
     acceptedBid: "b#001",
     dateClosed: 55844545,
     advertRank: 1,
+    imageCount: 0,
   );
 
   var adCopy = ad.copy();

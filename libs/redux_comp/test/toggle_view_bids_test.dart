@@ -8,8 +8,7 @@ void main() async {
   BidModel bidOne = const BidModel(
     id: "id1",
     userId: "userId1",
-    priceLower: 200,
-    priceUpper: 500,
+    price: 200,
     dateCreated: 1245645,
     shortlisted: true,
   );
@@ -17,24 +16,21 @@ void main() async {
   BidModel bidTwo = const BidModel(
     id: "id4",
     userId: "userId2",
-    priceLower: 700,
-    priceUpper: 900,
+    price: 700,
     dateCreated: 454654564,
     shortlisted: true,
   );
   BidModel bidThree = const BidModel(
     id: "id3",
     userId: "userId3",
-    priceLower: 500,
-    priceUpper: 700,
+    price: 500,
     dateCreated: 545643215,
     shortlisted: false,
   );
   BidModel bidFour = const BidModel(
     id: "id4",
     userId: "userId4",
-    priceLower: 400,
-    priceUpper: 600,
+    price: 400,
     dateCreated: 75645456456,
     shortlisted: false,
   );

@@ -16,36 +16,36 @@ void main() async {
   FilterBidsAction action = FilterBidsAction(filter);
 
   BidModel bidOne = const BidModel(
-      id: "id1",
-      userId: "userId1",
-      priceLower: 600,
-      priceUpper: 800,
-      dateCreated: 12345,
-      shortlisted: true);
+    id: "id1",
+    userId: "userId1",
+    price: 600,
+    dateCreated: 12345,
+    shortlisted: true,
+  );
 
   BidModel bidTwo = const BidModel(
-      id: "id2",
-      userId: "userId2",
-      priceLower: 200,
-      priceUpper: 300,
-      dateCreated: 454612548,
-      shortlisted: true);
+    id: "id2",
+    userId: "userId2",
+    price: 200,
+    dateCreated: 454612548,
+    shortlisted: true,
+  );
 
   BidModel bidThree = const BidModel(
-      id: "id3",
-      userId: "userId3",
-      priceLower: 700,
-      priceUpper: 900,
-      dateCreated: 9875215,
-      shortlisted: false);
+    id: "id3",
+    userId: "userId3",
+    price: 700,
+    dateCreated: 9875215,
+    shortlisted: false,
+  );
 
   BidModel bidFour = const BidModel(
-      id: "id4",
-      userId: "userId4",
-      priceLower: 1500,
-      priceUpper: 2000,
-      dateCreated: 8986561,
-      shortlisted: false);
+    id: "id4",
+    userId: "userId4",
+    price: 1500,
+    dateCreated: 8986561,
+    shortlisted: false,
+  );
 
   List<BidModel> shortlistBids = [];
   shortlistBids.add(bidOne);
@@ -64,6 +64,6 @@ void main() async {
   TestInfo<AppState> info = await storeTester.wait(FilterBidsAction);
 
   test("Unit Test: Filter Bids Action Test", () {
-    expect(2, info.state.viewBids.length); //should have 2 bids from the 4
+    expect(4, info.state.viewBids.length);
   });
 }

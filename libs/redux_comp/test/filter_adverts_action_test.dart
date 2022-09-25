@@ -20,17 +20,22 @@ Future<void> main() async {
 
   //creating adverts to sort
   AdvertModel adOne = AdvertModel(
-      id: "id1",
-      title: "title1",
-      type: "Painting",
-      domain: domain,
-      dateCreated: 789754);
+    id: "id1",
+    title: "title1",
+    userId: "u1234",
+    type: "Painting",
+    domain: domain,
+    dateCreated: 789754,
+    imageCount: 0,
+  );
   AdvertModel adTwo = AdvertModel(
       id: "id2",
       title: "title2",
+      userId: "u1235",
       type: "Plumbing",
       domain: domain,
-      dateCreated: 5454546458);
+      dateCreated: 5454546458,
+      imageCount: 1);
   List<AdvertModel> adverts = [];
 
   adverts.add(adOne);
@@ -43,7 +48,7 @@ Future<void> main() async {
   HashSet<String>? jobTypes = HashSet<String>();
   jobTypes.add("Painting");
 
-  FilterAdvertsModel filter = FilterAdvertsModel(jobTypes: jobTypes);
+  FilterAdvertsModel filter = FilterAdvertsModel(tradeTypes: jobTypes);
   FilterAdvertsAction action = FilterAdvertsAction(filter);
 
   var storeTester = StoreTester.from(store);

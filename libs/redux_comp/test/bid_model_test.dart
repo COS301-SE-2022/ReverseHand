@@ -5,22 +5,19 @@ void main() {
   const bidOne = BidModel(
       id: "sb#001",
       userId: "userId",
-      priceLower: 11,
-      priceUpper: 22,
-      dateCreated: 215);
+      price: 110,
+      dateCreated: 215,
+      shortlisted: true);
 
   const bidTwo = BidModel(
       id: "b#001",
       userId: "userId",
-      priceLower: 56,
-      priceUpper: 455,
-      dateCreated: 1245);
+      price: 4,
+      dateCreated: 1245,
+      shortlisted: false);
 
   test("Testing isShortListedMethod", () {
-    expect(true, bidOne.isShortlisted());
-    expect(false, bidTwo.isShortlisted());
+    expect("R1", bidOne.amount());
+    expect("R0", bidTwo.amount());
   });
-
-  //need to update this test since there is now a boolean to check if a bid
-  //is shortlisted
 }
