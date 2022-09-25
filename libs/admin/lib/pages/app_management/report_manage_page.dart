@@ -90,6 +90,7 @@ class ReportManagePage extends StatelessWidget {
                           report.id,
                           report.reportDetails.reportedUser!.id,
                         ),
+                        
                       ),
 
                       TransparentLongButtonWidget(

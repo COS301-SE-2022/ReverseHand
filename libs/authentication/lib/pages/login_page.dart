@@ -54,12 +54,13 @@ class LoginPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       //*****************LOGO*****************************
+                      const Padding(padding: EdgeInsets.only(top: 45),),
                       Align(
                         alignment: Alignment.topCenter,
                         child: Image.asset(
                           'assets/images/logo.png',
-                          height: 250,
-                          width: 250,
+                          height: 245,
+                          width: 245,
                           package: 'authentication',
                         ),
                       ),
@@ -67,8 +68,7 @@ class LoginPage extends StatelessWidget {
 
                       //*****************form****************************
                       Container(
-                        margin: const EdgeInsets.only(top: 10.0),
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                         child: Column(
                           children: <Widget>[
                             //*****************email**********************

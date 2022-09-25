@@ -252,10 +252,6 @@ class _CreateNewAdvertPageState extends State<CreateNewAdvertPage> {
                                   _files?.map((e) => File(e.path)).toList(),
                                 );
                               } else {
-                                // LightDialogHelper.display(
-                                //   context,
-                                //   const CreationPopupWidget(),
-                                //   210.0,
                                 displayToastError(context,
                                     "Title and Trade Type must be included");
                               }
