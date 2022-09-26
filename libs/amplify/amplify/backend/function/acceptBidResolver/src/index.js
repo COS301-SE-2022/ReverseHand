@@ -10,23 +10,6 @@ const func = process.env.FUNCTION;
 // add a bid id to an adverts accepted bid
 // requires customer id and advert id and shorlisted bid id
 exports.handler = async (event) => {
-    // adding accepted bid
-    let item = {
-        TableName: ReverseHandTable,
-        ReturnValues: 'ALL_NEW',
-        Key: {
-            part_key: event.arguments.ad_id,
-            sort_key: event.arguments.ad_id
-        },
-        UpdateExpression: 'set advert_details.accepted_bid = :ab',
-        ExpressionAttributeValues: {
-            ':ab': event.arguments.sbid_id,
-        },
-    };
-
-    let ad = await docClient.update(item).promise().then(resp => resp.Attributes);
-    let customer_id = ad.customer_id;
-    
     // getting accepted bid
     let params = {
         TableName: ReverseHandTable,
@@ -39,6 +22,23 @@ exports.handler = async (event) => {
     const data = await docClient.get(params).promise();
     let tradesman_id = data["Item"]["tradesman_id"];
     let sbid = data["Item"]['bid_details'];
+
+    // adding accepted bid
+    let item = {
+        TableName: ReverseHandTable,
+        ReturnValues: 'ALL_NEW',
+        Key: {
+            part_key: event.arguments.ad_id,
+            sort_key: event.arguments.ad_id
+        },
+        UpdateExpression: 'set advert_details.accepted_bid = :ab',
+        ExpressionAttributeValues: {
+            ':ab': tradesman_id,
+        },
+    };
+
+    let ad = await docClient.update(item).promise().then(resp => resp.Attributes);
+    let customer_id = ad.customer_id;
 
     // sending out notification
     // getting current date

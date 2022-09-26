@@ -246,7 +246,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
             ? false
             : state.activeAd!.acceptedBid == null
                 ? false
-                : state.userBid!.id == state.activeAd!.acceptedBid!,
+                : state.userBid!.userId == state.activeAd!.acceptedBid!,
         change: state.change,
         dispatchOpenInMapsAction: (BuildContext context) =>
             dispatch(OpenInMapsAction(context)),

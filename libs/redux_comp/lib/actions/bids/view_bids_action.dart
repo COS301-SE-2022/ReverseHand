@@ -64,7 +64,9 @@ class ViewBidsAction extends ReduxAction<AppState> {
         if (bid.userId == state.userDetails.id) userBid = bid;
 
         // for when we close an advert
-        if (ad.acceptedBid != null && bid.id == ad.acceptedBid) activeBid = bid;
+        if (ad.acceptedBid != null && bid.userId == ad.acceptedBid) {
+          activeBid = bid;
+        }
       }
 
       if (userBid == null) {
