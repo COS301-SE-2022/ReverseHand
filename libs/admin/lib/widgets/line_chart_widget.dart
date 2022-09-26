@@ -8,12 +8,14 @@ class LineChartWidget extends StatelessWidget {
   final String chartTitle;
   final String xTitle;
   final String yTitle;
+  final ZoomPanBehavior zoomPanBehavior;
   const LineChartWidget(
       {Key? key,
       required this.graphs,
       required this.chartTitle,
       required this.xTitle,
-      required this.yTitle})
+      required this.yTitle,
+      required this.zoomPanBehavior})
       : super(key: key);
 
   @override
@@ -22,17 +24,16 @@ class LineChartWidget extends StatelessWidget {
     for (LineChartModel data in graphs) {
       list.add(
         LineSeries<ObservationModel, String>(
-          dataSource: data.data,
-          color: data.color,
-          xValueMapper: (ObservationModel obs, _) => obs.time,
-          yValueMapper: (ObservationModel obs, _) => obs.value,
-          markerSettings: MarkerSettings(
-              isVisible: true, color: data.color, height: 5, width: 5),
-          name: data.label,
-          emptyPointSettings: EmptyPointSettings(mode: EmptyPointMode.gap)
-        ),
+            dataSource: data.data,
+            color: data.color,
+            xValueMapper: (ObservationModel obs, _) => obs.time,
+            yValueMapper: (ObservationModel obs, _) => obs.value,
+            markerSettings: MarkerSettings(
+                isVisible: true, color: data.color, height: 5, width: 5),
+            name: data.label,
+            emptyPointSettings: EmptyPointSettings(mode: EmptyPointMode.gap)),
       );
-    }  
+    }
 
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
@@ -40,27 +41,27 @@ class LineChartWidget extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(5),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 chartTitle,
                 style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
-                    decoration: TextDecoration.underline,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
             ),
           ),
           SfCartesianChart(
             enableAxisAnimation: true,
+            zoomPanBehavior: zoomPanBehavior,
             tooltipBehavior: TooltipBehavior(enable: true),
             legend: Legend(
-              position: LegendPosition.bottom,
-              isVisible: true,
-              textStyle: const TextStyle(color: Colors.white),
-            ),
+                position: LegendPosition.bottom,
+                isVisible: true,
+                textStyle: const TextStyle(color: Colors.white),
+                overflowMode: LegendItemOverflowMode.wrap),
             primaryXAxis: CategoryAxis(
                 labelStyle: const TextStyle(color: Colors.white),
                 title: AxisTitle(

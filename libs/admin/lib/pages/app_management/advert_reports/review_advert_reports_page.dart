@@ -6,7 +6,7 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/accept_advert_report_action.dart';
-import 'package:redux_comp/models/admin/reported_advert_model.dart';
+import 'package:redux_comp/models/admin/app_management/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../../../widgets/report_details_widget.dart';
 
