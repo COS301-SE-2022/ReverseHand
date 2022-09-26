@@ -49,7 +49,7 @@ class OpenInMapsAction extends ReduxAction<AppState> {
         },
       );
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
 
     return null;
