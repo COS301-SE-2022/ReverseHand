@@ -31,8 +31,9 @@ dependencies:
   jwt_decode: ^0.3.1
   geolocator: ^9.0.1
   http: ^0.13.5
-  maps_launcher: ^2.0.1
   sentiment_dart: ^0.0.5
+  map_launcher: ^2.4.0
+  flutter_svg: ^1.1.5
 
   amplify:
     path: '../amplify'

@@ -32,7 +32,7 @@ exports.handler = async (event) => {
                         },
                         {
                             Name: "City",
-                            Value: payload.attributes.province
+                            Value: payload.attributes.city
                         },
                     ],
                     Unit: "Count",
@@ -88,7 +88,7 @@ exports.handler = async (event) => {
     });
 
     if (params != undefined) {
-        console.log("params:\n" + params);
+        console.log("params:\n" + params.toString());
         const data = await cloudWatch.putMetricData(params).promise();
         console.log("Submitted to CloudWatch");
         console.log("data:\n" + data);

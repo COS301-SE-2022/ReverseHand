@@ -39,9 +39,13 @@ class QuickViewChatWidget extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                   child: Row(
                     children: [
-                      const CircleAvatar(
-                        backgroundImage: AssetImage("assets/images/profile.png",
-                            package: 'general'),
+                      CircleAvatar(
+                        backgroundImage: chat.image == null
+                            ? const AssetImage(
+                                "assets/images/profile.png",
+                                package: 'general',
+                              )
+                            : Image.network(chat.image!).image,
                       ),
                       const Padding(padding: EdgeInsets.only(right: 15)),
                       Text(

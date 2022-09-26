@@ -33,13 +33,6 @@
           "sortKeyName": "sort_key",
           "sortKeyType": "S"
         },
-        "User": {
-          "tableName": "User",
-          "region": "eu-west-1",
-          "arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/User",
-          "partitionKeyName": "user_id",
-          "partitionKeyType": "S"
-        },
         "ArchivedReverseHand": {
           "tableName": "ArchivedReverseHand",
           "region": "eu-west-1",
@@ -54,7 +47,7 @@
       "function": {
         "acceptBidResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/acceptBidResolver-57397a576a7a74643161-build.zip"
+          "s3Key": "amplify-builds/acceptBidResolver-4b466e4c34434e764a6d-build.zip"
         },
         "closeAdvertResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -250,7 +243,7 @@
         },
         "processKinesisStreamResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/processKinesisStreamResolver-545a4457693877613474-build.zip"
+          "s3Key": "amplify-builds/processKinesisStreamResolver-4351426844336b797870-build.zip"
         },
         "disableUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",

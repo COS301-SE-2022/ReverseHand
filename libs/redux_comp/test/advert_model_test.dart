@@ -17,7 +17,7 @@ void main() {
     dateCreated: 123546,
     description: "A description",
     type: "Plumbing",
-    acceptedBid: "b#001",
+    acceptedBid: "t#001",
     dateClosed: 55844545,
     advertRank: 1,
     imageCount: 0,

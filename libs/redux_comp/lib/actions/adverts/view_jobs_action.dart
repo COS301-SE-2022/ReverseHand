@@ -55,6 +55,10 @@ class ViewJobsAction extends ReduxAction<AppState> {
       List<AdvertModel> adverts = [];
       data.forEach((el) {
         final AdvertModel ad = AdvertModel.fromJson(el);
+        if (ad.acceptedBid != null && ad.acceptedBid != state.userDetails.id) {
+          return;
+        }
+
         adverts.add(ad);
       });
 

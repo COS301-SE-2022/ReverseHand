@@ -125,7 +125,7 @@ PODS:
     - Flutter
   - integration_test (0.0.1):
     - Flutter
-  - maps_launcher (0.0.1):
+  - map_launcher (0.0.1):
     - Flutter
   - ObjectMapper (4.2.0)
   - path_provider_ios (0.0.1):
@@ -137,8 +137,6 @@ PODS:
   - SwiftFormat/CLI (0.49.18)
   - SwiftLint (0.49.1)
   - SwiftyGif (5.4.3)
-  - url_launcher_ios (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - amplify_analytics_pinpoint_ios (from `.symlinks/plugins/amplify_analytics_pinpoint_ios/ios`)
@@ -155,9 +153,8 @@ DEPENDENCIES:
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
-  - maps_launcher (from `.symlinks/plugins/maps_launcher/ios`)
+  - map_launcher (from `.symlinks/plugins/map_launcher/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
-  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -210,12 +207,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
-  maps_launcher:
-    :path: ".symlinks/plugins/maps_launcher/ios"
+  map_launcher:
+    :path: ".symlinks/plugins/map_launcher/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
-  url_launcher_ios:
-    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   Amplify: dfa12fad1609b1388d0b2fb6f99b3140cd942d09
@@ -245,7 +240,7 @@ SPEC CHECKSUMS:
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
-  maps_launcher: 2e5b6a2d664ec6c27f82ffa81b74228d770ab203
+  map_launcher: e325db1261d029ff33e08e03baccffe09593ffea
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   SDWebImage: af5bbffef2cde09f148d826f9733dcde1a9414cd
@@ -253,7 +248,6 @@ SPEC CHECKSUMS:
   SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
   SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
-  url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
 
 PODFILE CHECKSUM: 0a7cb8df82e8de2c7707c399c8e9309150c941ed
 
