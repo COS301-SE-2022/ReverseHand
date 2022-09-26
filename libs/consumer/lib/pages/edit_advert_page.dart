@@ -179,37 +179,37 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                   ),
                   //*************************************************//
 
-                 const HintWidget(
-                text: "Select photos related to the job",
-                colour: Colors.white70,
-                padding: 15,
-              ),
+                  const HintWidget(
+                    text: "Select photos related to the job",
+                    colour: Colors.white70,
+                    padding: 15,
+                  ),
 
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
-                child: InkWell(
-                  onTap: () async {
-                    ImagePicker picker = ImagePicker();
-                    _files = await picker.pickMultiImage();
-                  },
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.grey, width: 1),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          "Select Photos",
-                          style: TextStyle(fontSize: 18),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
+                    child: InkWell(
+                      onTap: () async {
+                        ImagePicker picker = ImagePicker();
+                        _files = await picker.pickMultiImage(imageQuality: 50);
+                      },
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey, width: 1),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              "Select Photos",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
 
                   StoreConnector<AppState, _ViewModel>(
                     vm: () => _Factory(this),
