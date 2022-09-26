@@ -198,8 +198,8 @@ class TradesmanJobDetails extends StatelessWidget {
                       const Padding(padding: EdgeInsets.only(top: 35)),
                       TransparentLongButtonWidget(
                         text: "View Client Location",
-                        function: () async {
-                          await vm.dispatchOpenInMapsAction();
+                        function: () {
+                          vm.dispatchOpenInMapsAction(context);
                         },
                       ),
                     ],
@@ -248,8 +248,8 @@ class _Factory extends VmFactory<AppState, TradesmanJobDetails> {
                 ? false
                 : state.userBid!.id == state.activeAd!.acceptedBid!,
         change: state.change,
-        dispatchOpenInMapsAction: () async =>
-            await dispatch(OpenInMapsAction()),
+        dispatchOpenInMapsAction: (BuildContext context) =>
+            dispatch(OpenInMapsAction(context)),
       );
 }
 
@@ -267,7 +267,7 @@ class _ViewModel extends Vm {
     File? quote,
   }) dispatchPlaceBidAction;
   final VoidCallback dispatchGetOtherUserAction;
-  final Future<void> Function() dispatchOpenInMapsAction;
+  final void Function(BuildContext context) dispatchOpenInMapsAction;
   final bool accepted;
   final bool change;
 

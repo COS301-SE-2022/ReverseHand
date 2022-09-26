@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 
@@ -19,15 +20,15 @@ class ChatAppBarWidget extends StatelessWidget {
           pinned: true,
           backgroundColor: Theme.of(context).primaryColorDark,
           flexibleSpace: FlexibleSpaceBar(
-            title: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 40,
-                    left: 70,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {}, //todo, link profile
+            title: GestureDetector(
+              onTap: vm.dispatchGetOtherUserAction,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 40,
+                      left: 70,
+                    ),
                     child: CircleAvatar(
                       radius: 15,
                       backgroundImage: vm.chat.image == null
@@ -38,18 +39,18 @@ class ChatAppBarWidget extends StatelessWidget {
                           : Image.network(vm.chat.image!).image,
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 40),
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 23,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 40),
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 23,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -65,6 +66,8 @@ class _Factory extends VmFactory<AppState, ChatAppBarWidget> {
   @override
   _ViewModel fromStore() => _ViewModel(
         popPage: () => dispatch(NavigateAction.pop()),
+        dispatchGetOtherUserAction: () =>
+            dispatch(GetOtherUserAction(state.chat!.otherUserId)),
         chat: state.chat!,
       );
 }
@@ -73,9 +76,11 @@ class _Factory extends VmFactory<AppState, ChatAppBarWidget> {
 class _ViewModel extends Vm {
   final VoidCallback popPage;
   final ChatModel chat;
+  final VoidCallback dispatchGetOtherUserAction;
 
   _ViewModel({
     required this.popPage,
+    required this.dispatchGetOtherUserAction,
     required this.chat,
   }) : super(equals: [chat]);
 }
