@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/admin/user_metrics/get_session_metrics_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
 
@@ -125,6 +126,9 @@ class _Factory extends VmFactory<AppState, AdminNavBarWidget> {
             NavigateAction.pushNamedAndRemoveUntil(
                 '/user_metrics', ModalRoute.withName('/user_metrics')),
           );
+          if (state.admin.userMetrics.sessionMetrics == null) {
+            dispatch(GetSessionMetricsAction());
+          }
         },
         pushContentManage: () {
           dispatch(NavigateAction.pushNamedAndRemoveUntil(

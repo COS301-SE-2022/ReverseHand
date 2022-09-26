@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_management/models/admin_user_model.dart';
 import 'package:redux_comp/models/admin/app_management/models/list_users_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_model.dart';
-import 'package:redux_comp/models/admin/reported_advert_model.dart';
+import 'package:redux_comp/models/admin/app_management/reported_advert_model.dart';
 
 @immutable
 class AdminAppManageModel {

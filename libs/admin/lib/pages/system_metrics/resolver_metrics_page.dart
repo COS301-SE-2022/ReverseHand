@@ -1,12 +1,14 @@
 import 'package:admin/widgets/drop_down_options_widget.dart';
-import 'package:admin/widgets/system_charts/line_chart_widget.dart';
+import 'package:admin/widgets/line_chart_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:redux_comp/actions/admin/system_metrics/get_lambda_metrics_action.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_resolver_errors_action.dart';
+import 'package:redux_comp/actions/admin/system_metrics/get_resolver_invocations_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ResolverMetricsPage extends StatefulWidget {
   final Store<AppState> store;
@@ -17,6 +19,18 @@ class ResolverMetricsPage extends StatefulWidget {
 }
 
 class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
+  late ZoomPanBehavior _zoomingPanBehavior;
+  @override
+  void initState() {
+    _zoomingPanBehavior = ZoomPanBehavior(
+        enablePanning: true,
+        enableSelectionZooming: true,
+        selectionRectBorderColor: Colors.orange,
+        selectionRectBorderWidth: 1,
+        selectionRectColor: Colors.grey);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -27,12 +41,14 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
             vm: () => _Factory(this),
             builder: (BuildContext context, _ViewModel vm) {
               Widget appBar = AppBarWidget(
-                store: widget.store,
-                title: "Resolver Metrics",
-                backButton: true,
-                refreshAction: () => vm.refresh(
-                    vm.adminResolvers.period, vm.adminResolvers.time),
-              );
+                  store: widget.store,
+                  title: "Resolver Metrics",
+                  backButton: true,
+                  refreshAction: () {
+                    vm.refresh(
+                        vm.adminResolvers.period, vm.adminResolvers.time);
+                    _zoomingPanBehavior.reset();
+                  });
               return (vm.loading)
                   ? Column(
                       children: [
@@ -82,11 +98,65 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
                             ),
                           ],
                         ),
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Admin Resolvers",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                         LineChartWidget(
-                          graphs: vm.adminResolvers.graphs["adminData"] ?? [],
-                          chartTitle: "Admin Resolvers Invocations",
+                          graphs:
+                              vm.adminResolvers.graphs["adminInvokeData"] ?? [],
+                          chartTitle: "Invocations",
                           xTitle: "Time",
                           yTitle: "Count",
+                          zoomPanBehavior: _zoomingPanBehavior,
+                        ),
+                        LineChartWidget(
+                          graphs:
+                              vm.adminResolvers.graphs["adminErrorData"] ?? [],
+                          chartTitle: "Errors",
+                          xTitle: "Time",
+                          yTitle: "Count",
+                          zoomPanBehavior: _zoomingPanBehavior,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "User Resolvers",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        LineChartWidget(
+                          graphs:
+                              vm.adminResolvers.graphs["userInvokeData"] ?? [],
+                          chartTitle: "Invocations",
+                          xTitle: "Time",
+                          yTitle: "Count",
+                          zoomPanBehavior: _zoomingPanBehavior,
+                        ),
+                        LineChartWidget(
+                          graphs:
+                              vm.adminResolvers.graphs["userErrorData"] ?? [],
+                          chartTitle: "Errors",
+                          xTitle: "Time",
+                          yTitle: "Count",
+                          zoomPanBehavior: _zoomingPanBehavior,
                         ),
                       ],
                     );
@@ -105,7 +175,18 @@ class _Factory extends VmFactory<AppState, _ResolverMetricsPageState> {
   @override
   _ViewModel fromStore() => _ViewModel(
         refresh: (period, time) {
-          dispatch(GetLambdaMetricsAction(period: period, hoursAgo: time));
+          dispatch(
+            GetResolverInvocationsAction(
+              period: period, //min
+              hoursAgo: time,
+            ),
+          );
+          dispatch(
+            GetResolverErrorsAction(
+              period: period, //min
+              hoursAgo: time,
+            ),
+          );
         },
         loading: state.wait.isWaiting,
         adminResolvers: state.admin.appMetrics.adminResolvers ??

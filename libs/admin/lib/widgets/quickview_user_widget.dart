@@ -53,10 +53,15 @@ class QuickViewUserCardWidget extends StatelessWidget {
                             size: 25.0,
                           ),
                           const Padding(padding: EdgeInsets.only(right: 5)),
-                          Text(
-                            user.email,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.black),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.3,
+                            child: Text(
+                              user.email,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.black),
+                            ),
                           )
                         ],
                       ),

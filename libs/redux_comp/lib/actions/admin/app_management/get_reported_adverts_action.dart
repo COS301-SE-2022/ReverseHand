@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/admin/reported_advert_model.dart';
+import 'package:redux_comp/models/admin/app_management/reported_advert_model.dart';
 
 import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
