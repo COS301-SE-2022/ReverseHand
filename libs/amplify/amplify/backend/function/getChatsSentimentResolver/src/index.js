@@ -31,6 +31,7 @@ exports.handler = async (event) => {
     items = [...items, ...data.Items];
 
     return items.map((el) => {
+        el['sentiment'] = {...el};
         el['id'] = el['sort_key'];
         return el;
     });

@@ -189,7 +189,6 @@ class AppState {
         notifications: const [],
         pdfFile: null,
         globalSentiment: const SentimentModel(
-          id: 'sentiment',
           negative: 0,
           negativeMessages: 0,
           neutralMessages: 0,

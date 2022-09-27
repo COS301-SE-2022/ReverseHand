@@ -237,11 +237,7 @@ type Chat implements UniqueID {
   tradesman_name: String!
   timestamp: Float!
   # for sentiments
-  negative: Float!
-  negative_messages: Int!
-  neutral_messages: Int!
-  positive: Float!
-  positive_messages: Int!
+  sentiment: Sentiment
 }
 
 type Message implements UniqueID {
@@ -433,8 +429,7 @@ type PayStackKeys {
   public_key: String!
 }
 
-type Sentiment implements UniqueID {
-  id: String!
+type Sentiment {
   negative: Float!
   negative_messages: Int!
   neutral_messages: Int!

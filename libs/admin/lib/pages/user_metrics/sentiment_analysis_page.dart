@@ -6,6 +6,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/list_refresh_widget.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/app_state.dart';
+import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/sentiment_model.dart';
 
 class SentimentAnalysisPage extends StatelessWidget {
@@ -26,6 +27,17 @@ class SentimentAnalysisPage extends StatelessWidget {
               store: store,
               backButton: true,
             );
+
+            final List<QuickviewChatWidget> chats = vm.chats
+                .map(
+                  (e) => QuickviewChatWidget(
+                    store: store,
+                    title: '${e.consumerName} - ${e.tradesmanName}',
+                    sentiment: e.sentiment!,
+                  ),
+                )
+                .toList();
+
             return (vm.loading)
                 ? Column(
                     children: [
@@ -85,32 +97,7 @@ class SentimentAnalysisPage extends StatelessWidget {
                         ),
                       ),
 
-                      ListRefreshWidget(widgets: [
-                        QuickviewChatWidget(
-                            store: store,
-                            title: "Chat#001",
-                            sentiments: const {
-                              "Positive": 50,
-                              "Neutral": 25,
-                              "Negative": 25
-                            }),
-                        QuickviewChatWidget(
-                            store: store,
-                            title: "Chat#002",
-                            sentiments: const {
-                              "Positive": 20,
-                              "Neutral": 55,
-                              "Negative": 25
-                            }),
-                        QuickviewChatWidget(
-                            store: store,
-                            title: "Chat#003",
-                            sentiments: const {
-                              "Positive": 20,
-                              "Neutral": 20,
-                              "Negative": 60
-                            }),
-                      ], refreshFunction: () {})
+                      ListRefreshWidget(widgets: chats, refreshFunction: () {})
                     ],
                   );
           },
@@ -128,6 +115,7 @@ class _Factory extends VmFactory<AppState, SentimentAnalysisPage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         gloabalSentiment: state.globalSentiment,
+        chats: state.chats,
         dispatchGetUserReports: () {},
       );
 }
@@ -137,10 +125,16 @@ class _ViewModel extends Vm {
   final bool loading;
   final void Function() dispatchGetUserReports;
   final SentimentModel gloabalSentiment;
+  final List<ChatModel> chats;
 
   _ViewModel({
     required this.loading,
     required this.gloabalSentiment,
     required this.dispatchGetUserReports,
-  }) : super(equals: [loading, gloabalSentiment]); // implementinf hashcode;
+    required this.chats,
+  }) : super(equals: [
+          loading,
+          gloabalSentiment,
+          chats,
+        ]); // implementinf hashcode;
 }

@@ -8,6 +8,7 @@ import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/list_users_action.dart';
 import 'package:redux_comp/actions/admin/user_metrics/get_session_metrics_action.dart';
+import 'package:redux_comp/actions/user/sentiment/get_chats_sentiment_action.dart';
 import 'package:redux_comp/actions/user/sentiment/get_global_sentiment_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -85,7 +86,7 @@ class _UserMetricsPageState extends State<UserMetricsPage> {
                           text: "View Chat Sentiment",
                           color: "dark",
                           function: () {
-                            vm.dispatchGetGlobalSentimentAction();
+                            vm.dispatchGetSentimentAction();
                             vm.pushSentimentPage();
                           },
                         ),
@@ -134,8 +135,10 @@ class _Factory extends VmFactory<AppState, _UserMetricsPageState> {
         pushCustomMetricsPage: () {
           dispatch(NavigateAction.pushNamed('/admin/custom_metrics'));
         },
-        dispatchGetGlobalSentimentAction: () =>
-            dispatch(GetGlobalSentimentAction()),
+        dispatchGetSentimentAction: () {
+          dispatch(GetGlobalSentimentAction());
+          dispatch(GetChatsSentimentAction());
+        },
       );
 }
 
@@ -148,7 +151,7 @@ class _ViewModel extends Vm {
   final VoidCallback pushSearchUsersPage;
   final VoidCallback pushSentimentPage;
   final VoidCallback pushCustomMetricsPage;
-  final VoidCallback dispatchGetGlobalSentimentAction;
+  final VoidCallback dispatchGetSentimentAction;
 
   _ViewModel({
     required this.loading,
@@ -158,7 +161,7 @@ class _ViewModel extends Vm {
     required this.pushSearchUsersPage,
     required this.pushSentimentPage,
     required this.pushCustomMetricsPage,
-    required this.dispatchGetGlobalSentimentAction,
+    required this.dispatchGetSentimentAction,
   }) : super(equals: [
           loading,
           sessions,

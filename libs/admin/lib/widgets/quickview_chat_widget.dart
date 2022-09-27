@@ -1,30 +1,22 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:redux_comp/models/sentiment_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class QuickviewChatWidget extends StatelessWidget {
   final Store<AppState> store;
   final String title;
-  final Map<String, double> sentiments;
+  final SentimentModel sentiment;
 
   const QuickviewChatWidget({
     Key? key,
     required this.store,
     required this.title,
-    required this.sentiments,
+    required this.sentiment,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String? maxKey;
-    double maxValue = double.negativeInfinity;
-    sentiments.forEach((key, value) {
-      if (value > maxValue) {
-        maxValue = value;
-        maxKey = key;
-      }
-    });
-
     return StoreProvider<AppState>(
       store: store,
       child: StoreConnector<AppState, _ViewModel>(
@@ -66,20 +58,14 @@ class QuickviewChatWidget extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              (maxKey == "Positive")
-                                  ? Icons.sentiment_very_satisfied
-                                  : (maxKey == "Neutral")
-                                      ? Icons.sentiment_neutral
-                                      : (maxKey == "Negative")
-                                          ? Icons.sentiment_very_dissatisfied
-                                          : Icons.help_outline,
+                              sentiment.resultIcon(),
                               color: Colors.black,
                             ),
                             const Padding(padding: EdgeInsets.only(right: 5)),
                             SizedBox(
                               width: MediaQuery.of(context).size.width / 1.4,
                               child: Text(
-                                "$maxKey",
+                                sentiment.resultString(),
                                 style: const TextStyle(
                                     fontSize: 18, color: Colors.black),
                               ),
@@ -88,14 +74,10 @@ class QuickviewChatWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Icon(Icons.circle,
-                        color: (maxKey == "Positive")
-                            ? Colors.green
-                            : (maxKey == "Neutral")
-                                ? Colors.orange
-                                : (maxKey == "Negative")
-                                    ? Colors.red
-                                    : Colors.black)
+                    Icon(
+                      Icons.circle,
+                      color: sentiment.resultColor(),
+                    )
                   ],
                 ),
               ),

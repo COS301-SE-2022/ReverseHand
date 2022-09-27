@@ -16,6 +16,5 @@ exports.handler = async (event) => {
         }
     }).promise();
 
-    data.Item['id'] = 'sentiment';
     return data.Item;
 };

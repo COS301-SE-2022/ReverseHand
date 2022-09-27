@@ -1,21 +1,28 @@
 import 'dart:convert';
 
-import 'package:redux_comp/models/sentiment_model.dart';
+import 'package:redux_comp/models/chat/chat_model.dart';
 
 import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
-class GetGlobalSentimentAction extends ReduxAction<AppState> {
+class GetChatsSentimentAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      getGlobalSentiment {
-        negative
-        negative_messages
-        neutral_messages
-        positive
-        positive_messages
+      getChatsSentiment {
+        id
+        other_user_id
+        consumer_name
+        tradesman_name
+        timestamp
+        sentiment {
+          negative
+          negative_messages
+          neutral_messages
+          positive
+          positive_messages
+        }
       }
     }''';
 
@@ -23,10 +30,10 @@ class GetGlobalSentimentAction extends ReduxAction<AppState> {
 
     try {
       final response = await Amplify.API.query(request: request).response;
-      final data = jsonDecode(response.data)['getGlobalSentiment'];
+      final List<dynamic> data = jsonDecode(response.data)['getChatsSentiment'];
 
       return state.copy(
-        globalSentiment: SentimentModel.fromJson(data),
+        chats: data.map((e) => ChatModel.fromJson(e)).toList(),
       );
     } catch (e) {
       return null; /* On Error do not modify state */
