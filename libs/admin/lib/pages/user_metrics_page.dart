@@ -8,6 +8,7 @@ import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/list_users_action.dart';
 import 'package:redux_comp/actions/admin/user_metrics/get_session_metrics_action.dart';
+import 'package:redux_comp/actions/user/sentiment/get_global_sentiment_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -69,18 +70,25 @@ class _UserMetricsPageState extends State<UserMetricsPage> {
                           "Active Sessions": vm.activeSessions.toString()
                         }),
                         LineChartWidget(
-                            graphs: vm.sessions.graphs["sessions"] ?? [],
-                            chartTitle: "Sessions over the last 12 hours",
-                            xTitle: "Time",
-                            yTitle: "Count",
-                            zoomPanBehavior: _zoomingPanBehavior),
-                     
+                          graphs: vm.sessions.graphs["sessions"] ?? [],
+                          chartTitle: "Sessions over the last 12 hours",
+                          xTitle: "Time",
+                          yTitle: "Count",
+                          zoomPanBehavior: _zoomingPanBehavior,
+                        ),
+
                         ButtonWidget(
-                            text: "View Custom Metrics", function: vm.pushCustomMetricsPage),
+                          text: "View Custom Metrics",
+                          function: vm.pushCustomMetricsPage,
+                        ),
                         ButtonWidget(
-                            text: "View Chat Sentiment",
-                            color: "dark",
-                            function: vm.pushSentimentPage),
+                          text: "View Chat Sentiment",
+                          color: "dark",
+                          function: () {
+                            vm.dispatchGetGlobalSentimentAction();
+                            vm.pushSentimentPage();
+                          },
+                        ),
                         Divider(
                           height: 20,
                           thickness: 0.5,
@@ -109,23 +117,26 @@ class _Factory extends VmFactory<AppState, _UserMetricsPageState> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      loading: state.wait.isWaiting,
-      sessions: state.admin.userMetrics.sessionMetrics ??
-          const MetricsModel(period: 60, time: 3, graphs: {}),
-      refresh: (period, time) =>
-          dispatch(GetSessionMetricsAction(period: period, hoursAgo: time)),
-      activeSessions: state.admin.userMetrics.activeSessions ?? 0,
-      pushSearchUsersPage: () {
-        dispatch(NavigateAction.pushNamed('/search_users'));
-        dispatch(ListUsersAction("customer"));
-        dispatch(ListUsersAction("tradesman"));
-      },
-      pushSentimentPage: () {
-        dispatch(NavigateAction.pushNamed("/admin/sentiment"));
-      }, 
-      pushCustomMetricsPage: () {
-        dispatch(NavigateAction.pushNamed('/admin/custom_metrics'));
-      },);
+        loading: state.wait.isWaiting,
+        sessions: state.admin.userMetrics.sessionMetrics ??
+            const MetricsModel(period: 60, time: 3, graphs: {}),
+        refresh: (period, time) =>
+            dispatch(GetSessionMetricsAction(period: period, hoursAgo: time)),
+        activeSessions: state.admin.userMetrics.activeSessions ?? 0,
+        pushSearchUsersPage: () {
+          dispatch(NavigateAction.pushNamed('/search_users'));
+          dispatch(ListUsersAction("customer"));
+          dispatch(ListUsersAction("tradesman"));
+        },
+        pushSentimentPage: () {
+          dispatch(NavigateAction.pushNamed("/admin/sentiment"));
+        },
+        pushCustomMetricsPage: () {
+          dispatch(NavigateAction.pushNamed('/admin/custom_metrics'));
+        },
+        dispatchGetGlobalSentimentAction: () =>
+            dispatch(GetGlobalSentimentAction()),
+      );
 }
 
 // view model
@@ -137,6 +148,7 @@ class _ViewModel extends Vm {
   final VoidCallback pushSearchUsersPage;
   final VoidCallback pushSentimentPage;
   final VoidCallback pushCustomMetricsPage;
+  final VoidCallback dispatchGetGlobalSentimentAction;
 
   _ViewModel({
     required this.loading,
@@ -146,6 +158,7 @@ class _ViewModel extends Vm {
     required this.pushSearchUsersPage,
     required this.pushSentimentPage,
     required this.pushCustomMetricsPage,
+    required this.dispatchGetGlobalSentimentAction,
   }) : super(equals: [
           loading,
           sessions,

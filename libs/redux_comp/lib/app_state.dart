@@ -11,6 +11,7 @@ import 'package:redux_comp/models/chat/message_model.dart';
 import 'package:redux_comp/models/geolocation/coordinates_model.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/review_model.dart';
+import 'package:redux_comp/models/sentiment_model.dart';
 import 'package:redux_comp/models/user_models/notification_model.dart';
 import 'package:redux_comp/models/user_models/reset_password_model.dart';
 import 'package:redux_comp/models/user_models/statistics_model.dart';
@@ -72,6 +73,9 @@ class AppState {
 
   final Uint8List? pdfFile;
 
+  // used for the admin system to view sentiments
+  final SentimentModel globalSentiment;
+
   // constructor must only take named parameters
   const AppState({
     required this.authModel,
@@ -104,86 +108,94 @@ class AppState {
     required this.paystackPublicKey,
     required this.notifications,
     required this.pdfFile,
+    required this.globalSentiment,
   });
 
   // this methods sets the starting state for the store
   factory AppState.initial() {
     return AppState(
-      authModel: null,
-      resetPasswordModel: null,
-      userDetails: const UserModel(
-        id: "",
-        email: "",
-        userType: "",
-        externalProvider: false,
-        statistics: StatisticsModel(
-          ratingSum: 0,
-          ratingCount: 0,
-          created: 0,
-          finished: 0,
+        authModel: null,
+        resetPasswordModel: null,
+        userDetails: const UserModel(
+          id: "",
+          email: "",
+          userType: "",
+          externalProvider: false,
+          statistics: StatisticsModel(
+            ratingSum: 0,
+            ratingCount: 0,
+            created: 0,
+            finished: 0,
+          ),
+          reviews: [],
         ),
-        reviews: [],
-      ),
-      otherUserDetails: const UserModel(
-        id: "",
-        email: "",
-        userType: "",
-        externalProvider: false,
-        statistics: StatisticsModel(
-          ratingSum: 0,
-          ratingCount: 0,
-          created: 0,
-          finished: 0,
+        otherUserDetails: const UserModel(
+          id: "",
+          email: "",
+          userType: "",
+          externalProvider: false,
+          statistics: StatisticsModel(
+            ratingSum: 0,
+            ratingCount: 0,
+            created: 0,
+            finished: 0,
+          ),
+          reviews: [],
         ),
-        reviews: [],
-      ),
-      partialUser: const PartialUser(email: "", group: "", verified: ""),
-      adverts: const [],
-      archivedJobs: const [],
-      advertsWon: const [],
-      sum: 0,
-      viewAdverts: const [],
-      bidOnAdverts: const [],
-      bids: const [],
-      shortlistBids: const [],
-      viewBids: const [],
-      activeAd: const AdvertModel(
-        id: "",
-        type: "none",
-        userId: "",
-        title: "",
-        domain: Domain(
-            city: "city",
-            province: "province",
-            coordinates: Coordinates(lat: 22, lng: 21)),
-        dateCreated: 0,
-        imageCount: 0,
-      ),
-      activeBid: const BidModel(
-        id: "",
-        userId: "",
-        price: 0,
-        dateCreated: 0,
-        shortlisted: false,
-      ),
-      userBid: null,
-      locationResult: null,
-      error: ErrorType.none,
-      change: false,
-      wait: Wait(),
-      chats: const [],
-      chat: null,
-      messages: const [],
-      messageSubscription: null,
-      admin: const AdminModel(
-          adminManage: AdminAppManageModel(),
-          appMetrics: AppMetricsModel(),
-          userMetrics: UserMetricsModel()),
-      paystackPublicKey: "",
-      paystackSecretKey: "",
-      notifications: const [],
-      pdfFile: null,
-    );
+        partialUser: const PartialUser(email: "", group: "", verified: ""),
+        adverts: const [],
+        archivedJobs: const [],
+        advertsWon: const [],
+        sum: 0,
+        viewAdverts: const [],
+        bidOnAdverts: const [],
+        bids: const [],
+        shortlistBids: const [],
+        viewBids: const [],
+        activeAd: const AdvertModel(
+          id: "",
+          type: "none",
+          userId: "",
+          title: "",
+          domain: Domain(
+              city: "city",
+              province: "province",
+              coordinates: Coordinates(lat: 22, lng: 21)),
+          dateCreated: 0,
+          imageCount: 0,
+        ),
+        activeBid: const BidModel(
+          id: "",
+          userId: "",
+          price: 0,
+          dateCreated: 0,
+          shortlisted: false,
+        ),
+        userBid: null,
+        locationResult: null,
+        error: ErrorType.none,
+        change: false,
+        wait: Wait(),
+        chats: const [],
+        chat: null,
+        messages: const [],
+        messageSubscription: null,
+        admin: const AdminModel(
+            adminManage: AdminAppManageModel(),
+            appMetrics: AppMetricsModel(),
+            userMetrics: UserMetricsModel()),
+        paystackPublicKey: "",
+        paystackSecretKey: "",
+        notifications: const [],
+        pdfFile: null,
+        globalSentiment: const SentimentModel(
+          id: 'sentiment',
+          negative: 0,
+          negativeMessages: 0,
+          neutralMessages: 0,
+          positive: 0,
+          positiveMessages: 0,
+        ));
   }
 
   // easy way to replace store wihtout specifying all paramters
@@ -221,6 +233,7 @@ class AppState {
     String? paystackSecretKey,
     List<NotificationModel>? notifications,
     Uint8List? pdfFile,
+    SentimentModel? globalSentiment,
     bool makeUserBidNull = false,
   }) {
     return AppState(
@@ -254,6 +267,7 @@ class AppState {
       paystackSecretKey: paystackSecretKey ?? this.paystackSecretKey,
       notifications: notifications ?? this.notifications,
       pdfFile: pdfFile ?? this.pdfFile,
+      globalSentiment: globalSentiment ?? this.globalSentiment,
     );
   }
 }

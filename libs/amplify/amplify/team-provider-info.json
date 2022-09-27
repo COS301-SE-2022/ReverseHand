@@ -123,11 +123,11 @@
         },
         "createChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/createChatResolver-306d74447a4c69584f4a-build.zip"
+          "s3Key": "amplify-builds/createChatResolver-61356735356a71686b32-build.zip"
         },
         "sendMessageResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/sendMessageResolver-54333079495a5457344d-build.zip"
+          "s3Key": "amplify-builds/sendMessageResolver-417045436c3750794473-build.zip"
         },
         "deleteChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -255,7 +255,7 @@
         },
         "getGlobalSentimentResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getGlobalSentimentResolver-55494647764e6b316451-build.zip"
+          "s3Key": "amplify-builds/getGlobalSentimentResolver-77767250706f70524179-build.zip"
         }
       }
     }

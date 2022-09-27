@@ -424,10 +424,10 @@ type PayStackKeys {
 type Sentiment implements UniqueID {
   id: String!
   negative: Float!
-  negativeMessages: Int!
-  neutralMessages: Int!
+  negative_messages: Int!
+  neutral_messages: Int!
   positive: Float!
-  positiveMessages: Int!
+  positive_messages: Int!
 }
 
 # add more jobs here as we think of them

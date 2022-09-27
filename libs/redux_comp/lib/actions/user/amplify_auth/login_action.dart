@@ -21,7 +21,7 @@ class LoginAction extends ReduxAction<AppState> {
     try {
       // await Amplify.Auth.signOut();
 
-      /*SignInResult res =  */await Amplify.Auth.signIn(
+      /*SignInResult res =  */ await Amplify.Auth.signIn(
         username: email,
         password: password,
       );
@@ -34,7 +34,8 @@ class LoginAction extends ReduxAction<AppState> {
         case "User is not confirmed.":
           dispatch(ResendVerificationOtpAction(email));
           return state.copy(
-            partialUser: PartialUser(email: email, group: "", verified: "", password: password),
+            partialUser: PartialUser(
+                email: email, group: "", verified: "", password: password),
             error: ErrorType.userNotVerified,
           );
         case "Username is required to signIn":
