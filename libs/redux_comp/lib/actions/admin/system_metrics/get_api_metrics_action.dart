@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/actions/admin/helper_functions/build_data.dart';
+import 'package:redux_comp/actions/admin/helper_functions/build_line_data.dart';
 import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 

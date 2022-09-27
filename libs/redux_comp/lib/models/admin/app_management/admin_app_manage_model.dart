@@ -29,12 +29,13 @@ class AdminAppManageModel {
    AdminUserModel? activeUser,
    List<ReportModel>? reviewReports,
    List<ReportModel>? userReports,
-   List<ReportedAdvertModel>? advertReports
+   List<ReportedAdvertModel>? advertReports,
+   bool makeActiveUserNull = false
   }) {
     return AdminAppManageModel(
       customers: customers ?? this.customers,
       tradesman: tradesman ?? this.tradesman,
-      activeUser: activeUser ?? this.activeUser,
+      activeUser: (makeActiveUserNull) ? null : activeUser ?? this.activeUser,
       reviewReports: reviewReports ?? this.reviewReports,
       userReports: userReports ?? this.userReports,
       advertReports: advertReports ?? this.advertReports

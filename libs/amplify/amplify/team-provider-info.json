@@ -205,10 +205,6 @@
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getMessagesResolver-57796251456e5061644c-build.zip"
         },
-        "getDashboardMetricsResolver": {
-          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getDashboardMetricsResolver-59366f62594f45784763-build.zip"
-        },
         "getBidOnAdvertsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getBidOnAdvertsResolver-54616a66713955466452-build.zip"
