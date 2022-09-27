@@ -339,11 +339,6 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "getDashboardMetricsResolver": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "getBidOnAdvertsResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -390,6 +385,16 @@
       "service": "Lambda"
     },
     "enableUserResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getGlobalSentimentResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "listMetricsResolver": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

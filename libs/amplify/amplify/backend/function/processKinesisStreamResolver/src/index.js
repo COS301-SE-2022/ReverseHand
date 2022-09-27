@@ -27,13 +27,21 @@ exports.handler = async (event) => {
                     MetricName: payload.event_type,
                     Dimensions: [
                         {
-                            Name: "Province",
-                            Value: payload.attributes.province
-                        },
-                        {
                             Name: "City",
                             Value: payload.attributes.city
-                        },
+                        }
+                    ],
+                    Unit: "Count",
+                    Value: 1.0
+                });
+                params.MetricData.push({
+                    MetricName: payload.event_type,
+                    Dimensions: [
+                        {
+                            Name: "Job_Type",
+                            Value: payload.attributes.job_type
+                        }
+                        
                     ],
                     Unit: "Count",
                     Value: 1.0
@@ -62,6 +70,13 @@ exports.handler = async (event) => {
                             Name: "Amount",
                             Value: range
                         },
+                    ],
+                    Unit: "Count",
+                    Value: 1.0
+                });
+                params.MetricData.push({
+                    MetricName: payload.event_type,
+                    Dimensions: [
                         {
                             Name: "Job_Type",
                             Value: payload.attributes.job_type

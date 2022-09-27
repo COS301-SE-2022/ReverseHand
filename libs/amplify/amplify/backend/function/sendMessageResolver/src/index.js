@@ -18,7 +18,7 @@ exports.handler = async (event) => {
     if (event.arguments.sentiment < 0) {
         updateExpression = 'SET #messages = #messages + :one, #kind = #kind + :val';
         expressionAttributeNames = {
-            '#messages': 'negativeMessages',
+            '#messages': 'negative_messages',
             '#kind': 'negative',
         };
         expressionAttributeValues = {
@@ -28,7 +28,7 @@ exports.handler = async (event) => {
     } else if (event.arguments.sentiment > 0) {
         updateExpression = 'SET #messages = #messages + :one, #kind = #kind + :val';
         expressionAttributeNames = {
-            '#messages': 'positiveMessages',
+            '#messages': 'positive_messages',
             '#kind': 'positive',
         };
         expressionAttributeValues = {
@@ -38,7 +38,7 @@ exports.handler = async (event) => {
     } else {
         updateExpression = 'SET #messages = #messages + :one';
         expressionAttributeNames = {
-            '#messages': 'neutralMessages',
+            '#messages': 'neutral_messages',
         };
         expressionAttributeValues = {
             ':one': 1,

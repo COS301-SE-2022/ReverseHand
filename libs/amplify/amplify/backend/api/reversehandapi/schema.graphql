@@ -45,6 +45,9 @@ type Query {
   getMetrics(params: String!): String!
     @function(name: "getMetricsResolver-${env}") 
 
+  listMetrics(params: String!): String!
+    @function(name: "listMetricsResolver-${env}") 
+
   getBidOnAdverts(tradesman_id: String!, archived: Boolean): [Advert!]!
     @function(name: "getBidOnAdvertsResolver-${env}")
 
@@ -56,6 +59,9 @@ type Query {
 
   getUserReviews(user_id: String!): [Review!]!
     @function(name: "getUserReviewsResolver-${env}")
+
+  getGlobalSentiment: Sentiment!
+  @function(name: "getGlobalSentimentResolver-${env}")
 }
 
 type Mutation {
@@ -416,6 +422,15 @@ type AdminUser implements UniqueID {
 type PayStackKeys {
   secret_key: String!
   public_key: String!
+}
+
+type Sentiment implements UniqueID {
+  id: String!
+  negative: Float!
+  negative_messages: Int!
+  neutral_messages: Int!
+  positive: Float!
+  positive_messages: Int!
 }
 
 # add more jobs here as we think of them
