@@ -14,11 +14,16 @@ exports.handler = async (event) => {
 
     let updateExpression;
     let expressionAttributeNames;
+    let expressionAttributeValues;
     if (event.arguments.sentiment < 0) {
         updateExpression = 'SET #messages = #messages + :one, #kind = #kind + :val';
         expressionAttributeNames = {
             '#messages': 'negativeMessages',
             '#kind': 'negative',
+        };
+        expressionAttributeValues = {
+            ':val': event.arguments.sentiment,
+            ':one': 1,
         };
     } else if (event.arguments.sentiment > 0) {
         updateExpression = 'SET #messages = #messages + :one, #kind = #kind + :val';
@@ -26,10 +31,17 @@ exports.handler = async (event) => {
             '#messages': 'positiveMessages',
             '#kind': 'positive',
         };
+        expressionAttributeValues = {
+            ':val': event.arguments.sentiment,
+            ':one': 1,
+        };
     } else {
         updateExpression = 'SET #messages = #messages + :one';
         expressionAttributeNames = {
             '#messages': 'neutralMessages',
+        };
+        expressionAttributeValues = {
+            ':one': 1,
         };
     }
 
@@ -57,10 +69,7 @@ exports.handler = async (event) => {
                         sort_key: 'sentiment',
                     },
                     UpdateExpression: updateExpression,
-                    ExpressionAttributeValues: {
-                        ':val': event.arguments.sentiment,
-                        ':one': 1,
-                    },
+                    ExpressionAttributeValues: expressionAttributeValues,
                     ExpressionAttributeNames: expressionAttributeNames,
                 },
             },
@@ -74,10 +83,7 @@ exports.handler = async (event) => {
                     },
                     ExpressionAttributeNames: expressionAttributeNames,
                     UpdateExpression: updateExpression,
-                    ExpressionAttributeValues: {
-                        ':val': event.arguments.sentiment,
-                        ':one': 1,
-                    },
+                    ExpressionAttributeValues: expressionAttributeValues,
                 },
             },
             {
@@ -89,10 +95,7 @@ exports.handler = async (event) => {
                     },
                     ExpressionAttributeNames: expressionAttributeNames,
                     UpdateExpression: updateExpression,
-                    ExpressionAttributeValues: {
-                        ':val': event.arguments.sentiment,
-                        ':one': 1,
-                    },
+                    ExpressionAttributeValues: expressionAttributeValues,
                 }
             }
         ]

@@ -56,6 +56,9 @@ type Query {
 
   getUserReviews(user_id: String!): [Review!]!
     @function(name: "getUserReviewsResolver-${env}")
+
+  getGlobalSentiment: Sentiment!
+  @function(name: "getGlobalSentimentResolver-${env}")
 }
 
 type Mutation {
@@ -416,6 +419,15 @@ type AdminUser implements UniqueID {
 type PayStackKeys {
   secret_key: String!
   public_key: String!
+}
+
+type Sentiment implements UniqueID {
+  id: String!
+  negative: Float!
+  negativeMessages: Int!
+  neutralMessages: Int!
+  positive: Float!
+  positiveMessages: Int!
 }
 
 # add more jobs here as we think of them
