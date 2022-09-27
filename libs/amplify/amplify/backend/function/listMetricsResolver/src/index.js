@@ -10,20 +10,15 @@ exports.handler = async (event) => {
     let params = JSON.parse(event.arguments.params);
 
     let resp = await cloudWatch.listMetrics(params).promise().then(resp => resp);
-    // let data = resp.MetricDataResults;
+    let data = resp.Metrics;
 
-    // while (resp.NextToken != undefined) {
-    //     params.NextToken = resp.NextToken;
-    //     resp = await cloudWatch.getMetricData(params).promise();
-    //     data.StatusCode = resp.MetricDataResults.StatusCode;
-    //     for (var i = 0; i < data.length; i++) {
-    //         data[i].Timestamps = [...data[i].Timestamps, ...resp.MetricDataResults[i].Timestamps];
-    //         data[i].Values = [...data[i].Values, ...resp.MetricDataResults[i].Values];
-    //     }
+    while (resp.NextToken != undefined) {
+        params.NextToken = resp.NextToken;
+        resp = await cloudWatch.listMetrics(params).promise().then(resp => resp);
+        data = [...data, ...resp.Metrics];
+    }
 
-    // }
-
-    console.log("resp=", resp);
-    return JSON.stringify(resp);
+    console.log("data=", data);
+    return JSON.stringify(data);
 };
 

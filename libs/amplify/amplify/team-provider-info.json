@@ -262,7 +262,7 @@
         },
         "listMetricsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/listMetricsResolver-45516e6138595951654c-build.zip"
+          "s3Key": "amplify-builds/listMetricsResolver-6731714a6c4d3855416d-build.zip"
         }
       }
     }
