@@ -25,7 +25,6 @@ import 'package:consumer/pages/edit_advert_page.dart';
 import 'package:consumer/pages/view_bids_page.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:tradesman/pages/bid_details_page.dart';
 import 'package:tradesman/pages/domain_confirmation_page.dart';
 import 'package:tradesman/pages/edit_bid_page.dart';
 import 'package:tradesman/pages/edit_profile_page.dart';
@@ -104,8 +103,6 @@ class Launch extends StatelessWidget {
           '/tradesman/profile': (context) => TradesmanProfilePage(store: store),
           '/tradesman/view_bids_page': (context) =>
               TradesmanViewBidsPage(store: store),
-          '/tradesman/advert_details/bid_details': (context) =>
-              TBidDetailsPage(store: store),
           '/tradesman/edit_bid': (context) => TEditBidPage(store: store),
           '/geolocation/location_confirm': (context) =>
               LocationConfirmPage(store: store),

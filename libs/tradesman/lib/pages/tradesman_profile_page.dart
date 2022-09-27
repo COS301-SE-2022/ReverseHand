@@ -491,7 +491,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
 
                     const ProfileDividerWidget(),
 
-                    //**********TEMP LOGOUT BUTTON********/
+                    //**********LOGOUT BUTTON********/
                     IconButton(
                       icon: const Icon(
                         Icons.logout,
