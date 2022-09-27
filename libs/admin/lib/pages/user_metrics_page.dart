@@ -126,7 +126,7 @@ class _Factory extends VmFactory<AppState, _UserMetricsPageState> {
       }, 
       pushCustomMetricsPage: () {
         dispatch(NavigateAction.pushNamed('/admin/custom_metrics'));
-        dispatch(GetPlaceBidMetricsAction());
+        dispatch(GetPlaceBidMetricsAction(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)));
       },);
 }
 

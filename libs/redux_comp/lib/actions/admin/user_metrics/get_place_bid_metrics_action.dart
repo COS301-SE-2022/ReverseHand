@@ -12,12 +12,16 @@ import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
 class GetPlaceBidMetricsAction extends ReduxAction<AppState> {
+  final DateTime time;
+
+  GetPlaceBidMetricsAction(this.time);
+
   @override
   Future<AppState?> reduce() async {
     await dispatch(
         ListMetricsAction(metric: "PlaceBid", dimensionNames: ["Job_Type"]));
-    DateTime end = DateTime.now().subtract(const Duration(hours: 2));
-    DateTime start = end.subtract(const Duration(hours: 24));
+    DateTime start = time;
+    DateTime end = start.add(const Duration(hours: 24));
     debugPrint("${end.toIso8601String()}Z ${start.toIso8601String()}Z");
 
     List<DimensionsModel> dimensions = state.admin.userMetrics.dimensions ?? [];
