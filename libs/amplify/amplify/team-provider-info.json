@@ -256,6 +256,14 @@
         "getGlobalSentimentResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/getGlobalSentimentResolver-77767250706f70524179-build.zip"
+        },
+        "listMetricsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/listMetricsResolver-6731714a6c4d3855416d-build.zip"
+        },
+        "getChatsSentimentResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getChatsSentimentResolver-78667a59634d50705944-build.zip"
         }
       }
     }

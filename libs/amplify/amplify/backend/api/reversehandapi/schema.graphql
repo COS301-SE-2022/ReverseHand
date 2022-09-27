@@ -45,6 +45,9 @@ type Query {
   getMetrics(params: String!): String!
     @function(name: "getMetricsResolver-${env}") 
 
+  listMetrics(params: String!): String!
+    @function(name: "listMetricsResolver-${env}") 
+
   getBidOnAdverts(tradesman_id: String!, archived: Boolean): [Advert!]!
     @function(name: "getBidOnAdvertsResolver-${env}")
 
@@ -59,6 +62,9 @@ type Query {
 
   getGlobalSentiment: Sentiment!
   @function(name: "getGlobalSentimentResolver-${env}")
+
+  getChatsSentiment: [Chat!]!
+  @function(name: "getChatsSentimentResolver-${env}")
 }
 
 type Mutation {
@@ -230,6 +236,12 @@ type Chat implements UniqueID {
   consumer_name: String!
   tradesman_name: String!
   timestamp: Float!
+  # for sentiments
+  negative: Float!
+  negative_messages: Int!
+  neutral_messages: Int!
+  positive: Float!
+  positive_messages: Int!
 }
 
 type Message implements UniqueID {
