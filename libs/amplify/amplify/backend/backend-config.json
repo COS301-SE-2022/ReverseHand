@@ -6,12 +6,6 @@
       "providerPlugin": "awscloudformation",
       "dependsOn": []
     },
-    "User": {
-      "service": "DynamoDB",
-      "serviceType": "imported",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
-    },
     "S3ReverseHand": {
       "service": "S3",
       "providerPlugin": "awscloudformation",

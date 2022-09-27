@@ -32,7 +32,7 @@ exports.handler = async (event) => {
                         },
                         {
                             Name: "City",
-                            Value: payload.attributes.province
+                            Value: payload.attributes.city
                         },
                     ],
                     Unit: "Count",
@@ -40,6 +40,17 @@ exports.handler = async (event) => {
                 });
                 break;
             case 'PlaceBid':
+                let amount = payload.metrics.amount / 100;
+                let range =
+                    (amount <= 500) ?
+                        "amount <= 500" :
+                        (amount > 500 && amount <= 2500) ?
+                            "500 < amount <= 2500" :
+                            (amount > 2500 && amount <= 10000) ?
+                                "2500 < amount <= 10000" :
+                                (amount > 10000) ?
+                                    "amount > 10000" : "N/A";
+
                 params = {
                     MetricData: [],
                     Namespace: "CustomEvents"
@@ -49,17 +60,17 @@ exports.handler = async (event) => {
                     Dimensions: [
                         {
                             Name: "Amount",
-                            Value: payload.attributes.amount
+                            Value: range
                         },
                         {
-                            Name: "job_type",
-                            Value: payload.attributes.type
+                            Name: "Job_Type",
+                            Value: payload.attributes.job_type
                         },
                     ],
                     Unit: "Count",
                     Value: 1.0
                 });
-                break;   
+                break;
             case '_session.start':
                 params = {
                     MetricData: [],
@@ -88,10 +99,10 @@ exports.handler = async (event) => {
     });
 
     if (params != undefined) {
-        console.log("params:\n" + params);
+        console.log("params: ", params);
         const data = await cloudWatch.putMetricData(params).promise();
         console.log("Submitted to CloudWatch");
-        console.log("data:\n" + data);
+        console.log("data: ", data);
         return data;
     } else return null;
 
