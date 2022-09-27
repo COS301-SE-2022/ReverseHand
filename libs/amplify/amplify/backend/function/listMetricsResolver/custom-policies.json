@@ -1,0 +1,6 @@
+[
+  {
+    "Action": ["cloudwatch:ListMetrics"],
+    "Resource": ["*"]
+  }
+]

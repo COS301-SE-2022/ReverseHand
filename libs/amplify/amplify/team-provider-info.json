@@ -123,11 +123,11 @@
         },
         "createChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/createChatResolver-576e30574d53626c5162-build.zip"
+          "s3Key": "amplify-builds/createChatResolver-61356735356a71686b32-build.zip"
         },
         "sendMessageResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/sendMessageResolver-475272456a4d61495464-build.zip"
+          "s3Key": "amplify-builds/sendMessageResolver-417045436c3750794473-build.zip"
         },
         "deleteChatResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -223,7 +223,7 @@
         },
         "getMetricsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getMetricsResolver-72327a657a7a5a434b34-build.zip"
+          "s3Key": "amplify-builds/getMetricsResolver-2f6d4f62514251717359-build.zip"
         },
         "listUsersResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -243,7 +243,7 @@
         },
         "processKinesisStreamResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/processKinesisStreamResolver-4351426844336b797870-build.zip"
+          "s3Key": "amplify-builds/processKinesisStreamResolver-4459757a525457413064-build.zip"
         },
         "disableUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
@@ -252,6 +252,18 @@
         "enableUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/enableUserResolver-574d447a756641714352-build.zip"
+        },
+        "getGlobalSentimentResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getGlobalSentimentResolver-63574e4d70507252412b-build.zip"
+        },
+        "listMetricsResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/listMetricsResolver-6731714a6c4d3855416d-build.zip"
+        },
+        "getChatsSentimentResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getChatsSentimentResolver-33754e59375a2f537a32-build.zip"
         }
       }
     }
