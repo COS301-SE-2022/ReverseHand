@@ -1,9 +1,10 @@
-import 'package:admin/widgets/doughnut_chart_widget.dart';
 import 'package:admin/widgets/drop_down_options_widget.dart';
+import 'package:admin/widgets/grouped_doughnut_chart_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/admin/user_metrics/get_bid_amount_metrics_action.dart';
 import 'package:redux_comp/actions/admin/user_metrics/get_place_bid_metrics_action.dart';
 import 'package:redux_comp/models/admin/user_metrics/chart_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -18,7 +19,8 @@ class CustomMetricsPage extends StatefulWidget {
 }
 
 class _CustomMetricsPageState extends State<CustomMetricsPage> {
-  DateTime date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime date =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   String currentEvent = "Create Advert";
 
   @override
@@ -77,58 +79,65 @@ class _CustomMetricsPageState extends State<CustomMetricsPage> {
                               },
                               currentItem: currentEvent,
                             ),
-                            GestureDetector(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 40),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              padding: const EdgeInsets.all(5),
+                              margin: const EdgeInsets.only(left: 45),
+                              child: GestureDetector(
                                 child: Text(
                                     date.toIso8601String().substring(0, 10),
                                     style: const TextStyle(
                                       fontSize: 15,
-                                      color: Colors.orangeAccent,
+                                      color: Colors.black,
                                     )),
-                              ),
-                              onTap: () async {
-                                DateTime? pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: date,
-                                  firstDate: DateTime(2020),
-                                  lastDate: DateTime(2100),
-                                  builder: (context, child) {
-                                    return Theme(
-                                      data: Theme.of(context).copyWith(
-                                        colorScheme: ColorScheme.light(
-                                          primary:
-                                              Theme.of(context).primaryColor,
-                                          onPrimary: Colors.black,
-                                          onSurface: Colors.black,
-                                        ),
-                                        textButtonTheme: TextButtonThemeData(
-                                          style: TextButton.styleFrom(
-                                            foregroundColor: Colors
-                                                .black, // button text color
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: date,
+                                    firstDate: DateTime(2020),
+                                    lastDate: DateTime(2100),
+                                    builder: (context, child) {
+                                      return Theme(
+                                        data: Theme.of(context).copyWith(
+                                          colorScheme: ColorScheme.light(
+                                            primary:
+                                                Theme.of(context).primaryColor,
+                                            onPrimary: Colors.black,
+                                            onSurface: Colors.black,
+                                          ),
+                                          textButtonTheme: TextButtonThemeData(
+                                            style: TextButton.styleFrom(
+                                              foregroundColor: Colors
+                                                  .black, // button text color
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      child: child!,
-                                    );
-                                  },
-                                );
+                                        child: child!,
+                                      );
+                                    },
+                                  );
 
-                                setState(() {
-                                  date = pickedDate ??
-                                      DateTime
-                                          .now(); //set output date to TextField value.
-                                });
-                                vm.refresh(currentEvent, date);
-                              },
+                                  setState(() {
+                                    date = pickedDate ??
+                                        DateTime
+                                            .now(); //set output date to TextField value.
+                                  });
+                                  vm.refresh(currentEvent, date);
+                                },
+                              ),
                             )
                           ],
                         ),
-                        (currentEvent == "Create Advert")
-                            ? Container()
-                            : DoughnutChartWidget(graphs: [
-                                vm.placeBidMetrics.graphs["bidsByType"] ?? []
-                              ], chartTitle: "Job Type"),
+                        if (currentEvent == "Create Advert")
+                        Container()
+                        else if (currentEvent == "Place Bid")
+                          GroupedDoughnutChartWidget(graphs: {
+                            "Job Type" : vm.placeBidMetrics.graphs["bidsByType"] ?? [],
+                            "Amount placed for bid" : vm.placeBidMetrics.graphs["bidsByAmount"] ?? [],
+
+                          })
                       ],
                     ),
                   );
@@ -147,13 +156,12 @@ class _Factory extends VmFactory<AppState, _CustomMetricsPageState> {
   _ViewModel fromStore() => _ViewModel(
       loading: state.wait.isWaiting,
       placeBidMetrics: state.admin.userMetrics.placeBidMetrics ??
-          ChartModel(graphs: const {}, time: DateTime.now()),
+          const ChartModel(graphs: {}),
       refresh: (event, time) {
-        (event == "Place Bid")
-            ? dispatch(GetPlaceBidMetricsAction(time))
-            : (event == "Create Advert")
-                ? () {}
-                : () {};
+        if (event == "Place Bid") {
+          dispatch(GetPlaceBidMetricsAction(time));
+          dispatch(GetBidAmountMetricsAction(time));
+        } else if (event == "Create Advert") {}
       });
 }
 

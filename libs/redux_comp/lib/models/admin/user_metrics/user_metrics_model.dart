@@ -7,28 +7,26 @@ import 'package:redux_comp/models/admin/user_metrics/dimensions_model.dart';
 class UserMetricsModel {
   final MetricsModel? sessionMetrics;
   final int? activeSessions;
-  final List<DimensionsModel>? dimensions;
   final ChartModel? placeBidMetrics;
+  final Map<String, List<DimensionsModel>>? dimensions;
 
-
-  const UserMetricsModel({
-    this.sessionMetrics,
-    this.activeSessions,
-    this.dimensions,
-    this.placeBidMetrics,
-  });
+  const UserMetricsModel(
+      {this.sessionMetrics,
+      this.activeSessions,
+      this.placeBidMetrics,
+      this.dimensions});
 
   UserMetricsModel copy({
     MetricsModel? sessionMetrics,
     int? activeSessions,
-    List<DimensionsModel>? dimensions,
     ChartModel? placeBidMetrics,
+    Map<String, List<DimensionsModel>>? dimensions,
   }) {
     return UserMetricsModel(
       sessionMetrics: sessionMetrics ?? this.sessionMetrics,
       activeSessions: activeSessions ?? this.activeSessions,
-            dimensions:dimensions ?? this.dimensions,
       placeBidMetrics: placeBidMetrics ?? this.placeBidMetrics,
+      dimensions: dimensions ?? this.dimensions,
     );
   }
 }

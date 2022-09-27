@@ -47,10 +47,17 @@ class ListMetricsAction extends ReduxAction<AppState> {
           }
         }
 
+        Map<String, List<DimensionsModel>> mapDimensions =
+            state.admin.userMetrics.dimensions ?? {};
+
+        for (var name in dimensionNames) {
+          mapDimensions.addEntries([MapEntry(name, dimensionModels)]);
+        }
+
         return state.copy(
           admin: state.admin.copy(
             userMetrics: state.admin.userMetrics.copy(
-              dimensions: dimensionModels,
+              dimensions: mapDimensions,
             ),
           ),
         );

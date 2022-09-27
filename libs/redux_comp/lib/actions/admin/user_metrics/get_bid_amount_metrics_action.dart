@@ -11,20 +11,19 @@ import 'package:redux_comp/models/admin/user_metrics/pie_chart_model.dart';
 import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
-class GetPlaceBidMetricsAction extends ReduxAction<AppState> {
+class GetBidAmountMetricsAction extends ReduxAction<AppState> {
   final DateTime time;
 
-  GetPlaceBidMetricsAction(this.time);
+  GetBidAmountMetricsAction(this.time);
 
   @override
   Future<AppState?> reduce() async {
     await dispatch(
-        ListMetricsAction(metric: "PlaceBid", dimensionNames: ["Job_Type"]));
+        ListMetricsAction(metric: "PlaceBid", dimensionNames: ["Amount"]));
     DateTime start = time;
     DateTime end = start.add(const Duration(hours: 24));
-    debugPrint("${end.toIso8601String()}Z ${start.toIso8601String()}Z");
 
-    List<DimensionsModel> dimensions = state.admin.userMetrics.dimensions?["Job_Type"] ?? [];
+    List<DimensionsModel> dimensions = state.admin.userMetrics.dimensions?["Amount"] ?? [];
     List<dynamic> queries = buildDimensionsQuery(dimensions, "PlaceBid");
 
     var params = {
@@ -61,7 +60,7 @@ class GetPlaceBidMetricsAction extends ReduxAction<AppState> {
       graphs.addEntries(
         [
           MapEntry(
-            "bidsByType", //key
+            "bidsByAmount", //key
             bidsPlacedByType,
           ),
         ],
@@ -88,4 +87,3 @@ class GetPlaceBidMetricsAction extends ReduxAction<AppState> {
     }
   }
 }
-// "{\"EndTime\":\"2022-09-27T10:38:17.845107Z\",\"MetricDataQueries\":[{\"Id\":\"placeBidPlumbing\",\"MetricStat\":{\"Metric\":{\"Dimensions\":[{\"Name\":\"Job_Type\",\"Value\":\"Plumbing\"}],\"MetricName\":\"PlaceBid\",\"Namespace\":\"CustomEvents\"},\"Period\":\"60\",\"Stat\":\"Sum\"},\"ReturnData\":true},{\"Id\":\"placeBidPlumbing\",\"MetricStat\":{\"Metric\":{\"Dimensions\":[{\"Name\":\"Job_Type\",\"Value\":\"Plumbing\"}],\"MetricName\":\"PlaceBid\",\"Namespace\":\"CustomEvents\"},\"Period\":\"60\",\"Stat\":\"Sum\"},\"ReturnData\":true},{\"Id\":\"placeBidPainting\",\"MetricStat\":{\"Metric\":{\"Dimensions\":[{\"Name\":\"Job_Type\",\"Value\":\"Painting\"}],\"MetricName\":\"PlaceBid\",\"Namespace\":\"CustomEvents\"},\"Period\":\"60\",\"Stat\":\"Sum\"},\"ReturnData\":true},{\"Id\":\"placeBidPainting\",\"MetricStat\":{\"Metric\":{\"Dimensions\":[{\"Name\":\"Job_Type\",\"Value\":\"Painting\"}],\"MetricName\":\"PlaceBid\",\"Namespace\":\"CustomEvents\"},\"Period\":\"60\",\"Stat\":\"Sum\"},\"ReturnData\":true}],\"StartTime\":\"2022-09-27T07:38:17.845107Z\",\"LabelOptions\":{\"Timezone\":\"+0200\"},\"ScanBy\":\"TimestampAscending\"}"
