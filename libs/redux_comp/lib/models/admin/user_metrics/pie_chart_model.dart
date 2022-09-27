@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 @immutable
 class PieChartModel {
   final String label;
-  final int value;
+  final num value;
   final Color? color;
  
 

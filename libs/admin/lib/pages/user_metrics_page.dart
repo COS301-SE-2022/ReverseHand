@@ -7,6 +7,7 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/list_users_action.dart';
+import 'package:redux_comp/actions/admin/user_metrics/get_place_bid_metrics_action.dart';
 import 'package:redux_comp/actions/admin/user_metrics/get_session_metrics_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -125,6 +126,7 @@ class _Factory extends VmFactory<AppState, _UserMetricsPageState> {
       }, 
       pushCustomMetricsPage: () {
         dispatch(NavigateAction.pushNamed('/admin/custom_metrics'));
+        dispatch(GetPlaceBidMetricsAction());
       },);
 }
 
@@ -152,3 +154,4 @@ class _ViewModel extends Vm {
           activeSessions
         ]); // implementinf hashcode;
 }
+
