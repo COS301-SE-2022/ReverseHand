@@ -23,6 +23,10 @@ class SentimentModel {
         (positiveMessages + negativeMessages + neutralMessages);
   }
 
+  int totalMessages() {
+    return positiveMessages + negativeMessages + neutralMessages;
+  }
+
   factory SentimentModel.fromJson(Map<String, dynamic> obj) {
     return SentimentModel(
       id: obj['id'],

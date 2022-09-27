@@ -58,13 +58,13 @@ class SentimentAnalysisPage extends StatelessWidget {
 
                       TextRowWidget(textValMap: {
                         "Overall Sentiment":
-                            vm.gloabalSentiment.overallSentiment().toString(),
-                        "Postive Messages":
-                            vm.gloabalSentiment.positiveMessages.toString(),
+                            "${vm.gloabalSentiment.overallSentiment().toString()} (${vm.gloabalSentiment.totalMessages()})",
+                        "Postive":
+                            "${vm.gloabalSentiment.positive} (${vm.gloabalSentiment.positiveMessages.toString()})",
+                        "Negative":
+                            "${vm.gloabalSentiment.negative} (${vm.gloabalSentiment.negativeMessages.toString()})",
                         "Neutral Messages":
-                            vm.gloabalSentiment.neutralMessages.toString(),
-                        "Negative Messages":
-                            vm.gloabalSentiment.negativeMessages.toString(),
+                            vm.gloabalSentiment.positiveMessages.toString(),
                       }),
                       Divider(
                         height: 20,
