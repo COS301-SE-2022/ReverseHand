@@ -62,6 +62,9 @@ type Query {
 
   getGlobalSentiment: Sentiment!
   @function(name: "getGlobalSentimentResolver-${env}")
+
+  getChatsSentiment: [Chat!]!
+  @function(name: "getChatsSentimentResolver-${env}")
 }
 
 type Mutation {
@@ -233,6 +236,8 @@ type Chat implements UniqueID {
   consumer_name: String!
   tradesman_name: String!
   timestamp: Float!
+  # for sentiments
+  sentiment: Sentiment
 }
 
 type Message implements UniqueID {
@@ -241,6 +246,7 @@ type Message implements UniqueID {
   msg: String!
   sender: String!
   timestamp: Float!
+  sentiment: Float!
 }
 
 type Location {
@@ -424,8 +430,7 @@ type PayStackKeys {
   public_key: String!
 }
 
-type Sentiment implements UniqueID {
-  id: String!
+type Sentiment {
   negative: Float!
   negative_messages: Int!
   neutral_messages: Int!

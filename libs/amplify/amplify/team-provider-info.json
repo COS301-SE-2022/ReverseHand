@@ -33,13 +33,6 @@
           "sortKeyName": "sort_key",
           "sortKeyType": "S"
         },
-        "User": {
-          "tableName": "User",
-          "region": "eu-west-1",
-          "arn": "arn:aws:dynamodb:eu-west-1:727515863527:table/User",
-          "partitionKeyName": "user_id",
-          "partitionKeyType": "S"
-        },
         "ArchivedReverseHand": {
           "tableName": "ArchivedReverseHand",
           "region": "eu-west-1",
@@ -258,11 +251,15 @@
         },
         "getGlobalSentimentResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/getGlobalSentimentResolver-77767250706f70524179-build.zip"
+          "s3Key": "amplify-builds/getGlobalSentimentResolver-63574e4d70507252412b-build.zip"
         },
         "listMetricsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
           "s3Key": "amplify-builds/listMetricsResolver-6731714a6c4d3855416d-build.zip"
+        },
+        "getChatsSentimentResolver": {
+          "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
+          "s3Key": "amplify-builds/getChatsSentimentResolver-33754e59375a2f537a32-build.zip"
         }
       }
     }
