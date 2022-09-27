@@ -179,12 +179,7 @@
               "Resource": [
                 "*"
               ],
-              "Effect": "Allow",
-              "Condition": {
-                "StringEquals": {
-                    "cloudwatch:namespace": "CustomEvents"
-                }
-            }
+              "Effect": "Allow"
             }
           ]
         },
