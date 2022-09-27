@@ -246,6 +246,7 @@ type Message implements UniqueID {
   msg: String!
   sender: String!
   timestamp: Float!
+  sentiment: Float!
 }
 
 type Location {

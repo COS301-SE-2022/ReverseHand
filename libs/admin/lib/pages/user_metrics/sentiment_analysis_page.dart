@@ -32,8 +32,7 @@ class SentimentAnalysisPage extends StatelessWidget {
                 .map(
                   (e) => QuickviewChatWidget(
                     store: store,
-                    title: '${e.consumerName} - ${e.tradesmanName}',
-                    sentiment: e.sentiment!,
+                    chat: e,
                   ),
                 )
                 .toList();
@@ -70,7 +69,7 @@ class SentimentAnalysisPage extends StatelessWidget {
 
                       TextRowWidget(textValMap: {
                         "Overall Sentiment":
-                            "${vm.gloabalSentiment.overallSentiment().toString()} (${vm.gloabalSentiment.totalMessages()})",
+                            "${vm.gloabalSentiment.overallSentiment().toStringAsFixed(2)} (${vm.gloabalSentiment.totalMessages()})",
                         "Postive":
                             "${vm.gloabalSentiment.positive} (${vm.gloabalSentiment.positiveMessages.toString()})",
                         "Negative":

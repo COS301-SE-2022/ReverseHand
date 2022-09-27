@@ -1,18 +1,17 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_comp/models/sentiment_model.dart';
+import 'package:redux_comp/actions/chat/get_messages_action.dart';
+import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class QuickviewChatWidget extends StatelessWidget {
   final Store<AppState> store;
-  final String title;
-  final SentimentModel sentiment;
+  final ChatModel chat;
 
   const QuickviewChatWidget({
     Key? key,
     required this.store,
-    required this.title,
-    required this.sentiment,
+    required this.chat,
   }) : super(key: key);
 
   @override
@@ -23,7 +22,7 @@ class QuickviewChatWidget extends StatelessWidget {
         vm: () => _Factory(this),
         builder: (BuildContext context, _ViewModel vm) {
           return InkWell(
-            onTap: () {},
+            onTap: () => vm.dispatchGetMessagesAction(chat),
             child: Card(
               margin: const EdgeInsets.all(12),
               color: Colors.white,
@@ -48,9 +47,11 @@ class QuickviewChatWidget extends StatelessWidget {
                             SizedBox(
                               width: MediaQuery.of(context).size.width / 1.4,
                               child: Text(
-                                title,
+                                '${chat.consumerName} - ${chat.tradesmanName}',
                                 style: const TextStyle(
-                                    fontSize: 18, color: Colors.black),
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                           ],
@@ -58,16 +59,18 @@ class QuickviewChatWidget extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              sentiment.resultIcon(),
+                              chat.sentiment!.resultIcon(),
                               color: Colors.black,
                             ),
                             const Padding(padding: EdgeInsets.only(right: 5)),
                             SizedBox(
                               width: MediaQuery.of(context).size.width / 1.4,
                               child: Text(
-                                sentiment.resultString(),
+                                chat.sentiment!.resultString(),
                                 style: const TextStyle(
-                                    fontSize: 18, color: Colors.black),
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                           ],
@@ -76,7 +79,7 @@ class QuickviewChatWidget extends StatelessWidget {
                     ),
                     Icon(
                       Icons.circle,
-                      color: sentiment.resultColor(),
+                      color: chat.sentiment!.resultColor(),
                     )
                   ],
                 ),
@@ -94,12 +97,20 @@ class _Factory extends VmFactory<AppState, QuickviewChatWidget> {
   _Factory(widget) : super(widget);
 
   @override
-  _ViewModel fromStore() => _ViewModel();
+  _ViewModel fromStore() =>
+      _ViewModel(dispatchGetMessagesAction: (ChatModel chat) async {
+        dispatch(GetMessagesAction(chat: chat));
+        dispatch(NavigateAction.pushNamed('/admin/chat'));
+      });
 }
 
 // view model
 class _ViewModel extends Vm {
-  _ViewModel();
+  final void Function(ChatModel chat) dispatchGetMessagesAction;
+
+  _ViewModel({
+    required this.dispatchGetMessagesAction,
+  });
 }
 
 // Padding(

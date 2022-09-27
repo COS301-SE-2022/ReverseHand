@@ -7,6 +7,7 @@ class MessageModel {
   final String msg;
   final String sender;
   final double timestamp;
+  final double sentiment;
 
   const MessageModel({
     required this.id,
@@ -14,6 +15,7 @@ class MessageModel {
     required this.msg,
     required this.sender,
     required this.timestamp,
+    required this.sentiment,
   });
 
   factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
@@ -22,6 +24,7 @@ class MessageModel {
         msg: json['msg'],
         sender: json['sender'],
         timestamp: json['timestamp'].toDouble(),
+        sentiment: json['sentiment'].toDouble(),
       );
 
   @override

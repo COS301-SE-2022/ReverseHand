@@ -6,7 +6,7 @@ import '../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 
 class GetMessagesAction extends ReduxAction<AppState> {
-  final ChatModel? chat; // chat for which ti ger messages
+  final ChatModel? chat; // chat for which to get messages
 
   GetMessagesAction({this.chat});
 
@@ -21,6 +21,7 @@ class GetMessagesAction extends ReduxAction<AppState> {
         msg
         sender
         timestamp
+        sentiment
       }
     }''';
 
