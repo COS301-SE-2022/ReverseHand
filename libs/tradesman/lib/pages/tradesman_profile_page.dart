@@ -89,7 +89,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                               color: Theme.of(context).primaryColorLight,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(7))),
-                          width: MediaQuery.of(context).size.width / 1.7,
+                          width: MediaQuery.of(context).size.width / 1.65,
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
@@ -114,12 +114,14 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 color: Theme.of(context).primaryColorLight,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(7))),
-                            width: MediaQuery.of(context).size.width / 1.7,
+                            width: MediaQuery.of(context).size.width / 1.65,
                             child: Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Text(
                                   "${vm.userDetails.domains.elementAt(i).city}, ${vm.userDetails.domains.elementAt(i).province}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),
