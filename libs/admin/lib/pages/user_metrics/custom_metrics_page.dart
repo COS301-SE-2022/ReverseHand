@@ -131,12 +131,18 @@ class _CustomMetricsPageState extends State<CustomMetricsPage> {
                           ],
                         ),
                         if (currentEvent == "Create Advert")
-                        Container()
+                          GroupedDoughnutChartWidget(graphs: {
+                            "Job Type":
+                                vm.createAdvertMetrics.graphs["advertsByType"] ?? [],
+                            "Cities":
+                                vm.createAdvertMetrics.graphs["advertsByCity"] ?? [],
+                          })
                         else if (currentEvent == "Place Bid")
                           GroupedDoughnutChartWidget(graphs: {
-                            "Job Type" : vm.placeBidMetrics.graphs["bidsByType"] ?? [],
-                            "Amount placed for bid" : vm.placeBidMetrics.graphs["bidsByAmount"] ?? [],
-
+                            "Job Type":
+                                vm.placeBidMetrics.graphs["bidsByType"] ?? [],
+                            "Amount placed for bid":
+                                vm.placeBidMetrics.graphs["bidsByAmount"] ?? [],
                           })
                       ],
                     ),
@@ -157,11 +163,16 @@ class _Factory extends VmFactory<AppState, _CustomMetricsPageState> {
       loading: state.wait.isWaiting,
       placeBidMetrics: state.admin.userMetrics.placeBidMetrics ??
           const ChartModel(graphs: {}),
+      createAdvertMetrics: state.admin.userMetrics.createAdvertMetrics ??
+          const ChartModel(graphs: {}),
       refresh: (event, time) {
         if (event == "Place Bid") {
           dispatch(GetPlaceBidMetricsAction(time));
           dispatch(GetBidAmountMetricsAction(time));
-        } else if (event == "Create Advert") {}
+        } else if (event == "Create Advert") {
+          dispatch(GetPlaceBidMetricsAction(time));
+          dispatch(GetBidAmountMetricsAction(time));
+        }
       });
 }
 
@@ -169,11 +180,13 @@ class _Factory extends VmFactory<AppState, _CustomMetricsPageState> {
 class _ViewModel extends Vm {
   final bool loading;
   final ChartModel placeBidMetrics;
+  final ChartModel createAdvertMetrics;
   final void Function(String, DateTime) refresh;
 
   _ViewModel({
     required this.loading,
     required this.placeBidMetrics,
+    required this.createAdvertMetrics,
     required this.refresh,
   }) : super(equals: [loading, placeBidMetrics]); // implementinf hashcode;
 }

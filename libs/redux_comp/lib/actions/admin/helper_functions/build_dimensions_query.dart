@@ -6,15 +6,23 @@ List<dynamic> buildDimensionsQuery(
 
   for (var dimension in dimensions) {
     for (var dimeNames in dimension.dimensions) {
-      String id = (dimeNames["Name"] == "Job_Type")
-          ? dimeNames["Value"]?.toLowerCase() ?? ""
-          : (dimeNames["Value"] == "amount <= 500")
-              ? "lessThan500"
-              : (dimeNames["Value"] == "500 < amount <= 2500")
-                  ? "between500and2500"
-                  : (dimeNames["Value"] == "2500 < amount < 10000")
-                      ? "between2500and10000"
-                      : "greaterThan10000";
+      String id = "";
+      switch (event) {
+        case "PlaceBid":
+          id = (dimeNames["Name"] == "Job_Type")
+              ? dimeNames["Value"]?.toLowerCase() ?? ""
+              : (dimeNames["Value"] == "amount <= 500")
+                  ? "lessThan500"
+                  : (dimeNames["Value"] == "500 < amount <= 2500")
+                      ? "between500and2500"
+                      : (dimeNames["Value"] == "2500 < amount < 10000")
+                          ? "between2500and10000"
+                          : "greaterThan10000";
+          break;
+        case "CreateAdvert": 
+          id = dimeNames["Value"]?.toLowerCase() ?? "";
+          break;
+      }
 
       queries.add({
         "Id": id,
