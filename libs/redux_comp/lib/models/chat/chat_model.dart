@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:redux_comp/models/sentiment_model.dart';
 
 @immutable
 class ChatModel {
@@ -8,6 +9,7 @@ class ChatModel {
   final String otherUserId;
   final double timestamp;
   final String? image;
+  final SentimentModel? sentiment;
 
   const ChatModel({
     required this.id,
@@ -16,6 +18,7 @@ class ChatModel {
     required this.consumerName,
     required this.timestamp,
     this.image,
+    this.sentiment,
   });
 
   ChatModel copy({
@@ -42,6 +45,9 @@ class ChatModel {
         timestamp: json['timestamp'].toDouble(),
         consumerName: json['consumer_name'],
         tradesmanName: json['tradesman_name'],
+        sentiment: json['sentiment'] != null
+            ? SentimentModel.fromJson(json['sentiment'])
+            : null,
       );
 
   @override

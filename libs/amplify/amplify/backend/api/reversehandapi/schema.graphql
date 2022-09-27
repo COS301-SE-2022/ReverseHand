@@ -45,6 +45,9 @@ type Query {
   getMetrics(params: String!): String!
     @function(name: "getMetricsResolver-${env}") 
 
+  listMetrics(params: String!): String!
+    @function(name: "listMetricsResolver-${env}") 
+
   getBidOnAdverts(tradesman_id: String!, archived: Boolean): [Advert!]!
     @function(name: "getBidOnAdvertsResolver-${env}")
 
@@ -56,6 +59,12 @@ type Query {
 
   getUserReviews(user_id: String!): [Review!]!
     @function(name: "getUserReviewsResolver-${env}")
+
+  getGlobalSentiment: Sentiment!
+  @function(name: "getGlobalSentimentResolver-${env}")
+
+  getChatsSentiment: [Chat!]!
+  @function(name: "getChatsSentimentResolver-${env}")
 }
 
 type Mutation {
@@ -227,6 +236,8 @@ type Chat implements UniqueID {
   consumer_name: String!
   tradesman_name: String!
   timestamp: Float!
+  # for sentiments
+  sentiment: Sentiment
 }
 
 type Message implements UniqueID {
@@ -235,6 +246,7 @@ type Message implements UniqueID {
   msg: String!
   sender: String!
   timestamp: Float!
+  sentiment: Float!
 }
 
 type Location {
@@ -416,6 +428,14 @@ type AdminUser implements UniqueID {
 type PayStackKeys {
   secret_key: String!
   public_key: String!
+}
+
+type Sentiment {
+  negative: Float!
+  negative_messages: Int!
+  neutral_messages: Int!
+  positive: Float!
+  positive_messages: Int!
 }
 
 # add more jobs here as we think of them

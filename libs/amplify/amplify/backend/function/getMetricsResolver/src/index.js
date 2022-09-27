@@ -22,6 +22,7 @@ exports.handler = async (event) => {
         
     }
     
+    console.log("data=", data);
     return JSON.stringify(data);
     
 };
