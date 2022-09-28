@@ -6,6 +6,8 @@ import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/hint_widget.dart';
+import 'package:general/widgets/list_refresh_widget.dart';
+import 'package:redux_comp/actions/bids/view_bids_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import 'package:redux_comp/models/bid_model.dart';
@@ -26,17 +28,16 @@ class ViewBidsPage extends StatelessWidget {
       child: Scaffold(
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) =>
-              SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                //**********APPBAR*************//
-                AppBarWidget(title: "BIDS", store: store, backButton: true),
-                //******************************//
+          builder: (BuildContext context, _ViewModel vm) => Column(
+            children: <Widget>[
+              //**********APPBAR*************//
+              AppBarWidget(title: "BIDS", store: store, backButton: true),
+              //******************************//
 
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  child: Column(children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: ListRefreshWidget(
+                  widgets: [
                     if (vm.bids.isNotEmpty)
                       Column(
                         children: [
@@ -64,10 +65,11 @@ class ViewBidsPage extends StatelessWidget {
                         )),
                       ),
                     //**************************************/
-                  ]),
+                  ],
+                  refreshFunction: vm.dispatchViewBidsAction,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
 
@@ -104,6 +106,7 @@ class _Factory extends VmFactory<AppState, ViewBidsPage> {
         bids: state.viewBids,
         advert: state.activeAd!,
         loading: state.wait.isWaiting,
+        dispatchViewBidsAction: () => dispatch(ViewBidsAction(pushPage: false)),
       );
 }
 
@@ -114,6 +117,7 @@ class _ViewModel extends Vm {
   final VoidCallback popPage;
   final bool change;
   final bool loading;
+  final VoidCallback dispatchViewBidsAction;
 
   _ViewModel({
     required this.change,
@@ -121,5 +125,6 @@ class _ViewModel extends Vm {
     required this.bids,
     required this.advert,
     required this.loading,
+    required this.dispatchViewBidsAction,
   }) : super(equals: [change, bids]); // implementing hashcode
 }
