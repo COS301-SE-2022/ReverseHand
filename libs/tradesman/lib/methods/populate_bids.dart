@@ -11,52 +11,14 @@ List<Widget> populateBids(
 
   for (BidModel bid in bids) {
     // checking when to append to front
-    if (bid.userId == userId) {
-      quickViewBidWidgets.insert(
-        0,
-        TQuickViewBidWidget(
-          bid: bid,
-          store: store,
-        ),
-      );
-    } else {
-      quickViewBidWidgets.add(
-        QuickViewBidWidget(
-          bid: bid,
-        ),
-      );
-    }
-  }
-
-  return quickViewBidWidgets;
-}
-
-class QuickViewBidWidget extends StatelessWidget {
-  final BidModel bid;
-
-  const QuickViewBidWidget({
-    Key? key,
-    required this.bid,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: const Color.fromRGBO(255, 153, 0, 1), width: 2.0),
-          borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-        ),
-        child: Text(
-          '${bid.name} : ${bid.price}',
-          style: const TextStyle(fontSize: 25, color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
+    quickViewBidWidgets.insert(
+      0,
+      TQuickViewBidWidget(
+        bid: bid,
+        store: store,
       ),
     );
   }
+
+  return quickViewBidWidgets;
 }

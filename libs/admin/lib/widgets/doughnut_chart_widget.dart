@@ -3,38 +3,16 @@ import 'package:redux_comp/models/admin/user_metrics/pie_chart_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DoughnutChartWidget extends StatelessWidget {
-  final List<List<PieChartModel>> graphs;
+  final List<PieChartModel> data;
   final String chartTitle;
   const DoughnutChartWidget({
     Key? key,
-    required this.graphs,
+    required this.data,
     required this.chartTitle,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<SfCircularChart> list = [];
-    for (List<PieChartModel> data in graphs) {
-      list.add(SfCircularChart(
-              legend: Legend(
-                isVisible: true,
-                isResponsive: true,
-                textStyle: const TextStyle(fontSize: 10, color: Colors.white),
-              ),
-              backgroundColor: Theme.of(context).primaryColorLight,
-              borderColor: Colors.black,
-              borderWidth: 5,
-              margin: const EdgeInsets.all(20),
-              series: [
-                DoughnutSeries<PieChartModel, String>(
-                    explode: true,
-                    dataSource: data,
-                    legendIconType: LegendIconType.verticalLine,
-                    pointColorMapper: (PieChartModel obs, _) => obs.color,
-                    xValueMapper: (PieChartModel obs, _) => obs.label,
-                    yValueMapper: (PieChartModel obs, _) => obs.value)
-              ]),);
-    }
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.all(10),
@@ -54,7 +32,26 @@ class DoughnutChartWidget extends StatelessWidget {
               ),
             ),
           ),
-         ...list
+          SfCircularChart(
+              legend: Legend(
+                isVisible: true,
+                position: LegendPosition.bottom,
+                isResponsive: true,
+                textStyle: const TextStyle(fontSize: 10, color: Colors.white),
+              ),
+              backgroundColor: Theme.of(context).primaryColorLight,
+              borderColor: Colors.black,
+              borderWidth: 5,
+              margin: const EdgeInsets.all(20),
+              series: [
+                DoughnutSeries<PieChartModel, String>(
+                    explode: true,
+                    dataSource: data,
+                    legendIconType: LegendIconType.verticalLine,
+                    pointColorMapper: (PieChartModel obs, _) => obs.color,
+                    xValueMapper: (PieChartModel obs, _) => obs.label,
+                    yValueMapper: (PieChartModel obs, _) => obs.value)
+              ]),
         ],
       ),
     );

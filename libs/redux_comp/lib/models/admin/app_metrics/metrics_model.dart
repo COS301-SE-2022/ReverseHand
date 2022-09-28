@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_comp/models/admin/app_metrics/line_chart_model.dart';
-
+//for a group of line charts...
 @immutable
 class MetricsModel {
   final int period;

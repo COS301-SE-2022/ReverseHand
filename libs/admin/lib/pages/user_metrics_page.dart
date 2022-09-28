@@ -7,6 +7,8 @@ import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/list_users_action.dart';
+import 'package:redux_comp/actions/admin/user_metrics/get_adverts_place_metrics_action.dart';
+import 'package:redux_comp/actions/admin/user_metrics/get_adverts_type_metrics_action.dart';
 import 'package:redux_comp/actions/admin/user_metrics/get_session_metrics_action.dart';
 import 'package:redux_comp/actions/user/sentiment/get_chats_sentiment_action.dart';
 import 'package:redux_comp/actions/user/sentiment/get_global_sentiment_action.dart';
@@ -134,6 +136,10 @@ class _Factory extends VmFactory<AppState, _UserMetricsPageState> {
         },
         pushCustomMetricsPage: () {
           dispatch(NavigateAction.pushNamed('/admin/custom_metrics'));
+          dispatch(GetAdvertTypeMetrics(DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day)));
+          dispatch(GetAdvertPlaceMetrics(DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day)));
         },
         dispatchGetSentimentAction: () {
           dispatch(GetGlobalSentimentAction());

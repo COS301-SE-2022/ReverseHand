@@ -98,7 +98,8 @@ class MessageOwnTileWidget extends StatelessWidget {
 //*******************************************************/
 
 Color getHue(double sentiment) {
-  Color color = Color.lerp(
-      const Color(0xffff0000), const Color(0xff00ff00), (sentiment + 5 / 10))!;
+
+  Color color = HSVColor.lerp(HSVColor.fromColor(Colors.red),
+      HSVColor.fromColor(Colors.green), (sentiment + 5) / 10)!.toColor();
   return color;
 }
