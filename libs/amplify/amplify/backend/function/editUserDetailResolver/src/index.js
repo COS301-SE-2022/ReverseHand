@@ -59,7 +59,7 @@ exports.handler = async (event) => {
 
     let params = {
         TableName: ReverseHandTable,
-        ReturnValies: "ALL_NEW",
+        ReturnValues: "ALL_NEW",
         Key: {
             part_key: event.arguments.user_id,
             sort_key: event.arguments.user_id,

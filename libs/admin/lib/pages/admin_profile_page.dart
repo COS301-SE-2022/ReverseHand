@@ -23,7 +23,7 @@ class AdminProfilePage extends StatefulWidget {
 
 class _AdminProfilePageState extends State<AdminProfilePage> {
   final nameController = TextEditingController();
-  String? trade;
+  String? province;
 
   void showRadioSelect() async {
     final String? result = await showDialog(
@@ -36,7 +36,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
     // Update UI
     if (result != null) {
       setState(() {
-        trade = result;
+        province = result;
       });
     }
   }
@@ -48,174 +48,182 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) => (vm.isWaiting)
-                ? Column(
-                    children: [
-                      AppBarWidget(title: "PROFILE", store: widget.store),
-                      LoadingWidget(
-                          topPadding: MediaQuery.of(context).size.height / 3,
-                          bottomPadding: 0)
-                    ],
-                  )
-                : Column(
-                    children: [
-                      //*******************APP BAR WIDGET*********************//
-                      AppBarWidget(title: "PROFILE", store: widget.store),
-                      //********************************************************//
+              vm: () => _Factory(this),
+              builder: (BuildContext context, _ViewModel vm) {
+                if (province != null) {
+                  vm.dispatchChangeProvinceAction(vm.userDetails.id, province!);
+                  province = null;
+                }
+                return (vm.isWaiting)
+                    ? Column(
+                        children: [
+                          AppBarWidget(title: "PROFILE", store: widget.store),
+                          LoadingWidget(
+                              topPadding:
+                                  MediaQuery.of(context).size.height / 3,
+                              bottomPadding: 0)
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          //*******************APP BAR WIDGET*********************//
+                          AppBarWidget(title: "PROFILE", store: widget.store),
+                          //********************************************************//
 
-                      const Padding(padding: EdgeInsets.only(top: 25)),
+                          const Padding(padding: EdgeInsets.only(top: 25)),
 
-                      //**************HEADING***************/
-                      Center(
-                        child: Text(
-                          vm.userDetails.name != null
-                              ? vm.userDetails.name!
-                              : "null",
-                          style: const TextStyle(fontSize: 35),
-                        ),
-                      ),
-                      //************************************/
-                      const Padding(
-                          padding: EdgeInsets.only(top: 5, bottom: 15)),
-                      //****************PROFILE IMAGE****************/
-                      ProfileImageWidget(
-                        store: widget.store,
-                      ),
-                      //*****************************************
-
-                      //************EMAIL*******************/
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 40, right: 30, top: 20, bottom: 10),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.email,
-                              color: Colors.white70,
-                              size: 26.0,
+                          //**************HEADING***************/
+                          Center(
+                            child: Text(
+                              vm.userDetails.name != null
+                                  ? vm.userDetails.name!
+                                  : "null",
+                              style: const TextStyle(fontSize: 35),
                             ),
-                            const Padding(padding: EdgeInsets.only(right: 8)),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.4,
-                              child: Text(vm.userDetails.email,
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      //************************************/
+                          ),
+                          //************************************/
+                          const Padding(
+                              padding: EdgeInsets.only(top: 5, bottom: 15)),
+                          //****************PROFILE IMAGE****************/
+                          ProfileImageWidget(
+                            store: widget.store,
+                          ),
+                          //*****************************************
 
-                      const ProfileDividerWidget(),
-
-                      //************NAME*******************/
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
+                          //************EMAIL*******************/
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 40, right: 30, top: 20, bottom: 10),
+                            child: Row(
                               children: [
                                 const Icon(
-                                  Icons.person,
+                                  Icons.email,
                                   color: Colors.white70,
                                   size: 26.0,
                                 ),
                                 const Padding(
                                     padding: EdgeInsets.only(right: 8)),
-                                Text(
-                                  (vm.userDetails.name != null)
-                                      ? vm.userDetails.name!
-                                      : "null",
-                                  style: const TextStyle(fontSize: 20),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.4,
+                                  child: Text(vm.userDetails.email,
+                                      style: const TextStyle(
+                                          fontSize: 20, color: Colors.white)),
                                 ),
                               ],
                             ),
-                            IconButton(
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      builder: (BuildContext context) {
-                                        return BottomSheetWidget(
-                                          text:
-                                              "What name would you like to save?",
-                                          initialVal: vm.userDetails.name,
-                                          controller: nameController,
-                                          function: () {
-                                            vm.dispatchChangeNameAction(
-                                                vm.userDetails.id,
-                                                nameController.value.text);
-                                            Navigator.pop(context);
-                                          },
-                                        );
-                                      });
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.white,
-                                  size: 15,
-                                )),
-                          ],
-                        ),
-                      ),
-                      //************************************/
-                      const ProfileDividerWidget(),
+                          ),
+                          //************************************/
 
-                      //************LOCATION*****************/
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
+                          const ProfileDividerWidget(),
+
+                          //************NAME*******************/
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40, right: 30),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Icon(
-                                  Icons.location_on,
-                                  color: Colors.white70,
-                                  size: 26.0,
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.person,
+                                      color: Colors.white70,
+                                      size: 26.0,
+                                    ),
+                                    const Padding(
+                                        padding: EdgeInsets.only(right: 8)),
+                                    Text(
+                                      (vm.userDetails.name != null)
+                                          ? vm.userDetails.name!
+                                          : "null",
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
+                                  ],
                                 ),
-                                const Padding(
-                                    padding: EdgeInsets.only(right: 8)),
-                                Text(
-                                    (vm.userDetails.scope != null)
-                                        ? "${vm.userDetails.scope}"
-                                        : "null",
-                                    style: const TextStyle(
-                                        fontSize: 20, color: Colors.white)),
+                                IconButton(
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          builder: (BuildContext context) {
+                                            return BottomSheetWidget(
+                                              text:
+                                                  "What name would you like to save?",
+                                              initialVal: vm.userDetails.name,
+                                              controller: nameController,
+                                              function: () {
+                                                vm.dispatchChangeNameAction(
+                                                    vm.userDetails.id,
+                                                    nameController.value.text);
+                                                Navigator.pop(context);
+                                              },
+                                            );
+                                          });
+                                    },
+                                    icon: const Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Colors.white,
+                                      size: 15,
+                                    )),
                               ],
                             ),
-                            IconButton(
-                                onPressed: () => showRadioSelect(),
-                                icon: const Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.white,
-                                  size: 15,
-                                ))
-                          ],
-                        ),
-                      ),
-                      //************************************/
+                          ),
+                          //************************************/
+                          const ProfileDividerWidget(),
 
-                      const ProfileDividerWidget(),
+                          //************LOCATION*****************/
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40, right: 30),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on,
+                                      color: Colors.white70,
+                                      size: 26.0,
+                                    ),
+                                    const Padding(
+                                        padding: EdgeInsets.only(right: 8)),
+                                    Text(
+                                        (vm.userDetails.scope != null)
+                                            ? "${vm.userDetails.scope}"
+                                            : "null",
+                                        style: const TextStyle(
+                                            fontSize: 20, color: Colors.white)),
+                                  ],
+                                ),
+                                IconButton(
+                                    onPressed: () => showRadioSelect(),
+                                    icon: const Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ))
+                              ],
+                            ),
+                          ),
+                          //************************************/
 
-                      //**********TEMP LOGOUT BUTTON********/
-                      IconButton(
-                        icon: const Icon(
-                          Icons.logout,
-                          color: Colors.white,
-                        ),
-                        onPressed: () => vm.dispatchLogoutAction(),
-                        splashRadius: 30,
-                        highlightColor: Colors.orange,
-                        splashColor: Colors.white,
-                      ),
-                      //************************************/
-                      const Padding(padding: EdgeInsets.only(bottom: 50)),
-                    ],
-                  ),
-          ),
+                          const ProfileDividerWidget(),
+
+                          //**********TEMP LOGOUT BUTTON********/
+                          IconButton(
+                            icon: const Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                            ),
+                            onPressed: () => vm.dispatchLogoutAction(),
+                            splashRadius: 30,
+                            highlightColor: Colors.orange,
+                            splashColor: Colors.white,
+                          ),
+                          //************************************/
+                          const Padding(padding: EdgeInsets.only(bottom: 50)),
+                        ],
+                      );
+              }),
         ),
         bottomNavigationBar: AdminNavBarWidget(store: widget.store),
         //************************NAVBAR***********************/
@@ -235,6 +243,9 @@ class _Factory extends VmFactory<AppState, _AdminProfilePageState> {
         dispatchLogoutAction: () => dispatch(LogoutAction()),
         dispatchChangeNameAction: (String userId, String name) => dispatch(
             EditUserDetailsAction(userId: userId, changed: "name", name: name)),
+        dispatchChangeProvinceAction: (String userId, String province) =>
+            dispatch(EditUserDetailsAction(
+                userId: userId, changed: "scope", scope: province)),
         userDetails: state.userDetails,
         isWaiting: state.wait.isWaiting,
       );
@@ -245,12 +256,14 @@ class _ViewModel extends Vm {
   final UserModel userDetails;
   final void Function() dispatchLogoutAction;
   final void Function(String, String) dispatchChangeNameAction;
+  final void Function(String, String) dispatchChangeProvinceAction;
   final bool isWaiting;
 
   _ViewModel({
     required this.userDetails,
     required this.dispatchLogoutAction,
     required this.dispatchChangeNameAction,
+    required this.dispatchChangeProvinceAction,
     required this.isWaiting,
   }) : super(equals: [userDetails, isWaiting]);
 }

@@ -12,6 +12,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
   final String changed;
   final String? name;
   final String? cellNo;
+  final String? scope;
   final List<Domain>? domains; //for domains
   final List<String>? tradeTypes;
   final Location? location;
@@ -21,6 +22,7 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
     required this.changed,
     this.name,
     this.cellNo,
+    this.scope,
     this.domains,
     this.tradeTypes,
     this.location,
@@ -111,6 +113,21 @@ class EditUserDetailsAction extends ReduxAction<AppState> {
           await Amplify.API.mutate(request: requestChangeName).response;
           return state.copy(
               userDetails: state.userDetails.copy(tradeTypes: tradeTypes));
+        case "scope":
+          String graphQLDoc = '''mutation  {
+            editUserDetail(user_id: "$userId", scope: "$scope") {
+              id
+              scope
+            }
+          }''';
+
+          final requestChangeName = GraphQLRequest(
+            document: graphQLDoc,
+          );
+
+          await Amplify.API.mutate(request: requestChangeName).response;
+          return state.copy(
+              userDetails: state.userDetails.copy(scope: scope));
         default:
           return null;
       }

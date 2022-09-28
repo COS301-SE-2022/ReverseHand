@@ -81,13 +81,9 @@ class TradesmanJobListings extends StatelessWidget {
                     children: [
                       //display loading icon
                       if (vm.loading)
-                        const LoadingWidget(
-                            topPadding: 50, bottomPadding: 20),
-                      ListRefreshWidget(
-                        widgets: [
-                          //a message if no jobs
-                          if (vm.adverts.isEmpty)
-                            Padding(
+                        const LoadingWidget(topPadding: 50, bottomPadding: 20),
+                      (vm.adverts.isEmpty)
+                          ? Padding(
                               padding: EdgeInsets.only(
                                 top: (MediaQuery.of(context).size.height) / 4,
                                 left: 40,
@@ -99,17 +95,14 @@ class TradesmanJobListings extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.white70),
                               )),
+                            )
+                          : ListRefreshWidget(
+                              widgets: populateAdverts(vm.adverts, store),
+                              refreshFunction: vm.dispatchGetJobsAction,
                             ),
-                          //else populate the jobs
-                          ...populateAdverts(vm.adverts, store),
-                          const Padding(padding: EdgeInsets.only(bottom: 33))
-                        ],
-                        refreshFunction: vm.dispatchGetJobsAction,
-                      ),
                       //display loading icon
                       if (vm.loading)
-                        const LoadingWidget(
-                            topPadding: 80, bottomPadding: 0),
+                        const LoadingWidget(topPadding: 80, bottomPadding: 0),
                       ListRefreshWidget(
                         widgets: [
                           //a message if no jobs

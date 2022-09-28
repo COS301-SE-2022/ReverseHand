@@ -68,7 +68,7 @@ class QuickViewBidWidget extends StatelessWidget {
                         //***********CONTRACTOR NAME*************/
                         Center(
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 2,
+                            width: MediaQuery.of(context).size.width / 2.5,
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 3, 5, 3),
                               child: Center(

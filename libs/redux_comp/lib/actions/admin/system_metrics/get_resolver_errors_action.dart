@@ -21,24 +21,23 @@ class GetResolverErrorsAction extends ReduxAction<AppState> {
 
     List<String> adminFunctions = [
       "getMetricsResolver",
+      "listUsersResolver",
+      "adminGetUserResolver",
+      "adminSearchUserResolver",
+      "processKinesisStreamResolver",
       "removeReviewReportResolver",
-      "addReviewReportResolver",
-      "addUserReportResolver",
-      "addAdvertReportResolver",
       "removeUserReportResolver",
       "acceptAdvertReportResolver",
       "getReportsResolver",
       "getReportedAdvertsResolver",
-      "adminGetUserResolver",
-      "adminSearchUserResolver",
-      "listUsersResolver",
-      "processKinesisStreamResolver",
     ];
     List<String> userFunctions = [
       "createUserResolver",
       "viewUserResolver",
       "editUserDetailResolver",
       "getUserReviewsResolver",
+      "notifyNewNotificationsResolver",
+      "getNotificationsResolver",
     ];
 
     List<Map> querys = [];
