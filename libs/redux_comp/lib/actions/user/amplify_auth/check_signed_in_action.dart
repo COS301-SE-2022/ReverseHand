@@ -1,4 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/user/cognito/assign_groups_action.dart';
 import 'package:redux_comp/models/error_type_model.dart';
 import 'package:redux_comp/models/user_models/cognito_auth_model.dart';
@@ -28,6 +29,7 @@ class CheckSignedInAction extends ReduxAction<AppState> {
       );
     } else {
       // throw const UserException("", cause: ErrorType.userNotAuthorised);
+      debugPrint(state.error.toString());
       return state.copy(error: ErrorType.userNotAuthorised);
     }
   }

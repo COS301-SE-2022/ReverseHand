@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:redux_comp/actions/user/cognito/get_cognito_user_action.dart';
 import 'package:redux_comp/actions/user/cognito/refresh_user_token_action.dart';
@@ -24,12 +25,14 @@ class AssignGroupsAction extends ReduxAction<AppState> {
       } else if (groups.contains("admin")) {
         userType = "Admin";
       } else {
+        debugPrint(state.error.toString());
         return state.copy(
             error: ErrorType.userNotInGroup,
             userDetails:
                 state.userDetails.copy(externalUsername: externalName));
       }
     } else {
+      debugPrint(state.error.toString());
       return state.copy(
           error: ErrorType.userNotInGroup,
           userDetails: state.userDetails.copy(externalUsername: externalName));
