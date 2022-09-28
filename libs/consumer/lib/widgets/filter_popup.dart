@@ -135,81 +135,39 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
             children: [
               //MINIMUM TEXTFIELD
               Container(
-                  height: 40,
-                  width: (MediaQuery.of(context).size.width / 1.7) / 2,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(
-                        20.0), //borderRadius for container
-                  ),
-                  child: TextFormField(
-                    // initialValue: "0",
-                    style: const TextStyle(color: Colors.white),
-                    controller: minController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: "min",
-                      labelStyle: const TextStyle(color: Colors.white),
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(
-                          color: Colors.orange,
-                          width: 2.0,
-                        ),
+                height: 40,
+                width: (MediaQuery.of(context).size.width / 1.7) / 2,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius:
+                      BorderRadius.circular(20.0), //borderRadius for container
+                ),
+                child: TextFormField(
+                  // initialValue: "0",
+                  style: const TextStyle(color: Colors.white),
+                  controller: minController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: "min",
+                    labelStyle: const TextStyle(color: Colors.white),
+                    floatingLabelBehavior: FloatingLabelBehavior.auto,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        width: 1.0,
                       ),
                     ),
-                  )),
-
-              //PADDING AND "-"
-              const Padding(padding: EdgeInsets.all(5)),
-
-              const Text(
-                "-",
-                style: TextStyle(color: Colors.white, fontSize: 30),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: const BorderSide(
+                        color: Colors.orange,
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              const Padding(padding: EdgeInsets.all(5)),
-
-              //MAXIMUM TEXTFIELD
-              Container(
-                  height: 40,
-                  width: (MediaQuery.of(context).size.width / 1.7) / 2,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(
-                        20.0), //borderRadius for container
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.white),
-                    controller: maxController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: "max",
-                      labelStyle: const TextStyle(color: Colors.white),
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(
-                          color: Colors.orange,
-                          width: 2.0,
-                        ),
-                      ),
-                    ),
-                  )),
             ],
           ),
           //******************************************/
@@ -274,45 +232,17 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
               text: "Apply",
               function: () {
                 //if the min and max values are actually used
-                if (minController.text.isNotEmpty &&
-                    maxController.text.isNotEmpty) {
-                  //make sure that min <= max
-                  // int.parse(minController.text) > int.parse(maxController.text)
-                  //     ? displayToastError(
-                  //         context, "Min field must be less than Max field")
-                  //     : vm.dispatchFilterBidsAction(
-                  //         FilterBidsModel(
-                  //           includeShortlisted: showSBids,
-                  //           includeBids: showBids,
-                  //           priceRange: minController.value.text.isEmpty ||
-                  //                   maxController.value.text.isEmpty
-                  //               ? null
-                  //               : Range(
-                  //                   int.parse(minController.value.text),
-                  //                   int.parse(maxController.value.text),
-                  //                 ),
-                  //           sort: sort,
-                  //         ),
-                  //       );
-                  Navigator.pop(context);
-                  //if the min and max values aren't used
-                } else {
-                  // vm.dispatchFilterBidsAction(
-                  //   FilterBidsModel(
-                  //     includeShortlisted: showSBids,
-                  //     includeBids: showBids,
-                  //     priceRange: minController.value.text.isEmpty ||
-                  //             maxController.value.text.isEmpty
-                  //         ? null
-                  //         : Range(
-                  //             int.parse(minController.value.text),
-                  //             int.parse(maxController.value.text),
-                  //           ),
-                  //     sort: sort,
-                  //   ),
-                  // );
-                  Navigator.pop(context);
-                }
+                vm.dispatchFilterBidsAction(
+                  FilterBidsModel(
+                    includeShortlisted: showSBids,
+                    includeBids: showBids,
+                    price: minController.value.text.isEmpty
+                        ? null
+                        : int.parse(minController.value.text),
+                    sort: sort,
+                  ),
+                );
+                Navigator.pop(context);
               },
             ),
           ),

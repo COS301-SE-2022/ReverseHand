@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/material.dart';
 import '../../models/bid_model.dart';
 import '../../app_state.dart';
 
@@ -26,14 +24,19 @@ class ShortlistBidAction extends ReduxAction<AppState> {
     );
 
     try {
-      final response = await Amplify.API.mutate(request: request).response;
-      debugPrint(response.data);
+      /* final response = await */ Amplify.API
+          .mutate(request: request)
+          .response;
+      // debugPrint(response.data);
 
-      final BidModel shortListedBid =
-          BidModel.fromJson(jsonDecode(response.data)['shortListBid']);
+      // final BidModel shortListedBid =
+      //     BidModel.fromJson(jsonDecode(response.data)['shortListBid']);
 
       List<BidModel> bids = store.state.bids;
       List<BidModel> shortListBids = state.shortlistBids;
+
+      final BidModel shortListedBid =
+          state.activeBid!.copy(shortlisted: !state.activeBid!.shortlisted);
 
       if (shortListedBid.shortlisted) {
         shortListBids.add(shortListedBid);
