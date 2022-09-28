@@ -3,8 +3,6 @@ import 'package:consumer/pages/limited_consumer_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/appbar_popup_menu_widget.dart';
-import 'package:general/widgets/hint_widget.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 void main() {
