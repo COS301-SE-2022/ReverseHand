@@ -38,7 +38,7 @@ class MessageTileWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 8, top: 8.0),
               child: Text(
-                message.sentiment.toStringAsFixed(2),
+                "Score: ${message.sentiment.toStringAsFixed(2)}",
               ),
             )
           ],
@@ -73,7 +73,7 @@ class MessageOwnTileWidget extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(25),
                   topRight: Radius.circular(25),
-                  bottomRight: Radius.circular(25),
+                  bottomLeft: Radius.circular(25),
                 ),
               ),
               child: Padding(
@@ -86,7 +86,7 @@ class MessageOwnTileWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 8, top: 8.0),
               child: Text(
-                message.sentiment.toStringAsFixed(2),
+                "Score: ${message.sentiment.toStringAsFixed(2)}",
               ),
             )
           ],

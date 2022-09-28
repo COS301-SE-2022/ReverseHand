@@ -47,7 +47,7 @@ class _SystemMetricsPageState extends State<SystemMetricsPage> {
                       children: [
                         //**********APPBAR***********//
                         appbar,
-
+                        const Padding(padding: EdgeInsets.only(top: 15),),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,

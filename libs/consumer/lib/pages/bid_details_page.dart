@@ -43,10 +43,15 @@ class BidDetailsPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
-                        child: Text('${vm.bid.name}',
-                          style: const TextStyle(
-                              fontSize: 33, color: Colors.white)
-                              ),
+                        child: SizedBox(
+                          width:  MediaQuery.of(context).size.height / 2.6,
+                          child:Text(
+                            '${vm.bid.name}',
+                            maxLines: 2,
+                            style: const TextStyle(
+                                fontSize: 33, color: Colors.white)
+                          ),
+                        ),
                       ),
                       IconButton(
                         onPressed: () {
