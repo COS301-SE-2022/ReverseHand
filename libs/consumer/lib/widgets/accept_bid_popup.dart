@@ -1,6 +1,5 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/methods/toast_success.dart';
 import 'package:general/widgets/button.dart';
 import 'package:redux_comp/actions/bids/accept_bid_action.dart';
 import 'package:redux_comp/actions/process_payment_action.dart';
@@ -39,7 +38,7 @@ class AcceptPopUpWidget extends StatelessWidget {
                     Navigator.pop(context);
                     // vm.dispatchAcceptBidAction();
                     vm.dispatchProcessPayementAction(context);
-                    displayToastSuccess(context, "Bid Accepted!");
+                    // displayToastSuccess(context, "Bid Accepted!");
                   },
                 ),
                 const Padding(padding: EdgeInsets.all(5)),

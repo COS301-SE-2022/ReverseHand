@@ -15,6 +15,7 @@ class DeleteChatAction extends ReduxAction<AppState> {
         consumer_name
         tradesman_name
         timestamp
+      }
     }''';
 
     final request = GraphQLRequest(document: graphQLDocument);
