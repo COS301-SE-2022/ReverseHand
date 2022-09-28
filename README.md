@@ -37,7 +37,11 @@
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/InstallationManual.pdf">Installation Manual</a>
     | 💻
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
-  </p> 
+  </p> <br/>
+  <p align="center">
+    🌐
+    <a href="https://drive.google.com/drive/folders/116jdyN56mcAhlSX4O1uSotbL66GCJLZu?usp=sharing">Download APK</a>
+  </p>
   
   <br />   <br />
 
