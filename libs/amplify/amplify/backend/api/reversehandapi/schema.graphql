@@ -412,6 +412,7 @@ type AdminCognitoUser implements UniqueID {
   id: String!
   email: String!
   enabled: String!
+  cognito_username: String!
   status: String
 }
 

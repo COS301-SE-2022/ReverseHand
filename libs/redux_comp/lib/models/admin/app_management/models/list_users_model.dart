@@ -29,7 +29,7 @@ class ListUsersModel {
     List<CognitoUserModel> userList = [];
     obj["users"].forEach(
       (user) => userList.add(
-        CognitoUserModel.fromJson(user),
+        CognitoUserModel.fromJson(user, group),
       ),
     );
 

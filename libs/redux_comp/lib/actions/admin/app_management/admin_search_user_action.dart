@@ -32,7 +32,7 @@ class AdminSearchUserAction extends ReduxAction<AppState> {
 
       List<CognitoUserModel> result = [];
       for (var user in data) {
-        result.add(CognitoUserModel.fromJson(user));
+        result.add(CognitoUserModel.fromJson(user, group));
       }
 
       return (group == "customer")

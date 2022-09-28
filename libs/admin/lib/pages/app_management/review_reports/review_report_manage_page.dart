@@ -210,7 +210,7 @@ class _Factory extends VmFactory<AppState, ReviewReportManagePage> {
         dispatchGetReviewReports: () => dispatch(GetReviewReportsAction()),
         dispatchGetUser: (userId) => dispatch(AdminGetUserAction(userId)),
         pushUserManagePage: () =>
-            dispatch(NavigateAction.pushNamed("/user_manage")),
+            dispatch(NavigateAction.pushNamed("/user_manage", arguments: null)),
         popPage: () => dispatch(NavigateAction.pop()),
         dispatchRemoveWithWarning: (reportId, userId) => dispatch(
             RemoveReviewReportAction(

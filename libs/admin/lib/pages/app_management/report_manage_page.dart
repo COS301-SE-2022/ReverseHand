@@ -118,7 +118,7 @@ class _Factory extends VmFactory<AppState, ReportManagePage> {
         loading: state.wait.isWaiting,
         dispatchGetUser: (userId) => dispatch(AdminGetUserAction(userId)),
         pushUserManagePage: () =>
-            dispatch(NavigateAction.pushNamed("/user_manage")),
+            dispatch(NavigateAction.pushNamed("/user_manage", arguments: null)),
         dispatchRemoveWithWarning: (reportId, userId) => dispatch(
             RemoveUserReportAction(
                 userId: userId, reportId: reportId, issueWarning: true)),
