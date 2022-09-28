@@ -44,5 +44,11 @@ void main() {
     expect(find.byIcon(Icons.location_on), findsOneWidget);
 
     expect(find.byIcon(Icons.logout), findsOneWidget);
+
+    //verify the icons for the nav bar are present
+    expect(find.byIcon(Icons.work), findsOneWidget);
+    expect(find.byIcon(Icons.forum), findsOneWidget);
+    expect(find.byIcon(Icons.notifications), findsOneWidget);
+    expect(find.byIcon(Icons.person), findsNWidgets(2));
   });
 }
