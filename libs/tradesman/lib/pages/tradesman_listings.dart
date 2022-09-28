@@ -196,6 +196,7 @@ class _Factory extends VmFactory<AppState, _TradesmanJobListingsState> {
         loading: state.wait.isWaiting,
         dispatchGetBidOnJobsAction: () => dispatch(GetBidOnAdvertsAction()),
         dispatchGetJobsAction: () => dispatch(ViewJobsAction()),
+        change: state.change,
       );
 }
 
@@ -206,9 +207,11 @@ class _ViewModel extends Vm {
   final bool loading;
   final VoidCallback dispatchGetJobsAction;
   final VoidCallback dispatchGetBidOnJobsAction;
+  final bool change;
 
   _ViewModel({
     required this.adverts,
+    required this.change,
     required this.bidOnAdverts,
     required this.loading,
     required this.dispatchGetBidOnJobsAction,
