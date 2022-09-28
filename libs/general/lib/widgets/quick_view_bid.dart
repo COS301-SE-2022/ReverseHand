@@ -88,7 +88,7 @@ class QuickViewBidWidget extends StatelessWidget {
                     ),
                     //**************BID RANGE********************/
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 4.5,
+                      width: MediaQuery.of(context).size.width / 4.1,
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
