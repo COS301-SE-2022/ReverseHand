@@ -49,10 +49,16 @@ class RemoveUserReportAction extends ReduxAction<AppState> {
     }
   }
 
-  @override
+    @override
   void before() {
     dispatch(NavigateAction.pop());
+    dispatch(WaitAction.add("remove_user_report"));
+  }
+
+  @override
+  void after() {
     dispatch(GetUserReportsAction());
+    dispatch(WaitAction.remove("remove_user_report"));
   }
 }
 

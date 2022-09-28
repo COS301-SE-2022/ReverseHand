@@ -42,17 +42,29 @@ class ViewUserReportsPage extends StatelessWidget {
                           bottomPadding: 0)
                     ],
                   )
-                : SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        //**********APPBAR***********//
-                        appbar,
-                        ListRefreshWidget(
-                          widgets: reports,
-                          refreshFunction: () => vm.dispatchGetUserReports(),
-                        )
-                      ],
-                    ),
+                : Column(
+                    children: [
+                      //**********APPBAR***********//
+                      appbar,
+                      (reports.isEmpty)
+                          ? Padding(
+                              padding: EdgeInsets.only(
+                                  top: (MediaQuery.of(context).size.height) / 4,
+                                  left: 40,
+                                  right: 40),
+                              child: (const Text(
+                                "There are no reported users.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white70),
+                              )),
+                            )
+                          : ListRefreshWidget(
+                              widgets: reports,
+                              refreshFunction: () =>
+                                  vm.dispatchGetUserReports(),
+                            )
+                    ],
                   );
           },
         ),

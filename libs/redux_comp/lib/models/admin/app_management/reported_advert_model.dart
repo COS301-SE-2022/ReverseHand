@@ -7,7 +7,6 @@ class ReportedAdvertModel {
   final int count;
   final AdvertModel advert;
   final List<ReportDetailsModel> reports;
- 
 
   const ReportedAdvertModel({
     required this.count,
@@ -15,16 +14,26 @@ class ReportedAdvertModel {
     required this.reports,
   });
 
+  ReportedAdvertModel copy({
+    int? count,
+    AdvertModel? advert,
+    List<ReportDetailsModel>? reports,
+  }) {
+    return ReportedAdvertModel(
+        count: count ?? this.count,
+        advert: advert ?? this.advert,
+        reports: reports ?? this.reports);
+  }
+
   factory ReportedAdvertModel.fromJson(obj) {
     List<ReportDetailsModel> reports = [];
-    for(dynamic elem in obj["reports"]) {
+    for (dynamic elem in obj["reports"]) {
       reports.add(ReportDetailsModel.fromJson(elem));
     }
 
     return ReportedAdvertModel(
-      count: obj['count'],
-      advert: AdvertModel.fromJson(obj['advert']),
-      reports: reports
-    );
+        count: obj['count'],
+        advert: AdvertModel.fromJson(obj['advert']),
+        reports: reports);
   }
 }

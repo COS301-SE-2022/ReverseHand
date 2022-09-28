@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/admin/app_management/get_reported_adverts_action.dart';
 
 import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -49,6 +50,7 @@ class RemoveAdvertReportAction extends ReduxAction<AppState> {
 
   @override
   void after() {
+    dispatch(GetReportedAdvertsAction());
     dispatch(WaitAction.remove("remove-advert"));
   }
 }

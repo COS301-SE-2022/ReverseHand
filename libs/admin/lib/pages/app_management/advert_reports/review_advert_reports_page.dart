@@ -6,7 +6,6 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/accept_advert_report_action.dart';
-import 'package:redux_comp/actions/admin/app_management/get_reported_adverts_action.dart';
 import 'package:redux_comp/actions/admin/app_management/remove_advert_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
@@ -20,7 +19,7 @@ class AdvertReportsManagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReportedAdvertModel advert =
+    ReportedAdvertModel advert =
         ModalRoute.of(context)!.settings.arguments as ReportedAdvertModel;
     return StoreProvider<AppState>(
       store: store,
@@ -40,8 +39,10 @@ class AdvertReportsManagePage extends StatelessWidget {
                           advert.advert.id, report.reporterUser!.id);
                       advert.reports
                           .removeWhere((element) => element == report);
-                      if (advert.reports.isEmpty) vm.noReportsPop;
-                      
+                      advert = advert.copy(count: advert.count - 1);
+                      if (advert.reports.isEmpty) {
+                        vm.noReportsPop();
+                      }
                     },
                   ),
                 );
@@ -126,7 +127,6 @@ class _Factory extends VmFactory<AppState, AdvertReportsManagePage> {
       loading: state.wait.isWaiting,
       noReportsPop: () {
         dispatch(NavigateAction.pop());
-        dispatch(GetReportedAdvertsAction());
       },
       dispatchRemoveWithWarning: (advertId) => dispatch(
             AcceptAdvertReportAction(advertId: advertId, issueWarning: true),

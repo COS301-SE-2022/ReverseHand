@@ -50,6 +50,12 @@ class RemoveReviewReportAction extends ReduxAction<AppState> {
   @override
   void before() {
     dispatch(NavigateAction.pop());
+    dispatch(WaitAction.add("remove_review_report"));
+  }
+
+  @override
+  void after() {
     dispatch(GetReviewReportsAction());
+    dispatch(WaitAction.remove("remove_review_report"));
   }
 }
