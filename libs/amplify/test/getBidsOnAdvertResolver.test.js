@@ -15,6 +15,7 @@ const createAdvertEvent = {
             }
         },
         type: "Plumbing",
+        images: 0
     }
 };
 

@@ -38,7 +38,7 @@ exports.handler = async (event) => {
         UpdateExpression: 'set advert_details.accepted_bid = :ab, expire = :expire',
         ExpressionAttributeValues: {
             ':ab': tradesman_id,
-            'expire': currentDate + (30*24*60*60*1000)
+            ':expire': currentDate + (30*24*60*60*1000)
         },
     };
 
