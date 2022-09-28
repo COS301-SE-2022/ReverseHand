@@ -44,8 +44,3 @@ class AddAdvertReportAction extends ReduxAction<AppState> {
     }
   }
 }
-
-
-String getName(String id) {
-  return "";
-}

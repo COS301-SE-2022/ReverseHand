@@ -52,8 +52,9 @@ class GetPlaceBidMetricsAction extends ReduxAction<AppState> {
       final List<dynamic> values = data;
 
       List<PieChartModel> bidsPlacedByType = [];
+      int color = 0;
       for (var data in values) {
-        bidsPlacedByType.add(buildPieData(data));
+        bidsPlacedByType.add(buildPieData(data, color++));
       }
 
       Map<String, List<PieChartModel>> graphs =
@@ -87,5 +88,11 @@ class GetPlaceBidMetricsAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+   @override
+  void before() => dispatch(WaitAction.add("bid_type_metrics"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("bid_type_metrics"));
 }
 // "{\"EndTime\":\"2022-09-27T10:38:17.845107Z\",\"MetricDataQueries\":[{\"Id\":\"placeBidPlumbing\",\"MetricStat\":{\"Metric\":{\"Dimensions\":[{\"Name\":\"Job_Type\",\"Value\":\"Plumbing\"}],\"MetricName\":\"PlaceBid\",\"Namespace\":\"CustomEvents\"},\"Period\":\"60\",\"Stat\":\"Sum\"},\"ReturnData\":true},{\"Id\":\"placeBidPlumbing\",\"MetricStat\":{\"Metric\":{\"Dimensions\":[{\"Name\":\"Job_Type\",\"Value\":\"Plumbing\"}],\"MetricName\":\"PlaceBid\",\"Namespace\":\"CustomEvents\"},\"Period\":\"60\",\"Stat\":\"Sum\"},\"ReturnData\":true},{\"Id\":\"placeBidPainting\",\"MetricStat\":{\"Metric\":{\"Dimensions\":[{\"Name\":\"Job_Type\",\"Value\":\"Painting\"}],\"MetricName\":\"PlaceBid\",\"Namespace\":\"CustomEvents\"},\"Period\":\"60\",\"Stat\":\"Sum\"},\"ReturnData\":true},{\"Id\":\"placeBidPainting\",\"MetricStat\":{\"Metric\":{\"Dimensions\":[{\"Name\":\"Job_Type\",\"Value\":\"Painting\"}],\"MetricName\":\"PlaceBid\",\"Namespace\":\"CustomEvents\"},\"Period\":\"60\",\"Stat\":\"Sum\"},\"ReturnData\":true}],\"StartTime\":\"2022-09-27T07:38:17.845107Z\",\"LabelOptions\":{\"Timezone\":\"+0200\"},\"ScanBy\":\"TimestampAscending\"}"
