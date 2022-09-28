@@ -1,5 +1,6 @@
 import 'package:admin/pages/admin_profile_page.dart';
 import 'package:admin/pages/app_management/advert_reports/review_advert_reports_page.dart';
+import 'package:admin/pages/user_metrics/chat_sentiments_page.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:authentication/authentication.dart';
 import 'package:authentication/pages/usertype_selection_page.dart';
@@ -112,8 +113,7 @@ class Launch extends StatelessWidget {
               DomainConfirmPage(store: store),
           '/tradesman/view_bids': (context) =>
               TradesmanViewBidsPage(store: store),
-          '/tradesman/reviews': (context) =>
-              ReviewsPage(store: store),
+          '/tradesman/reviews': (context) => ReviewsPage(store: store),
           '/tradesman/edit_profile_page': (context) =>
               EditTradesmanProfilePage(store: store),
           '/tradesman/limited_tradesman_profile_page': (context) =>
@@ -159,7 +159,8 @@ class Launch extends StatelessWidget {
           '/admin_profile': (context) => AdminProfilePage(store: store),
           '/user_metrics': (context) => UserMetricsPage(store: store),
           '/admin/sentiment': (context) => SentimentAnalysisPage(store: store),
-          '/admin/custom_metrics': (context) => CustomMetricsPage(store: store)
+          '/admin/custom_metrics': (context) => CustomMetricsPage(store: store),
+          '/admin/chat': (context) => ChatSentimentsPage(store: store),
         },
       ),
     );

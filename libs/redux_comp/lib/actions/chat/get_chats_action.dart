@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:redux_comp/actions/user/get_profile_photo_action.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -42,5 +43,11 @@ class GetChatsAction extends ReduxAction<AppState> {
   }
 
   @override
-  void after() => dispatch(WaitAction.remove("get_chats"));
+  void after() {
+    for (ChatModel chat in state.chats) {
+      dispatch(GetProfilePhotoAction(chat: chat));
+    }
+
+    dispatch(WaitAction.remove("get_chats"));
+  }
 }

@@ -92,14 +92,13 @@ class ProfileImageWidget extends StatelessWidget {
               icon: const Icon(Icons.camera_alt, color: Colors.white, size: 30),
               onPressed: () async {
                 Navigator.pop(context);
-                XFile? file = (await takePhoto(ImageSource.camera));
+                XFile? file = (await takePhoto(
+                  ImageSource.camera,
+                ));
                 if (file != null) func(File(file.path));
               },
-              label: const Text(
-                "Camera",
-                style: TextStyle(color: Colors.white, fontSize: 15)
-              ),
-              
+              label: const Text("Camera",
+                  style: TextStyle(color: Colors.white, fontSize: 15)),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30),
@@ -127,6 +126,7 @@ class ProfileImageWidget extends StatelessWidget {
 
     XFile? file = await picker.pickImage(
       source: source,
+      imageQuality: 50,
       preferredCameraDevice: CameraDevice.front,
     );
 

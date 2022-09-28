@@ -27,19 +27,38 @@ exports.handler = async (event) => {
                     MetricName: payload.event_type,
                     Dimensions: [
                         {
-                            Name: "Province",
-                            Value: payload.attributes.province
-                        },
-                        {
                             Name: "City",
-                            Value: payload.attributes.province
-                        },
+                            Value: payload.attributes.city
+                        }
+                    ],
+                    Unit: "Count",
+                    Value: 1.0
+                });
+                params.MetricData.push({
+                    MetricName: payload.event_type,
+                    Dimensions: [
+                        {
+                            Name: "Job_Type",
+                            Value: payload.attributes.job_type
+                        }
+                        
                     ],
                     Unit: "Count",
                     Value: 1.0
                 });
                 break;
             case 'PlaceBid':
+                let amount = payload.metrics.amount / 100;
+                let range =
+                    (amount <= 500) ?
+                        "amount <= 500" :
+                        (amount > 500 && amount <= 2500) ?
+                            "500 < amount <= 2500" :
+                            (amount > 2500 && amount <= 10000) ?
+                                "2500 < amount <= 10000" :
+                                (amount > 10000) ?
+                                    "amount > 10000" : "N/A";
+
                 params = {
                     MetricData: [],
                     Namespace: "CustomEvents"
@@ -49,17 +68,24 @@ exports.handler = async (event) => {
                     Dimensions: [
                         {
                             Name: "Amount",
-                            Value: payload.attributes.amount
-                        },
-                        {
-                            Name: "job_type",
-                            Value: payload.attributes.type
+                            Value: range
                         },
                     ],
                     Unit: "Count",
                     Value: 1.0
                 });
-                break;   
+                params.MetricData.push({
+                    MetricName: payload.event_type,
+                    Dimensions: [
+                        {
+                            Name: "Job_Type",
+                            Value: payload.attributes.job_type
+                        },
+                    ],
+                    Unit: "Count",
+                    Value: 1.0
+                });
+                break;
             case '_session.start':
                 params = {
                     MetricData: [],
@@ -88,10 +114,10 @@ exports.handler = async (event) => {
     });
 
     if (params != undefined) {
-        console.log("params:\n" + params);
+        console.log("params: ", params);
         const data = await cloudWatch.putMetricData(params).promise();
         console.log("Submitted to CloudWatch");
-        console.log("data:\n" + data);
+        console.log("data: ", data);
         return data;
     } else return null;
 

@@ -27,7 +27,7 @@ class QuickViewUserCardWidget extends StatelessWidget {
         builder: (BuildContext context, _ViewModel vm) => InkWell(
           onTap: () {
             vm.dispatchGetUser(user.id);
-            vm.pushUserManage();
+            vm.pushUserManage(user);
           },
           child: Card(
             margin: const EdgeInsets.all(10),
@@ -111,13 +111,13 @@ class _Factory extends VmFactory<AppState, QuickViewUserCardWidget> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-      pushUserManage: () => dispatch(NavigateAction.pushNamed("/user_manage")),
+      pushUserManage: (user) => dispatch(NavigateAction.pushNamed("/user_manage", arguments: user)),
       dispatchGetUser: (userId) => dispatch(AdminGetUserAction(userId)));
 }
 
 // view model
 class _ViewModel extends Vm {
-  final VoidCallback pushUserManage;
+  final Function(CognitoUserModel) pushUserManage;
   final void Function(String) dispatchGetUser;
   _ViewModel({required this.pushUserManage, required this.dispatchGetUser});
 }
