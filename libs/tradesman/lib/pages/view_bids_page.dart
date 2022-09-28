@@ -36,7 +36,7 @@ class TradesmanViewBidsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   child: Column(children: [
                     if (vm.bids.isNotEmpty)
-                    ...populateBids(vm.userId, vm.bids, store),
+                      ...populateBids(vm.userId, vm.bids, store),
                     //********IF NO BIDS********************/
                     if (vm.bids.isEmpty)
                       (const Padding(
