@@ -80,59 +80,66 @@ class TradesmanJobListings extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       //display loading icon
-                      if (vm.loading)
-                        const LoadingWidget(
-                            topPadding: 50, bottomPadding: 20),
-                      ListRefreshWidget(
-                        widgets: [
-                          //a message if no jobs
-                          if (vm.adverts.isEmpty)
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: (MediaQuery.of(context).size.height) / 4,
-                                left: 40,
-                                right: 40,
-                              ),
-                              child: (const Text(
-                                "There are no jobs to display.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white70),
-                              )),
+                      vm.loading
+                          ? const LoadingWidget(
+                              topPadding: 50, bottomPadding: 20)
+                          : ListRefreshWidget(
+                              widgets: [
+                                //a message if no jobs
+                                if (vm.adverts.isEmpty)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top:
+                                          (MediaQuery.of(context).size.height) /
+                                              4,
+                                      left: 40,
+                                      right: 40,
+                                    ),
+                                    child: (const Text(
+                                      "There are no jobs to display.",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white70),
+                                    )),
+                                  ),
+                                //else populate the jobs
+                                ...populateAdverts(vm.adverts, store),
+                                const Padding(
+                                    padding: EdgeInsets.only(bottom: 33))
+                              ],
+                              refreshFunction: vm.dispatchGetJobsAction,
                             ),
-                          //else populate the jobs
-                          ...populateAdverts(vm.adverts, store),
-                          const Padding(padding: EdgeInsets.only(bottom: 33))
-                        ],
-                        refreshFunction: vm.dispatchGetJobsAction,
-                      ),
+
                       //display loading icon
-                      if (vm.loading)
-                        const LoadingWidget(
-                            topPadding: 80, bottomPadding: 0),
-                      ListRefreshWidget(
-                        widgets: [
-                          //a message if no jobs
-                          if (vm.bidOnAdverts.isEmpty)
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: (MediaQuery.of(context).size.height) / 4,
-                                left: 40,
-                                right: 40,
-                              ),
-                              child: (const Text(
-                                "There are no jobs to display.\n Bid on an advert to see it here.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white70),
-                              )),
+                      vm.loading
+                          ? const LoadingWidget(
+                              topPadding: 80, bottomPadding: 0)
+                          : ListRefreshWidget(
+                              widgets: [
+                                //a message if no jobs
+                                if (vm.bidOnAdverts.isEmpty)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top:
+                                          (MediaQuery.of(context).size.height) /
+                                              4,
+                                      left: 40,
+                                      right: 40,
+                                    ),
+                                    child: (const Text(
+                                      "There are no jobs to display.\n Bid on an advert to see it here.",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white70),
+                                    )),
+                                  ),
+                                //else populate the jobs
+                                ...populateAdverts(vm.bidOnAdverts, store),
+                                const Padding(
+                                    padding: EdgeInsets.only(bottom: 33))
+                              ],
+                              refreshFunction: vm.dispatchGetBidOnJobsAction,
                             ),
-                          //else populate the jobs
-                          ...populateAdverts(vm.bidOnAdverts, store),
-                          const Padding(padding: EdgeInsets.only(bottom: 33))
-                        ],
-                        refreshFunction: vm.dispatchGetBidOnJobsAction,
-                      ),
                     ],
                   ),
                 ),

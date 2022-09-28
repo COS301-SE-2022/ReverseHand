@@ -44,23 +44,20 @@ class BidDetailsPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: SizedBox(
-                          width:  MediaQuery.of(context).size.height / 2.6,
-                          child:Text(
-                            '${vm.bid.name}',
-                            maxLines: 2,
-                            style: const TextStyle(
-                                fontSize: 33, color: Colors.white)
-                          ),
+                          width: MediaQuery.of(context).size.height / 2.9,
+                          child: Text('${vm.bid.name}',
+                              maxLines: 2,
+                              style: const TextStyle(
+                                  fontSize: 33, color: Colors.white)),
                         ),
                       ),
                       IconButton(
                         onPressed: () {
                           vm.dispatchShortListBidAction();
                           vm.bid.shortlisted
-                          ? displayToastSuccess(
-                              context, "Bid Unfavourited!")
-                          : displayToastSuccess(
-                            context, "Bid Favourited!");
+                              ? displayToastSuccess(
+                                  context, "Bid Unfavourited!")
+                              : displayToastSuccess(context, "Bid Favourited!");
                         },
                         icon: Icon(
                           vm.bid.shortlisted
@@ -111,32 +108,32 @@ class BidDetailsPage extends StatelessWidget {
                     //**************************************/
 
                     //**************SEE QUOTE BUTTON***************/
-                    (vm.bid.quote != null) 
-                      ? Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: LongButtonWidget(
-                          text: "View Quote",
-                          function: () {
-                            vm.pushViewQuotePage();
-                            vm.dispatchGetPdfAction();
-                          },
-                        ),
-                      )
-                      //if quote is not uploaded
-                      : Padding(
-                        padding: const EdgeInsets.only(top: 20, bottom: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              "No quote has been\n uploaded yet.",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 20, color: Colors.white54),
+                    (vm.bid.quote != null)
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: LongButtonWidget(
+                              text: "View Quote",
+                              function: () {
+                                vm.pushViewQuotePage();
+                                vm.dispatchGetPdfAction();
+                              },
                             ),
-                          ],
-                        ),
-                      ),
-
+                          )
+                        //if quote is not uploaded
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 30),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  "No quote has been\n uploaded yet.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white54),
+                                ),
+                              ],
+                            ),
+                          ),
                   ],
                 ),
 
@@ -158,15 +155,17 @@ class BidDetailsPage extends StatelessWidget {
                       vm: () => _Factory(this),
                       builder: (BuildContext context, _ViewModel vm) => Center(
                         child: LongButtonWidget(
-                            text: "Accept Bid",
-                            function: () {
-                              LightDialogHelper.display(
-                                  context,
-                                  AcceptPopUpWidget(
-                                    store: store,
-                                  ),
-                                  320.0);
-                            }),
+                          text: "Accept Bid",
+                          function: () {
+                            LightDialogHelper.display(
+                              context,
+                              AcceptPopUpWidget(
+                                store: store,
+                              ),
+                              320.0,
+                            );
+                          },
+                        ),
                       ),
                     ),
                     TransparentLongButtonWidget(

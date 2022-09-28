@@ -39,7 +39,7 @@ class AcceptPopUpWidget extends StatelessWidget {
                     Navigator.pop(context);
                     // vm.dispatchAcceptBidAction();
                     vm.dispatchProcessPayementAction(context);
-                    displayToastSuccess(context, "Bid Accepted!");
+                    // displayToastSuccess(context, "Bid Accepted!");
                   },
                 ),
                 const Padding(padding: EdgeInsets.all(5)),
