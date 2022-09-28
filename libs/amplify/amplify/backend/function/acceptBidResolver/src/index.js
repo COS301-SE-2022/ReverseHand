@@ -10,6 +10,10 @@ const func = process.env.FUNCTION;
 // add a bid id to an adverts accepted bid
 // requires customer id and advert id and shorlisted bid id
 exports.handler = async (event) => {
+    // getting current date
+    const date = new Date();
+    const currentDate = date.getTime();
+
     // getting accepted bid
     let params = {
         TableName: ReverseHandTable,
@@ -31,9 +35,10 @@ exports.handler = async (event) => {
             part_key: event.arguments.ad_id,
             sort_key: event.arguments.ad_id
         },
-        UpdateExpression: 'set advert_details.accepted_bid = :ab',
+        UpdateExpression: 'set advert_details.accepted_bid = :ab, expire = :expire',
         ExpressionAttributeValues: {
             ':ab': tradesman_id,
+            'expire': currentDate + (30*24*60*60*1000)
         },
     };
 
@@ -41,9 +46,6 @@ exports.handler = async (event) => {
     let customer_id = ad.customer_id;
 
     // sending out notification
-    // getting current date
-    const date = new Date();
-    const currentDate = date.getTime();
 
     const lambda = new AWS.Lambda();
     var notification = lambda.invoke({
