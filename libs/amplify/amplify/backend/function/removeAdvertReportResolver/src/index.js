@@ -19,12 +19,10 @@ exports.handler = async (event) => {
     };
     
     let reported_advert = await docClient.get(params).promise().then((resp) => resp.Item);
-    if (event.arguments.accepted) {
-        //Issue user warning
-    }
+
     //filter out report by tradesman_id
-    reported_advert.admin_reports = reported_advert.admin_reports.filter(report => report.tradesman_id != event.arguments.tradesman_id);
-    
+    reported_advert.admin_reports = reported_advert.admin_reports.filter(report => report.reporter_user.id != event.arguments.tradesman_id);
+    // console.log(reported_advert.admin_reports)
     //if the advert has no other reports, delete the admin_reports obj & the id 
     //so it doesn't show up in the admin_customer_view GSI
     if (reported_advert.admin_reports.length == 0) { //this should be 0 if i forgot to change it
@@ -40,7 +38,7 @@ exports.handler = async (event) => {
             }
         };
         let reports = await docClient.get(params).promise().then((resp) => resp.Item);
-        reports.reports_list = reports.reports_list.filter(advert_id => advert_id != reported_advert.part_key);
+        reports.reports_list = reports.reports_list.filter(advert => advert.part_key != reported_advert.part_key);
         //if no other reports, delete the reports
         if (reports.reports_list.length == 0) {
             delete reports.reports_list;

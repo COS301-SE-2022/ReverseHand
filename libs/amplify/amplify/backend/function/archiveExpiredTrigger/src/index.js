@@ -63,6 +63,18 @@ exports.handler = async (event) => {
   const date = new Date();
   const currentDate = date.getTime();
 
+  // let item = {
+  //     TableName: ReverseHandTable,
+  //     ReturnValues: 'ALL_OLD',
+  //     Key: {
+  //         part_key: event.arguments.ad_id,
+  //         sort_key: event.arguments.ad_id
+  //     },
+  // };
+
+  // let resp = await docClient.delete(item).promise().then((resp) => resp.Attributes);
+
+
   advert['advert_details']['date_closed'] = currentDate;
 
   let item = {
@@ -99,6 +111,7 @@ exports.handler = async (event) => {
       };
 
       await docClient.put(paramsPutReportsList).promise();
+
   }
   
 

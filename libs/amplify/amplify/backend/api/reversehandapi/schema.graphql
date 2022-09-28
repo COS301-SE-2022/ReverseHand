@@ -135,6 +135,7 @@ type Mutation {
     name: String
     cellNo: String
     location: LocationInput
+    scope: String
     tradetypes: [String]
     domains: [DomainInput]
   ): User @function(name: "editUserDetailResolver-${env}")
@@ -188,6 +189,9 @@ type Mutation {
 
   enableUser(username: String!, disable: Boolean!) : String!
     @function(name: "enableUserResolver-${env}")
+
+  removeAdvertReport(advert_id: String!, tradesman_id: String!) : ReportDetails!
+    @function(name: "removeAdvertReportResolver-${env}")
 }
 
 type Subscription {
@@ -382,7 +386,7 @@ type ReviewDetails {
 
 type ReportDetails {
   reporter_user: ReportUserDetails!
-  reported_user: ReportUserDetails!
+  reported_user: ReportUserDetails
   reason: String!
   description: String!
 }
