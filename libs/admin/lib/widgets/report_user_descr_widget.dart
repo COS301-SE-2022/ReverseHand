@@ -40,9 +40,14 @@ class ReportUserDescrWidget extends StatelessWidget {
                 size: 25.0,
               ),
               const Padding(padding: EdgeInsets.only(right: 5)),
-              Text(
-                name,
-                style: const TextStyle(fontSize: 20, color: Colors.white),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 3,
+                child: Text(
+                  name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 20, color: Colors.white),
+                ),
               ),
               const Spacer(),
               GestureDetector(
