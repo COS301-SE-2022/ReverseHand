@@ -34,41 +34,26 @@ class ViewBidsPage extends StatelessWidget {
               AppBarWidget(title: "BIDS", store: store, backButton: true),
               //******************************//
 
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: ListRefreshWidget(
-                  widgets: [
-                    if (vm.bids.isNotEmpty)
-                      Column(
-                        children: [
-                          const HintWidget(
-                            text:
-                                "Click on a bid to see more detailed information",
-                            colour: Colors.white70,
-                            padding: 15,
-                          ),
-                          ...populateBids(vm.bids, store),
-                        ],
-                      ),
-
-                    //********IF NO BIDS********************/
-                    if (vm.bids.isEmpty)
-                      const Center(
-                        child: (Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Text(
-                            "No bids to\n display",
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white54),
-                          ),
-                        )),
-                      ),
-                    //**************************************/
-                  ],
-                  refreshFunction: vm.dispatchViewBidsAction,
-                ),
+              const HintWidget(
+                text: "Click on a bid to see more detailed information",
+                colour: Colors.white70,
+                padding: 15,
               ),
+              (vm.bids.isEmpty)
+                  ? const Center(
+                      child: (Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          "No bids to\n display",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20, color: Colors.white54),
+                        ),
+                      )),
+                    )
+                  : ListRefreshWidget(
+                      widgets: populateBids(vm.bids, store),
+                      refreshFunction: vm.dispatchViewBidsAction,
+                    ),
             ],
           ),
         ),
