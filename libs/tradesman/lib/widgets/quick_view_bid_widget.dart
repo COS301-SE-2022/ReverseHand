@@ -5,7 +5,7 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/bid_model.dart';
 
 //******************************** */
-//  bid view wdiegt (clickable)
+//  bid view wdiegt (not-clickable)
 //******************************** */
 
 class TQuickViewBidWidget extends StatelessWidget {

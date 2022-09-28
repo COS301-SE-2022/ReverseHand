@@ -79,14 +79,14 @@ class TradesmanJobListings extends StatelessWidget {
                 Expanded(
                   child: TabBarView(
                     children: [
+                      //display loading icon
+                      if (vm.loading)
+                        const LoadingWidget(
+                            topPadding: 50, bottomPadding: 20),
                       ListRefreshWidget(
                         widgets: [
-                          //display loading icon
-                          if (vm.loading)
-                            const LoadingWidget(
-                                topPadding: 50, bottomPadding: 20)
                           //a message if no jobs
-                          else if (vm.adverts.isEmpty)
+                          if (vm.adverts.isEmpty)
                             Padding(
                               padding: EdgeInsets.only(
                                 top: (MediaQuery.of(context).size.height) / 4,
@@ -106,14 +106,14 @@ class TradesmanJobListings extends StatelessWidget {
                         ],
                         refreshFunction: vm.dispatchGetJobsAction,
                       ),
+                      //display loading icon
+                      if (vm.loading)
+                        const LoadingWidget(
+                            topPadding: 80, bottomPadding: 0),
                       ListRefreshWidget(
                         widgets: [
-                          //display loading icon
-                          if (vm.loading)
-                            const LoadingWidget(
-                                topPadding: 80, bottomPadding: 0)
                           //a message if no jobs
-                          else if (vm.bidOnAdverts.isEmpty)
+                          if (vm.bidOnAdverts.isEmpty)
                             Padding(
                               padding: EdgeInsets.only(
                                 top: (MediaQuery.of(context).size.height) / 4,

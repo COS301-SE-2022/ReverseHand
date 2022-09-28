@@ -4,10 +4,10 @@ import 'package:redux_comp/actions/user/get_other_user_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 
-class ChatAppBarWidget extends StatelessWidget {
+class SentimentChatAppBarWidget extends StatelessWidget {
   final String title;
   final Store<AppState> store;
-  const ChatAppBarWidget({Key? key, required this.title, required this.store})
+  const SentimentChatAppBarWidget({Key? key, required this.title, required this.store})
       : super(key: key);
 
   @override
@@ -25,27 +25,20 @@ class ChatAppBarWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                      top: 40,
-                      left: 70,
-                    ),
-                    child: CircleAvatar(
-                      radius: 15,
-                      backgroundImage: vm.chat.image == null
-                          ? const AssetImage(
-                              "assets/images/profile.png",
-                              package: 'general',
-                            )
-                          : Image.network(vm.chat.image!).image,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 40),
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 23,
+                    padding: const EdgeInsets.only(right: 15, top: 40),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child:SizedBox( 
+                        width: MediaQuery.of(context).size.width / 3,
+                        child: Text(
+                          title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -60,7 +53,7 @@ class ChatAppBarWidget extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, ChatAppBarWidget> {
+class _Factory extends VmFactory<AppState, SentimentChatAppBarWidget> {
   _Factory(widget) : super(widget);
 
   @override

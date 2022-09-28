@@ -120,6 +120,8 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
                                 padding: const EdgeInsets.all(5.0),
                                 child: Text(
                                   "${vm.userDetails.domains.elementAt(i).city}, ${vm.userDetails.domains.elementAt(i).province}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),
@@ -491,7 +493,7 @@ class _TradesmanProfilePageState extends State<TradesmanProfilePage> {
 
                     const ProfileDividerWidget(),
 
-                    //**********TEMP LOGOUT BUTTON********/
+                    //**********LOGOUT BUTTON********/
                     IconButton(
                       icon: const Icon(
                         Icons.logout,
