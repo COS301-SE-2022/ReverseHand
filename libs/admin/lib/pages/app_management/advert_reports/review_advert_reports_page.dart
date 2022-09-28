@@ -6,6 +6,8 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/accept_advert_report_action.dart';
+import 'package:redux_comp/actions/admin/app_management/get_reported_adverts_action.dart';
+import 'package:redux_comp/actions/admin/app_management/remove_advert_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/reported_advert_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../../../widgets/report_details_widget.dart';
@@ -29,10 +31,20 @@ class AdvertReportsManagePage extends StatelessWidget {
             builder: (BuildContext context, _ViewModel vm) {
               List<ReportDetailsWidget> reports = [];
               for (var report in advert.reports) {
-                reports.add(ReportDetailsWidget(
-                  reason: report.reason,
-                  description: report.description,
-                ));
+                reports.add(
+                  ReportDetailsWidget(
+                    reason: report.reason,
+                    description: report.description,
+                    deleteFunction: () {
+                      vm.dispatchRemoveReport(
+                          advert.advert.id, report.reporterUser!.id);
+                      advert.reports
+                          .removeWhere((element) => element == report);
+                      if (advert.reports.isEmpty) vm.noReportsPop;
+                      
+                    },
+                  ),
+                );
               }
               Widget appbar = AppBarWidget(
                 title: "Manage Advert Report",
@@ -111,25 +123,36 @@ class _Factory extends VmFactory<AppState, AdvertReportsManagePage> {
 
   @override
   _ViewModel fromStore() => _ViewModel(
-        loading: state.wait.isWaiting,
-        dispatchRemoveWithWarning: (advertId) => dispatch(
-          AcceptAdvertReportAction(advertId: advertId, issueWarning: true),
-        ),
-        dispatchRemoveWithoutWarning: (advertId) => dispatch(
-          AcceptAdvertReportAction(advertId: advertId, issueWarning: false),
-        ),
-      );
+      loading: state.wait.isWaiting,
+      noReportsPop: () {
+        dispatch(NavigateAction.pop());
+        dispatch(GetReportedAdvertsAction());
+      },
+      dispatchRemoveWithWarning: (advertId) => dispatch(
+            AcceptAdvertReportAction(advertId: advertId, issueWarning: true),
+          ),
+      dispatchRemoveWithoutWarning: (advertId) => dispatch(
+            AcceptAdvertReportAction(advertId: advertId, issueWarning: false),
+          ),
+      dispatchRemoveReport: (advertId, tradesmanId) => dispatch(
+            RemoveAdvertReportAction(
+                advertId: advertId, tradesmanId: tradesmanId),
+          ));
 }
 
 // view model
 class _ViewModel extends Vm {
   final bool loading;
+  final VoidCallback noReportsPop;
   final void Function(String) dispatchRemoveWithWarning;
   final void Function(String) dispatchRemoveWithoutWarning;
+  final void Function(String, String) dispatchRemoveReport;
 
   _ViewModel({
     required this.loading,
+    required this.noReportsPop,
     required this.dispatchRemoveWithWarning,
     required this.dispatchRemoveWithoutWarning,
+    required this.dispatchRemoveReport,
   }) : super(equals: [loading]); // implementinf hashcode;
 }
