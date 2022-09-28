@@ -4,6 +4,8 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/admin/user_metrics/get_adverts_place_metrics_action.dart';
+import 'package:redux_comp/actions/admin/user_metrics/get_adverts_type_metrics_action.dart';
 import 'package:redux_comp/actions/admin/user_metrics/get_bid_amount_metrics_action.dart';
 import 'package:redux_comp/actions/admin/user_metrics/get_place_bid_metrics_action.dart';
 import 'package:redux_comp/models/admin/user_metrics/chart_model.dart';
@@ -170,8 +172,8 @@ class _Factory extends VmFactory<AppState, _CustomMetricsPageState> {
           dispatch(GetPlaceBidMetricsAction(time));
           dispatch(GetBidAmountMetricsAction(time));
         } else if (event == "Create Advert") {
-          dispatch(GetPlaceBidMetricsAction(time));
-          dispatch(GetBidAmountMetricsAction(time));
+          dispatch(GetAdvertTypeMetrics(time));
+          dispatch(GetAdvertPlaceMetrics(time));
         }
       });
 }
@@ -188,7 +190,7 @@ class _ViewModel extends Vm {
     required this.placeBidMetrics,
     required this.createAdvertMetrics,
     required this.refresh,
-  }) : super(equals: [loading, placeBidMetrics]); // implementinf hashcode;
+  }) : super(equals: [loading, placeBidMetrics, createAdvertMetrics]); // implementinf hashcode;
 }
 
 class ChartData {

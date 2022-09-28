@@ -101,63 +101,59 @@ class SearchUsersPage extends StatelessWidget {
                         Expanded(
                             child: TabBarView(children: [
                           //display loading icon
-                          SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                //a message if no in progress jobs
-                                if (customer.isEmpty)
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        top: (MediaQuery.of(context)
-                                                .size
-                                                .height) /
-                                            4,
-                                        left: 40,
-                                        right: 40),
-                                    child: (const Text(
-                                      "No customer user's found",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white70),
-                                    )),
-                                  ),
-                                //else display in progress jobs
-                                ListRefreshWidget(
-                                    widgets: customer,
-                                    refreshFunction: () =>
-                                        vm.dispatchListUser("customer")),
-                                const Padding(
-                                    padding: EdgeInsets.only(bottom: 33))
-                              ],
-                            ),
+
+                          Column(
+                            children: [
+                              //a message if no in progress jobs
+                              if (customer.isEmpty)
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top:
+                                          (MediaQuery.of(context).size.height) /
+                                              4,
+                                      left: 40,
+                                      right: 40),
+                                  child: (const Text(
+                                    "No customer user's found",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white70),
+                                  )),
+                                ),
+                              //else display in progress jobs
+                              ListRefreshWidget(
+                                  widgets: customer,
+                                  refreshFunction: () =>
+                                      vm.dispatchListUser("customer")),
+                              const Padding(
+                                  padding: EdgeInsets.only(bottom: 33))
+                            ],
                           ),
-                          SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                if (tradesman.isEmpty)
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        top: (MediaQuery.of(context)
-                                                .size
-                                                .height) /
-                                            4,
-                                        left: 40,
-                                        right: 40),
-                                    child: (const Text(
-                                      "No tradesman user's found",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white70),
-                                    )),
-                                  ),
-                                ListRefreshWidget(
-                                    widgets: tradesman,
-                                    refreshFunction: () =>
-                                        vm.dispatchListUser("tradesman")),
-                                const Padding(
-                                    padding: EdgeInsets.only(bottom: 33))
-                              ],
-                            ),
+
+                          Column(
+                            children: [
+                              if (tradesman.isEmpty)
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top:
+                                          (MediaQuery.of(context).size.height) /
+                                              4,
+                                      left: 40,
+                                      right: 40),
+                                  child: (const Text(
+                                    "No tradesman user's found",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white70),
+                                  )),
+                                ),
+                              ListRefreshWidget(
+                                  widgets: tradesman,
+                                  refreshFunction: () =>
+                                      vm.dispatchListUser("tradesman")),
+                              const Padding(
+                                  padding: EdgeInsets.only(bottom: 33))
+                            ],
                           ),
                         ])),
                         // ********************************************************//

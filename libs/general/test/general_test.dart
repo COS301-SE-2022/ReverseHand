@@ -28,5 +28,8 @@ void main() {
 
   test("timestampToDate() method unit test", () {
     expect("12-09-2022", timestampToDate(timestamp));
+
+    expect("0 minutes ago",
+        timeSinceTimestamp((DateTime.now().millisecondsSinceEpoch).toDouble()));
   });
 }
