@@ -27,6 +27,19 @@ class AdminGetUserAction extends ReduxAction<AppState> {
     final request = GraphQLRequest(document: graphQLDoc);
     try {
       final response = await Amplify.API.query(request: request).response;
+
+      for (var error in response.errors) {
+        switch (error.message) {
+          case "No user found":
+            return state.copy(
+              admin: state.admin.copy(
+                adminManage:
+                    state.admin.adminManage.copy(makeActiveUserNull: true),
+              ),
+            );
+        }
+      }
+
       final data = jsonDecode(response.data)["adminGetUser"];
 
       return state.copy(

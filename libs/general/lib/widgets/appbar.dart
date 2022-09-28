@@ -8,14 +8,14 @@ class AppBarWidget extends StatelessWidget {
   final String title;
   final Store<AppState> store;
   final Widget? filterActions;
-  final bool? backButton;
+  final bool backButton;
   final void Function()? refreshAction;
   const AppBarWidget({
     Key? key,
     required this.title,
     required this.store,
     this.filterActions,
-    this.backButton,
+    this.backButton = false,
     this.refreshAction,
   }) : super(key: key);
 
@@ -34,7 +34,7 @@ class AppBarWidget extends StatelessWidget {
               // ignore: sized_box_for_whitespace
               child: Container(
                 width: 50,
-                child: (backButton == true)
+                child: (backButton)
                     ? IconButton(
                         icon: const Icon(Icons.arrow_back),
                         onPressed: vm.popPage)

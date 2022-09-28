@@ -15,9 +15,6 @@
     },
     "s3Key": {
       "Type": "String"
-    },
-    "apiGraphQLAPIIdOutput": {
-      "Type": "String"
     }
   },
   "Conditions": {
@@ -50,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getDashboardMetricsResolver",
+            "listMetricsResolver",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getDashboardMetricsResolver",
+                  "listMetricsResolver",
                   "-",
                   {
                     "Ref": "env"
@@ -92,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "reversehandLambdaRole431243fa",
+            "reversehandLambdaRole0b139fb4",
             {
               "Fn::Join": [
                 "",
                 [
-                  "reversehandLambdaRole431243fa",
+                  "reversehandLambdaRole0b139fb4",
                   "-",
                   {
                     "Ref": "env"
@@ -177,10 +174,7 @@
           "Statement": [
             {
               "Action": [
-                "cloudwatch:GetDashboard",
-                "cloudwatch:GetMetricData",
-                "cloudwatch:GetMetricStatistics",
-                "cloudwatch:GetMetricWidgetImage"
+                "cloudwatch:ListMetrics"
               ],
               "Resource": [
                 "*"

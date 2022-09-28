@@ -1,4 +1,5 @@
 import 'package:admin/widgets/admin_user_widget.dart';
+import 'package:admin/widgets/partial_user_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
@@ -8,6 +9,7 @@ import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/enable_user_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/admin_user_model.dart';
+import 'package:redux_comp/models/admin/app_management/models/cognito_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
 class UserManagePage extends StatelessWidget {
@@ -16,6 +18,8 @@ class UserManagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CognitoUserModel cogUser =
+        ModalRoute.of(context)!.settings.arguments as CognitoUserModel;
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -44,22 +48,33 @@ class UserManagePage extends StatelessWidget {
                       //**********APPBAR***********//
                       appbar,
 
-                      AdminUserWidget(user: vm.activeUser!),
+                      (vm.activeUser != null)
+                          ? AdminUserWidget(user: vm.activeUser!)
+                          : PartialUserWidget(user: cogUser),
                       const Padding(padding: EdgeInsets.only(bottom: 25)),
                       LongButtonWidget(
-                        text: (vm.activeUser!.enabled)
-                            ? "Disable User"
-                            : "Enable User",
-                        function: (vm.activeUser!.enabled)
-                            ? () => vm.dispatchEnableUser(
-                                  vm.activeUser!.cognitoUsername,
-                                  true,
-                                )
-                            : () => vm.dispatchEnableUser(
-                                  vm.activeUser!.cognitoUsername,
-                                  false,
-                                ),
-                      ),
+                          text: (vm.activeUser?.enabled ?? cogUser.enabled)
+                              ? "Disable User"
+                              : "Enable User",
+                          function: (vm.activeUser?.enabled ?? cogUser.enabled)
+                              ? () {
+                                  vm.dispatchEnableUser(
+                                    vm.activeUser!.cognitoUsername,
+                                    true,
+                                  );
+                                  cogUser = cogUser.copy(
+                                    enabled: false
+                                  );
+                                }
+                              : () {
+                                  vm.dispatchEnableUser(
+                                    vm.activeUser!.cognitoUsername,
+                                    false,
+                                  );
+                                  cogUser = cogUser.copy(
+                                    enabled: true
+                                  );
+                                }),
                       const Padding(padding: EdgeInsets.only(bottom: 10)),
                       TransparentLongButtonWidget(
                           text: "Delete User",
