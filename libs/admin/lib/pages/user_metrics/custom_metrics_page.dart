@@ -33,17 +33,90 @@ class _CustomMetricsPageState extends State<CustomMetricsPage> {
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
-            Widget appbar = AppBarWidget(
-              title: "Custom Metrics",
-              store: widget.store,
-              backButton: true,
-            );
+            List<Widget> startingWidgets = [
+              AppBarWidget(
+                title: "Custom Metrics",
+                store: widget.store,
+                backButton: true,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  DropDownOptionsWidget(
+                    title: "Event",
+                    functions: {
+                      "Create Advert": () {
+                        setState(() {
+                          currentEvent = "Create Advert";
+                        });
+                        vm.refresh(currentEvent, date);
+                      },
+                      "Place Bid": () {
+                        setState(() {
+                          currentEvent = "Place Bid";
+                        });
+                        vm.refresh(currentEvent, date);
+                      }
+                    },
+                    currentItem: currentEvent,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.only(left: 45),
+                    child: GestureDetector(
+                      child: Text(date.toIso8601String().substring(0, 10),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          )),
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: date,
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2100),
+                          builder: (context, child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: Theme.of(context).primaryColor,
+                                  onPrimary: Colors.black,
+                                  onSurface: Colors.black,
+                                ),
+                                textButtonTheme: TextButtonThemeData(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor:
+                                        Colors.black, // button text color
+                                  ),
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
+                        );
+
+                        setState(() {
+                          date = pickedDate ??
+                              DateTime
+                                  .now(); //set output date to TextField value.
+                        });
+                        vm.refresh(currentEvent, date);
+                      },
+                    ),
+                  ),
+                ],
+              )
+            ];
 
             return (vm.loading)
                 ? Column(
                     children: [
                       //**********APPBAR***********//
-                      appbar,
+                      ...startingWidgets,
                       //*******************************************//
 
                       LoadingWidget(
@@ -57,87 +130,16 @@ class _CustomMetricsPageState extends State<CustomMetricsPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         //**********APPBAR***********//
-                        appbar,
+                        ...startingWidgets,
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            DropDownOptionsWidget(
-                              title: "Event",
-                              functions: {
-                                "Create Advert": () {
-                                  setState(() {
-                                    currentEvent = "Create Advert";
-                                  });
-                                  vm.refresh(currentEvent, date);
-                                },
-                                "Place Bid": () {
-                                  setState(() {
-                                    currentEvent = "Place Bid";
-                                  });
-                                  vm.refresh(currentEvent, date);
-                                }
-                              },
-                              currentItem: currentEvent,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              padding: const EdgeInsets.all(5),
-                              margin: const EdgeInsets.only(left: 45),
-                              child: GestureDetector(
-                                child: Text(
-                                    date.toIso8601String().substring(0, 10),
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                    )),
-                                onTap: () async {
-                                  DateTime? pickedDate = await showDatePicker(
-                                    context: context,
-                                    initialDate: date,
-                                    firstDate: DateTime(2020),
-                                    lastDate: DateTime(2100),
-                                    builder: (context, child) {
-                                      return Theme(
-                                        data: Theme.of(context).copyWith(
-                                          colorScheme: ColorScheme.light(
-                                            primary:
-                                                Theme.of(context).primaryColor,
-                                            onPrimary: Colors.black,
-                                            onSurface: Colors.black,
-                                          ),
-                                          textButtonTheme: TextButtonThemeData(
-                                            style: TextButton.styleFrom(
-                                              foregroundColor: Colors
-                                                  .black, // button text color
-                                            ),
-                                          ),
-                                        ),
-                                        child: child!,
-                                      );
-                                    },
-                                  );
-
-                                  setState(() {
-                                    date = pickedDate ??
-                                        DateTime
-                                            .now(); //set output date to TextField value.
-                                  });
-                                  vm.refresh(currentEvent, date);
-                                },
-                              ),
-                            )
-                          ],
-                        ),
                         if (currentEvent == "Create Advert")
                           GroupedDoughnutChartWidget(graphs: {
-                            "Job Type":
-                                vm.createAdvertMetrics.graphs["advertsByType"] ?? [],
-                            "Cities":
-                                vm.createAdvertMetrics.graphs["advertsByCity"] ?? [],
+                            "Job Type": vm.createAdvertMetrics
+                                    .graphs["advertsByType"] ??
+                                [],
+                            "Cities": vm.createAdvertMetrics
+                                    .graphs["advertsByCity"] ??
+                                [],
                           })
                         else if (currentEvent == "Place Bid")
                           GroupedDoughnutChartWidget(graphs: {
@@ -190,7 +192,11 @@ class _ViewModel extends Vm {
     required this.placeBidMetrics,
     required this.createAdvertMetrics,
     required this.refresh,
-  }) : super(equals: [loading, placeBidMetrics, createAdvertMetrics]); // implementinf hashcode;
+  }) : super(equals: [
+          loading,
+          placeBidMetrics,
+          createAdvertMetrics
+        ]); // implementinf hashcode;
 }
 
 class ChartData {

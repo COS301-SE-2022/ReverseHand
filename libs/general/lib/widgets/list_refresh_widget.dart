@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ListRefreshWidget extends StatelessWidget {
-  final List<Widget> widgets;
+  final List<Widget> widgets; // The list of things you wish to refresh
   final void Function()
-      refreshFunction; // The list of things you wish to refresh
+      refreshFunction; 
 
   const ListRefreshWidget({
     Key? key,
@@ -22,7 +22,7 @@ class ListRefreshWidget extends StatelessWidget {
           child: ListView(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
-            padding: const EdgeInsets.only(top: 0),
+            padding: const EdgeInsets.only(top: 0), //ListView has default padding I don't want
             children: widgets,
           ),
         ),

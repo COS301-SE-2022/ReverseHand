@@ -42,6 +42,7 @@ class GetReportedAdvertsAction extends ReduxAction<AppState> {
           type
           description
           date_created
+          images
         }
       }
     }

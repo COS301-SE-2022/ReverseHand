@@ -51,8 +51,9 @@ class GetAdvertTypeMetrics extends ReduxAction<AppState> {
       final List<dynamic> values = data;
 
       List<PieChartModel> advertsPlacedByType = [];
+      int color = 0;
       for (var data in values) {
-        advertsPlacedByType.add(buildPieData(data));
+        advertsPlacedByType.add(buildPieData(data, color++));
       }
 
       Map<String, List<PieChartModel>> graphs =
@@ -86,4 +87,10 @@ class GetAdvertTypeMetrics extends ReduxAction<AppState> {
       return null;
     }
   }
+
+   @override
+  void before() => dispatch(WaitAction.add("advert_type_metrics"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("advert_type_metrics"));
 }

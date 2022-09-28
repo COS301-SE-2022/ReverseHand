@@ -4,6 +4,8 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:redux_comp/models/chat/message_model.dart';
 import '../../widgets/message_tile_widget.dart';
+import '../../widgets/sentiment_chat_appbar_widget.dart';
+
 
 // the actual chat between 2 user
 
@@ -40,18 +42,43 @@ class ChatSentimentsPage extends StatelessWidget {
           }
 
           return Scaffold(
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 35),
+            body: CustomScrollView(
+              slivers: [
+                SentimentChatAppBarWidget(
+                  title: "Chat Analysis", 
+                  store: store,
+                ),
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 35),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColorLight,
+                          borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              child: Text(
+                                "Chat between: \n${vm.chat!.consumerName} /  ${vm.chat!.tradesmanName}",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                          ),
+                      ),
+                       const Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                      ),
+                      ...messages,
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 80),
+                      ),
+                    ],
                   ),
-                  ...messages,
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 80),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },
@@ -68,6 +95,7 @@ class _Factory extends VmFactory<AppState, ChatSentimentsPage> {
   _ViewModel fromStore() => _ViewModel(
         chat: state.chat,
         messages: state.messages,
+        currentUser: state.userDetails.userType.toLowerCase(),
       );
 }
 
@@ -75,9 +103,11 @@ class _Factory extends VmFactory<AppState, ChatSentimentsPage> {
 class _ViewModel extends Vm {
   final ChatModel? chat;
   final List<MessageModel> messages;
+  final String currentUser;
 
   _ViewModel({
     required this.chat,
     required this.messages,
+    required this.currentUser,
   }) : super(equals: [chat, messages]);
 }

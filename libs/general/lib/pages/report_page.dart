@@ -171,14 +171,14 @@ class _RadioSelectWidgetState extends State<ReportPage> {
                                         ReportDetailsModel(
                                       description: descrController.value.text,
                                       reason: _type!,
-                                      reportedUser: ReportUserDetailsModel(
-                                        id: vm.otherUser.id,
-                                        name: vm.otherUser.name ?? "nameNull",
+                                      reporterUser: ReportUserDetailsModel(
+                                        id: vm.userDetails.id,
+                                        name: vm.userDetails.name ?? "",
                                       ),
                                     );
 
-                                    vm.dispatchAddSdvertReportAction(
-                                        vm.otherUser.id, report);
+                                    vm.dispatchAddAdvertReportAction(
+                                        vm.activeAd?.userId ?? "", report);
                                   } else {
                                     displayToastError(context,
                                         "Reason and description must be included.");
@@ -204,7 +204,7 @@ class _Factory extends VmFactory<AppState, _RadioSelectWidgetState> {
       userDetails: state.userDetails,
       dispatchAddUserReportAction: (report, user) =>
           dispatch(AddUserReportAction(report: report, user: user)),
-      dispatchAddSdvertReportAction:
+      dispatchAddAdvertReportAction:
           (String userId, ReportDetailsModel report) =>
               dispatch(AddAdvertReportAction(userId: userId, report: report)),
       popPage: () => dispatch(NavigateAction.pop()),
@@ -217,7 +217,7 @@ class _ViewModel extends Vm {
   final UserModel otherUser;
   final void Function(ReportDetailsModel, ReportUserDetailsModel)
       dispatchAddUserReportAction;
-  final void Function(String, ReportDetailsModel) dispatchAddSdvertReportAction;
+  final void Function(String, ReportDetailsModel) dispatchAddAdvertReportAction;
   final bool isWaiting;
   final AdvertModel? activeAd;
   final VoidCallback popPage;
@@ -227,7 +227,7 @@ class _ViewModel extends Vm {
     required this.activeAd,
     required this.otherUser,
     required this.dispatchAddUserReportAction,
-    required this.dispatchAddSdvertReportAction,
+    required this.dispatchAddAdvertReportAction,
     required this.isWaiting,
     required this.popPage,
   }) : super(equals: [userDetails, isWaiting]);

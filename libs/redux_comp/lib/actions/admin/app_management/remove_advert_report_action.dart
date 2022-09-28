@@ -5,19 +5,24 @@ import '../../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
-class AcceptAdvertReportAction extends ReduxAction<AppState> {
-  final bool issueWarning;
-  final String advertId;
+class RemoveAdvertReportAction extends ReduxAction<AppState> {
+  String advertId, tradesmanId;
 
-  AcceptAdvertReportAction(
-      {required this.advertId, required this.issueWarning});
+  RemoveAdvertReportAction({required this.advertId, required this.tradesmanId});
+
   @override
   Future<AppState?> reduce() async {
-    String graphQLDoc = '''mutation MyMutation {
-      acceptAdvertReport(advert_id: "$advertId", issueWarning: $issueWarning) {
-        id
+    String graphQLDoc = '''
+      mutation {
+        removeAdvertReport(advert_id: "$advertId", tradesman_id: "$tradesmanId") {
+          description
+          reason
+          reporter_user {
+            id
+            name
+          }
+        }
       }
-    }
     ''';
 
     final request = GraphQLRequest(
@@ -25,8 +30,9 @@ class AcceptAdvertReportAction extends ReduxAction<AppState> {
     );
 
     try {
-      /*final response = */ await Amplify.API.mutate(request: request).response;
-      // debugPrint(response.data);
+      final response = await Amplify.API.mutate(request: request).response;
+
+      debugPrint(response.data);
       return null;
     } on ApiException catch (e) {
       debugPrint(e.message);
@@ -37,18 +43,14 @@ class AcceptAdvertReportAction extends ReduxAction<AppState> {
     }
   }
 
-
-
-
-    @override
+  @override
   void before() {
-    dispatch(NavigateAction.pop());
-    dispatch(WaitAction.add("accept_advert_report"));
+    dispatch(WaitAction.add("remove-advert"));
   }
 
   @override
   void after() {
     dispatch(GetReportedAdvertsAction());
-    dispatch(WaitAction.remove("accept_advert_report"));
+    dispatch(WaitAction.remove("remove-advert"));
   }
 }

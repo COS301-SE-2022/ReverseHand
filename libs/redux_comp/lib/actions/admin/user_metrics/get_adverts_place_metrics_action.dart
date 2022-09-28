@@ -23,7 +23,8 @@ class GetAdvertPlaceMetrics extends ReduxAction<AppState> {
     DateTime start = time;
     DateTime end = start.add(const Duration(hours: 24));
 
-    List<DimensionsModel> dimensions = state.admin.userMetrics.dimensions?["City"] ?? [];
+    List<DimensionsModel> dimensions =
+        state.admin.userMetrics.dimensions?["City"] ?? [];
     List<dynamic> queries = buildDimensionsQuery(dimensions, "CreateAdvert");
 
     var params = {
@@ -51,8 +52,9 @@ class GetAdvertPlaceMetrics extends ReduxAction<AppState> {
       final List<dynamic> values = data;
 
       List<PieChartModel> advertsPlacedByCity = [];
+      int color = 0;
       for (var data in values) {
-        advertsPlacedByCity.add(buildPieData(data));
+        advertsPlacedByCity.add(buildPieData(data, color++));
       }
 
       Map<String, List<PieChartModel>> graphs =
@@ -69,12 +71,13 @@ class GetAdvertPlaceMetrics extends ReduxAction<AppState> {
       return state.copy(
         admin: state.admin.copy(
           userMetrics: state.admin.userMetrics.copy(
-            createAdvertMetrics: state.admin.userMetrics.createAdvertMetrics?.copy(
-                  graphs: graphs,
-                ) ??
-                ChartModel(
-                  graphs: graphs,
-                ),
+            createAdvertMetrics:
+                state.admin.userMetrics.createAdvertMetrics?.copy(
+                      graphs: graphs,
+                    ) ??
+                    ChartModel(
+                      graphs: graphs,
+                    ),
           ),
         ),
       );
@@ -86,4 +89,10 @@ class GetAdvertPlaceMetrics extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  @override
+  void before() => dispatch(WaitAction.add("advert_place_metrics"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("advert_place_metrics"));
 }
