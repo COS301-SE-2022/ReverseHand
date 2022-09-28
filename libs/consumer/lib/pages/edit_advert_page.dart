@@ -239,7 +239,8 @@ class _EditAdvertPageState extends State<EditAdvertPage> {
                         TransparentLongButtonWidget(
                           text: "Discard",
                           function: vm.popPage,
-                        )
+                        ),
+                        const Padding(padding: EdgeInsets.only(bottom: 10)),
                       ],
                     ),
                   ),
