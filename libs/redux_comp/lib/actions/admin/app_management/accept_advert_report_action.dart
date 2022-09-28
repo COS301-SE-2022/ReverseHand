@@ -37,8 +37,9 @@ class AcceptAdvertReportAction extends ReduxAction<AppState> {
     }
   }
 
+
   @override
-  void after() {
+  void before() {
     dispatch(NavigateAction.pop());
     dispatch(GetReportedAdvertsAction());
   }
