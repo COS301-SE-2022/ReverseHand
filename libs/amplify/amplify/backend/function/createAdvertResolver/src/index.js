@@ -8,15 +8,14 @@ const ReverseHandTable = process.env.REVERSEHAND;
 
 // creates a new advert, requires
 /*
-    id: uniquely generated, passed in to avoid working with layers
     customerId
     title
+    type
+    location // will become required later on
 */
 // Optional
 /*
     description
-    type
-    location // will become required later on
 */
 exports.handler = async (event) => {
     const ad_id = "a#" + AWS.util.uuid.v4();
@@ -38,7 +37,8 @@ exports.handler = async (event) => {
                 type: event.arguments.type,
                 images: event.arguments.images,
                 date_created: currentDate // automatically generating the date
-            }
+            },
+            expire: currentDate + (30*24*60*60*1000) // setting auto delete time
         }
     };
 
@@ -80,41 +80,6 @@ exports.handler = async (event) => {
             }
         ],
     }).promise();
-    
-    /*
-    let params = {
-        TableName: ReverseHandTable,
-        Key: {
-            part_key: event.arguments.domain.city + "#" + event.arguments.domain.province,
-            sort_key: event.arguments.type
-        },
-        UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad), province_id = if_not_exists(province_id, :p_id)`,
-        ExpressionAttributeValues: {
-            ":ad": [{part_key: ad_id, sort_key: ad_id}],
-            ":list": [],
-            ":p_id" : event.arguments.domain.province
-        },
-    };
-    
-    await docClient.update(params).promise(); //adding the advert to the list of adverts within the location and type
-
-    let item = {
-        TableName: ReverseHandTable,
-        Item: {
-            part_key: ad_id,
-            sort_key: ad_id, // prefixing but keeping same suffix
-            customer_id: event.arguments.customer_id,
-            advert_details: {
-                title: event.arguments.title,
-                description: event.arguments.description,
-                domain: event.arguments.domain,
-                type: event.arguments.type,
-                date_created: currentDate // automatically generating the date
-            }
-        }
-    };
-    await docClient.put(item).promise();
-    */
 
     item.Item.advert_details['id'] = ad_id; // adding advert id to be returned
     item.Item.advert_details['customer_id'] = event.arguments.customer_id;
