@@ -39,4 +39,10 @@ class GetMessagesAction extends ReduxAction<AppState> {
       return null; /* On Error do not modify state */
     }
   }
+
+  @override
+  void before() => dispatch(WaitAction.add("get_messages"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("get_messages"));
 }

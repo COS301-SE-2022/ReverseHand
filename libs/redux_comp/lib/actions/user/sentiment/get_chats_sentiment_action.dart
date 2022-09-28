@@ -39,4 +39,10 @@ class GetChatsSentimentAction extends ReduxAction<AppState> {
       return null; /* On Error do not modify state */
     }
   }
+
+  @override
+  void before() => dispatch(WaitAction.add("get_chats_sentiment"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("get_chats_sentiment"));
 }
