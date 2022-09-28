@@ -41,6 +41,28 @@ class BidModel {
         shortlisted: obj['shortlisted']);
   }
 
+  BidModel copy({
+    String? id,
+    String? name,
+    String? userId,
+    int? price,
+    String? quote,
+    double? dateCreated,
+    double? dateClosed,
+    bool? shortlisted,
+  }) {
+    return BidModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      quote: quote ?? this.quote,
+      dateClosed: dateClosed ?? this.dateClosed,
+      userId: userId ?? this.userId,
+      price: price ?? this.price,
+      dateCreated: dateCreated ?? this.dateCreated,
+      shortlisted: shortlisted ?? this.shortlisted,
+    );
+  }
+
   @override
   operator ==(Object other) =>
       other is BidModel &&
