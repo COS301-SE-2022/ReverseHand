@@ -40,14 +40,14 @@ class ArchivedJobsPage extends StatelessWidget {
                 AppBarWidget(
                     title: "MY PAST JOBS", store: store, backButton: true),
                 //********************************************************//
+                //display loading icon
+                if (vm.loading)
+                  const LoadingWidget(topPadding: 80, bottomPadding: 0),
 
                 ListRefreshWidget(
                   widgets: [
-                    //display loading icon
-                    if (vm.loading)
-                      const LoadingWidget(topPadding: 80, bottomPadding: 0)
                     //a message if no jobs
-                    else if (advertWidgets.isEmpty)
+                    if (advertWidgets.isEmpty)
                       Padding(
                         padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height / 4,
