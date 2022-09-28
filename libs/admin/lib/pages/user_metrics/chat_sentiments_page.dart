@@ -6,7 +6,6 @@ import 'package:redux_comp/models/chat/message_model.dart';
 import '../../widgets/message_tile_widget.dart';
 import '../../widgets/sentiment_chat_appbar_widget.dart';
 
-
 // the actual chat between 2 user
 
 class ChatSentimentsPage extends StatelessWidget {
@@ -45,7 +44,7 @@ class ChatSentimentsPage extends StatelessWidget {
             body: CustomScrollView(
               slivers: [
                 SentimentChatAppBarWidget(
-                  title: "Chat Analysis", 
+                  title: "Chat Analysis",
                   store: store,
                 ),
                 SliverToBoxAdapter(
@@ -56,19 +55,19 @@ class ChatSentimentsPage extends StatelessWidget {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColorLight,
-                          borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                              child: Text(
-                                "Chat between: \n${vm.chat!.consumerName} /  ${vm.chat!.tradesmanName}",
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
+                            color: Theme.of(context).primaryColorLight,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          child: Text(
+                            "Chat between: \n${vm.chat!.consumerName} /  ${vm.chat!.tradesmanName}",
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
+                        ),
                       ),
-                       const Padding(
+                      const Padding(
                         padding: EdgeInsets.only(bottom: 20),
                       ),
                       ...messages,

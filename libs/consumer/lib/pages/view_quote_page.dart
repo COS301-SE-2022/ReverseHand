@@ -21,26 +21,6 @@ class ViewQuotePage extends StatelessWidget {
               appBar: AppBar(
                 title: const Text("Tradesman Quote"),
                 backgroundColor: Theme.of(context).primaryColorDark,
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: IconButton(
-                      // onPressed: () async {
-                      //   await saveFile(widget.url, "sample.pdf");
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content: Text(
-                      //         'success',
-                      //         style: TextStyle(color: Colors.white),
-                      //       ),
-                      //     ),
-                      //   );
-                      // },
-                      onPressed: () {},
-                      icon: const Icon(Icons.download_rounded),
-                    ),
-                  ),
-                ],
               ),
               body: vm.file == null
                   ? null

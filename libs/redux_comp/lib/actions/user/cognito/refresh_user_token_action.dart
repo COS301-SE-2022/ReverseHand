@@ -73,6 +73,7 @@ class RefreshUserTokenAction extends ReduxAction<AppState> {
         return state.copy(error: ErrorType.failedToRefreshToken);
       }
     } else {
+      debugPrint(state.error.toString());
       return state.copy(error: ErrorType.failedToRefreshToken);
     }
   }

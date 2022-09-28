@@ -31,27 +31,19 @@ class TradesmanViewBidsPage extends StatelessWidget {
               //******************************//
 
               const Padding(padding: EdgeInsets.all(10)),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: ListRefreshWidget(
-                  widgets: [
-                    if (vm.bids.isNotEmpty)
-                      ...populateBids(vm.userId, vm.bids, store),
-                    //********IF NO BIDS********************/
-                    if (vm.bids.isEmpty)
-                      const Padding(
-                        padding: EdgeInsets.all(40.0),
-                        child: Text(
-                          "No bids have\n been made yet",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: Colors.white54),
-                        ),
+              (vm.bids.isEmpty)
+                  ? const Padding(
+                      padding: EdgeInsets.all(40.0),
+                      child: Text(
+                        "No bids have\n been made yet",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20, color: Colors.white54),
                       ),
-                    //**************************************/
-                  ],
-                  refreshFunction: vm.dispatchViewBidsAction,
-                ),
-              ),
+                    )
+                  : ListRefreshWidget(
+                      widgets: populateBids(vm.userId, vm.bids, store),
+                      refreshFunction: vm.dispatchViewBidsAction,
+                    ),
             ],
           ),
         ),
