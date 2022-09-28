@@ -228,7 +228,7 @@
         },
         "adminSearchUserResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
-          "s3Key": "amplify-builds/adminSearchUserResolver-78794d78466956496677-build.zip"
+          "s3Key": "amplify-builds/adminSearchUserResolver-6753373073565a6d6d6a-build.zip"
         },
         "getUserReviewsResolver": {
           "deploymentBucketName": "amplify-reversehand-staging-100406-deployment",
