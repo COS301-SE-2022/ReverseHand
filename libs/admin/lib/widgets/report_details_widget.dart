@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class ReportDetailsWidget extends StatelessWidget {
   final String reason;
   final String description;
+  final VoidCallback? deleteFunction;
   const ReportDetailsWidget(
-      {Key? key, required this.reason, required this.description})
+      {Key? key,
+      required this.reason,
+      required this.description,
+      this.deleteFunction})
       : super(key: key);
 
   @override
@@ -35,6 +39,14 @@ class ReportDetailsWidget extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 19, fontWeight: FontWeight.bold),
                       ),
+                      const Spacer(),
+                      if (deleteFunction != null)
+                        IconButton(
+                            onPressed: deleteFunction,
+                            icon: Icon(
+                              Icons.delete_outline,
+                              color: Theme.of(context).primaryColor,
+                            ))
                     ],
                   ),
                 ),

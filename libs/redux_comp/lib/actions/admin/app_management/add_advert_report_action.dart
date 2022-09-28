@@ -6,19 +6,20 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class AddAdvertReportAction extends ReduxAction<AppState> {
-  final String userId;
+  final String? userId;
   final String? advertId;
   final ReportDetailsModel report;
 
   AddAdvertReportAction({
     this.advertId,
-    required this.userId,
+    this.userId,
     required this.report,
   });
 
   @override
   Future<AppState?> reduce() async {
     String advertId = this.advertId ?? state.activeAd!.id;
+    String userId = this.advertId ?? state.activeAd!.userId;
 
     String graphQLDoc = '''mutation {
       addAdvertReport(advert_id: "$advertId", user_id: "$userId", report: ${report.toJson(false)}) {
@@ -43,20 +44,3 @@ class AddAdvertReportAction extends ReduxAction<AppState> {
     }
   }
 }
-
-
-// mutation MyMutation {
-//   addAdvertReport(advert_id: "", user_id: "", report: {description: "", reason: "", reporter_user: {id: "", name: ""}}) {
-//     advert {
-//       id
-//       title
-//     }
-//     count
-//     customer_id
-//     reports {
-//       description
-//       reason
-//     }
-//   }
-// }
-

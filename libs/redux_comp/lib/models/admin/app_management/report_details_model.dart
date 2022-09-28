@@ -51,4 +51,20 @@ class ReportDetailsModel {
       }
     }""";
   }
+
+  @override
+  operator ==(Object other) =>
+      other is ReportDetailsModel &&
+      reason == other.reason &&
+      description == other.description &&
+      reportedUser == other.reportedUser &&
+      reporterUser == other.reporterUser;
+
+  @override
+  int get hashCode => Object.hash(
+        reason,
+        description,
+        reportedUser,
+        reporterUser,
+      );
 }

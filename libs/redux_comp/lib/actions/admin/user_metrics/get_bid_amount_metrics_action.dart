@@ -51,8 +51,9 @@ class GetBidAmountMetricsAction extends ReduxAction<AppState> {
       final List<dynamic> values = data;
 
       List<PieChartModel> bidsPlacedByType = [];
+      int color = 0;
       for (var data in values) {
-        bidsPlacedByType.add(buildPieData(data));
+        bidsPlacedByType.add(buildPieData(data,color++));
       }
 
       Map<String, List<PieChartModel>> graphs =
@@ -86,4 +87,10 @@ class GetBidAmountMetricsAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+   @override
+  void before() => dispatch(WaitAction.add("bid_amount_metrics"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("bid_amount_metrics"));
 }

@@ -1,3 +1,5 @@
+import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
+
 import '../../../app_state.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../../models/geolocation/domain_model.dart';
@@ -16,5 +18,13 @@ class RemoveDomainAction extends ReduxAction<AppState> {
     domains.removeWhere((element) => element.city == city);
 
     return state.copy(userDetails: state.userDetails.copy(domains: domains));
+  }
+
+  @override
+  void after() {
+    dispatch(EditUserDetailsAction(
+        userId: state.userDetails.id,
+        changed: "domains",
+        domains: state.userDetails.domains));
   }
 }
