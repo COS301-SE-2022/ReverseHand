@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:general/widgets/chat_appbar_widget.dart';
+import 'package:chat/widgets/chat_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
