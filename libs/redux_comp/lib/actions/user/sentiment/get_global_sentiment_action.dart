@@ -32,4 +32,10 @@ class GetGlobalSentimentAction extends ReduxAction<AppState> {
       return null; /* On Error do not modify state */
     }
   }
+
+  @override
+  void before() => dispatch(WaitAction.add("get_global_sentiment"));
+
+  @override
+  void after() => dispatch(WaitAction.remove("get_global_sentiment"));
 }

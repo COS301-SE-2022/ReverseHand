@@ -18,12 +18,13 @@ class GetAdvertTypeMetrics extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    await dispatch(
-        ListMetricsAction(metric: "CreateAdvert", dimensionNames: ["Job_Type"]));
+    await dispatch(ListMetricsAction(
+        metric: "CreateAdvert", dimensionNames: ["Job_Type"]));
     DateTime start = time;
     DateTime end = start.add(const Duration(hours: 24));
 
-    List<DimensionsModel> dimensions = state.admin.userMetrics.dimensions?["Job_Type"] ?? [];
+    List<DimensionsModel> dimensions =
+        state.admin.userMetrics.dimensions?["Job_Type"] ?? [];
     List<dynamic> queries = buildDimensionsQuery(dimensions, "CreateAdvert");
 
     var params = {
@@ -70,12 +71,13 @@ class GetAdvertTypeMetrics extends ReduxAction<AppState> {
       return state.copy(
         admin: state.admin.copy(
           userMetrics: state.admin.userMetrics.copy(
-            createAdvertMetrics: state.admin.userMetrics.createAdvertMetrics?.copy(
-                  graphs: graphs,
-                ) ??
-                ChartModel(
-                  graphs: graphs,
-                ),
+            createAdvertMetrics:
+                state.admin.userMetrics.createAdvertMetrics?.copy(
+                      graphs: graphs,
+                    ) ??
+                    ChartModel(
+                      graphs: graphs,
+                    ),
           ),
         ),
       );
@@ -88,7 +90,7 @@ class GetAdvertTypeMetrics extends ReduxAction<AppState> {
     }
   }
 
-   @override
+  @override
   void before() => dispatch(WaitAction.add("advert_type_metrics"));
 
   @override

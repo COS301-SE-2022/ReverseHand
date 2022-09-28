@@ -13,128 +13,156 @@ import '../widgets/tradesman_navbar_widget.dart';
 import '../widgets/tradesman_filter_popup.dart';
 import 'package:general/widgets/dark_dialog_helper.dart';
 
-class TradesmanJobListings extends StatelessWidget {
+class TradesmanJobListings extends StatefulWidget {
   final Store<AppState> store;
   const TradesmanJobListings({Key? key, required this.store}) : super(key: key);
 
   @override
+  State<TradesmanJobListings> createState() => _TradesmanJobListingsState();
+}
+
+class _TradesmanJobListingsState extends State<TradesmanJobListings> {
+  int index = 0;
+
+  @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: Scaffold(
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
-          builder: (BuildContext context, _ViewModel vm) =>
-              DefaultTabController(
-            length: 2,
-            child: Column(
-              children: [
-                //*******************APP BAR WIDGET*********************//
-                AppBarWidget(
-                  store: store,
-                  title: "Job Listing",
-                ),
-                //********************************************************//
-
-                //*******************TAB BAR LABELS***********************//
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: TabBar(
-                    // onTap: (int index) {
-                    //   if (index == 0) {
-                    //     vm.dispatchGetJobsAction();
-                    //   } else {
-                    //     vm.dispatchGetBidOnJobsAction();
-                    //   }
-                    // },
-                    indicatorColor: Theme.of(context).primaryColor,
-                    tabs: const [
-                      Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: Text(
-                          "OPEN JOBS",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "MY BIDS",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //********************************************************//
-
-                Expanded(
-                  child: TabBarView(
+          builder: (BuildContext context, _ViewModel vm) => (vm.loading)
+              ? SingleChildScrollView(
+                  child: Column(
                     children: [
-                      //display loading icon
-                      if (vm.loading)
-                        const LoadingWidget(topPadding: 50, bottomPadding: 20),
-                      (vm.adverts.isEmpty)
-                          ? Padding(
-                              padding: EdgeInsets.only(
-                                top: (MediaQuery.of(context).size.height) / 4,
-                                left: 40,
-                                right: 40,
-                              ),
-                              child: (const Text(
-                                "There are no jobs to display.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white70),
-                              )),
-                            )
-                          : ListRefreshWidget(
-                              widgets: populateAdverts(vm.adverts, store),
-                              refreshFunction: vm.dispatchGetJobsAction,
-                            ),
-                      //display loading icon
-                      if (vm.loading)
-                        const LoadingWidget(topPadding: 80, bottomPadding: 0),
-                      ListRefreshWidget(
-                        widgets: [
-                          //a message if no jobs
-                          if (vm.bidOnAdverts.isEmpty)
+                      //**********APPBAR***********//
+                      AppBarWidget(
+                        store: widget.store,
+                        title: "Job Listing",
+                      ),
+                      //*******************************************//
+
+                      LoadingWidget(
+                        topPadding: MediaQuery.of(context).size.height / 3,
+                        bottomPadding: 0,
+                      )
+                    ],
+                  ),
+                )
+              : DefaultTabController(
+                  initialIndex: index,
+                  length: 2,
+                  child: Column(
+                    children: [
+                      //*******************APP BAR WIDGET*********************//
+                      AppBarWidget(
+                        store: widget.store,
+                        title: "Job Listing",
+                      ),
+                      //********************************************************//
+
+                      //*******************TAB BAR LABELS***********************//
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: TabBar(
+                          indicatorColor: Theme.of(context).primaryColor,
+                          tabs: const [
                             Padding(
-                              padding: EdgeInsets.only(
-                                top: (MediaQuery.of(context).size.height) / 4,
-                                left: 40,
-                                right: 40,
-                              ),
-                              child: (const Text(
-                                "There are no jobs to display.\n Bid on an advert to see it here.",
-                                textAlign: TextAlign.center,
+                              padding: EdgeInsets.all(15.0),
+                              child: Text(
+                                "OPEN JOBS",
                                 style: TextStyle(
-                                    fontSize: 20, color: Colors.white70),
-                              )),
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          //else populate the jobs
-                          ...populateAdverts(vm.bidOnAdverts, store),
-                          const Padding(padding: EdgeInsets.only(bottom: 33))
-                        ],
-                        refreshFunction: vm.dispatchGetBidOnJobsAction,
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                "MY BIDS",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      //********************************************************//
+
+                      Expanded(
+                        child: TabBarView(
+                          children: [
+                            Column(
+                              children: [
+                                vm.adverts.isEmpty
+                                    ? Padding(
+                                        padding: EdgeInsets.only(
+                                          top: (MediaQuery.of(context)
+                                                  .size
+                                                  .height) /
+                                              4,
+                                          left: 40,
+                                          right: 40,
+                                        ),
+                                        child: const Text(
+                                          "There are no jobs to display.",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white70),
+                                        ),
+                                      )
+                                    : ListRefreshWidget(
+                                        widgets: populateAdverts(
+                                            vm.adverts, widget.store),
+                                        refreshFunction: () {
+                                          vm.dispatchGetJobsAction();
+                                          index = 0;
+                                        },
+                                      ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                vm.bidOnAdverts.isEmpty
+                                    ? Padding(
+                                        padding: EdgeInsets.only(
+                                          top: (MediaQuery.of(context)
+                                                  .size
+                                                  .height) /
+                                              4,
+                                          left: 40,
+                                          right: 40,
+                                        ),
+                                        child: const Text(
+                                          "There are no jobs to display.\n Bid on an advert to see it here.",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white70),
+                                        ),
+                                      )
+                                    : ListRefreshWidget(
+                                        widgets: populateAdverts(
+                                            vm.bidOnAdverts, widget.store),
+                                        refreshFunction: () {
+                                          vm.dispatchGetBidOnJobsAction();
+                                          index = 1;
+                                        },
+                                      ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-
-                // if (vm.loading)
-                //   const LoadingWidget(topPadding: 80, bottomPadding: 0)
-              ],
-            ),
-          ),
         ),
         //************************NAVBAR***********************/
         floatingActionButton: TradesmanFloatingButtonWidget(
@@ -142,7 +170,7 @@ class TradesmanJobListings extends StatelessWidget {
             DarkDialogHelper.display(
                 context,
                 FilterPopUpWidget(
-                  store: store,
+                  store: widget.store,
                 ),
                 MediaQuery.of(context).size.height);
           },
@@ -151,7 +179,7 @@ class TradesmanJobListings extends StatelessWidget {
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: TNavBarWidget(
-          store: store,
+          store: widget.store,
         ),
         //*****************************************************/
       ),
@@ -159,7 +187,7 @@ class TradesmanJobListings extends StatelessWidget {
   }
 }
 
-class _Factory extends VmFactory<AppState, TradesmanJobListings> {
+class _Factory extends VmFactory<AppState, _TradesmanJobListingsState> {
   _Factory(widget) : super(widget);
   @override
   _ViewModel fromStore() => _ViewModel(
@@ -168,6 +196,7 @@ class _Factory extends VmFactory<AppState, TradesmanJobListings> {
         loading: state.wait.isWaiting,
         dispatchGetBidOnJobsAction: () => dispatch(GetBidOnAdvertsAction()),
         dispatchGetJobsAction: () => dispatch(ViewJobsAction()),
+        change: state.change,
       );
 }
 
@@ -178,9 +207,11 @@ class _ViewModel extends Vm {
   final bool loading;
   final VoidCallback dispatchGetJobsAction;
   final VoidCallback dispatchGetBidOnJobsAction;
+  final bool change;
 
   _ViewModel({
     required this.adverts,
+    required this.change,
     required this.bidOnAdverts,
     required this.loading,
     required this.dispatchGetBidOnJobsAction,

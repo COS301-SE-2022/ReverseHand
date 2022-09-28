@@ -10,36 +10,45 @@ import 'package:redux_comp/actions/admin/app_management/list_users_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/cognito_user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 
-class SearchUsersPage extends StatelessWidget {
+class SearchUsersPage extends StatefulWidget {
   final Store<AppState> store;
 
   const SearchUsersPage({Key? key, required this.store}) : super(key: key);
 
   @override
+  State<SearchUsersPage> createState() => _SearchUsersPageState();
+}
+
+class _SearchUsersPageState extends State<SearchUsersPage> {
+  int index = 0;
+
+  @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
+      store: widget.store,
       child: Scaffold(
         body: StoreConnector<AppState, _ViewModel>(
           vm: () => _Factory(this),
           builder: (BuildContext context, _ViewModel vm) {
             Widget appbar = AppBarWidget(
               title: "List Users",
-              store: store,
+              store: widget.store,
               backButton: true,
             );
             Widget search = SearchWidget(
-                store: store,
+                store: widget.store,
                 searchFunction: (value, group) {
                   vm.dispatchSearchUser(value, group);
                 });
             List<QuickViewUserCardWidget> customer = [];
             List<QuickViewUserCardWidget> tradesman = [];
             for (var user in vm.customers) {
-              customer.add(QuickViewUserCardWidget(store: store, user: user));
+              customer.add(
+                  QuickViewUserCardWidget(store: widget.store, user: user));
             }
             for (var user in vm.tradesman) {
-              tradesman.add(QuickViewUserCardWidget(store: store, user: user));
+              tradesman.add(
+                  QuickViewUserCardWidget(store: widget.store, user: user));
             }
             //for tabbed view
             // List<QuickViewUserCardWidget> clients = [];
@@ -54,12 +63,14 @@ class SearchUsersPage extends StatelessWidget {
                         search,
 
                         LoadingWidget(
-                            topPadding: MediaQuery.of(context).size.height / 3,
-                            bottomPadding: 0)
+                          topPadding: MediaQuery.of(context).size.height / 3,
+                          bottomPadding: 0,
+                        )
                       ],
                     ),
                   )
                 : DefaultTabController(
+                    initialIndex: index,
                     length: 2,
                     child: Column(
                       children: [
@@ -99,63 +110,77 @@ class SearchUsersPage extends StatelessWidget {
                         // *******************TAB BAR LABELS***********************//
 
                         Expanded(
-                            child: TabBarView(children: [
-                          //display loading icon
-
-                          Column(
+                          child: TabBarView(
                             children: [
-                              //a message if no in progress jobs
-                              if (customer.isEmpty)
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top:
-                                          (MediaQuery.of(context).size.height) /
+                              //display loading icon
+
+                              Column(
+                                children: [
+                                  //a message if no in progress jobs
+                                  if (customer.isEmpty)
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: (MediaQuery.of(context)
+                                                  .size
+                                                  .height) /
                                               4,
-                                      left: 40,
-                                      right: 40),
-                                  child: (const Text(
-                                    "No customer user's found",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.white70),
-                                  )),
-                                ),
-                              //else display in progress jobs
-                              ListRefreshWidget(
-                                  widgets: customer,
-                                  refreshFunction: () =>
-                                      vm.dispatchListUser("customer")),
-                              const Padding(
-                                  padding: EdgeInsets.only(bottom: 33))
+                                          left: 40,
+                                          right: 40),
+                                      child: (const Text(
+                                        "No customer user's found",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white70),
+                                      )),
+                                    ),
+                                  //else display in progress jobs
+                                  ListRefreshWidget(
+                                    widgets: customer,
+                                    refreshFunction: () {
+                                      vm.dispatchListUser("customer");
+                                      index = 0;
+                                    },
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 33),
+                                  )
+                                ],
+                              ),
+
+                              Column(
+                                children: [
+                                  if (tradesman.isEmpty)
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          top: (MediaQuery.of(context)
+                                                  .size
+                                                  .height) /
+                                              4,
+                                          left: 40,
+                                          right: 40),
+                                      child: (const Text(
+                                        "No tradesman user's found",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white70),
+                                      )),
+                                    ),
+                                  ListRefreshWidget(
+                                      widgets: tradesman,
+                                      refreshFunction: () {
+                                        vm.dispatchListUser("tradesman");
+                                        index = 1;
+                                      }),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 33),
+                                  )
+                                ],
+                              ),
                             ],
                           ),
-
-                          Column(
-                            children: [
-                              if (tradesman.isEmpty)
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top:
-                                          (MediaQuery.of(context).size.height) /
-                                              4,
-                                      left: 40,
-                                      right: 40),
-                                  child: (const Text(
-                                    "No tradesman user's found",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.white70),
-                                  )),
-                                ),
-                              ListRefreshWidget(
-                                  widgets: tradesman,
-                                  refreshFunction: () =>
-                                      vm.dispatchListUser("tradesman")),
-                              const Padding(
-                                  padding: EdgeInsets.only(bottom: 33))
-                            ],
-                          ),
-                        ])),
+                        ),
                         // ********************************************************//
                       ],
                     ),
@@ -168,7 +193,7 @@ class SearchUsersPage extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, SearchUsersPage> {
+class _Factory extends VmFactory<AppState, _SearchUsersPageState> {
   _Factory(widget) : super(widget);
 
   @override

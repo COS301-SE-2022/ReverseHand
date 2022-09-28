@@ -60,6 +60,7 @@ class FilterAdvertsAction extends ReduxAction<AppState> {
 
     return state.copy(
       viewAdverts: adverts,
+      change: !state.change,
     );
   }
 }
