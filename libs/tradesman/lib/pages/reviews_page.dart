@@ -43,7 +43,7 @@ class ReviewsPage extends StatelessWidget {
                       right: 40,
                     ),
                     child: (const Text(
-                      "You have not received any reviews yet.",
+                      "No reviews received yet.",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20, color: Colors.white70),
                     )),
