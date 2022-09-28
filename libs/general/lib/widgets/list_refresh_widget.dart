@@ -5,9 +5,11 @@ class ListRefreshWidget extends StatelessWidget {
   final void Function()
       refreshFunction; // The list of things you wish to refresh
 
-  const ListRefreshWidget(
-      {Key? key, required this.widgets, required this.refreshFunction})
-      : super(key: key);
+  const ListRefreshWidget({
+    Key? key,
+    required this.widgets,
+    required this.refreshFunction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

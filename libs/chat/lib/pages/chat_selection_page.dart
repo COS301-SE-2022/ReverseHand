@@ -5,7 +5,9 @@ import 'package:chat/methods/populate_chats.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:consumer/widgets/consumer_navbar.dart';
+import 'package:general/widgets/list_refresh_widget.dart';
 import 'package:general/widgets/loading_widget.dart';
+import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/chat/chat_model.dart';
 import 'package:tradesman/widgets/tradesman_navbar_widget.dart';
@@ -20,35 +22,39 @@ class ChatSelectionPage extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) => Column(
-              children: [
-                //*******************APP BAR WIDGET*********************//
-                AppBarWidget(title: "MY CHATS", store: store),
-                //********************************************************//
-                if (vm.loading)
-                  const LoadingWidget(topPadding: 50, bottomPadding: 0)
-                else if (vm.chats.isEmpty)
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: (MediaQuery.of(context).size.height) / 3,
-                        left: 40,
-                        right: 40),
-                    child: Text(
-                      vm.userType == "consumer"
-                          ? "There are no active chats. Accept a bid from a contractor to start a chat with them."
-                          : "There are no active chats. Once a client has accepted your bid, a chat will be displayed here.",
-                      textAlign: TextAlign.center,
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.white70),
-                    ),
-                  )
-                else
-                  ...populateChats(vm.chats, store)
-              ],
-            ),
+        body: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) => Column(
+            children: [
+              //*******************APP BAR WIDGET*********************//
+              AppBarWidget(title: "MY CHATS", store: store),
+              //********************************************************//
+
+              ListRefreshWidget(
+                widgets: [
+                  if (vm.loading)
+                    const LoadingWidget(topPadding: 50, bottomPadding: 0)
+                  else if (vm.chats.isEmpty)
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: (MediaQuery.of(context).size.height) / 3,
+                          left: 40,
+                          right: 40),
+                      child: Text(
+                        vm.userType == "consumer"
+                            ? "There are no active chats. Accept a bid from a contractor to start a chat with them."
+                            : "There are no active chats. Once a client has accepted your bid, a chat will be displayed here.",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 20, color: Colors.white70),
+                      ),
+                    )
+                  else
+                    ...populateChats(vm.chats, store)
+                ],
+                refreshFunction: vm.dispatchGetChatsAction,
+              ),
+            ],
           ),
         ),
         bottomNavigationBar: StoreConnector<AppState, _ViewModel>(
@@ -75,6 +81,7 @@ class _Factory extends VmFactory<AppState, ChatSelectionPage> {
         userType: state.userDetails.userType.toLowerCase(),
         loading: state.wait.isWaiting,
         change: state.change,
+        dispatchGetChatsAction: () => dispatch(GetChatsAction()),
       );
 }
 
@@ -84,9 +91,11 @@ class _ViewModel extends Vm {
   final String userType;
   final bool loading;
   final bool change;
+  final VoidCallback dispatchGetChatsAction;
 
   _ViewModel({
     required this.chats,
+    required this.dispatchGetChatsAction,
     required this.userType,
     required this.loading,
     required this.change,
