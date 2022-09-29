@@ -24,7 +24,7 @@ class ProfileImageWidget extends StatelessWidget {
                 CircleAvatar(
                   radius: 70,
                   backgroundImage: vm.profilePhoto == null
-                      ? const AssetImage("../../assets/images/profile.png",
+                      ? const AssetImage("assets/images/profile.png",
                           package: 'general')
                       : Image.network(vm.profilePhoto!).image,
                 ),
