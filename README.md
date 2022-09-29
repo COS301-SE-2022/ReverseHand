@@ -12,7 +12,7 @@
     🎥
     <a href="https://drive.google.com/file/d/19QPdKOJYpkuIWU2AzhOgUYOry-I__beV/view?usp=sharing">CacheMoney-Demo1</a>
     | 📝
-    <a href="https://drive.google.com/file/d/1OLeDUd0gvCwrvpCdfkIVaZ8S64F_9DUM/view?usp=sharing">SRS Documentation-V1</a>
+    <a href="https://drive.google.com/file/d/1OLeDUd0gvCwrvpCdfkIVaZ8S64F_9DUM/view?usp=sharing">SRS Documentation_v1</a>
     | 📋
     <a href="https://github.com/COS301-SE-2022/ReverseHand/projects/5">Project Board</a>
     | 🌐
@@ -22,21 +22,27 @@
     🎥
     <a href="https://drive.google.com/file/d/1wp2UNChPoqvsdd8Z8mk8xaT5QPulFo6p/view?usp=sharing">CacheMoney-Demo2</a>
     | 📝
-    <a href="https://drive.google.com/file/d/1BlUn4xhV2aT2wHjxxFXrEgVvRQu-_CTw/view?usp=sharing">SRS Documentation-V2</a>
+    <a href="https://drive.google.com/file/d/1BlUn4xhV2aT2wHjxxFXrEgVvRQu-_CTw/view?usp=sharing">SRS Documentation_v3</a>
     | 📋
-    <a href="https://drive.google.com/file/d/1qt9nwzzKl4dw6GhQM0cZwAHEaprfs-uy/view?usp=sharing">User Manual</a>
+    <a href="https://drive.google.com/file/d/1qt9nwzzKl4dw6GhQM0cZwAHEaprfs-uy/view?usp=sharing">User Manual_v1</a>
   </p> <br/>
   <p align="center">
     🎥
     <a href="https://drive.google.com/file/d/1Q-wLO-P9Tui2k-YTL4j2UUdFl5fYrfyy/view?usp=sharing">CacheMoney-Demo3</a>
     | 📝
-    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V3.pdf">SRS Documentation-V3</a>
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V3.pdf">SRS Documentation_v3</a>
     | 📋
-    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/UserManual_v2-ReverseHand.pdf">User Manual</a>
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/UserManual_v2-ReverseHand.pdf">User Manual_v2</a>
     | 📔
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/InstallationManual.pdf">Installation Manual</a>
     | 💻
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
+  </p> <br/>
+    <p align="center">
+    🎥
+    <a href="https://drive.google.com/file/d/1zB3PchRsJWhvsYGj_DCbxvVCNupIuxwx/view?usp=sharing">CacheMoney-Demo4</a>
+    | 📋
+    <a href="https://drive.google.com/file/d/1pg4YQ2Nt0CfztJtd85HpU_Fmg02OFl9o/view?usp=sharing">User Manual_v3</a>
   </p> <br/>
   <p align="center">
     🌐
