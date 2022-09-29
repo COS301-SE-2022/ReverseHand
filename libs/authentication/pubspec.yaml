@@ -43,7 +43,7 @@ dev_dependencies:
 flutter:
   uses-material-design: false
   assets:
-    - ../../assets/images/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
   #
   # For details regarding assets in packages, see
