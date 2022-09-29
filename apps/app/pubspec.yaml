@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: '>=2.15.0 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -38,10 +38,10 @@ dependencies:
   # import our libraries here with comment of what it is e.g. login widtget
   redux_comp:
     path: '../../libs/redux_comp'
-  
+
   consumer:
     path: '../../libs/consumer'
-    
+
   general:
     path: '../../libs/general'
 
@@ -56,7 +56,7 @@ dependencies:
 
   admin:
     path: '../../libs/admin'
-    
+
   chat:
     path: '../../libs/chat'
 
@@ -79,16 +79,16 @@ dependency_overrides:
 
 # Splash screen settings
 flutter_native_splash:
-  color: "#121A22"
-  image: ../../assets/images/logo.png
+  color: '#121A22'
+  image: '../../assets/images/logo.png'
 
 # Launch icon settings
 flutter_icons:
   android: true
   ios: true
-  image_path: "../../assets/images/logo_icon.png"
-  adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "../../assets/images/logo_icon.png"
+  image_path: '../../assets/images/logo_icon.png'
+  adaptive_icon_background: '#ffffff'
+  adaptive_icon_foreground: '../../assets/images/logo_icon.png'
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -102,7 +102,6 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
