@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Image.asset(
-                          'assets/images/logo.png',
+                          '../../assets/images/logo.png',
                           height: 245,
                           width: 245,
                           package: 'authentication',
@@ -232,7 +232,7 @@ class LoginPage extends StatelessWidget {
                                     child: CircleAvatar(
                                         radius: 20, // Image radius
                                         backgroundImage: AssetImage(
-                                            "assets/images/facebook.png",
+                                            "../../assets/images/facebook.png",
                                             package: 'authentication')),
                                   ),
                                 ),
@@ -250,7 +250,7 @@ class LoginPage extends StatelessWidget {
                                     child: CircleAvatar(
                                         radius: 20, // Image radius
                                         backgroundImage: AssetImage(
-                                            "assets/images/google.png",
+                                            "../../assets/images/google.png",
                                             package: 'authentication')),
                                   ),
                                 ),
