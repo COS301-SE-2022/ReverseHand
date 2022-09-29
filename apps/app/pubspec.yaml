@@ -80,15 +80,15 @@ dependency_overrides:
 # Splash screen settings
 flutter_native_splash:
   color: "#121A22"
-  image: ../../assets/images/logo.png
+  image: ../../libs/authentication/assets/images/logo.png
 
 # Launch icon settings
 flutter_icons:
   android: true
   ios: true
-  image_path: "../../assets/images/logo_icon.png"
+  image_path: "../../libs/authentication/assets/images/logo_icon.png"
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "../../assets/images/logo_icon.png"
+  adaptive_icon_foreground: "../../libs/authentication/assets/images/logo_icon.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -109,8 +109,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - ../../assets/images/
+  # assets:
+  #   - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

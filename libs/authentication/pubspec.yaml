@@ -5,8 +5,8 @@ homepage:
 publish_to: none
 
 environment:
-  sdk: '>=2.16.2 <3.0.0'
-  flutter: '>=1.17.0'
+  sdk: ">=2.16.2 <3.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
@@ -18,10 +18,10 @@ dependencies:
 
   redux_comp:
     path: '../redux_comp'
-
+  
   consumer:
     path: '../consumer'
-
+    
   general:
     path: '../general'
 
@@ -30,6 +30,7 @@ dependencies:
 
   amplify:
     path: '../../libs/amplify'
+
 
 dev_dependencies:
   flutter_test:
@@ -42,6 +43,8 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   uses-material-design: false
+  
+  # To add assets to your package, add an assets section, like this:
   assets:
     - assets/images/
   #   - images/a_dot_ham.jpeg

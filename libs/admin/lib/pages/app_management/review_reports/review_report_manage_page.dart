@@ -163,6 +163,8 @@ class ReviewReportManagePage extends StatelessWidget {
                               report.id,
                               report.userId!,
                             );
+                            vm.dispatchGetReviewReports();
+                            vm.popPage();
                           },
                         ),
 
