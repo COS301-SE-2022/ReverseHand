@@ -20,6 +20,7 @@ class ListUsersAction extends ReduxAction<AppState> {
           email
           enabled
           status
+          cognito_username
           id
         }
         next_token

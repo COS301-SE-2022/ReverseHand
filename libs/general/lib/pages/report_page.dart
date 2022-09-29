@@ -6,10 +6,12 @@ import 'package:general/widgets/long_button_widget.dart';
 import 'package:general/widgets/profile_divider.dart';
 import 'package:general/widgets/textfield.dart';
 import 'package:redux_comp/actions/admin/app_management/add_advert_report_action.dart';
+import 'package:redux_comp/actions/admin/app_management/add_review_report_action.dart';
 import 'package:redux_comp/actions/admin/app_management/add_user_report_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/report_user_details_model.dart';
 import 'package:redux_comp/models/admin/app_management/report_details_model.dart';
 import 'package:redux_comp/models/advert_model.dart';
+import 'package:redux_comp/models/review_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/appbar.dart';
@@ -17,8 +19,9 @@ import '../widgets/appbar.dart';
 class ReportPage extends StatefulWidget {
   final Store<AppState> store;
   final String? reportType;
+  final ReviewModel? review;
 
-  const ReportPage({Key? key, required this.store, this.reportType})
+  const ReportPage({Key? key, required this.store, this.reportType, this.review})
       : super(key: key);
 
   final List<String> items = const [
@@ -38,6 +41,7 @@ class _RadioSelectWidgetState extends State<ReportPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -152,7 +156,18 @@ class _RadioSelectWidgetState extends State<ReportPage> {
                                     displayToastSuccess(context,
                                         "Your report has been submitted");
                                     vm.popPage();
-                                    //some more stuff should happen here
+                                    ReportDetailsModel report =
+                                        ReportDetailsModel(
+                                      description: descrController.value.text,
+                                      reason: _type!,
+                                      reporterUser: ReportUserDetailsModel(
+                                        id: vm.userDetails.id,
+                                        name: vm.userDetails.name ?? "",
+                                      ),
+                                    );
+
+                                    vm.dispatchAddReviewReportAction(
+                                        widget.review!.userId, widget.review!.id, report);
                                   } else {
                                     displayToastError(context,
                                         "Reason and description must be included.");
@@ -202,11 +217,26 @@ class _Factory extends VmFactory<AppState, _RadioSelectWidgetState> {
       otherUser: state.otherUserDetails,
       isWaiting: state.wait.isWaiting,
       userDetails: state.userDetails,
-      dispatchAddUserReportAction: (report, user) =>
-          dispatch(AddUserReportAction(report: report, user: user)),
+      dispatchAddUserReportAction: (report, user) => dispatch(
+            AddUserReportAction(
+              report: report,
+              user: user,
+            ),
+          ),
       dispatchAddAdvertReportAction:
-          (String userId, ReportDetailsModel report) =>
-              dispatch(AddAdvertReportAction(userId: userId, report: report)),
+          (String userId, ReportDetailsModel report) => dispatch(
+                AddAdvertReportAction(
+                  userId: userId,
+                  report: report,
+                ),
+              ),
+      dispatchAddReviewReportAction: (userId, reviewId, report) => dispatch(
+            AddReviewReportAction(
+              reviewId: reviewId,
+              userId: userId,
+              report: report,
+            ),
+          ),
       popPage: () => dispatch(NavigateAction.pop()),
       activeAd: state.activeAd);
 }
@@ -218,6 +248,8 @@ class _ViewModel extends Vm {
   final void Function(ReportDetailsModel, ReportUserDetailsModel)
       dispatchAddUserReportAction;
   final void Function(String, ReportDetailsModel) dispatchAddAdvertReportAction;
+  final void Function(String, String, ReportDetailsModel)
+      dispatchAddReviewReportAction;
   final bool isWaiting;
   final AdvertModel? activeAd;
   final VoidCallback popPage;
@@ -228,6 +260,7 @@ class _ViewModel extends Vm {
     required this.otherUser,
     required this.dispatchAddUserReportAction,
     required this.dispatchAddAdvertReportAction,
+    required this.dispatchAddReviewReportAction,
     required this.isWaiting,
     required this.popPage,
   }) : super(equals: [userDetails, isWaiting]);

@@ -18,6 +18,7 @@ exports.handler = async (event) => {
         let userResp = {};
         userResp.enabled = user.Enabled;
         userResp.status = user.UserStatus;
+        userResp.cognito_username = user.Username;
         user.Attributes.forEach(function (attr) {
             switch (attr.Name) {
                 case "sub":

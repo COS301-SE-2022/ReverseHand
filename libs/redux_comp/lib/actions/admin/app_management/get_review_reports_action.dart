@@ -14,14 +14,11 @@ class GetReviewReportsAction extends ReduxAction<AppState> {
       getReports(type: "review#reports") {
         reports {
           id
+          user_id
           report_type
           report_details {
             description
             reason
-            reported_user {
-              id
-              name
-            }
             reporter_user {
               id
               name

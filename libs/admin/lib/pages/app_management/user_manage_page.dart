@@ -3,9 +3,7 @@ import 'package:admin/widgets/partial_user_widget.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:general/widgets/loading_widget.dart';
-import 'package:general/widgets/long_button_transparent.dart';
 import 'package:general/widgets/long_button_widget.dart';
 import 'package:redux_comp/actions/admin/app_management/enable_user_action.dart';
 import 'package:redux_comp/models/admin/app_management/models/admin_user_model.dart';
@@ -18,8 +16,9 @@ class UserManagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CognitoUserModel cogUser =
-        ModalRoute.of(context)!.settings.arguments as CognitoUserModel;
+    CognitoUserModel? cogUser =
+        ModalRoute.of(context)?.settings.arguments as CognitoUserModel?;
+
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(
@@ -50,78 +49,86 @@ class UserManagePage extends StatelessWidget {
 
                       (vm.activeUser != null)
                           ? AdminUserWidget(user: vm.activeUser!)
-                          : PartialUserWidget(user: cogUser),
+                          : PartialUserWidget(user: cogUser!),
                       const Padding(padding: EdgeInsets.only(bottom: 25)),
                       LongButtonWidget(
-                          text: (vm.activeUser?.enabled ?? cogUser.enabled)
+                          text: (vm.activeUser?.enabled ?? cogUser!.enabled)
                               ? "Disable User"
                               : "Enable User",
-                          function: (vm.activeUser?.enabled ?? cogUser.enabled)
+                          function: (vm.activeUser?.enabled ?? cogUser!.enabled)
                               ? () {
-                                  vm.dispatchEnableUser(
-                                    vm.activeUser!.cognitoUsername,
-                                    true,
-                                  );
-                                  cogUser = cogUser.copy(
-                                    enabled: false
-                                  );
+                                  (cogUser != null)
+                                      ? vm.dispatchEnableUser(
+                                          username: cogUser!.cognitoUsername,
+                                          disable: true,
+                                          user: cogUser)
+                                      : vm.dispatchEnableUser(
+                                          username:
+                                              vm.activeUser!.cognitoUsername,
+                                          disable: true,
+                                        );
+                                  cogUser = cogUser?.copy(enabled: false);
                                 }
                               : () {
-                                  vm.dispatchEnableUser(
-                                    vm.activeUser!.cognitoUsername,
-                                    false,
-                                  );
-                                  cogUser = cogUser.copy(
-                                    enabled: true
-                                  );
+                                  (cogUser != null)
+                                      ? vm.dispatchEnableUser(
+                                          username: cogUser!.cognitoUsername,
+                                          disable: false,
+                                          user: cogUser)
+                                      : vm.dispatchEnableUser(
+                                          username:
+                                              vm.activeUser!.cognitoUsername,
+                                          disable: false,
+                                        );
+                                  cogUser = cogUser?.copy(enabled: true);
                                 }),
                       const Padding(padding: EdgeInsets.only(bottom: 10)),
-                      TransparentLongButtonWidget(
-                          text: "Delete User",
-                          borderColor: Colors.red,
-                          function: () {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (BuildContext context) => SizedBox(
-                                      height: 180,
-                                      child: Column(
-                                        children: [
-                                          const Center(
-                                            child: Padding(
-                                              padding: EdgeInsets.all(18.0),
-                                              child: Text(
-                                                "Are you sure you want to delete this user's account?",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 20),
-                                              ),
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              ButtonWidget(
-                                                  text: "Delete",
-                                                  function: () {}),
-                                              const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 10)),
-                                              ButtonWidget(
-                                                  text: "Cancel",
-                                                  color: "light",
-                                                  border: "lightBlue",
-                                                  function: () {
-                                                    Navigator.pop(context);
-                                                  }),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ));
-                          })
+                      // TransparentLongButtonWidget(
+                      //     text: "Delete User",
+                      //     borderColor: Colors.red,
+                      //     function: () {
+                      //       showModalBottomSheet(
+                      //           context: context,
+                      //           isScrollControlled: true,
+                      //           builder: (BuildContext context) => SizedBox(
+                      //                 height: 180,
+                      //                 child: Column(
+                      //                   children: [
+                      //                     const Center(
+                      //                       child: Padding(
+                      //                         padding: EdgeInsets.all(18.0),
+                      //                         child: Text(
+                      //                           "Are you sure you want to delete this user's account?",
+                      //                           textAlign: TextAlign.center,
+                      //                           style: TextStyle(
+                      //                               color: Colors.black,
+                      //                               fontSize: 20),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     Row(
+                      //                       mainAxisAlignment:
+                      //                           MainAxisAlignment.center,
+                      //                       children: [
+                      //                         ButtonWidget(
+                      //                             text: "Delete",
+                      //                             function: () {}),
+                      //                         const Padding(
+                      //                             padding: EdgeInsets.only(
+                      //                                 right: 10)),
+                      //                         ButtonWidget(
+                      //                             text: "Cancel",
+                      //                             color: "light",
+                      //                             border: "lightBlue",
+                      //                             function: () {
+                      //                               Navigator.pop(context);
+                      //                             }),
+                      //                       ],
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ));
+                      //     })
                     ],
                   );
           },
@@ -139,9 +146,15 @@ class _Factory extends VmFactory<AppState, UserManagePage> {
   _ViewModel fromStore() => _ViewModel(
         loading: state.wait.isWaiting,
         activeUser: state.admin.adminManage.activeUser,
-        dispatchEnableUser: (username, disable) => dispatch(
-          EnableUserAction(username: username, disable: disable),
-        ),
+        dispatchEnableUser: ({required username, required disable, user}) {
+          dispatch(
+            EnableUserAction(
+              username: username,
+              disable: disable,
+              user: user,
+            ),
+          );
+        },
       );
 }
 
@@ -149,7 +162,10 @@ class _Factory extends VmFactory<AppState, UserManagePage> {
 class _ViewModel extends Vm {
   final bool loading;
   final AdminUserModel? activeUser;
-  final void Function(String, bool) dispatchEnableUser;
+  final void Function(
+      {required String username,
+      required bool disable,
+      CognitoUserModel? user}) dispatchEnableUser;
 
   _ViewModel({
     required this.loading,

@@ -53,7 +53,9 @@ class ReviewWidget extends StatelessWidget {
                               builder: (context) => ReportPage(
                                     store: store,
                                     reportType: "Review",
+                                    review: review,
                                   )
+                                  
                             ),
                           );
                       },

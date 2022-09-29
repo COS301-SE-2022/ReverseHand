@@ -172,8 +172,8 @@ type Mutation {
   addUserReport(user_details: ReportUserDetailsInput!, report: ReportDetailsInput!) : ReportDetails!
     @function(name: "addUserReportResolver-${env}")
 
-  addReviewReport(user_details: ReportUserDetailsInput!, report: ReportDetailsInput!, review_id: String!) : ReportDetails!
-    @function(name: "addReviewrReportResolver-${env}")
+  addReviewReport(user_id: String!, report: ReportDetailsInput!, review_id: String!) : ReportDetails!
+    @function(name: "addReviewReportResolver-${env}")
 
   removeReviewReport(user_id: String!, report_id: String!, issueWarning: Boolean!): ReportDetails!
     @function(name: "removeReviewReportResolver-${env}")
@@ -372,6 +372,7 @@ type Reports {
 
 type Report implements UniqueID {
   id: String!
+  user_id: String
   report_type: String!
   report_details: ReportDetails!
   review_details: ReviewDetails
@@ -412,6 +413,7 @@ type AdminCognitoUser implements UniqueID {
   id: String!
   email: String!
   enabled: String!
+  cognito_username: String!
   status: String
 }
 
