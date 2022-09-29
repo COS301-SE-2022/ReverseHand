@@ -1,9 +1,9 @@
-import 'package:async_redux/async_redux.dart';
-import 'package:authentication/authentication.dart';
-import 'package:authentication/widgets/auth_button.dart';
+// import 'package:async_redux/async_redux.dart';
+// import 'package:authentication/authentication.dart';
+// import 'package:authentication/widgets/auth_button.dart';
+// import 'package:general/widgets/hint_widget.dart';
+// import 'package:redux_comp/redux_comp.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:general/widgets/hint_widget.dart';
-import 'package:redux_comp/redux_comp.dart';
 
 void main() {
   test("Alex, help...", () {
