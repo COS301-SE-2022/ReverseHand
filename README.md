@@ -38,6 +38,8 @@
     | 💻
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
   </p> <br/>
+  | 📝
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V4.pdf">SRS Documentation_v4</a>
     <p align="center">
     🎥
     <a href="https://drive.google.com/file/d/1zB3PchRsJWhvsYGj_DCbxvVCNupIuxwx/view?usp=sharing">CacheMoney-Demo4</a>
