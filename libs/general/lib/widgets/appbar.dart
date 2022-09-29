@@ -39,7 +39,7 @@ class AppBarWidget extends StatelessWidget {
                         icon: const Icon(Icons.arrow_back),
                         onPressed: vm.popPage)
                     : Image.asset(
-                        '../../assets/images/logo.png',
+                        'assets/images/logo.png',
                         package: 'authentication',
                       ),
               ),
