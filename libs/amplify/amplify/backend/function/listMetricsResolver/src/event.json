@@ -1,0 +1,6 @@
+{
+  "arguments" : {
+    "params" : "{ \"Dimensions\": [{ \"Name\": \"Job_Type\" }], \"MetricName\": \"PlaceBid\", \"Namespace\": \"CustomValue\"}"
+  }
+}
+

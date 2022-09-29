@@ -1,9 +1,15 @@
-import 'package:amplify_api/amplify_api.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:redux_comp/actions/add_to_bucket_action.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
-import 'package:uuid/uuid.dart';
+import 'package:redux_comp/models/bucket_model.dart';
+import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../app_state.dart';
+import '../analytics_events/record_create_advert_action.dart';
 
 // creates an advert
 // requires the customerdId and a title the rest is optional
@@ -12,29 +18,25 @@ class CreateAdvertAction extends ReduxAction<AppState> {
   final String title;
   final String? description;
   final String type;
-  final String location;
+  final Domain domain;
+  final List<File>? files; // files to upload
 
   CreateAdvertAction(
     this.customerId,
     this.title,
-    this.location,
+    this.domain,
     this.type, {
     this.description,
+    this.files,
   }); // Create...(id, title, description: desc)
 
   @override
   Future<AppState?> reduce() async {
-    String adId = "a#${const Uuid().v1()}";
+    int fileCount = files?.length ?? 0;
 
-    // type is not used currently but will be implemented in the future
     String graphQLDocument = '''mutation {
-      createAdvert(customer_id: "$customerId", ad_id: "$adId", title: "$title", description: "$description", location: "$location", type: "$type") {
+      createAdvert(customer_id: "$customerId", title: "$title", description: "$description", domain: ${domain.toString()}, type: "$type", images: $fileCount) {
         id
-        date_created
-        location
-        title
-        type
-        description
       }
     }''';
 
@@ -43,20 +45,23 @@ class CreateAdvertAction extends ReduxAction<AppState> {
     );
 
     try {
-      /* final response = */ await Amplify.API
-          .mutate(request: request)
-          .response;
+      final response = await Amplify.API.mutate(request: request).response;
+      final id = jsonDecode(response.data)['createAdvert']['id'];
 
-      // List<AdvertModel> adverts = state.adverts;
-      // final data = jsonDecode(response.data);
-      // adverts.add(AdvertModel(
-      //     id: customerId,
-      //     title: title,
-      //     dateCreated: data['createAdvert']['date_created'],
-      //     location: 'temp location'));
+      if (files != null) {
+        dispatch(AddToBucketAction(
+            fileType: FileType.job, advertId: id, files: files));
+      }
 
-      return null;
+      dispatch(RecordCreateAdvertAction(
+          city: domain.city, province: domain.province, type: type));
+
+      return state.copy(locationResult: null);
+    } on ApiException catch (e) {
+      debugPrint(e.message);
+      return null; // on error does not modify appstate
     } catch (e) {
+      debugPrint(e.toString());
       return null; // on error does not modify appstate
     }
   }

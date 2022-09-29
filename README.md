@@ -37,7 +37,11 @@
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/InstallationManual.pdf">Installation Manual</a>
     | 💻
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
-  </p> 
+  </p> <br/>
+  <p align="center">
+    🌐
+    <a href="https://drive.google.com/drive/folders/116jdyN56mcAhlSX4O1uSotbL66GCJLZu?usp=sharing">Download APK</a>
+  </p>
   
   <br />   <br />
 
@@ -45,7 +49,7 @@
   <img height="50px" src="https://user-images.githubusercontent.com/83949715/168064805-34d473b7-d845-4740-a9a0-a7a754725a85.png" /> <br/> <br/>
 </div>
 <div align= "center"> 
-ReverseHand is a mobile application that was created with the vision of helping to reduce any power imbalances that consumers may face when seeking trade services. To achieve this, the mobile application allows consumers to make their needs for services known in the form of job listings, where tradesmen are able to place bids in order to be chosen and hired.
+ReverseHand is a mobile application built with the vision of connecting local contractors and customers with a focus on reducing the power imbalances customers may face when seeking trade services. To achieve this, the mobile application enables customers to advertise their need for services through job postings where contractors can submit bids for selection and employment. ReverseHand strives to make life easier for its users by integrating the entire process of finding a contractor into one application. All communication is done through an integrated chat-application and all payments are processed securely through the app. 
 </div>
 
 <br/> <br/>

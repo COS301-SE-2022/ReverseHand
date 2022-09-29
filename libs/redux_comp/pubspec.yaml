@@ -16,9 +16,12 @@ dependencies:
     path: ../geolocation
 
   # amplify
-  amplify_flutter: ^0.5.1
-  amplify_auth_cognito: ^0.5.1
-  amplify_api: ^0.5.1
+  amplify_core: 0.6.6
+  amplify_flutter: 0.6.6
+  amplify_auth_cognito: 0.6.6
+  amplify_api: 0.6.6
+  amplify_storage_s3: 0.6.6
+  amplify_analytics_pinpoint: 0.6.6
 
   # redux
   async_redux: ^15.0.0
@@ -26,6 +29,11 @@ dependencies:
   # other
   uuid: ^3.0.6
   jwt_decode: ^0.3.1
+  geolocator: ^9.0.1
+  http: ^0.13.5
+  sentiment_dart: ^0.0.5
+  map_launcher: ^2.4.0
+  flutter_svg: ^1.1.5
 
   amplify:
     path: '../amplify'
@@ -33,10 +41,16 @@ dependencies:
   general:
     path: '../general'
 
+  # payments
+  flutter_paystack:
+    git:
+      url: https://github.com/definitelyme/flutter_paystack.git
+      ref: a4a33c3dd0a12f46d655a2e63d11e9f20ba82d01
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

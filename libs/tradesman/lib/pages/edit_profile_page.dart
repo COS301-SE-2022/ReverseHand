@@ -1,15 +1,15 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
-import 'package:general/widgets/textfield.dart';
-import 'package:redux_comp/actions/user/create_user_action.dart';
-import 'package:redux_comp/actions/user/edit_user_details_action.dart';
+import 'package:general/methods/toast_error.dart';
+import 'package:general/widgets/bottom_sheet.dart';
+import 'package:general/widgets/profile_divider.dart';
+import 'package:redux_comp/actions/user/user_table/create_user_action.dart';
+import 'package:redux_comp/actions/user/user_table/edit_user_details_action.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/models/user_models/user_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
 import 'package:general/widgets/button.dart';
-
 import '../widgets/multiselect_widget.dart';
 
 class EditTradesmanProfilePage extends StatefulWidget {
@@ -23,29 +23,21 @@ class EditTradesmanProfilePage extends StatefulWidget {
 }
 
 class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
-  final nameController = TextEditingController();
-  final cellController = TextEditingController();
-  final tradeController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _cellController = TextEditingController();
+
+  // used to determine whether an x or check should be displayed
+  bool _nameValid = false;
+  bool _cellValid = false;
 
   //used for multiselect for trade type
   List<String> selectedItems = [];
 
   void showMultiSelect(List<String> selected) async {
-    final List<String> items = [
-      "Painting",
-      "Tiler",
-      "Carpenter",
-      "Cleaner",
-      "Designer",
-      "Landscaper",
-      "Electrician",
-      "Plumbing",
-    ];
-
     final List<String>? results = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MultiSelectWidget(items: items, selectedItems: selected);
+        return MultiSelectWidget(selectedItems: selectedItems);
       },
     );
 
@@ -59,9 +51,8 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
 
   @override
   void dispose() {
-    nameController.dispose();
-    cellController.dispose();
-    tradeController.dispose();
+    _nameController.dispose();
+    _cellController.dispose();
     super.dispose();
   }
 
@@ -69,134 +60,340 @@ class _EditTradesmanProfilePageState extends State<EditTradesmanProfilePage> {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: widget.store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          resizeToAvoidBottomInset:
-              false, //prevents floatingActionButton appearing above keyboard
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) {
+              List<Widget> trades = [];
+              List<Widget> domains = [];
+              for (var i = 0; i < selectedItems.length; i++) {
+                {
+                  trades.add(Padding(
+                    padding: const EdgeInsets.only(top: 3.0, bottom: 3),
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColorLight,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(7))),
+                      width: MediaQuery.of(context).size.width / 1.7,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            selectedItems.elementAt(i),
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ));
+                }
+              }
+              for (var i = 0; i < vm.userDetails.domains.length; i++) {
+                {
+                  domains.add(Padding(
+                    padding: const EdgeInsets.only(top: 3.0, bottom: 3),
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColorLight,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(7))),
+                      width: MediaQuery.of(context).size.width / 1.7,
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            "${vm.userDetails.domains.elementAt(i).city}, ${vm.userDetails.domains.elementAt(i).province}",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ));
+                }
+              }
+              return Column(
                 children: [
                   //*******************APP BAR WIDGET******************//
-                  AppBarWidget(title: "EDIT PROFILE", store: widget.store),
+                  AppBarWidget(title: "CREATE PROFILE", store: widget.store),
                   //***************************************************//
 
-                  //**********************NAME************************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 30),
-                    child: TextFieldWidget(
-                      initialVal: vm.userDetails!.name,
-                      label: "Name",
-                      obscure: false,
-                      min: 1,
-                      controller: nameController,
-                    ),
-                  ),
-                  //**************************************************//
+                  InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (BuildContext context) {
+                            return BottomSheetWidget(
+                              text: "What name would you like to save?",
+                              initialVal: "",
+                              controller: _nameController,
+                              function: () {
+                                vm.popPage();
 
-                  //********************NUMBER**********************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                    child: TextFieldWidget(
-                      initialVal: vm.userDetails!.cellNo,
-                      label: "Phone",
-                      obscure: false,
-                      controller: cellController,
-                      min: 1,
-                    ),
-                  ),
+                                String name = _nameController.value.text;
+                                if (!RegExp(r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")
+                                        .hasMatch(name) ||
+                                    name.isEmpty) {
+                                  _nameValid = false;
+                                } else {
+                                  _nameValid = true;
+                                }
 
-                  //********************TRADE**********************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                    child: TextFieldWidget(
-                      label: "Trade",
-                      obscure: false,
-                      controller: tradeController,
-                      onTap: () => showMultiSelect(vm.userDetails!.tradeTypes),
-                      min: 1,
-                    ),
-                  ),
-
-                   // display selected items
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
-                    children: selectedItems
-                        .map((types) => Chip(
-                              labelPadding:
-                                  const EdgeInsets.all(2.0),
-                              label: Text(
-                                types,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                ),
+                                setState(() {});
+                              },
+                            );
+                          });
+                    },
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 40, right: 30, top: 80),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.person,
+                                color: Colors.orange,
+                                size: 26.0,
                               ),
-                              backgroundColor:
-                                  const Color.fromRGBO(
-                                      35, 47, 62, 1),
-                              padding:
-                                  const EdgeInsets.all(8.0),
-                            ))
-                        .toList(),
-                  ),
-                  //**************************************************//
-
-                  //********************DOMAIN**********************//
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 25),
-                    child: TextFieldWidget(
-                      label: "Domains",
-                      obscure: false,
-                      controller: TextEditingController(),
-                      onTap: vm.pushDomainConfirmPage,
-                      min: 1,
+                              const Padding(padding: EdgeInsets.only(right: 8)),
+                              Text(
+                                _nameController.value.text.isEmpty
+                                    ? "Enter your name"
+                                    : _nameController.value.text,
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.white70),
+                              ),
+                            ],
+                          ),
+                          _nameValid
+                              ? const Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                              : const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                        ],
+                      ),
                     ),
                   ),
                   //**************************************************//
+
+                  const ProfileDividerWidget(),
+                  //********************NUMBER**********************//
+                  InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          isDismissible: false,
+                          builder: (BuildContext context) {
+                            return BottomSheetWidget(
+                              text: "What phone number ",
+                              initialVal: "",
+                              controller: _cellController,
+                              function: () {
+                                vm.popPage();
+
+                                final cell = _cellController.value.text.trim();
+                                if (!RegExp(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
+                                        .hasMatch(cell) ||
+                                    cell.isEmpty) {
+                                  _cellValid = false;
+                                } else {
+                                  _cellValid = true;
+                                }
+
+                                setState(() {});
+                              },
+                            );
+                          });
+                    },
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 40, right: 30, top: 50),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.phone,
+                                color: Colors.orange,
+                                size: 26.0,
+                              ),
+                              const Padding(padding: EdgeInsets.only(right: 8)),
+                              Text(
+                                _cellController.value.text.isEmpty
+                                    ? "Enter your cell"
+                                    : _cellController.value.text,
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.white70),
+                              ),
+                            ],
+                          ),
+                          _cellValid
+                              ? const Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                              : const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const ProfileDividerWidget(),
+                  //********************TRADE**********************//
+                  InkWell(
+                    onTap: () => showMultiSelect(selectedItems),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 40, right: 30, top: 50),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.construction,
+                                color: Colors.orange,
+                                size: 26.0,
+                              ),
+                              const Padding(padding: EdgeInsets.only(right: 8)),
+                              selectedItems.isEmpty
+                                  ? const Text("Select your tradeTypes",
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white70))
+                                  : Column(
+                                      children: [...trades],
+                                    )
+                            ],
+                          ),
+                          selectedItems.isEmpty
+                              ? const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                              : const Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const ProfileDividerWidget(),
+
+                  InkWell(
+                    onTap: vm.pushDomainConfirmPage,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 40, right: 30, top: 50),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.location_on,
+                                color: Colors.orange,
+                                size: 26.0,
+                              ),
+                              const Padding(padding: EdgeInsets.only(right: 8)),
+                              domains.isEmpty
+                                  ? const Text("Select your domains",
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white70))
+                                  : Column(
+                                      children: [...domains],
+                                    )
+                            ],
+                          ),
+                          vm.userDetails.domains.isEmpty
+                              ? const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                              : const Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                  size: 20,
+                                )
+                        ],
+                      ),
+                    ),
+                  ),
+                  //**************************************************//
+
+                  const ProfileDividerWidget(),
 
                   const Padding(padding: EdgeInsets.only(bottom: 30)),
                   //**************************************************//
 
                   //*******************SAVE BUTTON********************//
-                  if (vm.userDetails!.registered == true) ...[
-                    //*******************SAVE BUTTON********************//
-                    ButtonWidget(
-                        text: "Save Changes", function: () {
-                          String? name, cellNo;
-                          (vm.userDetails!.name != nameController.value.text) ? name = nameController.value.text : null;
-                          (vm.userDetails!.cellNo != cellController.value.text) ? cellNo = cellController.value.text : null;
-                          vm.dispatchEditTradesmanAction(name, cellNo, selectedItems, vm.userDetails!.domains);
-                        }),
-                    //**************************************************//
+                  ButtonWidget(
+                    text: "Done",
+                    function: () {
+                      final name = _nameController.value.text.trim();
+                      if (!RegExp(r"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$")
+                              .hasMatch(name) ||
+                          name.isEmpty) {
+                        // ToastErrorAction(context, "Invalid Name");
+                        displayToastError(context, "Invalid name");
+                        return;
+                      }
 
-                    const Padding(padding: EdgeInsets.all(8)),
-                    ButtonWidget(
-                        text: "Discard",
-                        color: "dark",
-                        function: vm.popPage),
-                  ] else
-                    //*******************SAVE BUTTON********************//
-                    ButtonWidget(
-                        text: "Save Changes",
-                        function: () {
-                          final name = nameController.value.text.trim();
-                          final cell = cellController.value.text.trim();
-                          final domains = vm.userDetails!.domains;
-                          if (domains.isNotEmpty && selectedItems.isNotEmpty) {
-                            vm.dispatchCreateTradesmanAction(name, cell,
-                                selectedItems, vm.userDetails!.domains);
-                          } else {
-                            // thinking maybe we can make a generic dispatch error action with an ErrorTpe parameter
-                            // something like:
-                            // vm.dispatchError(ErrorType.locationNotCaptured)
-                          }
-                        }),
+                      final cell = _cellController.value.text.trim();
+                      if (!RegExp(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
+                              .hasMatch(cell) ||
+                          cell.isEmpty) {
+                        // ToastErrorAction(context, "Invalid Name");
+                        displayToastError(context, "Invalid cellphone number");
+                        return;
+                      }
+
+                      final domains = vm.userDetails.domains;
+                      if (domains.isEmpty) {
+                        displayToastError(
+                            context, "Select at least one domain");
+                        return;
+                      }
+
+                      if (selectedItems.isEmpty) {
+                        displayToastError(
+                            context, "Select at least one tradetype");
+                        return;
+                      }
+
+                      vm.dispatchCreateTradesmanAction(
+                          name, cell, selectedItems, vm.userDetails.domains);
+                    },
+                  ),
                 ],
-              ),
-            ),
+              );
+            },
           ),
         ),
       ),
@@ -218,14 +415,15 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
           tradeTypes: tradeTypes,
           domains: domains,
         )),
-        dispatchEditTradesmanAction:
-            (String? name, String? cell, List<String>? tradeTypes, List<Domain>? domains) =>
-                dispatch(EditUserDetailsAction(
-          userId: state.userDetails!.id,
+        dispatchEditTradesmanAction: (String? name, String? cell,
+                List<String>? tradeTypes, List<Domain>? domains) =>
+            dispatch(EditUserDetailsAction(
+          userId: state.userDetails.id,
           name: name,
           cellNo: cell,
           tradeTypes: tradeTypes,
           domains: domains,
+          changed: '',
         )),
         popPage: () => dispatch(
           NavigateAction.pop(),
@@ -233,7 +431,7 @@ class _Factory extends VmFactory<AppState, _EditTradesmanProfilePageState> {
         pushDomainConfirmPage: () => dispatch(
           NavigateAction.pushNamed('/tradesman/domain_confirm'),
         ),
-        userDetails: (state.userDetails == null) ? null : state.userDetails!,
+        userDetails: state.userDetails,
       );
 }
 
@@ -245,7 +443,7 @@ class _ViewModel extends Vm {
       dispatchEditTradesmanAction;
   final VoidCallback popPage;
   final VoidCallback pushDomainConfirmPage;
-  final UserModel? userDetails;
+  final UserModel userDetails;
 
   _ViewModel({
     required this.dispatchCreateTradesmanAction,

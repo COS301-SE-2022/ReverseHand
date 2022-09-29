@@ -23,6 +23,9 @@ dependencies:
   tradesman:
     path: '../tradesman'
 
+  consumer:
+    path: '../consumer'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

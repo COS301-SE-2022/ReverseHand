@@ -1,5 +1,4 @@
 {
-  "root": "libs/authentication",
   "sourceRoot": "libs/authentication/src",
   "projectType": "library",
   "targets": {

@@ -6,6 +6,8 @@ import 'package:redux_comp/app_state.dart';
 import 'package:redux_comp/models/filter_bids_model.dart';
 
 // for now staeful change to stateless later using store chanegd variable
+// filter popup
+
 class FilterPopUpWidget extends StatefulWidget {
   final Store<AppState> store;
 
@@ -133,79 +135,39 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
             children: [
               //MINIMUM TEXTFIELD
               Container(
-                  height: 40,
-                  width: (MediaQuery.of(context).size.width / 1.7) / 2,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(
-                        20.0), //borderRadius for container
-                  ),
-                  child: TextFormField(
-                    // initialValue: "0",
-                    style: const TextStyle(color: Colors.white),
-                    controller: minController,
-                    decoration: InputDecoration(
-                      labelText: "min",
-                      labelStyle: const TextStyle(color: Colors.white),
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(
-                          color: Colors.orange,
-                          width: 2.0,
-                        ),
+                height: 40,
+                width: (MediaQuery.of(context).size.width / 1.7) / 2,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius:
+                      BorderRadius.circular(20.0), //borderRadius for container
+                ),
+                child: TextFormField(
+                  // initialValue: "0",
+                  style: const TextStyle(color: Colors.white),
+                  controller: minController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: "min",
+                    labelStyle: const TextStyle(color: Colors.white),
+                    floatingLabelBehavior: FloatingLabelBehavior.auto,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        width: 1.0,
                       ),
                     ),
-                  )),
-
-              //PADDING AND "-"
-              const Padding(padding: EdgeInsets.all(5)),
-
-              const Text(
-                "-",
-                style: TextStyle(color: Colors.white, fontSize: 30),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: const BorderSide(
+                        color: Colors.orange,
+                        width: 2.0,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              const Padding(padding: EdgeInsets.all(5)),
-
-              //MAXIMUM TEXTFIELD
-              Container(
-                  height: 40,
-                  width: (MediaQuery.of(context).size.width / 1.7) / 2,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(
-                        20.0), //borderRadius for container
-                  ),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.white),
-                    controller: maxController,
-                    decoration: InputDecoration(
-                      labelText: "max",
-                      labelStyle: const TextStyle(color: Colors.white),
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(
-                          color: Colors.orange,
-                          width: 2.0,
-                        ),
-                      ),
-                    ),
-                  )),
             ],
           ),
           //******************************************/
@@ -236,7 +198,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
             child: Column(
               children: [
                 CheckboxListTile(
-                  title: const Text('Shortlisted Bids'),
+                  title: const Text('Favourited Bids'),
                   value: showSBids,
                   activeColor: Theme.of(context).primaryColor,
                   onChanged: (bool? value) {
@@ -246,7 +208,7 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
                   },
                 ),
                 CheckboxListTile(
-                  title: const Text('Non-shortlisted Bids'),
+                  title: const Text('Non-favourited Bids'),
                   value: showBids,
                   activeColor: Theme.of(context).primaryColor,
                   onChanged: (bool? value) {
@@ -269,21 +231,17 @@ class _FilterPopUpWidgetState extends State<FilterPopUpWidget> {
             builder: (BuildContext context, _ViewModel vm) => ButtonWidget(
               text: "Apply",
               function: () {
+                //if the min and max values are actually used
                 vm.dispatchFilterBidsAction(
                   FilterBidsModel(
                     includeShortlisted: showSBids,
                     includeBids: showBids,
-                    priceRange: minController.value.text.isEmpty ||
-                            maxController.value.text.isEmpty
+                    price: minController.value.text.isEmpty
                         ? null
-                        : Range(
-                            int.parse(minController.value.text),
-                            int.parse(maxController.value.text),
-                          ),
+                        : int.parse(minController.value.text),
                     sort: sort,
                   ),
                 );
-
                 Navigator.pop(context);
               },
             ),

@@ -1,27 +1,36 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:amplify_api/amplify_api.dart';
 import 'package:redux_comp/models/advert_model.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 
 class ViewAdvertsAction extends ReduxAction<AppState> {
-  ViewAdvertsAction();
+  final bool archived;
+
+  ViewAdvertsAction({this.archived = false});
 
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''query {
-      viewAdverts(user_id: "${state.userDetails!.id}") {
+      viewAdverts(user_id: "${state.userDetails.id}", archived: $archived) {
         date_created
         date_closed
         description
-        location
+        domain {
+          city
+          province
+          coordinates {
+            lat 
+            lng
+          }
+        }
         title
         type
         accepted_bid
+        customer_id
         id
+        images
       }
     }''';
 
@@ -30,13 +39,22 @@ class ViewAdvertsAction extends ReduxAction<AppState> {
     try {
       final response = await Amplify.API.query(request: request).response;
 
-      List<AdvertModel> adverts = [];
       dynamic data = jsonDecode(response.data)['viewAdverts'];
+      List<AdvertModel> adverts = [];
       data.forEach((el) => adverts.add(AdvertModel.fromJson(el)));
 
-      return state.copy(
-        adverts: adverts,
-      );
+      if (archived) {
+        adverts.sort(
+          (a, b) => a.dateClosed!.compareTo(b.dateClosed!),
+        );
+        return state.copy(
+          archivedJobs: adverts,
+        );
+      } else {
+        return state.copy(
+          adverts: adverts,
+        );
+      }
     } catch (e) {
       return null; /* On Error do not modify state */
     }

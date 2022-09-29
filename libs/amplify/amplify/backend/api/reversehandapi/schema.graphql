@@ -3,23 +3,68 @@
 # input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Query {
-  viewBids(ad_id: String!): [Bid]! @function(name: "viewBidsResolver-${env}")
+  viewBids(ad_id: String!, archived: Boolean): [Bid!]! @function(name: "viewBidsResolver-${env}")
 
-  viewAdverts(user_id: String!): [Advert]!
+  viewAdverts(user_id: String!, archived: Boolean): [Advert!]!
     @function(name: "viewAdvertsResolver-${env}")
 
-  viewJobs(locations: [String!]!, types: [String!]!): [Advert]!
+  viewJobs(domains: [DomainInput!]!, types: [String!]!): [Advert!]!
     @function(name: "viewJobsResolver-${env}")
 
   viewUser(user_id: String!): User! @function(name: "viewUserResolver-${env}")
 
   viewKey: String! @function(name: "getGoogleApiKeyResolver-${env}")
 
-  getConsumerChats(c_id: String!): [Chat!]!
-  @function(name: "getConsumerMessagesResolver-${env}")
+  getPayStackKeys: PayStackKeys!
+    @function(name: "getPayStackApiKeysResolver-${env}")
 
-  getTradesmanChats(c_id: String!): [Chat!]!
-  @function(name: "getTradesmanMessagesResolver-${env}")
+  getChats(user_id: String!): [Chat!]!
+    @function(name: "getChatsResolver-${env}")
+
+  getMessages(chat_id: String!): [Message!]!
+    @function(name: "getMessagesResolver-${env}")
+
+  getNotifications(user_id: String!): [Notification!]!
+    @function(name: "getNotificationsResolver-${env}")
+
+  getUserStatistics(user_id: String!): Statistics!
+    @function(name: "getUserStatisticsResolver-${env}")
+
+  getReportedAdverts(province: String!): [AdminAdvert]!
+    @function(name: "getReportedAdvertsResolver-${env}")
+
+  getReports(type: String!): Reports!
+    @function(name: "getReportsResolver-${env}")
+
+  adminGetUser(user_id: String!): AdminUser!
+    @function(name: "adminGetUserResolver-${env}")
+
+  getDBWriteDashboard: String!
+    @function(name: "getDashboardMetricsResolver-${env}")
+
+  getMetrics(params: String!): String!
+    @function(name: "getMetricsResolver-${env}") 
+
+  listMetrics(params: String!): String!
+    @function(name: "listMetricsResolver-${env}") 
+
+  getBidOnAdverts(tradesman_id: String!, archived: Boolean): [Advert!]!
+    @function(name: "getBidOnAdvertsResolver-${env}")
+
+  listUsers(group: String!, next_token: String): AdminListUsers!
+    @function(name: "listUsersResolver-${env}")
+
+  adminSearchUser(email: String!, group: String!): [AdminCognitoUser!]!
+    @function(name: "adminSearchUserResolver-${env}")
+
+  getUserReviews(user_id: String!): [Review!]!
+    @function(name: "getUserReviewsResolver-${env}")
+
+  getGlobalSentiment: Sentiment!
+  @function(name: "getGlobalSentimentResolver-${env}")
+
+  getChatsSentiment: [Chat!]!
+  @function(name: "getChatsSentimentResolver-${env}")
 }
 
 type Mutation {
@@ -31,23 +76,21 @@ type Mutation {
 
   createAdvert(
     customer_id: String!
-    ad_id: String!
     title: String!
     description: String
-    location: String!
+    domain: DomainInput!
     type: String!
+    images: Int! # number of images uploaded
   ): Advert! @function(name: "createAdvertResolver-${env}")
 
   placeBid(
     ad_id: String!
-    bid_id: String!
     tradesman_id: String!
     name: String!
-    price_lower: Int!
-    price_upper: Int!
+    price: Int!
     quote: String
   ): Bid! @function(name: "placeBidResolver-${env}") # quote is optional and represents a name of a file in a S3 bucket
-
+  
   closeAdvert(ad_id: String!): Advert!
     @function(name: "closeAdvertResolver-${env}")
 
@@ -69,8 +112,9 @@ type Mutation {
     title: String
     description: String
     type: String
-    location: String
+    domain: DomainInput
     date_closed: String
+    images: Int
   ): Advert! @function(name: "editAdvertResolver-${env}")
 
   deleteAdvert(ad_id: String!): Advert!
@@ -83,14 +127,15 @@ type Mutation {
     ad_id: String!
     bid_id: String!
     quote: String
-    price_lower: Int
-    price_upper: Int
+    price: Int
   ): Bid! @function(name: "editBidResolver-${env}")
 
   editUserDetail(
     user_id: String!
     name: String
+    cellNo: String
     location: LocationInput
+    scope: String
     tradetypes: [String]
     domains: [DomainInput]
   ): User @function(name: "editUserDetailResolver-${env}")
@@ -98,22 +143,63 @@ type Mutation {
   removeDomain(user_id: String!, domain_pos: Int!): Int!
     @function(name: "removeDomainResolver-${env}")
 
-  createChat(c_id: String!, t_id: String!, c_name: String!, t_name: String!): Chat!
-  @function(name: "createChatResolver-${env}")
+  createChat(
+    c_id: String!,
+    t_id: String!,
+    ad_id: String!,
+    c_name: String!,
+    t_name: String!,
+  ): Chat! @function(name: "createChatResolver-${env}")
 
-  sendMessage(c_id: String!, t_id: String!, msg: String!, sender: String!, name: String!): Message!
-  @function(name: "sendMessageResolver-${env}")
+  sendMessage(chat_id: String!, msg: String!, sender: String!, sender_id: String!, reciever_id: String!, sentiment: Float!): Message!
+    @function(name: "sendMessageResolver-${env}")
 
-  deleteChat(c_id: String!, ad_id: String!): Chat!
-  @function(name: "deleteChatResolver-${env}")
+  deleteChat(t_id: String!, c_id: String!, ad_id: String!): Chat!
+    @function(name: "deleteChatResolver-${env}")
+
+  addReview(user_id: String!, review: ReviewInput!): Review! # user_id is who the review is being created for
+    @function(name: "addReviewResolver-${env}")
+
+  deleteReview(user_id: String!, id: String!): Review!  #id is the review id
+    @function(name: "deleteReviewResolver-${env}")
+
+  archiveAdvert(ad_id: String!): Advert!  #id is the review id
+    @function(name: "archiveAdvertResolver-${env}")
+
+  notification(user_id: String!): NotificationUpdate!  # returns the id of the user who has a new notification
+    @function(name: "notifyNewNotificationsResolver-${env}")
+
+  addUserReport(user_details: ReportUserDetailsInput!, report: ReportDetailsInput!) : ReportDetails!
+    @function(name: "addUserReportResolver-${env}")
+
+  addReviewReport(user_id: String!, report: ReportDetailsInput!, review_id: String!) : ReportDetails!
+    @function(name: "addReviewReportResolver-${env}")
+
+  removeReviewReport(user_id: String!, report_id: String!, issueWarning: Boolean!): ReportDetails!
+    @function(name: "removeReviewReportResolver-${env}")
+
+  removeUserReport(user_id: String!, report_id: String!, issueWarning: Boolean!): ReportDetails!
+    @function(name: "removeUserReportResolver-${env}")
+
+  addAdvertReport(advert_id: String!, user_id: String!, report: ReportDetailsInput!) : AdminAdvert!
+    @function(name: "addAdvertReportResolver-${env}")
+
+  acceptAdvertReport(advert_id: String!, issueWarning: Boolean!): Advert!
+    @function(name: "acceptAdvertReportResolver-${env}") 
+
+  enableUser(username: String!, disable: Boolean!) : String!
+    @function(name: "enableUserResolver-${env}")
+
+  removeAdvertReport(advert_id: String!, tradesman_id: String!) : ReportDetails!
+    @function(name: "removeAdvertReportResolver-${env}")
 }
 
 type Subscription {
-  getMessageUpdatesConsumer(consumer_id: String!): Message
-  @aws_subscribe(mutations: ["sendMessage"])
+  getMessageUpdates(chat_id: String!): Message
+    @aws_subscribe(mutations: ["sendMessage"])
 
-  getMessageUpdatesTradesman(tradesman_id: String!): Message
-  @aws_subscribe(mutations: ["sendMessage"])
+  notifyNewNotifications(user_id: String!): NotificationUpdate
+    @aws_subscribe(mutations: ["notification"])
 }
 
 type User implements UniqueID {
@@ -124,23 +210,47 @@ type User implements UniqueID {
   location: Location!
   domains: [Domain!]
   tradetypes: [String!]
+  scope: String! #The scope/province that the admin can view reports from
+  created: Int! #number of bids/adverts made
+  finished: Int! # number of adverts completed or bids won
+  rating_sum: Int!
+  rating_count: Int!
 }
 
-type Chat {
+type Statistics {
+  rating_sum: Int!
+  num_reviews: Int!
+  num_won: Int!
+  num_created: Int!
+}
+
+type ConsumerStats {
+  num_adverts_won: Int!
+  num_adverts_created: Int!
+}
+
+type TradesmanStats {
+  num_jobs_won: Int!
+  num_bids_placed: Int!
+}
+
+type Chat implements UniqueID {
+  id: String!
+  other_user_id: String!
   consumer_name: String!
   tradesman_name: String!
-  consumer_id: String!
-  tradesman_id: String!
-  messages: [Message!]!
+  timestamp: Float!
+  # for sentiments
+  sentiment: Sentiment
 }
 
-type Message {
-  consumer_id: String # only sent for subscription
-  tradesman_id: String # only sent for subscription
+type Message implements UniqueID {
+  id: String!
+  chat_id: String! # to trigger subscription
   msg: String!
   sender: String!
   timestamp: Float!
-  name: String!
+  sentiment: Float!
 }
 
 type Location {
@@ -150,6 +260,7 @@ type Location {
 
 type Domain {
   city: String!
+  province: String!
   coordinates: Coordinates!
 }
 
@@ -167,13 +278,14 @@ type Address {
 }
 
 input DomainInput {
-  city: String
-  coordinates: CoordinatesInput
+  city: String!
+  province: String!
+  coordinates: CoordinatesInput!
 }
 
 input LocationInput {
-  address: AddressInput
-  coordinates: CoordinatesInput
+  address: AddressInput!
+  coordinates: CoordinatesInput!
 }
 
 input AddressInput {
@@ -191,41 +303,145 @@ input CoordinatesInput {
 
 type Advert implements UniqueID {
   id: String!
+  customer_id: String!
   title: String!
   description: String
   type: String
   accepted_bid: String
-  location: String # temporary
-  date_created: String! # temporary
-  date_closed: String # temporary
+  domain: Domain!
+  date_created: Float!
+  date_closed: Float
+  images: Int! # number of images uploaded
 }
 
 type Bid implements UniqueID {
   id: String!
   tradesman_id: String!
   name: String!
-  price_lower: Int!
-  price_upper: Int!
+  price: Int!
   quote: String # filename of quote stored in s3 bucket
   date_created: String!
   date_closed: String
+  shortlisted: Boolean!
 }
 
-type Notification implements UniqueID {
-  id: String!
+type Notification {
+  title: String!
+  msg: String!
+  type: String!
+  timestamp: Float!
+}
+
+# needs to exist to trigger notification subscription
+type NotificationUpdate {
   user_id: String!
-  notification: String # temporary
-  date_created: String # temporary
-  seen: Boolean!
 }
 
 type Review implements UniqueID {
   id: String!
-  rating: Int
-  comment: String
+  rating: Int!
+  description: String!
   user_id: String!
   advert_id: String!
-  date_created: String!
+  date_created: Float!
+}
+
+input ReviewInput {
+  rating: Int!
+  description: String!
+  user_id: String! # who is making the review
+  advert_id: String!
+}
+
+type AdminAdvert {
+  advert: Advert!
+  count: Int!
+  reports: [AdvertReport!]!
+}
+
+type AdvertReport {
+  reason: String!
+  description: String!
+  reporter_user: ReportUserDetails!
+}
+
+type Reports {
+  reports: [Report!]!
+  next_token: String
+}
+
+type Report implements UniqueID {
+  id: String!
+  user_id: String
+  report_type: String!
+  report_details: ReportDetails!
+  review_details: ReviewDetails
+}
+
+type ReviewDetails {
+  id: String!
+  rating: Int!
+  description: String!
+  advert_id: String!
+}
+
+type ReportDetails {
+  reporter_user: ReportUserDetails!
+  reported_user: ReportUserDetails
+  reason: String!
+  description: String!
+}
+
+type ReportUserDetails {
+  id: String!
+  name: String!
+}
+
+input ReportUserDetailsInput {
+  id: String!
+  name: String!
+}
+
+input ReportDetailsInput {
+  reason: String!
+  description: String!
+  reported_user: ReportUserDetailsInput
+  reporter_user: ReportUserDetailsInput
+}
+
+type AdminCognitoUser implements UniqueID {
+  id: String!
+  email: String!
+  enabled: String!
+  cognito_username: String!
+  status: String
+}
+
+type AdminListUsers {
+  users: [AdminCognitoUser!]!
+  next_token: String
+}
+
+type AdminUser implements UniqueID {
+  id: String!
+  cognito_username: String!
+  name: String!
+  email: String!
+  enabled: Boolean!
+  warnings: Int!
+}
+
+type PayStackKeys {
+  secret_key: String!
+  public_key: String!
+}
+
+type Sentiment {
+  negative: Float!
+  negative_messages: Int!
+  neutral_messages: Int!
+  positive: Float!
+  positive_messages: Int!
 }
 
 # add more jobs here as we think of them

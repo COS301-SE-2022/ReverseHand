@@ -12,6 +12,7 @@ on:
         required: false
         type: string
 
+
 jobs:
   test:
     name: Unit and Widget Tests
@@ -85,7 +86,7 @@ jobs:
     #Test all which uses no cache
       - name: Execute tests
         if: inputs.test == 'all'
-        run: npx nx run-many --target=test --all --skip-nx-cache --parallel
+        run: npx nx run-many --target=test --all --skip-nx-cache --parallel --exclude=amplify
         #Amplify excluded from analyze as flutter has issues with the way amplify generates models
         #and since the models are auto generated they should not be changed
 
@@ -94,7 +95,7 @@ jobs:
         if: inputs.test == 'coverage'
         run: |
           node execute_script.js
-          npx nx run-many --target=test --all --skip-nx-cache --parallel
+          npx nx run-many --target=test --all --skip-nx-cache --parallel --exclude=amplify
 
     #merge the lcov files
       - name: Merge codecov reports
@@ -234,7 +235,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with: 
           channel: stable
-          flutter-version: '3.0.4' #have to manually put version else error
+          flutter-version: '3.3.2' #have to manually put version else error
 
     #cache the AVD to speed  up workflow
       - name: AVD cache
@@ -256,13 +257,11 @@ jobs:
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
       - name: Execute integration tests
-        if: inputs.test == 'all'
+        if: inputs.test == 'all' 
         uses: reactivecircus/android-emulator-runner@v2
         with: 
           api-level: 29
           profile: Nexus 6
-          script: npx nx run-many --target=integrationTest --all --skip-nx-cache --parallel
-     
-
+          script: npx nx run-many --target=integrationTest --all --skip-nx-cache --parallel --exclude=amplify
 
      

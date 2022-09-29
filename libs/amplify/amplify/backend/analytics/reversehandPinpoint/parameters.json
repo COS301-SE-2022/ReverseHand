@@ -1,0 +1,21 @@
+{
+    "appName": "ReversehandPinpoint",
+    "roleName": "pinpointLambdaRoledda7520f",
+    "cloudformationPolicyName": "cloudformationPolicydda7520f",
+    "cloudWatchPolicyName": "cloudWatchPolicydda7520f",
+    "pinpointPolicyName": "pinpointPolicydda7520f",
+    "authPolicyName": "pinpoint_amplify_dda7520f",
+    "unauthPolicyName": "pinpoint_amplify_dda7520f",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

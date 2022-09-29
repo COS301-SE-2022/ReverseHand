@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
 const ReverseHandTable = process.env.REVERSEHAND;
+const func = process.env.FUNCTION;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -8,56 +9,74 @@ const ReverseHandTable = process.env.REVERSEHAND;
 
 // recieves an advert as well as a bid id and adds that bid to the shortlisted bids
 exports.handler = async (event) => {
-    try {
-        let params = {
-            TableName: ReverseHandTable,
-            Key: {
+    let params = {};
+    params[ReverseHandTable] = {
+        Keys: [
+            {
                 part_key: event.arguments.ad_id,
-                sort_key: event.arguments.bid_id
-            }
-        };
-
-        const data = await docClient.get(params).promise();
-        
-        let bid = data['Item'];
-        
-        // removing from bids
-        let del = {
-            TableName: ReverseHandTable,
-            Key: {
-                part_key: event.arguments.ad_id,
-                sort_key: event.arguments.bid_id
+                sort_key: event.arguments.bid_id,
             },
-        }
-        await docClient.delete(del).promise();
-        
-        let shortBidId =  's' + event.arguments.bid_id;
-
-        let item = {
-            TableName: ReverseHandTable,
-            Item: {
+            {
                 part_key: event.arguments.ad_id,
-                sort_key: shortBidId, // prefixing but keeping same suffix
-                bid_details: {
-                    id: shortBidId,
-                    tradesman_id: bid['bid_details']['tradesman_id'],
-                    name: bid['bid_details']['name'],
-                    price_lower: bid['bid_details']['price_lower'],
-                    price_upper: bid['bid_details']['price_upper'],
-                    quote: bid['bid_details']['quote'],
-                    date_created: bid['bid_details']['date_created'],
-                    date_closed: bid['bid_details']['date_closed']
-                }
+                sort_key: event.arguments.ad_id,
             }
-        };
+        ]
+    };
 
-        await docClient.put(item).promise();
-        
-        item.Item.bid_details['tradesman_id'] = bid['bid_details']['tradesman_id'];
-    
-        return item.Item.bid_details;
-    } catch(e) {
-        console.log(e)
-        return e;
+    let items = await docClient.batchGet({
+        RequestItems: params
+    }).promise();
+
+    // checking if first item is a bid or an advert
+    if (items.Responses[ReverseHandTable][0].sort_key[0] == 'a') {
+        var ad = items.Responses[ReverseHandTable][0];
+        var bid = items.Responses[ReverseHandTable][1];
+    } else {
+        var ad = items.Responses[ReverseHandTable][1];
+        var bid = items.Responses[ReverseHandTable][0];
     }
+    
+    // notification being sent out
+    if (!bid.bid_details.shortlisted) {
+        // getting current date
+        const date = new Date();
+        const currentDate = date.getTime();
+    
+        const lambda = new AWS.Lambda();
+        var notification = lambda.invoke({
+            FunctionName: func,
+            Payload: JSON.stringify({
+                userId: bid.tradesman_id,
+                notification: {
+                    part_key: "notification#" + bid.tradesman_id,
+                    sort_key: date.toISOString(),
+                    title: "Bid Shortlisted",
+                    msg: "Your bid for " + ad.advert_details.title + " has been shortlisted.",
+                    type: "BidShortlisted",
+                    timestamp: currentDate
+                }
+            })
+        }).promise();
+    }
+
+    await docClient.update({
+        TableName: ReverseHandTable,
+        Key: {
+            part_key: event.arguments.ad_id,
+            sort_key: event.arguments.bid_id
+        },
+        UpdateExpression: `set bid_details.shortlisted = :shortlisted`,
+        ExpressionAttributeValues: {
+        ":shortlisted": !bid.bid_details.shortlisted,
+        },
+    }).promise();
+    
+    if (!bid.bid_details.shortlisted)
+        await notification;
+
+    bid.bid_details['id'] = bid.sort_key;
+    bid.bid_details['tradesman_id'] = bid.tradesman_id;
+    bid.bid_details.shortlisted = !bid.bid_details.shortlisted;
+
+    return bid.bid_details;
 };

@@ -1,83 +1,96 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:authentication/widgets/divider.dart';
-import 'package:authentication/widgets/textfield.dart';
+import 'package:authentication/widgets/transparent_divider.dart';
 import 'package:flutter/material.dart';
-import 'package:general/widgets/blue_button_widget.dart';
-import 'package:redux_comp/actions/user/verify_user_action.dart';
+import 'package:general/widgets/button.dart';
+import 'package:general/widgets/hint_widget.dart';
+import 'package:redux_comp/actions/user/amplify_auth/verify_user_action.dart';
 import 'package:redux_comp/app_state.dart';
-
 import '../pages/login_page.dart';
-import 'link.dart';
+import 'auth_textfield_light.dart';
+import 'link_widget.dart';
 
-class PopupWidget extends StatelessWidget {
-  final otpController = TextEditingController();
+//******************************** */
+// OTP popup widget
+//******************************** */
 
+class OTPPopupWidget extends StatefulWidget {
   final Store<AppState> store;
 
-  PopupWidget({
+  const OTPPopupWidget({
     Key? key,
     required this.store,
   }) : super(key: key);
 
   @override
+  State<OTPPopupWidget> createState() => _OTPPopupWidgetState();
+}
+
+class _OTPPopupWidgetState extends State<OTPPopupWidget> {
+  final otpController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      store: store,
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            //*****************Heading **********************
-            Container(
-              margin: const EdgeInsets.only(top: 120, left: 25, right: 25),
-              padding: const EdgeInsets.all(8.0),
-              alignment: Alignment.topCenter,
-              child: const Text(
-                "Enter verification code sent to your email",
-                style: TextStyle(fontSize: 21),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const TransparentDividerWidget(),
-            //*****************************************************
+      store: widget.store,
+      child: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: Container(
+          color: const Color.fromARGB(255, 232, 232, 232),
+          child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: SizedBox(
+                height: 300,
+                child: Column(
+                  children: [
+                    //*****************Heading **********************
+                    const Text("OTP Verification",
+                        style: TextStyle(
+                            fontSize: 23,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold)),
+                    const Padding(padding: EdgeInsets.all(10)),
 
-            //*****************OTP text field**********************
-            Container(
-              margin: const EdgeInsets.only(left: 25, right: 25),
-              padding: const EdgeInsets.all(8.0),
-              child: TextFieldWidget(
-                label: 'otp',
-                obscure: false,
-                icon: Icons.domain_verification_outlined,
-                controller: otpController,
-              ),
-            ),
-            const TransparentDividerWidget(),
-            //*****************************************************
+                    //*****************OTP text field**********************
+                    const HintWidget(
+                        text: "Enter OTP sent to email",
+                        colour: Colors.black,
+                        padding: 85),
+                    Container(
+                      margin: const EdgeInsets.only(left: 25, right: 25),
+                      padding: const EdgeInsets.all(8.0),
+                      child: AuthTextFieldLightWidget(
+                        label: 'otp',
+                        obscure: false,
+                        icon: Icons.domain_verification_outlined,
+                        controller: otpController,
+                      ),
+                    ),
+                    //*****************************************************
 
-            //*****************Heading **********************
-            LinkWidget(
-              text1: "Didn't receive OTP? ",
-              text2: "Resend",
-              navigate: () => LoginPage(store: store),
-            ),
-            const TransparentDividerWidget(),
-            //*****************************************************
+                    //*****************Resend OTP **********************
+                    LinkWidget(
+                        text1: "Didn't receive OTP? ",
+                        text2: "Resend",
+                        navigate: () => LoginPage(store: widget.store),
+                        colour: Colors.black),
+                    const TransparentDividerWidget(),
+                    //*****************************************************
 
-            //***************Verify Button *********************** */
-            StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) =>
-                  BlueButtonWidget(
-                text: "Verify OTP",
-                function: () => vm.dispatchVerifyUserAction(
-                    otpController.value.text.trim()),
-                width: 150,
-                height: 50,
-                icon: Icons.domain_verification_outlined,
-              ),
-            ),
-            //*****************************************************
-          ],
+                    //*****************Button **********************
+                    const Padding(
+                        padding:
+                            EdgeInsets.only(left: 20, right: 20, bottom: 20)),
+                    StoreConnector<AppState, _ViewModel>(
+                        vm: () => _Factory(this),
+                        builder: (BuildContext context, _ViewModel vm) =>
+                            ButtonWidget(
+                              text: "Verify",
+                              function: () => vm.dispatchVerifyUserAction(
+                                  otpController.value.text.trim()),
+                            )),
+                  ],
+                ),
+              )),
         ),
       ),
     );
@@ -85,7 +98,7 @@ class PopupWidget extends StatelessWidget {
 }
 
 // factory for view model
-class _Factory extends VmFactory<AppState, PopupWidget> {
+class _Factory extends VmFactory<AppState, _OTPPopupWidgetState> {
   _Factory(widget) : super(widget);
 
   @override
@@ -100,5 +113,5 @@ class _ViewModel extends Vm {
 
   _ViewModel({
     required this.dispatchVerifyUserAction,
-  }); // implementing hashcode
+  });
 }

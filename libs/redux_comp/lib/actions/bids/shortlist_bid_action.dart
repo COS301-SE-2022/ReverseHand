@@ -1,13 +1,9 @@
-import 'dart:convert';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
 import '../../models/bid_model.dart';
 import '../../app_state.dart';
 
 class ShortlistBidAction extends ReduxAction<AppState> {
-  ShortlistBidAction();
-
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
@@ -15,11 +11,11 @@ class ShortlistBidAction extends ReduxAction<AppState> {
         id
         name
         tradesman_id
-        price_lower
-        price_upper
+        price
         quote
         date_created
         date_closed
+        shortlisted
       }
     }''';
 
@@ -28,15 +24,27 @@ class ShortlistBidAction extends ReduxAction<AppState> {
     );
 
     try {
-      final response = await Amplify.API.mutate(request: request).response;
+      /* final response = await */ Amplify.API
+          .mutate(request: request)
+          .response;
+      // debugPrint(response.data);
 
-      List<BidModel> shortListBids = state.shortlistBids;
-      final BidModel shortListedBid =
-          BidModel.fromJson(jsonDecode(response.data)['shortListBid']);
-      shortListBids.add(shortListedBid);
+      // final BidModel shortListedBid =
+      //     BidModel.fromJson(jsonDecode(response.data)['shortListBid']);
 
       List<BidModel> bids = store.state.bids;
-      bids.removeWhere((element) => element.id == store.state.activeBid!.id);
+      List<BidModel> shortListBids = state.shortlistBids;
+
+      final BidModel shortListedBid =
+          state.activeBid!.copy(shortlisted: !state.activeBid!.shortlisted);
+
+      if (shortListedBid.shortlisted) {
+        shortListBids.add(shortListedBid);
+        bids.removeWhere((element) => element.id == shortListedBid.id);
+      } else {
+        bids.add(shortListedBid);
+        shortListBids.removeWhere((element) => element.id == shortListedBid.id);
+      }
 
       return state.copy(
         change: !state.change,

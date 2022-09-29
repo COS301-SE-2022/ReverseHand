@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class SkeletonLoaderWidget extends StatelessWidget {
   const SkeletonLoaderWidget({Key? key}) : super(key: key);
 
+  //not fully implemented yet
+
   @override
   Widget build(BuildContext context) {
     return Padding(

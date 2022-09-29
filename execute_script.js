@@ -39,10 +39,6 @@ fs.writeFile("./libs/consumer/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
-/*fs.writeFile("./libs/example/test/gather_files.sh",content,function(err){
-    if(err) throw err;
-})*/
-
 fs.writeFile("./libs/tradesman/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
@@ -55,11 +51,15 @@ fs.writeFile("./libs/consumer/test/gather_files.sh",content,function(err){
 //    if(err) throw err;
 //})*/
 
-fs.writeFile("./libs/amplify/test/gather_files.sh",content,function(err){
+// fs.writeFile("./libs/amplify/test/gather_files.sh",content,function(err){
+//     if(err) throw err;
+// })
+
+fs.writeFile("./libs/authentication/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
-fs.writeFile("./libs/authentication/test/gather_files.sh",content,function(err){
+fs.writeFile("./libs/admin/test/gather_files.sh",content,function(err){
     if(err) throw err;
 })
 
@@ -73,3 +73,4 @@ script = exec("bash ./libs/consumer/test/gather_files.sh")
 script = exec("bash ./libs/tradesman/test/gather_files.sh")
 script = exec("bash ./libs/amplify/test/gather_files.sh")
 script = exec("bash ./libs/authentication/test/gather_files.sh")
+script = exec("bash ./libs/admin/test/gather_files.sh")

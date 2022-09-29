@@ -13,4 +13,12 @@ class Coordinates {
       lng: json['lng'],
     );
   }
+
+  @override
+  int get hashCode => Object.hash(lat, lng);
+
+  @override
+  bool operator ==(Object other) {
+    return other is Coordinates && lat == other.lat && lng == other.lng;
+  }
 }

@@ -29,9 +29,6 @@ exports.handler = async (event) => {
             },
         };
 
-        console.log(item);
-
-
         await docClient.update(item).promise();
         
         // getting closed advert

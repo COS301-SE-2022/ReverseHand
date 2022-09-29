@@ -24,34 +24,32 @@ class TextFieldWidget extends StatelessWidget {
       controller.text = initialVal!;
     }
     return TextFormField(
+      key: Key(controller.toString()),
       minLines: min,
       maxLines: 5,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white, fontSize: 18),
       obscureText: obscure,
       controller: controller,
       onTap: onTap,
+      cursorColor: Theme.of(context).primaryColor,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
             color: Colors.grey,
             width: 1.0,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
             color: Colors.orange,
             width: 2.0,
           ),
         ),
-        // prefixIcon: const Icon(
-        //   Icons.mail_outline_rounded,
-        //   color: Colors.white,
-        // ),
       ),
     );
   }

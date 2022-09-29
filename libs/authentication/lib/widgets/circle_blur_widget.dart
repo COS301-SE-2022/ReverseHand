@@ -1,6 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+//*************************************** */
+// background circles for login and signup
+//**************************************** */
+
 // creates blur circle effect
 class CircleBlurWidget extends StatelessWidget {
   const CircleBlurWidget({Key? key}) : super(key: key);
@@ -12,7 +16,6 @@ class CircleBlurWidget extends StatelessWidget {
       height: 100,
       margin: const EdgeInsets.all(0),
       padding: const EdgeInsets.only(top: 2),
-      // alignment: Alignment.topLeft,
       decoration: const BoxDecoration(
         color: Color.fromRGBO(243, 157, 55, 1),
         borderRadius: BorderRadius.all(Radius.elliptical(9999.0, 9999.0)),

@@ -1,5 +1,4 @@
 {
-  "root": "libs/geolocation",
   "sourceRoot": "libs/geolocation/src",
   "projectType": "library",
   "targets": {
@@ -78,6 +77,13 @@
       "options": {
         "command": "flutter build ipa",
         "cwd": "libs/geolocation"
+      }
+    },
+    "get": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter pub get",
+        "cwd": "libs/amplify"
       }
     }
   },

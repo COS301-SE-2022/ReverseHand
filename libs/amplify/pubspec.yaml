@@ -11,8 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  amplify_flutter: ^0.5.1
-  amplify_auth_cognito: ^0.5.1
+  amplify_flutter: 0.6.6
+  amplify_core: 0.6.6
+  amplify_auth_cognito: 0.6.6
 
 dev_dependencies:
   flutter_test:

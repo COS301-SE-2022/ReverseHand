@@ -5,37 +5,83 @@ class BidModel {
   final String id;
   final String? name;
   final String userId;
-  final int priceLower;
-  final int priceUpper;
+  final int price;
   final String? quote;
-  final String dateCreated; // change later to json/map object
-  final String? dateClosed; // change later to json/map object
+  final double dateCreated; // change later to json/map object
+  final double? dateClosed; // change later to json/map object
+  final bool shortlisted;
 
   const BidModel({
     required this.id,
     required this.userId,
-    required this.priceLower,
-    required this.priceUpper,
+    required this.price, // in cents
     this.quote,
     this.name,
     required this.dateCreated,
     this.dateClosed,
+    required this.shortlisted,
   });
 
-  bool isShortlisted() {
-    return id.contains('sb');
+  // gets the amount in rands of a bid
+  String amount() {
+    return 'R${price ~/ 100}';
   }
 
   factory BidModel.fromJson(obj) {
     return BidModel(
-      id: obj['id'],
-      userId: obj['tradesman_id'],
-      name: obj['name'],
-      priceLower: obj['price_lower'],
-      priceUpper: obj['price_upper'],
-      quote: obj['quote'],
-      dateCreated: obj['date_created'],
-      dateClosed: obj['date_Closed'],
+        id: obj['id'],
+        userId: obj['tradesman_id'],
+        name: obj['name'],
+        price: obj['price'],
+        quote: obj['quote'],
+        dateCreated: double.parse(obj['date_created']),
+        dateClosed: (obj['date_Closed'] != null)
+            ? double.parse(obj['date_Closed'])
+            : null,
+        shortlisted: obj['shortlisted']);
+  }
+
+  BidModel copy({
+    String? id,
+    String? name,
+    String? userId,
+    int? price,
+    String? quote,
+    double? dateCreated,
+    double? dateClosed,
+    bool? shortlisted,
+  }) {
+    return BidModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      quote: quote ?? this.quote,
+      dateClosed: dateClosed ?? this.dateClosed,
+      userId: userId ?? this.userId,
+      price: price ?? this.price,
+      dateCreated: dateCreated ?? this.dateCreated,
+      shortlisted: shortlisted ?? this.shortlisted,
     );
   }
+
+  @override
+  operator ==(Object other) =>
+      other is BidModel &&
+      id == other.id &&
+      userId == other.userId &&
+      name == other.name &&
+      quote == other.quote &&
+      shortlisted == other.shortlisted &&
+      dateCreated == other.dateCreated &&
+      dateClosed == other.dateClosed;
+
+  @override
+  int get hashCode => Object.hash(
+        id,
+        userId,
+        name,
+        quote,
+        shortlisted,
+        dateCreated,
+        dateClosed,
+      );
 }

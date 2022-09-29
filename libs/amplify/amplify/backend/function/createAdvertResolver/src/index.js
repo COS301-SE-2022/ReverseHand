@@ -8,61 +8,80 @@ const ReverseHandTable = process.env.REVERSEHAND;
 
 // creates a new advert, requires
 /*
-    id: uniquely generated, passed in to avoid working with layers
     customerId
     title
+    type
+    location // will become required later on
 */
 // Optional
 /*
     description
-    type
-    location // will become required later on
 */
 exports.handler = async (event) => {
-    try {
-        // getting current date
-        const date = new Date();
-        const dd = String(date.getDate()).padStart(2, '0');
-        const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-        const yyyy = date.getFullYear();
-        const currentDate = mm + '-' + dd + '-' + yyyy;
-        
-        let params = {
-            TableName: ReverseHandTable,
-            Key: {
-              part_key: event.arguments.location,
-              sort_key: event.arguments.type
+    const ad_id = "a#" + AWS.util.uuid.v4();
+
+    // getting current date
+    const date = new Date();
+    const currentDate = date.getTime();
+
+    let item = {
+        TableName: ReverseHandTable,
+        Item: {
+            part_key: ad_id,
+            sort_key: ad_id, // prefixing but keeping same suffix
+            customer_id: event.arguments.customer_id,
+            advert_details: {
+                title: event.arguments.title,
+                description: event.arguments.description,
+                domain: event.arguments.domain,
+                type: event.arguments.type,
+                images: event.arguments.images,
+                date_created: currentDate // automatically generating the date
             },
-            UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad)`,
-            ExpressionAttributeValues: {
-              ":ad": [event.arguments.ad_id],
-              ":list": []
+            expire: currentDate + (30*24*60*60*1000) // setting auto delete time
+        }
+    };
+
+    await docClient.transactWrite({
+        TransactItems: [
+            {
+                // updating domain
+                Update: {
+                    TableName: ReverseHandTable,
+                    Key: {
+                        part_key: event.arguments.domain.city + "#" + event.arguments.domain.province,
+                        sort_key: event.arguments.type
+                    },
+                    UpdateExpression: `set advert_list = list_append(if_not_exists(advert_list,:list),:ad), province_id = if_not_exists(province_id, :p_id)`,
+                    ExpressionAttributeValues: {
+                        ":ad": [{part_key: ad_id, sort_key: ad_id}],
+                        ":list": [],
+                        ":p_id" : event.arguments.domain.province
+                    },
+                }
             },
-        };
-        
-        await docClient.update(params).promise(); //adding the advert to the list of adverts within the location and type
-    
-        let item = {
-            TableName: ReverseHandTable,
-            Item: {
-                part_key: event.arguments.ad_id,
-                sort_key: event.arguments.ad_id, // prefixing but keeping same suffix
-                customer_id: event.arguments.customer_id,
-                advert_details: {
-                    title: event.arguments.title,
-                    description: event.arguments.description,
-                    location: event.arguments.location,
-                    type: event.arguments.type,
-                    date_created: currentDate // automatically generating the date
+            // adding advert
+            {
+                Put: item
+            },
+            // incrementing adverts created
+            {
+                Update: {
+                    TableName: ReverseHandTable,
+                    Key: {
+                        part_key: event.arguments.customer_id,
+                        sort_key: event.arguments.customer_id
+                    },
+                    UpdateExpression: "set created = created + :value",
+                    ExpressionAttributeValues: {
+                        ":value": 1,
+                    }
                 }
             }
-    
-        };
-        await docClient.put(item).promise();
-    
-        item.Item.advert_details['id'] = event.arguments.ad_id; // adding advert id to be returned
-        return item.Item.advert_details;
-    } catch(e) {
-        console.log(e);
-    }
+        ],
+    }).promise();
+
+    item.Item.advert_details['id'] = ad_id; // adding advert id to be returned
+    item.Item.advert_details['customer_id'] = event.arguments.customer_id;
+    return item.Item.advert_details;
 };

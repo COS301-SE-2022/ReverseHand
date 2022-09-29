@@ -1,4 +1,4 @@
-import 'package:amplify_api/amplify_api.dart';
+import 'package:flutter/material.dart';
 import 'package:redux_comp/actions/chat/get_chats_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -12,19 +12,11 @@ class CreateChatAction extends ReduxAction<AppState> {
   @override
   Future<AppState?> reduce() async {
     String graphQLDocument = '''mutation {
-      createChat(c_id: "${state.userDetails!.id}", t_id: "$tradesmanId", c_name: "${state.userDetails!.name}", t_name: "${state.activeBid!.name}") {
-        consumer_id
-        tradesman_id
+      createChat(c_id: "${state.userDetails.id}", t_id: "$tradesmanId", c_name: "${state.userDetails.name}", t_name: "${state.activeBid!.name}", ad_id: "${state.activeAd!.id}") {
+        id
+        timestamp
         consumer_name
         tradesman_name
-        messages {
-          msg
-          sender
-          timestamp
-          consumer_id
-          tradesman_id
-          name
-        }
       }
     }'''; // duplicate used for subscription
 
@@ -34,9 +26,11 @@ class CreateChatAction extends ReduxAction<AppState> {
 
     try {
       // getting the bid which has beena accepted is just a graphql convention
-      /* dynamic response = */ await Amplify.API
+      dynamic response = await Amplify.API
           .mutate(request: request)
           .response; // in future may want to do something with accepted advert
+
+      debugPrint(response.data);
 
       return null;
     } catch (e) {
@@ -47,6 +41,5 @@ class CreateChatAction extends ReduxAction<AppState> {
   @override
   void after() {
     dispatch(GetChatsAction());
-    dispatch(NavigateAction.pushReplacementNamed("/consumer"));
-  } // after bid has been accepted no more to do so leave page and got to main page
+  } // after bid has been accepted, there is nothing more to do so leave page and go to main page
 }

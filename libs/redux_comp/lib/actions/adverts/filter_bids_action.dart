@@ -13,23 +13,20 @@ class FilterBidsAction extends ReduxAction<AppState> {
 
   @override
   AppState? reduce() {
-    List<BidModel> bids = [];
+    List<BidModel> viewBids = [];
 
     // bids and shortlisted bids cannot be null
     if (filter.includeShortlisted) {
-      bids += state.shortlistBids;
+      viewBids += state.shortlistBids;
     }
 
     if (filter.includeBids) {
-      bids += state.bids;
+      viewBids += state.bids;
     }
 
     // filter by price
-    if (filter.priceRange != null) {
-      bids.removeWhere(
-        (bid) => !(bid.priceLower >= filter.priceRange!.low &&
-            bid.priceUpper <= filter.priceRange!.high),
-      );
+    if (filter.price != null) {
+      viewBids.removeWhere((bid) => !(bid.price > filter.price!));
     }
 
     // if (filter.ratingLower != null) {
@@ -44,10 +41,10 @@ class FilterBidsAction extends ReduxAction<AppState> {
         case Kind.price:
           switch (filter.sort!.direction) {
             case Direction.descending:
-              bids.sort((a, b) => a.priceLower.compareTo(b.priceLower));
+              viewBids.sort((a, b) => a.price.compareTo(b.price));
               break;
             case Direction.ascending:
-              bids.sort((a, b) => b.priceUpper.compareTo(a.priceUpper));
+              viewBids.sort((a, b) => b.price.compareTo(a.price));
               break;
           }
           break;
@@ -55,13 +52,17 @@ class FilterBidsAction extends ReduxAction<AppState> {
           // todo
           break;
         case Kind.date:
-          // todo: Handle this case.
+          if (filter.sort!.direction == Direction.ascending) {
+            viewBids.sort((a, b) => a.dateCreated.compareTo(b.dateCreated));
+          } else {
+            viewBids.sort((a, b) => b.dateCreated.compareTo(a.dateCreated));
+          }
           break;
       }
     }
 
     return state.copy(
-      viewBids: bids,
+      viewBids: viewBids,
     );
   }
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:general/widgets/button.dart';
-import 'package:redux_comp/actions/user/remove_domain_action.dart';
+import 'package:redux_comp/actions/user/user_table/remove_domain_action.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:async_redux/async_redux.dart';
+
+//******************************** */
+//  domain list card widget
+//******************************** */
 
 class CardWidget extends StatelessWidget {
   final String title;
@@ -25,9 +28,9 @@ class CardWidget extends StatelessWidget {
           children: [
             Card(
               margin: const EdgeInsets.all(10),
-              color: Theme.of(context).primaryColorLight,
+              // color: Theme.of(context).primaryColorLight,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
+                borderRadius: BorderRadius.circular(7.0),
               ),
               elevation: 2,
               child: Padding(
@@ -38,12 +41,14 @@ class CardWidget extends StatelessWidget {
                   children: <Widget>[
                     Text(title,
                         style:
-                            const TextStyle(fontSize: 30, color: Colors.white)),
-                    ButtonWidget(
-                      text: "Delete",
-                      color: "light",
-                      function: () => vm.dispatchRemoveDomainAction(title),
-                    ),
+                            const TextStyle(fontSize: 30, color: Colors.black)),
+                    IconButton(
+                        onPressed: () => vm.dispatchRemoveDomainAction(title),
+                        icon: Icon(
+                          Icons.cancel,
+                          size: 30,
+                          color: Theme.of(context).primaryColor,
+                        ))
                   ],
                 ),
               ),

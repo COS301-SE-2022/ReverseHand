@@ -8,7 +8,6 @@
 .buildlog/
 .history
 .svn/
-/coverage
 
 # IntelliJ related
 *.iml
@@ -45,7 +44,7 @@ node_modules/
 aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
-# amplifyconfiguration.dart
+amplifyconfiguration.dart
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig

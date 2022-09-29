@@ -1,6 +1,8 @@
 {
   "version": "1",
   "cognitoConfig": {
+    "identityPoolName": "reversehand421d8881_identitypool_421d8881",
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "reversc4d19aa6",
     "userPoolName": "reversehandc4d19aa6_userpool_c4d19aa6",
     "autoVerifiedAttributes": [
@@ -33,7 +35,7 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "c4d19aa6",
     "resourceName": "reversehandc4d19aa6c4d19aa6",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "usernameAttributes": [
       "email"
@@ -41,13 +43,47 @@
     "userPoolGroups": true,
     "adminQueries": true,
     "triggers": {},
-    "hostedUI": false,
+    "hostedUI": true,
     "userPoolGroupList": [
       "customer",
-      "tradesman"
+      "tradesman",
+      "admin"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "authProviders": [
+      "graph.facebook.com",
+      "accounts.google.com"
+    ],
+    "thirdPartyAuth": true,
+    "hostedUIDomainName": "reversehand2ce3b132-2ce3b132",
+    "authProvidersUserPool": [
+      "Facebook",
+      "Google"
+    ],
+    "audiences": [
+      "70583037389-472jm80uv70h30he9c6inukiisbkciem.apps.googleusercontent.com"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"reversehandapp://\"],\"LogoutURLs\":[\"reversehandapp://\"]}"
   }
 }

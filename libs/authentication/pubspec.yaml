@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  amplify_flutter: ^0.5.1
+  amplify_flutter: ^0.6.0
 
   async_redux: ^15.0.0
 
@@ -31,6 +31,7 @@ dependencies:
   amplify:
     path: '../../libs/amplify'
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -41,7 +42,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-  uses-material-design: true
+  uses-material-design: false
   
   # To add assets to your package, add an assets section, like this:
   assets:

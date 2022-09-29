@@ -1,4 +1,3 @@
-import 'package:amplify_api/amplify_api.dart';
 import '../../app_state.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async_redux/async_redux.dart';
@@ -27,7 +26,6 @@ class CloseAdvertAction extends ReduxAction<AppState> {
     );
 
     try {
-      /* return the advert that was closed */
       await Amplify.API.mutate(request: request).response;
 
       return null; /* return null as we do not want to modify state as of now */

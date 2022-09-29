@@ -1,4 +1,4 @@
-import 'package:amplify_api/amplify_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:redux_comp/actions/adverts/view_adverts_action.dart';
 import 'package:redux_comp/actions/chat/create_chat_action.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -15,8 +15,7 @@ class AcceptBidAction extends ReduxAction<AppState> {
         id
         tradesman_id
         name
-        price_lower
-        price_upper
+        price
         quote
         date_created
         date_closed
@@ -29,9 +28,11 @@ class AcceptBidAction extends ReduxAction<AppState> {
 
     try {
       // getting the bid which has beena accepted is just a graphql convention
-      /* dynamic response = */ await Amplify.API
+      dynamic response = await Amplify.API
           .mutate(request: request)
           .response; // in future may want to do something with accepted advert
+
+      debugPrint(response.data);
 
       // dispatching action to create chat
       dispatch(CreateChatAction(state.activeBid!.userId));

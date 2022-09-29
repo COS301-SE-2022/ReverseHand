@@ -1,13 +1,10 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:general/general.dart';
-import 'package:general/widgets/floating_button.dart';
+import 'package:tradesman/widgets/tradesman_floating_button.dart';
 import 'package:redux_comp/models/geolocation/domain_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import 'package:general/widgets/appbar.dart';
-import 'package:general/widgets/button.dart';
 import 'package:tradesman/methods/populate_domains.dart';
-import 'package:uuid/uuid.dart';
 
 class DomainConfirmPage extends StatelessWidget {
   final Store<AppState> store;
@@ -17,50 +14,48 @@ class DomainConfirmPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
       store: store,
-      child: MaterialApp(
-        theme: CustomTheme.darkTheme,
-        home: Scaffold(
-          resizeToAvoidBottomInset:
-              false, //prevents floatingActionButton appearing above keyboard
-          body: SingleChildScrollView(
-            child: StoreConnector<AppState, _ViewModel>(
-              vm: () => _Factory(this),
-              builder: (BuildContext context, _ViewModel vm) => Column(
-                children: [
-                  //*******************APP BAR WIDGET******************//
-                  AppBarWidget(title: "DOMAINS DISPLAY", store: store),
-                  //***************************************************//
+      child: Scaffold(
+        resizeToAvoidBottomInset:
+            false, //prevents floatingActionButton appearing above keyboard
+        body: SingleChildScrollView(
+          child: StoreConnector<AppState, _ViewModel>(
+            vm: () => _Factory(this),
+            builder: (BuildContext context, _ViewModel vm) => Column(
+              children: [
+                //*******************APP BAR WIDGET******************//
+                AppBarWidget(title: "MY DOMAINS", store: store, backButton: true,),
+                //***************************************************//
 
-                  //**************** Domain Location Cards*************//
-                  // CardWidget(store: store, title: 'Pretoria'),
-                  // CardWidget(store: store, title: 'Centurion'),
-                  ...populateDomains(store, vm.domains),
-                  //***************************************************//
+                //**************** Domain Location Cards*************//
+                const Padding(padding: EdgeInsets.only(top: 15)),
+                ...populateDomains(store, vm.domains),
+                //***************************************************//
 
-                  //dynamic save button
-                  if (vm.domains.isNotEmpty)
-                    const Padding(padding: EdgeInsets.all(8)),
+                //dynamic save button
+                if (vm.domains.isNotEmpty)
+                  const Padding(padding: EdgeInsets.all(8)),
 
-                  //*******************DISCARD BUTTON*****************//
-                  ButtonWidget(text: "Back", color: "dark", function: vm.pop)
-                  //**********************NAME************************//
-                ],
-              ),
+                //**********************NAME************************//
+              ],
             ),
           ),
-          //************************NAVBAR***********************/
-          floatingActionButton: StoreConnector<AppState, _ViewModel>(
-            vm: () => _Factory(this),
-            builder: (BuildContext context, _ViewModel vm) =>
-                FloatingButtonWidget(function: vm.pushCustomSearch),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          // bottomNavigationBar: TNavBarWidget(
-          //   store: store,
-          // ),
-          //*****************************************************/
         ),
+        //************************NAVBAR***********************/
+        floatingActionButton: StoreConnector<AppState, _ViewModel>(
+          vm: () => _Factory(this),
+          builder: (BuildContext context, _ViewModel vm) => Padding(
+            padding: const EdgeInsets.only(bottom: 30.0),
+            child: TradesmanFloatingButtonWidget(
+              function: vm.pushCustomSearch,
+              type: "add",
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // bottomNavigationBar: TNavBarWidget(
+        //   store: store,
+        // ),
+        //*****************************************************/
       ),
     );
   }
@@ -74,9 +69,9 @@ class _Factory extends VmFactory<AppState, DomainConfirmPage> {
   _ViewModel fromStore() => _ViewModel(
         pushCustomSearch: () => dispatch(
           NavigateAction.pushNamed('/geolocation/custom_location_search',
-              arguments: const Uuid().v1()),
+              arguments: true),
         ),
-        domains: state.userDetails!.domains,
+        domains: state.userDetails.domains,
         pop: () => dispatch(
           NavigateAction.pop(),
         ),

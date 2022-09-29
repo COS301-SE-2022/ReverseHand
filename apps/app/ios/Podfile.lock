@@ -1,18 +1,23 @@
 PODS:
-  - Amplify (1.23.0):
-    - Amplify/Default (= 1.23.0)
-  - Amplify/Default (1.23.0)
-  - amplify_api_ios (0.0.1):
-    - Amplify (= 1.23.0)
+  - Amplify (1.28.0):
+    - Amplify/Default (= 1.28.0)
+  - Amplify/Default (1.28.0)
+  - amplify_analytics_pinpoint_ios (0.0.1):
+    - Amplify (= 1.28.0)
     - amplify_core
-    - AmplifyPlugins/AWSAPIPlugin (= 1.23.0)
+    - AmplifyPlugins/AWSPinpointAnalyticsPlugin (= 1.28.0)
+    - Flutter
+  - amplify_api_ios (0.0.1):
+    - Amplify (= 1.28.0)
+    - amplify_core
+    - AmplifyPlugins/AWSAPIPlugin (= 1.28.0)
     - Flutter
     - SwiftFormat/CLI
     - SwiftLint
   - amplify_auth_cognito_ios (0.0.1):
-    - Amplify (= 1.23.0)
+    - Amplify (= 1.28.0)
     - amplify_core
-    - AmplifyPlugins/AWSCognitoAuthPlugin (= 1.23.0)
+    - AmplifyPlugins/AWSCognitoAuthPlugin (= 1.28.0)
     - Flutter
     - ObjectMapper
   - amplify_core (0.0.1):
@@ -20,59 +25,135 @@ PODS:
     - SwiftFormat/CLI
     - SwiftLint
   - amplify_flutter_ios (0.0.1):
-    - Amplify (= 1.23.0)
+    - Amplify (= 1.28.0)
     - amplify_core
-    - AmplifyPlugins/AWSCognitoAuthPlugin (= 1.23.0)
-    - AWSPluginsCore (= 1.23.0)
+    - AmplifyPlugins/AWSCognitoAuthPlugin (= 1.28.0)
+    - AWSPluginsCore (= 1.28.0)
     - Flutter
     - SwiftFormat/CLI
     - SwiftLint
-  - AmplifyPlugins/AWSAPIPlugin (1.23.0):
-    - AppSyncRealTimeClient (~> 1.8)
+  - amplify_storage_s3_ios (0.0.1):
+    - Amplify (= 1.28.0)
+    - amplify_core
+    - AmplifyPlugins/AWSS3StoragePlugin (= 1.28.0)
+    - Flutter
+  - AmplifyPlugins/AWSAPIPlugin (1.28.0):
+    - AppSyncRealTimeClient (~> 2.0)
     - AWSCore (~> 2.27.0)
-    - AWSPluginsCore (= 1.23.0)
-  - AmplifyPlugins/AWSCognitoAuthPlugin (1.23.0):
+    - AWSPluginsCore (= 1.28.0)
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.28.0):
     - AWSAuthCore (~> 2.27.0)
     - AWSCognitoIdentityProvider (~> 2.27.0)
     - AWSCognitoIdentityProviderASF (~> 2.27.0)
     - AWSCore (~> 2.27.0)
     - AWSMobileClient (~> 2.27.0)
-    - AWSPluginsCore (= 1.23.0)
-  - AppSyncRealTimeClient (1.9.1):
-    - Starscream (~> 4.0.4)
-  - AWSAuthCore (2.27.8):
-    - AWSCore (= 2.27.8)
-  - AWSCognitoIdentityProvider (2.27.8):
-    - AWSCognitoIdentityProviderASF (= 2.27.8)
-    - AWSCore (= 2.27.8)
-  - AWSCognitoIdentityProviderASF (2.27.8):
-    - AWSCore (= 2.27.8)
-  - AWSCore (2.27.8)
-  - AWSMobileClient (2.27.8):
-    - AWSAuthCore (= 2.27.8)
-    - AWSCognitoIdentityProvider (= 2.27.8)
-    - AWSCognitoIdentityProviderASF (= 2.27.8)
-    - AWSCore (= 2.27.8)
-  - AWSPluginsCore (1.23.0):
-    - Amplify (= 1.23.0)
+    - AWSPluginsCore (= 1.28.0)
+  - AmplifyPlugins/AWSPinpointAnalyticsPlugin (1.28.0):
     - AWSCore (~> 2.27.0)
+    - AWSPinpoint (~> 2.27.0)
+    - AWSPluginsCore (= 1.28.0)
+  - AmplifyPlugins/AWSS3StoragePlugin (1.28.0):
+    - AWSCore (~> 2.27.0)
+    - AWSPluginsCore (= 1.28.0)
+    - AWSS3 (~> 2.27.0)
+  - AppSyncRealTimeClient (2.1.1):
+    - Starscream (~> 4.0.4)
+  - AWSAuthCore (2.27.15):
+    - AWSCore (= 2.27.15)
+  - AWSCognitoIdentityProvider (2.27.15):
+    - AWSCognitoIdentityProviderASF (= 2.27.15)
+    - AWSCore (= 2.27.15)
+  - AWSCognitoIdentityProviderASF (2.27.15):
+    - AWSCore (= 2.27.15)
+  - AWSCore (2.27.15)
+  - AWSMobileClient (2.27.15):
+    - AWSAuthCore (= 2.27.15)
+    - AWSCognitoIdentityProvider (= 2.27.15)
+    - AWSCognitoIdentityProviderASF (= 2.27.15)
+    - AWSCore (= 2.27.15)
+  - AWSPinpoint (2.27.15):
+    - AWSCore (= 2.27.15)
+  - AWSPluginsCore (1.28.0):
+    - Amplify (= 1.28.0)
+    - AWSCore (~> 2.27.0)
+  - AWSS3 (2.27.15):
+    - AWSCore (= 2.27.15)
+  - DKImagePickerController/Core (4.3.4):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.3.4)
+  - DKImagePickerController/PhotoGallery (4.3.4):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.3.4)
+  - DKPhotoGallery (0.0.17):
+    - DKPhotoGallery/Core (= 0.0.17)
+    - DKPhotoGallery/Model (= 0.0.17)
+    - DKPhotoGallery/Preview (= 0.0.17)
+    - DKPhotoGallery/Resource (= 0.0.17)
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Core (0.0.17):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Model (0.0.17):
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Preview (0.0.17):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Resource (0.0.17):
+    - SDWebImage
+    - SwiftyGif
+  - file_picker (0.0.1):
+    - DKImagePickerController/PhotoGallery
+    - Flutter
   - Flutter (1.0.0)
+  - flutter_native_splash (0.0.1):
+    - Flutter
+  - flutter_paystack (0.0.1):
+    - Flutter
+  - flutter_pdfview (1.0.2):
+    - Flutter
+  - geolocator_apple (1.2.0):
+    - Flutter
+  - image_picker_ios (0.0.1):
+    - Flutter
   - integration_test (0.0.1):
+    - Flutter
+  - map_launcher (0.0.1):
     - Flutter
   - ObjectMapper (4.2.0)
   - path_provider_ios (0.0.1):
     - Flutter
+  - SDWebImage (5.13.3):
+    - SDWebImage/Core (= 5.13.3)
+  - SDWebImage/Core (5.13.3)
   - Starscream (4.0.4)
-  - SwiftFormat/CLI (0.49.8)
-  - SwiftLint (0.47.1)
+  - SwiftFormat/CLI (0.49.18)
+  - SwiftLint (0.49.1)
+  - SwiftyGif (5.4.3)
 
 DEPENDENCIES:
+  - amplify_analytics_pinpoint_ios (from `.symlinks/plugins/amplify_analytics_pinpoint_ios/ios`)
   - amplify_api_ios (from `.symlinks/plugins/amplify_api_ios/ios`)
   - amplify_auth_cognito_ios (from `.symlinks/plugins/amplify_auth_cognito_ios/ios`)
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
   - amplify_flutter_ios (from `.symlinks/plugins/amplify_flutter_ios/ios`)
+  - amplify_storage_s3_ios (from `.symlinks/plugins/amplify_storage_s3_ios/ios`)
+  - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
+  - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
+  - flutter_paystack (from `.symlinks/plugins/flutter_paystack/ios`)
+  - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
+  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - map_launcher (from `.symlinks/plugins/map_launcher/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
 
 SPEC REPOS:
@@ -85,13 +166,21 @@ SPEC REPOS:
     - AWSCognitoIdentityProviderASF
     - AWSCore
     - AWSMobileClient
+    - AWSPinpoint
     - AWSPluginsCore
+    - AWSS3
+    - DKImagePickerController
+    - DKPhotoGallery
     - ObjectMapper
+    - SDWebImage
     - Starscream
     - SwiftFormat
     - SwiftLint
+    - SwiftyGif
 
 EXTERNAL SOURCES:
+  amplify_analytics_pinpoint_ios:
+    :path: ".symlinks/plugins/amplify_analytics_pinpoint_ios/ios"
   amplify_api_ios:
     :path: ".symlinks/plugins/amplify_api_ios/ios"
   amplify_auth_cognito_ios:
@@ -100,35 +189,66 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/amplify_core/ios"
   amplify_flutter_ios:
     :path: ".symlinks/plugins/amplify_flutter_ios/ios"
+  amplify_storage_s3_ios:
+    :path: ".symlinks/plugins/amplify_storage_s3_ios/ios"
+  file_picker:
+    :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
     :path: Flutter
+  flutter_native_splash:
+    :path: ".symlinks/plugins/flutter_native_splash/ios"
+  flutter_paystack:
+    :path: ".symlinks/plugins/flutter_paystack/ios"
+  flutter_pdfview:
+    :path: ".symlinks/plugins/flutter_pdfview/ios"
+  geolocator_apple:
+    :path: ".symlinks/plugins/geolocator_apple/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
+  map_launcher:
+    :path: ".symlinks/plugins/map_launcher/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
 
 SPEC CHECKSUMS:
-  Amplify: 010d6a71db20812d9e3062db1fe827393d01e584
-  amplify_api_ios: df3f5e3ddd5ae4e0d2ce48dce18a23e787bac884
-  amplify_auth_cognito_ios: c67d4bf0901717cb193f16ed24c389be7f4d7daf
+  Amplify: dfa12fad1609b1388d0b2fb6f99b3140cd942d09
+  amplify_analytics_pinpoint_ios: 6dba746203804011da7b7292fc0b487440532a3c
+  amplify_api_ios: 69ba9f6eb6097c99ce26d3d3047607d72078f50f
+  amplify_auth_cognito_ios: a2a37adcedf38b8b3e5a2b564ff0432d875654ad
   amplify_core: e67fe0c53845db08aced670bfc7370b1329d2798
-  amplify_flutter_ios: a2cf41c13161ffefedab76055a29b2d4e78c91e8
-  AmplifyPlugins: d939707cf36dfcd53c5fd6533e842e323a2287ab
-  AppSyncRealTimeClient: cdee78ab78249cb87a71d975e1436e692813a606
-  AWSAuthCore: f098b5b4d05db0840251f43825f2969a758fd691
-  AWSCognitoIdentityProvider: 3ecddfa8909d97c2b69e3dca79f897f34c924be9
-  AWSCognitoIdentityProviderASF: 6e9b9eb68d04a5f2dc559ecb25ec18c0b4eaee1f
-  AWSCore: f5ad61eafb16c9f68611046e98b87cc2f5c482d0
-  AWSMobileClient: 5bda79e67970b40e70bfafd9e0564fa33b872b20
-  AWSPluginsCore: 120cfa265293694921b6595fe00d1cb5ab558847
-  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  amplify_flutter_ios: c6c8baa4e1f89073458acbad13c46acaf9fd97ed
+  amplify_storage_s3_ios: e2f56398531a6355e7350a2b7c4c621ba5279d05
+  AmplifyPlugins: 1bac66d0349fa307008f6f7711b09d0f80e78c30
+  AppSyncRealTimeClient: 937360221f2b664c4c33ae142a60643e64f480cd
+  AWSAuthCore: 0bac0e67c28d620c8f823c88bd15d552544e801a
+  AWSCognitoIdentityProvider: a8d244d0cdfeff425fe20a2fb49b7e9cb89c4748
+  AWSCognitoIdentityProviderASF: 5dccf24b43c287eb1949e83cefccb6c25cdc04b7
+  AWSCore: c67277201b6aca10e4cf24638eadaa67c85ebf03
+  AWSMobileClient: 6f60d1fb6373e21aaada443dd4d4bf087158614d
+  AWSPinpoint: e2ea6471c4a4efd7a4d58546f34539c9dac185a7
+  AWSPluginsCore: 7f0f984d787a4fe79d3d52c3d34e1779d1fc9bb8
+  AWSS3: 09801b290f8818f532694cabd5d503c7474eb3df
+  DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
+  DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
+  file_picker: 817ab1d8cd2da9d2da412a417162deee3500fc95
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
+  flutter_paystack: 50021637b71e7712780744f69d2843e71b65175d
+  flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
+  geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
+  image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
+  map_launcher: e325db1261d029ff33e08e03baccffe09593ffea
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  SDWebImage: af5bbffef2cde09f148d826f9733dcde1a9414cd
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
-  SwiftFormat: e2342d528f9aee7062abb644ba6c7c01446919d7
-  SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
+  SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
+  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
+  SwiftyGif: 6c3eafd0ce693cad58bb63d2b2fb9bacb8552780
 
-PODFILE CHECKSUM: efd43c12b0d50fe0ebc6ec0718d186c90c94e0f2
+PODFILE CHECKSUM: 0a7cb8df82e8de2c7707c399c8e9309150c941ed
 
 COCOAPODS: 1.11.3

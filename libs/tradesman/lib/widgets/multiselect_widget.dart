@@ -1,24 +1,42 @@
 import 'package:flutter/material.dart';
 
 class MultiSelectWidget extends StatefulWidget {
-  final List<String> items; //list of types
   final List<String> selectedItems; //list of types
-  const MultiSelectWidget({Key? key, required this.items, required this.selectedItems}) : super(key: key);
+  const MultiSelectWidget({Key? key, required this.selectedItems})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MultiSelectWidgetState();
 }
 
 class _MultiSelectWidgetState extends State<MultiSelectWidget> {
+  final List<String> _selectedItems = []; //sleected items
+  final List<String> _items = [
+    "Painting",
+    "Tiler",
+    "Carpenter",
+    "Cleaner",
+    "Designer",
+    "Landscaper",
+    "Electrician",
+    "Plumbing",
+  ];
 
+  @override
+  void initState() {
+    for (String item in widget.selectedItems) {
+      _selectedItems.add(item);
+    }
+    super.initState();
+  }
 
   //triggered when a checkbox is checked or unchecked
   void _itemChange(String itemValue, bool isSelected) {
     setState(() {
       if (isSelected) {
-        widget.selectedItems.add(itemValue);
+        _selectedItems.add(itemValue);
       } else {
-        widget.selectedItems.remove(itemValue);
+        _selectedItems.remove(itemValue);
       }
     });
   }
@@ -29,7 +47,7 @@ class _MultiSelectWidgetState extends State<MultiSelectWidget> {
   }
 
   void _submit() {
-    Navigator.pop(context, widget.selectedItems);
+    Navigator.pop(context, _selectedItems);
   }
   //******************************************* */
 
@@ -50,14 +68,13 @@ class _MultiSelectWidgetState extends State<MultiSelectWidget> {
       backgroundColor: const Color.fromRGBO(35, 47, 62, 1),
       content: SingleChildScrollView(
         child: ListBody(
-          children: widget.items
-          //**********************select options *************** */
+          children: _items
+              //**********************select options *************** */
               .map((item) => CheckboxListTile(
-                    value: widget.selectedItems.contains(item),
+                    value: _selectedItems.contains(item),
                     activeColor: Colors.orange,
-                    selected: (widget.selectedItems.contains(item)) ? true : false,
                     title: Text(
-                      item,  
+                      item,
                       style: const TextStyle(
                         color: Colors.white,
                       ),
@@ -66,7 +83,7 @@ class _MultiSelectWidgetState extends State<MultiSelectWidget> {
                     onChanged: (isChecked) => _itemChange(item, isChecked!),
                   ))
               .toList(),
-              //********************************************** */
+          //********************************************** */
         ),
       ),
       //***********************buttons******************** */
@@ -74,21 +91,22 @@ class _MultiSelectWidgetState extends State<MultiSelectWidget> {
         TextButton(
           onPressed: _cancel,
           style: TextButton.styleFrom(
-            primary: Colors.orange,
+            foregroundColor: Colors.orange,
           ),
           child: const Text('Cancel'),
         ),
         ElevatedButton(
           onPressed: _submit,
           style: ElevatedButton.styleFrom(
-            primary: Colors.transparent, // Background color
-            onPrimary: Colors.white, // Text Color (Foreground color)
-            shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            side: const BorderSide(color: Colors.orange, width: 1),
-          )),
+              foregroundColor: Colors.white,
+              backgroundColor:
+                  Colors.transparent, // Text Color (Foreground color)
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                side: const BorderSide(color: Colors.orange, width: 1),
+              )),
           child: const Text('Submit'),
-          ),
+        ),
       ],
       //************************************************ */
     );

@@ -14,6 +14,12 @@ dependencies:
 
   async_redux: ^15.0.0
 
+  flutter_pdfview: ^1.2.3
+
+  path_provider: ^2.0.11
+
+  image_picker: ^0.8.5+3
+
   uuid: ^3.0.6
 
   geolocation:
@@ -28,8 +34,12 @@ dependencies:
   general:
     path: '../general'
 
+  tradesman:
+    path: '../tradesman'
+
   authentication:
     path: '../authentication'
+  
 
 dev_dependencies:
   flutter_test:

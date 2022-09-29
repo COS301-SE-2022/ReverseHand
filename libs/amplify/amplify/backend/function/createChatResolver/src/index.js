@@ -3,24 +3,62 @@
 
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient();
-const ReverseHandTable = process.env.REVERSEHAND;
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-    let item = {
-        TableName: ReverseHandTable,
-        Item: {
-          part_key: event.arguments.c_id,
-          sort_key: event.arguments.t_id,
-          consumer_name: event.arguments.c_name,
-          tradesman_name: event.arguments.t_name,
-          messages: []
-        },
+    const timestamp = (new Date()).getTime();
+    const chatId = event.arguments.ad_id
+
+    await docClient.batchWrite({
+      RequestItems: {
+        ReverseHand: [
+          // for consumer
+          {
+            PutRequest: {
+              Item: {
+                part_key: "chats#" + event.arguments.c_id,
+                sort_key: "chat#" + chatId,
+                timestamp: timestamp,
+                other_user_id: event.arguments.t_id,
+                consumer_name: event.arguments.c_name,
+                tradesman_name: event.arguments.t_name,
+                negative_messages: 0,
+                positive_messages: 0,
+                neutral_messages: 0,
+                positive: 0,
+                negative: 0,
+                sentiment: 'sentiments',
+              }
+            }
+          },
+          // for tradesman
+          {
+            PutRequest: {
+              Item: {
+                part_key: "chats#" + event.arguments.t_id,
+                sort_key: "chat#" + chatId,
+                timestamp: timestamp,
+                other_user_id: event.arguments.c_id,
+                consumer_name: event.arguments.c_name,
+                tradesman_name: event.arguments.t_name,
+                negative_messages: 0,
+                positive_messages: 0,
+                neutral_messages: 0,
+                positive: 0,
+                negative: 0,
+              }
+            }
+          }
+        ]
+      }
+    }).promise();
+
+    return {
+      id: chatId,
+      timestamp: timestamp,
+      consumer_name: event.arguments.c_name,
+      tradesman_name: event.arguments.t_name,
     };
-
-    await docClient.put(item).promise();
-
-    return item.Item;
 };

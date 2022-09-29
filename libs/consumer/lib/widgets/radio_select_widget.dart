@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-
+import 'package:general/widgets/button.dart';
 
 class RadioSelectWidget extends StatefulWidget {
   const RadioSelectWidget({Key? key}) : super(key: key);
 
   final List<String> tradeTypes = const [
-      "Painting",
-      "Tiler",
-      "Carpenter",
-      "Cleaner",
-      "Designer",
-      "Landscaper",
-      "Electrician",
-      "Plumbing",
+    "Painting",
+    "Tiler",
+    "Carpenter",
+    "Cleaner",
+    "Designer",
+    "Landscaper",
+    "Electrician",
+    "Plumbing",
   ];
   @override
   State<RadioSelectWidget> createState() => _RadioSelectWidgetState();
@@ -34,10 +34,10 @@ class _RadioSelectWidgetState extends State<RadioSelectWidget> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        'Select Trade Type',
-        style: TextStyle(
-          color: Colors.white,
+      title: const Center(
+        child: Text(
+          'Select Trade Type:',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       shape: RoundedRectangleBorder(
@@ -46,53 +46,47 @@ class _RadioSelectWidgetState extends State<RadioSelectWidget> {
       elevation: 0,
       backgroundColor: const Color.fromRGBO(35, 47, 62, 1),
       content: SingleChildScrollView(
-         child: ListBody(
+        child: ListBody(
           children: widget.tradeTypes
-          //**********************select options *************** */
-              .map((tradeType) => ListTile(
-                  title: Text(tradeType,
-                  style: const TextStyle(color: Colors.white,),),
-                  leading: Radio<String>(
-                    value: tradeType,
+              //**********************select options *************** */
+              .map((tradeType) => RadioListTile(
+                    title: Text(
+                      tradeType,
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                     groupValue: _trade,
-                    fillColor: MaterialStateColor.resolveWith((states) => Colors.orange),
                     onChanged: (String? value) {
                       setState(() {
                         _trade = value;
                       });
                     },
-                  ),
-                ))
+                    value: tradeType,
+                    activeColor: Theme.of(context).primaryColor,
+                  ))
               .toList(),
-              //********************************************** */
+          //********************************************** */
         ),
       ),
       //***********************buttons******************** */
       actions: [
-        TextButton(
-          onPressed: _cancel,
-          style: TextButton.styleFrom(
-            primary: Colors.orange,
+        Center(
+          child: Column(
+            children: [
+              ButtonWidget(text: "Submit", function: _submit),
+              const Padding(padding: EdgeInsets.all(5)),
+              ButtonWidget(
+                text: "Cancel",
+                function: _cancel,
+                color: "light",
+                border: "lightBlue",
+              )
+            ],
           ),
-          child: const Text('Cancel'),
         ),
-        ElevatedButton(
-          onPressed: _submit,
-          style: ElevatedButton.styleFrom(
-            primary: Colors.transparent, // Background color
-            onPrimary: Colors.white, // Text Color (Foreground color)
-            shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            side: const BorderSide(color: Colors.orange, width: 1),
-          )),
-          child: const Text('Submit'),
-          ),
       ],
       //************************************************ */
     );
   }
 }
-
-
-
-

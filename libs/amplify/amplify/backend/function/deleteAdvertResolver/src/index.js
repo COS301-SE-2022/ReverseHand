@@ -23,7 +23,6 @@ exports.handler = async (event) => {
         // getting advert
         const data = await docClient.get(params).promise();
         
-        console.log(data);
 
         // deleting advert
         await docClient.delete(params).promise();

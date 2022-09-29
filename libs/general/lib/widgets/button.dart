@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//used in consumer and tradesman
+
 class ButtonWidget extends StatelessWidget {
   final String text;
   final String?
@@ -21,11 +23,13 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          primary: color == "dark"
+          backgroundColor: color == "dark"
               ? Theme.of(context).scaffoldBackgroundColor
               : color == "light"
                   ? Theme.of(context).primaryColorDark
-                  : const Color.fromRGBO(255, 153, 0, 1),
+                  : color == "red"
+                      ? Colors.red
+                      : const Color.fromRGBO(255, 153, 0, 1),
           shape: RoundedRectangleBorder(
             side: BorderSide(
                 width: 1.2,
