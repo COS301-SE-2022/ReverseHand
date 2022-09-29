@@ -21,6 +21,7 @@ class AdminSearchUserAction extends ReduxAction<AppState> {
         email
         status
         enabled
+        cognito_username
       }
     }
     ''';

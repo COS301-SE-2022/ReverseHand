@@ -17,9 +17,8 @@ class UserManagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CognitoUserModel? cogUser =
-        (ModalRoute.of(context)!.settings.arguments != null)
-            ? ModalRoute.of(context)!.settings.arguments as CognitoUserModel
-            : null;
+        ModalRoute.of(context)?.settings.arguments as CognitoUserModel?;
+
     return StoreProvider<AppState>(
       store: store,
       child: Scaffold(

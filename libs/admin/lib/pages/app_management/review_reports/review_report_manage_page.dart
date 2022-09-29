@@ -146,16 +146,6 @@ class ReviewReportManagePage extends StatelessWidget {
                         //         report.reviewDetails!.rating.toString()),
 
                         ReportUserDescrWidget(
-                          title: "Reported User",
-                          name: report.reportDetails.reportedUser!.name,
-                          function: () {
-                            vm.dispatchGetUser(
-                                report.reportDetails.reportedUser!.id);
-                            vm.pushUserManagePage();
-                          },
-                        ),
-
-                        ReportUserDescrWidget(
                           title: "Reporter User",
                           name: report.reportDetails.reporterUser!.name,
                           function: () {
@@ -171,7 +161,7 @@ class ReviewReportManagePage extends StatelessWidget {
                           function: () {
                             vm.dispatchRemoveWithWarning(
                               report.id,
-                              report.reportDetails.reportedUser!.id,
+                              report.userId!,
                             );
                             vm.dispatchGetReviewReports();
                             vm.popPage();
@@ -183,10 +173,8 @@ class ReviewReportManagePage extends StatelessWidget {
                           function: () {
                             vm.dispatchRemoveWithoutWarning(
                               report.id,
-                              report.reportDetails.reportedUser!.id,
+                              report.userId!,
                             );
-                            vm.dispatchGetReviewReports();
-                            vm.popPage();
                           },
                         ),
                         const Padding(padding: EdgeInsets.only(top: 20))

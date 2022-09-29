@@ -20,11 +20,13 @@ exports.handler = async (event) => {
     reported_items.forEach(function(report) {
         report.id = report.sort_key;
         delete report.sort_key;
-        delete report.part_key;
+        
         if (event.arguments.type == "review#reports") {
+            report.user_id = report.part_key.substring(15,report.part_key.length);
+            delete report.part_key;
             delete report.review_details.user_id;
             delete report.review_details.date_created;
-        }
+        } else delete report.part_key;
 
     });
     
