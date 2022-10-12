@@ -24,7 +24,8 @@ class GetPlaceBidMetricsAction extends ReduxAction<AppState> {
     DateTime end = start.add(const Duration(hours: 24));
     debugPrint("${end.toIso8601String()}Z ${start.toIso8601String()}Z");
 
-    List<DimensionsModel> dimensions = state.admin.userMetrics.dimensions?["Job_Type"] ?? [];
+    List<DimensionsModel> dimensions =
+        state.admin.userMetrics.dimensions?["Job_Type"] ?? [];
     List<dynamic> queries = buildDimensionsQuery(dimensions, "PlaceBid");
 
     var params = {
@@ -54,7 +55,9 @@ class GetPlaceBidMetricsAction extends ReduxAction<AppState> {
       List<PieChartModel> bidsPlacedByType = [];
       int color = 0;
       for (var data in values) {
-        bidsPlacedByType.add(buildPieData(data, color++));
+        if (data["Values"].length != 0) {
+          bidsPlacedByType.add(buildPieData(data, color++));
+        }
       }
 
       Map<String, List<PieChartModel>> graphs =
@@ -89,7 +92,7 @@ class GetPlaceBidMetricsAction extends ReduxAction<AppState> {
     }
   }
 
-   @override
+  @override
   void before() => dispatch(WaitAction.add("bid_type_metrics"));
 
   @override

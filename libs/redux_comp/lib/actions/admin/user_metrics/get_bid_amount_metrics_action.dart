@@ -54,7 +54,9 @@ class GetBidAmountMetricsAction extends ReduxAction<AppState> {
       List<PieChartModel> bidsPlacedByType = [];
       int color = 0;
       for (var data in values) {
-        bidsPlacedByType.add(buildPieData(data, color++));
+        if (data["Values"].length != 0) {
+          bidsPlacedByType.add(buildPieData(data, color++));
+        }
       }
 
       Map<String, List<PieChartModel>> graphs =
