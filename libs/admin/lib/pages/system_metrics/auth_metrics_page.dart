@@ -7,7 +7,6 @@ import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/actions/admin/system_metrics/get_auth_metrics_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class AuthMetricsPage extends StatefulWidget {
   final Store<AppState> store;
@@ -18,17 +17,6 @@ class AuthMetricsPage extends StatefulWidget {
 }
 
 class _AuthMetricsPageState extends State<AuthMetricsPage> {
-  late ZoomPanBehavior _zoomingPanBehavior;
-  @override
-  void initState() {
-    _zoomingPanBehavior = ZoomPanBehavior(
-        enablePanning: true,
-        enableSelectionZooming: true,
-        selectionRectBorderColor: Colors.orange,
-        selectionRectBorderWidth: 1,
-        selectionRectColor: Colors.grey);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +33,6 @@ class _AuthMetricsPageState extends State<AuthMetricsPage> {
                   backButton: true,
                   refreshAction: () {
                     vm.refresh(vm.authMetrics.period, vm.authMetrics.time);
-                    _zoomingPanBehavior.reset();
                   });
               return (vm.loading)
                   ? Column(
@@ -101,7 +88,7 @@ class _AuthMetricsPageState extends State<AuthMetricsPage> {
                           chartTitle: "Auth metrics",
                           xTitle: "Time",
                           yTitle: "Miliseconds",
-                          zoomPanBehavior: _zoomingPanBehavior,
+                          
                         ),
                       ],
                     );

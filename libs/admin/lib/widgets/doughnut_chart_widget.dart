@@ -64,8 +64,8 @@ class DoughnutChartWidget extends StatelessWidget {
                       DoughnutSeries<PieChartModel, String>(
                           explode: true,
                           dataSource: data,
-                          dataLabelMapper: (PieChartModel obs, _) =>  obs.label,
-                          dataLabelSettings: DataLabelSettings(isVisible: true),
+                          dataLabelMapper: (PieChartModel obs, _) =>  obs.value.toString(),
+                          dataLabelSettings: const DataLabelSettings(isVisible: true),
                           legendIconType: LegendIconType.verticalLine,
                           pointColorMapper: (PieChartModel obs, _) => obs.color,
                           xValueMapper: (PieChartModel obs, _) => obs.label,

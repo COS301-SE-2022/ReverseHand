@@ -14,7 +14,6 @@ import 'package:redux_comp/actions/user/sentiment/get_chats_sentiment_action.dar
 import 'package:redux_comp/actions/user/sentiment/get_global_sentiment_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UserMetricsPage extends StatefulWidget {
   final Store<AppState> store;
@@ -25,17 +24,6 @@ class UserMetricsPage extends StatefulWidget {
 }
 
 class _UserMetricsPageState extends State<UserMetricsPage> {
-  late ZoomPanBehavior _zoomingPanBehavior;
-  @override
-  void initState() {
-    _zoomingPanBehavior = ZoomPanBehavior(
-        enablePanning: true,
-        enableSelectionZooming: true,
-        selectionRectBorderColor: Colors.orange,
-        selectionRectBorderWidth: 1,
-        selectionRectColor: Colors.grey);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +38,6 @@ class _UserMetricsPageState extends State<UserMetricsPage> {
                 store: widget.store,
                 refreshAction: () {
                   vm.refresh(vm.sessions.period, vm.sessions.time);
-                  _zoomingPanBehavior.reset();
                 });
             return (vm.loading)
                 ? Column(
@@ -77,7 +64,6 @@ class _UserMetricsPageState extends State<UserMetricsPage> {
                           chartTitle: "Sessions over the last 12 hours",
                           xTitle: "Time",
                           yTitle: "Count",
-                          zoomPanBehavior: _zoomingPanBehavior,
                         ),
 
                         ButtonWidget(
