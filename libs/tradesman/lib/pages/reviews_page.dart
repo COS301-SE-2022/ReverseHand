@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:general/widgets/appbar.dart';
+import 'package:general/widgets/loading_widget.dart';
 import 'package:redux_comp/models/review_model.dart';
 import 'package:redux_comp/redux_comp.dart';
 import '../widgets/reviews/review_widget.dart';
@@ -22,35 +23,46 @@ class ReviewsPage extends StatelessWidget {
                 .map((r) => ReviewWidget(review: r, store: store))
                 .toList();
 
-            return Column(
-              children: [
-                //*******************APP BAR WIDGET*********************//
-                AppBarWidget(
-                  store: store,
-                  title: "Reviews",
-                  backButton: true,
-                ),
-                //********************************************************//
-
-                const Padding(
-                  padding: EdgeInsets.only(top: 15),
-                ),
-                if (vm.reviews.isEmpty)
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: (MediaQuery.of(context).size.height) / 4,
-                      left: 40,
-                      right: 40,
-                    ),
-                    child: (const Text(
-                      "No reviews received yet.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white70),
-                    )),
-                  ),
-                ...reviews
-              ],
+            Widget appBar = AppBarWidget(
+              store: store,
+              title: "Reviews",
+              backButton: true,
             );
+            return (vm.loading)
+                ? Column(
+                    children: [
+                      appBar,
+                      LoadingWidget(
+                        topPadding: MediaQuery.of(context).size.height / 3,
+                        bottomPadding: 0,
+                      )
+                    ],
+                  )
+                : Column(
+                    children: [
+                      //*******************APP BAR WIDGET*********************//
+                      appBar,
+                      //********************************************************//
+                      const Padding(
+                        padding: EdgeInsets.only(top: 15),
+                      ),
+                      if (vm.reviews.isEmpty)
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: (MediaQuery.of(context).size.height) / 4,
+                            left: 40,
+                            right: 40,
+                          ),
+                          child: (const Text(
+                            "No reviews received yet.",
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white70),
+                          )),
+                        ),
+                      ...reviews
+                    ],
+                  );
           },
         ),
       ),
