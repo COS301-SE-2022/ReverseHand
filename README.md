@@ -121,7 +121,8 @@ ReverseHand is a mobile application built with the vision of connecting local co
 
 <div markdown="1">
     <h1>Cara Grobler</h1>
-    <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029309-96dff534-e326-49eb-b1d3-12f77b53cd9a.png" /> 
+    <img align="left" height="350px" width="250px" src="https://user-images.githubusercontent.com/83949715/197012420-1f66e2ab-287f-4c13-8905-81afab01ef5d.jpg" /> 
+  
 
     <p>
        I am a final year BSc Information and Knowledge Systems
