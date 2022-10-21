@@ -54,7 +54,9 @@ class GetAdvertTypeMetrics extends ReduxAction<AppState> {
       List<PieChartModel> advertsPlacedByType = [];
       int color = 0;
       for (var data in values) {
-        advertsPlacedByType.add(buildPieData(data, color++));
+        if (data["Values"].length != 0 ) {
+          advertsPlacedByType.add(buildPieData(data, color++));
+        }
       }
 
       Map<String, List<PieChartModel>> graphs =

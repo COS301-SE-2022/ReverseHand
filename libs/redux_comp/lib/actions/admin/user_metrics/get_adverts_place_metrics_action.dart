@@ -54,7 +54,9 @@ class GetAdvertPlaceMetrics extends ReduxAction<AppState> {
       List<PieChartModel> advertsPlacedByCity = [];
       int color = 0;
       for (var data in values) {
-        advertsPlacedByCity.add(buildPieData(data, color++));
+        if (data["Values"].length != 0 ) {
+          advertsPlacedByCity.add(buildPieData(data, color++));
+        }
       }
 
       Map<String, List<PieChartModel>> graphs =

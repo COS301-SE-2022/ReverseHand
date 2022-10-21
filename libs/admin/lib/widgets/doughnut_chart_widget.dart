@@ -40,7 +40,8 @@ class DoughnutChartWidget extends StatelessWidget {
           ),
           (nodata)
               ? const Padding(
-                  padding: EdgeInsets.only(top: 100, left: 40, right: 40, bottom: 100),
+                  padding: EdgeInsets.only(
+                      top: 100, left: 40, right: 40, bottom: 100),
                   child: (Text(
                     "No recorded data for this date",
                     textAlign: TextAlign.center,
@@ -63,6 +64,8 @@ class DoughnutChartWidget extends StatelessWidget {
                       DoughnutSeries<PieChartModel, String>(
                           explode: true,
                           dataSource: data,
+                          dataLabelMapper: (PieChartModel obs, _) =>  obs.value.toString(),
+                          dataLabelSettings: const DataLabelSettings(isVisible: true),
                           legendIconType: LegendIconType.verticalLine,
                           pointColorMapper: (PieChartModel obs, _) => obs.color,
                           xValueMapper: (PieChartModel obs, _) => obs.label,

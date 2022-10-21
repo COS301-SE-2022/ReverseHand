@@ -8,7 +8,6 @@ import 'package:redux_comp/actions/admin/system_metrics/get_resolver_errors_acti
 import 'package:redux_comp/actions/admin/system_metrics/get_resolver_invocations_action.dart';
 import 'package:redux_comp/models/admin/app_metrics/metrics_model.dart';
 import 'package:redux_comp/redux_comp.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ResolverMetricsPage extends StatefulWidget {
   final Store<AppState> store;
@@ -19,17 +18,6 @@ class ResolverMetricsPage extends StatefulWidget {
 }
 
 class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
-  late ZoomPanBehavior _zoomingPanBehavior;
-  @override
-  void initState() {
-    _zoomingPanBehavior = ZoomPanBehavior(
-        enablePanning: true,
-        enableSelectionZooming: true,
-        selectionRectBorderColor: Colors.orange,
-        selectionRectBorderWidth: 1,
-        selectionRectColor: Colors.grey);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +35,6 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
                   refreshAction: () {
                     vm.refresh(
                         vm.adminResolvers.period, vm.adminResolvers.time);
-                    _zoomingPanBehavior.reset();
                   });
               return (vm.loading)
                   ? Column(
@@ -118,7 +105,6 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
                           chartTitle: "Invocations",
                           xTitle: "Time",
                           yTitle: "Count",
-                          zoomPanBehavior: _zoomingPanBehavior,
                         ),
                         LineChartWidget(
                           graphs:
@@ -126,7 +112,6 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
                           chartTitle: "Errors",
                           xTitle: "Time",
                           yTitle: "Count",
-                          zoomPanBehavior: _zoomingPanBehavior,
                         ),
                         const Padding(
                           padding: EdgeInsets.all(10),
@@ -148,7 +133,6 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
                           chartTitle: "Invocations",
                           xTitle: "Time",
                           yTitle: "Count",
-                          zoomPanBehavior: _zoomingPanBehavior,
                         ),
                         LineChartWidget(
                           graphs:
@@ -156,7 +140,6 @@ class _ResolverMetricsPageState extends State<ResolverMetricsPage> {
                           chartTitle: "Errors",
                           xTitle: "Time",
                           yTitle: "Count",
-                          zoomPanBehavior: _zoomingPanBehavior,
                         ),
                       ],
                     );

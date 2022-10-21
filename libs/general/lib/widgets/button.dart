@@ -8,6 +8,7 @@ class ButtonWidget extends StatelessWidget {
       color; //blue or scaffold colour, depending on background - orange is default
   final void Function() function;
   final bool? waiting;
+  final double? size;
   // final bool? whiteBorder; //white border and lower opacity
   final String? border;
   const ButtonWidget(
@@ -15,6 +16,7 @@ class ButtonWidget extends StatelessWidget {
       required this.text,
       this.color,
       required this.function,
+      this.size,
       this.waiting,
       this.border})
       : super(key: key);
@@ -47,7 +49,7 @@ class ButtonWidget extends StatelessWidget {
           text,
           style: TextStyle(
               color: border == "white" ? Colors.white70 : Colors.white,
-              fontSize: 20),
+              fontSize: size ?? 20),
         ),
       ),
     );
