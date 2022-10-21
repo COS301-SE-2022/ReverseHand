@@ -89,7 +89,7 @@ ReverseHand is a mobile application built with the vision of connecting local co
     <p>
       I am a third year computer science student who is passionate about
       all things computer science. I am familiar with a variety of
-      programming languages and have industry experiance in both AWS
+      programming languages and have industry experience in both AWS
       Amplify and Flutter. I love solving complex problems and
       optimizing solutions.
     </p>
