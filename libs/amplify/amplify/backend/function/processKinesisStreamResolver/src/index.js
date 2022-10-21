@@ -32,7 +32,8 @@ exports.handler = async (event) => {
                         }
                     ],
                     Unit: "Count",
-                    Value: 1.0
+                    Value: 1.0,
+                    StorageResolution: 1
                 });
                 params.MetricData.push({
                     MetricName: payload.event_type,
@@ -44,7 +45,8 @@ exports.handler = async (event) => {
                         
                     ],
                     Unit: "Count",
-                    Value: 1.0
+                    Value: 1.0,
+                    StorageResolution: 1
                 });
                 break;
             case 'PlaceBid':
@@ -72,7 +74,8 @@ exports.handler = async (event) => {
                         },
                     ],
                     Unit: "Count",
-                    Value: 1.0
+                    Value: 1.0,
+                    StorageResolution: 1
                 });
                 params.MetricData.push({
                     MetricName: payload.event_type,
@@ -83,7 +86,8 @@ exports.handler = async (event) => {
                         },
                     ],
                     Unit: "Count",
-                    Value: 1.0
+                    Value: 1.0,
+                    StorageResolution: 1
                 });
                 break;
             case '_session.start':
@@ -94,7 +98,8 @@ exports.handler = async (event) => {
                 params.MetricData.push({
                     MetricName: payload.event_type,
                     Unit: "Count",
-                    Value: 1.0
+                    Value: 1.0,
+                    StorageResolution: 1
                 });
                 break;
             case '_session.stop':
@@ -105,7 +110,8 @@ exports.handler = async (event) => {
                 params.MetricData.push({
                     MetricName: payload.event_type,
                     Unit: "Count",
-                    Value: 1.0
+                    Value: 1.0,
+                    StorageResolution: 1
                 });
 
             default:

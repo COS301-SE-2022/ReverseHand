@@ -101,6 +101,17 @@ const amplifyconfig = ''' {
                         "AuthMode": "AMAZON_COGNITO_USER_POOLS",
                         "ClientDatabasePrefix": "reversehandapi_AMAZON_COGNITO_USER_POOLS"
                     }
+                },
+                "PinpointAnalytics": {
+                    "Default": {
+                        "AppId": "e3d9b8f064b34ac885cdf0565997698e",
+                        "Region": "eu-west-1"
+                    }
+                },
+                "PinpointTargeting": {
+                    "Default": {
+                        "Region": "eu-west-1"
+                    }
                 }
             }
         }

@@ -352,7 +352,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "analytics": {
-        "ReverseHandPinpoint": {
+        "ReversehandPinpoint": {
             "Region": "string",
             "Id": "string",
             "appName": "string"
