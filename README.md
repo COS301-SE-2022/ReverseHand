@@ -49,6 +49,8 @@
   </p> <br/>
   </details>
   
+  <details>
+  <summary>Demo 4</summary>
     <p align="center">
     📝
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V4.pdf">SRS Documentation_v4</a>
@@ -57,11 +59,12 @@
     | 📋
     <a href="https://drive.google.com/file/d/1pg4YQ2Nt0CfztJtd85HpU_Fmg02OFl9o/view?usp=sharing">User Manual_v3</a>
   </p> <br/>
+    </details>
+
   <p align="center">
     🌐
     <a href="https://drive.google.com/drive/folders/116jdyN56mcAhlSX4O1uSotbL66GCJLZu?usp=sharing">Download APK</a>
   </p>
-  
   <br />   <br />
 
 <div class="img-container" align="center"> 
