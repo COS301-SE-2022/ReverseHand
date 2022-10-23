@@ -7,7 +7,8 @@
 
 # Cache Money - ReverseHand V0.3.0 Build 115
 ![logo-readme](https://user-images.githubusercontent.com/83949715/168036007-b6e2d8b3-f17b-4f3d-b664-e024118fdf36.png)
-
+  <details>
+  <summary>Demo 1</summary>
   <p align="center">
     🎥
     <a href="https://drive.google.com/file/d/19QPdKOJYpkuIWU2AzhOgUYOry-I__beV/view?usp=sharing">CacheMoney-Demo1</a>
@@ -18,6 +19,7 @@
     | 🌐
     <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki</a>
   </p>   <br/>
+  </details>
   <p align="center">
     🎥
     <a href="https://drive.google.com/file/d/1wp2UNChPoqvsdd8Z8mk8xaT5QPulFo6p/view?usp=sharing">CacheMoney-Demo2</a>
