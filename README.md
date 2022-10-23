@@ -15,8 +15,8 @@
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V4.pdf">SRS Documentation_v4</a>
     | 📋
     <a href="https://drive.google.com/file/d/1pg4YQ2Nt0CfztJtd85HpU_Fmg02OFl9o/view?usp=sharing">User Manual</a>
-  <br>
-    | 📔
+    <br> <br>
+    📔
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/InstallationManual.pdf">Installation Manual</a>
     | 💻
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
