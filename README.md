@@ -24,7 +24,7 @@
   </p>
   <br />   <br />
   
-  <p align="center">
+  <center>
   <details>
   <summary>Demo 1</summary>
   <p align="center">
@@ -78,7 +78,7 @@
     <a href="https://drive.google.com/file/d/1pg4YQ2Nt0CfztJtd85HpU_Fmg02OFl9o/view?usp=sharing">User Manual_v3</a>
     </p> <br/>
     </details>
-  </p>
+  </center>
 
 <div class="img-container" align="center"> 
   <img height="50px" src="https://user-images.githubusercontent.com/83949715/168064805-34d473b7-d845-4740-a9a0-a7a754725a85.png" /> <br/> <br/>
