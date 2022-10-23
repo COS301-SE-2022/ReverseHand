@@ -16,7 +16,7 @@
     | 📋
     <a href="https://drive.google.com/file/d/1pg4YQ2Nt0CfztJtd85HpU_Fmg02OFl9o/view?usp=sharing">User Manual</a>
     | 📺
-    <a>Video Ad</a>
+    <a href="https://drive.google.com/file/d/12FiCp-6J5B91eCp1XRUn57j_2gDZuqsY/view?usp=sharing">Video Ad</a>
     <br> <br>
     📔
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/InstallationManual.pdf">Installation Manual</a>
