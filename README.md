@@ -22,7 +22,7 @@
   </details>
   
   <details>
-  <summary>Demo 2></summary>
+  <summary>Demo 2</summary>
   <p align="center">
     🎥
     <a href="https://drive.google.com/file/d/1wp2UNChPoqvsdd8Z8mk8xaT5QPulFo6p/view?usp=sharing">CacheMoney-Demo2</a>
@@ -34,7 +34,7 @@
   </details>
   
   <details>
-  <summary>Demo 3></summary>
+  <summary>Demo 3</summary>
   <p align="center">
     🎥
     <a href="https://drive.google.com/file/d/1Q-wLO-P9Tui2k-YTL4j2UUdFl5fYrfyy/view?usp=sharing">CacheMoney-Demo3</a>
@@ -49,7 +49,6 @@
   </p> <br/>
   </details>
   
-    
     <p align="center">
     📝
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V4.pdf">SRS Documentation_v4</a>
