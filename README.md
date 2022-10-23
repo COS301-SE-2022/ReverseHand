@@ -45,6 +45,7 @@
     <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki</a>
   </p>   <br/>
   </details>
+  </center>
   
   <details>
   <summary>Demo 2</summary>
@@ -85,7 +86,6 @@
     <a href="https://drive.google.com/file/d/1pg4YQ2Nt0CfztJtd85HpU_Fmg02OFl9o/view?usp=sharing">User Manual_v3</a>
     </p> <br/>
     </details>
-  </center>
 
 <div class="img-container" align="center"> 
   <img height="50px" src="https://user-images.githubusercontent.com/83949715/168064805-34d473b7-d845-4740-a9a0-a7a754725a85.png" /> <br/> <br/>
