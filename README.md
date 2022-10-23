@@ -58,12 +58,22 @@
     <a href="https://drive.google.com/file/d/1zB3PchRsJWhvsYGj_DCbxvVCNupIuxwx/view?usp=sharing">CacheMoney-Demo4</a>
     | 📋
     <a href="https://drive.google.com/file/d/1pg4YQ2Nt0CfztJtd85HpU_Fmg02OFl9o/view?usp=sharing">User Manual_v3</a>
-  </p> <br/>
+    </p> <br/>
     </details>
 
   <p align="center">
-    🌐
+    ⬇️
     <a href="https://drive.google.com/drive/folders/116jdyN56mcAhlSX4O1uSotbL66GCJLZu?usp=sharing">Download APK</a>
+    | 📝
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/SRS_Capstone_V4.pdf">SRS Documentation_v4</a>
+    | 📋
+    <a href="https://drive.google.com/file/d/1pg4YQ2Nt0CfztJtd85HpU_Fmg02OFl9o/view?usp=sharing">User Manual</a>
+    | 📔
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/InstallationManual.pdf">Installation Manual</a>
+    | 💻
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
+    | 🌐
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki</a>
   </p>
   <br />   <br />
 
