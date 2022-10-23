@@ -23,7 +23,7 @@
     | 💻
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
     | 🎥 
-    <a>Demo Video</a>
+    <a href="https://drive.google.com/file/d/1tq7nPv0ohsejSS1Hba3rAYhjMgxIiA0J/view?usp=sharing">Demo Video</a>
     <br> <br>
     🌐
     <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki - Installation, slideshow, project management and research</a>
