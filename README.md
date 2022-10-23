@@ -21,6 +21,8 @@
     <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/CodingStandards.pdf">Coding Standards</a>
     | 🌐
     <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki</a>
+      | 💻
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/blob/develop/documentation/slideshow_readme.pdf">Slideshow summary</a>
   </p>
   <br />   <br />
   
