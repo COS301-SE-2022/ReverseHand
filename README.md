@@ -25,7 +25,7 @@
     | 🎥 
     <a>Demo Video</a>
     | 🌐
-    <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki - Installation and slideshow</a>
+    <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki - Installation, slideshow, project management and research</a>
     
   </p>
   <br />   <br />
