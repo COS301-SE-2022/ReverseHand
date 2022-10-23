@@ -31,7 +31,6 @@
   </p>
   <br />   <br />
   
-  <center>
   <details>
   <summary>Demo 1</summary>
   <p align="center">
@@ -45,8 +44,7 @@
     <a href="https://github.com/COS301-SE-2022/ReverseHand/wiki">Wiki</a>
   </p>   <br/>
   </details>
-  </center>
-  
+
   <details>
   <summary>Demo 2</summary>
   <p align="center">
