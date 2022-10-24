@@ -6,7 +6,9 @@
 [![codecov](https://codecov.io/gh/COS301-SE-2022/ReverseHand/branch/develop/graph/badge.svg?token=FP6940JI0D)](https://codecov.io/gh/COS301-SE-2022/ReverseHand)
 
 # Cache Money - ReverseHand V0.3.0 Build 115
-![logo-readme](https://user-images.githubusercontent.com/83949715/168036007-b6e2d8b3-f17b-4f3d-b664-e024118fdf36.png)
+<div class="img-container" align="center"> 
+  <img height="220px" src="https://user-images.githubusercontent.com/83949715/168036007-b6e2d8b3-f17b-4f3d-b664-e024118fdf36.png" /> <br/> <br/>
+</div>
 
   <p align="center">
     ⬇️
@@ -110,15 +112,14 @@ ReverseHand is a mobile application built with the vision of connecting local co
 
 <br/> <br/>
 
-
 <div class="img-container" align="center"> 
   <img height="51px" src="https://user-images.githubusercontent.com/83949715/168105259-31d067d9-c3d5-4e5b-8e58-17109a453927.png" /> <br/> <br/>
 </div>
 
+<details>
+<summary><h2>Michael Du Plessis</h2></summary>
 <div markdown="1">
-    <h1>Michael Du Plessis</h1>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168027847-824880cd-cb00-4574-8b0e-aaace03f23bb.png" /> 
-
 
     <p>
       I am a third year computer science student who is passionate about
@@ -132,10 +133,12 @@ ReverseHand is a mobile application built with the vision of connecting local co
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MichaelDuPlessis)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/michael-du-plessis-6a0740239/)
-</div> <br/> <br/>
+</div>
+ </details>
 
+<details>
+<summary><h2>Charlotte van Zyl</h2> </summary>
 <div markdown="1">
-    <h1>Charlotte van Zyl</h1>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029217-fec38b94-4280-44c1-ac03-fca0c29c1f55.png" /> 
 
     <p>
@@ -151,10 +154,12 @@ ReverseHand is a mobile application built with the vision of connecting local co
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arlo216)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/charlotte-van-zyl-19769420a/)
-</div> <br/> <br/>
+</div>
+ </details>
 
+<details>
+<summary><h2>Cara Grobler</h2></summary>
 <div markdown="1">
-    <h1>Cara Grobler</h1>
     <img align="left" height="350px" width="250px" src="https://user-images.githubusercontent.com/83949715/197012420-1f66e2ab-287f-4c13-8905-81afab01ef5d.jpg" /> 
   
 
@@ -173,10 +178,12 @@ ReverseHand is a mobile application built with the vision of connecting local co
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/caaaramia)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/cara-grobler-984820239/)
-</div> <br/> <br/>
+</div>
+</details>
 
+<details>
+  <summary><h2>Richard Lastrucci</h2></summary>
 <div markdown="1">
-    <h1>Richard Lastrucci</h1>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029371-915564ae-73a0-4026-a47f-f7ec0c9ea688.png" /> 
 
     <p>
@@ -193,10 +200,12 @@ ReverseHand is a mobile application built with the vision of connecting local co
     
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lastrucci01)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/richard-lastrucci-9a63211a3/)
-</div> <br/> <br/>
+</div> 
+ </details>
 
+<details>
+  <summary><h2>Alexander Muendesi</h2></summary>
 <div markdown="1">
-    <h1>Alexander Muendesi</h1>
     <img align="left" height="350px" src="https://user-images.githubusercontent.com/83949715/168029446-a6fc863c-b504-49cc-bb93-2bdebbd4ee0f.png" /> 
 
     <p>
@@ -213,19 +222,6 @@ ReverseHand is a mobile application built with the vision of connecting local co
 [![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alexander-Muendesi)
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit)](https://www.linkedin.com/in/alexander-muendesi-b8842523a/)
 </div>
+</details>
 
-<br/> <br/>
-
-<div class="img-container" align="center"> 
-  <img height="50px" src="https://user-images.githubusercontent.com/83949715/168105328-66046520-4c23-4f75-a8d1-02035aff07e2.png" /> <br/> <br/>
-</div>
-
-> - Install Flutter
-> - Install XCode and/or Android Studio
-> - In the root directory run `npm i`
-> - Install the amplify cli
-> - Navigate to the libs/amplify
-> - Pull the latest amplify code
-> - Launch a emulator or connect your personal device
-> - Navigate back to the root directory and run `nx run app:run`
-> - If you would like to run tests instead run `npx nx run-many --target=test --all` to run all tests
+<br/>
